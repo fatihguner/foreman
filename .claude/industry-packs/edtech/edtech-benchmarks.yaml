@@ -1,0 +1,960 @@
+# EdTech Industry Pack — Benchmarks
+#
+# 24 EdTech-specific metrics with real benchmark data sourced from public studies.
+# The orchestrator surfaces these when applying quantitative skills, generating
+# output templates with financial metrics, or diagnosing engagement, retention,
+# and institutional adoption issues.
+#
+# EdTech's defining complexity: multi-stakeholder value chains. The buyer is rarely
+# the user. K-12: district buys, teacher implements, student uses, parent evaluates.
+# Higher Ed: institution buys, professor assigns, student uses. Corporate L&D: L&D
+# team buys, employee uses, manager evaluates ROI. Every metric must be interpreted
+# through this lens.
+#
+# Primary data sources:
+#   - HolonIQ Global EdTech reports (2023, 2024, 2025)
+#   - GSV Ventures EdTech market analysis (2023, 2024)
+#   - Reach Capital State of EdTech (2023, 2024)
+#   - EdSurge Research Reports (2023, 2024)
+#   - ISTE/LearnPlatform EdTech Evidence Reports (2023, 2024)
+#   - Coursera, Udemy, Duolingo, 2U S-1/10-K filings (2021-2025)
+#   - Instructure (Canvas) 10-K filings (2022-2024)
+#   - Learning Engineering research (Carnegie Learning, Schmidt Futures)
+#   - EDUCAUSE Horizon Reports (2023, 2024)
+#   - Tyton Partners and Brighteye Ventures analysis (2023, 2024)
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among EdTech companies at the relevant stage.
+# Benchmarks span K-12, higher ed, corporate L&D, and consumer EdTech.
+
+pack_metadata:
+  sector: "edtech"
+  display_name: "EdTech"
+  version: "1.0.0"
+  description: "Benchmark data for Education Technology companies spanning learner engagement, institutional adoption, content economics, retention, compliance, and efficacy metrics across K-12, higher education, corporate L&D, and consumer learning segments."
+  applicable_stages:
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"
+  compatible_modes:
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # ENGAGEMENT METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Student/Learner Engagement Rate"
+    id: "learner-engagement-rate"
+    category: "product"
+    definition: "The percentage of registered or licensed learners who actively interact with content in a given period, measured through meaningful actions such as completing lessons, submitting assessments, or participating in discussions — not merely logging in."
+    formula: "(Learners performing at least one meaningful learning action in period / Total registered or licensed learners) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20%"
+        signal: "The product sits on devices or accounts unused. Institutional buyers notice shelf-ware and question renewal. Free content alternatives are winning the learner's attention."
+      below_average:
+        value: "20-35%"
+        signal: "Modest engagement suggests either poor onboarding, misaligned content, or implementation without teacher/trainer buy-in."
+      average:
+        value: "35-50%"
+        signal: "Acceptable for institutional products where not all licensed users are expected to be active simultaneously. Consumer products at this level have room for growth."
+      good:
+        value: "50-70%"
+        signal: "Strong engagement indicating the product has found its place in the learning workflow. Teachers or trainers are actively incorporating it."
+      excellent:
+        value: "> 70%"
+        signal: "Exceptional. The product is embedded in daily learning routines. Common only in products with adaptive or gamified experiences."
+    stage_notes:
+      seed: "Engagement rate is the primary validation metric. If a pilot group of 50-200 learners does not achieve 40%+ engagement, product-market fit is questionable."
+      series_a: "Engagement must be consistent across multiple institutions or customer cohorts, not just the pilot school or first adopter."
+      series_b_plus: "At scale, maintaining engagement above 50% while growing the user base is the central product challenge."
+    data_sources:
+      - source: "LearnPlatform EdTech Evidence Reports"
+        year: "2024"
+      - source: "Duolingo S-1 Filing (consumer benchmark)"
+        year: "2021"
+    related_metrics: ["daily-active-learners", "monthly-active-learners", "dau-mau-ratio"]
+    related_skills: ["balanced-scorecard", "net-promoter-score"]
+    caveats: "Engagement rate varies enormously by sub-sector. A corporate compliance training product with 90% engagement may simply have a mandate. Voluntary engagement is the meaningful measure."
+
+  - name: "Course/Content Completion Rate"
+    id: "content-completion-rate"
+    category: "product"
+    definition: "The percentage of learners who finish a course, module, or learning pathway they started, measuring follow-through from enrollment to final assessment or credential."
+    formula: "(Learners completing the course or module / Learners who started the course or module) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10%"
+        signal: "Catastrophic for paid products. For MOOCs, this is unfortunately common but indicates the free model devalues commitment. For institutional products, signals a fundamental content or UX problem."
+      below_average:
+        value: "10-25%"
+        signal: "Typical for open MOOCs (Coursera/edX report 5-15% completion for free courses). Unacceptable for paid or institutionally assigned content."
+      average:
+        value: "25-50%"
+        signal: "Reasonable for self-paced consumer products. For assigned institutional content, still below where it should be."
+      good:
+        value: "50-75%"
+        signal: "Strong for any modality. For instructor-led or institutionally assigned content, this represents effective implementation."
+      excellent:
+        value: "> 75%"
+        signal: "Exceptional. Typically achievable only with instructor involvement, cohort-based learning, or strong adaptive pathways. Duolingo reports >80% for paid subscribers."
+    stage_notes:
+      seed: "Completion rate is a leading indicator of efficacy evidence. Without it, institutional sales conversations stall."
+      series_a: "Segment completion by learner type: self-paced vs. instructor-led, voluntary vs. assigned, free vs. paid. The gaps reveal product priorities."
+      series_b_plus: "Completion rate must be maintained as content library expands. Content breadth without completion depth is a vanity growth strategy."
+    data_sources:
+      - source: "Coursera 10-K filing"
+        year: "2024"
+      - source: "HolonIQ EdTech Impact Report"
+        year: "2024"
+      - source: "Duolingo 10-K filing"
+        year: "2024"
+    related_metrics: ["learner-engagement-rate", "learning-outcomes-improvement", "learner-retention-rate"]
+    related_skills: ["product-life-cycle", "systems-thinking"]
+    caveats: "Completion rate alone does not indicate learning. A learner can complete a course without retaining anything. Pair with learning outcomes improvement for a complete picture."
+
+  - name: "Learning Outcomes Improvement"
+    id: "learning-outcomes-improvement"
+    category: "product"
+    definition: "The measurable improvement in learner knowledge, skills, or competency attributable to using the product, typically expressed as the percentage gain on pre/post assessments, standardized test improvement, or skill proficiency advancement."
+    formula: "(Post-assessment score - Pre-assessment score) / Pre-assessment score x 100, or effect size (Cohen's d) in controlled studies"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5% improvement or Cohen's d < 0.1"
+        signal: "No meaningful efficacy. The product cannot demonstrate it improves learning, making institutional sales and renewal extremely difficult."
+      below_average:
+        value: "5-10% improvement or Cohen's d 0.1-0.2"
+        signal: "Marginal improvement that may not justify the cost and implementation burden. Buyers will question ROI."
+      average:
+        value: "10-20% improvement or Cohen's d 0.2-0.4"
+        signal: "Meaningful improvement. Sufficient for initial sales but not yet a compelling differentiator against alternatives."
+      good:
+        value: "20-35% improvement or Cohen's d 0.4-0.6"
+        signal: "Strong evidence of efficacy. This level of improvement justifies premium pricing and enables reference-based selling."
+      excellent:
+        value: "> 35% improvement or Cohen's d > 0.6"
+        signal: "Exceptional efficacy. Carnegie Learning and DreamBox have published results in this range for specific populations. This is the gold standard for EdTech evidence."
+    stage_notes:
+      seed: "Even a small, well-designed pilot with pre/post assessments provides credible efficacy data. Do not wait until scale to measure outcomes."
+      series_a: "Efficacy evidence from 3-5 institutions is a material fundraising asset. Investors in EdTech increasingly require outcome data, not just engagement data."
+      series_b_plus: "Third-party validation (ESSA Tier 2 or 3 evidence, peer-reviewed studies) becomes a competitive moat. Budget for independent research."
+    data_sources:
+      - source: "ISTE/LearnPlatform EdTech Evidence Reports"
+        year: "2024"
+      - source: "Learning Engineering research, Carnegie Learning published studies"
+        year: "2023"
+      - source: "Schmidt Futures efficacy framework"
+        year: "2023"
+    related_metrics: ["content-completion-rate", "efficacy-evidence-strength"]
+    related_skills: ["balanced-scorecard", "smart-goals"]
+    caveats: "Improvement percentages are highly dependent on the assessment instrument, population, and baseline. Effect sizes (Cohen's d) are more comparable across studies. Beware self-reported outcome data — institutional buyers increasingly demand third-party validation."
+
+  - name: "Monthly Active Learners"
+    id: "monthly-active-learners"
+    category: "growth"
+    definition: "The number of unique learners who perform at least one meaningful learning action within a calendar month, serving as the primary scale metric for EdTech platforms."
+    formula: "Count of unique learner accounts with at least one learning action (not just login) in the month"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1,000 MAL at 12 months post-launch"
+        signal: "Insufficient traction for either consumer virality or institutional sales evidence."
+      below_average:
+        value: "1,000-10,000 MAL at 12 months"
+        signal: "Early traction. May represent a handful of institutional customers or a small consumer base. Enough for seed-stage fundraising if growth rate is strong."
+      average:
+        value: "10,000-100,000 MAL at 12 months"
+        signal: "Solid traction. For institutional products, suggests 10-50 customer accounts. For consumer, suggests emerging organic growth."
+      good:
+        value: "100,000-1M MAL at 12 months"
+        signal: "Strong product-market fit. Duolingo had ~1M MAU at Series A. This level supports Series A/B fundraising."
+      excellent:
+        value: "> 1M MAL at 12 months"
+        signal: "Breakout product. Typically requires consumer-grade virality or a major institutional distribution partnership."
+    stage_notes:
+      seed: "MAL is secondary to engagement quality. 500 highly engaged learners with strong outcomes beat 50,000 passive registrations."
+      series_a: "Investors look for MAL growth rate and cohort retention, not just the absolute number."
+      series_b_plus: "MAL must be contextualized by segment. Institutional MAL is more predictable; consumer MAL is more volatile."
+    data_sources:
+      - source: "Duolingo S-1 filing"
+        year: "2021"
+      - source: "Coursera 10-K filing"
+        year: "2024"
+    related_metrics: ["daily-active-learners", "dau-mau-ratio", "learner-engagement-rate"]
+    related_skills: ["growth-share-matrix", "product-life-cycle"]
+    caveats: "MAL for EdTech is inherently seasonal. Academic-calendar-dependent products see 30-60% MAL drops during summer and winter breaks. Report rolling averages or in-session MAL to avoid misleading trends."
+
+  - name: "Daily Active Learners"
+    id: "daily-active-learners"
+    category: "growth"
+    definition: "The number of unique learners performing at least one meaningful learning action on a given day, measuring the product's ability to create daily learning habits."
+    formula: "Count of unique learner accounts with at least one learning action per day"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5% of MAL"
+        signal: "The product is used sporadically. No daily habit has formed. For consumer products, this is a growth death sentence."
+      below_average:
+        value: "5-15% of MAL"
+        signal: "Infrequent use. Typical for products used only during class time or scheduled training sessions."
+      average:
+        value: "15-25% of MAL"
+        signal: "Moderate daily engagement. Common for products with both scheduled and voluntary usage."
+      good:
+        value: "25-40% of MAL"
+        signal: "Strong daily habit. The product has become part of the learner's routine beyond required usage."
+      excellent:
+        value: "> 40% of MAL"
+        signal: "Exceptional. Duolingo-caliber daily habit formation. Typically requires gamification, streaks, or strong intrinsic motivation design."
+    stage_notes:
+      seed: "DAL is the habit-formation metric. If early users do not return daily (or at the cadence the product expects), the retention model is flawed."
+      series_a: "DAL should be growing faster than MAL, indicating deepening engagement, not just broader reach."
+      series_b_plus: "DAL seasonality must be modeled and communicated to investors. A 50% DAL drop during summer is normal for K-12; it is a crisis for corporate L&D."
+    data_sources:
+      - source: "Duolingo 10-K filing"
+        year: "2024"
+      - source: "HolonIQ EdTech market analysis"
+        year: "2024"
+    related_metrics: ["monthly-active-learners", "dau-mau-ratio", "learner-engagement-rate"]
+    related_skills: ["balanced-scorecard", "product-life-cycle"]
+    caveats: "DAL is most meaningful for consumer EdTech and supplemental learning products. For core instructional products used 2-3 times per week, a 'weekly active learner' metric may be more appropriate."
+
+  - name: "DAU/MAU Ratio (Stickiness)"
+    id: "dau-mau-ratio"
+    category: "product"
+    definition: "The ratio of daily active learners to monthly active learners, measuring how frequently the average monthly user engages with the product — a direct indicator of habit formation and stickiness."
+    formula: "Daily Active Learners / Monthly Active Learners"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 0.10"
+        signal: "Users visit once or twice per month. The product has not established a learning habit. Retention will erode."
+      below_average:
+        value: "0.10-0.15"
+        signal: "Low stickiness. Typical for reference tools used occasionally rather than products embedded in daily learning."
+      average:
+        value: "0.15-0.25"
+        signal: "Moderate stickiness. Common for institutional products used during school days or scheduled training."
+      good:
+        value: "0.25-0.40"
+        signal: "Strong stickiness. The product is part of regular learning routine. Good for both institutional and consumer EdTech."
+      excellent:
+        value: "> 0.40"
+        signal: "Exceptional. Duolingo consistently reports DAU/MAU above 0.40 for paid subscribers. This level indicates powerful habit loops."
+    stage_notes:
+      seed: "DAU/MAU above 0.20 in a seed-stage EdTech product is a strong PMF signal. It means learners are choosing to return."
+      series_a: "Compare DAU/MAU for voluntary usage vs. assigned/required usage. The gap reveals how much engagement is intrinsic."
+      series_b_plus: "DAU/MAU should be reported alongside seasonal adjustments. In-session DAU/MAU is the comparable metric."
+    data_sources:
+      - source: "Duolingo 10-K filing"
+        year: "2024"
+      - source: "Reach Capital EdTech Metrics Framework"
+        year: "2023"
+    related_metrics: ["daily-active-learners", "monthly-active-learners", "learner-retention-rate"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "DAU/MAU is fundamentally a consumer metric. For institutional EdTech products where usage is scheduled (e.g., 3x/week in class), a DAU/MAU of 0.15 may be structurally appropriate rather than weak."
+
+  # ─────────────────────────────────────────────
+  # INSTITUTIONAL ADOPTION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Institutional Adoption Rate"
+    id: "institutional-adoption-rate"
+    category: "sales"
+    definition: "The percentage of target institutions (school districts, universities, or enterprises) that have adopted the product within a defined market, measuring market penetration at the organizational buyer level."
+    formula: "(Institutions using the product / Total addressable institutions in target segment) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1%"
+        signal: "Negligible market penetration. The product has not yet cracked institutional procurement barriers."
+      below_average:
+        value: "1-3%"
+        signal: "Early adoption. Enough customers to learn from but not yet demonstrating scalable institutional sales."
+      average:
+        value: "3-8%"
+        signal: "Meaningful adoption. In K-12, this might represent 500-1,000 districts. Sufficient for pattern recognition in institutional sales."
+      good:
+        value: "8-15%"
+        signal: "Strong institutional presence. Word-of-mouth among institutions begins to supplement direct sales."
+      excellent:
+        value: "> 15%"
+        signal: "Category leader. At this penetration, the product benefits from network effects — institutions adopt because peers already use it."
+    stage_notes:
+      seed: "Focus on 5-10 institutional pilots, not adoption rate. The learning from deep partnerships outweighs breadth."
+      series_a: "Adoption rate becomes meaningful only within a tightly defined segment — e.g., 'Title I elementary schools in urban districts' rather than 'all K-12 schools.'"
+      series_b_plus: "Expansion into adjacent segments (from elementary to middle school, from math to science) is the growth driver once core segment penetration exceeds 10%."
+    data_sources:
+      - source: "EdSurge Research: K-12 EdTech Procurement Trends"
+        year: "2024"
+      - source: "EDUCAUSE EdTech adoption surveys"
+        year: "2024"
+    related_metrics: ["teacher-adoption-rate", "time-to-institutional-sale", "institutional-acquisition-cost"]
+    related_skills: ["four-ps-marketing", "tipping-point"]
+    caveats: "Adoption rate is only meaningful when the denominator (addressable institutions) is precisely defined. A 10% adoption rate of 'all US schools' is a very different business than 10% of 'AP Chemistry teachers in schools with 1:1 device programs.'"
+
+  - name: "Teacher/Instructor Adoption Rate"
+    id: "teacher-adoption-rate"
+    category: "product"
+    definition: "The percentage of teachers or instructors within an adopting institution who actively use the product, measuring the critical middle layer of the buyer-implementer-user chain."
+    formula: "(Teachers/instructors actively using the product / Total teachers/instructors at the institution with access) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 15%"
+        signal: "The institution bought it but teachers are not using it. This is the single most common failure mode in EdTech — procurement without implementation."
+      below_average:
+        value: "15-30%"
+        signal: "A handful of champions are using it. Without intervention, adoption will plateau and the contract will not renew."
+      average:
+        value: "30-50%"
+        signal: "Moderate adoption. Enough teachers to generate student engagement data, but the product has not become standard practice."
+      good:
+        value: "50-70%"
+        signal: "Strong adoption. The product is part of the institutional workflow. Renewal probability is high."
+      excellent:
+        value: "> 70%"
+        signal: "Exceptional. Teachers have made the product their own. This level of adoption generates organic expansion to other departments or grade levels."
+    stage_notes:
+      seed: "Teacher adoption is the gatekeeper metric. No teacher adoption means no student engagement means no efficacy evidence means no renewal."
+      series_a: "Measure teacher adoption velocity — how quickly do teachers activate after institutional purchase? If it takes more than one semester, the onboarding process is failing."
+      series_b_plus: "Build teacher success programs that mirror customer success in SaaS. Each school needs a champion with training and support."
+    data_sources:
+      - source: "LearnPlatform EdTech Evidence Reports"
+        year: "2024"
+      - source: "ISTE EdTech Implementation Studies"
+        year: "2023"
+    related_metrics: ["learner-engagement-rate", "institutional-adoption-rate", "institutional-churn-rate"]
+    related_skills: ["kotter-change-model", "cialdini-influence", "tipping-point"]
+    caveats: "Teacher adoption is heavily influenced by professional development support. Products that rely on 'self-serve' teacher onboarding consistently underperform those that invest in PD."
+
+  # ─────────────────────────────────────────────
+  # SALES METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Time to Institutional Sale"
+    id: "time-to-institutional-sale"
+    category: "sales"
+    definition: "The average number of days from first institutional contact to signed contract, measuring the length of the procurement cycle that dominates EdTech B2B sales."
+    formula: "Average(Contract signature date - First meaningful contact date) across closed deals"
+    unit: "days"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 12 months"
+        signal: "Procurement cycle exceeds one school budget year. Deals slip across fiscal boundaries, creating revenue unpredictability and cash flow strain."
+      below_average:
+        value: "9-12 months"
+        signal: "Full academic-year procurement cycle. Common for large district or university deals but stressful for startup cash management."
+      average:
+        value: "6-9 months"
+        signal: "Standard for mid-size institutional sales. Allows one to two sales cycles per budget year."
+      good:
+        value: "3-6 months"
+        signal: "Efficient institutional sales cycle. Often achieved with strong pilot-to-purchase programs or school-level (vs. district-level) purchasing authority."
+      excellent:
+        value: "< 3 months"
+        signal: "Exceptional for institutional EdTech. Typically achievable only with low-dollar products purchased at the school/department level or with freemium-to-institutional conversion paths."
+    stage_notes:
+      seed: "Sales cycle length determines runway requirements. A 9-month sales cycle means seed capital must cover 18+ months (two full sales attempts)."
+      series_a: "Track sales cycle by entry point: teacher referral (shorter), RFP response (longer), conference lead (variable). This data shapes GTM strategy."
+      series_b_plus: "Reducing time to institutional sale is as valuable as increasing deal count. Invest in procurement facilitation: pre-completed security reviews, ready compliance documentation, flexible contract terms."
+    data_sources:
+      - source: "Tyton Partners EdTech Procurement Report"
+        year: "2024"
+      - source: "EdSurge K-12 EdTech Buying Survey"
+        year: "2023"
+    related_metrics: ["institutional-adoption-rate", "average-contract-value", "institutional-acquisition-cost"]
+    related_skills: ["delivering-the-deal", "scenario-planning"]
+    caveats: "Institutional sales cycles are calendar-dependent. K-12 budgets are typically approved May-July for the following school year. Missing the budget window pushes the deal by 12 months. Higher Ed procurement often follows fiscal years that differ from academic calendars."
+
+  - name: "Average Contract Value (Institutional)"
+    id: "average-contract-value"
+    category: "sales"
+    definition: "The average annual value of institutional contracts, measuring the per-institution revenue that drives the unit economics of B2B EdTech."
+    formula: "Total institutional contract revenue (annual) / Number of active institutional contracts"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $2,000 ACV"
+        signal: "Micro-contracts that cannot justify institutional sales effort. At this ACV, self-serve or PLG is the only viable go-to-market."
+      below_average:
+        value: "$2,000-$10,000 ACV"
+        signal: "School-level purchases. Viable with inside sales but difficult to build a large sales team at this deal size."
+      average:
+        value: "$10,000-$50,000 ACV"
+        signal: "District-level or department-level contracts. The sweet spot for EdTech inside sales. Covers the cost of a direct sales motion."
+      good:
+        value: "$50,000-$200,000 ACV"
+        signal: "Large district or university-wide contracts. Justifies field sales, dedicated implementation support, and custom onboarding."
+      excellent:
+        value: "> $200,000 ACV"
+        signal: "Enterprise EdTech. State-level adoptions, large university systems, or Fortune 500 L&D contracts. Few deals but high revenue per deal."
+    stage_notes:
+      seed: "ACV determines the go-to-market model. Below $10K requires PLG or channel sales. Above $50K justifies direct sales. Match the team to the ACV."
+      series_a: "ACV expansion through multi-product bundles, additional grade levels, or campus-wide licensing is the primary growth lever."
+      series_b_plus: "Track ACV trend by cohort. If new cohort ACV is declining, the product may be moving downmarket or discounting to maintain growth."
+    data_sources:
+      - source: "GSV Ventures EdTech Market Map"
+        year: "2024"
+      - source: "Tyton Partners EdTech Company Analysis"
+        year: "2024"
+    related_metrics: ["institutional-acquisition-cost", "revenue-per-learner", "expansion-revenue-institutional"]
+    related_skills: ["four-ps-marketing", "business-model-canvas"]
+    caveats: "ACV in EdTech is heavily influenced by funding source. Title I, Title IV, ESSER (now expired), and state-level grants create purchasing power that varies by year and political cycle."
+
+  - name: "Student Acquisition Cost"
+    id: "student-acquisition-cost"
+    category: "unit-economics"
+    definition: "The fully loaded cost of acquiring one new active learner, including marketing, sales, onboarding, and content creation costs allocated per learner."
+    formula: "Total acquisition-related costs in period / New active learners acquired in period"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $50 per learner (consumer) or > $200 per learner (institutional)"
+        signal: "Acquisition costs are unsustainable relative to EdTech revenue per learner. The economics cannot support growth."
+      below_average:
+        value: "$25-$50 (consumer) or $100-$200 (institutional)"
+        signal: "Expensive acquisition. Viable only with high retention and strong LTV."
+      average:
+        value: "$10-$25 (consumer) or $50-$100 (institutional)"
+        signal: "Manageable acquisition cost. Common for products with a mix of organic and paid growth."
+      good:
+        value: "$3-$10 (consumer) or $20-$50 (institutional)"
+        signal: "Efficient acquisition. Often achieved through institutional distribution (one sale reaches thousands of learners) or viral consumer mechanics."
+      excellent:
+        value: "< $3 (consumer) or < $20 (institutional)"
+        signal: "Exceptional efficiency. Duolingo's viral loop drives per-learner CAC near zero for organic users. Institutional products achieve this when district-wide deployments bring massive learner volume per contract."
+    stage_notes:
+      seed: "Per-learner acquisition cost matters less than per-institution cost at seed. Acquiring one district that deploys 10,000 learners is more efficient than acquiring 10,000 individual learners."
+      series_a: "Segment student acquisition cost by channel: institutional sale vs. teacher-led adoption vs. consumer organic vs. paid."
+      series_b_plus: "The student acquisition cost advantage of institutional distribution is EdTech's unique economics. A $50K district deal reaching 5,000 learners yields $10/learner CAC — impossible to replicate in consumer-only models."
+    data_sources:
+      - source: "Duolingo S-1 filing (consumer benchmarks)"
+        year: "2021"
+      - source: "Reach Capital EdTech unit economics analysis"
+        year: "2024"
+    related_metrics: ["institutional-acquisition-cost", "revenue-per-learner", "content-to-revenue-ratio"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Student acquisition cost must account for the multi-step acquisition chain: acquire the institution, then onboard the teacher, then activate the student. Each step has its own cost. The total is often higher than startups project."
+
+  - name: "Institutional Acquisition Cost"
+    id: "institutional-acquisition-cost"
+    category: "unit-economics"
+    definition: "The fully loaded cost of acquiring one new institutional customer (school, district, university, or enterprise), including sales salaries, marketing, travel, conference attendance, pilot support, and compliance documentation."
+    formula: "Total sales and marketing costs in period / New institutional customers acquired in period"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 1.5x ACV"
+        signal: "Institutional acquisition cost exceeds one year's contract value. The company loses money on every new customer in year one."
+      below_average:
+        value: "1.0-1.5x ACV"
+        signal: "Expensive but common for EdTech companies with long sales cycles and high-touch pilots. Sustainable only with strong renewal rates (>85%)."
+      average:
+        value: "0.6-1.0x ACV"
+        signal: "Healthy institutional acquisition economics. The company recovers CAC within the first year of the contract."
+      good:
+        value: "0.3-0.6x ACV"
+        signal: "Efficient acquisition. Often achieved through teacher-first adoption (bottom-up) that converts to institutional purchase (top-down)."
+      excellent:
+        value: "< 0.3x ACV"
+        signal: "Exceptional. Usually indicates strong inbound demand from word-of-mouth, conference presence, or teacher advocacy networks."
+    stage_notes:
+      seed: "Institutional CAC is artificially high at seed because the sales infrastructure (materials, compliance docs, case studies) is still being built."
+      series_a: "Compare institutional CAC across segments: small school vs. district vs. state. The differences determine where to focus the sales team."
+      series_b_plus: "Institutional CAC should decline as brand recognition, case studies, and customer references reduce the sales burden."
+    data_sources:
+      - source: "GSV Ventures EdTech operating metrics"
+        year: "2024"
+      - source: "2U 10-K filing (higher ed institutional CAC)"
+        year: "2023"
+    related_metrics: ["average-contract-value", "time-to-institutional-sale", "student-acquisition-cost"]
+    related_skills: ["four-ps-marketing", "business-model-canvas"]
+    caveats: "Conference attendance (ISTE, ASU+GSV, FETC, SXSWedu) is a significant and often underestimated component of institutional CAC in EdTech. A single conference booth can cost $15,000-$50,000."
+
+  # ─────────────────────────────────────────────
+  # UNIT ECONOMICS
+  # ─────────────────────────────────────────────
+
+  - name: "Revenue per Learner"
+    id: "revenue-per-learner"
+    category: "unit-economics"
+    definition: "The average annual revenue generated per active learner across all revenue streams (subscriptions, licensing, content, certifications, and advertising), measuring the monetization efficiency of the learner base."
+    formula: "Total annual revenue / Total active learners in period"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $2 per learner annually"
+        signal: "Ad-supported or freemium with minimal conversion. Requires massive scale to build a meaningful business."
+      below_average:
+        value: "$2-$10 per learner annually"
+        signal: "Low monetization. Common for EdTech products in price-sensitive markets (K-12, developing countries) or those competing with free alternatives."
+      average:
+        value: "$10-$50 per learner annually"
+        signal: "Moderate monetization. Typical for institutional products with per-student licensing. Consumer subscriptions (Duolingo Super) fall in this range."
+      good:
+        value: "$50-$200 per learner annually"
+        signal: "Strong monetization. Premium consumer subscriptions, corporate L&D platforms, and test prep services achieve this range."
+      excellent:
+        value: "> $200 per learner annually"
+        signal: "Premium positioning. Graduate education, professional certification, and high-stakes test prep command this level. Coursera Plus and 2U OPM programs operate here."
+    stage_notes:
+      seed: "Revenue per learner establishes the business model viability. Below $10/learner requires massive scale; above $100/learner requires demonstrated premium value."
+      series_a: "Track revenue per learner by segment and pricing tier. The distribution reveals pricing power and expansion opportunity."
+      series_b_plus: "Revenue per learner should increase over time through premium tier adoption, additional product usage, and credential purchases."
+    data_sources:
+      - source: "Duolingo 10-K filing"
+        year: "2024"
+      - source: "Coursera 10-K filing"
+        year: "2024"
+      - source: "2U 10-K filing"
+        year: "2023"
+    related_metrics: ["student-acquisition-cost", "content-creation-cost", "content-to-revenue-ratio"]
+    related_skills: ["business-model-canvas", "four-ps-marketing"]
+    caveats: "Revenue per learner varies 100x between segments: a K-12 district license might yield $3/student while a professional certificate program yields $300/learner. Blended metrics are misleading — always segment."
+
+  - name: "Content Creation Cost"
+    id: "content-creation-cost"
+    category: "unit-economics"
+    definition: "The average cost to produce one hour of learning content or one course module, including instructional design, subject matter expert time, media production, quality assurance, and platform integration."
+    formula: "Total content creation costs / Total hours of content (or modules) produced in period"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $50,000 per hour of content"
+        signal: "Production costs are at traditional courseware levels. Not sustainable for a startup that needs to scale its content library."
+      below_average:
+        value: "$20,000-$50,000 per hour"
+        signal: "High-quality production but expensive. Typical for video-heavy, professionally produced content (Coursera, MasterClass)."
+      average:
+        value: "$5,000-$20,000 per hour"
+        signal: "Balanced quality and cost. Common for a mix of instructor-created and platform-produced content."
+      good:
+        value: "$1,000-$5,000 per hour"
+        signal: "Efficient production. Achieved through templatized content creation, user-generated content, or AI-assisted authoring."
+      excellent:
+        value: "< $1,000 per hour"
+        signal: "Highly scalable content model. Typically involves significant user-generated or community-created content, adaptive content engines, or AI content generation."
+    stage_notes:
+      seed: "Content creation cost determines how quickly the library can reach critical mass. A $50,000/hour model is unviable at seed."
+      series_a: "The content creation cost advantage from AI tooling is a material investor pitch point in 2024-2026. Demonstrate the cost reduction."
+      series_b_plus: "Content creation should shift from fully custom to a mix of platform-created, user-generated, and AI-enhanced content."
+    data_sources:
+      - source: "Coursera S-1 filing (content economics)"
+        year: "2021"
+      - source: "HolonIQ EdTech content production analysis"
+        year: "2024"
+    related_metrics: ["content-to-revenue-ratio", "revenue-per-learner"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Content creation cost varies enormously by modality: text-based adaptive content costs 1/10th of video production. The modality choice is a strategic decision that determines the entire cost structure."
+
+  - name: "Content-to-Revenue Ratio"
+    id: "content-to-revenue-ratio"
+    category: "efficiency"
+    definition: "The ratio of cumulative content creation investment to annual revenue generated from that content, measuring how efficiently content investment converts to revenue."
+    formula: "Cumulative content creation costs / Annual revenue attributed to that content"
+    unit: "ratio"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 5x"
+        signal: "Massive content investment with insufficient monetization. The company is a content production house, not a technology business."
+      below_average:
+        value: "3-5x"
+        signal: "Content investment is recovering slowly. Acceptable only if content has long shelf life and the business is early-stage."
+      average:
+        value: "1.5-3x"
+        signal: "Reasonable content economics. Revenue will recover the content investment within 2-3 years."
+      good:
+        value: "0.5-1.5x"
+        signal: "Strong content leverage. Content pays for itself within the first year of deployment."
+      excellent:
+        value: "< 0.5x"
+        signal: "Exceptional content economics. Achieved by products that create content once and distribute to massive learner populations, or that leverage user-generated content."
+    stage_notes:
+      seed: "The content-to-revenue ratio will be poor at seed because content is being created before the full revenue base exists. Track the trajectory."
+      series_a: "Demonstrate that the ratio improves as the learner base grows — this is the content leverage story investors want to hear."
+      series_b_plus: "Content-to-revenue ratio should improve year-over-year as existing content generates recurring revenue without additional investment."
+    data_sources:
+      - source: "Coursera 10-K filing"
+        year: "2024"
+      - source: "HolonIQ EdTech business model analysis"
+        year: "2024"
+    related_metrics: ["content-creation-cost", "revenue-per-learner", "gross-margin"]
+    related_skills: ["balanced-scorecard", "growth-share-matrix"]
+    caveats: "Content shelf life varies dramatically. Medical education content needs annual updates; foundational math content may last a decade. The ratio must account for content depreciation."
+
+  # ─────────────────────────────────────────────
+  # RETENTION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Learner Retention Rate (Monthly)"
+    id: "learner-retention-rate"
+    category: "retention"
+    definition: "The percentage of active learners from the previous month who remain active in the current month, measuring the product's ability to sustain learning engagement over time."
+    formula: "(Learners active in both month N and month N-1) / (Learners active in month N-1) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 30% monthly"
+        signal: "Catastrophic attrition. Two-thirds of learners leave each month. The product is failing to create sustained engagement."
+      below_average:
+        value: "30-50% monthly"
+        signal: "High attrition typical of open/free EdTech products. For paid products, this is unsustainable."
+      average:
+        value: "50-65% monthly"
+        signal: "Moderate retention. Common for consumer EdTech with mixed free and paid users. The retention curve must flatten to build a durable business."
+      good:
+        value: "65-80% monthly"
+        signal: "Strong retention. Duolingo reports ~73% Month 1 retention for paid subscribers. This level supports a viable subscription business."
+      excellent:
+        value: "> 80% monthly"
+        signal: "Exceptional retention. Typically achieved in institutionally assigned products where usage is expected, or in consumer products with powerful habit mechanics."
+    stage_notes:
+      seed: "Month 1 to Month 2 retention is the critical metric. If fewer than 40% of activated learners return in Month 2, the product has an engagement problem."
+      series_a: "Retention must be segmented: paid vs. free, self-directed vs. assigned, and by content type. The gaps reveal product priorities."
+      series_b_plus: "Long-term retention curves (Month 6, Month 12) determine LTV. If the curve never flattens, the business model is a funnel, not a flywheel."
+    data_sources:
+      - source: "Duolingo 10-K filing"
+        year: "2024"
+      - source: "Reach Capital EdTech Metrics Framework"
+        year: "2023"
+    related_metrics: ["institutional-churn-rate", "learner-engagement-rate", "dau-mau-ratio"]
+    related_skills: ["net-promoter-score", "systems-thinking"]
+    caveats: "EdTech retention is fundamentally shaped by the academic calendar. Monthly retention measured across June-August (K-12) or December-January (higher ed) will plummet regardless of product quality. Report in-session retention separately."
+
+  - name: "Institutional Churn Rate"
+    id: "institutional-churn-rate"
+    category: "retention"
+    definition: "The percentage of institutional customers (schools, districts, universities, or enterprises) that do not renew their contract in a given period, measuring the durability of the B2B revenue base."
+    formula: "(Institutional customers not renewing / Total institutional customers up for renewal in period) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 25% annual"
+        signal: "One in four institutions leaves each year. At this rate, the company must replace a quarter of its revenue base annually just to stay flat."
+      below_average:
+        value: "15-25% annual"
+        signal: "High churn driven by either poor implementation, efficacy concerns, or budget pressure. Renewal conversations are reactive, not proactive."
+      average:
+        value: "10-15% annual"
+        signal: "Moderate churn. Common for EdTech products competing for discretionary budget. Sustainable with strong new customer acquisition."
+      good:
+        value: "5-10% annual"
+        signal: "Strong retention. The product is embedded in institutional workflows. Instructure (Canvas) reports institutional churn in this range."
+      excellent:
+        value: "< 5% annual"
+        signal: "Exceptional. Near-permanent institutional adoption. Achieved when the product becomes standard infrastructure — the 'system of record' for learning."
+    stage_notes:
+      seed: "Institutional churn at seed is noisy — a single lost pilot can represent 50% churn. Focus on understanding why institutions stay or leave, not on the rate."
+      series_a: "Identify whether churn is driven by budget cuts (external, less controllable) or dissatisfaction (internal, addressable). The split determines strategy."
+      series_b_plus: "Institutional churn below 10% enables predictable revenue forecasting. Above 10%, the company is perpetually in growth-replacement mode."
+    data_sources:
+      - source: "Instructure (Canvas) 10-K filing"
+        year: "2024"
+      - source: "Tyton Partners EdTech retention analysis"
+        year: "2023"
+    related_metrics: ["teacher-adoption-rate", "learner-engagement-rate", "nps-segmented"]
+    related_skills: ["net-promoter-score", "systems-thinking", "balanced-scorecard"]
+    caveats: "Institutional churn in EdTech often occurs at renewal, which is annual. Unlike SaaS monthly churn, there is no early warning from payment failures. The warning signals are engagement data and teacher adoption metrics — monitor these proactively."
+
+  - name: "NPS (Segmented: Learner / Teacher / Admin)"
+    id: "nps-segmented"
+    category: "product"
+    definition: "Net Promoter Score measured and reported separately for each stakeholder group — learners/students, teachers/instructors, and institutional administrators/buyers — because satisfaction and advocacy differ dramatically across these groups in EdTech."
+    formula: "(% Promoters - % Detractors) for each stakeholder segment, reported as three separate scores"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Any segment below 0"
+        signal: "Active detractors outnumber promoters in a stakeholder group. If the buyer segment (admin) is negative, renewal is at extreme risk. If the user segment (learner) is negative, engagement will collapse."
+      below_average:
+        value: "0-20 in any segment"
+        signal: "Neutral sentiment. No advocacy, no opposition. The product is tolerated, not valued."
+      average:
+        value: "20-40 across segments"
+        signal: "Moderately positive. Enough for stability but not enough for organic growth through referral."
+      good:
+        value: "40-60 across segments, with no segment below 25"
+        signal: "Strong and balanced satisfaction. Teachers recommending to peers, admins willing to expand, students engaged voluntarily."
+      excellent:
+        value: "> 60 across segments"
+        signal: "Exceptional. The product has genuine advocates at every level of the stakeholder chain. This drives organic institutional adoption."
+    stage_notes:
+      seed: "Measure NPS even in pilot. A 10-teacher pilot can reveal whether the teacher NPS will support broader adoption."
+      series_a: "The gap between segments is as important as the absolute score. Learner NPS 60, Teacher NPS 10 means teachers are the bottleneck."
+      series_b_plus: "Track NPS trends by segment over time. A declining teacher NPS while learner NPS rises may indicate the product is adding student-facing features at the expense of teacher tools."
+    data_sources:
+      - source: "EdSurge Teacher NPS Surveys"
+        year: "2024"
+      - source: "Reach Capital EdTech Metrics Framework"
+        year: "2023"
+    related_metrics: ["learner-engagement-rate", "teacher-adoption-rate", "institutional-churn-rate"]
+    related_skills: ["net-promoter-score", "systems-thinking"]
+    caveats: "NPS must be measured at the right moment for each segment. Learner NPS after course completion, not during onboarding. Teacher NPS mid-semester when they have formed opinions, not during back-to-school chaos. Admin NPS after receiving usage/outcome reports."
+
+  # ─────────────────────────────────────────────
+  # CONVERSION & GROWTH METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Free-to-Paid Conversion Rate"
+    id: "free-to-paid-conversion"
+    category: "growth"
+    definition: "The percentage of free or trial users who convert to a paid plan, critical for EdTech companies using freemium or free-trial models to overcome the education sector's expectation of free content."
+    formula: "(Users converting to paid / Total users on free or trial plan in period) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 2%"
+        signal: "The free product is sufficient for most users. The paid offering lacks compelling differentiation. Common when competing with genuinely free alternatives (Khan Academy, YouTube)."
+      below_average:
+        value: "2-4%"
+        signal: "Modest conversion. Typical for consumer EdTech where willingness to pay for learning is low."
+      average:
+        value: "4-7%"
+        signal: "Acceptable conversion. Duolingo converts approximately 7-8% of MAU to paid subscribers. This is considered strong for consumer EdTech."
+      good:
+        value: "7-12%"
+        signal: "Strong conversion. The paid product delivers clear, differentiated value that free users want."
+      excellent:
+        value: "> 12%"
+        signal: "Exceptional. Typically achieved when the free product creates a clear gap (limited content, no certificates, restricted features) that paid resolves."
+    stage_notes:
+      seed: "Conversion rate validates willingness to pay — the most uncertain assumption in EdTech. Test pricing with real users before optimizing the funnel."
+      series_a: "Segment conversion by user type: students, teachers, professionals. The conversion drivers differ dramatically."
+      series_b_plus: "Conversion rate optimization (CRO) becomes a dedicated function. Small conversion improvements on a large free base create material revenue."
+    data_sources:
+      - source: "Duolingo 10-K filing"
+        year: "2024"
+      - source: "Coursera 10-K filing"
+        year: "2024"
+    related_metrics: ["revenue-per-learner", "student-acquisition-cost", "learner-retention-rate"]
+    related_skills: ["four-ps-marketing", "cialdini-influence"]
+    caveats: "Free-to-paid conversion in EdTech must contend with a cultural expectation that education should be free or publicly funded. This is not a misconception — it is a market reality that shapes pricing strategy."
+
+  # ─────────────────────────────────────────────
+  # EFFICACY & COMPLIANCE METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Efficacy Evidence Strength"
+    id: "efficacy-evidence-strength"
+    category: "product"
+    definition: "A categorical assessment of the quality and rigor of evidence demonstrating that the product improves learning outcomes, rated against the ESSA (Every Student Succeeds Act) evidence tiers or equivalent research standards."
+    formula: "Qualitative rating: None | Anecdotal (testimonials only) | Correlational (usage-outcome correlation) | Quasi-Experimental (ESSA Tier 3) | Experimental (ESSA Tier 2 or 1, RCT-based)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "None or Anecdotal only"
+        signal: "No credible evidence of efficacy. Increasingly a dealbreaker for institutional buyers, especially districts spending federal funds."
+      below_average:
+        value: "Correlational evidence"
+        signal: "Usage correlates with improved outcomes, but causation is not established. Better than nothing but vulnerable to 'selection bias' critique."
+      average:
+        value: "Quasi-Experimental (ESSA Tier 3)"
+        signal: "A well-designed study with a comparison group, though not randomized. Sufficient for most institutional procurement processes."
+      good:
+        value: "Experimental (ESSA Tier 2)"
+        signal: "A randomized controlled trial or well-designed quasi-experiment demonstrating statistically significant positive outcomes. Strong competitive advantage."
+      excellent:
+        value: "Multiple Experimental studies (ESSA Tier 1)"
+        signal: "Multiple RCTs demonstrating consistent positive outcomes across diverse populations. The gold standard. Only a handful of EdTech products achieve this level."
+    stage_notes:
+      seed: "Design your pilot as a research study from day one. Pre/post assessments with a control group cost little extra but produce invaluable evidence."
+      series_a: "Invest in at least one quasi-experimental study. The ROI of a credible efficacy study in institutional sales far exceeds the cost ($50K-$150K)."
+      series_b_plus: "Commission independent third-party research. Self-conducted studies face credibility challenges. Partner with university research labs or organizations like NWEA, ISTE, or J-PAL."
+    data_sources:
+      - source: "ESSA Evidence Standards (US Department of Education)"
+        year: "2023"
+      - source: "LearnPlatform EdTech Evidence Standards"
+        year: "2024"
+      - source: "Schmidt Futures EdTech Efficacy Framework"
+        year: "2023"
+    related_metrics: ["learning-outcomes-improvement", "institutional-adoption-rate"]
+    related_skills: ["balanced-scorecard", "trust-equation"]
+    caveats: "Efficacy evidence is necessary but not sufficient for institutional sales. Evidence + ease of implementation + teacher support is the winning combination. Products with strong evidence but poor usability still fail."
+
+  - name: "Accessibility Compliance Score"
+    id: "accessibility-compliance-score"
+    category: "efficiency"
+    definition: "A composite measure of the product's compliance with accessibility standards (WCAG 2.1 AA, Section 508, ADA), expressed as the percentage of audited criteria met, reflecting the legal and ethical requirement to serve all learners."
+    formula: "(Number of WCAG 2.1 AA criteria met / Total applicable WCAG 2.1 AA criteria) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 60%"
+        signal: "Significant accessibility gaps. The product excludes learners with disabilities and exposes institutional customers to legal risk under ADA/Section 508."
+      below_average:
+        value: "60-75%"
+        signal: "Partial compliance. Common issues: missing alt text, poor keyboard navigation, insufficient color contrast, inaccessible interactive elements."
+      average:
+        value: "75-85%"
+        signal: "Moderate compliance. Most critical accessibility barriers addressed, but edge cases and advanced interactive features remain problematic."
+      good:
+        value: "85-95%"
+        signal: "Strong compliance. The product is usable by learners with most disabilities. Minor issues remain in complex interactive content."
+      excellent:
+        value: "> 95%"
+        signal: "Exemplary accessibility. Proactive inclusive design. This level is a competitive differentiator in institutional sales — many districts now require VPAT/ACR documentation."
+    stage_notes:
+      seed: "Build accessibility into the product from the start. Retrofitting accessibility is 5-10x more expensive than designing for it initially."
+      series_a: "Commission a third-party accessibility audit and publish a Voluntary Product Accessibility Template (VPAT). Many institutional RFPs require it."
+      series_b_plus: "Accessibility becomes a competitive moat. Products that are fully accessible win deals in districts where competitors cannot compete."
+    data_sources:
+      - source: "ISTE Accessibility in EdTech Report"
+        year: "2024"
+      - source: "EDUCAUSE Accessibility Compliance Surveys"
+        year: "2023"
+    related_metrics: ["ferpa-coppa-compliance-status", "institutional-adoption-rate"]
+    related_skills: ["balanced-scorecard", "systems-thinking"]
+    caveats: "Accessibility compliance is a legal requirement for products used in public K-12 schools and federally funded institutions, not a nice-to-have. The number of accessibility-related lawsuits in EdTech has tripled since 2020."
+
+  - name: "FERPA/COPPA Compliance Status"
+    id: "ferpa-coppa-compliance-status"
+    category: "efficiency"
+    definition: "A categorical assessment of the product's compliance with education-specific privacy regulations: FERPA (Family Educational Rights and Privacy Act) for student data protection and COPPA (Children's Online Privacy Protection Act) for products used by children under 13."
+    formula: "Qualitative rating: Non-Compliant | Partially Compliant | Self-Attested Compliant | Third-Party Verified | Certified (iKeepSafe, Student Privacy Pledge, or equivalent)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Non-Compliant or status unknown"
+        signal: "A dealbreaker for any institutional sale in the US. Districts are legally liable for the student data they share with vendors."
+      below_average:
+        value: "Partially Compliant"
+        signal: "Some data practices meet FERPA/COPPA requirements but gaps remain (e.g., data retention policies, parental consent mechanisms, data deletion procedures)."
+      average:
+        value: "Self-Attested Compliant"
+        signal: "The company has reviewed its practices against FERPA/COPPA and attests to compliance. No third-party validation. Accepted by many districts but not all."
+      good:
+        value: "Third-Party Verified"
+        signal: "An independent assessor has reviewed and verified compliance. This satisfies most institutional procurement requirements."
+      excellent:
+        value: "Certified (iKeepSafe, Student Privacy Pledge signatory, or state DPA signatory)"
+        signal: "Industry-recognized certification. Signing the Student Privacy Pledge and participating in state Data Privacy Agreements (e.g., SDPC National DPA) removes friction from institutional sales."
+    stage_notes:
+      seed: "Achieve at least self-attested compliance before the first institutional pilot. Non-compliance is a non-starter."
+      series_a: "Invest in third-party verification and sign the Student Privacy Pledge. The cost is minimal relative to the sales friction it removes."
+      series_b_plus: "Proactively participate in state DPA programs (the Student Data Privacy Consortium manages multi-state agreements). This pre-clears the product for districts across entire states."
+    data_sources:
+      - source: "Student Privacy Compass (Future of Privacy Forum)"
+        year: "2024"
+      - source: "CoSN/SDPC Data Privacy Agreement program"
+        year: "2024"
+    related_metrics: ["accessibility-compliance-score", "institutional-adoption-rate"]
+    related_skills: ["trust-equation", "balanced-scorecard"]
+    caveats: "FERPA/COPPA compliance is table stakes, not a differentiator. The absence of compliance kills deals; the presence of compliance merely permits them. State-level student privacy laws (California's SOPIPA, New York's Education Law 2-d) add requirements beyond federal standards."
+
+  # ─────────────────────────────────────────────
+  # FINANCIAL METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Gross Margin"
+    id: "gross-margin"
+    category: "financial"
+    definition: "Revenue minus cost of goods sold as a percentage of revenue, where EdTech COGS includes content hosting, content licensing/creation amortization, instructor compensation (for live instruction models), platform infrastructure, and learner support."
+    formula: "(Revenue - COGS) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 40%"
+        signal: "Services-heavy or instructor-dependent model consuming margins. The business operates more like a school or tutoring service than a technology company."
+      below_average:
+        value: "40-55%"
+        signal: "Moderate margins. Common for OPM (Online Program Management) models where instructor costs and revenue shares with universities are significant."
+      average:
+        value: "55-65%"
+        signal: "Acceptable margins. Content licensing, live instruction, or high-touch support reduce margins below pure software levels."
+      good:
+        value: "65-75%"
+        signal: "Strong margins. The product is primarily self-serve with scalable content delivery. Duolingo reports gross margins above 70%."
+      excellent:
+        value: "> 75%"
+        signal: "Software-like margins. Achieved by fully self-serve products with no content licensing costs and minimal support requirements."
+    stage_notes:
+      seed: "Gross margin at seed reveals the business model's long-term economics. If human instructors or expensive content licensing are in COGS, margins will not scale."
+      series_a: "Investors scrutinize EdTech gross margins because the range is enormous (30% for OPM to 80% for pure platform). Clearly classify COGS components."
+      series_b_plus: "Gross margin improvement is a growth lever. Automating support, reducing content creation costs with AI, and shifting from licensed to owned content all improve margins."
+    data_sources:
+      - source: "Duolingo 10-K filing"
+        year: "2024"
+      - source: "2U 10-K filing"
+        year: "2023"
+      - source: "Coursera 10-K filing"
+        year: "2024"
+    related_metrics: ["content-creation-cost", "content-to-revenue-ratio", "revenue-per-learner"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "EdTech gross margin varies by 50 percentage points depending on the business model. Pure platform (80%+) vs. content marketplace (60-70%) vs. OPM (30-50%) vs. live tutoring (20-40%). The model, not the execution, determines the margin band."
+
+  - name: "Expansion Revenue (Institutional Upsell)"
+    id: "expansion-revenue-institutional"
+    category: "growth"
+    definition: "The additional revenue generated from existing institutional customers through expanded usage — additional grade levels, subjects, campuses, departments, or premium features — expressed as a percentage of beginning-of-period institutional revenue."
+    formula: "(Expansion revenue from existing institutions in period / Beginning-of-period institutional revenue) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5% annual"
+        signal: "Institutions buy once and never expand. The product has a single use case with no growth path within the account."
+      below_average:
+        value: "5-10% annual"
+        signal: "Minimal expansion. Some accounts add users or features, but there is no systematic expansion motion."
+      average:
+        value: "10-20% annual"
+        signal: "Moderate expansion. Schools adding grade levels or departments. Universities expanding to new colleges. Enterprises adding divisions."
+      good:
+        value: "20-35% annual"
+        signal: "Strong expansion indicating the product becomes more valuable as usage deepens within the institution. Multi-product adoption or campus-wide licensing drives growth."
+      excellent:
+        value: "> 35% annual"
+        signal: "Exceptional land-and-expand execution. The initial deployment was a beachhead that led to institution-wide adoption."
+    stage_notes:
+      seed: "Design the product for expansion from day one. If the initial sale covers all possible usage, there is no upsell path."
+      series_a: "Expansion revenue from existing institutions is typically more efficient than new institutional acquisition. Build the expansion playbook."
+      series_b_plus: "Institutional expansion revenue should contribute 30-50% of total growth. If new customer acquisition is the only growth engine, the business model is fragile."
+    data_sources:
+      - source: "Instructure (Canvas) 10-K filing"
+        year: "2024"
+      - source: "GSV Ventures EdTech operating analysis"
+        year: "2024"
+    related_metrics: ["institutional-churn-rate", "average-contract-value", "teacher-adoption-rate"]
+    related_skills: ["business-model-canvas", "four-ps-marketing"]
+    caveats: "Expansion in EdTech is often tied to budget cycles — a school that wants to expand mid-year may not have budget until the next fiscal year. Build expansion into renewal conversations, not as a separate sales motion."

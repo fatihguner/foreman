@@ -1,0 +1,78 @@
+# Org-Politics Template Schema
+# Defines the required structure for all templates in .claude/org-politics/templates/
+# Author: Fatih Guner
+
+---
+
+# FRONTMATTER (YAML between --- delimiters at top of every template file)
+frontmatter:
+  name:
+    type: string
+    required: true
+    description: "Kebab-case identifier matching the filename without extension"
+
+  description:
+    type: string
+    required: true
+    description: "What this template produces and when to use it. Be specific -- a good description lets the system select the right template without human intervention."
+
+  audience:
+    type: string
+    required: true
+    allowed_values: ["self"]
+    description: "Always 'self'. Internal strategy documents -- never shared with the stakeholders they describe."
+
+  political_context:
+    type: string
+    required: true
+    allowed_values:
+      - stakeholder-mapping
+      - resistance-management
+      - coalition-building
+      - communication-strategy
+      - negotiation-prep
+      - power-analysis
+    description: "The political pattern this template addresses."
+
+  applicable_skills:
+    type: list
+    required: true
+    description: "Skills from the Foreman ecosystem that feed into or are invoked by this template."
+
+  applicable_diagnostics:
+    type: list
+    required: false
+    description: "Diagnostics that produce data consumed by this template."
+
+  feeds_into_playbooks:
+    type: list
+    required: false
+    description: "Playbooks that use this template as an output artifact."
+
+  author: "Fatih Guner"
+    type: string
+    required: true
+    description: "Template author."
+
+# BODY STRUCTURE (Markdown below the frontmatter)
+# Sections vary by political_context, but every template MUST include the following:
+body:
+  required_sections:
+    - name: "Situation Assessment"
+      description: "One-paragraph summary of the initiative, decision, or change being navigated."
+
+    - name: "Stakeholder Table"
+      description: "Structured table with at minimum: Stakeholder, Role/Position, and one strategy-relevant attribute."
+
+    - name: "Strategy"
+      description: "The core strategic logic -- what to do, in what order, and why."
+
+    - name: "Action Items"
+      description: "Prioritised, time-bound actions with owners."
+
+    - name: "Risk Assessment"
+      description: "What can go wrong politically, how likely it is, and what to do about it."
+
+    - name: "Ethical Check"
+      required: true
+      description: "Mandatory, no exceptions. 'Does this strategy pass the transparency test? Would you be comfortable if every stakeholder saw this document?' If no, revise the strategy -- not the ethics."

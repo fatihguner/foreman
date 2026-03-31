@@ -1,0 +1,544 @@
+# SaaS Industry Pack — Skill Overlays
+#
+# For 40 of the 158 Foreman skills, this file provides SaaS-specific context
+# that the skill executor agent applies as additional framing. These overlays
+# do not replace the base skill content — they add a SaaS lens.
+#
+# Selection criteria for the 40 skills:
+#   - Frameworks with direct SaaS application (strategy, pricing, growth)
+#   - Decision and thinking skills (used constantly in SaaS operator contexts)
+#   - Negotiation skills (fundraising, partnerships, enterprise sales)
+#   - Leadership skills most affected by SaaS organizational dynamics
+#   - Game theory skills applicable to SaaS competitive strategy
+#
+# Relevance tiers:
+#   critical — The SaaS overlay materially changes how the skill is applied.
+#              The skill executor should always surface SaaS context.
+#   high     — SaaS context adds significant value. Surface when relevant.
+#   moderate — Useful SaaS framing but the base skill works well as-is.
+
+pack_metadata:
+  sector: "saas"
+  display_name: "SaaS"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# SKILL OVERLAYS
+# ═══════════════════════════════════════════════════════════════
+
+skill_overlays:
+
+  # ─────────────────────────────────────────────
+  # FRAMEWORKS (22 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "porters-five-forces"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "SaaS fundamentally reshapes three of the five forces. Buyer power is amplified by low switching costs and monthly contracts — customers can leave at any renewal. Threat of substitutes is extreme because SaaS products compete not just with direct alternatives but with spreadsheets, no-code tools, and internal builds. Rivalry intensity is high because SaaS markets tend toward winner-take-most dynamics driven by network effects and data moats."
+    saas_anti_patterns:
+      - "Assuming high switching costs exist because the product has an API or integrations. True switching costs in SaaS come from workflow dependency and data lock-in, not technical integrations that competitors can replicate."
+      - "Ignoring the 'threat of non-consumption' — many SaaS markets compete not with other software but with manual processes or no solution at all."
+      - "Treating supplier power as irrelevant. Cloud infrastructure (AWS, GCP, Azure) and key API providers (Stripe, Twilio) can raise prices, change terms, or become competitors."
+    saas_example: "A vertical SaaS company serving dental practices uses Porter's Five Forces to discover that while direct competitors are few, the real competitive threat is from general-purpose EHR systems expanding into dental and from dental practice management consultants who recommend bespoke solutions. Supplier power is concentrated in a single insurance clearinghouse API. This analysis shifts the company's strategy from feature competition to building the deepest dental-specific data asset — the one force competitors cannot easily replicate."
+    benchmark_references: ["nrr", "logo-churn", "win-rate"]
+
+  - skill: "blue-ocean-strategy"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "Blue ocean strategy is structurally essential for SaaS because most categories are crowded — G2 lists 100+ competitors in major categories. The strategy-canvas exercise maps features and price against incumbents, revealing where the market over-serves (complex enterprise features no one uses) and under-serves (simplicity, speed, specific vertical workflows). SaaS blue oceans are most commonly found in vertical niches, in underserved buyer personas within existing categories, or in reimagining the delivery model (PLG vs. enterprise sales in a traditionally sales-led category)."
+    saas_anti_patterns:
+      - "Pursuing a blue ocean that is actually a dry ocean — creating an uncontested space because no customers exist there. Validate demand before investing in differentiation."
+      - "Confusing feature novelty with strategic differentiation. Adding AI or a new UI to a commodity product does not create a blue ocean if the buyer's decision criteria remain price and integrations."
+      - "Abandoning a blue ocean too early by moving upmarket into red ocean enterprise competition before dominating the niche."
+    saas_example: "Linear launched into the project management space — one of the most crowded SaaS categories — by deliberately eliminating features (Gantt charts, resource management, portfolio views) and obsessing over speed, keyboard shortcuts, and developer experience. The blue ocean was 'engineering teams who hate slow, bloated project management tools.' By saying no to enterprise PM features, Linear created uncontested space that Jira, Asana, and Monday.com could not address without cannibalizing their existing products."
+    benchmark_references: ["activation-rate", "time-to-value", "nps-saas"]
+
+  - skill: "business-model-canvas"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "The Business Model Canvas requires SaaS-specific interpretation across nearly every block. Revenue Streams must decompose into MRR components (new, expansion, contraction, churn). Customer Relationships must distinguish self-serve, sales-assisted, and enterprise motions. Key Resources must include the codebase, data assets, and cloud infrastructure. Cost Structure must separate COGS (hosting, support) from operating expenses (R&D, S&M, G&A) because SaaS unit economics depend on this distinction. The canvas is most powerful when used to compare current-state and target-state models — for example, mapping the shift from a services-heavy implementation model to a product-led growth model."
+    saas_anti_patterns:
+      - "Treating 'software' as the sole Value Proposition. The product is the delivery mechanism, not the value. Value in SaaS is the outcome: time saved, revenue generated, risk reduced."
+      - "Omitting Customer Success from Key Activities. In SaaS, post-sale retention and expansion are as critical as acquisition."
+      - "Filling the canvas once and filing it away. SaaS models evolve rapidly — the canvas should be revisited quarterly as pricing, channels, and customer segments shift."
+    saas_example: "A B2B SaaS founder uses the canvas to articulate why their current model is capital-inefficient. The canvas reveals that their Key Activity is dominated by custom onboarding (a services cost buried in COGS), their Customer Segment is too broad (serving SMB and enterprise with one product), and their Revenue Stream is flat-rate monthly — no expansion path. The canvas redesign introduces usage-based pricing, self-serve onboarding for SMB, and a dedicated enterprise tier, transforming the economics."
+    benchmark_references: ["gross-margin", "arpu", "cac", "ltv"]
+
+  - skill: "four-ps-marketing"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "The traditional Four Ps require substantial adaptation for SaaS. Product is a living, evolving service — not a shipped good. Customers buy access, not ownership. Price in SaaS is a strategic lever with unique structures: per-seat, usage-based, tiered, freemium, flat-rate, and hybrid models. Each pricing structure changes customer behavior, expansion dynamics, and unit economics. Place means distribution channel — PLG (product is the channel), content marketing, outbound sales, partnerships, marketplaces. Promotion in SaaS emphasizes content marketing, community, product-led virality, and thought leadership over traditional advertising."
+    saas_anti_patterns:
+      - "Treating pricing as a one-time decision. SaaS pricing should be revisited at least annually and tested continuously. Most SaaS companies under-price by 20-40%."
+      - "Equating 'Place' with a website. Distribution strategy in SaaS encompasses app store presence, API marketplace listings, integration directories, partner channels, and the product itself as a distribution mechanism."
+      - "Running demand-gen campaigns (Promotion) without tracking the full funnel to revenue. SaaS marketing must be measured on pipeline contribution and CAC, not impressions or clicks."
+    saas_example: "A project management SaaS applies the Four Ps to restructure its go-to-market. Product: they separate the core product from add-on modules (analytics, time tracking, resource management). Price: they shift from flat-rate to per-seat with usage-based add-ons, creating natural expansion revenue. Place: they launch a free tier (PLG) alongside their existing sales motion, making the product itself a distribution channel. Promotion: they invest in a template library and community rather than paid ads, reducing CAC by 40%."
+    benchmark_references: ["cac", "arpu", "acv", "expansion-revenue-pct"]
+
+  - skill: "net-promoter-score"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "NPS is deeply embedded in SaaS operating culture because of its correlation with net revenue retention. In SaaS, NPS surveys should be triggered by product usage milestones (not arbitrary time intervals), segmented by plan tier and customer cohort, and directly linked to churn prediction models. The actionable power of NPS in SaaS comes not from the score itself but from the qualitative feedback in the open-ended follow-up question and from tracking score changes over the customer lifecycle."
+    saas_anti_patterns:
+      - "Surveying all customers at the same time (quarterly blast) instead of using event-triggered NPS after key moments (onboarding completion, first renewal, support resolution)."
+      - "Optimizing for the NPS number rather than acting on detractor feedback. A rising NPS score that masks unresolved product issues is worse than a flat score with systematic feedback loops."
+      - "Treating Promoters as a marketing asset without building referral and advocacy programs. Promoters in SaaS drive viral growth — but only if you give them mechanisms to refer and share."
+    saas_example: "A mid-market SaaS company segments NPS by customer cohort and discovers that NPS drops sharply after month 6 — not at onboarding (where the score is 60+). Investigation reveals that customers exhaust the product's value within 6 months and hit a ceiling. This insight triggers a product roadmap shift toward deeper functionality and advanced use cases, directly addressing the retention cliff that NPS exposed."
+    benchmark_references: ["nps-saas", "nrr", "logo-churn"]
+
+  - skill: "product-life-cycle"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "SaaS disrupted the traditional product lifecycle by enabling continuous delivery and iterative improvement. Products no longer 'launch' once — they evolve weekly. The lifecycle stages still apply but compress and overlap: Introduction is the beta/early access period, Growth coincides with product-market fit and scaling, Maturity arrives when NRR stabilizes and new customer growth slows, and Decline manifests as category commoditization or platform shift. The critical SaaS insight is that individual features within a product may be at different lifecycle stages simultaneously."
+    saas_anti_patterns:
+      - "Assuming SaaS products are immune to maturity and decline because they can be updated. SaaS categories mature — CRM, email marketing, and project management are all mature categories where differentiation is extremely difficult."
+      - "Investing equally across all features regardless of their lifecycle position. Features in decline should be sunset; features in growth should receive disproportionate investment."
+      - "Confusing product-market fit with permanent market position. SaaS markets shift rapidly; what was innovative two years ago becomes table stakes."
+    saas_example: "Zendesk's core help desk product reached maturity by 2018 — NRR was stabilizing, and competitors like Intercom and Freshdesk were eroding differentiation. Rather than fighting for share in a maturing category, Zendesk expanded into a suite (Sell, Chat, Guide), effectively launching new products at the Introduction stage while managing the mature core. The product lifecycle framework helps SaaS companies decide when to extend the platform versus when to accept maturity in the core and invest in adjacencies."
+    benchmark_references: ["nrr", "mom-growth-rate", "nps-saas"]
+
+  - skill: "growth-share-matrix"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "The BCG Growth-Share Matrix maps directly to SaaS product portfolio management. Stars are fast-growing products or modules with strong market share — they justify aggressive investment. Cash Cows are mature product lines with stable revenue and high margins — they fund investment in Stars. Question Marks are new product lines or market segments with high growth but unproven position. Dogs are features or modules that consume resources without generating growth or profit. For SaaS companies with multiple products or a platform play, this framework guides resource allocation across the portfolio."
+    saas_anti_patterns:
+      - "Treating the entire SaaS product as a single unit. The matrix is most useful when applied to product lines, modules, customer segments, or geographic markets within the company."
+      - "Killing 'Dog' features that are actually critical for retention or serve as table-stakes requirements for enterprise buyers."
+      - "Over-investing in Stars without building the operational infrastructure (customer success, support, documentation) to sustain growth."
+    saas_example: "HubSpot's portfolio maps cleanly to the matrix: Marketing Hub (Cash Cow — mature, high share), Sales Hub (Star — growing, gaining share), Service Hub (Question Mark — growing market, still proving position), CMS Hub (Dog — small market, limited differentiation). This framing helps explain HubSpot's investment priorities and organizational structure."
+    benchmark_references: ["arr", "mom-growth-rate", "gross-margin"]
+
+  - skill: "disruptive-innovation"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "SaaS is the canonical vehicle for disruptive innovation. The pattern repeats endlessly: an incumbent serves the high end of the market with feature-rich, expensive software (Oracle, SAP, Salesforce enterprise). A SaaS startup enters at the bottom with a simpler, cheaper, self-serve product that the incumbent ignores. Over time, the SaaS product improves, moves upmarket, and captures the mainstream. This pattern drove the rise of Salesforce (vs. Siebel), Slack (vs. Microsoft), HubSpot (vs. Marketo/Eloqua), and Figma (vs. Adobe). Understanding disruptive innovation helps SaaS founders position correctly — start simple, serve the over-served, and improve relentlessly."
+    saas_anti_patterns:
+      - "Trying to compete on features with the incumbent from day one. Disruption requires starting with a 'worse' product on traditional metrics that is better on a new dimension (simpler, cheaper, faster)."
+      - "Moving upmarket too early, before establishing dominance in the low-end or niche segment. Premature enterprise motions destroy startups."
+      - "Ignoring the sustaining innovation response. Incumbents will eventually respond with their own simpler offering — the disruptor must build defensibility (data, network effects, integrations) before that happens."
+    saas_example: "Figma disrupted Adobe's design tool dominance by starting with a browser-based, free-for-individual-use product that professional designers initially dismissed as a toy. Figma was 'worse' on feature depth but better on collaboration, accessibility, and speed. By the time Adobe recognized the threat and attempted to acquire Figma, the product had captured the workflow of an entire generation of designers — the disruption was complete."
+    benchmark_references: ["activation-rate", "time-to-value", "arpu"]
+
+  - skill: "balanced-scorecard"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "The Balanced Scorecard translates directly into SaaS operating metrics across its four perspectives. Financial: MRR/ARR, burn multiple, Rule of 40, gross margin. Customer: NPS, NRR, logo churn, time to value. Internal Process: deployment frequency, incident response time, onboarding completion rate, support ticket resolution time. Learning & Growth: engineering velocity, employee NPS, skill development investment. The scorecard is particularly powerful in SaaS because the subscription model generates rich, real-time data for all four perspectives, enabling weekly or even daily tracking rather than quarterly reviews."
+    saas_anti_patterns:
+      - "Tracking too many metrics. A SaaS scorecard should contain 12-16 KPIs, not 50. Each metric must have a clear owner and a clear action when it deviates."
+      - "Ignoring the Learning & Growth perspective. SaaS companies that under-invest in engineering culture, tooling, and talent development accumulate technical debt that eventually manifests in the other three perspectives."
+      - "Using the scorecard purely for reporting rather than as a decision-making tool. The scorecard should drive weekly executive team discussions and resource allocation decisions."
+    saas_example: "A Series B SaaS company implements a balanced scorecard with four KPIs per perspective: Financial (ARR growth, burn multiple, gross margin, NRR), Customer (NPS, logo churn, activation rate, support CSAT), Internal Process (deploy frequency, P0 incident rate, onboarding time, feature adoption rate), Learning & Growth (employee NPS, engineering velocity, internal mobility rate, training hours per engineer). The scorecard reveals that declining NPS and rising churn correlate with a spike in P0 incidents — an internal process failure is driving customer outcomes."
+    benchmark_references: ["arr", "burn-multiple", "rule-of-40", "nrr", "nps-saas", "gross-margin"]
+
+  - skill: "swot-pest-analysis"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "SWOT and PEST analysis in SaaS must account for the unique environmental forces shaping the sector. Political: data privacy regulation (GDPR, CCPA, emerging AI regulation) directly impacts SaaS product design and go-to-market. Economic: interest rate environments affect SaaS valuations, customer IT budgets, and fundraising conditions. Social: remote work adoption, buyer preference for self-serve purchasing, and the consumerization of enterprise software. Technological: AI/ML capabilities, cloud infrastructure evolution, API ecosystem maturity, and platform risk from AWS/Google/Microsoft building competing features."
+    saas_anti_patterns:
+      - "Listing 'technology' as a strength without specificity. Every SaaS company has technology. The question is what specific technical capability creates defensible advantage."
+      - "Ignoring platform risk in the PEST analysis. If AWS, Google, or Microsoft can build your product as a feature of their platform, that is a material threat."
+      - "Conducting SWOT as a one-time exercise rather than a quarterly refresh. SaaS competitive dynamics shift rapidly — a strength today (e.g., AI capabilities) becomes table stakes in 12 months."
+    saas_example: "A SaaS company providing compliance automation uses PEST to identify that upcoming AI regulation in the EU will create mandatory compliance requirements for any company deploying AI systems — a massive tailwind for their product. The SWOT reveals that while they have a strong SMB customer base (Strength), they lack enterprise sales capabilities (Weakness) and enterprise compliance buyers are the primary beneficiaries of the regulatory shift (Opportunity). This analysis triggers a strategic decision to hire an enterprise sales leader and build SOC 2 Type II certification before competitors."
+    benchmark_references: ["arr", "win-rate"]
+
+  - skill: "scenario-planning"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "Scenario planning in SaaS must account for the high-variance nature of software businesses. The three most critical scenario dimensions are: growth rate (acceleration vs. deceleration vs. stall), capital markets (available vs. constrained), and competitive dynamics (stable vs. new entrant vs. incumbent pivot). SaaS companies should maintain at least three financial scenarios (base, upside, downside) with explicit trigger points that signal which scenario is materializing. The planning horizon for SaaS is typically shorter than traditional industries — 18-24 months is the practical limit given the pace of market change."
+    saas_anti_patterns:
+      - "Building scenarios that are all variations of 'things go well.' True scenario planning requires at least one scenario where a core assumption fails — the largest customer churns, a competitor raises $100M, or a platform partner enters the space."
+      - "Treating the financial model as the scenario plan. Scenarios must include strategic responses, not just different revenue lines. What changes operationally in each scenario?"
+      - "Ignoring the capital markets scenario. A SaaS company's strategic options depend heavily on whether fundraising is available. The 2022-2023 market correction demonstrated how quickly this variable can change."
+    saas_example: "A Series A SaaS company builds three scenarios for the next 18 months: (1) Base: 2.5x YoY growth, Series B in 12 months at current trajectory. (2) Upside: 3x+ growth triggered by a key integration launch, enabling a larger Series B. (3) Downside: growth slows to 1.5x due to a new competitor, requiring 6 months of runway extension through cost cuts before attempting Series B. Each scenario has explicit metric triggers (monthly ARR growth rate crossing specific thresholds) and pre-committed strategic responses."
+    benchmark_references: ["arr", "mom-growth-rate", "burn-multiple"]
+
+  - skill: "pricing-diagnosis"
+    category: "frameworks"
+    saas_relevance: "critical"
+    saas_context: "Pricing is the most powerful and most neglected lever in SaaS. A 1% improvement in pricing yields greater profit impact than a 1% improvement in customer acquisition or cost reduction. SaaS pricing diagnosis must evaluate: pricing model (per-seat, usage-based, tiered, flat-rate, hybrid), packaging (feature gating, tier structure, add-ons), price point (willingness-to-pay research, competitive positioning), and discounting discipline (deal desk governance, annual vs. monthly pricing spread). The diagnosis should also assess whether the pricing structure creates natural expansion revenue — products with usage-based or per-seat pricing grow within accounts automatically."
+    saas_anti_patterns:
+      - "Setting price based on cost-plus or competitor-matching rather than value-based pricing. SaaS products deliver value that far exceeds their cost to serve — pricing should capture a fair share of that value."
+      - "Offering monthly and annual plans with insufficient annual discount spread. The standard is 15-20% annual discount, which should fund the higher cost-to-serve of monthly subscribers."
+      - "Giving the sales team unlimited discounting authority. Uncontrolled discounting destroys ARPU trends and signals that the list price lacks credibility."
+    saas_example: "A B2B SaaS company discovers through pricing diagnosis that their $49/month flat-rate plan serves customers ranging from 2-person startups to 200-person companies. The largest customers derive 50x more value but pay the same price. Shifting to per-seat pricing with a $15/seat/month base and $25/seat/month professional tier triples ARPU from power users while maintaining accessibility for small teams. Expansion revenue jumps from 5% to 35% of new MRR within two quarters."
+    benchmark_references: ["arpu", "acv", "expansion-revenue-pct", "nrr"]
+
+  - skill: "doblin-ten-types"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "The Ten Types of Innovation framework is particularly instructive for SaaS because software companies tend to over-index on Product Performance innovation (features) while ignoring the other nine types. The most powerful SaaS innovations often come from Profit Model (usage-based pricing), Network (integrations and ecosystems), Structure (remote-first teams), Process (CI/CD and rapid iteration), Channel (product-led growth), Customer Engagement (community-led growth), and Service (self-serve onboarding). Mapping innovation efforts across all ten types reveals where the company is under-investing."
+    saas_anti_patterns:
+      - "Treating product features as the only innovation vector. Adding features to a commoditized category does not create differentiation — innovating on distribution, pricing, or customer experience does."
+      - "Ignoring Network innovation. In SaaS, integrations and ecosystem effects are among the strongest defensibility moats. A product with 200 integrations is harder to displace than one with better features."
+      - "Skipping the Profit Model type. The shift from perpetual license to subscription was itself a Profit Model innovation. The next wave (usage-based, outcome-based) is equally transformative."
+    saas_example: "Notion's success maps across multiple innovation types: Product Performance (flexible blocks system), Channel (freemium PLG distribution), Customer Engagement (template gallery and community), Brand (design-centric positioning), and Network (API and integrations ecosystem). Their competitors focused narrowly on Product Performance. Notion's multi-type innovation created compound defensibility."
+    benchmark_references: ["activation-rate", "nps-saas", "nrr"]
+
+  - skill: "eisenhower-matrix"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "SaaS founders and operators face extreme prioritization challenges because everything feels urgent — customers requesting features, infrastructure incidents, investor reporting, hiring, and competitive responses all compete for attention. The Eisenhower Matrix in SaaS must specifically classify: customer escalations (Urgent/Important vs. Urgent/Not Important — most escalations fall in the latter), feature requests (most are Not Urgent/Not Important for the roadmap), infrastructure investment (Not Urgent/Important — consistently deprioritized until a crisis moves it to Urgent/Important), and strategic work (Not Urgent/Important — the quadrant that determines long-term success)."
+    saas_anti_patterns:
+      - "Treating every customer request as Urgent and Important. Most customer requests are Urgent (to the customer) but Not Important (to the product strategy). Conflating these destroys roadmap discipline."
+      - "Neglecting the Not Urgent/Important quadrant (strategic planning, technical debt reduction, team development) because the daily urgency of a SaaS operation consumes all cycles."
+      - "Delegating product decisions that should not be delegated. In early-stage SaaS, the founder's product judgment is a critical asset — some 'Important' decisions cannot be delegated until the product vision is deeply shared."
+    saas_example: "A SaaS CEO uses the Eisenhower Matrix during a board preparation week and realizes that 70% of their time is spent in Urgent/Not Important: responding to customer support escalations that the support team should handle, reviewing every pull request, and attending standing meetings with no clear agenda. Delegating these frees 15 hours per week for Not Urgent/Important work: defining the 12-month product vision, building relationships with strategic partners, and developing the leadership team."
+    benchmark_references: []
+
+  - skill: "kotter-change-model"
+    category: "frameworks"
+    saas_relevance: "moderate"
+    saas_context: "Kotter's eight-step change model applies to SaaS companies during pivots, pricing restructures, go-to-market transitions, and organizational scaling. The model is most relevant when a SaaS company shifts from founder-led sales to a sales team, transitions from self-serve to enterprise, or restructures pricing. Step 1 (Create Urgency) is often supplied by metrics — declining NRR, rising churn, or missed targets provide the data-driven urgency that motivates change. Step 5 (Remove Obstacles) in SaaS frequently means addressing technical debt, legacy architecture, or organizational silos between product, sales, and customer success."
+    saas_anti_patterns:
+      - "Skipping the coalition-building steps in a fast-moving SaaS environment. 'Move fast and break things' does not apply to organizational change — resistance from the sales team or engineering organization can kill a pricing restructure."
+      - "Announcing change without demonstrating 'quick wins' first. In SaaS, pilot programs (test new pricing with a segment, trial new sales motion with one team) build evidence before full rollout."
+    saas_example: "A SaaS company transitions from monthly subscription pricing to usage-based pricing. Using Kotter's model, leadership creates urgency by showing that 40% of customers are on plans that undercharge relative to usage. They form a coalition including the VP Sales, VP Product, and the largest customer success manager. The 'quick win' is a pilot with 50 customers who move to usage-based pricing voluntarily and see more transparent billing. This success funds the broader rollout."
+    benchmark_references: ["arpu", "nrr", "expansion-revenue-pct"]
+
+  - skill: "systems-thinking"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "SaaS businesses are complex adaptive systems with feedback loops that create non-obvious outcomes. The most important feedback loops: (1) The growth loop: more customers fund more investment in product, which attracts more customers. (2) The churn spiral: losing customers reduces revenue, forcing cuts to customer success, which increases churn further. (3) The data flywheel: more usage generates more data, which improves the product (especially for AI/ML products), which attracts more users. (4) The support debt loop: under-investing in self-serve support increases ticket volume, which consumes engineering time for urgent fixes, which delays product improvements, which generates more tickets. Systems thinking helps SaaS operators identify and intervene in these loops."
+    saas_anti_patterns:
+      - "Treating symptoms instead of systems. Throwing more sales reps at a growth stall when the root cause is a churn spiral. Hiring more support agents when the root cause is poor documentation."
+      - "Ignoring time delays in feedback loops. Cutting customer success today does not increase churn tomorrow — it increases churn in 3-6 months, making the cause-and-effect connection invisible."
+      - "Optimizing one metric without modeling second-order effects. Reducing CAC by cutting content marketing may increase CAC next quarter when the organic pipeline dries up."
+    saas_example: "A SaaS company notices that NRR is declining despite stable logo churn. Systems analysis reveals a reinforcing loop: as the product adds complexity to serve enterprise customers, SMB users (who generate expansion revenue through seat growth) find the product harder to use, leading to contraction. The enterprise-focused investment that improves per-account revenue is simultaneously degrading the expansion engine in the SMB segment. The solution is product architecture — a simplified SMB experience that diverges from the enterprise UI."
+    benchmark_references: ["nrr", "logo-churn", "activation-rate", "gross-margin"]
+
+  - skill: "smart-goals"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "SMART goals in SaaS benefit from the availability of precise, real-time metrics. Unlike traditional businesses where measurement is often lagging and approximate, SaaS companies can set goals that are Specific to a metric (e.g., NRR, not 'retention'), Measurable in real-time from the billing system, Achievable based on cohort analysis and historical data, Relevant to the current company stage, and Time-bound to monthly or quarterly cadences. The most common failure is setting goals that are too numerous or not tied to the two or three metrics that actually matter at the company's current stage."
+    saas_anti_patterns:
+      - "Setting revenue goals without corresponding operational goals. 'Hit $5M ARR' is incomplete without 'achieve 110% NRR, reduce CAC payback to 12 months, and maintain 75% gross margin.'"
+      - "Using annual goals in an early-stage SaaS company where conditions change quarterly. Set 90-day goals with monthly check-ins."
+      - "Setting identical goals across functions. Engineering goals should be about product quality and velocity; Sales goals should be about pipeline and conversion; Customer Success goals should be about retention and expansion."
+    saas_example: "Instead of 'grow revenue,' a SaaS company sets Q2 goals: (1) Increase MRR from $150K to $200K by adding 30 new customers at $1,200 average MRR and expanding 15 existing customers by $500 average. (2) Reduce logo churn from 4% to 3% monthly by implementing a churn early-warning system and proactive outreach for at-risk accounts. (3) Decrease time to value from 14 days to 7 days by launching guided onboarding and in-app tutorials. Each goal is specific, measurable, connected to a responsible team, and achievable within the quarter."
+    benchmark_references: ["mrr", "logo-churn", "time-to-value"]
+
+  - skill: "vuca-framework"
+    category: "frameworks"
+    saas_relevance: "moderate"
+    saas_context: "SaaS operates in a permanently VUCA environment. Volatility: revenue can swing dramatically with a single enterprise churn or win. Uncertainty: market dynamics shift as platforms (AI, cloud) evolve unpredictably. Complexity: the interplay of product, GTM, retention, and financing creates multi-variable decision spaces. Ambiguity: SaaS metrics can be interpreted in contradictory ways (high NRR masking logo churn, revenue growth hiding margin erosion). The VUCA framework helps SaaS leaders identify which type of challenge they face and respond appropriately — Vision for Volatility, Understanding for Uncertainty, Clarity for Complexity, Agility for Ambiguity."
+    saas_anti_patterns:
+      - "Treating all challenges as one type. A pricing decision (Complexity — multiple variables to weigh) requires a different approach than a competitive response (Volatility — rapid reaction needed)."
+      - "Using Agility as an excuse for lack of strategy. SaaS companies that pivot constantly without strategic rationale mistake activity for progress."
+    saas_example: "When a major SaaS platform announces a native feature that competes with your product, the VUCA framework clarifies the response. This is Volatility (sudden market shift) and Ambiguity (unclear how customers will react). The response combines Vision (articulating why your dedicated product remains superior to a bundled feature) with Agility (rapidly building the integration that makes your product complementary rather than competitive to the platform)."
+    benchmark_references: ["win-rate", "logo-churn"]
+
+  - skill: "trust-equation"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "Trust is the fundamental currency in SaaS because customers grant continuous access to sensitive data and business processes. The Trust Equation (Credibility + Reliability + Intimacy / Self-Orientation) maps to SaaS as follows: Credibility = uptime track record, security certifications, public case studies. Reliability = consistent product performance, predictable release cadence, SLA adherence. Intimacy = understanding the customer's specific workflow and business context through customer success. Self-Orientation = transparency about product limitations, honest roadmap communication, fair pricing practices. High self-orientation (aggressive upselling, opaque pricing, lock-in tactics) destroys trust even when the other three components are strong."
+    saas_anti_patterns:
+      - "Investing in Credibility (certifications, logos, testimonials) while neglecting Reliability (uptime, bug fixes, performance). Customers notice when the marketing says 'enterprise-ready' but the product crashes weekly."
+      - "Using dark patterns to reduce churn (hiding cancellation buttons, requiring phone calls to cancel). This increases Self-Orientation and destroys trust, ultimately accelerating negative word-of-mouth."
+      - "Treating customer success as a retention tax rather than an Intimacy investment. CSMs who genuinely understand and advocate for customer outcomes build the trust that justifies premium pricing and long-term contracts."
+    saas_example: "Buffer built one of the strongest brands in SaaS through radical transparency — publishing their revenue dashboard, salary formula, and even their fundraising documents publicly. This drove Self-Orientation to near zero (nothing to hide), Credibility through demonstrated metrics, and Intimacy through open communication. The trust equation explains why Buffer retained customers even when competitors offered more features at lower prices."
+    benchmark_references: ["nps-saas", "logo-churn", "nrr"]
+
+  - skill: "cialdini-influence"
+    category: "frameworks"
+    saas_relevance: "high"
+    saas_context: "Cialdini's six principles of influence map directly to SaaS conversion and retention mechanics. Reciprocity: freemium and free trials create obligation. Social Proof: customer logos, case studies, G2 reviews, and 'X companies use this' badges. Commitment & Consistency: free trial users who complete onboarding steps are far more likely to convert. Authority: SOC 2 compliance, industry analyst recognition, thought leadership content. Liking: brand personality, community, and customer success relationships. Scarcity: limited-time pricing, exclusive features for early adopters. Understanding these principles helps SaaS companies design more effective onboarding flows, pricing pages, and retention campaigns."
+    saas_anti_patterns:
+      - "Over-relying on Scarcity (fake urgency, countdown timers, 'only 3 seats left' for a software product with infinite supply). SaaS buyers are sophisticated enough to recognize manufactured scarcity."
+      - "Neglecting Social Proof for early-stage products. Even 5 good case studies are more persuasive than feature lists. Invest in customer stories before investing in marketing copy."
+      - "Using Authority signals (enterprise logos, compliance badges) that are irrelevant to the target buyer. An SMB buyer does not care about Fortune 500 logos — they care about companies like theirs."
+    saas_example: "Notion's growth leveraged multiple Cialdini principles simultaneously: Reciprocity (generous free plan), Social Proof (template gallery showcasing real user setups, public customer stories), Commitment (progressive onboarding that builds invested workspace), Liking (design-forward brand that users identify with), and Authority (adoption by respected teams at companies like Figma, Loom, and Pixar). The combination created viral organic growth that reduced CAC to near zero for the individual and small-team segments."
+    benchmark_references: ["activation-rate", "cac", "nps-saas"]
+
+  - skill: "emotional-intelligence"
+    category: "frameworks"
+    saas_relevance: "moderate"
+    saas_context: "Emotional intelligence in SaaS is a competitive advantage in three domains: customer relationships (reading buyer sentiment during sales cycles, detecting at-risk customers before they churn), team leadership (managing high-intensity engineering and sales teams through hypergrowth, handling layoffs and restructuring), and investor relations (managing board dynamics, delivering bad news effectively, building relationships that survive downturns). SaaS companies operate at high intensity with frequent change — emotional intelligence is the lubricant that prevents organizational friction from becoming organizational failure."
+    saas_anti_patterns:
+      - "Treating emotional intelligence as 'soft' while privileging metrics above all else. A SaaS CEO who can read a P&L but cannot read a room will lose top talent and damage key customer relationships."
+      - "Confusing empathy with permissiveness. Emotional intelligence does not mean avoiding hard conversations — it means having them with awareness of their emotional impact."
+    saas_example: "A SaaS VP of Customer Success notices that a strategic account's champion has become less responsive and stopped attending QBRs. Rather than sending another automated check-in email, she reaches out personally and discovers the champion is frustrated by a product limitation that was deprioritized on the roadmap. The emotionally intelligent response is not to promise a feature that cannot be delivered but to acknowledge the frustration, share the honest trade-off reasoning, and collaborate on a workaround — preserving the relationship and the account."
+    benchmark_references: ["nrr", "nps-saas"]
+
+  - skill: "covey-seven-habits"
+    category: "frameworks"
+    saas_relevance: "moderate"
+    saas_context: "The Seven Habits apply to SaaS founders and operators who must balance the intense short-term demands of a subscription business with long-term strategic thinking. 'Begin with the End in Mind' means defining the endgame — IPO, acquisition, profitable growth — and aligning every operational decision with it. 'Put First Things First' maps to the Not Urgent/Important quadrant where strategic SaaS work (product vision, platform architecture, culture building) lives. 'Think Win-Win' is essential for partner ecosystem development, which is a key SaaS growth lever. 'Sharpen the Saw' addresses the burnout epidemic in SaaS leadership."
+    saas_anti_patterns:
+      - "Sacrificing Habit 7 (Sharpen the Saw / personal renewal) for growth targets. SaaS founding teams that burn out sacrifice the judgment and creativity that drove early success."
+      - "Applying 'Win-Win' naively in competitive deals. Win-Win applies to partnerships and customer relationships, not necessarily to competitive displacement scenarios."
+    saas_example: "A SaaS founder applies 'Begin with the End in Mind' to realize that their current growth trajectory leads to a $20M ARR company that is neither attractive for acquisition (too small) nor viable for IPO (too small). This analysis forces a strategic choice: accelerate to $50M+ ARR (requiring a larger raise and more aggressive growth), or optimize for profitability and build a durable, cash-generating business. Both are valid endpoints — but the current path reaches neither."
+    benchmark_references: ["arr", "rule-of-40", "burn-multiple"]
+
+  # ─────────────────────────────────────────────
+  # NEGOTIATION (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "competitive-negotiation"
+    category: "negotiation"
+    saas_relevance: "high"
+    saas_context: "Competitive negotiation in SaaS occurs across three primary contexts: enterprise sales (negotiating contract terms, pricing, and SLAs with procurement teams), fundraising (negotiating term sheets with investors), and vendor relationships (negotiating with cloud providers, API vendors, and service partners). In enterprise SaaS sales, the negotiation dynamics are shaped by annual budgets, multi-stakeholder approval processes, and the buyer's leverage from low switching costs. In fundraising, the negotiation centers on valuation, board composition, protective provisions, and liquidation preferences."
+    saas_anti_patterns:
+      - "Discounting too quickly in enterprise sales negotiations. Every discount trains the buyer to negotiate harder next time and erodes ARPU across the customer base. Offer scope concessions (fewer seats, limited features) rather than price concessions."
+      - "Negotiating valuation in isolation during fundraising. The valuation is one term among many — pro-rata rights, board seats, protective provisions, and liquidation preferences can be more impactful than a higher valuation with worse terms."
+      - "Treating SaaS contract negotiation as zero-sum. The best enterprise deals create long-term partnerships where the customer's success drives expansion revenue."
+    saas_example: "A SaaS company negotiating a $200K ACV enterprise deal faces pressure to discount by 30%. Instead of cutting price, the sales team offers a two-year commitment at 15% discount (locking in revenue), includes a success milestone clause (if the customer achieves defined ROI metrics, the contract auto-renews at full price), and adds a 90-day pilot period at full price with exit rights. This preserves ARPU while addressing the buyer's risk concern."
+    benchmark_references: ["acv", "arpu", "win-rate", "sales-cycle-length"]
+
+  - skill: "cooperative-negotiation"
+    category: "negotiation"
+    saas_relevance: "high"
+    saas_context: "Cooperative negotiation is the foundation of SaaS partnership development — a critical growth lever. SaaS partnerships include: technology integrations (building with complementary products), channel partnerships (reselling through consultants or agencies), platform partnerships (building on top of ecosystems like Salesforce, Shopify, or Slack), and strategic alliances (co-selling with larger vendors). Cooperative negotiation is also essential for customer success — the ongoing relationship between vendor and customer in SaaS is a continuous negotiation about priorities, roadmap influence, and terms."
+    saas_anti_patterns:
+      - "Entering partnership negotiations without clear metrics for success. Define what each partner gains (revenue share, distribution, data, brand) before negotiating terms."
+      - "Giving away too much in platform partnerships for the sake of 'ecosystem access.' A SaaS company that builds its entire distribution on a partner's marketplace is one policy change away from destruction."
+      - "Neglecting the cooperative dimension of customer renewals. Renewal negotiation should be a collaborative discussion about value delivered and value planned, not a transactional price conversation."
+    saas_example: "A SaaS company negotiates an integration partnership with a 10x-larger company. Rather than accepting a standard API agreement, they use cooperative negotiation to propose a deeper arrangement: co-marketing (joint case studies and webinars), co-selling (mutual referral program with revenue share), and data sharing (anonymized usage patterns that benefit both products). The cooperative approach creates mutual dependency that protects the smaller company from being cut off or replicated."
+    benchmark_references: ["cac", "nrr", "arr"]
+
+  - skill: "delivering-the-deal"
+    category: "negotiation"
+    saas_relevance: "high"
+    saas_context: "Deal execution in SaaS has unique characteristics: procurement cycles are increasingly governed by IT security reviews and legal red-lining that can stall deals for months; annual budget cycles create quarterly and year-end urgency; and multi-year commitments involve complex terms (price escalators, renewal terms, termination clauses, data deletion obligations). The skill of delivering the deal in SaaS means managing these complexities while maintaining momentum. This includes preparing for security questionnaires before they arrive, having flexible contract templates ready, and building internal champions who drive urgency within the buyer organization."
+    saas_anti_patterns:
+      - "Allowing legal and security review to happen sequentially. Run security review, legal review, and commercial negotiation in parallel. Sequential reviews double the sales cycle."
+      - "Relying on end-of-quarter urgency to close deals. Buyers increasingly recognize and resist quarter-end pressure tactics. Build urgency through value demonstration, not calendar manipulation."
+      - "Celebrating the closed deal before implementation begins. In SaaS, the deal is not truly 'delivered' until the customer is activated and deriving value. Handoff to customer success is part of the deal."
+    saas_example: "A SaaS sales team creates a 'deal acceleration kit': pre-completed security questionnaires (SOC 2 Type II, GDPR DPA, penetration test results), a flexible order form with pre-approved discount tiers and term options, and a mutual success plan template that aligns both teams on implementation milestones. This kit reduces average enterprise sales cycle from 90 to 55 days by eliminating the two most common stall points: security review and contract negotiation."
+    benchmark_references: ["sales-cycle-length", "win-rate", "acv"]
+
+  - skill: "negotiation-mindset-and-self"
+    category: "negotiation"
+    saas_relevance: "moderate"
+    saas_context: "SaaS founders negotiate constantly — with investors, customers, employees, and partners — often from a position of perceived weakness (smaller company, less capital, fewer customers). The negotiation mindset skill helps founders recognize and manage the psychological dynamics of these asymmetric negotiations. In fundraising, founders must balance desperation (running out of runway) with confidence (demonstrating conviction in the business). In enterprise sales, founders must negotiate with procurement teams whose explicit goal is to reduce price. In hiring, founders must negotiate compensation packages with candidates who have offers from larger, better-funded companies."
+    saas_anti_patterns:
+      - "Anchoring on valuation before building leverage. In fundraising, the strongest negotiating position comes from having multiple term sheets, strong metrics, and a credible alternative (profitability). Negotiate from strength, not from need."
+      - "Internalizing the power asymmetry in enterprise sales. The buyer needs the product (or they would not be in the evaluation). The vendor's perceived weakness is often exaggerated."
+    saas_example: "A SaaS founder entering Series A negotiations with a tier-one VC recognizes the psychological pattern: the VC asks probing questions that feel like criticism, triggering defensiveness. By preparing for this dynamic through negotiation mindset work, the founder reframes critical questions as engagement signals (the VC is doing diligence because they are interested) and responds with confidence and data rather than defensiveness. The result: better terms because the founder demonstrated conviction."
+    benchmark_references: ["arr", "cac"]
+
+  # ─────────────────────────────────────────────
+  # THINKING (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "enemies-of-clear-thinking"
+    category: "thinking"
+    saas_relevance: "critical"
+    saas_context: "SaaS operators face specific cognitive traps amplified by the data-rich, fast-moving nature of the business. Survivorship bias: benchmarking against successful SaaS companies while ignoring the majority that failed. Sunk cost fallacy: continuing to invest in a feature or market segment because of past investment rather than future potential. Confirmation bias: interpreting ambiguous metrics as positive signals (e.g., 'churn is seasonal' when it is structural). Anchoring: fixating on the initial pricing or valuation and resisting evidence that it should change. Availability bias: over-weighting the most recent customer conversation or competitive threat."
+    saas_anti_patterns:
+      - "Using vanity metrics (total sign-ups, page views, feature usage counts) that confirm the narrative while ignoring the metrics that challenge it (activation rate, revenue churn, NPS trend)."
+      - "Anchoring on the fundraising valuation as an indicator of company worth. The last-round valuation is a negotiated price for preferred equity, not a measure of business value."
+      - "Confusing correlation with causation in product analytics. The fact that users who complete onboarding retain better does not mean forcing all users through onboarding will improve retention — the correlation may reflect user intent, not the onboarding itself."
+    saas_example: "A SaaS CEO reviews monthly metrics and concludes the business is healthy: MRR is growing 10% MoM, NRR is 115%, and NPS is 45. An advisor trained in clear thinking spots the hidden problem: 80% of new MRR comes from a single channel (a content piece that went viral), NRR is inflated by one enterprise customer's massive expansion, and NPS was surveyed only among power users. The 'healthy' picture is a collection of non-representative data points — clear thinking demands disaggregation and stress-testing."
+    benchmark_references: ["mrr", "nrr", "nps-saas", "logo-churn"]
+
+  - skill: "evaluating-and-deciding"
+    category: "thinking"
+    saas_relevance: "high"
+    saas_context: "SaaS operators make high-frequency, high-impact decisions: which features to build, how to price, when to raise, whom to hire, and which market segments to pursue. The evaluation framework must account for SaaS-specific decision characteristics: most decisions are reversible (pricing can be changed, features can be deprecated), speed of decision usually matters more than perfection, and the cost of information-gathering often exceeds the cost of a wrong decision that can be corrected quickly. The distinction between one-way doors (irreversible: selling the company, choosing an architecture, raising a priced round) and two-way doors (reversible: pricing changes, market positioning, feature launches) should guide the decision framework."
+    saas_anti_patterns:
+      - "Applying one-way-door deliberation to two-way-door decisions. Spending three months analyzing a pricing change that can be tested and reversed in one week."
+      - "Deciding by committee. SaaS companies that require consensus for every product decision ship slowly and build mediocre products. Assign clear decision owners."
+      - "Over-relying on data for decisions that require judgment. Many critical SaaS decisions (product vision, market positioning, culture) involve insufficient data for purely analytical decision-making."
+    saas_example: "A SaaS product team debates whether to build a new analytics module or improve the onboarding flow. Traditional evaluation stalls because both have strong arguments. Applying the two-way door test: the analytics module requires 3 months of engineering and is difficult to reverse once shipped (one-way door). Improving onboarding can be tested in 2 weeks with an A/B test and reversed instantly (two-way door). Decision: test the onboarding improvement immediately, schedule the analytics module for the next planning cycle with better data from the onboarding test."
+    benchmark_references: ["activation-rate", "time-to-value"]
+
+  - skill: "defining-and-exploring-problems"
+    category: "thinking"
+    saas_relevance: "high"
+    saas_context: "SaaS companies frequently solve the wrong problem because they conflate symptoms with root causes. A growth stall is a symptom; the problem might be churn, market saturation, competitive displacement, or GTM inefficiency. A support ticket volume spike is a symptom; the problem might be a product bug, a UX confusion, or a customer segment mismatch. The skill of defining problems precisely is particularly valuable in SaaS because the rich data environment creates an illusion of understanding — the team can describe what is happening in great detail without understanding why."
+    saas_anti_patterns:
+      - "Defining the problem in terms of the preferred solution. 'We need to add feature X' is a solution statement, not a problem definition. 'Customers are churning because they cannot achieve Y outcome' is a problem definition."
+      - "Accepting the first framing. When the VP Sales says 'we have a pipeline problem,' the root cause might be a product problem (low win rate) or a marketing problem (low lead quality), not a sales capacity problem."
+      - "Using dashboards as a substitute for problem exploration. Dashboards show metrics; they do not explain causation. Understanding why NRR declined requires qualitative investigation, not more charts."
+    saas_example: "A SaaS company defines its problem as 'we need to reduce churn.' Rigorous problem exploration reveals three distinct problems: (1) SMB customers churn because they outgrow the product within 18 months — a product capability problem. (2) Mid-market customers churn during the transition from the sales team to customer success — a handoff process problem. (3) Enterprise customers churn when their internal champion leaves — a multi-threading relationship problem. Each requires a different solution. Lumping them together as 'churn' leads to generic interventions that solve none of them."
+    benchmark_references: ["logo-churn", "nrr", "grr"]
+
+  - skill: "building-thinking-strength"
+    category: "thinking"
+    saas_relevance: "moderate"
+    saas_context: "SaaS leadership demands sustained intellectual rigor across diverse domains — product strategy, financial modeling, organizational design, competitive analysis, and customer psychology. Building thinking strength in the SaaS context means developing the ability to shift fluently between these domains, hold multiple conflicting hypotheses simultaneously, and update beliefs quickly as new data arrives. The pace of SaaS means that thinking capacity is a rate-limiter on organizational performance — the company can only execute as fast as its leaders can think clearly."
+    saas_anti_patterns:
+      - "Equating busyness with thinking. A SaaS executive in back-to-back meetings all day has no time to think. Protecting blocks of uninterrupted thinking time is not a luxury — it is a core leadership practice."
+      - "Over-specializing thinking. A SaaS CEO who thinks only about product neglects GTM; one who thinks only about sales neglects product. The role requires integrative thinking across all domains."
+    saas_example: "A SaaS founder implements a 'thinking ritual': every Monday morning, 90 minutes with no meetings, no Slack, and no email. During this time, they review the prior week's metrics, read one competitor's recent release notes, and write a one-page memo on the single most important strategic question facing the company this week. This practice compounds — after six months, the founder has a 26-memo archive that documents the evolution of their strategic thinking and provides a decision audit trail."
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # DECISIONS (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "generating-solutions"
+    category: "decisions"
+    saas_relevance: "high"
+    saas_context: "Solution generation in SaaS benefits from the rapid testability of software hypotheses. Unlike physical product businesses, SaaS companies can prototype, test, and validate solutions in days or weeks. This changes the solution generation process: generate more options, evaluate them through quick tests rather than extended analysis, and iterate rapidly. The danger is that solution generation in SaaS becomes narrowly focused on product features. Many SaaS problems (churn, growth stalls, competitive pressure) have non-product solutions: pricing changes, market repositioning, partnership development, or organizational restructuring."
+    saas_anti_patterns:
+      - "Defaulting to 'build a feature' as the solution to every problem. Many SaaS problems are better solved through pricing, positioning, customer success, or go-to-market changes."
+      - "Generating solutions in isolation within functional silos. The best SaaS solutions often emerge at the intersection of product, sales, and customer success perspectives."
+      - "Eliminating solutions too early based on 'feasibility.' In SaaS, today's infeasible solution may become feasible with an API integration, an AI model, or a partner — the constraint landscape changes rapidly."
+    saas_example: "A SaaS company faces declining win rates against a well-funded competitor. The product team's solution: build the five features the competitor has that they lack (6-month project). A broader solution generation exercise produces alternatives: (1) reposition as the specialist for a specific vertical the competitor ignores, (2) launch a free tier to win at the top of the funnel, (3) build an integration with the competitor so customers can use both, (4) acquire a smaller company that already has the missing features. Options 1 and 2 can be tested in weeks; option 3 in months; only option 4 and the original 'build features' plan require 6+ months."
+    benchmark_references: ["win-rate", "cac", "time-to-value"]
+
+  - skill: "choosing-and-executing"
+    category: "decisions"
+    saas_relevance: "high"
+    saas_context: "Execution speed is a primary competitive advantage in SaaS. The choosing-and-executing framework must emphasize speed-to-learning over correctness-of-choice for reversible decisions. In SaaS, the cost of choosing wrong and iterating is usually lower than the cost of choosing slowly and executing late. Execution in SaaS also requires explicit coordination across product, engineering, sales, marketing, and customer success — siloed execution produces internal inconsistency (marketing promises features that product has not built, sales sells contracts that operations cannot support)."
+    saas_anti_patterns:
+      - "Seeking consensus before executing reversible decisions. SaaS companies that require agreement from all stakeholders move too slowly. Use the 'disagree and commit' principle."
+      - "Executing without defining success metrics. Before launching a feature, pricing change, or marketing campaign, define what success looks like and when you will evaluate."
+      - "Confusing execution with shipping. In SaaS, execution includes launch, measurement, iteration, and communication — not just writing code and deploying."
+    saas_example: "A SaaS company must decide between two pricing strategies: (A) per-seat pricing to maximize revenue from large teams, or (B) usage-based pricing to lower barriers and maximize adoption. Instead of debating for months, they define a 60-day test: existing customers above 50 seats get offered the per-seat model; new sign-ups under 20 seats get offered usage-based. Success metrics: conversion rate, ARPU, and expansion rate for each cohort. After 60 days, the data clearly favors usage-based for new customers and per-seat for existing enterprise — they implement a hybrid model."
+    benchmark_references: ["arpu", "activation-rate", "expansion-revenue-pct"]
+
+  - skill: "tough-decision-situations"
+    category: "decisions"
+    saas_relevance: "high"
+    saas_context: "SaaS founders face uniquely difficult decisions: whether to raise money or bootstrap, when to pivot the product or persist, whether to fire a co-founder, when to accept an acquisition offer, how to manage layoffs during a downturn, and whether to sunset a product line that loyal customers depend on. These decisions are tough because they are irreversible (or nearly so), involve deep uncertainty, carry emotional weight, and have consequences for many stakeholders. The SaaS context adds specific pressures: venture capital timelines create artificial urgency, public metrics create accountability, and the continuous nature of subscriptions means customers feel the impact immediately."
+    saas_anti_patterns:
+      - "Delaying tough decisions until they become crises. In SaaS, the compounding nature of recurring revenue means that every month of delay in addressing a broken GTM motion, an underperforming leader, or a failing product line compounds the damage."
+      - "Making tough decisions in isolation. SaaS founders often carry the burden alone — advisors, board members, and executive coaches exist precisely for these moments."
+      - "Framing tough decisions as binary. 'Raise or die' is rarely the actual choice set. Most tough decisions have creative alternatives that emerge only when the full option space is explored."
+    saas_example: "A SaaS founder receives an acquisition offer at 8x ARR — a strong multiple. The company is growing 2x YoY with 18 months of runway. The tough decision framework surfaces the key tensions: the offer is above-market for the company's size, but the growth rate suggests significantly more value creation if they continue. The framework also surfaces the emotional dimension: the founder is tired, the team is burnt out, and the acquirer would provide stability. Rather than deciding immediately, the founder maps all stakeholders' interests, defines the minimum acceptable outcome for each, and discovers a third option: a growth round that partially liquidates the founder's equity while keeping the company independent."
+    benchmark_references: ["arr", "burn-multiple", "rule-of-40"]
+
+  # ─────────────────────────────────────────────
+  # GAME THEORY (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "game-theory-fundamentals"
+    category: "game-theory"
+    saas_relevance: "high"
+    saas_context: "SaaS markets are repeated games with observable moves — every product launch, pricing change, and funding announcement is visible to competitors. This makes game theory directly applicable. Key SaaS game theory situations include: pricing wars (dropping prices to compete, with the risk of a race to the bottom), feature parity battles (copying competitor features in an endless escalation), and platform ecosystem dynamics (cooperating with a platform that might become a competitor). Understanding Nash equilibria helps SaaS operators predict stable competitive outcomes and avoid destructive strategies."
+    saas_anti_patterns:
+      - "Engaging in price wars with better-funded competitors. The well-funded player can sustain losses longer. Compete on differentiation, not on price."
+      - "Ignoring the repeated-game nature of SaaS competition. Aggressive moves (poaching employees, FUD campaigns, predatory pricing) invite retaliation in a market where companies interact repeatedly."
+      - "Treating partner-competitor dynamics as static. A company that is a partner today (e.g., a platform you build on) may become a competitor tomorrow. Game theory helps model these transitions."
+    saas_example: "Two SaaS companies compete in the same category. Company A considers dropping prices by 30% to gain market share. Game theory analysis reveals this is a negative-sum game: Company B will match the price cut (dominant strategy in a repeated game), both companies end up at lower margins, and neither gains share. Instead, Company A invests the margin they would have sacrificed into product differentiation (vertical features, better integrations), creating asymmetric value that Company B cannot match through price reduction alone."
+    benchmark_references: ["win-rate", "arpu", "gross-margin"]
+
+  - skill: "first-mover-strategy"
+    category: "game-theory"
+    saas_relevance: "high"
+    saas_context: "First-mover advantage in SaaS is real but often overstated. True first-mover advantages in SaaS come from: network effects (the product becomes more valuable with more users, making it hard to displace), data advantages (early users generate data that improves the product), integration lock-in (becoming the standard that other tools integrate with), and brand-category association (becoming the verb: 'Slack me,' 'Zoom call'). Many SaaS categories, however, are won by fast followers who learn from the first mover's mistakes: Slack followed HipChat, Zoom followed WebEx, Figma followed Sketch."
+    saas_anti_patterns:
+      - "Assuming first-mover status guarantees victory. In SaaS, the product is continuously improvable — a fast follower with better execution, more capital, or superior UX can overtake the pioneer."
+      - "Over-investing in speed-to-market at the expense of product quality. Launching a broken product first does not create an advantage — it creates negative word-of-mouth that the fast follower exploits."
+      - "Ignoring the fast-follower threat. First movers must invest in defensibility (data moats, network effects, integration ecosystems) or the advantage dissipates as the category matures."
+    saas_example: "Figma was not the first browser-based design tool — it entered years after Sketch had established dominance. Figma's fast-follower advantage: they observed that Sketch's file-based workflow was the key weakness and built collaboration as the core architecture from day one. Sketch could not retrofit real-time collaboration into a file-based product. The first mover's architecture became its constraint, and the fast follower's architecture became its moat."
+    benchmark_references: ["activation-rate", "nps-saas", "nrr"]
+
+  - skill: "prisoners-dilemma-and-cooperation"
+    category: "game-theory"
+    saas_relevance: "moderate"
+    saas_context: "The prisoner's dilemma appears frequently in SaaS in competitive pricing, platform relationships, and data sharing. Two SaaS companies competing for the same customer both have the incentive to discount aggressively (defect), but if both discount, both lose margin (mutual defection). The cooperative outcome (maintaining prices, competing on value) is better for both but unstable without mechanisms to enforce it. In platform relationships, the dilemma is more acute: a SaaS company shares data with a platform partner (cooperate) to improve the integration, but the platform could use that data to build a competing feature (defect)."
+    saas_anti_patterns:
+      - "Cooperating indefinitely with a partner who repeatedly defects. If a platform partner keeps building features that compete with your product, continuing to invest in the integration is irrational."
+      - "Defecting preemptively out of fear. Refusing to integrate with platforms, share data with partners, or collaborate on standards out of fear of exploitation prevents the cooperative outcomes that drive SaaS ecosystem value."
+    saas_example: "A SaaS company builds on top of a major platform's API. The platform announces a native feature that partially overlaps with the SaaS company's product. This is a prisoner's dilemma: the SaaS company can (a) continue building on the platform and hope the native feature remains inferior, or (b) diversify to other platforms, reducing investment in the relationship. The optimal strategy from game theory: communicate directly with the platform, identify the non-overlapping use cases where the dedicated product is superior, and invest in depth of integration that makes the SaaS product complementary rather than competitive to the native feature."
+    benchmark_references: ["nrr", "win-rate"]
+
+  # ─────────────────────────────────────────────
+  # LEADERSHIP (5 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "delegation-and-empowerment"
+    category: "leadership"
+    saas_relevance: "high"
+    saas_context: "Delegation is the single biggest scaling bottleneck for SaaS founders. The transition from founder-does-everything to functional leadership is where most SaaS companies stall between $1M and $5M ARR. The challenge is SaaS-specific: founders built the product, sold the first customers, and configured the infrastructure — their deep context makes them faster than any hire in the short term. Effective delegation in SaaS requires building 'context transfer systems': documented processes, metric dashboards, decision frameworks, and explicit delegation of authority over specific functions with clear guardrails."
+    saas_anti_patterns:
+      - "Delegating responsibility without authority. Hiring a VP Sales but requiring founder approval for every discount or contract term makes the VP ineffective and signals distrust."
+      - "Delegating execution but retaining all strategic decisions. SaaS functional leaders must own both strategy and execution in their domain to be effective."
+      - "Re-doing delegated work. If the founder rewrites every marketing email and redesigns every feature after delegation, the team stops investing effort — learned helplessness sets in."
+    saas_example: "A SaaS CEO at $3M ARR hires a VP Engineering but continues reviewing every pull request and attending every sprint planning meeting. The VP cannot establish authority, senior engineers go around the VP to the CEO for decisions, and the CEO is still working 80-hour weeks. The fix: the CEO defines three explicit 'delegation contracts' — the VP owns all technical architecture decisions, sprint planning, and engineering hiring. The CEO retains input on product roadmap priorities but not implementation decisions. Monthly 1:1s replace daily involvement."
+    benchmark_references: ["arr"]
+
+  - skill: "decision-making-under-pressure"
+    category: "leadership"
+    saas_relevance: "high"
+    saas_context: "SaaS creates unique pressure situations: infrastructure outages affecting thousands of customers simultaneously, competitor launches that require rapid strategic response, fundraising timelines that force decisions with incomplete information, and key employee departures that leave critical functions uncovered. The subscription model amplifies pressure because revenue is earned continuously — every day of underperformance compounds. Decision-making under pressure in SaaS must account for the amplification effect of public dashboards, real-time metrics, and social media where customers can broadcast frustration instantly."
+    saas_anti_patterns:
+      - "Making strategic decisions during tactical crises. When the product is down, the correct decision is to fix it — not to have a strategic discussion about architecture. Separate crisis response from strategic response."
+      - "Using pressure as an excuse for poor process. 'We had to move fast' does not justify skipping customer communication, security review, or team alignment."
+      - "Allowing pressure to create a permanent state of urgency. SaaS companies that operate in constant crisis mode burn out their teams and make increasingly poor decisions."
+    saas_example: "A SaaS company's primary database goes down during a major customer's compliance audit. The CEO faces simultaneous decisions: (1) Technical: restore from backup vs. rebuild from replica (2) Customer: how to communicate with the affected customer (3) Business: whether to offer a credit or contract extension (4) Strategic: whether this incident reveals a systemic reliability problem requiring major infrastructure investment. Under pressure, the CEO sequences these correctly: technical fix first, customer communication within 30 minutes, business discussion after stability, and strategic discussion in the following week's executive meeting."
+    benchmark_references: ["nps-saas", "logo-churn"]
+
+  - skill: "employee-engagement-retention"
+    category: "leadership"
+    saas_relevance: "high"
+    saas_context: "SaaS companies compete for talent in one of the most competitive labor markets. Engineering, product management, and sales talent have abundant options, and the cost of attrition in SaaS is exceptionally high — a departing senior engineer takes 3-6 months of institutional knowledge and productivity, and a departing sales rep takes pipeline relationships and customer context. Engagement in SaaS is driven by: product quality (engineers want to work on well-architected systems), growth trajectory (employees want equity upside), learning opportunities (the talent market values skill development), autonomy (top SaaS talent resists micromanagement), and mission alignment (why this product matters)."
+    saas_anti_patterns:
+      - "Using equity as a substitute for culture. Stock options attract talent but do not retain it if the daily work environment is toxic, the product vision is unclear, or management is incompetent."
+      - "Measuring engagement through annual surveys instead of continuous signals. In SaaS, Slack activity, PR velocity, meeting attendance patterns, and 1:1 sentiment are real-time engagement indicators."
+      - "Treating all attrition as bad. Some attrition in SaaS is healthy — underperformers, culture mismatches, and employees who have outgrown their roles. Regrettable attrition (top performers leaving voluntarily) is the metric that matters."
+    saas_example: "A SaaS company's engineering team has 35% annual attrition. Exit interviews reveal the primary driver is not compensation but technical debt — engineers spend 60% of their time on maintenance rather than building new features. The company implements a '70/30 rule': 70% of engineering capacity on new features and improvements, 30% on tech debt reduction, with progress visible in a public dashboard. Attrition drops to 15% within two quarters because engineers see that leadership takes product quality seriously."
+    benchmark_references: ["gross-margin", "arr"]
+
+  - skill: "leading-through-change"
+    category: "leadership"
+    saas_relevance: "high"
+    saas_context: "SaaS companies undergo frequent, substantial change: pivots, pricing restructures, organizational redesigns, go-to-market transitions, and replatforming efforts. The pace is faster than traditional industries because the subscription model provides rapid feedback. Leading through change in SaaS requires specific capabilities: communicating 'why' when the data-driven reason may be complex (e.g., 'we are restructuring pricing because our expansion revenue model is broken'), managing the anxiety of teams whose work may become obsolete, and maintaining customer trust during transitions that affect their experience."
+    saas_anti_patterns:
+      - "Announcing major changes without preparation. A pricing restructure announced on Monday and implemented on Friday creates chaos with customers, sales, and support."
+      - "Changing too many things simultaneously. SaaS companies that restructure the team, change the pricing, and pivot the product simultaneously cannot determine what is working."
+      - "Under-communicating during change. SaaS teams that hear about strategic changes through Slack rumors rather than direct leadership communication lose trust rapidly."
+    saas_example: "A SaaS company transitions from a sales-led to a product-led growth model. The change affects every function: product must build self-serve onboarding, engineering must instrument usage tracking, marketing must shift from lead-gen to product-qualified leads, and sales must evolve from outbound prospecting to expansion selling. The CEO leads through change by: (1) publishing a 6-page memo explaining the strategic rationale with data, (2) running team-specific workshops on what changes for each function, (3) defining a 90-day transition plan with weekly metrics check-ins, and (4) explicitly addressing the fear: 'No one is losing their job — roles are evolving, and we will invest in retraining.'"
+    benchmark_references: ["activation-rate", "cac", "expansion-revenue-pct"]
+
+  - skill: "strategic-thinking-and-alignment"
+    category: "leadership"
+    saas_relevance: "critical"
+    saas_context: "Strategic alignment in SaaS means ensuring that product roadmap, go-to-market motion, pricing model, customer success strategy, and organizational structure all point in the same direction. Misalignment is the most common cause of SaaS underperformance — the product serves SMB but sales targets enterprise, the pricing encourages monthly churn but the model assumes annual contracts, or customer success is measured on retention but has no influence over the product roadmap. Strategic thinking in SaaS requires holding the entire system in view and identifying the misalignments that create friction."
+    saas_anti_patterns:
+      - "Defining strategy as 'grow revenue.' That is a goal, not a strategy. SaaS strategy must articulate where to compete (segments, geographies, use cases), how to win (differentiation, pricing, distribution), and what to deprioritize."
+      - "Aligning at the annual offsite and then drifting for 11 months. SaaS strategy requires monthly recalibration because feedback loops are fast and market conditions change rapidly."
+      - "Delegating strategic alignment to a strategy document. Alignment is maintained through persistent communication, metric alignment across teams, and regular cross-functional reviews — not through documents that no one reads."
+    saas_example: "A SaaS company's NRR is declining despite a strong NPS score. Strategic analysis reveals misalignment: the product team is building features for enterprise prospects (strategic initiative: 'move upmarket'), but the customer success team is compensated on logo retention (which is heavily SMB). Enterprise prospects see a product roadmap they like, but SMB customers see their needs deprioritized, leading to contraction and churn. The strategic fix: explicit segmentation with separate product roadmaps for SMB and enterprise, and realigning customer success compensation to include expansion revenue, not just retention."
+    benchmark_references: ["nrr", "grr", "expansion-revenue-pct", "logo-churn"]
+
+  # ─────────────────────────────────────────────
+  # STORYTELLING (1 skill)
+  # ─────────────────────────────────────────────
+
+  - skill: "story-structure-and-arc"
+    category: "storytelling"
+    saas_relevance: "high"
+    saas_context: "Storytelling is a critical skill for SaaS founders in three contexts: fundraising (the pitch narrative), sales (customer case studies and product narratives), and team alignment (the company origin story and vision narrative). The classic story arc — status quo, disruption, struggle, transformation, new normal — maps directly to the SaaS pitch structure: the market has a problem (status quo), existing solutions fail (disruption), our early customers struggled with this (struggle), our product transformed their workflow (transformation), and here is what the future looks like at scale (new normal). Investors fund narratives as much as metrics — a founder who cannot tell a compelling story will not raise effectively regardless of their numbers."
+    saas_anti_patterns:
+      - "Leading with product features instead of customer problems. The story must start with the protagonist's pain, not the solution's capabilities."
+      - "Telling a story that does not connect to the metrics. A compelling narrative that contradicts the unit economics or retention data will be dismantled by sophisticated investors."
+      - "Using the same story for every audience. The board wants a strategic narrative, the sales prospect wants a peer's success story, and the engineering team wants a technical vision narrative."
+    saas_example: "A SaaS founder structures their Series A pitch as a three-act story. Act 1: 'Every compliance team in fintech manually tracks 400+ regulatory changes per year. They use spreadsheets, email chains, and prayer.' Act 2: 'Our first 50 customers went from 40 hours/week of manual tracking to 2 hours/week. They caught 3 regulatory changes that would have resulted in fines totaling $2.1M.' Act 3: 'We have 50 customers, $1.5M ARR, 130% NRR, and a waiting list of 200 companies. With this round, we will build the compliance operating system for all of fintech.' The narrative arc makes the metrics memorable and the opportunity tangible."
+    benchmark_references: ["arr", "nrr"]
+
+  # ─────────────────────────────────────────────
+  # WRITING (1 skill)
+  # ─────────────────────────────────────────────
+
+  - skill: "writing-effective-emails"
+    category: "writing"
+    saas_relevance: "high"
+    saas_context: "Email remains the primary communication channel for SaaS businesses across every function: investor updates, customer onboarding sequences, sales outreach, support communication, internal announcements, and partnership proposals. In SaaS, email effectiveness directly impacts conversion rates (sales outreach), retention (customer communication), and fundraising success (investor updates). The SaaS-specific dimension is that email often serves as the first touch in a relationship (cold outreach) and the ongoing thread of a long-term relationship (monthly investor updates, quarterly business reviews) — it must work at both extremes."
+    saas_anti_patterns:
+      - "Sending generic, template-obvious sales outreach. SaaS buyers receive dozens of cold emails daily. Personalization based on the prospect's specific context (tech stack, recent funding, job postings) is mandatory."
+      - "Writing investor updates that hide bad news. The best investor updates lead with what went wrong, what was learned, and how the company is responding. Investors who discover problems late lose trust permanently."
+      - "Over-engineering onboarding email sequences. SaaS companies that send 15 emails in the first 14 days create fatigue. Focus on the 3-4 emails that drive activation, not a comprehensive drip campaign."
+    saas_example: "A SaaS founder's monthly investor update follows a consistent structure: three metrics (MRR, NRR, cash remaining), one win, one challenge, one ask. The email takes 90 seconds to read. When the founder needs a warm introduction, they send a brief, specific request ('Can you introduce me to [Name] at [Company]? We have 3 customers in their space and I believe we can help them with [specific problem].') rather than a generic 'know anyone who might be interested?' The specificity of SaaS metric language makes email communication more precise and more actionable."
+    benchmark_references: ["mrr", "nrr", "cac"]
+
+  # ─────────────────────────────────────────────
+  # AI LEADERSHIP (1 skill)
+  # ─────────────────────────────────────────────
+
+  - skill: "ai-vision-and-strategy"
+    category: "ai-leadership"
+    saas_relevance: "critical"
+    saas_context: "AI is the most significant strategic variable in SaaS since the cloud transition itself. Every SaaS company must develop an AI strategy along three dimensions: (1) AI-native product features — how AI enhances the core product (intelligent automation, predictive analytics, natural language interfaces), (2) AI-enabled operations — how AI improves internal efficiency (customer support bots, code generation, automated testing, churn prediction), and (3) AI competitive positioning — whether AI creates defensible advantage (proprietary models trained on customer data) or commoditizes the existing product (general-purpose AI tools replacing specialized SaaS). Failure to develop an AI strategy is now an existential risk for SaaS companies."
+    saas_anti_patterns:
+      - "Adding 'AI-powered' as a marketing label without genuine AI capability. SaaS buyers are becoming sophisticated enough to distinguish real AI features from rule-based automation with an AI wrapper."
+      - "Building AI features that depend on third-party foundation models without a defensibility plan. If the differentiation is a prompt on top of GPT, the moat is zero."
+      - "Ignoring the AI threat from below. General-purpose AI tools (ChatGPT, Claude, Copilot) can now perform tasks that previously required specialized SaaS products. Every SaaS company must answer: 'What does our product do that a general AI tool cannot?'"
+    saas_example: "A SaaS company providing contract analysis for legal teams faces an AI strategy decision. Option A: integrate a foundation model to add AI-powered clause detection (quick to ship, no moat, competitors will copy in months). Option B: build a proprietary model trained on their customers' 500,000 contract dataset, creating a data flywheel where more usage improves accuracy. Option C: pivot from a software tool to an AI-powered service that delivers contract analysis outcomes, not just a software interface. The AI strategy framework helps evaluate these options against defensibility, time to market, customer value, and competitive dynamics."
+    benchmark_references: ["nrr", "activation-rate", "nps-saas"]

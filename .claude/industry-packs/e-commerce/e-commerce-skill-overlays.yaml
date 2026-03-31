@@ -1,0 +1,431 @@
+# E-Commerce Industry Pack — Skill Overlays
+#
+# For 35 of the 158 Foreman skills, this file provides e-commerce-specific
+# context that the skill executor agent applies as additional framing. These
+# overlays do not replace the base skill content — they add a physical product
+# commerce lens.
+#
+# Every overlay reflects genuine e-commerce dynamics: inventory risk, COGS,
+# fulfillment, returns, seasonality, product assortment, channel mix, and
+# margin-driven decision-making. These are not SaaS frameworks relabeled with
+# "e-commerce" vocabulary. Physical product businesses carry inventory, ship
+# goods, process returns, and manage seasonal demand patterns — and that
+# reality must be visible in every overlay.
+#
+# Selection criteria for the 35 skills:
+#   - Frameworks with direct e-commerce application (strategy, pricing, marketing, ops)
+#   - Decision and thinking skills (used constantly in inventory, channel, and margin contexts)
+#   - Game theory skills applicable to supplier negotiation and competitive dynamics
+#   - Leadership skills most affected by e-commerce organizational structures
+#   - Negotiation skills relevant to supplier, channel, and fulfillment partner relationships
+#
+# Relevance tiers:
+#   critical — The e-commerce overlay materially changes how the skill is applied.
+#              The skill executor should always surface e-commerce context.
+#   high     — E-commerce context adds significant value. Surface when relevant.
+#   moderate — Useful e-commerce framing but the base skill works well as-is.
+
+pack_metadata:
+  sector: "e-commerce"
+  display_name: "E-Commerce"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# SKILL OVERLAYS
+# ═══════════════════════════════════════════════════════════════
+
+skill_overlays:
+
+  # ─────────────────────────────────────────────
+  # FRAMEWORKS (20 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "porters-five-forces"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "Porter's Five Forces in e-commerce must account for the extreme buyer power created by infinite digital alternatives and near-zero switching costs. Supplier power is concentrated in manufacturers and wholesalers who control production capacity, minimum order quantities, and lead times — a physical constraint absent in software. Threat of substitutes includes not just competing products but competing channels: Amazon, Walmart, Target, and every other retailer carrying similar goods. Rivalry is intensified by transparent pricing, review aggregation, and same-day delivery expectations set by Amazon."
+    ecommerce_anti_patterns:
+      - "Ignoring Amazon as a force in every analysis. Even if you do not sell on Amazon, Amazon's pricing, delivery speed, and product breadth set customer expectations in your category."
+      - "Underestimating supplier power. Manufacturers with minimum order quantities, long lead times, and exclusive distribution agreements hold leverage that software suppliers simply do not."
+      - "Confusing low barriers to entry with low threat of entry. Starting an e-commerce store is trivial; building a brand with repeat customers and efficient logistics is not. The threat comes from well-funded competitors, not hobby stores."
+    ecommerce_example: "A DTC skincare brand uses Five Forces to discover that supplier power is its most dangerous force: their contract manufacturer also supplies three competitors, has a 16-week lead time, and requires 10,000-unit minimums. Switching costs are high because the manufacturer holds proprietary formulations. This analysis triggers a strategic initiative to diversify manufacturing and bring formulation IP in-house — a defensive move that would never surface in a standard competitive analysis."
+    benchmark_references: ["gross-margin", "cac", "return-rate"]
+
+  - skill: "blue-ocean-strategy"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "Blue ocean strategy is structurally vital for e-commerce because commodity products face relentless price competition. The strategy canvas in e-commerce maps factors like price, product quality, packaging, delivery speed, customization, sustainability, community, and post-purchase experience. Blue oceans emerge when brands eliminate traditional retail factors (broad assortment, lowest price) and create new ones (curation, brand storytelling, unboxing experience, community membership). The most successful DTC brands — Glossier in beauty, Allbirds in footwear, Dollar Shave Club in grooming — found blue ocean by redefining the value curve, not by competing on features or price."
+    ecommerce_anti_patterns:
+      - "Pursuing a blue ocean through product differentiation alone without addressing the distribution and experience dimensions. A superior product sold through the same channels with the same experience is still in a red ocean."
+      - "Assuming that premium pricing automatically creates a blue ocean. Premium price without a differentiated value proposition beyond 'quality' positions the brand in a crowded luxury segment."
+      - "Ignoring that Amazon is the red ocean. Blue ocean strategy for e-commerce almost always means avoiding direct competition on Amazon by creating value dimensions that Amazon cannot replicate: curation, community, expertise, personalization."
+    ecommerce_example: "Dollar Shave Club drew a strategy canvas against Gillette and found that razors competed on blade count, lubrication strips, and pivoting heads — a classic red ocean of feature escalation. DSC eliminated all those factors and created new ones: subscription convenience, humorous brand voice, low monthly cost, and direct-to-door delivery. The blue ocean was not a better razor; it was a different buying experience."
+    benchmark_references: ["repeat-purchase-rate", "nps", "organic-traffic-pct"]
+
+  - skill: "business-model-canvas"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "The Business Model Canvas for e-commerce requires physical-product-specific interpretation of nearly every block. Revenue Streams must distinguish one-time purchases, subscription revenue, wholesale, and marketplace commissions. Cost Structure must explicitly itemize COGS, fulfillment, shipping, returns processing, payment processing, and inventory carrying costs — the variable costs that determine per-order profitability. Key Resources must include supplier relationships, inventory, and warehouse infrastructure. Key Activities must include demand forecasting, inventory planning, and fulfillment operations. The canvas is most powerful when used to compare a DTC-only model against an omnichannel model (DTC + wholesale + Amazon), revealing how each channel changes every block."
+    ecommerce_anti_patterns:
+      - "Omitting inventory and supply chain from Key Resources. Inventory is the largest capital commitment in most e-commerce businesses and the primary source of financial risk."
+      - "Treating 'Customer Relationships' as a single category. E-commerce has distinct relationship models: transactional one-time buyers, subscription members, loyalty program participants, and wholesale accounts."
+      - "Ignoring returns in the Cost Structure. Returns are not a marginal cost — they represent 10-30% of revenue in many categories and require dedicated processes and infrastructure."
+    ecommerce_example: "A DTC food brand uses the canvas to evaluate adding Amazon as a channel. The canvas reveals: Revenue Streams gain volume but at lower margin (Amazon fees + FBA costs). Cost Structure adds Amazon advertising and FBA fees while potentially cannibalizing higher-margin DTC sales. Customer Relationships shift from owned (email, SMS) to rented (Amazon owns the customer). Key Activities now include Amazon SEO, advertising management, and Seller Central operations. The canvas makes visible what intuition misses: Amazon may grow revenue while degrading the business model."
+    benchmark_references: ["contribution-margin", "gross-margin", "cac", "ltv", "return-rate"]
+
+  - skill: "four-ps-marketing"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "The Four Ps require deep e-commerce adaptation. Product means physical SKU management, assortment breadth and depth, packaging, and the unboxing experience — not a software feature set. Price in e-commerce is margin-driven: pricing must cover COGS + fulfillment + shipping + returns + marketing and leave contribution margin. Promotional pricing (discounts, sales, bundles) is a constant tension between volume and margin erosion. Place is channel mix strategy: own website, Amazon, Walmart Marketplace, wholesale to retailers, brick-and-mortar, social commerce (Instagram/TikTok Shop). Each channel has different economics, customer relationships, and operational requirements. Promotion spans paid media (Meta, Google, TikTok), email/SMS, influencer partnerships, content marketing, and PR — with attribution complexity across all channels."
+    ecommerce_anti_patterns:
+      - "Setting price based on competitor pricing without calculating contribution margin. In e-commerce, the floor price is COGS + fulfillment + shipping + returns + target margin, not what competitors charge."
+      - "Treating Amazon as 'just another channel' in the Place analysis. Amazon fundamentally changes the other three Ps: price is visible and compared instantly, product must compete with Amazon's own brands, and promotion requires Amazon-specific advertising."
+      - "Running promotions (sales, discounts, free shipping) without modeling the full contribution margin impact including increased return rates. Discounted purchases have higher return rates in most categories."
+    ecommerce_example: "A home goods DTC brand applies the Four Ps and discovers a structural problem in Place: 60% of revenue comes from their website at 35% contribution margin, while 25% comes from Amazon at 12% contribution margin. The remaining 15% from wholesale barely breaks even after trade spend. The Place analysis reveals that the brand has a channel problem, not a growth problem — scaling Amazon and wholesale dilutes overall profitability. The strategy shifts to growing DTC to 80%+ of revenue through email and content investment."
+    benchmark_references: ["aov", "cac", "contribution-margin", "email-revenue-pct", "cpa-by-channel"]
+
+  - skill: "net-promoter-score"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "NPS in e-commerce reflects the complete physical product experience — not just the product itself but the entire chain from discovery to delivery to use to potential return. A customer's NPS response is shaped by product quality, packaging, shipping speed, unboxing experience, product matching expectations, customer service responsiveness, and the ease of returns. NPS surveys should be triggered post-delivery (not post-purchase) and segmented by product category, shipping method, and whether the customer has returned items. The qualitative follow-up question is gold: e-commerce detractors often cite specific, fixable operational failures rather than abstract dissatisfaction."
+    ecommerce_anti_patterns:
+      - "Surveying immediately after purchase (checkout confirmation) rather than after delivery. The customer has not experienced the product yet, so the NPS measures the buying experience, not the brand experience."
+      - "Aggregating NPS across all product categories. A brand selling both premium and budget lines will see dramatically different NPS by tier. Category-level NPS drives actionable insights."
+      - "Ignoring NPS from customers who returned items. Returners are the most informative detractors — their feedback reveals the gap between product expectation and reality."
+    ecommerce_example: "A DTC apparel brand discovers that overall NPS is 42 (good) but NPS from customers who received orders via economy shipping is 18 (poor), while NPS from expedited shipping customers is 62 (excellent). The root cause is not shipping speed itself but inadequate packaging for economy routes — products arrive wrinkled and poorly presented. The fix is packaging redesign, not shipping upgrade subsidies."
+    benchmark_references: ["nps", "csat", "return-rate", "repeat-purchase-rate"]
+
+  - skill: "product-life-cycle"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "Product lifecycle in e-commerce applies both to individual SKUs and to the brand's product assortment as a whole. Individual products follow the classic introduction-growth-maturity-decline curve, but physical products experience lifecycle dynamics that software does not: seasonal demand patterns, fashion trend cycles, ingredient or material availability, and physical obsolescence. Assortment management requires deliberately maintaining a portfolio of products at different lifecycle stages — introducing new SKUs while harvesting mature ones and discontinuing declining ones. The cash flow implications are significant: new product introductions require inventory investment before revenue, while declining products tie up capital in unsold stock."
+    ecommerce_anti_patterns:
+      - "Holding declining SKUs in the assortment because of sunk cost in inventory. Slow-moving inventory consumes warehouse space, ties up capital, and complicates fulfillment operations."
+      - "Introducing too many new products simultaneously without the marketing budget to support each launch. New product introductions in e-commerce require coordinated investment in photography, content, paid media, and email campaigns."
+      - "Ignoring seasonal lifecycle patterns. Many e-commerce products have annual cycles (outdoor gear, holiday gifts, back-to-school) that compress the entire lifecycle into a 3-4 month window."
+    ecommerce_example: "A DTC accessories brand tracks lifecycle stage for each of its 80 SKUs and discovers that 35% of SKUs are in decline (selling fewer units each quarter with rising markdown frequency). These declining SKUs occupy 45% of warehouse space and 20% of the photography and marketing budget. The lifecycle analysis triggers a SKU rationalization: discontinue the bottom 20 SKUs, run clearance on the next 10, and redirect freed capital and marketing budget toward 8 new product launches in growth categories."
+    benchmark_references: ["inventory-turnover", "days-of-inventory", "gross-margin", "contribution-margin"]
+
+  - skill: "growth-share-matrix"
+    category: "frameworks"
+    ecommerce_relevance: "high"
+    ecommerce_context: "The BCG Growth-Share Matrix maps directly to e-commerce product portfolio and channel management. Stars are high-growth, high-share product categories or channels — invest aggressively. Cash Cows are mature product lines with strong, stable sales and proven margins — use their cash flow to fund new product development and market expansion. Question Marks are new product categories or channels with potential but unproven economics. Dogs are low-growth, low-share SKUs that consume inventory capital and warehouse space without contributing meaningful revenue or margin. The matrix is particularly useful for e-commerce brands deciding where to invest limited marketing and inventory capital across a growing product assortment."
+    ecommerce_anti_patterns:
+      - "Treating every SKU as a potential Star. A 500-SKU catalog likely has 20-30 Stars, 50-80 Cash Cows, and hundreds of Question Marks and Dogs. Capital allocation should reflect this distribution."
+      - "Killing all Dogs immediately without considering their role in the assortment. Some low-selling SKUs serve as range completers that drive traffic or support the brand story."
+      - "Investing in Question Marks without clear criteria for promotion to Star or demotion to Dog. Set time-bound inventory and marketing thresholds for new product experiments."
+    ecommerce_example: "A home goods brand maps its product lines: kitchen gadgets (Star — 40% YoY growth, category leader), bath textiles (Cash Cow — stable sales, 65% gross margin), outdoor furniture (Question Mark — growing market but low brand share), and decorative candles (Dog — declining sales, 8 months of inventory). The matrix drives a decision: invest the bath textiles' margin into scaling kitchen gadgets and testing outdoor furniture, while liquidating candle inventory and exiting the category."
+    benchmark_references: ["inventory-turnover", "gross-margin", "revenue"]
+
+  - skill: "disruptive-innovation"
+    category: "frameworks"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Disruptive innovation in e-commerce typically follows one of two patterns: disruption of the retail channel (DTC brands disrupting traditional retail distribution) or disruption of the product itself (simpler, cheaper, more convenient alternatives). The classic DTC disruption narrative — Warby Parker disrupting eyewear retail, Casper disrupting mattress retail, Harry's disrupting razor retail — follows the textbook pattern: enter at the bottom with a simpler proposition, use digital distribution to reach underserved customers, and build brand loyalty before incumbents respond. Understanding where your brand sits in this disruption cycle determines strategic priorities."
+    ecommerce_anti_patterns:
+      - "Assuming DTC channel innovation alone constitutes disruption. Selling the same product through a website at a similar price is not disruption — it is channel arbitrage, which is temporary."
+      - "Moving upmarket prematurely by adding premium product lines before dominating the entry-level segment. Casper's expansion into premium mattresses diluted their disruptive position."
+      - "Ignoring the sustaining innovation response from incumbents. When DTC razor brands proved demand, Gillette launched its own subscription service and acquired competitors. The disruption window is finite."
+    ecommerce_example: "Dollar Shave Club disrupted Gillette not with a better razor but with a simpler, cheaper, more convenient one delivered by subscription. Gillette initially ignored DSC because the product was 'inferior' — exactly the dismissal that enables disruption. By the time Gillette responded, DSC had built sufficient brand loyalty and distribution efficiency to be acquired by Unilever for $1 billion."
+    benchmark_references: ["cac", "repeat-purchase-rate", "organic-traffic-pct"]
+
+  - skill: "balanced-scorecard"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "The Balanced Scorecard for e-commerce maps across its four perspectives with physical-product specifics. Financial: Revenue, Contribution Margin, Gross Margin, LTV:CAC, Inventory Turnover. Customer: NPS, Repeat Purchase Rate, Return Rate, Time to Delivery, CSAT. Internal Process: Fulfillment Cost per Order, Order Accuracy Rate, Shipping Cost %, Days of Inventory, Stockout Rate. Learning & Growth: Product Development Cycle Time, Supplier Diversification, Team Cross-Training Rate, Technology Investment (ERP, WMS, CRM). The scorecard is powerful in e-commerce because physical operations generate abundant real-time data, but most brands track financial and customer metrics while neglecting internal process and learning perspectives."
+    ecommerce_anti_patterns:
+      - "Over-weighting financial metrics at the expense of operational ones. In e-commerce, internal process failures (stockouts, fulfillment errors, slow shipping) manifest as financial problems with a lag."
+      - "Ignoring inventory metrics in the scorecard. Inventory is the largest asset on most e-commerce balance sheets and the primary driver of cash flow health."
+      - "Treating the scorecard as a reporting tool rather than a decision tool. Each metric should have a clear owner, an action threshold, and a documented response playbook when the threshold is breached."
+    ecommerce_example: "A DTC supplement brand implements a balanced scorecard and discovers a dangerous disconnect: Financial metrics are strong (revenue growing 30% YoY, contribution margin 28%), but Internal Process metrics are deteriorating (days of inventory rising from 45 to 90, fulfillment cost per order increasing 20%, stockout frequency doubling). The scorecard reveals that rapid revenue growth is straining operations — and if internal process deterioration continues, it will eventually destroy the financial results."
+    benchmark_references: ["revenue", "contribution-margin", "gross-margin", "nps", "repeat-purchase-rate", "return-rate", "fulfillment-cost-per-order", "inventory-turnover", "days-of-inventory"]
+
+  - skill: "swot-pest-analysis"
+    category: "frameworks"
+    ecommerce_relevance: "high"
+    ecommerce_context: "SWOT and PEST in e-commerce must address the physical supply chain, seasonal demand, and channel dependencies that define the sector. Political: tariffs and trade policy (critical for imported goods), product safety regulations (FDA, CPSC), and state-level sales tax complexity. Economic: consumer spending power, shipping cost inflation, raw material price volatility, and interest rates (affecting inventory financing costs). Social: sustainability expectations, influencer culture driving product discovery, and generational shopping preferences (Gen Z social commerce, Millennial DTC loyalty). Technological: AI-driven personalization, 3D/AR product visualization, same-day delivery infrastructure, and social commerce platform evolution."
+    ecommerce_anti_patterns:
+      - "Listing 'strong brand' as a strength without evidence. In e-commerce, brand strength is measured by organic traffic percentage, direct URL visits, repeat purchase rate, and NPS — not by the founder's intuition."
+      - "Ignoring tariff and trade policy risk for brands sourcing from Asia. A 20% tariff increase on Chinese imports can eliminate gross margin overnight."
+      - "Treating 'Amazon' as a threat without specifying the mechanism: is Amazon a threat as a competing retailer, as a private label competitor, or as a platform that owns your customer relationship?"
+    ecommerce_example: "A DTC home goods brand sources 80% of products from China. PEST analysis identifies tariff escalation as a high-probability economic risk (current 25% Section 301 tariffs could increase). SWOT reveals that China-only sourcing is a critical weakness, while the brand's design capability (creating products that are not easily replicated by Amazon Basics) is a strength. This analysis triggers a dual initiative: diversify manufacturing to Vietnam and India (reduce PEST vulnerability) while investing in proprietary designs with utility patents (strengthen SWOT position)."
+    benchmark_references: ["gross-margin", "cac", "organic-traffic-pct"]
+
+  - skill: "scenario-planning"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "Scenario planning in e-commerce must account for variables unique to physical product businesses: supply chain disruption (container shortages, factory closures, raw material scarcity), seasonal demand volatility (holiday season can represent 30-50% of annual revenue), channel risk (Amazon policy changes, Meta ad cost spikes), and inventory commitment risk (orders placed months in advance based on demand forecasts). The planning horizon must align with manufacturing lead times — a brand with 16-week production cycles must plan scenarios 4-6 months out. E-commerce scenarios should model three critical dimensions: demand volatility (upside, base, downside), supply chain reliability (normal, disrupted, severely disrupted), and channel economics (stable, degrading, crisis)."
+    ecommerce_anti_patterns:
+      - "Planning for a single demand forecast. E-commerce demand is inherently volatile — seasonal, trend-driven, and influenced by viral moments. Scenario planning must include demand upside (stockout risk) alongside demand downside (excess inventory risk)."
+      - "Ignoring supply chain lead time in scenarios. A scenario that requires 'pivot to new supplier' is not actionable if the new supplier requires 16 weeks to produce and the scenario horizon is 8 weeks."
+      - "Treating marketing channel costs as stable in all scenarios. Meta and Google CPMs can increase 30-50% during Q4, fundamentally changing acquisition economics during peak season."
+    ecommerce_example: "A DTC brand planning for Q4 builds three scenarios: (1) Base case: demand inline with last year +20%, supply chain on schedule, marketing costs up 15%. (2) Upside: viral product moment doubles demand in November; test whether inventory can support 2x orders and whether fulfillment can ship within 3 days at peak volume. (3) Downside: supply chain delay pushes key SKU arrival to December 15; model revenue impact of 4-week stockout on the hero product and evaluate air freight costs to bridge the gap."
+    benchmark_references: ["days-of-inventory", "inventory-turnover", "contribution-margin", "shipping-cost-pct"]
+
+  - skill: "cialdini-influence"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "Cialdini's six principles of influence are the foundation of e-commerce conversion optimization. Reciprocity: free samples, generous return policies, and surprise gifts in orders drive repeat purchases. Scarcity: limited editions, low-stock warnings, and countdown timers drive urgency. Authority: expert endorsements, certification badges, and media mentions build trust. Social Proof: customer reviews, user-generated content, and purchase count indicators reduce buying anxiety. Liking: brand personality, founder story, and lifestyle alignment drive affinity. Commitment & Consistency: email list signup, wishlist creation, and loyalty programs create behavioral momentum toward purchase."
+    ecommerce_anti_patterns:
+      - "Overusing scarcity tactics with false urgency. Customers learn quickly that 'only 3 left' is permanent and 'sale ends tonight' resets tomorrow. Fake scarcity destroys trust."
+      - "Relying on social proof (reviews) without investing in generating it. Fewer than 5% of customers leave reviews unprompted. Active review solicitation programs are essential."
+      - "Applying influence principles to the product page while neglecting the post-purchase experience. Reciprocity and liking are most powerful after the first purchase — the unboxing experience, follow-up emails, and surprise gifts create the emotional connection that drives repeat purchasing."
+    ecommerce_example: "A DTC beauty brand applies all six principles to their customer journey: Reciprocity — free sample included with every order. Social Proof — reviews with photos displayed prominently, UGC gallery on product pages. Scarcity — genuinely limited seasonal collections. Authority — dermatologist endorsement on product pages. Liking — founder's personal story woven into packaging. Commitment — skincare quiz creates personalized routine, making the first purchase feel like committing to a program rather than buying a single product."
+    benchmark_references: ["conversion-rate", "cart-abandonment-rate", "repeat-purchase-rate", "aov"]
+
+  - skill: "systems-thinking"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "E-commerce businesses are complex systems with feedback loops and delays that produce counterintuitive outcomes. The core system dynamics include: the inventory-cash cycle (inventory investment ties up cash, which limits marketing spend, which reduces revenue, which constrains inventory investment); the discount-return loop (discounts increase volume but attract price-sensitive buyers with higher return rates, which reduces margins, which pressures more discounting); the quality-growth tension (scaling too fast degrades fulfillment quality, which increases returns and reduces NPS, which kills repeat purchases, which stalls growth). Systems thinking is essential because e-commerce operators frequently solve one problem while creating another downstream."
+    ecommerce_anti_patterns:
+      - "Treating marketing and operations as independent systems. A marketing campaign that drives a 50% order spike will fail if fulfillment cannot scale, and the resulting delivery delays will damage the brand for months."
+      - "Optimizing individual metrics without modeling the system effects. Reducing shipping cost by switching to economy carriers reduces the shipping-cost metric but increases delivery time, which reduces NPS, which reduces repeat purchase rate."
+      - "Ignoring time delays. Inventory decisions made today manifest as stockouts or excess 3-6 months later. Marketing spend today creates customers whose LTV plays out over 12-24 months."
+    ecommerce_example: "A DTC food brand runs a 40%-off sale that generates 3x normal volume. Systems thinking reveals the cascading effects: fulfillment team works overtime (increased labor cost per order), shipping errors triple (returns spike), the discount attracts low-intent buyers (first-cohort repeat rate is 8% versus normal 35%), and the 40% discount becomes the new reference price (customers wait for the next sale instead of buying at full price). The sale increased GMV by 200% but decreased contribution margin by 40% and degraded long-term unit economics."
+    benchmark_references: ["contribution-margin", "return-rate", "repeat-purchase-rate", "fulfillment-cost-per-order"]
+
+  - skill: "kaizen-bpr"
+    category: "frameworks"
+    ecommerce_relevance: "critical"
+    ecommerce_context: "Kaizen (continuous improvement) and BPR (business process reengineering) apply directly to the physical operations that determine e-commerce profitability: warehouse processes, fulfillment workflows, returns processing, inventory receiving, quality inspection, and customer service procedures. In e-commerce, small operational improvements compound: reducing pick-and-pack time by 30 seconds per order saves $0.15 per order, which at 100,000 orders per year saves $15,000 — enough to fund a fulfillment technology upgrade. Kaizen is the operational philosophy that transforms e-commerce from a volume game (grow revenue) to a margin game (improve contribution margin per order)."
+    ecommerce_anti_patterns:
+      - "Applying Kaizen only to warehouse operations while ignoring the product page-to-checkout conversion funnel. Every step in the customer journey — product discovery, page load speed, checkout flow, post-purchase communication — is a process that can be continuously improved."
+      - "Pursuing BPR (radical redesign) when Kaizen (incremental improvement) would suffice. Replacing a functional 3PL with in-house fulfillment is BPR; optimizing pick paths and packaging at the existing 3PL is Kaizen."
+      - "Measuring process improvement without linking it to unit economics. Every operational improvement should be expressed in its impact on contribution margin per order."
+    ecommerce_example: "A brand processing 500 orders per day applies Kaizen to its returns workflow. Current state: returns arrive unsorted, are inspected individually, require manual restocking decisions, and take 7 days to process. Kaizen improvements: standardized return receiving bins by category, batch inspection with pass/fail criteria, automated restocking rules by product condition, and same-day processing target. Result: return processing cost drops from $8 per return to $3.50, and 15% of returns that were previously written off as unsellable are recaptured as 'like new' inventory."
+    benchmark_references: ["fulfillment-cost-per-order", "return-rate", "shipping-cost-pct", "contribution-margin"]
+
+  - skill: "tipping-point"
+    category: "frameworks"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Tipping point dynamics in e-commerce manifest through virality, influencer cascades, and social proof accumulation. The three agents of change map to e-commerce: Connectors are influencers and brand ambassadors who amplify product discovery to large audiences. Mavens are product reviewers, comparison bloggers, and Reddit community members who provide detailed, trusted product evaluations. Salesmen are the brand's own content and UGC that converts awareness to purchase. The stickiness factor is the product experience — unboxing, quality, and post-purchase delight. The power of context includes seasonal timing, cultural moments, and platform algorithm alignment."
+    ecommerce_anti_patterns:
+      - "Confusing paid influencer reach with organic tipping point dynamics. Paid influencer posts drive temporary spikes; genuine tipping points require organic sharing driven by product delight."
+      - "Pursuing virality without the operational infrastructure to support it. A TikTok viral moment that generates 10x normal order volume will destroy the brand if fulfillment cannot keep up."
+      - "Ignoring the stickiness factor (product quality and experience). No amount of marketing can create a tipping point if the product experience does not generate genuine advocacy."
+    ecommerce_example: "Stanley's 40oz Quencher tumbler reached its tipping point through the convergence of all three elements: The Buy Guide (Mavens) advocated persistently for the product. Influencers on TikTok (Connectors) created unboxing and lifestyle content. The product's color variety and visual appeal (Stickiness) made it inherently shareable. The context was the 'emotional support water bottle' cultural moment. Stanley went from $73M to $750M in revenue in two years — a genuine demand tipping point, not a marketing campaign."
+    benchmark_references: ["organic-traffic-pct", "repeat-purchase-rate", "nps"]
+
+  - skill: "eisenhower-matrix"
+    category: "frameworks"
+    ecommerce_relevance: "high"
+    ecommerce_context: "The Eisenhower Matrix is essential for e-commerce founders because the operational intensity of physical product businesses creates a constant stream of urgent-but-not-important tasks: inventory reorders, fulfillment exceptions, customer service escalations, shipping carrier issues, and marketing campaign management. Without rigorous prioritization, e-commerce operators spend 80% of their time on Quadrant III (urgent, not important) while neglecting Quadrant II (important, not urgent): supplier diversification, brand building, product development, and systems automation."
+    ecommerce_anti_patterns:
+      - "Treating every stockout as a Quadrant I emergency. Some stockouts on low-margin, low-velocity SKUs are acceptable and should not displace strategic work."
+      - "Classifying all marketing 'opportunities' (flash sale partnerships, influencer deals, platform promotions) as Quadrant I. Most are Quadrant III at best."
+      - "Neglecting Quadrant II inventory planning. Inventory decisions require long lead times. Delaying planning until it becomes urgent means every inventory decision is reactive and suboptimal."
+    ecommerce_example: "A DTC founder maps their weekly tasks to the Eisenhower Matrix and discovers that 60% of their time goes to Quadrant III: answering customer service emails that a team member could handle, manually processing returns, and adjusting individual product ad campaigns. They redesign their week: delegate customer service and returns processing (Quadrant III), block Tuesday and Thursday mornings for product development and supplier negotiation (Quadrant II), and define clear escalation criteria for what constitutes a genuine Quadrant I operational emergency."
+    benchmark_references: ["contribution-margin", "fulfillment-cost-per-order"]
+
+  - skill: "doblin-ten-types"
+    category: "frameworks"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Doblin's Ten Types of Innovation applied to e-commerce reveals that most brands innovate only on products (Performance) while ignoring the other nine types. E-commerce-specific innovation opportunities across the ten types: Profit Model (subscription, bundle pricing, membership); Network (supplier partnerships, shared warehousing); Structure (virtual teams, 3PL orchestration); Process (fulfillment automation, returns as exchange); Product Performance (materials, formulations, features); Product System (complementary product bundles, curated routines); Service (personalization, loyalty programs, post-purchase care); Channel (social commerce, pop-ups, wholesale); Brand (community building, founder story, values alignment); Customer Engagement (UGC programs, unboxing experience, referral programs)."
+    ecommerce_anti_patterns:
+      - "Innovating only on Product Performance. A better product in a crowded category with identical distribution, pricing, and experience is not innovation — it is incremental improvement in a red ocean."
+      - "Ignoring Channel innovation. How and where the customer encounters and purchases the product is often more differentiated than the product itself."
+      - "Overlooking Service innovation. Post-purchase experience (delivery tracking, unboxing, follow-up communication, easy returns) is the most under-innovated area in e-commerce."
+    ecommerce_example: "A DTC pet food brand audits itself against the ten types and discovers innovation concentrated entirely in Product Performance (premium ingredients). They identify three underexploited types: Profit Model (launch a subscription with auto-ship at a discount), Customer Engagement (build a community forum for pet health advice), and Product System (create a complementary treats and supplements line that bundles with the core food product). Each innovation type creates a separate competitive advantage that product quality alone cannot provide."
+    benchmark_references: ["repeat-purchase-rate", "aov", "nps", "ltv"]
+
+  - skill: "covey-seven-habits"
+    category: "frameworks"
+    ecommerce_relevance: "moderate"
+    ecommerce_context: "The Seven Habits apply to e-commerce founders with particular urgency because the operational demands of physical product businesses create a reactive, firefighting mentality. Habit 2 (Begin with the End in Mind) requires defining whether the business is being built for profitability, exit, or lifestyle — each demands different decisions on inventory investment, channel strategy, and growth rate. Habit 3 (Put First Things First) maps to the Eisenhower Matrix challenge: e-commerce founders must protect strategic time for brand building, product development, and systems design from the constant pull of operational urgency. Habit 7 (Sharpen the Saw) includes learning supply chain management, logistics negotiation, and financial modeling — operational skills that many DTC founders lack."
+    ecommerce_anti_patterns:
+      - "Operating without Habit 2 clarity. A founder building for acquisition should optimize for revenue growth and brand equity; a founder building for profitability should optimize for contribution margin and repeat purchase rate. These strategies conflict."
+      - "Neglecting Habit 4 (Think Win-Win) in supplier relationships. Short-term extraction (demanding lower prices, delaying payments) degrades supplier quality and reliability."
+    ecommerce_example: "A DTC founder applies Habit 2 and realizes they have been implicitly building for acquisition (prioritizing revenue growth and brand awareness) while personally wanting a lifestyle business (profitability and flexibility). This misalignment explains why they feel burnt out and cash-constrained despite impressive growth. The framework triggers a strategic pivot: reduce growth rate from 50% to 25%, invest in contribution margin improvement, and build systems that reduce the founder's operational involvement."
+    benchmark_references: ["contribution-margin", "repeat-purchase-rate"]
+
+  - skill: "smart-goals"
+    category: "frameworks"
+    ecommerce_relevance: "high"
+    ecommerce_context: "SMART goals in e-commerce must account for the physical constraints and seasonal rhythms unique to the business. Specific means identifying the lever — is the goal about traffic, conversion, AOV, repeat rate, or contribution margin? Measurable requires reliable data infrastructure — many e-commerce brands track revenue but lack accurate per-order contribution margin, return rate by SKU, or true customer acquisition cost by channel. Achievable must account for supply chain lead times — a goal to launch a new product line in 60 days is not achievable if manufacturing lead time is 90 days. Relevant must align with the correct stage — a brand at $500K revenue should set goals around repeat purchase rate, not international expansion. Time-Bound must respect seasonal patterns — setting an annual revenue goal without modeling Q4 concentration is setting a goal in the dark."
+    ecommerce_anti_patterns:
+      - "Setting revenue goals without paired margin goals. A revenue target without a contribution margin floor incentivizes discounting, which grows revenue while destroying economics."
+      - "Ignoring inventory implications of growth goals. A goal to double revenue requires doubling inventory investment, which requires financing. The capital plan must accompany the growth goal."
+      - "Setting annual goals without quarterly milestones that account for seasonality. A $4M annual revenue goal might require $600K in Q1 and $1.5M in Q4."
+    ecommerce_example: "A DTC brand translates 'grow the business' into SMART goals: Increase contribution margin from 22% to 28% by December 31 by (1) renegotiating supplier pricing (target: 3pp COGS reduction), (2) reducing return rate from 18% to 14% through improved size guides, and (3) reducing fulfillment cost per order from $5.50 to $4.00 by switching to a regional 3PL network. Each sub-goal is specific, measurable, achievable within the timeframe, relevant to profitability, and time-bound."
+    benchmark_references: ["contribution-margin", "return-rate", "fulfillment-cost-per-order", "gross-margin"]
+
+  - skill: "organisational-culture"
+    category: "frameworks"
+    ecommerce_relevance: "moderate"
+    ecommerce_context: "E-commerce organizational culture is shaped by the hybrid nature of the business: creative (brand, product, marketing) and operational (warehouse, fulfillment, logistics, customer service) functions must coexist. The cultural challenge is bridging the gap between the brand team that wants beautiful packaging and the operations team that needs standardized boxes for efficient fulfillment. High-performing e-commerce cultures develop shared metrics (contribution margin per order) that align creative and operational incentives. Seasonal intensity (Q4 crunch) tests culture severely — brands that treat warehouse staff as second-class citizens during peak season create lasting cultural damage."
+    ecommerce_anti_patterns:
+      - "Building a 'tech startup' culture in a business that is fundamentally logistics-dependent. E-commerce requires operational discipline alongside creative energy."
+      - "Treating warehouse and fulfillment staff as interchangeable labor. The best e-commerce operations build fulfillment team culture with the same intention as headquarters culture."
+    ecommerce_example: "A DTC brand experiencing fulfillment errors and warehouse staff turnover discovers that the root cause is cultural: the brand team makes last-minute packaging changes for seasonal campaigns without consulting operations, creating confusion and rework. The fix is not operational — it is cultural: institute joint planning sessions between brand and operations, establish change-request lead times, and create a shared metric (on-time, error-free delivery rate) that both teams own."
+    benchmark_references: ["fulfillment-cost-per-order", "return-rate", "csat"]
+
+  # ─────────────────────────────────────────────
+  # GAME THEORY (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "game-theory-fundamentals"
+    category: "game-theory"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Game theory in e-commerce governs three critical relationships: supplier negotiations (repeated games with asymmetric information), competitive pricing dynamics (pricing signals and responses among direct competitors), and channel strategy (the marketplace vs. DTC game where brands and platforms compete for customer ownership). The most consequential game in e-commerce is the Amazon dependency game: brands grow volume on Amazon but surrender customer data, margin, and relationship to the platform. The rational short-term play (sell on Amazon) creates long-term strategic vulnerability."
+    ecommerce_anti_patterns:
+      - "Treating supplier negotiations as one-shot games. Supplier relationships in e-commerce are repeated games where reputation, reliability, and growth potential create cooperative equilibria that pure price negotiation destroys."
+      - "Engaging in price wars without modeling the equilibrium. In commoditized e-commerce categories, a race to the bottom benefits no one — Nash equilibrium is mutual low profit."
+    ecommerce_example: "A DTC supplement brand models the Amazon channel game: joining Amazon increases short-term revenue 40% but trains customers to buy on Amazon (where the brand has no relationship data and pays 30% in fees) instead of the brand's website (where contribution margin is 15pp higher). Game theory reveals the prisoner's dilemma: every brand individually benefits from joining Amazon, but collectively all brands lose margin. The brand decides to stay off Amazon and invest the would-be-Amazon-margin in DTC acquisition and retention."
+    benchmark_references: ["contribution-margin", "cac", "organic-traffic-pct"]
+
+  - skill: "first-mover-strategy"
+    category: "game-theory"
+    ecommerce_relevance: "high"
+    ecommerce_context: "First mover advantage in e-commerce is weaker than in software because physical products can be copied and manufactured by competitors within months. The durable first-mover advantages in e-commerce are brand recognition (owning a category name), supply chain relationships (exclusive manufacturing partnerships), review accumulation (hundreds of positive reviews create a moat on Amazon), and email/SMS list building (owned audience that competitors cannot replicate). First mover disadvantage is real in e-commerce: the first brand educates the market and establishes the category while second movers learn from mistakes and enter with optimized products and proven marketing playbooks."
+    ecommerce_anti_patterns:
+      - "Assuming product uniqueness will persist. In e-commerce, any successful physical product will be copied by competitors (including Amazon Basics) within 6-12 months. First mover advantage must be invested in building durable moats."
+      - "Rushing to market with subpar product quality to 'be first.' In e-commerce, negative reviews from early customers create a lasting brand tax. The cost of bad reviews often exceeds the benefit of being first."
+    ecommerce_example: "Allbirds moved first in sustainable wool sneakers and invested the first-mover window in building brand identity, accumulating reviews, and establishing retail partnerships. When Amazon launched a virtually identical shoe at half the price, Allbirds' first-mover advantages — brand association with sustainability, 10,000+ reviews, and wholesale distribution — partially protected the position. The lesson: use the first-mover window to build moats, not to coast."
+    benchmark_references: ["organic-traffic-pct", "nps", "repeat-purchase-rate"]
+
+  - skill: "information-asymmetry"
+    category: "game-theory"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Information asymmetry pervades e-commerce at multiple levels. Between brands and customers: customers cannot inspect physical products before purchasing online, creating uncertainty that reviews, photos, and return policies must address. Between brands and suppliers: manufacturers have information about production costs and capacity that brands lack, enabling supplier margin extraction. Between brands and marketplace platforms: Amazon has granular data on product demand, pricing, and customer behavior that sellers do not — and uses that information to launch competing private-label products."
+    ecommerce_anti_patterns:
+      - "Accepting information asymmetry with suppliers as permanent. Brands should invest in understanding true manufacturing costs through factory audits, alternative quotes, and bill-of-materials analysis."
+      - "Ignoring the information disadvantage on Amazon. Amazon's data advantage is a structural feature of selling on their platform. Brands that do not invest in their own customer data (via DTC) operate at a permanent disadvantage."
+    ecommerce_example: "A DTC housewares brand selling on Amazon discovers that their highest-margin product category experiences a 40% sales decline after Amazon launches an Amazon Basics version at 50% lower price. The information asymmetry was structural: Amazon had access to exact demand data, pricing sensitivity, and return rates for the category — and used that information to compete directly. The brand exits Amazon for that category and invests in DTC-exclusive products with design IP that Amazon cannot easily replicate."
+    benchmark_references: ["gross-margin", "cac", "return-rate"]
+
+  - skill: "negotiation-game-theory"
+    category: "game-theory"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Negotiation game theory in e-commerce applies to the three most consequential negotiations: supplier/manufacturer terms (pricing, MOQs, payment terms, exclusivity), channel partner agreements (wholesale margins, co-op advertising, placement fees), and carrier/3PL contracts (shipping rates, volume commitments, service levels). Each negotiation has game-theoretic structure: the supplier negotiation is a repeated game where both parties have BATNA (Best Alternative to Negotiated Agreement) that shapes leverage. The carrier negotiation is a competitive auction where multiple providers bid for volume. The retail/wholesale negotiation is a credence game where the brand's perceived demand strength determines leverage."
+    ecommerce_anti_patterns:
+      - "Negotiating supplier pricing in isolation from other terms. In e-commerce, payment terms (net-30 vs. net-60), minimum order quantities, and lead time flexibility are often more valuable than a 2% price reduction."
+      - "Accepting carrier rates without competitive bidding. Carrier pricing in e-commerce is highly negotiable, and switching costs are low. Annual rate reviews with competitive bids should be standard practice."
+    ecommerce_example: "A DTC brand negotiating with a contract manufacturer frames the negotiation game-theoretically: the manufacturer's BATNA is other customers (moderate — they have capacity), the brand's BATNA is other manufacturers (weak — the current manufacturer holds proprietary formulations). This power imbalance means price negotiation is futile. Instead, the brand negotiates on a different dimension: extended payment terms (net-60 instead of prepayment) and flexible MOQs for new product testing. Both concessions are low-cost for the manufacturer but high-value for the brand's cash flow and product development agility."
+    benchmark_references: ["gross-margin", "days-of-inventory", "contribution-margin"]
+
+  # ─────────────────────────────────────────────
+  # NEGOTIATION (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "cooperative-negotiation"
+    category: "negotiation"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Cooperative negotiation in e-commerce is essential for the long-term supplier and channel relationships that sustain physical product businesses. Unlike transactional negotiations, e-commerce brands negotiate with the same manufacturers, distributors, and retail partners repeatedly over years. Cooperative frameworks (interest-based bargaining, value creation, expanding the pie) produce better outcomes because both parties depend on the relationship: the brand needs reliable production and favorable terms, while the supplier needs predictable volume and growth."
+    ecommerce_anti_patterns:
+      - "Treating supplier negotiations as adversarial. Extracting maximum short-term price concessions degrades supplier willingness to prioritize your orders, invest in quality, or accommodate rush requests."
+      - "Failing to share demand forecasts with manufacturing partners. Information sharing creates cooperative surplus — suppliers who understand demand patterns can optimize production schedules, reducing both parties' costs."
+    ecommerce_example: "A DTC beauty brand approaches contract manufacturing negotiations cooperatively: instead of demanding a 10% price reduction, they offer a 3-year volume commitment (worth more to the manufacturer than a short-term discount) in exchange for priority production scheduling, 30% lower MOQs for new product testing, and net-60 payment terms. Both parties gain more value than pure price negotiation would produce."
+    benchmark_references: ["gross-margin", "days-of-inventory"]
+
+  - skill: "competitive-negotiation"
+    category: "negotiation"
+    ecommerce_relevance: "moderate"
+    ecommerce_context: "Competitive negotiation tactics apply in specific e-commerce contexts: carrier rate negotiations (where alternatives exist and pricing is commodity), retail buyer negotiations (where power asymmetry favors the retailer), and distressed situations (negotiating with a supplier who has missed delivery deadlines or quality standards). In e-commerce, the most important competitive negotiation skill is BATNA development — having credible alternatives to every key relationship: multiple 3PL options, multiple carrier contracts, and multiple manufacturing sources."
+    ecommerce_anti_patterns:
+      - "Using competitive tactics with a sole-source supplier. Without a credible BATNA, competitive negotiation produces resentment without results."
+      - "Threatening to leave a retail partner without having alternative distribution. The threat must be credible to have leverage."
+    ecommerce_example: "A DTC brand negotiating carrier rates for the coming year uses competitive tactics: they obtain quotes from three carriers, share the best rate as an anchor, and negotiate with each carrier against the others. The competitive dynamic — each carrier knowing alternatives exist — produces a 15% average rate reduction, saving $180K annually on a $1.2M shipping budget."
+    benchmark_references: ["shipping-cost-pct", "fulfillment-cost-per-order"]
+
+  # ─────────────────────────────────────────────
+  # THINKING (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "enemies-of-clear-thinking"
+    category: "thinking"
+    ecommerce_relevance: "high"
+    ecommerce_context: "E-commerce founders face specific cognitive biases that distort decision-making. Sunk cost fallacy: continuing to invest in slow-moving inventory because money has already been spent on it. Survivorship bias: studying only successful DTC brands while ignoring the thousands that failed with similar strategies. Confirmation bias: interpreting early sales data as product-market fit when it may reflect paid acquisition rather than organic demand. Anchoring: fixating on a target price point (matching competitors) without calculating whether that price produces positive contribution margin. Recency bias: over-weighting last month's performance when making inventory decisions for 6 months ahead."
+    ecommerce_anti_patterns:
+      - "Holding dead inventory because of sunk cost. The purchase price is gone. The only question is: does the liquidation value exceed the carrying cost of holding it longer?"
+      - "Copying the strategy of a successful DTC brand without understanding the survivorship bias — for every Glossier, there are 500 beauty brands that executed similar playbooks and failed."
+    ecommerce_example: "A DTC founder holds $150K in slow-moving inventory (9 months of supply) because 'we already paid for it.' Sunk cost fallacy analysis reveals: the inventory occupies 40% of warehouse space ($3,000/month in rent), ties up $150K in capital that could earn 15% return if deployed in marketing, and risks further depreciation as the products approach trend obsolescence. The rational decision is to liquidate at 50% of cost and redeploy the capital."
+    benchmark_references: ["days-of-inventory", "inventory-turnover", "contribution-margin"]
+
+  - skill: "evaluating-and-deciding"
+    category: "thinking"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Evaluation and decision-making in e-commerce must account for the physical constraints that do not exist in software: inventory commits capital for months, manufacturing has lead times, shipping contracts lock in rates, and seasonal windows are finite. Decisions must be evaluated not just on expected value but on reversibility — a decision to commit to 50,000 units of a new product is far less reversible than a decision to test a new marketing channel. E-commerce decision-making should weight irreversibility, capital commitment, and time horizon alongside expected returns."
+    ecommerce_anti_patterns:
+      - "Making large inventory commitments based on projected demand without downside scenario modeling. The right framework is: 'If this product sells at 50% of forecast, what is the financial impact?'"
+      - "Applying software decision-making speed to physical product decisions. In software, you can deploy and revert in hours. In e-commerce, a bad inventory decision takes months to unwind."
+    ecommerce_example: "A brand evaluating whether to launch a new product line applies structured decision analysis: expected value calculation (40% probability of hitting forecast, 35% probability of 50% forecast, 25% probability of 150% forecast), irreversibility assessment (initial inventory commitment of $80K is partially recoverable through liquidation), time horizon (6-month payback at base case), and opportunity cost (the $80K could instead fund email marketing with a 90-day payback). The framework reveals that the new product launch is a higher-risk, higher-upside bet than the marketing investment."
+    benchmark_references: ["contribution-margin", "inventory-turnover", "gross-margin"]
+
+  - skill: "defining-and-exploring-problems"
+    category: "thinking"
+    ecommerce_relevance: "high"
+    ecommerce_context: "E-commerce problems are frequently misdiagnosed because symptoms appear at a different point in the system than their root causes. Revenue declining? The problem might be traffic (marketing issue), conversion (site experience issue), AOV (pricing/assortment issue), or repeat purchase (product/retention issue). High return rate? The problem might be product quality, misleading photography, inaccurate sizing, or attracting wrong-fit customers through broad targeting. Proper problem definition in e-commerce requires decomposing aggregate metrics into their component drivers and tracing symptoms to root causes through the operational chain."
+    ecommerce_anti_patterns:
+      - "Jumping from symptom to solution without decomposition. 'Revenue is declining — let's increase ad spend' skips the crucial step of identifying whether the problem is traffic, conversion, AOV, or retention."
+      - "Treating operational symptoms as marketing problems. High return rates, slow shipping, and inventory stockouts are operational problems that marketing cannot solve."
+    ecommerce_example: "A DTC brand sees revenue decline 15% MoM. Rather than immediately increasing marketing spend, they decompose the metric: traffic is stable, conversion rate dropped from 2.5% to 1.8%, AOV is unchanged, repeat purchase rate is unchanged. The problem is conversion. Further decomposition: conversion dropped specifically on mobile devices after a site redesign. The root cause is a checkout flow regression on mobile. The fix costs $2,000 in developer time, not $50,000 in additional ad spend."
+    benchmark_references: ["conversion-rate", "return-rate", "revenue", "aov"]
+
+  # ─────────────────────────────────────────────
+  # DECISIONS (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "tough-decision-situations"
+    category: "decisions"
+    ecommerce_relevance: "high"
+    ecommerce_context: "E-commerce founders face category-specific tough decisions that require structured frameworks: discontinuing a product that has loyal customers but negative contribution margin; exiting Amazon when it represents 30%+ of revenue; firing a contract manufacturer mid-production cycle; choosing between growth (investing in marketing) and profitability (investing in margin improvement); and deciding when to absorb shipping cost increases versus passing them to customers. Each decision involves trade-offs between short-term revenue and long-term economics, and each has irreversible or costly-to-reverse components."
+    ecommerce_anti_patterns:
+      - "Avoiding the decision to exit an unprofitable channel because 'it might improve.' Channel economics rarely improve spontaneously. If Amazon is unprofitable today, it will be unprofitable in 6 months without fundamental changes."
+      - "Making tough decisions based on revenue impact alone without modeling contribution margin impact. Discontinuing a $500K revenue product line that has negative contribution margin improves the business."
+    ecommerce_example: "A DTC brand must decide whether to continue selling on Amazon (35% of revenue, 5% contribution margin) or exit and redirect investment to DTC (65% of revenue, 28% contribution margin). The structured decision framework quantifies: exiting Amazon loses $1.75M revenue but only $87.5K contribution. Redirecting the Amazon operations budget ($200K) to DTC marketing is projected to generate $600K in DTC revenue at $168K contribution margin. The decision is financially clear — exit Amazon — but emotionally difficult because it means shrinking headline revenue."
+    benchmark_references: ["contribution-margin", "cac", "ltv"]
+
+  - skill: "choosing-and-executing"
+    category: "decisions"
+    ecommerce_relevance: "moderate"
+    ecommerce_context: "Execution in e-commerce is constrained by physical timelines that software businesses do not face: manufacturing lead times (8-20 weeks), shipping transit times (2-6 weeks for ocean freight), seasonal order deadlines (retailers place holiday orders in March-April), and inventory commitment points (once production is ordered, costs are locked). Choosing between strategic options must factor in these timelines — the best strategy chosen too late is worse than a good strategy chosen on time. E-commerce execution requires backward planning from market dates: if the product must be in customers' hands by November 15, and fulfillment needs 2 weeks, and shipping needs 4 weeks, and production needs 12 weeks, the commitment decision must be made by June."
+    ecommerce_anti_patterns:
+      - "Applying software development timelines to physical product launches. A 2-week sprint mentality does not work when the manufacturing cycle is 12 weeks."
+      - "Delaying decisions to gather more data when lead times make delay costly. In e-commerce, a 90% confidence decision made on time outperforms a 99% confidence decision made too late for the seasonal window."
+    ecommerce_example: "A brand must decide by March 15 whether to commit to a new product line for Q4 holiday season. The decision requires 16 weeks for manufacturing, 4 weeks for shipping, and 2 weeks for warehouse receiving. Backward planning from a November 1 in-stock date yields a March 15 commitment deadline. The brand uses rapid prototyping and small-batch testing (1,000 units) to gather demand signals before March 15, then commits to the full production run (25,000 units) based on early data rather than waiting for perfect data that would arrive after the deadline."
+    benchmark_references: ["days-of-inventory", "inventory-turnover"]
+
+  # ─────────────────────────────────────────────
+  # LEADERSHIP (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "delegation-and-empowerment"
+    category: "leadership"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Delegation in e-commerce is complicated by the breadth of operational functions: product development, sourcing, manufacturing oversight, inventory planning, marketing, fulfillment, customer service, returns processing, and financial management. Many DTC founders start as generalists handling all functions and struggle to delegate because each function has category-specific expertise requirements. The critical delegation sequence in e-commerce typically follows: customer service first (highest volume, most codifiable), then fulfillment (outsource to 3PL), then marketing execution (hire specialist or agency), then inventory planning (requires systems and process), and finally strategy (last to delegate)."
+    ecommerce_anti_patterns:
+      - "Delegating customer service without documented processes and quality standards. In e-commerce, customer service directly affects reviews, NPS, and repeat purchase rate. Poor delegation here has measurable financial consequences."
+      - "Retaining fulfillment in-house as the company scales past 100 orders/day because 'no one does it as well as we do.' 3PLs exist specifically to do it better at scale."
+    ecommerce_example: "A DTC founder processing 200 orders/day delegates fulfillment to a 3PL, freeing 25 hours per week. They reinvest that time in product development and supplier relationships — activities that cannot be delegated to a third party and that generate 10x more value per hour than packing boxes."
+    benchmark_references: ["fulfillment-cost-per-order", "csat"]
+
+  - skill: "leading-through-change"
+    category: "leadership"
+    ecommerce_relevance: "moderate"
+    ecommerce_context: "E-commerce change management centers on three recurring transitions: channel expansion (adding Amazon, wholesale, or retail to a DTC-only model), operational scaling (moving from founder-packed to 3PL or in-house warehouse), and strategic pivots (subscription model adoption, geographic expansion, category extension). Each change affects every team differently: channel expansion creates new roles (Amazon manager, wholesale account exec) while changing existing ones (marketing now spans multiple channels). Operational scaling professionalizes processes that were informal, which feels like loss of control to early employees."
+    ecommerce_anti_patterns:
+      - "Adding channels without investing in the team and systems required to support them. Amazon, wholesale, and DTC each require different skills, tools, and processes."
+      - "Changing fulfillment partners without a transition plan. 3PL transitions during peak season are one of the most common causes of e-commerce operational crises."
+    ecommerce_example: "A DTC brand adding wholesale distribution (Nordstrom, Anthropologie) must manage change across the organization: the product team must develop wholesale-specific packaging and assortment, marketing must shift from consumer to trade promotion, finance must handle wholesale payment terms (net-60-90), and operations must support EDI ordering and retailer compliance requirements. Each function experiences the change differently. Structured change management — not just an announcement — is required."
+    benchmark_references: ["revenue", "contribution-margin"]
+
+  - skill: "focus-and-priority-management"
+    category: "leadership"
+    ecommerce_relevance: "high"
+    ecommerce_context: "Focus and priority management in e-commerce is uniquely challenging because the business operates across three simultaneous time horizons: immediate (today's orders must ship, today's ads must run, today's customer emails must be answered), medium-term (next season's inventory must be ordered, next quarter's marketing calendar must be planned), and long-term (next year's product development, new channel strategy, brand positioning). Founders who cannot operate across all three horizons simultaneously either neglect operations (brand suffers from poor execution) or neglect strategy (business becomes a lifestyle operation with no competitive moat)."
+    ecommerce_anti_patterns:
+      - "Living entirely in the immediate horizon. Processing orders, answering emails, and adjusting ads produces the illusion of productivity while the business has no strategic direction."
+      - "Living entirely in the long-term horizon. Building a 3-year vision while ignoring that fulfillment errors are running at 5% and customer service response time is 72 hours."
+    ecommerce_example: "A DTC founder structures their week across three horizons: Monday and Friday mornings for strategic work (product development, supplier diversification, channel evaluation), daily 30-minute check-ins for operational metrics (order volume, fulfillment accuracy, customer service queue), and Wednesday afternoons for medium-term planning (seasonal inventory orders, marketing calendar, hiring). The structure ensures no horizon is neglected."
+    benchmark_references: ["contribution-margin", "csat", "fulfillment-cost-per-order"]
+
+  - skill: "learning-from-failure"
+    category: "leadership"
+    ecommerce_relevance: "high"
+    ecommerce_context: "E-commerce failures have distinctive patterns: product launch failures (new products that do not sell, leaving dead inventory), channel failures (entering Amazon or wholesale without adequate preparation), seasonal planning failures (under-stocking and missing peak demand, or over-stocking and discounting into oblivion post-season), and fulfillment failures (3PL transitions gone wrong, shipping delays during peak). Each failure type produces specific lessons. Critically, e-commerce failures have financial residue — failed inventory sits in a warehouse costing money, unlike a failed software feature that simply stops being maintained."
+    ecommerce_anti_patterns:
+      - "Refusing to liquidate failed inventory because it 'admits failure.' Holding dead inventory is compounding the failure, not avoiding it."
+      - "Attributing product launch failure to marketing execution when the product itself was not wanted. In e-commerce, the most common failure is product-market fit, not distribution."
+    ecommerce_example: "A DTC brand launches a premium clothing line that sells 20% of forecast in the first 90 days. Instead of doubling down on marketing (throwing good money after bad), they conduct a structured failure analysis: customer feedback reveals the fabric feels 'cheap' despite a premium price point. The learning: product quality must match price positioning. The brand writes down the remaining inventory, reformulates the line with superior materials, and relaunches six months later. The failed launch cost $120K but the learning prevented a $500K commitment to the flawed original product."
+    benchmark_references: ["inventory-turnover", "days-of-inventory", "return-rate"]

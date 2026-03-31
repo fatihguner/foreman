@@ -1,0 +1,41 @@
+{
+  "id": "foreman",
+  "name": "Foreman",
+  "description": "AI-powered strategic advisor for entrepreneurs. 158 business framework skills, 24 diagnostics, 21 playbooks, 48 output templates, 9 industry packs, board simulation, implementation tracking, and research guides.",
+  "version": "1.0.0",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "defaultMode": {
+        "type": "string",
+        "enum": ["standard", "solo", "stoic"],
+        "default": "standard",
+        "description": "Default operating mode for Foreman"
+      },
+      "defaultLanguage": {
+        "type": "string",
+        "default": "english",
+        "description": "Default output language"
+      },
+      "sector": {
+        "type": "string",
+        "enum": ["saas", "marketplace", "e-commerce", "fintech", "ai-ml", "healthtech", "edtech", "d2c-consumer", "agency-consulting", ""],
+        "default": "",
+        "description": "Industry sector for pack overlay activation"
+      }
+    },
+    "additionalProperties": false
+  },
+  "skills": ["./.claude/skills/"],
+  "contracts": {
+    "tools": [
+      "foreman_apply_skill",
+      "foreman_diagnose",
+      "foreman_run_playbook",
+      "foreman_list_skills",
+      "foreman_research",
+      "foreman_simulate",
+      "foreman_track"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/smart-goals.md

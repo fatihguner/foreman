@@ -1,0 +1,1 @@
+../../../../.claude/skills/writing/reader-psychology.md

@@ -1,0 +1,679 @@
+# SaaS Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift in a SaaS context.
+# The diagnostic agent loads these rules when the SaaS industry pack is active.
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for SaaS companies.
+#   enhanced — The diagnostic is relevant but benefits from additional SaaS-specific
+#              triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for SaaS.
+
+pack_metadata:
+  sector: "saas"
+  display_name: "SaaS"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Churn is the defining challenge of SaaS. The base diagnostic applies, but SaaS churn has distinct subtypes (logo vs. revenue, voluntary vs. involuntary, early vs. late lifecycle) that require specialized triage and SaaS-native diagnoses."
+    additional_triage_questions:
+      - question: "Is the churn concentrated in logo churn (customers leaving entirely) or revenue churn (customers downgrading but staying)?"
+        purpose: "Distinguishes between product-market-fit failures (logo churn) and pricing/packaging failures (revenue churn). These have fundamentally different root causes and solutions."
+        routing_impact: "Logo churn routes to product-market-fit-diagnosis and activation-rate analysis. Revenue churn routes to pricing-diagnosis and expansion-revenue analysis."
+      - question: "What percentage of churn is involuntary (failed payments, expired cards) versus voluntary (deliberate cancellation)?"
+        purpose: "Involuntary churn in SaaS is a solvable operational problem — dunning sequences, card-on-file reminders, and payment retry logic can recover 20-40% of involuntary churn."
+        routing_impact: "High involuntary churn (>30% of total) routes to operational process improvement before any strategic intervention. This is the highest-ROI fix in SaaS churn."
+      - question: "When in the customer lifecycle does churn concentrate — within the first 90 days, at the first renewal boundary, or throughout the lifecycle?"
+        purpose: "Early churn signals onboarding or activation failure. Renewal-boundary churn signals value realization failure. Distributed churn signals competitive displacement or market saturation."
+        routing_impact: "First-90-day churn routes to time-to-value and activation-rate analysis. Renewal churn routes to customer-success process and QBR effectiveness. Distributed churn routes to competitive-threat-diagnosis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Activation failure driving early-lifecycle churn"
+          reason: "SaaS products that fail to deliver value within the first 14-30 days lose customers before they form habits. This is the most common and most fixable churn driver."
+        - diagnosis: "Pricing-value misalignment"
+          reason: "SaaS customers continuously evaluate whether the subscription price is justified. Unlike one-time purchases, the value question recurs every billing cycle."
+      less_likely:
+        - diagnosis: "Product quality failure"
+          reason: "Pure product quality (bugs, downtime) is rarely the primary churn driver in SaaS. It contributes to dissatisfaction but customers usually tolerate quality issues if the product delivers unique value."
+    saas_specific_diagnoses:
+      - name: "Negative net churn masking logo churn crisis"
+        description: "NRR is above 100% because a small number of expanding accounts offset a large number of departing accounts. The business appears healthy on aggregate retention metrics while the customer base is actually hollowing out — becoming concentrated in fewer, larger accounts with increasing concentration risk."
+        symptoms:
+          - "NRR above 100% but logo churn above 5% monthly"
+          - "Customer count declining while revenue grows"
+          - "Top 10% of customers representing increasing share of revenue"
+          - "Expansion revenue dominated by a few large accounts rather than broad-based growth"
+        routes_to_skills: ["net-promoter-score", "balanced-scorecard", "systems-thinking"]
+        routes_to_templates: ["unit-economics-snapshot", "quarterly-strategic-review"]
+      - name: "Involuntary churn as a silent revenue drain"
+        description: "Failed payments, expired credit cards, and billing errors account for a substantial portion of total churn but are not being tracked, measured, or addressed separately from voluntary churn."
+        symptoms:
+          - "No distinction between voluntary and involuntary churn in reporting"
+          - "No dunning email sequence or payment retry logic"
+          - "Monthly churn rate 1-3% higher than peers despite strong NPS"
+          - "High churn among annual-to-monthly conversion cohorts"
+        routes_to_skills: ["systems-thinking", "eisenhower-matrix"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+      - name: "Onboarding-to-value gap"
+        description: "Customers sign up or purchase but never reach the activation milestone that predicts long-term retention. The product delivers value, but the path to that value is too long, too complex, or too poorly guided."
+        symptoms:
+          - "High trial-to-paid conversion but high churn within the first 90 days"
+          - "Activation rate below 30%"
+          - "Time to value exceeding 14 days for a self-serve product"
+          - "Support tickets concentrated in the first two weeks of customer lifecycle"
+        routes_to_skills: ["product-life-cycle", "disruptive-innovation", "net-promoter-score"]
+        routes_to_templates: ["action-plan", "new-initiative-brief"]
+    sector_red_flags:
+      - "Logo churn above 5% monthly sustained for 3+ months — indicates a structural retention problem, not seasonal variation."
+      - "Revenue churn exceeding logo churn — customers are downgrading before leaving, which often predicts an acceleration of full churn."
+      - "Churn rate increasing as the company scales — a sign that the product is not retaining the marginal customer acquired through broader marketing."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS growth stalls have characteristic patterns that differ from traditional businesses. The subscription model provides precise data on where growth is breaking down — new customer acquisition, expansion, or retention — and each has different root causes."
+    additional_triage_questions:
+      - question: "Decompose your MRR growth: what percentage comes from new customers, expansion of existing customers, and reactivation of former customers?"
+        purpose: "Identifies which growth engine is stalling. New customer acquisition slowing suggests GTM or market problems. Expansion stalling suggests product/pricing problems. Low reactivation suggests the product has no win-back value."
+        routing_impact: "New-customer stall routes to four-ps-marketing and competitive-threat-diagnosis. Expansion stall routes to pricing-diagnosis and product-life-cycle. Mixed stall routes to systems-thinking for holistic analysis."
+      - question: "Has your CAC increased, your conversion rate decreased, or both?"
+        purpose: "Rising CAC with stable conversion suggests market saturation or increased competition. Declining conversion with stable CAC suggests product-market fit erosion or a competitive leap."
+        routing_impact: "Rising CAC routes to channel efficiency analysis and blue-ocean-strategy. Declining conversion routes to product-market-fit-diagnosis and win-rate analysis."
+      - question: "What is your current burn multiple, and how has it changed over the last two quarters?"
+        purpose: "A rising burn multiple despite investment means the growth engine is losing efficiency — the company is spending more to grow less."
+        routing_impact: "Burn multiple above 3x routes to efficiency analysis and scenario-planning for runway management."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Channel saturation"
+          reason: "SaaS companies often exhaust their initial growth channel (content, outbound, product-led) and need to build new channels. The stall occurs at the point of channel maturity."
+        - diagnosis: "Market segment ceiling"
+          reason: "SaaS products often saturate their initial market segment (e.g., 'startups under 50 employees') and must expand to adjacent segments (mid-market, enterprise) to sustain growth."
+      less_likely:
+        - diagnosis: "Macro-economic demand decline"
+          reason: "SaaS demand is relatively resilient to economic cycles — IT budgets are the last to be cut. A growth stall attributed to 'the market' is usually a competitive or execution problem."
+    saas_specific_diagnoses:
+      - name: "Product-led growth ceiling"
+        description: "The company's PLG motion is stalling because it has reached the limit of users who will self-serve through a free trial or freemium product. Growth requires adding a sales-assisted or enterprise motion, which the company has not built."
+        symptoms:
+          - "Self-serve sign-ups plateau despite increasing marketing spend"
+          - "Trial-to-paid conversion rate declining"
+          - "Inbound leads requesting enterprise features (SSO, admin controls, custom integrations) that the product does not offer"
+          - "Average deal size capped at the self-serve pricing tier"
+        routes_to_skills: ["blue-ocean-strategy", "product-life-cycle", "business-model-canvas"]
+        routes_to_templates: ["strategic-analysis-one-pager", "new-initiative-brief"]
+      - name: "Net-new ARR dependency"
+        description: "Growth is entirely dependent on acquiring new customers because the existing base is not expanding. This is unsustainable because CAC increases as the addressable market for new logos diminishes."
+        symptoms:
+          - "Expansion revenue below 15% of total new MRR"
+          - "NRR between 95-105% despite strong logo retention"
+          - "No usage-based or per-seat pricing that enables organic expansion"
+          - "Customer success team focused on retention only, not growth"
+        routes_to_skills: ["pricing-diagnosis", "four-ps-marketing", "net-promoter-score"]
+        routes_to_templates: ["unit-economics-snapshot", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "MoM growth decelerating for 3+ consecutive months without a clear seasonal explanation."
+      - "CAC Payback Period extending beyond 18 months — the growth engine is becoming capital-inefficient."
+      - "Magic Number below 0.5 — GTM spend is not converting to revenue efficiently."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS has the richest quantitative signals for product-market fit of any business model. Retention curves, NPS segmentation, and organic growth data provide objective PMF measurement that the base diagnostic should incorporate."
+    additional_triage_questions:
+      - question: "What does your retention curve look like — does it flatten (users who stay past month 3 stay long-term) or does it continue declining (users never stop leaving)?"
+        purpose: "A flattening retention curve is the single strongest quantitative signal of product-market fit. A continuously declining curve means PMF has not been achieved regardless of other signals."
+        routing_impact: "Flattening curve with low initial retention routes to onboarding optimization. Continuously declining curve routes to fundamental PMF exploration — the product may need a pivot."
+      - question: "What percentage of your growth is organic (word-of-mouth, direct traffic) versus paid?"
+        purpose: "Organic growth above 40% is a strong PMF signal — customers are recommending the product without incentives. Below 20% suggests the product is not generating advocacy."
+        routing_impact: "Low organic growth routes to net-promoter-score analysis and product-value assessment. High organic growth with slow total growth routes to distribution strategy, not product changes."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "PMF exists for a niche but the company is targeting too broadly"
+          reason: "SaaS companies frequently have strong PMF in one segment (e.g., 'marketing agencies under 20 people') but dilute it by trying to serve everyone."
+        - diagnosis: "PMF existed but the market has shifted"
+          reason: "SaaS markets evolve rapidly. PMF is not permanent — what the market needed two years ago may be table stakes today."
+      less_likely:
+        - diagnosis: "Product is fundamentally flawed"
+          reason: "If any customers retain long-term and expand, the product works for someone. The question is usually not 'does the product work?' but 'for whom does it work?'"
+    saas_specific_diagnoses:
+      - name: "PMF for the wrong segment"
+        description: "The product has strong retention and NPS among a small segment, but the company is investing sales and marketing spend to acquire customers in a different, larger segment where the product does not resonate."
+        symptoms:
+          - "NPS above 50 for one segment but below 20 for the segment receiving the most marketing spend"
+          - "High churn among recently acquired customers but low churn among early adopters"
+          - "Customer success team spending disproportionate time on customers who do not match the ideal profile"
+        routes_to_skills: ["blue-ocean-strategy", "business-model-canvas", "defining-and-exploring-problems"]
+        routes_to_templates: ["strategic-analysis-one-pager", "market-opportunity-summary"]
+    sector_red_flags:
+      - "Retention curve that never flattens — a continuous decline regardless of cohort vintage."
+      - "NPS below 20 after 12 months in market — customers are not advocating."
+      - "Organic growth below 15% of total acquisition — the product relies entirely on paid channels to grow."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Pricing in SaaS is fundamentally different from pricing in other businesses. The subscription model, the availability of real-time usage data, and the direct relationship between pricing structure and retention/expansion dynamics make this diagnostic significantly more complex in SaaS."
+    additional_triage_questions:
+      - question: "Does your pricing structure create natural expansion revenue — do customers pay more as they get more value, or do they pay the same regardless of usage and team size?"
+        purpose: "Flat-rate pricing that does not scale with value received leaves expansion revenue on the table and creates a ceiling on per-account revenue."
+        routing_impact: "No expansion mechanism routes to pricing restructure using value-metric analysis. Existing expansion mechanism with low expansion rate routes to packaging and tier optimization."
+      - question: "What is the ratio of your annual price to the monthly price x 12? What percentage of customers choose annual?"
+        purpose: "A standard annual discount of 15-20% should drive 30-50% annual adoption. Low annual adoption suggests the discount is insufficient or customers lack confidence in long-term value."
+        routing_impact: "Very low annual adoption routes to both pricing adjustment (increase annual discount) and product-market-fit concerns (customers may not trust long-term value)."
+      - question: "When was the last time you raised prices, and what happened to churn when you did?"
+        purpose: "SaaS companies that have never raised prices or raised prices more than 24 months ago are almost certainly under-pricing. The churn impact of price increases is usually far lower than founders fear."
+        routing_impact: "Never raised prices routes to immediate pricing analysis with willingness-to-pay research. Raised prices with no churn impact routes to further increases."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Under-pricing"
+          reason: "The default error in SaaS is under-pricing. Founders fear losing customers but studies consistently show SaaS companies capture only 10-20% of the value they deliver."
+        - diagnosis: "Value metric misalignment"
+          reason: "Charging per seat when the value scales with usage (or vice versa) creates friction and caps revenue. The value metric must align with how customers derive value."
+      less_likely:
+        - diagnosis: "Over-pricing relative to competition"
+          reason: "Over-pricing is less common than founders think. Losing deals on price often reflects poor value communication, not excessive pricing."
+    saas_specific_diagnoses:
+      - name: "Flat-rate trap"
+        description: "The company charges a single monthly price regardless of usage intensity, team size, or value received. This caps per-account revenue and creates a class of power users who are massively under-paying relative to the value they extract."
+        symptoms:
+          - "ARPU flat or declining despite product improvements"
+          - "Expansion revenue below 10% of new MRR"
+          - "Some customers using 100x more resources than others at the same price"
+          - "Large customers asking for features but unwilling to pay more because they are already on the 'everything' plan"
+        routes_to_skills: ["four-ps-marketing", "business-model-canvas", "pricing-diagnosis"]
+        routes_to_templates: ["unit-economics-snapshot", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Pricing unchanged for more than 18 months in a growing product."
+      - "ARPU declining quarter-over-quarter — a sign of downward pricing pressure or adverse selection."
+      - "Win rate analysis showing price as the primary loss reason in more than 30% of losses — may indicate a value communication problem rather than a price problem."
+
+  # ─────────────────────────────────────────────
+  # 5. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS fundraising has the most standardized benchmarks of any sector. Investors apply well-known thresholds for each round, and SaaS metrics are the lingua franca of venture capital. The diagnostic benefits from surfacing these specific benchmarks."
+    additional_triage_questions:
+      - question: "What are your current ARR, MoM growth rate, NRR, and months of runway?"
+        purpose: "These four metrics are the primary inputs to SaaS fundraising readiness. Investors can make a rapid initial assessment from these alone."
+        routing_impact: "Metrics below Series A thresholds (ARR < $1M, growth < 10% MoM, NRR < 100%) route to pre-fundraising skill-building. Metrics above thresholds route to fundraising execution."
+      - question: "Can you articulate your unit economics — specifically LTV:CAC ratio and CAC payback period — with data?"
+        purpose: "Unit economics literacy is a gating criterion for SaaS fundraising. Founders who cannot answer this question are not ready to raise."
+        routing_impact: "Cannot articulate routes to unit-economics-snapshot template and balanced-scorecard skill for metric foundation. Can articulate routes to fundraising-deck-outline and investor-update-email."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Timing mismatch"
+          reason: "SaaS companies frequently try to raise too early (pre-PMF) or during a metrics trough (seasonal churn, post-pricing-change dip). Timing is the most controllable fundraising variable."
+        - diagnosis: "Narrative-metrics disconnect"
+          reason: "SaaS founders who tell a story that does not match their metrics face immediate credibility challenges. Investors cross-reference the narrative against the numbers in real time."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "SaaS total addressable markets are generally large enough for venture returns. The 'market too small' objection usually means the company has not articulated the expansion path convincingly."
+    saas_specific_diagnoses:
+      - name: "Metrics-ready but narrative-deficient"
+        description: "The company's SaaS metrics meet or exceed benchmarks for the target round, but the founder cannot articulate a compelling narrative about market opportunity, competitive differentiation, and the path to category leadership."
+        symptoms:
+          - "Initial investor meetings generate interest based on metrics but no follow-up"
+          - "Investor feedback centers on 'market' and 'vision' rather than 'execution' or 'metrics'"
+          - "Pitch deck is dense with data but lacks a coherent strategic narrative"
+        routes_to_skills: ["story-structure-and-arc", "strategic-thinking-and-alignment", "blue-ocean-strategy"]
+        routes_to_templates: ["fundraising-deck-outline", "market-opportunity-summary"]
+    sector_red_flags:
+      - "Raising with less than 6 months of runway — desperation weakens negotiating position and signals poor planning."
+      - "Raising at a valuation more than 100x ARR without hypergrowth metrics to justify it."
+      - "Raising without a clear use-of-proceeds plan tied to specific growth milestones."
+
+  # ─────────────────────────────────────────────
+  # 6. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Revenue in SaaS decomposes into precise, measurable components (new, expansion, contraction, churn) that the base revenue diagnostic should leverage. The SaaS overlay adds component-level triage."
+    additional_triage_questions:
+      - question: "Break down your MRR into five components: new MRR, expansion MRR, reactivation MRR, contraction MRR, and churned MRR. Which components are trending in the wrong direction?"
+        purpose: "SaaS revenue problems always trace to specific MRR components. This decomposition identifies the precise failure point rather than treating 'revenue' as a monolithic problem."
+        routing_impact: "New MRR declining routes to GTM diagnosis. Expansion MRR flat routes to pricing-diagnosis. Contraction rising routes to product-value analysis. Churn rising routes to customer-churn-diagnosis."
+      - question: "What is your SaaS Quick Ratio — the ratio of revenue inflows (new + expansion) to revenue outflows (contraction + churn)?"
+        purpose: "The Quick Ratio reveals the growth quality. A Quick Ratio below 2 means the business is fragile — a small increase in churn can tip it into contraction."
+        routing_impact: "Quick Ratio below 2 routes to simultaneous churn reduction and growth acceleration. Above 4 routes to growth investment with confidence."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Expansion revenue underperformance"
+          reason: "Most SaaS companies under-invest in expansion relative to new customer acquisition. Expansion is typically more capital-efficient but receives less organizational focus."
+      less_likely:
+        - diagnosis: "Market pricing pressure"
+          reason: "True market-wide pricing pressure in SaaS is rare. Most pricing problems are company-specific — poor packaging, weak value communication, or excessive discounting."
+    saas_specific_diagnoses:
+      - name: "Revenue quality deterioration"
+        description: "Total revenue is growing but the composition is shifting toward lower-quality revenue: more monthly customers (higher churn risk), more heavily discounted deals (lower LTV), or more professional services revenue (lower margin)."
+        symptoms:
+          - "Revenue growing but gross margin declining"
+          - "Percentage of annual contracts declining"
+          - "Average discount increasing quarter-over-quarter"
+          - "Professional services revenue growing faster than subscription revenue"
+        routes_to_skills: ["balanced-scorecard", "business-model-canvas"]
+        routes_to_templates: ["unit-economics-snapshot", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Monthly revenue churn exceeding 3% for three consecutive months."
+      - "Revenue growth decelerating while sales team size is increasing — a productivity problem."
+      - "Gross margin declining below 70% — the business may be shifting from software to services economics."
+
+  # ─────────────────────────────────────────────
+  # 7. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS competitive dynamics are uniquely intense due to low switching costs, transparent pricing, public feature comparisons (G2, Capterra), and the ability of competitors to iterate rapidly. The base diagnostic benefits from SaaS-specific competitive threat categories."
+    additional_triage_questions:
+      - question: "Is the competitive threat from a direct competitor (same category, same segment), a platform expanding into your space (e.g., Salesforce, HubSpot, Microsoft adding your feature), or a new technology paradigm (AI tools replacing your product's function)?"
+        purpose: "Each threat type requires a different response. Direct competitors require differentiation. Platform expansion requires ecosystem strategy. Paradigm shifts require reinvention."
+        routing_impact: "Direct competitor routes to porters-five-forces and competitive-negotiation. Platform threat routes to first-mover-strategy and prisoners-dilemma-and-cooperation. Paradigm threat routes to disruptive-innovation and ai-vision-and-strategy."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Platform encroachment"
+          reason: "The greatest competitive threat to most SaaS companies is not a peer startup but a platform (Microsoft, Google, Salesforce, HubSpot) adding their feature natively. This threat is existential and underestimated."
+        - diagnosis: "AI-driven category disruption"
+          reason: "General-purpose AI tools are replacing specialized SaaS products in categories like writing, data analysis, code generation, and customer support. This is the defining competitive threat of 2024-2026."
+      less_likely:
+        - diagnosis: "Price-based competitive displacement"
+          reason: "SaaS customers rarely switch primarily on price. They switch on value, experience, and capability. A competitor winning on price alone is usually winning on something else that the company is not seeing."
+    saas_specific_diagnoses:
+      - name: "Feature-parity treadmill"
+        description: "The company is caught in a cycle of copying competitor features rather than differentiating. Each quarter's roadmap is driven by competitive gap analysis rather than customer value creation, leading to a undifferentiated product that competes solely on price."
+        symptoms:
+          - "Product roadmap dominated by 'competitive parity' items"
+          - "Win/loss analysis showing 'features' as the primary win reason (not differentiation or value)"
+          - "Engineering team demoralized by building features they know are copies"
+          - "Pricing under pressure because the product is perceived as interchangeable"
+        routes_to_skills: ["blue-ocean-strategy", "disruptive-innovation", "porters-five-forces"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Win rate declining for three consecutive quarters without a clear product or pricing explanation."
+      - "A platform partner announcing a native feature that overlaps with your core value proposition."
+      - "A well-funded competitor (raised $50M+) entering your specific market segment."
+
+  # ─────────────────────────────────────────────
+  # 8. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS strategic drift manifests as a misalignment between product, GTM, pricing, and customer success strategies. The fast feedback loops in SaaS make drift detectable earlier than in traditional businesses but also make it more tempting to constantly shift direction."
+    additional_triage_questions:
+      - question: "Is your product roadmap aligned with your highest-retention customer segment, or is it being pulled in multiple directions by different customer types?"
+        purpose: "SaaS strategic drift often begins when the product tries to serve too many segments simultaneously, building features for enterprise while the core SMB base decays."
+        routing_impact: "Multi-segment pull routes to business-model-canvas for segment clarification and strategic-thinking-and-alignment for organizational focus."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Strategy-by-customer-request"
+          reason: "SaaS companies are uniquely vulnerable to building whatever the loudest customer asks for, especially when that customer represents a significant portion of revenue."
+      less_likely:
+        - diagnosis: "Industry disruption causing drift"
+          reason: "More often, drift in SaaS is self-inflicted (chasing every opportunity) rather than externally caused."
+    saas_specific_diagnoses:
+      - name: "Premature upmarket drift"
+        description: "The company moves upmarket to pursue larger deals before establishing dominance in its initial segment. Enterprise features are added at the expense of the core product, the sales cycle lengthens, and the company ends up competing in a market where it has no advantage against established players."
+        symptoms:
+          - "ACV increasing but total customer count and growth rate declining"
+          - "Sales cycle doubling while win rate halves"
+          - "Product complexity increasing, onboarding time growing, self-serve adoption declining"
+          - "Core customer segment NPS declining"
+        routes_to_skills: ["disruptive-innovation", "blue-ocean-strategy", "product-life-cycle"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Roadmap items traceable to fewer than 3 customer requests each — building for individuals rather than segments."
+      - "Go-to-market strategy changing more than once per year without a corresponding change in metrics."
+
+  # ─────────────────────────────────────────────
+  # 9. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS team dysfunction has characteristic patterns driven by the cross-functional nature of the business — product, engineering, sales, marketing, and customer success must coordinate tightly, and the seams between these functions are where dysfunction most commonly appears."
+    additional_triage_questions:
+      - question: "Is there tension between the sales team and the product team — specifically, is sales selling features that do not exist or will the product team not build what customers are asking for?"
+        purpose: "The sales-product tension is the most common and most damaging team dysfunction in SaaS. It leads to customer dissatisfaction, missed targets, and organizational distrust."
+        routing_impact: "Sales-product misalignment routes to strategic-thinking-and-alignment and cooperative-negotiation for internal alignment processes."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Cross-functional misalignment"
+          reason: "SaaS requires tighter cross-functional coordination than most businesses. The handoffs between marketing-sales, sales-CS, product-engineering, and CS-product are common failure points."
+      less_likely:
+        - diagnosis: "Individual performance issues"
+          reason: "What appears as individual underperformance in SaaS is often a system-level problem — poor tools, unclear processes, or misaligned incentives. Diagnose the system before blaming the individual."
+    saas_specific_diagnoses:
+      - name: "Sales-CS handoff failure"
+        description: "Customers are sold on expectations that customer success cannot deliver. The handoff from sales to CS loses critical context, implementation timelines are unrealistic, and customer dissatisfaction spikes in the first 90 days of the relationship."
+        symptoms:
+          - "High churn concentrated in the first 90 days post-close"
+          - "CSMs reporting that customer expectations do not match what was sold"
+          - "Sales team compensated only on bookings with no retention clawback"
+          - "No mutual success plan or implementation timeline created during the sales process"
+        routes_to_skills: ["trust-equation", "systems-thinking", "delegation-and-empowerment"]
+        routes_to_templates: ["action-plan", "onboarding-welcome-packet"]
+    sector_red_flags:
+      - "Engineering team velocity declining while headcount increases — often a sign of organizational overhead or architectural debt."
+      - "Customer success team attrition above 30% annually — CSMs burn out when they cannot influence the product that causes customer complaints."
+
+  # ─────────────────────────────────────────────
+  # 10. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Co-founder conflict in SaaS often centers on technical vs. commercial priorities — the CTO wants to rebuild the architecture while the CEO wants to ship features for sales. SaaS-specific triage helps identify whether the conflict is about direction (strategy) or execution (roles and authority)."
+    additional_triage_questions:
+      - question: "Does the conflict center on product direction (what to build), go-to-market strategy (how to sell), resource allocation (where to invest), or equity/compensation (what each person deserves)?"
+        purpose: "SaaS co-founder conflicts cluster around these four categories. Each has different resolution paths."
+        routing_impact: "Product direction conflicts route to defining-and-exploring-problems and customer data analysis. GTM conflicts route to balanced-scorecard and data-driven evaluation. Resource conflicts route to scenario-planning. Equity conflicts route to negotiation skills."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Role ambiguity between technical and commercial co-founders"
+          reason: "SaaS companies with a CEO/CTO co-founder pair frequently struggle with the boundary between product decisions (shared) and technical architecture decisions (CTO) and commercial decisions (CEO)."
+      less_likely:
+        - diagnosis: "Fundamental vision misalignment"
+          reason: "True vision misalignment is less common than role boundary confusion. Most co-founders agree on the destination but disagree on the path."
+    saas_specific_diagnoses:
+      - name: "Build-vs-sell tension"
+        description: "The technical co-founder wants to invest in product quality, architecture, and technical debt reduction. The commercial co-founder wants to invest in sales, marketing, and customer-facing features. Neither is wrong — but the inability to allocate resources creates paralysis and resentment."
+        symptoms:
+          - "Product roadmap alternating between 'technical debt sprints' and 'sales-driven feature rushes' without a coherent strategy"
+          - "Co-founders advocating in board meetings against each other's priorities"
+          - "Team members learning to route requests to the more sympathetic co-founder"
+        routes_to_skills: ["cooperative-negotiation", "balanced-scorecard", "evaluating-and-deciding"]
+        routes_to_templates: ["decision-journal", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Co-founders communicating through intermediaries rather than directly."
+      - "Key hires leaving because of conflicting direction from co-founders."
+
+  # ─────────────────────────────────────────────
+  # 11. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS market entry is primarily about segment selection and GTM motion — the product can reach any market digitally, so the question is not 'can we enter?' but 'should we enter, and how?' SaaS-specific triage focuses on market sizing, competitive density, and GTM model fit."
+    additional_triage_questions:
+      - question: "Have you validated demand through a landing page, waitlist, or beta program — or are you estimating market size from top-down analysis?"
+        purpose: "SaaS market entry decisions should be validated bottom-up (demonstrated demand) rather than top-down (TAM estimates). A waitlist of 500 companies is more valuable than a $10B TAM slide."
+        routing_impact: "No validation routes to lean market testing before full entry. Validated demand routes to GTM strategy and go-to-market execution."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Crowded category entry without differentiation"
+          reason: "SaaS markets are globally accessible, making most categories crowded. Entry without clear differentiation leads to costly competition."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "SaaS enables global reach and vertical specialization. Markets that appear small domestically may be substantial globally."
+    saas_specific_diagnoses:
+      - name: "Category creation risk"
+        description: "The company is attempting to create a new SaaS category rather than enter an existing one. Category creation requires educating the market — a much more expensive and slower path than entering a category where buyers already understand the problem and solution type."
+        symptoms:
+          - "Prospects do not know what category to compare the product to"
+          - "Sales cycles are long because prospects must first understand the problem before evaluating the solution"
+          - "G2/Capterra category does not exist for this product type"
+        routes_to_skills: ["blue-ocean-strategy", "story-structure-and-arc", "four-ps-marketing"]
+        routes_to_templates: ["market-opportunity-summary", "fundraising-deck-outline"]
+    sector_red_flags:
+      - "Entering a market with 5+ well-funded competitors without a clearly articulated differentiation thesis."
+      - "Targeting enterprise from day one without enterprise sales experience or a customer reference."
+
+  # ─────────────────────────────────────────────
+  # 12. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS hiring challenges center on the scarcity of specialized talent (SaaS sales reps, product managers, growth marketers) and the critical importance of early hires in setting the culture and operational foundation."
+    additional_triage_questions:
+      - question: "Are you hiring to scale an existing function that works (e.g., adding more sales reps to a proven sales motion) or hiring to build a function that does not yet exist (e.g., first VP Sales, first product manager)?"
+        purpose: "Scaling a working function requires execution hires. Building a new function requires a leader who can define the playbook. Misidentifying the hire type is the most common SaaS hiring mistake."
+        routing_impact: "Scaling a working function routes to structured hiring processes and hiring-scorecard template. Building new function routes to executive search principles and role-description-template with emphasis on defining success criteria."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Hiring the wrong profile for the stage"
+          reason: "SaaS companies frequently hire executives from larger companies (VP Sales from a $100M ARR company for a $2M ARR company) whose skills do not transfer to the earlier stage."
+      less_likely:
+        - diagnosis: "Compensation competitiveness"
+          reason: "While important, compensation is rarely the primary reason SaaS hiring fails. Mission, growth trajectory, equity, and team quality matter more for early-stage hires."
+    saas_specific_diagnoses:
+      - name: "Premature specialization"
+        description: "The company hires specialists (demand gen marketer, SDR manager, solutions architect) before the generalist playbook is established. Specialists optimize processes that do not yet exist, leading to wasted resources and organizational complexity."
+        symptoms:
+          - "Specialized hires with no one to report to or learn from in their function"
+          - "Processes being built from scratch by individual contributors without strategic direction"
+          - "Under $3M ARR with more than 5 distinct go-to-market roles"
+        routes_to_skills: ["eisenhower-matrix", "delegation-and-empowerment"]
+        routes_to_templates: ["role-description-template", "hiring-scorecard"]
+    sector_red_flags:
+      - "VP Sales hire failing within 6 months — the most common and most expensive SaaS hiring mistake."
+      - "Engineering team spending more time onboarding new hires than building product — a sign of hiring too fast."
+
+  # ─────────────────────────────────────────────
+  # 13. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS operational chaos manifests as infrastructure instability, deployment failures, billing errors, and support overwhelm. The continuous nature of SaaS delivery (24/7 uptime, continuous deployment) creates unique operational demands."
+    additional_triage_questions:
+      - question: "How frequently do you deploy to production, and what percentage of deployments cause incidents?"
+        purpose: "Deployment frequency and failure rate are the two most diagnostic operational health metrics in SaaS. Low frequency suggests fear of shipping; high failure rate suggests inadequate testing and review."
+        routing_impact: "High deployment failure rate routes to engineering process improvement. Low deployment frequency routes to CI/CD and DevOps investment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Technical debt overwhelming operations"
+          reason: "SaaS companies that grow fast accumulate technical debt that eventually consumes engineering capacity, causes outages, and slows product development."
+      less_likely:
+        - diagnosis: "Process deficiency"
+          reason: "Early-stage SaaS companies often have too much process (imported from larger companies) rather than too little. The diagnosis may be over-process, not under-process."
+    saas_specific_diagnoses:
+      - name: "Support-driven engineering"
+        description: "Customer support volume is so high that engineering spends the majority of time fixing customer-specific issues rather than building product improvements. The product does not improve, generating more support tickets in a reinforcing loop."
+        symptoms:
+          - "More than 30% of engineering capacity consumed by support escalations"
+          - "Support ticket volume growing faster than customer count"
+          - "No self-serve knowledge base, in-app help, or automated troubleshooting"
+          - "Customer success and support teams with direct Slack channels to engineers for 'urgent' issues"
+        routes_to_skills: ["systems-thinking", "eisenhower-matrix"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+    sector_red_flags:
+      - "Uptime below 99.5% over any 30-day period — customers will leave for more reliable alternatives."
+      - "Mean time to resolution for P0 incidents exceeding 4 hours."
+
+  # ─────────────────────────────────────────────
+  # 14. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Leadership crises in SaaS follow the same patterns as in other venture-backed companies. The base diagnostic covers founder burnout, board conflicts, executive team dysfunction, and crisis management without requiring SaaS-specific modification."
+    additional_triage_questions: []
+    diagnosis_weight_shifts:
+      more_likely: []
+      less_likely: []
+    saas_specific_diagnoses: []
+    sector_red_flags:
+      - "CEO making reactive, metric-driven decisions without strategic framing — a sign of losing the forest for the trees in a data-rich environment."
+
+  # ─────────────────────────────────────────────
+  # 15. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS provides abundant data, which paradoxically can increase decision paralysis. Founders waiting for 'enough data' before making pricing, product, or GTM decisions often delay beyond the point where the decision would have generated useful learning."
+    additional_triage_questions:
+      - question: "Is the decision reversible or irreversible? Can you test a smaller version before committing fully?"
+        purpose: "Most SaaS decisions are reversible (pricing, features, campaigns). Treating reversible decisions with irreversible-decision rigor causes paralysis."
+        routing_impact: "Reversible decision paralysis routes to evaluating-and-deciding with emphasis on speed. Irreversible decisions route to tough-decision-situations for deeper analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Analysis paralysis driven by data abundance"
+          reason: "SaaS dashboards provide infinite data to analyze. 'One more week of data' is the most seductive form of decision avoidance."
+      less_likely:
+        - diagnosis: "Insufficient information"
+          reason: "SaaS companies rarely lack information. They lack clarity on which information matters and the willingness to act on imperfect data."
+    saas_specific_diagnoses: []
+    sector_red_flags:
+      - "Pricing decision delayed more than 3 months — pricing is always imperfect and always adjustable."
+      - "Product decisions requiring consensus from more than 3 people — a sign of unclear decision authority."
+
+  # ─────────────────────────────────────────────
+  # 16. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS innovation droughts manifest as feature stagnation — the product stops evolving, competitors close the gap, and customers lose enthusiasm. The continuous delivery model means that innovation drought is visible immediately in declining activation rates and stagnant NPS."
+    additional_triage_questions:
+      - question: "What percentage of engineering capacity is allocated to new features versus maintenance, technical debt, and support?"
+        purpose: "If more than 50% of engineering capacity goes to maintenance and debt, innovation will stall regardless of team talent."
+        routing_impact: "Maintenance-dominated allocation routes to technical debt assessment and eisenhower-matrix for engineering prioritization."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Technical debt consuming innovation capacity"
+          reason: "SaaS companies that shipped fast to achieve PMF often accumulated debt that now prevents further innovation."
+      less_likely:
+        - diagnosis: "Lack of creative talent"
+          reason: "SaaS teams are generally well-educated and creative. Innovation drought is more often a system failure (wrong incentives, too much process, insufficient time) than a talent failure."
+    saas_specific_diagnoses:
+      - name: "Customer-driven roadmap trap"
+        description: "The roadmap is entirely dictated by customer requests and support tickets. No capacity is allocated to proactive innovation — building features customers have not asked for but would love. The product incrementally improves existing workflows but never creates new value."
+        symptoms:
+          - "Every roadmap item traceable to a specific customer request"
+          - "No 'surprise and delight' features shipped in the last 6 months"
+          - "NPS stable but not improving — customers are satisfied, not enthusiastic"
+          - "No features that generated organic social media discussion or viral sharing"
+        routes_to_skills: ["disruptive-innovation", "blue-ocean-strategy", "creative-identity-and-purpose"]
+        routes_to_templates: ["new-initiative-brief", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "NPS declining for 2+ consecutive quarters despite no major incidents."
+      - "Competitor launch announcements generating customer inquiries about 'do you have that?'"
+
+  # ─────────────────────────────────────────────
+  # 17. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS partnerships are ecosystem-driven — integrations, channel partnerships, and platform relationships are growth levers that do not exist in the same form in traditional businesses. The diagnostic must account for the unique dynamics of technology partnerships."
+    additional_triage_questions:
+      - question: "Is this a technology integration partnership (building together), a channel partnership (selling together), or a platform partnership (building on top of them)?"
+        purpose: "Each partnership type has different economics, power dynamics, and risks. A platform partnership where you build on their API puts you in a dependency relationship that does not exist in a co-selling arrangement."
+        routing_impact: "Technology integration routes to cooperative-negotiation with emphasis on mutual value. Channel partnership routes to four-ps-marketing for distribution strategy. Platform partnership routes to prisoners-dilemma-and-cooperation for dependency risk analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Asymmetric dependency"
+          reason: "SaaS partnerships often involve significant size asymmetry. A 50-person SaaS company partnering with Salesforce or HubSpot faces inherently asymmetric power dynamics."
+      less_likely:
+        - diagnosis: "Cultural misalignment"
+          reason: "SaaS partnerships are primarily technical and commercial. Cultural fit matters less than API quality, economic alignment, and strategic overlap."
+    saas_specific_diagnoses:
+      - name: "Integration as strategy substitute"
+        description: "The company builds integrations with every possible platform without a coherent partnership strategy. Integrations consume engineering resources but do not generate measurable revenue or retention impact because they are not promoted, supported, or monetized."
+        symptoms:
+          - "More than 20 integrations but none generating measurable revenue"
+          - "No tracking of which integrations correlate with retention"
+          - "Integrations built reactively (customer requests) not strategically"
+          - "Engineering maintaining integrations that fewer than 5% of customers use"
+        routes_to_skills: ["eisenhower-matrix", "balanced-scorecard", "systems-thinking"]
+        routes_to_templates: ["partnership-memo", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "A platform partner announcing a native feature that competes with your core product."
+      - "More than 30% of revenue dependent on a single channel partner."
+
+  # ─────────────────────────────────────────────
+  # 18. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Communication breakdowns in SaaS follow the same patterns as in other technology companies — remote/hybrid work challenges, cross-functional misalignment, and scaling communication as the team grows. The base diagnostic covers these adequately."
+    additional_triage_questions: []
+    diagnosis_weight_shifts:
+      more_likely: []
+      less_likely: []
+    saas_specific_diagnoses: []
+    sector_red_flags:
+      - "Product and sales teams using different language to describe the same features — a sign of internal communication failure that propagates to customers."
+
+  # ─────────────────────────────────────────────
+  # 19. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS negotiations get stuck in characteristic ways: enterprise procurement processes that demand terms the startup cannot offer, investor negotiations that stall on valuation or control terms, and platform partnership negotiations where the power asymmetry is extreme."
+    additional_triage_questions:
+      - question: "Is the negotiation stuck on commercial terms (price, discount, payment terms), legal terms (liability, data processing, IP), or strategic terms (exclusivity, roadmap commitments, partnership scope)?"
+        purpose: "SaaS negotiations stall for different reasons. Commercial stalls often resolve with creative packaging. Legal stalls require legal expertise. Strategic stalls require executive involvement."
+        routing_impact: "Commercial stalls route to pricing-diagnosis and competitive-negotiation. Legal stalls route to delivering-the-deal with emphasis on template preparation. Strategic stalls route to cooperative-negotiation and scenario-planning."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Security/compliance review blocking the deal"
+          reason: "Enterprise SaaS sales increasingly stall during security review. SOC 2 Type II, penetration test results, and GDPR compliance are table-stakes requirements that some startups are unprepared for."
+      less_likely:
+        - diagnosis: "Fundamental value disagreement"
+          reason: "If the negotiation reached the terms stage, value has been established. Most SaaS negotiation stalls are procedural, not substantive."
+    saas_specific_diagnoses: []
+    sector_red_flags:
+      - "Enterprise deals stalling for 60+ days in legal/security review — indicates the company needs a 'deal acceleration kit' (pre-prepared security documents, DPA, and flexible order forms)."
+
+  # ─────────────────────────────────────────────
+  # 20. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "SaaS companies experience predictable culture erosion at specific scale thresholds — 15-20 employees (first departmental silos), 50-80 employees (loss of all-hands intimacy), and 150+ employees (Dunbar's number, where personal relationships can no longer sustain culture). The base diagnostic benefits from recognizing these SaaS growth-stage culture patterns."
+    additional_triage_questions:
+      - question: "Has the company recently crossed a team-size threshold (15, 50, 150 employees), and did culture practices evolve to match?"
+        purpose: "Culture practices that work at 10 people fail at 50. The practices must evolve with scale — written values, structured onboarding, explicit communication norms, and formalized recognition."
+        routing_impact: "Recent threshold crossing routes to organisational-culture and leading-through-change for proactive culture evolution."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Growth outpacing culture infrastructure"
+          reason: "SaaS companies that hire rapidly (doubling headcount annually) frequently outpace their ability to onboard, integrate, and acculturate new team members."
+      less_likely:
+        - diagnosis: "Toxic leadership"
+          reason: "While possible, culture erosion in fast-growing SaaS is more often caused by neglect (no one is responsible for culture) than malice (someone is actively degrading it)."
+    saas_specific_diagnoses:
+      - name: "Remote-first culture void"
+        description: "The company transitioned to remote or hybrid work without building the intentional culture infrastructure that remote teams require. Informal culture transmission (hallway conversations, lunch discussions, overhearing leadership decisions) no longer happens, and nothing has replaced it."
+        symptoms:
+          - "New hires reporting feeling disconnected after 90 days"
+          - "Cross-team collaboration declining — teams default to silos"
+          - "Declining participation in optional company events"
+          - "Employee NPS declining despite competitive compensation and interesting work"
+        routes_to_skills: ["organisational-culture", "psychological-safety-practice", "team-culture-and-dynamics"]
+        routes_to_templates: ["culture-values-document", "team-health-check", "offsite-planning-guide"]
+    sector_red_flags:
+      - "Regrettable attrition above 15% annually — top performers leaving voluntarily signals cultural problems before surveys detect them."
+      - "Glassdoor rating declining more than 0.5 stars in 6 months."

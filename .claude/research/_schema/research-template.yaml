@@ -1,0 +1,99 @@
+# Research Template Schema — Template for All Research Guides
+#
+# A research template is a STRUCTURED GUIDE that teaches entrepreneurs how
+# to gather the specific data required by Foreman's skills, diagnostics,
+# and output templates. It does not perform research — it provides the
+# protocol, data sources, collection templates, and interpretation frameworks
+# so the entrepreneur can execute rigorous research independently.
+#
+# Directory structure:
+#   .claude/research/
+#     _schema/
+#       research-template.yaml    <-- This file
+#     {research-template-name}.md <-- Individual research guides
+#
+# Integration:
+#   Research templates sit UPSTREAM of skills and playbooks. They produce
+#   the raw data that skills consume. The flow is:
+#     Research Template (gather data) -> Skill (apply framework) -> Output Template (present results)
+#
+# Design principles:
+#   1. Teach, don't do — provide the protocol, not the answers.
+#   2. Source-specific — name real databases, tools, and URLs.
+#   3. Quality-aware — include reliability checks for every data type.
+#   4. Action-oriented — every template ends with a clear output that
+#      feeds directly into named Foreman skills or templates.
+#   5. "Good enough" conscious — research is a means, not an end.
+#      Every template defines when to stop collecting and start acting.
+
+# ═══════════════════════════════════════════════════════════════
+# FRONTMATTER SCHEMA
+# ═══════════════════════════════════════════════════════════════
+
+frontmatter:
+  name: ""                           # Kebab-case identifier (e.g., "market-sizing-worksheet")
+  description: ""                    # What research this template guides and when to use it. Max 512 chars.
+  research_type: ""                  # "market" | "competitor" | "customer" | "financial" | "technical" | "regulatory"
+  feeds_into_skills: []              # Skill names (kebab-case) this research feeds
+  feeds_into_templates: []           # Output template names this research feeds
+  estimated_time: ""                 # Human-readable range (e.g., "4-8 hours")
+  data_sources: []                   # Array of primary data source names used in this template
+  author: ""                         # Contributor attribution
+
+# ═══════════════════════════════════════════════════════════════
+# BODY SECTIONS (Markdown, in order)
+# ═══════════════════════════════════════════════════════════════
+
+body_sections:
+
+  - section: "Purpose"
+    required: true
+    guidance: >
+      Why this research matters. Frame in terms of decisions it enables,
+      not academic completeness. Two to three paragraphs maximum.
+
+  - section: "What You'll Learn"
+    required: true
+    guidance: >
+      Bulleted list of specific outputs the entrepreneur will have after
+      completing this research. Each item should be concrete and testable.
+
+  - section: "Data Sources"
+    required: true
+    guidance: >
+      Table with columns: Source Name | What It Provides | Free/Paid | URL or Access Pattern.
+      Minimum 6 sources. Prefer free sources first, paid sources with free tiers second.
+
+  - section: "Research Protocol"
+    required: true
+    guidance: >
+      Numbered step-by-step procedure. Each step includes what to do,
+      what to record, and what signals indicate you have enough data.
+      Steps should be sequenced so earlier steps inform later ones.
+
+  - section: "Data Collection Template"
+    required: true
+    guidance: >
+      Fill-in tables, matrices, or forms the entrepreneur completes
+      during research. Markdown table format. Include example rows
+      where helpful.
+
+  - section: "Interpretation Guide"
+    required: true
+    guidance: >
+      How to read the data once collected. What patterns to look for,
+      what constitutes a strong vs. weak signal, and how to synthesize
+      across multiple data points.
+
+  - section: "Common Pitfalls"
+    required: true
+    guidance: >
+      Minimum 4 pitfalls. Each with the mistake, why it happens,
+      and how to avoid it. Research-specific, not generic advice.
+
+  - section: "Output"
+    required: true
+    guidance: >
+      How to package research results for use in Foreman. Name the
+      specific skills and templates this research feeds. Describe the
+      handoff format — what data goes where.

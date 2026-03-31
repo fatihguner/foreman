@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/kotter-change-model.md

@@ -1,0 +1,8 @@
+{
+  "name": "foreman",
+  "version": "1.0.0",
+  "description": "AI-powered strategic advisor for entrepreneurs",
+  "author": "Fatih Guner",
+  "skills": "./.claude/skills/",
+  "commands": "./.claude/commands/"
+}

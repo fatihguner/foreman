@@ -1,0 +1,107 @@
+name: Skill Proposal
+description: Propose a new skill to add to the Foreman library
+title: "[Skill Proposal]: "
+labels: ["skill-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Proposing a new skill? Great. Each skill teaches one discrete framework, method, or practice that entrepreneurs can apply immediately. Please provide enough detail for a contributor to evaluate and implement the skill.
+
+  - type: input
+    id: skill-name
+    attributes:
+      label: Skill Name
+      description: A unique identifier in kebab-case (lowercase, hyphens only, max 64 characters).
+      placeholder: e.g., jobs-to-be-done-analysis
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      description: Which skill category does this belong to?
+      options:
+        - frameworks
+        - leadership
+        - writing
+        - ai-leadership
+        - game-theory
+        - stoic
+        - storytelling
+        - negotiation
+        - people
+        - creative
+        - thinking
+        - decisions
+        - new-category
+    validations:
+      required: true
+
+  - type: textarea
+    id: source-material
+    attributes:
+      label: Source Material
+      description: What book, article, or research is this based on? Provide title, author, and publication year.
+      placeholder: |
+        - Book: "Title" by Author (Year)
+        - Article: "Title" -- Publication (Year)
+        - Research: DOI or URL
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What does this skill teach? When would an entrepreneur use it?
+      placeholder: A clear explanation of the framework and its practical application for entrepreneurs.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: complexity
+    attributes:
+      label: Complexity
+      description: How complex is this framework to understand and apply?
+      options:
+        - basic
+        - intermediate
+        - advanced
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: applicable-stages
+    attributes:
+      label: Applicable Stages
+      description: At which company stages is this skill most relevant?
+      options:
+        - label: Idea
+        - label: Validation
+        - label: Early Traction
+        - label: Growth
+        - label: Scale
+
+  - type: textarea
+    id: related-skills
+    attributes:
+      label: Related Existing Skills
+      description: Which existing Foreman skills complement this one? List 4-7 skill names if possible.
+      placeholder: |
+        - skill-name-one
+        - skill-name-two
+    validations:
+      required: false
+
+  - type: textarea
+    id: anti-patterns
+    attributes:
+      label: Anti-Patterns Preview
+      description: What are the common mistakes when applying this framework?
+      placeholder: |
+        - Applying it too early before product-market fit
+        - Confusing correlation with causation in the analysis
+    validations:
+      required: false

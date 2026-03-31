@@ -1,0 +1,192 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-content:
+    name: Validate Content
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+
+      - name: Run full validation suite
+        run: bash scripts/validate-all.sh
+
+  check-refs:
+    name: Check Cross-References
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Make scripts executable
+        run: chmod +x scripts/*.sh
+
+      - name: Check for broken references
+        run: bash scripts/broken-refs.sh
+
+  check-style:
+    name: Check Style Compliance
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Scan for prohibited phrases
+        run: |
+          EXIT_CODE=0
+
+          PROHIBITED_PHRASES=(
+            "In today's fast-paced"
+            "In today's rapidly"
+            "Let's dive in"
+            "Let's explore"
+            "In this skill, you will learn"
+            "Without further ado"
+            "It's important to note that"
+            "At the end of the day"
+          )
+
+          echo "Scanning .md files for prohibited phrases..."
+          for phrase in "${PROHIBITED_PHRASES[@]}"; do
+            MATCHES=$(grep -ril "$phrase" --include="*.md" . \
+              --exclude="CLAUDE.md" \
+              --exclude="CONTRIBUTING.md" \
+              --exclude-dir="docs" \
+              --exclude-dir="openclaw-templates" \
+              --exclude-dir=".git" \
+              --exclude-dir="node_modules" \
+              --exclude-dir="skills" || true)
+            if [ -n "$MATCHES" ]; then
+              echo "::error::Prohibited phrase found: \"$phrase\""
+              echo "$MATCHES" | while read -r file; do
+                LINE=$(grep -n "$phrase" "$file" | head -1)
+                echo "  $file: $LINE"
+              done
+              EXIT_CODE=1
+            fi
+          done
+
+          echo ""
+          echo "Scanning .md files for author name leaks..."
+          # Source authors that must remain anonymized
+          AUTHOR_NAMES=(
+            "De Cremer"
+            "Bryan Garner"
+            "Matthew Dicks"
+            "Dave Kerpen"
+            "Rick Rubin"
+            "Shane Parrish"
+            "Todd Rogers"
+            "Lasky-Fink"
+          )
+
+          for name in "${AUTHOR_NAMES[@]}"; do
+            MATCHES=$(grep -ril "$name" --include="*.md" . \
+              --exclude-dir=".git" \
+              --exclude-dir="node_modules" \
+              --exclude-dir="skills" || true)
+            if [ -n "$MATCHES" ]; then
+              echo "::error::Author name leak found: \"$name\""
+              echo "$MATCHES" | while read -r file; do
+                LINE=$(grep -n "$name" "$file" | head -1)
+                echo "  $file: $LINE"
+              done
+              EXIT_CODE=1
+            fi
+          done
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "Style check passed. No prohibited phrases or author leaks found."
+          fi
+          exit $EXIT_CODE
+
+  check-formatting:
+    name: Check Formatting
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate frontmatter on .claude/ markdown files
+        run: |
+          EXIT_CODE=0
+          echo "Checking that all .md files in .claude/ have YAML frontmatter..."
+
+          while IFS= read -r -d '' file; do
+            # Skip _schema directories, master docs (CAPS.md), mode configs, and command files
+            if [[ "$file" == *"/_schema/"* ]] || \
+               [[ "$(basename "$file")" =~ ^[A-Z]+\.md$ ]] || \
+               [[ "$file" == *"-mode/"* ]] || \
+               [[ "$file" == */commands/* ]] || \
+               [[ "$file" == */implementation/IMPLEMENTATION.md ]] || \
+               [[ "$file" == */simulation/SIMULATION.md ]] || \
+               [[ "$file" == */org-politics/ORG-POLITICS.md ]]; then
+              continue
+            fi
+
+            # Check if file starts with frontmatter delimiter
+            FIRST_LINE=$(head -1 "$file")
+            if [ "$FIRST_LINE" != "---" ]; then
+              echo "::error file=$file::Missing YAML frontmatter (file does not start with ---)"
+              EXIT_CODE=1
+              continue
+            fi
+
+            # Check if frontmatter is closed
+            CLOSE_LINE=$(tail -n +2 "$file" | grep -n "^---$" | head -1 | cut -d: -f1)
+            if [ -z "$CLOSE_LINE" ]; then
+              echo "::error file=$file::Unclosed YAML frontmatter (no closing ---)"
+              EXIT_CODE=1
+            fi
+          done < <(find .claude -name "*.md" -type f -print0)
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "Formatting check passed. All .claude/ markdown files have valid frontmatter."
+          fi
+          exit $EXIT_CODE
+
+  build-codex:
+    name: Verify Codex Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Codex skills directory
+        run: |
+          chmod +x scripts/build-codex.sh
+          ./scripts/build-codex.sh --clean
+
+      - name: Verify skill count matches
+        run: |
+          SOURCE_COUNT=$(find .claude/skills -name "*.md" -not -path "*/_schema/*" | wc -l)
+          TARGET_COUNT=$(find skills -mindepth 2 -name "SKILL.md" | wc -l)
+          echo "Source skills: $SOURCE_COUNT"
+          echo "Codex skills: $TARGET_COUNT"
+          if [ "$SOURCE_COUNT" -ne "$TARGET_COUNT" ]; then
+            echo "::error::Skill count mismatch: $SOURCE_COUNT source vs $TARGET_COUNT Codex"
+            exit 1
+          fi
+          echo "Skill count verified: $TARGET_COUNT"
+
+      - name: Verify plugin manifest
+        run: |
+          if [ ! -f .codex-plugin/plugin.json ]; then
+            echo "::error::Missing .codex-plugin/plugin.json"
+            exit 1
+          fi
+          python3 -c "import json; json.load(open('.codex-plugin/plugin.json'))" || {
+            echo "::error::Invalid JSON in plugin.json"
+            exit 1
+          }
+          echo "Plugin manifest valid."

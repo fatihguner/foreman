@@ -1,0 +1,1 @@
+../../../../.claude/skills/leadership/leadership-style-adaptation.md

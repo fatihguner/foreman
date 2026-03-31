@@ -1,0 +1,1 @@
+../../../../.claude/skills/game-theory/coalition-and-partnership-games.md

@@ -1,0 +1,907 @@
+# E-Commerce Industry Pack — Benchmarks
+#
+# 24 e-commerce-specific metrics with real benchmark data sourced from public
+# studies. The orchestrator surfaces these when applying quantitative skills,
+# generating output templates with financial metrics, or diagnosing conversion,
+# retention, fulfillment, and margin issues.
+#
+# These metrics are purpose-built for physical product businesses — D2C brands,
+# online retail, subscription boxes, dropshipping, and omnichannel retail. They
+# do not translate from SaaS definitions. Inventory, logistics, returns, and
+# seasonality are first-class concerns throughout.
+#
+# Primary data sources:
+#   - Shopify Commerce Benchmarks (2023, 2024)
+#   - BigCommerce State of E-Commerce (2023, 2024)
+#   - Klaviyo E-Commerce Benchmarks (2024)
+#   - National Retail Federation (NRF) Annual Reports (2023, 2024)
+#   - eMarketer / Insider Intelligence (2024)
+#   - Metrilo E-Commerce Retention Studies (2023)
+#   - Baymard Institute Cart Abandonment Research (2024)
+#   - ShipBob Fulfillment Benchmarks (2024)
+#   - Narvar Returns & Exchanges Report (2023)
+#   - Statista Digital Commerce Compass (2024)
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among funded or established e-commerce companies at the
+# relevant stage.
+
+pack_metadata:
+  sector: "e-commerce"
+  display_name: "E-Commerce"
+  version: "1.0.0"
+  description: "Benchmark data for e-commerce companies spanning revenue, conversion, retention, unit economics, marketing efficiency, fulfillment, and inventory metrics for physical product businesses."
+  applicable_stages:
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"
+  compatible_modes:
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # REVENUE & GROWTH METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Revenue"
+    id: "revenue"
+    category: "growth"
+    definition: "Total net sales after returns and discounts, representing the actual cash collected from product sales in a given period."
+    formula: "Gross Sales - Returns - Discounts - Allowances"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $50K annual revenue after 12 months of operations"
+        signal: "Insufficient traction to sustain operations. Either product-market fit is absent or distribution is ineffective."
+      below_average:
+        value: "$50K-$250K annual revenue at 12 months"
+        signal: "Early traction but not yet at a scale that demonstrates repeatable demand. Likely burning personal capital or a small seed round."
+      average:
+        value: "$250K-$1M annual revenue at 12 months"
+        signal: "Meaningful traction. Enough signal to attract institutional seed investment if growth trajectory and unit economics are healthy."
+      good:
+        value: "$1M-$5M annual revenue at 12 months"
+        signal: "Strong product-market fit. Revenue supports hiring, inventory investment, and channel diversification."
+      excellent:
+        value: "> $5M annual revenue at 12 months"
+        signal: "Exceptional traction. Rare for a first-year brand — indicates viral adoption, influencer-driven demand, or category creation."
+    stage_notes:
+      seed: "Absolute revenue matters less than growth rate and unit economics. A $200K run-rate with 20%+ MoM growth is investable."
+      series_a: "Typical e-commerce Series A requires $3M-$10M annual revenue with clear path to profitability and strong repeat purchase rates."
+      series_b_plus: "Series B typically requires $10M-$50M+ revenue. Growth rate expectations moderate but contribution margin must be positive."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "eMarketer / Insider Intelligence"
+        year: "2024"
+    related_metrics: ["gmv", "aov", "conversion-rate"]
+    related_skills: ["balanced-scorecard", "business-model-canvas"]
+    caveats: "Revenue must be net of returns and discounts. Gross sales that include unfulfilled orders or pending returns inflate the metric and mislead investors."
+
+  - name: "Gross Merchandise Volume (GMV)"
+    id: "gmv"
+    category: "growth"
+    definition: "Total dollar value of merchandise sold through the e-commerce platform before deducting returns, discounts, and allowances. For brands selling through multiple channels, GMV includes all channels."
+    formula: "Number of Orders x Average Order Value (before deductions)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "GMV growth < 15% YoY after reaching $500K annual GMV"
+        signal: "Growth is decelerating below the category average. Likely indicates channel saturation or product assortment stagnation."
+      below_average:
+        value: "GMV growth 15-30% YoY"
+        signal: "Moderate growth, roughly tracking the overall e-commerce market. Not differentiating from the category."
+      average:
+        value: "GMV growth 30-60% YoY"
+        signal: "Healthy growth above market rate. Indicates working acquisition channels and reasonable product-market fit."
+      good:
+        value: "GMV growth 60-100% YoY"
+        signal: "Strong growth. Product resonates and distribution channels are scaling effectively."
+      excellent:
+        value: "GMV growth > 100% YoY"
+        signal: "Exceptional growth. Typically driven by viral product, category tailwind, or successful channel expansion (e.g., wholesale + DTC + Amazon)."
+    stage_notes:
+      seed: "GMV is a vanity metric at seed stage if margins are negative. Investors care about unit economics alongside volume."
+      series_a: "GMV should demonstrate channel diversification. Single-channel GMV is fragile."
+      series_b_plus: "GMV growth rate decelerates naturally. Focus shifts to net revenue, contribution margin, and repeat purchase economics."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "eMarketer / Insider Intelligence"
+        year: "2024"
+    related_metrics: ["revenue", "aov", "conversion-rate"]
+    related_skills: ["balanced-scorecard", "growth-share-matrix"]
+    caveats: "GMV is not revenue. Investors distinguish between the two. GMV inflated by returns, discounts, and marketplace pass-through revenue misleads more than it informs. Always present GMV alongside net revenue and return rate."
+
+  - name: "Conversion Rate"
+    id: "conversion-rate"
+    category: "growth"
+    definition: "The percentage of website or store visitors who complete a purchase. The single most important operational metric in e-commerce — it transforms traffic into revenue."
+    formula: "(Number of Orders / Number of Unique Visitors) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.0%"
+        signal: "Severe friction in the purchase funnel. Either traffic is unqualified, pricing is misaligned, or the site experience is fundamentally broken."
+      below_average:
+        value: "1.0-1.5%"
+        signal: "Below industry median. Funnel optimization, pricing review, and traffic quality audit are immediate priorities."
+      average:
+        value: "1.5-2.5%"
+        signal: "Inline with e-commerce industry averages. Room for optimization but not a crisis."
+      good:
+        value: "2.5-4.0%"
+        signal: "Above average conversion. Indicates strong product-market fit, effective merchandising, and a well-optimized purchase funnel."
+      excellent:
+        value: "> 4.0%"
+        signal: "Exceptional conversion. Typically seen in niche categories with high-intent traffic, subscription models, or repeat-heavy businesses."
+    stage_notes:
+      seed: "Conversion rate below 1% in the first three months is expected while product pages, photography, and pricing are being refined."
+      series_a: "2%+ conversion rate demonstrates repeatable demand. Conversion rate stability across traffic sources is a stronger signal than the absolute number."
+      series_b_plus: "Conversion optimization becomes a dedicated function. Marginal improvements at scale have outsized revenue impact."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "BigCommerce State of E-Commerce"
+        year: "2024"
+      - source: "Statista Digital Commerce Compass"
+        year: "2024"
+    related_metrics: ["cart-abandonment-rate", "aov", "revenue"]
+    related_skills: ["four-ps-marketing", "net-promoter-score", "cialdini-influence"]
+    caveats: "Conversion rate varies dramatically by category: fashion averages 1.5-2%, electronics 1-1.5%, food/beverage 3-5%, niche hobby 4-6%. Compare within category, not across."
+
+  - name: "Average Order Value (AOV)"
+    id: "aov"
+    category: "growth"
+    definition: "The average dollar amount spent per transaction, reflecting pricing strategy, product mix, and cross-sell/upsell effectiveness."
+    formula: "Total Revenue / Number of Orders"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $30 (general merchandise); declining QoQ"
+        signal: "Low AOV compresses contribution margin. Fulfillment and shipping costs consume a disproportionate share of revenue."
+      below_average:
+        value: "$30-$50 (general merchandise)"
+        signal: "Below the threshold where per-order economics work without aggressive cost control on fulfillment."
+      average:
+        value: "$50-$80 (general merchandise)"
+        signal: "Inline with e-commerce medians. Per-order economics are viable with standard fulfillment operations."
+      good:
+        value: "$80-$150"
+        signal: "Healthy AOV that supports profitable per-order economics even with standard shipping and fulfillment costs."
+      excellent:
+        value: "> $150"
+        signal: "Strong AOV that creates comfortable contribution margins. Often seen in premium brands, luxury goods, or curated bundles."
+    stage_notes:
+      seed: "AOV is heavily influenced by product selection. Focus on whether AOV covers COGS + fulfillment + shipping with margin remaining."
+      series_a: "AOV should be stable or increasing. Declining AOV signals discounting dependency or mix shift to lower-value products."
+      series_b_plus: "AOV optimization (bundling, upsells, premium tiers) becomes a dedicated growth lever."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "BigCommerce State of E-Commerce"
+        year: "2024"
+    related_metrics: ["revenue", "conversion-rate", "contribution-margin"]
+    related_skills: ["four-ps-marketing", "cialdini-influence", "business-model-canvas"]
+    caveats: "AOV benchmarks vary enormously by category. Apparel averages $80-$120, beauty $45-$65, home goods $100-$180, supplements $50-$70. Category-specific benchmarks are essential."
+
+  - name: "Cart Abandonment Rate"
+    id: "cart-abandonment-rate"
+    category: "growth"
+    definition: "The percentage of shopping sessions where items are added to the cart but the purchase is not completed. Measures friction in the checkout process and price sensitivity at the moment of commitment."
+    formula: "(1 - (Completed Purchases / Cart Creations)) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 80%"
+        signal: "Severe checkout friction, unexpected costs (shipping, tax), or trust issues. Every 5-point reduction represents significant revenue recovery."
+      below_average:
+        value: "75-80%"
+        signal: "Above average abandonment. Common culprits: mandatory account creation, slow page load, limited payment options, surprise shipping costs."
+      average:
+        value: "68-75%"
+        signal: "Inline with the global e-commerce average of approximately 70%. Optimization opportunities exist but the funnel is functional."
+      good:
+        value: "60-68%"
+        signal: "Below-average abandonment, indicating a well-optimized checkout with transparent pricing and minimal friction."
+      excellent:
+        value: "< 60%"
+        signal: "Exceptional. Typically achieved by subscription models, one-click reorder businesses, or brands with very high purchase intent traffic."
+    stage_notes:
+      seed: "Cart abandonment above 80% is common in early-stage stores. Priority: eliminate surprise costs and simplify checkout before investing in recovery flows."
+      series_a: "Abandonment recovery flows (email sequences, retargeting) should be recapturing 5-15% of abandoned carts."
+      series_b_plus: "Multi-touch abandonment recovery, dynamic incentives, and checkout A/B testing are standard practice."
+    data_sources:
+      - source: "Baymard Institute Cart Abandonment Research"
+        year: "2024"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["conversion-rate", "aov", "revenue"]
+    related_skills: ["cialdini-influence", "four-ps-marketing", "systems-thinking"]
+    caveats: "Cart abandonment includes window shoppers and comparison shoppers. Not all abandonment is recoverable. Focus on the delta between cart creation with purchase intent and completion, not the raw abandonment rate."
+
+  # ─────────────────────────────────────────────
+  # CUSTOMER ACQUISITION & MARKETING METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Customer Acquisition Cost (CAC)"
+    id: "cac"
+    category: "unit-economics"
+    definition: "The fully loaded cost to acquire one new purchasing customer, including all marketing spend, agency fees, creative production, and allocated team costs."
+    formula: "Total Marketing & Sales Spend / Number of New Customers Acquired (same period)"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "CAC > AOV (acquiring customers at a loss on first order)"
+        signal: "Every new customer costs more to acquire than their first purchase generates. Viable only if repeat purchase rate and LTV are exceptionally strong."
+      below_average:
+        value: "CAC = 50-100% of AOV"
+        signal: "Marginal first-order economics. Business depends heavily on repeat purchases to justify acquisition spend."
+      average:
+        value: "CAC = 25-50% of AOV"
+        signal: "Standard e-commerce acquisition economics. First-order contribution is thin but positive."
+      good:
+        value: "CAC = 10-25% of AOV"
+        signal: "Healthy acquisition efficiency. First-order contribution margin is meaningful."
+      excellent:
+        value: "CAC < 10% of AOV or > 50% organic acquisition"
+        signal: "Exceptional. Either acquisition channels are highly efficient or the brand generates substantial organic demand through word-of-mouth, SEO, or viral content."
+    stage_notes:
+      seed: "CAC is volatile at low volumes. Track by channel from day one — the blended number masks which channels work."
+      series_a: "CAC should be declining or stable as channel mix matures. Rising CAC with stable conversion signals channel saturation."
+      series_b_plus: "CAC management becomes a portfolio optimization exercise across 5-10 channels. Watch for marginal CAC diverging from blended CAC."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "eMarketer / Insider Intelligence"
+        year: "2024"
+    related_metrics: ["ltv", "roas", "cpa-by-channel", "organic-traffic-pct"]
+    related_skills: ["four-ps-marketing", "business-model-canvas", "balanced-scorecard"]
+    caveats: "E-commerce CAC must include full funnel costs: ad spend, creative, landing page, agency fees, and attributed team time. Under-counting CAC by reporting only media spend is the most common error."
+
+  - name: "Customer Lifetime Value (LTV)"
+    id: "ltv"
+    category: "unit-economics"
+    definition: "The total gross profit expected from a customer over their entire relationship with the brand, accounting for repeat purchases, average order value, and gross margin."
+    formula: "AOV x Gross Margin % x Purchase Frequency x Average Customer Lifespan (or AOV x Gross Margin % / (1 - Repeat Purchase Rate) for retention-based)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "LTV:CAC ratio < 2:1"
+        signal: "Customers do not generate enough lifetime gross profit to justify acquisition cost. The business is either a funnel to nowhere or requires radical improvement in retention or margins."
+      below_average:
+        value: "LTV:CAC ratio 2:1-3:1"
+        signal: "Marginal economics. Profitable at the unit level but insufficient cushion for operational costs, inventory risk, and growth investment."
+      average:
+        value: "LTV:CAC ratio 3:1-4:1"
+        signal: "Standard e-commerce economics. Enough headroom to fund operations and modest growth."
+      good:
+        value: "LTV:CAC ratio 4:1-6:1"
+        signal: "Strong economics. Indicates a loyal customer base or a highly efficient acquisition engine."
+      excellent:
+        value: "LTV:CAC ratio > 6:1"
+        signal: "Exceptional. Either the brand commands extraordinary loyalty and repeat rates, or acquisition costs are unusually low. Verify that this is not under-investment in growth."
+    stage_notes:
+      seed: "LTV is largely theoretical at seed. Estimate from cohort repeat purchase data at 3-6 months and project conservatively."
+      series_a: "LTV projections must be grounded in actual cohort data with 12+ months of history. Forward LTV estimates exceeding 2x observed data are discounted."
+      series_b_plus: "LTV segmentation by acquisition channel, product category, and customer cohort is standard. Blended LTV masks important variation."
+    data_sources:
+      - source: "Metrilo E-Commerce Retention Studies"
+        year: "2023"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["cac", "repeat-purchase-rate", "purchase-frequency", "aov", "gross-margin"]
+    related_skills: ["business-model-canvas", "balanced-scorecard", "net-promoter-score"]
+    caveats: "LTV calculations in e-commerce must use gross margin, not revenue. An LTV based on revenue ignores COGS, fulfillment, and returns — producing a dangerously inflated number."
+
+  - name: "Return on Ad Spend (ROAS)"
+    id: "roas"
+    category: "unit-economics"
+    definition: "Revenue generated per dollar of advertising spend. The primary efficiency metric for paid acquisition in e-commerce, measuring how effectively ad dollars convert into sales."
+    formula: "Revenue from Ads / Ad Spend"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 2x ROAS"
+        signal: "Advertising is unprofitable after accounting for COGS and fulfillment costs. At typical 50% gross margins, 2x ROAS means break-even before operating expenses."
+      below_average:
+        value: "2x-3x ROAS"
+        signal: "Marginal profitability on ad spend. Viable for prospecting campaigns that drive high-LTV customers, but not sustainable as the blended target."
+      average:
+        value: "3x-5x ROAS"
+        signal: "Healthy ad efficiency. At 50% gross margin, 4x ROAS yields a 2:1 gross-profit-to-ad-spend ratio."
+      good:
+        value: "5x-8x ROAS"
+        signal: "Strong ad efficiency, typically seen in retargeting, branded search, and email-driven campaigns."
+      excellent:
+        value: "> 8x ROAS"
+        signal: "Exceptional. Often indicates brand strength driving high organic overlap with paid campaigns. Verify incrementality — high blended ROAS can mask low marginal ROAS."
+    stage_notes:
+      seed: "ROAS below 2x is common while testing creative, audiences, and product-market fit through paid channels. Set a loss budget and optimize toward 3x within 90 days."
+      series_a: "Blended ROAS should stabilize at 3-5x across channels. Channel-level ROAS visibility is essential for capital allocation."
+      series_b_plus: "Marginal ROAS becomes more important than blended ROAS. Incrementality testing (holdout groups, geo-lift studies) is necessary to avoid over-attributing organic demand to paid channels."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "eMarketer / Insider Intelligence"
+        year: "2024"
+    related_metrics: ["cac", "cpa-by-channel", "contribution-margin"]
+    related_skills: ["four-ps-marketing", "balanced-scorecard", "scenario-planning"]
+    caveats: "ROAS measures revenue, not profit. A 4x ROAS on a product with 30% gross margin yields only $1.20 gross profit per $1 ad spend. Always evaluate ROAS through the lens of gross margin."
+
+  - name: "Cost Per Acquisition by Channel"
+    id: "cpa-by-channel"
+    category: "unit-economics"
+    definition: "The cost to acquire a new customer through each distinct marketing channel, enabling capital allocation decisions across the acquisition portfolio."
+    formula: "Channel-Specific Marketing Spend / New Customers Acquired via Channel"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "Channel CPA > first-order gross profit across all paid channels"
+        signal: "No paid channel is profitable on the first order. Business is entirely dependent on repeat purchases to recover acquisition costs."
+      below_average:
+        value: "Channel CPA = 50-100% of first-order gross profit for primary channels"
+        signal: "Primary channels are marginally profitable on first order. Secondary channels may be underwater."
+      average:
+        value: "Top 2 channels with CPA < 50% of first-order gross profit"
+        signal: "Core channels are working. Sufficient margin to test and expand into additional channels."
+      good:
+        value: "3+ channels with CPA < 30% of first-order gross profit"
+        signal: "Diversified, efficient acquisition. No single-channel dependency."
+      excellent:
+        value: "5+ channels with profitable first-order CPA; organic > 40% of new customers"
+        signal: "Highly diversified acquisition with strong organic flywheel. Resilient to any single channel disruption."
+    stage_notes:
+      seed: "Focus on 1-2 channels and master them before diversifying. Channel CPA at early volumes is unreliable."
+      series_a: "Channel diversification is expected. Investors want to see that growth is not dependent on a single platform (especially Facebook/Meta or Google)."
+      series_b_plus: "Full channel portfolio management with marginal CPA analysis, attribution modeling, and incrementality testing."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "eMarketer / Insider Intelligence"
+        year: "2024"
+    related_metrics: ["cac", "roas", "organic-traffic-pct", "email-revenue-pct"]
+    related_skills: ["four-ps-marketing", "scenario-planning", "systems-thinking"]
+    caveats: "Attribution is inherently imperfect. Last-click attribution under-credits top-of-funnel channels. Multi-touch attribution requires investment in tooling. At minimum, track both last-click and first-click CPA."
+
+  - name: "Email Revenue Percentage"
+    id: "email-revenue-pct"
+    category: "unit-economics"
+    definition: "The percentage of total e-commerce revenue attributable to email marketing campaigns and flows. Measures the effectiveness of the owned-channel retention engine."
+    formula: "(Revenue from Email Campaigns + Revenue from Email Flows) / Total Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10% of revenue from email"
+        signal: "Email is under-developed as a channel. The business is over-dependent on paid acquisition for both new and repeat customers."
+      below_average:
+        value: "10-20% of revenue from email"
+        signal: "Basic email program in place (welcome series, cart abandonment) but not fully exploiting the channel."
+      average:
+        value: "20-30% of revenue from email"
+        signal: "Healthy email contribution. Core flows (welcome, abandonment, post-purchase, win-back) are active and generating meaningful revenue."
+      good:
+        value: "30-40% of revenue from email"
+        signal: "Strong email program driving substantial owned-channel revenue. Reduces paid media dependency and improves unit economics."
+      excellent:
+        value: "> 40% of revenue from email"
+        signal: "Best-in-class email marketing. Typically indicates a loyal subscriber base with sophisticated segmentation, personalization, and lifecycle automation."
+    stage_notes:
+      seed: "Email is the highest-ROI channel from day one. Welcome series and cart abandonment flows should launch before any paid advertising."
+      series_a: "Email revenue % above 25% is a strong signal of brand health and customer loyalty. Investors value owned channels."
+      series_b_plus: "Email sophistication includes predictive send-time optimization, dynamic content, advanced segmentation by purchase history, and zero-party data integration."
+    data_sources:
+      - source: "Klaviyo E-Commerce Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["repeat-purchase-rate", "ltv", "organic-traffic-pct"]
+    related_skills: ["four-ps-marketing", "cialdini-influence", "net-promoter-score"]
+    caveats: "Email revenue attribution is inflated by post-view and post-click windows. A 5-day attribution window is standard; 30-day windows over-credit email for purchases that would have occurred organically."
+
+  - name: "Organic Traffic Percentage"
+    id: "organic-traffic-pct"
+    category: "unit-economics"
+    definition: "The percentage of total website sessions originating from organic channels: direct traffic, organic search (SEO), social media (organic), and referral traffic. Measures brand strength and independence from paid acquisition."
+    formula: "(Direct + Organic Search + Organic Social + Referral Sessions) / Total Sessions x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 30% organic traffic"
+        signal: "Dangerously dependent on paid channels. Any disruption — platform policy change, CPM increase, account suspension — threatens survival."
+      below_average:
+        value: "30-40% organic traffic"
+        signal: "Paid-heavy acquisition mix. Brand awareness and SEO need investment."
+      average:
+        value: "40-55% organic traffic"
+        signal: "Balanced traffic mix. Paid acquisition scales the business while organic provides a foundation."
+      good:
+        value: "55-70% organic traffic"
+        signal: "Strong brand and SEO presence. Lower sensitivity to paid media cost fluctuations."
+      excellent:
+        value: "> 70% organic traffic"
+        signal: "Exceptional brand strength. Organic demand dominates — paid media serves to accelerate rather than sustain."
+    stage_notes:
+      seed: "Organic traffic below 20% is normal in the first six months. SEO and brand building are long-term investments."
+      series_a: "Organic traffic above 40% demonstrates that the brand generates demand independent of ad spend. A strong signal for investors."
+      series_b_plus: "Organic traffic mix should be increasing as brand investment compounds. Declining organic share while scaling paid is a warning signal."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "Statista Digital Commerce Compass"
+        year: "2024"
+    related_metrics: ["cac", "email-revenue-pct", "cpa-by-channel"]
+    related_skills: ["four-ps-marketing", "blue-ocean-strategy", "tipping-point"]
+    caveats: "Direct traffic includes both genuine brand-driven visits and mis-attributed traffic (dark social, incognito browsing, app-to-web transitions). Direct traffic is not a reliable proxy for brand strength alone."
+
+  # ─────────────────────────────────────────────
+  # RETENTION & REPEAT PURCHASE METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Repeat Purchase Rate"
+    id: "repeat-purchase-rate"
+    category: "retention"
+    definition: "The percentage of customers who make more than one purchase within a defined period (typically 12 months). The fundamental retention metric for e-commerce, equivalent in importance to NRR in SaaS."
+    formula: "(Customers with 2+ Orders / Total Customers) x 100 — measured over a cohort period"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 15% repeat purchase rate (12-month)"
+        signal: "The business is a one-purchase funnel. Every sale requires new customer acquisition. Unit economics are unsustainable without radical improvement."
+      below_average:
+        value: "15-25%"
+        signal: "Below average retention. Some repeat behavior exists but is not strong enough to sustain growth without heavy acquisition spending."
+      average:
+        value: "25-35%"
+        signal: "Inline with e-commerce averages. Repeat customers are generating meaningful revenue but there is room for lifecycle optimization."
+      good:
+        value: "35-50%"
+        signal: "Strong repeat behavior. The brand has earned loyalty. Repeat customers typically generate 40-60% of total revenue."
+      excellent:
+        value: "> 50%"
+        signal: "Exceptional retention. Typically seen in consumable categories (supplements, food, beauty) or subscription models. The business has a built-in recurring revenue engine."
+    stage_notes:
+      seed: "Repeat purchase data requires time to mature. At 6 months, a 20% repeat rate from your first cohort is encouraging."
+      series_a: "Repeat purchase rate is the single most important metric for e-commerce Series A investors. It proves that the product is worth buying again."
+      series_b_plus: "Repeat rate should be segmented by cohort, product category, and acquisition channel. Blended repeat rate masks channel quality differences."
+    data_sources:
+      - source: "Metrilo E-Commerce Retention Studies"
+        year: "2023"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["purchase-frequency", "time-between-purchases", "ltv", "email-revenue-pct"]
+    related_skills: ["net-promoter-score", "product-life-cycle", "cialdini-influence"]
+    caveats: "Repeat purchase rate is heavily category-dependent. One-time purchase categories (mattresses, furniture) naturally have lower repeat rates — the metric must be evaluated within category norms."
+
+  - name: "Purchase Frequency"
+    id: "purchase-frequency"
+    category: "retention"
+    definition: "The average number of orders placed by a customer within a defined period (typically 12 months). Measures the intensity of the customer relationship beyond the binary of repeat/not-repeat."
+    formula: "Total Orders / Total Unique Customers (over period)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.2 orders per customer per year"
+        signal: "Virtually no repeat purchasing. The business resets to zero each month, dependent entirely on new customer acquisition."
+      below_average:
+        value: "1.2-1.5 orders per customer per year"
+        signal: "Minimal repeat behavior. A small segment of loyal customers inflates the average."
+      average:
+        value: "1.5-2.0 orders per customer per year"
+        signal: "Moderate frequency. Inline with general e-commerce averages across non-consumable categories."
+      good:
+        value: "2.0-3.5 orders per customer per year"
+        signal: "Healthy frequency indicating product assortment breadth and customer engagement."
+      excellent:
+        value: "> 3.5 orders per customer per year"
+        signal: "High-frequency purchasing. Typical of consumable brands, subscription models, or multi-category retailers with broad assortment."
+    stage_notes:
+      seed: "Purchase frequency data is noisy with small customer bases. Focus on the first-to-second purchase rate as the leading indicator."
+      series_a: "Frequency trends matter more than absolutes. An increasing frequency over successive cohorts is a strong signal."
+      series_b_plus: "Frequency segmentation reveals where to invest: what product categories, what customer segments, and what touchpoints drive additional orders."
+    data_sources:
+      - source: "Metrilo E-Commerce Retention Studies"
+        year: "2023"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["repeat-purchase-rate", "time-between-purchases", "aov", "ltv"]
+    related_skills: ["four-ps-marketing", "product-life-cycle", "cialdini-influence"]
+    caveats: "Purchase frequency is heavily skewed by power buyers. Median frequency is usually far below mean. Report both to avoid distortion by a small number of high-frequency customers."
+
+  - name: "Time Between Purchases"
+    id: "time-between-purchases"
+    category: "retention"
+    definition: "The average number of days between a customer's consecutive orders. Defines the natural repurchase cycle and informs lifecycle marketing timing."
+    formula: "Average of (Date of Order N+1 - Date of Order N) across all customers with 2+ orders"
+    unit: "days"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 180 days between purchases"
+        signal: "Extended repurchase cycle. Customer relationships are episodic rather than habitual. Lifecycle marketing must work hard to maintain engagement across long gaps."
+      below_average:
+        value: "120-180 days"
+        signal: "Moderate cycle. Typical for seasonal or discretionary purchases."
+      average:
+        value: "60-120 days"
+        signal: "Standard for many e-commerce categories. Allows 2-4 purchases per year."
+      good:
+        value: "30-60 days"
+        signal: "Healthy repurchase cycle. Common in consumable categories (beauty, supplements, food) and brands with strong lifecycle programs."
+      excellent:
+        value: "< 30 days"
+        signal: "Rapid repurchase. Typical of subscription models, frequent consumables, or habitual purchase categories."
+    stage_notes:
+      seed: "Establishing the natural repurchase cycle early is critical for email and SMS flow timing."
+      series_a: "Time between purchases should inform all lifecycle marketing cadence. Misaligned communication timing is the primary cause of unsubscribes."
+      series_b_plus: "Advanced programs personalize communication timing to each customer's individual repurchase cycle rather than using category averages."
+    data_sources:
+      - source: "Metrilo E-Commerce Retention Studies"
+        year: "2023"
+      - source: "Klaviyo E-Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["purchase-frequency", "repeat-purchase-rate", "email-revenue-pct"]
+    related_skills: ["systems-thinking", "product-life-cycle"]
+    caveats: "Time between purchases is category-specific and influenced by product consumption rate. A 90-day gap for a skincare brand may signal a problem, while the same gap for an apparel brand is normal."
+
+  # ─────────────────────────────────────────────
+  # UNIT ECONOMICS & MARGIN METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Gross Margin"
+    id: "gross-margin"
+    category: "financial"
+    definition: "The percentage of revenue remaining after deducting cost of goods sold (COGS), representing the fundamental profitability of the product before operating expenses, fulfillment, and shipping."
+    formula: "(Revenue - COGS) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 40%"
+        signal: "Thin margins that leave insufficient room for marketing, fulfillment, shipping, and operations. Common in commodity products and dropshipping."
+      below_average:
+        value: "40-50%"
+        signal: "Below average margins. Viable with high volume and lean operations, but vulnerable to cost increases."
+      average:
+        value: "50-60%"
+        signal: "Inline with e-commerce averages. Sufficient margin to fund marketing and operations with careful management."
+      good:
+        value: "60-70%"
+        signal: "Healthy margins indicating either brand premium, proprietary products, or cost-efficient sourcing. Strong foundation for scaling."
+      excellent:
+        value: "> 70%"
+        signal: "Premium margins. Typically found in digital-physical hybrids, luxury goods, or brands with extreme pricing power. Supports aggressive growth investment."
+    stage_notes:
+      seed: "Gross margin should be the first number any e-commerce founder calculates. If gross margin is below 40%, the business model requires reconsideration before investing in growth."
+      series_a: "Investors expect 50%+ gross margin for DTC brands. Below 50%, the path to profitability is narrow and requires exceptional operational efficiency."
+      series_b_plus: "Gross margin should be stable or improving through supplier negotiation, manufacturing scale, and mix shift toward higher-margin products."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "NRF Annual Report"
+        year: "2024"
+    related_metrics: ["contribution-margin", "aov", "return-rate"]
+    related_skills: ["business-model-canvas", "balanced-scorecard", "porters-five-forces"]
+    caveats: "E-commerce gross margin must include all product-related costs: manufacturing, raw materials, packaging, duties, and tariffs. Excluding packaging or duties inflates the metric."
+
+  - name: "Contribution Margin"
+    id: "contribution-margin"
+    category: "financial"
+    definition: "The per-order profit after deducting all variable costs: COGS, fulfillment, shipping, payment processing, and the variable portion of returns. The true measure of per-order economics."
+    formula: "(Revenue - COGS - Fulfillment Cost - Shipping Cost - Payment Processing Fee - Variable Return Cost) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10% contribution margin"
+        signal: "Per-order economics are barely positive or negative. The business destroys value with every sale before marketing is even considered."
+      below_average:
+        value: "10-20%"
+        signal: "Thin contribution margin. Marketing must be extremely efficient (low CAC) for the business to reach profitability."
+      average:
+        value: "20-30%"
+        signal: "Standard e-commerce contribution margins. Room for marketing spend and operational costs."
+      good:
+        value: "30-40%"
+        signal: "Healthy contribution margin. Strong per-order economics that support both growth investment and profitability."
+      excellent:
+        value: "> 40%"
+        signal: "Exceptional per-order economics. Typically seen in high-AOV, high-margin brands with efficient fulfillment operations."
+    stage_notes:
+      seed: "Contribution margin must be positive before scaling. Scaling a negative-contribution-margin business accelerates failure."
+      series_a: "Contribution margin above 20% is the floor for institutional investment. Below 20%, the path to profitability requires unrealistic assumptions about scale efficiencies."
+      series_b_plus: "Contribution margin optimization through fulfillment efficiency, shipping negotiation, and returns reduction is a key operational focus."
+    data_sources:
+      - source: "ShipBob Fulfillment Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["gross-margin", "fulfillment-cost-per-order", "shipping-cost-pct", "return-rate"]
+    related_skills: ["business-model-canvas", "balanced-scorecard", "kaizen-bpr"]
+    caveats: "Contribution margin in e-commerce must include the variable cost of returns (return shipping, restocking, damaged goods). Excluding returns overstates contribution margin by 5-15 percentage points in high-return categories like apparel."
+
+  - name: "Return Rate"
+    id: "return-rate"
+    category: "financial"
+    definition: "The percentage of orders returned by customers. A critical e-commerce metric because returns reverse revenue, consume fulfillment resources, and often render products unsellable."
+    formula: "(Number of Returned Orders / Total Orders Shipped) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 30% return rate"
+        signal: "Return rate is destroying unit economics. Common in apparel without size guidance or products with misleading photography. Requires immediate root cause analysis."
+      below_average:
+        value: "20-30%"
+        signal: "High returns, particularly for non-apparel categories. Even for apparel, rates above 25% indicate sizing, quality, or expectations issues."
+      average:
+        value: "10-20%"
+        signal: "Inline with e-commerce averages. Apparel sits at the upper end (15-20%); electronics and home goods at the lower end (5-10%)."
+      good:
+        value: "5-10%"
+        signal: "Below average returns indicating accurate product representation, good sizing guidance, and appropriate customer expectations."
+      excellent:
+        value: "< 5%"
+        signal: "Exceptional return rate. Typical of consumable products, personalized items, or categories where returns are impractical."
+    stage_notes:
+      seed: "Return rate above 20% in the first three months demands immediate investigation. Product photography, descriptions, and sizing guides are the usual suspects."
+      series_a: "Return rate must be factored into all unit economics. Present investors with 'gross revenue' and 'net revenue after returns' side by side."
+      series_b_plus: "Return analytics by SKU, reason code, and customer segment drive targeted interventions. Exchange programs that preserve revenue are preferable to refunds."
+    data_sources:
+      - source: "Narvar Returns & Exchanges Report"
+        year: "2023"
+      - source: "NRF Annual Report"
+        year: "2024"
+    related_metrics: ["contribution-margin", "gross-margin", "nps"]
+    related_skills: ["kaizen-bpr", "systems-thinking", "net-promoter-score"]
+    caveats: "Return rate varies dramatically by category: apparel 15-30%, electronics 5-15%, beauty 3-8%, furniture 5-10%. Category benchmarks are essential. Also distinguish between return rate (orders returned) and return volume (units returned — a multi-item order may have partial returns)."
+
+  # ─────────────────────────────────────────────
+  # FULFILLMENT & OPERATIONS METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Fulfillment Cost per Order"
+    id: "fulfillment-cost-per-order"
+    category: "efficiency"
+    definition: "The total cost to pick, pack, and prepare an order for shipment, excluding the shipping carrier cost itself. Measures warehouse and logistics operational efficiency."
+    formula: "(Total Warehouse Labor + Packaging Materials + Warehouse Rent + Software + Equipment) / Total Orders Fulfilled"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $8 per order"
+        signal: "High fulfillment cost, often due to manual processes, low volume, or multi-item order complexity. Eroding contribution margin."
+      below_average:
+        value: "$6-$8 per order"
+        signal: "Above average cost. Common for brands doing in-house fulfillment at moderate volumes."
+      average:
+        value: "$4-$6 per order"
+        signal: "Standard fulfillment cost for mid-volume operations using 3PL partners or semi-automated in-house fulfillment."
+      good:
+        value: "$2-$4 per order"
+        signal: "Efficient fulfillment, typically achieved at scale with optimized warehouse operations or volume-discounted 3PL rates."
+      excellent:
+        value: "< $2 per order"
+        signal: "Best-in-class fulfillment efficiency. Achieved by high-volume operations with automation, standardized packaging, and optimized pick paths."
+    stage_notes:
+      seed: "Fulfillment costs above $10 are common when founders are packing orders themselves. This is acceptable early but must be addressed before scaling."
+      series_a: "Transition from founder-packed to professional fulfillment (3PL or dedicated warehouse team). Target $4-$6 per order."
+      series_b_plus: "Fulfillment cost optimization through automation, multi-node distribution (reducing shipping zones), and packaging standardization."
+    data_sources:
+      - source: "ShipBob Fulfillment Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["shipping-cost-pct", "contribution-margin"]
+    related_skills: ["kaizen-bpr", "systems-thinking", "balanced-scorecard"]
+    caveats: "Fulfillment cost per order drops with volume but increases with SKU complexity and multi-item orders. Brands with 1-2 SKU counts have inherently lower costs than brands with 500+ SKUs."
+
+  - name: "Shipping Cost as Percentage of Revenue"
+    id: "shipping-cost-pct"
+    category: "efficiency"
+    definition: "The total shipping carrier cost (outbound and return) as a percentage of net revenue. Measures the logistics cost burden on the business."
+    formula: "(Total Outbound Shipping Cost + Return Shipping Cost) / Net Revenue x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 15% of revenue"
+        signal: "Shipping costs are consuming a dangerous share of revenue. Common for heavy/bulky products, low-AOV businesses, or brands offering free shipping without sufficient margin."
+      below_average:
+        value: "12-15% of revenue"
+        signal: "Above average shipping burden. Review carrier rates, packaging dimensions, and shipping zone distribution."
+      average:
+        value: "8-12% of revenue"
+        signal: "Standard shipping cost for e-commerce businesses with free-shipping thresholds and standard-weight products."
+      good:
+        value: "5-8% of revenue"
+        signal: "Efficient shipping operations. Benefits from high AOV, light products, or multi-node fulfillment reducing zone distances."
+      excellent:
+        value: "< 5% of revenue"
+        signal: "Exceptional shipping efficiency. Typically achieved by high-AOV brands or businesses with regional fulfillment networks."
+    stage_notes:
+      seed: "Shipping cost as a percentage of revenue is disproportionately high at low volumes because carrier discounts are volume-dependent."
+      series_a: "Negotiate carrier rates aggressively. A 10-15% carrier rate reduction has direct bottom-line impact at scale."
+      series_b_plus: "Multi-node fulfillment (2-3 distribution centers) reduces average shipping zones and transit times simultaneously."
+    data_sources:
+      - source: "ShipBob Fulfillment Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["fulfillment-cost-per-order", "contribution-margin", "aov"]
+    related_skills: ["kaizen-bpr", "systems-thinking", "scenario-planning"]
+    caveats: "Free shipping is a marketing decision, not a logistics decision. The cost of free shipping should be analyzed as a marketing expense or factored into product pricing. 'Free shipping' does not make shipping costs disappear."
+
+  - name: "Inventory Turnover"
+    id: "inventory-turnover"
+    category: "efficiency"
+    definition: "The number of times the entire inventory is sold and replaced within a year. Measures how efficiently capital invested in inventory generates revenue."
+    formula: "Cost of Goods Sold / Average Inventory Value"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 2x annual turnover"
+        signal: "Capital is trapped in slow-moving inventory. High risk of obsolescence, markdowns, and write-offs. Cash flow is constrained."
+      below_average:
+        value: "2-4x annual turnover"
+        signal: "Below average for most e-commerce categories. Inventory is turning but not efficiently."
+      average:
+        value: "4-6x annual turnover"
+        signal: "Standard inventory turnover for general merchandise e-commerce. Inventory is productive."
+      good:
+        value: "6-10x annual turnover"
+        signal: "Healthy turnover indicating strong demand forecasting, lean inventory management, and a well-curated assortment."
+      excellent:
+        value: "> 10x annual turnover"
+        signal: "Exceptional turnover. Typical of consumable brands, fast-fashion models, or dropshipping operations with near-zero inventory."
+    stage_notes:
+      seed: "Inventory turnover is often low initially due to minimum order quantities and the need to hold sufficient safety stock while demand patterns emerge."
+      series_a: "Inventory turnover above 4x demonstrates that the product assortment matches demand. Below 4x raises concerns about product-market fit and cash efficiency."
+      series_b_plus: "Inventory planning systems, demand forecasting, and SKU rationalization drive turnover optimization at scale."
+    data_sources:
+      - source: "NRF Annual Report"
+        year: "2024"
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["days-of-inventory", "gross-margin", "contribution-margin"]
+    related_skills: ["balanced-scorecard", "systems-thinking", "scenario-planning"]
+    caveats: "Inventory turnover varies dramatically by category: fashion 4-8x, electronics 8-12x, luxury goods 2-4x, grocery 12-20x. Cross-category comparison is meaningless."
+
+  - name: "Days of Inventory"
+    id: "days-of-inventory"
+    category: "efficiency"
+    definition: "The average number of days of sales that current inventory will cover, measuring how long capital is tied up in unsold products."
+    formula: "(Average Inventory Value / COGS) x 365 (or 365 / Inventory Turnover)"
+    unit: "days"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 180 days of inventory"
+        signal: "Six months of inventory on hand. Severe cash flow burden, high obsolescence risk, and storage costs eroding margins."
+      below_average:
+        value: "120-180 days"
+        signal: "Excessive inventory. Capital is being inefficiently deployed. Common when brands over-order to meet minimum quantities."
+      average:
+        value: "60-90 days"
+        signal: "Standard inventory position for e-commerce. Balances stock availability with capital efficiency."
+      good:
+        value: "30-60 days"
+        signal: "Lean inventory management with reliable supply chains. Low stockout risk with efficient capital deployment."
+      excellent:
+        value: "< 30 days"
+        signal: "Best-in-class inventory leanness. Requires responsive supply chains, accurate demand forecasting, or a dropshipping/made-to-order model."
+    stage_notes:
+      seed: "Days of inventory above 120 is common when testing product-market fit with initial production runs."
+      series_a: "Target 60-90 days unless the supply chain (international manufacturing, long lead times) structurally requires more."
+      series_b_plus: "SKU-level inventory days analysis drives assortment decisions. Slow-moving SKUs (>120 days) should be evaluated for discontinuation or clearance."
+    data_sources:
+      - source: "NRF Annual Report"
+        year: "2024"
+      - source: "Statista Digital Commerce Compass"
+        year: "2024"
+    related_metrics: ["inventory-turnover", "gross-margin"]
+    related_skills: ["scenario-planning", "systems-thinking", "balanced-scorecard"]
+    caveats: "Days of inventory must account for seasonality. A seasonal business may legitimately hold 120+ days of inventory pre-peak while operating at 30 days post-peak. Evaluate on a rolling 12-month basis."
+
+  # ─────────────────────────────────────────────
+  # CUSTOMER SATISFACTION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Net Promoter Score (NPS)"
+    id: "nps"
+    category: "product"
+    definition: "The percentage of customers who are Promoters (9-10 rating) minus the percentage who are Detractors (0-6 rating). Measures overall brand advocacy and predicts word-of-mouth growth."
+    formula: "% Promoters - % Detractors"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "NPS < 10"
+        signal: "More detractors than neutral customers. Product quality, customer service, or fulfillment experience is materially failing expectations."
+      below_average:
+        value: "NPS 10-30"
+        signal: "Below the e-commerce median. Specific experience gaps (shipping speed, product quality, support responsiveness) need identification and resolution."
+      average:
+        value: "NPS 30-50"
+        signal: "Healthy for e-commerce. Customers are generally satisfied. Opportunity to convert passives to promoters through post-purchase experience optimization."
+      good:
+        value: "NPS 50-70"
+        signal: "Strong brand advocacy. Promoters are generating meaningful word-of-mouth referrals. Organic acquisition should be visible in channel mix."
+      excellent:
+        value: "NPS > 70"
+        signal: "Exceptional brand loyalty. Rare in e-commerce and indicates cult-brand status. These customers are your unpaid marketing force."
+    stage_notes:
+      seed: "NPS collection should begin with the first customers. Early NPS is the fastest qualitative feedback loop."
+      series_a: "NPS above 40 combined with a 30%+ repeat purchase rate is strong evidence of product-market fit."
+      series_b_plus: "NPS should be segmented by product category, order size, fulfillment speed, and customer cohort. Aggregate NPS masks important variation."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "Metrilo E-Commerce Retention Studies"
+        year: "2023"
+    related_metrics: ["csat", "repeat-purchase-rate", "organic-traffic-pct"]
+    related_skills: ["net-promoter-score", "four-ps-marketing", "cialdini-influence"]
+    caveats: "E-commerce NPS is influenced by factors beyond the product: shipping speed, packaging quality, unboxing experience, and returns process. A great product with poor fulfillment will produce a mediocre NPS."
+
+  - name: "Customer Satisfaction Score (CSAT)"
+    id: "csat"
+    category: "product"
+    definition: "The percentage of customers rating their experience as 'satisfied' or 'very satisfied' on a post-interaction survey. More granular than NPS, typically measured at specific touchpoints: post-purchase, post-delivery, post-support."
+    formula: "(Number of Satisfied Responses / Total Survey Responses) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "CSAT < 70%"
+        signal: "Significant customer dissatisfaction. The specific touchpoint where CSAT is measured is materially failing."
+      below_average:
+        value: "70-78%"
+        signal: "Below average satisfaction. Common gaps: shipping delays, product quality inconsistency, slow support response."
+      average:
+        value: "78-85%"
+        signal: "Standard customer satisfaction for e-commerce. Basic expectations are met but delight is absent."
+      good:
+        value: "85-92%"
+        signal: "Strong satisfaction. Customers are having consistently positive experiences across touchpoints."
+      excellent:
+        value: "CSAT > 92%"
+        signal: "Exceptional satisfaction. Nearly every customer interaction meets or exceeds expectations."
+    stage_notes:
+      seed: "CSAT surveys at post-delivery and post-support touchpoints provide the most actionable early-stage feedback."
+      series_a: "CSAT above 80% across all touchpoints is expected. Below-80% touchpoints indicate specific operational weaknesses."
+      series_b_plus: "CSAT automation through triggered surveys at each lifecycle touchpoint provides continuous operational monitoring."
+    data_sources:
+      - source: "Shopify Commerce Benchmarks"
+        year: "2024"
+      - source: "NRF Annual Report"
+        year: "2024"
+    related_metrics: ["nps", "return-rate", "repeat-purchase-rate"]
+    related_skills: ["net-promoter-score", "kaizen-bpr", "systems-thinking"]
+    caveats: "CSAT is a lagging indicator that reflects past experience. Response rates below 10% introduce selection bias — satisfied and extremely dissatisfied customers respond disproportionately, missing the passive middle."

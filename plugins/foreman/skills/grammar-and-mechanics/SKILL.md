@@ -1,0 +1,1 @@
+../../../../.claude/skills/writing/grammar-and-mechanics.md

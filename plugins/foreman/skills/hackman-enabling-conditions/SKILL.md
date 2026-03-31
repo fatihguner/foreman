@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/hackman-enabling-conditions.md

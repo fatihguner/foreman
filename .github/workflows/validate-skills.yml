@@ -1,0 +1,280 @@
+name: Validate Skills
+on:
+  push:
+    paths: ['.claude/skills/**/*.md']
+  pull_request:
+    paths: ['.claude/skills/**/*.md']
+
+permissions:
+  contents: read
+
+jobs:
+  validate-changed-skills:
+    name: Validate Changed Skills
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify changed skill files
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE=${{ github.event.pull_request.base.sha }}
+            HEAD=${{ github.event.pull_request.head.sha }}
+          else
+            BASE=${{ github.event.before }}
+            HEAD=${{ github.sha }}
+          fi
+
+          CHANGED=$(git diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '.claude/skills/**/*.md' | grep -v '_schema/' || true)
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          if [ -z "$CHANGED" ]; then
+            echo "No skill files changed (schema-only changes)."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Changed skill files:"
+            echo "$CHANGED"
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate frontmatter on changed skills
+        if: steps.changed.outputs.skip != 'true'
+        run: |
+          EXIT_CODE=0
+          REQUIRED_FIELDS=("name" "description" "version" "category" "stage" "tags" "related_skills" "complexity" "author")
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ ! -f "$file" ] && continue
+
+            echo "Validating: $file"
+
+            # Check frontmatter exists
+            FIRST_LINE=$(head -1 "$file")
+            if [ "$FIRST_LINE" != "---" ]; then
+              echo "::error file=$file::Missing YAML frontmatter"
+              EXIT_CODE=1
+              continue
+            fi
+
+            # Extract frontmatter
+            FRONTMATTER=$(sed -n '1,/^---$/p' "$file" | tail -n +2 | head -n -1)
+
+            # Check required fields
+            for field in "${REQUIRED_FIELDS[@]}"; do
+              if ! echo "$FRONTMATTER" | grep -q "^${field}:"; then
+                echo "::error file=$file::Missing required frontmatter field: $field"
+                EXIT_CODE=1
+              fi
+            done
+          done <<< "${{ steps.changed.outputs.files }}"
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "All changed skills have valid frontmatter."
+          fi
+          exit $EXIT_CODE
+
+      - name: Check for prohibited phrases in changed skills
+        if: steps.changed.outputs.skip != 'true'
+        run: |
+          EXIT_CODE=0
+
+          PROHIBITED_PHRASES=(
+            "In today's fast-paced"
+            "In today's rapidly"
+            "Let's dive in"
+            "Let's explore"
+            "In this skill, you will learn"
+            "Without further ado"
+            "It's important to note that"
+            "At the end of the day"
+          )
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ ! -f "$file" ] && continue
+
+            for phrase in "${PROHIBITED_PHRASES[@]}"; do
+              if grep -qi "$phrase" "$file"; then
+                LINE=$(grep -n "$phrase" "$file" | head -1)
+                echo "::error file=$file::Prohibited phrase: \"$phrase\" — $LINE"
+                EXIT_CODE=1
+              fi
+            done
+          done <<< "${{ steps.changed.outputs.files }}"
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "No prohibited phrases found in changed skills."
+          fi
+          exit $EXIT_CODE
+
+      - name: Check required body sections in changed skills
+        if: steps.changed.outputs.skip != 'true'
+        run: |
+          EXIT_CODE=0
+
+          REQUIRED_SECTIONS=(
+            "Application Prompts"
+            "Anti-Patterns"
+            "Related Skills"
+          )
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ ! -f "$file" ] && continue
+
+            # Extract body (everything after frontmatter)
+            BODY=$(sed '1,/^---$/{ /^---$/!d; /^---$/d; }' "$file" | sed '1,/^---$/d')
+
+            for section in "${REQUIRED_SECTIONS[@]}"; do
+              if ! echo "$BODY" | grep -qi "## .*${section}"; then
+                echo "::warning file=$file::Missing recommended section: $section"
+              fi
+            done
+          done <<< "${{ steps.changed.outputs.files }}"
+
+          exit $EXIT_CODE
+
+  check-skill-refs:
+    name: Check Related Skills References
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify changed skill files
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE=${{ github.event.pull_request.base.sha }}
+            HEAD=${{ github.event.pull_request.head.sha }}
+          else
+            BASE=${{ github.event.before }}
+            HEAD=${{ github.sha }}
+          fi
+
+          CHANGED=$(git diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '.claude/skills/**/*.md' | grep -v '_schema/' || true)
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          if [ -z "$CHANGED" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Validate related_skills references
+        if: steps.changed.outputs.skip != 'true'
+        run: |
+          EXIT_CODE=0
+
+          # Build index of all skill names from frontmatter
+          declare -A SKILL_NAMES
+          while IFS= read -r -d '' skill_file; do
+            SKILL_NAME=$(sed -n '/^---$/,/^---$/{ /^name:/{ s/^name: *//; s/^"//; s/"$//; p; } }' "$skill_file")
+            if [ -n "$SKILL_NAME" ]; then
+              SKILL_NAMES["$SKILL_NAME"]=1
+            fi
+          done < <(find .claude/skills -name "*.md" -not -path "*/_schema/*" -type f -print0)
+
+          echo "Indexed ${#SKILL_NAMES[@]} skill names."
+
+          # Check references in changed files
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ ! -f "$file" ] && continue
+
+            # Extract related_skills list
+            IN_RELATED=false
+            while IFS= read -r line; do
+              if echo "$line" | grep -q "^related_skills:"; then
+                IN_RELATED=true
+                continue
+              fi
+              if $IN_RELATED; then
+                if echo "$line" | grep -q "^  - "; then
+                  REF=$(echo "$line" | sed 's/^  - //; s/^"//; s/"$//')
+                  if [ -z "${SKILL_NAMES[$REF]+_}" ]; then
+                    echo "::error file=$file::Broken related_skills reference: $REF"
+                    EXIT_CODE=1
+                  fi
+                else
+                  IN_RELATED=false
+                fi
+              fi
+            done < <(sed -n '1,/^---$/{ /^---$/!p }' "$file"; sed -n '/^---$/,/^---$/p' "$file")
+          done <<< "${{ steps.changed.outputs.files }}"
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "All related_skills references are valid."
+          fi
+          exit $EXIT_CODE
+
+  verify-category-match:
+    name: Verify Category-Directory Match
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Identify changed skill files
+        id: changed
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE=${{ github.event.pull_request.base.sha }}
+            HEAD=${{ github.event.pull_request.head.sha }}
+          else
+            BASE=${{ github.event.before }}
+            HEAD=${{ github.sha }}
+          fi
+
+          CHANGED=$(git diff --name-only --diff-filter=ACMR "$BASE" "$HEAD" -- '.claude/skills/**/*.md' | grep -v '_schema/' || true)
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$CHANGED" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+          if [ -z "$CHANGED" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check category matches directory
+        if: steps.changed.outputs.skip != 'true'
+        run: |
+          EXIT_CODE=0
+
+          while IFS= read -r file; do
+            [ -z "$file" ] && continue
+            [ ! -f "$file" ] && continue
+
+            # Extract directory name (category directory)
+            DIR_CATEGORY=$(echo "$file" | sed 's|.claude/skills/||' | cut -d'/' -f1)
+
+            # Extract category from frontmatter
+            FM_CATEGORY=$(sed -n '/^---$/,/^---$/{ /^category:/{ s/^category: *//; s/^"//; s/"$//; p; } }' "$file")
+
+            if [ -z "$FM_CATEGORY" ]; then
+              echo "::error file=$file::No category field in frontmatter"
+              EXIT_CODE=1
+            elif [ "$DIR_CATEGORY" != "$FM_CATEGORY" ]; then
+              echo "::error file=$file::Category mismatch — frontmatter says '$FM_CATEGORY' but file is in '$DIR_CATEGORY/' directory"
+              EXIT_CODE=1
+            fi
+          done <<< "${{ steps.changed.outputs.files }}"
+
+          if [ $EXIT_CODE -eq 0 ]; then
+            echo "All changed skills have matching category and directory."
+          fi
+          exit $EXIT_CODE

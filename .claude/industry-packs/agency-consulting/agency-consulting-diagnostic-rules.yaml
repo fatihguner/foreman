@@ -1,0 +1,704 @@
+# Agency/Consulting Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift in an agency/consulting context.
+# The diagnostic agent loads these rules when the agency/consulting pack is active.
+#
+# Agency-specific diagnostic themes:
+#   - Founder-as-bottleneck: the personal capacity ceiling that limits growth
+#   - Client concentration risk: over-dependency on one or few clients
+#   - Utilization death spiral: hiring ahead of revenue, burning cash on bench time
+#   - Scope creep epidemic: systematic failure to hold project boundaries
+#   - Pricing floor trap: competing on price and destroying margins
+#   - Talent retention crisis: key people leaving and taking clients
+#   - Feast-or-famine revenue cycle: no pipeline management or revenue smoothing
+#   - Productization paralysis: wanting to productize but unable to stop custom work
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for agencies.
+#   enhanced — The diagnostic is relevant but benefits from additional agency-specific
+#              triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for agencies.
+
+pack_metadata:
+  sector: "agency-consulting"
+  display_name: "Agency / Consulting"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Client churn in agencies is fundamentally different from subscription churn. Clients do not 'cancel' — they finish a project and do not return, reduce retainer scope, bring work in-house, or quietly move to a competitor. Churn in agencies is often invisible until the revenue impact materializes months later. The triage must address agency-specific churn drivers: relationship quality, deliverable satisfaction, internal champion departure, budget cuts, and the ever-present threat of in-house teams."
+    additional_triage_questions:
+      - question: "When clients leave, do they explicitly terminate (tell you they are leaving) or silently attrit (stop calling, reduce scope, let the retainer lapse without renewal)?"
+        purpose: "Silent attrition is far more common in agencies than explicit termination. Clients avoid confrontation by gradually reducing engagement. Detecting silent attrition requires proactive relationship health monitoring."
+        routing_impact: "Silent attrition routes to trust-equation and net-promoter-score for relationship health assessment. Explicit termination routes to competitive-threat-diagnosis and root cause analysis."
+      - question: "Has the departing client's internal champion (your primary contact) changed roles, left the company, or been reorganized?"
+        purpose: "Agency relationships are person-to-person. When the champion leaves, the relationship often dies — the replacement may have their own agency preferences or may not value the existing engagement."
+        routing_impact: "Champion departure routes to stakeholder-map and relationship diversification strategy. Ensure multiple relationships within each client organization."
+      - question: "Are clients leaving because they are bringing the capability in-house?"
+        purpose: "In-housing is the structural threat to agency models. If multiple clients are building internal teams to replace agency services, the agency's core offering may be commoditizing."
+        routing_impact: "In-housing trend routes to disruptive-innovation and blue-ocean-strategy for repositioning above the in-house capability level."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Relationship-driven churn"
+          reason: "In agencies, most churn is relationship-driven rather than quality-driven. The work may be excellent, but if the client does not feel personally valued, connected, and heard, they will move to a firm that provides that feeling."
+        - diagnosis: "Value perception gap"
+          reason: "Agencies frequently fail to communicate the value they deliver. When clients do not see the connection between agency fees and business outcomes, they question the expenditure — especially during budget reviews."
+      less_likely:
+        - diagnosis: "Product quality failure"
+          reason: "Agencies can adjust quality in real time through feedback loops. Chronic quality failure is less common than relationship neglect or value communication failure."
+    agency_specific_diagnoses:
+      - name: "Silent attrition — the invisible churn"
+        description: "Clients are not formally leaving but are gradually disengaging: reducing retainer scope, declining project extensions, responding slowly to outreach, and shifting work to other providers without explicit notification."
+        symptoms:
+          - "Retainer scope reductions without clear explanation"
+          - "Longer gaps between engagements with previously active clients"
+          - "Client contacts becoming unresponsive to proactive outreach"
+          - "Revenue per client declining across the portfolio without explicit client departures"
+        routes_to_skills: ["trust-equation", "net-promoter-score", "connecting-with-people"]
+        routes_to_templates: ["quarterly-business-review", "project-status-update"]
+      - name: "In-housing displacement"
+        description: "Clients are building internal teams to replace agency services. This is a structural shift, not a temporary budget reallocation. The agency's core service is being commoditized to the point where clients prefer to hire permanent staff rather than pay agency rates."
+        symptoms:
+          - "Multiple clients hiring for roles that mirror the agency's core service"
+          - "Clients requesting knowledge transfer or documentation of processes"
+          - "Budget objections citing 'we could hire someone full-time for what we pay you annually'"
+          - "Decline concentrated in one service line rather than across the board"
+        routes_to_skills: ["disruptive-innovation", "blue-ocean-strategy", "product-life-cycle"]
+        routes_to_templates: ["strategic-analysis-one-pager", "proposal-outline"]
+    sector_red_flags:
+      - "Client retention below 70% annually — the firm is on a treadmill, replacing clients faster than it can deepen relationships."
+      - "Three or more clients reducing retainer scope in the same quarter — early signal of a systemic value perception problem."
+      - "Key client champion departures without a relationship-transfer plan — each departure is a churn risk that compounds if unaddressed."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Agency growth stalls have characteristic causes that differ fundamentally from product business stalls. Agency growth is constrained by three ceilings: the founder's personal capacity (cannot sell and deliver simultaneously), talent availability (cannot hire fast enough to meet demand), and client acquisition (pipeline dries up when delivery consumes all attention). The most common stall pattern is the feast-or-famine cycle — the agency is too busy delivering to develop new business, then too desperate to be selective about incoming work."
+    additional_triage_questions:
+      - question: "Is the growth stall caused by insufficient demand (not enough clients or projects) or insufficient capacity (demand exists but you cannot deliver it)?"
+        purpose: "Demand-side stalls require sales and marketing investment. Capacity-side stalls require hiring, subcontracting, or process efficiency. These are opposite problems with opposite solutions."
+        routing_impact: "Demand stall routes to four-ps-marketing and business development strategy. Capacity stall routes to shamrock-organisation and delegation-and-empowerment for scaling delivery."
+      - question: "How many hours per week does the founder spend on non-billable business development — and has this changed in the past 6 months?"
+        purpose: "The most common agency growth stall occurs when the founder becomes consumed by delivery and stops developing new business. Revenue lags 3-6 months later."
+        routing_impact: "Founder-consumed-by-delivery routes to eisenhower-matrix and delegation-and-empowerment for immediate rebalancing."
+      - question: "Have you hit a revenue plateau where the firm has been stuck at approximately the same level for 12+ months?"
+        purpose: "Revenue plateaus in agencies typically occur at predictable thresholds: $500K (founder capacity ceiling), $1.5M-$2M (first management layer needed), $5M (institutional processes required). Each requires a structural change to break through."
+        routing_impact: "Plateau at $500K routes to delegation skills and first hires. Plateau at $1.5M-$2M routes to leadership-pipeline and management structure. Plateau at $5M routes to systems-thinking and organizational design."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Founder-as-bottleneck"
+          reason: "The single most common agency growth stall. The founder cannot simultaneously deliver outstanding work, manage the team, develop new business, and run operations. Growth stops at the founder's personal capacity."
+        - diagnosis: "Feast-or-famine revenue cycle"
+          reason: "Agencies without dedicated business development alternate between overwhelming demand (no time to sell) and desperate pipeline gaps (no work coming in). This cycle prevents steady growth."
+      less_likely:
+        - diagnosis: "Market saturation"
+          reason: "Professional services markets are enormous and fragmented. True market saturation is rare — growth stalls in agencies are almost always internal, not market-driven."
+    agency_specific_diagnoses:
+      - name: "Founder capacity ceiling"
+        description: "The agency has reached the maximum revenue the founder can personally generate, oversee, and sell. Growth requires the founder to delegate delivery, client relationships, or business development — but the founder has not made this transition, either because they cannot find people to delegate to or because they are unwilling to relinquish control."
+        symptoms:
+          - "Revenue flat for 12+ months despite market demand"
+          - "Founder working 55+ hours per week with no capacity for additional work"
+          - "New clients turned away or delayed because of founder availability"
+          - "No employee authorized to make client-facing decisions without founder approval"
+        routes_to_skills: ["delegation-and-empowerment", "leadership-pipeline", "shamrock-organisation"]
+        routes_to_templates: ["weekly-ceo-review", "role-description-template"]
+      - name: "Feast-or-famine revenue cycle"
+        description: "Revenue oscillates wildly between periods of overwhelming demand and periods of painful underutilization. The cycle perpetuates because the agency invests zero time in business development during busy periods and panic-sells during quiet periods, producing low-quality pipeline."
+        symptoms:
+          - "Revenue variance of 30%+ between best and worst quarters"
+          - "Business development activity inversely correlated with delivery load"
+          - "Bench time spikes followed by capacity crunches requiring overtime and rushed hiring"
+          - "Pipeline coverage ratio swinging between 1x and 5x across the year"
+        routes_to_skills: ["balanced-scorecard", "scenario-planning", "eisenhower-matrix"]
+        routes_to_templates: ["action-plan", "weekly-ceo-review"]
+      - name: "Productization paralysis"
+        description: "The agency recognizes that productizing services (fixed-scope, fixed-price, repeatable offerings) would improve margins and scalability, but cannot stop accepting custom work long enough to build the productized offering. Every time resources are allocated to productization, a client project takes priority."
+        symptoms:
+          - "Productization initiative started but never completed (multiple times)"
+          - "Custom work consistently prioritized over productization because it generates immediate revenue"
+          - "Founder intellectually convinced of productization value but operationally unable to execute"
+          - "No distinct pricing or packaging for the intended productized service"
+        routes_to_skills: ["business-model-canvas", "eisenhower-matrix", "disruptive-innovation"]
+        routes_to_templates: ["new-initiative-brief", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Founder billing more than 60% of available hours — growth is structurally impossible at this utilization level because no time remains for sales and management."
+      - "Zero dedicated business development time in the past 30 days — the pipeline will empty within 3-6 months."
+      - "Revenue flat for 12+ months in a growing market — the stall is internal, not market-driven."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Product-market fit in agencies translates to 'service-market fit' — the alignment between the firm's expertise, delivery model, and pricing with a specific client segment's needs and willingness to pay. Unlike product PMF, which is measured through retention curves and organic growth, service-market fit is measured through client retention, referral volume, pricing power, and the ease of winning new business within the target segment."
+    additional_triage_questions:
+      - question: "Is your referral pipeline healthy — do existing clients actively recommend you to their peers, and do those referrals convert at a high rate?"
+        purpose: "Referral volume and conversion are the strongest PMF signals in professional services. Clients who refer are satisfied, and referred prospects convert at high rates because trust transfers through the referral."
+        routing_impact: "Low referral volume routes to net-promoter-score and trust-equation for relationship assessment. High referral volume with low conversion routes to four-ps-marketing for positioning and messaging."
+      - question: "Can you charge premium rates (top 25% in your market) and still win consistently?"
+        purpose: "Pricing power is the definitive PMF signal in agencies. If clients pay premium rates without extensive negotiation, the firm has service-market fit."
+        routing_impact: "Low pricing power despite good work routes to positioning and specialization analysis. Premium pricing power routes to growth and scaling strategy."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Service-market fit exists for a niche but the firm is not focused on it"
+          reason: "Most agencies have accidental PMF in a subsegment they have not identified. Their best clients share characteristics (industry, size, problem type) that the agency has not deliberately targeted."
+      less_likely:
+        - diagnosis: "The service has no market"
+          reason: "Professional services always have a market — someone always needs expertise. The question is not whether a market exists but whether the firm's specific combination of expertise, positioning, and pricing matches a specific buyer's needs."
+    agency_specific_diagnoses:
+      - name: "Accidental niche PMF"
+        description: "The agency has strong service-market fit in a specific niche (industry vertical, company size, problem type) but has not recognized or deliberately pursued it. The best clients, highest retention, and strongest referrals all cluster in one segment that the firm treats as just another part of its undifferentiated client base."
+        symptoms:
+          - "Highest-NPS clients share common characteristics (industry, size, problem type)"
+          - "Best referrals come from a specific client cluster"
+          - "Win rate dramatically higher in one segment than others"
+          - "The firm describes itself as a generalist but 40%+ of revenue comes from one recognizable segment"
+        routes_to_skills: ["blue-ocean-strategy", "business-model-canvas", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["strategic-analysis-one-pager", "market-opportunity-summary"]
+    sector_red_flags:
+      - "No referrals in the past quarter despite having active clients — a strong signal that service-market fit is weak."
+      - "Win rate below 20% — the firm's positioning, pricing, or targeting is misaligned with the prospects it pursues."
+      - "Unable to articulate what makes the firm different from competitors in one sentence — a clarity problem that undermines every pitch."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Pricing is the most consequential strategic decision in agencies and the one most systematically mismanaged. The agency pricing spectrum — from hourly billing to value-based pricing — fundamentally determines revenue per employee, margin structure, client relationships, and scalability. Most agencies are severely underpriced because founders set rates based on their previous salary plus a margin, rather than on the value they deliver. The diagnosis must evaluate not just the price level but the pricing model itself."
+    additional_triage_questions:
+      - question: "What is your current pricing model — hourly, project-based, retainer, value-based, or a mix — and why did you choose it?"
+        purpose: "Most agencies default to hourly or project pricing without evaluating alternatives. Each model has distinct economic characteristics that affect utilization pressure, scope management, and revenue predictability."
+        routing_impact: "Hourly pricing routes to evaluation of value-based or project-based alternatives. Fixed-price with frequent overruns routes to scoping and change-order process improvement. Retainer with low utilization routes to retainer restructuring."
+      - question: "When was the last time you raised rates, and what was the client response?"
+        purpose: "Many agencies have not raised rates in years. The clients' response to price increases is almost always less negative than the agency fears — and reveals pricing power (or lack thereof)."
+        routing_impact: "Never raised rates routes to immediate pricing analysis. Raised rates with no pushback routes to further increases. Raised rates and lost clients routes to value communication and positioning improvement."
+      - question: "What is your effective billable rate — the actual revenue per hour worked on client projects after discounts, write-offs, and scope overruns?"
+        purpose: "The gap between standard rate and effective rate reveals the true pricing problem. A firm with a $200/hour rate and a $130/hour effective rate does not have a pricing problem — it has a scope management and discounting problem."
+        routing_impact: "Gap exceeding 25% routes to scope-creep and discounting diagnosis. Gap under 10% with still-low margins routes to rate increase strategy."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Chronic underpricing"
+          reason: "The default error in agencies is underpricing. Founders anchor on their previous salary, competitor rates, or what 'feels fair' rather than on the value delivered. Most agencies capture 15-30% of the value they create for clients."
+        - diagnosis: "Pricing model mismatch"
+          reason: "Many agencies use hourly billing for strategic work (which penalizes speed and expertise) or project pricing for unpredictable work (which guarantees overruns). The model must match the work type."
+      less_likely:
+        - diagnosis: "Overpricing relative to value"
+          reason: "Genuine overpricing in agencies is rare. What appears as a 'too expensive' objection is almost always a value communication failure — the prospect does not understand the value, not that the value does not exist."
+    agency_specific_diagnoses:
+      - name: "Pricing floor trap"
+        description: "The agency has positioned itself at the low end of the market — competing on price against freelancers and offshore teams. Low rates attract cost-sensitive clients who demand more for less, negotiate aggressively, and churn at the first sign of a cheaper alternative. The firm cannot invest in talent, quality, or business development because margins are too thin."
+        symptoms:
+          - "Rates in the bottom quartile for the firm's market and discipline"
+          - "Win rate high but margins thin — winning through price, not through value"
+          - "Client objections focus on cost rather than outcomes"
+          - "Unable to attract or retain senior talent because compensation is not competitive"
+          - "Competing regularly against freelancers and offshore teams"
+        routes_to_skills: ["pricing-diagnosis", "blue-ocean-strategy", "porters-five-forces"]
+        routes_to_templates: ["unit-economics-snapshot", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Effective billable rate below 65% of standard rate — scope creep and discounting are destroying the pricing strategy."
+      - "Rates unchanged for 24+ months — the firm is almost certainly leaving money on the table."
+      - "Revenue per employee below $120K — a mathematical indicator that rates, utilization, or both are critically low."
+
+  # ─────────────────────────────────────────────
+  # 5. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Most agencies do not raise venture capital — and should not. Agency economics (linear scaling, people-dependent) do not fit the VC model (exponential scaling, technology-dependent). However, agencies do seek capital through bank loans, lines of credit, revenue-based financing, SBA loans, partnership buyins/buyouts, and occasionally strategic investors. The fundraising diagnostic must be reframed entirely for these capital sources, which have different requirements, metrics, and expectations than venture capital."
+    additional_triage_questions:
+      - question: "What is the capital for — bridging a cash flow gap (AR financing), funding growth (hiring ahead of demand), acquiring another firm, or buying out a partner?"
+        purpose: "Each capital need has a different optimal source. AR financing requires a line of credit. Growth hiring requires revenue-based financing or retained earnings. Acquisitions require a term loan or investor. Partner buyouts require structured financing."
+        routing_impact: "Cash flow gap routes to AR management and line-of-credit options. Growth hiring routes to revenue-based financing and scenario-planning. Acquisition routes to M&A analysis. Partner buyout routes to negotiation skills and structured deal design."
+      - question: "What is the firm's current EBITDA margin and debt capacity?"
+        purpose: "Lenders evaluate agencies primarily on profitability and cash flow stability — not growth rate. An agency with 15% EBITDA margin and stable revenue can access more favorable lending terms than a faster-growing but unprofitable one."
+        routing_impact: "Healthy EBITDA routes to bank financing options. Low EBITDA routes to profitability improvement before seeking capital."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Cash flow timing mismatch"
+          reason: "The most common 'capital need' in agencies is not growth financing but cash flow management — the gap between when payroll is due and when clients pay. A line of credit or improved AR processes often solves this without external capital."
+        - diagnosis: "Over-capitalization temptation"
+          reason: "Agencies seeking external capital often want to hire ahead of demand. This is dangerous in services because idle talent burns cash immediately, unlike product inventory which retains some value."
+      less_likely:
+        - diagnosis: "Need for venture capital"
+          reason: "Traditional agency models are incompatible with VC expectations. VC-compatible agency models require a productized or technology component that enables non-linear scaling."
+    agency_specific_diagnoses:
+      - name: "Utilization death spiral"
+        description: "The agency raised capital or used retained earnings to hire ahead of demand, but the expected demand did not materialize. Bench time consumes cash, pressure to fill capacity leads to accepting low-margin or off-strategy work, which diverts senior attention from business development, which further reduces high-quality pipeline."
+        symptoms:
+          - "Bench time above 20% for more than one quarter"
+          - "Accepting work below minimum rate or outside the firm's positioning to fill capacity"
+          - "Cash burn rate accelerating despite stable or growing revenue"
+          - "New hires underutilized while existing staff are overloaded (indicating a skills or client mismatch)"
+        routes_to_skills: ["scenario-planning", "shamrock-organisation", "eisenhower-matrix"]
+        routes_to_templates: ["action-plan", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Seeking VC funding for a traditional agency model — the economics do not support venture returns and the resulting pressure will distort the business."
+      - "Hiring more than 3 people simultaneously without confirmed pipeline to support them — high risk of utilization death spiral."
+      - "AR exceeding 60 days while also seeking external capital — fix the collection problem before adding new capital."
+
+  # ─────────────────────────────────────────────
+  # 6. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Agency revenue decomposes differently from product revenue. The components are: project revenue (discrete engagements with defined scope), retainer revenue (recurring monthly fees for ongoing work), hourly overflow (ad hoc billing beyond scope), and productized revenue (fixed-price packaged services). Healthy agencies diversify across these streams, with retainer revenue providing stability and project revenue providing growth. The diagnosis must evaluate both the total revenue and the quality of the revenue mix."
+    additional_triage_questions:
+      - question: "What percentage of your revenue is recurring (retainers and ongoing contracts) versus project-based (discrete engagements)?"
+        purpose: "Revenue predictability determines the firm's ability to plan, hire, and invest. A firm with 60%+ recurring revenue can plan confidently. A firm with 80%+ project revenue lives in perpetual uncertainty."
+        routing_impact: "Low recurring revenue routes to retainer development strategy and client-relationship deepening. High recurring revenue with stagnant growth routes to new client acquisition and pipeline development."
+      - question: "What is your revenue concentration — what percentage comes from your top 3 clients?"
+        purpose: "Client concentration is the primary revenue risk in agencies. If the top 3 clients represent more than 50% of revenue, any single departure creates a crisis."
+        routing_impact: "Concentration above 50% routes to immediate diversification strategy and client-acquisition investment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Revenue quality deterioration"
+          reason: "Agency revenue can grow in total while deteriorating in quality — more project work (unpredictable), smaller average project sizes (higher overhead), and lower rates (price competition). Total revenue masks these trends."
+        - diagnosis: "Client concentration creating fragility"
+          reason: "Many agencies grow revenue by deepening a few client relationships rather than broadening the client base. This concentrates risk dangerously."
+      less_likely:
+        - diagnosis: "Market-wide demand decline"
+          reason: "Professional services demand is remarkably resilient. Even in recessions, organizations need external expertise. Revenue problems in agencies are almost always firm-specific, not market-wide."
+    agency_specific_diagnoses:
+      - name: "Retainer erosion"
+        description: "Retainer revenue — the foundation of agency stability — is declining as clients reduce scope, pause engagements, or shift to project-based relationships. The firm's revenue is becoming increasingly unpredictable and project-dependent."
+        symptoms:
+          - "Retainer revenue declining as a percentage of total revenue"
+          - "Average retainer duration shortening"
+          - "Clients requesting 'project-based' pricing for work previously on retainer"
+          - "Revenue forecasting accuracy declining (more misses, wider variance)"
+        routes_to_skills: ["net-promoter-score", "trust-equation", "pricing-diagnosis"]
+        routes_to_templates: ["quarterly-business-review", "service-level-agreement"]
+    sector_red_flags:
+      - "Top 3 clients representing more than 50% of revenue — one departure creates a survival crisis."
+      - "Recurring revenue below 30% of total — the firm has no revenue floor and will suffer in any demand downturn."
+      - "Average project value declining quarter over quarter — the firm is accepting smaller, less profitable work."
+
+  # ─────────────────────────────────────────────
+  # 7. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency competitive threats come from four distinct directions: other agencies (traditional competitors), freelancers and contractor collectives (lower cost), in-house teams (client self-sufficiency), and AI tools (automation of agency deliverables). Each threat requires a different response, and agencies often focus exclusively on agency-to-agency competition while ignoring the more dangerous structural threats."
+    additional_triage_questions:
+      - question: "Which competitive threat is most active: another agency winning your clients, freelancers undercutting your rates, clients building in-house teams, or AI tools replacing your services?"
+        purpose: "Each threat type requires a different strategic response. Agency competition requires differentiation. Freelancer competition requires value demonstration. In-housing requires elevation to strategic advisory. AI competition requires integration and repositioning."
+        routing_impact: "Agency competition routes to blue-ocean-strategy and positioning refinement. Freelancer/AI competition routes to disruptive-innovation and value-stacking above automation. In-housing routes to strategic advisory repositioning."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "In-house team displacement"
+          reason: "The greatest long-term threat to agencies is not other agencies but clients deciding they can do the work themselves. When multiple clients build internal teams, it signals that the agency's service has commoditized."
+        - diagnosis: "AI disruption of commodity services"
+          reason: "AI tools are rapidly replacing tasks that agencies bill for: copywriting, basic design, data analysis, media planning, and code generation. Agencies that bill for execution rather than strategy face existential AI risk."
+      less_likely:
+        - diagnosis: "Price-based competitive displacement by another agency"
+          reason: "Losing clients purely on price to another agency is rare if the relationship is strong. Agencies lose on price when they have failed to build relationship depth or demonstrate differentiated value."
+    agency_specific_diagnoses:
+      - name: "AI commoditization threat"
+        description: "AI tools are performing tasks that constitute a significant portion of the agency's billable work. Clients are beginning to question why they pay agency rates for work that AI can approximate. The threat is not that AI replaces the agency entirely, but that it compresses the scope and value of what clients are willing to outsource."
+        symptoms:
+          - "Clients mentioning AI tools as alternatives during negotiations"
+          - "Reduction in demand for specific deliverable types (e.g., basic content, simple designs)"
+          - "Prospects asking whether the agency uses AI and why they should pay human rates"
+          - "Junior staff work increasingly automatable, threatening the leverage model"
+        routes_to_skills: ["disruptive-innovation", "ai-vision-and-strategy", "blue-ocean-strategy"]
+        routes_to_templates: ["strategic-analysis-one-pager", "competitive-landscape-brief"]
+    sector_red_flags:
+      - "Three or more clients building in-house versions of the agency's core service in the same year — structural displacement is underway."
+      - "Win rate declining against freelancers or small firms — the agency's overhead is not justified by sufficient value differentiation."
+      - "AI-generated deliverables achieving 'good enough' quality for tasks that constitute more than 30% of the agency's billable hours."
+
+  # ─────────────────────────────────────────────
+  # 8. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Strategic drift in agencies manifests as 'everything for everyone' syndrome — the firm accepts any work from any client, gradually losing its positioning and becoming an undifferentiated generalist. The temptation is structural: declining a $50K project because it is 'off-strategy' feels irresponsible when payroll is due. Strategic drift in agencies is the accumulated result of hundreds of small, individually rational decisions to take the work that is available rather than the work that builds the firm's positioning."
+    additional_triage_questions:
+      - question: "Can you describe your ideal client and ideal project in one sentence each — and does more than 50% of your current revenue come from that profile?"
+        purpose: "The ability to articulate a clear ideal client is a positioning litmus test. If less than 50% of revenue fits the ideal profile, the firm has drifted."
+        routing_impact: "Unable to articulate routes to blue-ocean-strategy and strategic-thinking-and-alignment for positioning development. Can articulate but low alignment routes to disciplined client selection and off-strategy work reduction."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Revenue-driven drift — accepting anything that pays"
+          reason: "The most common drift mechanism in agencies. Each off-strategy project seems harmless individually but collectively erodes the firm's positioning, stretches capabilities, and prevents specialization."
+      less_likely:
+        - diagnosis: "Market disruption causing strategic irrelevance"
+          reason: "Agency strategic drift is almost always self-inflicted through lack of discipline rather than externally caused. The market did not change — the firm's discipline did."
+    agency_specific_diagnoses:
+      - name: "Scope-of-service sprawl"
+        description: "The agency has gradually expanded its service offerings in response to client requests until it offers everything from strategy to execution across multiple disciplines. Each service line is staffed by one or two people, none of whom are world-class. The firm competes as a generalist against specialists in every discipline and loses on quality while maintaining the overhead of multiple capabilities."
+        symptoms:
+          - "More than 6 distinct service offerings with no shared methodology or positioning"
+          - "Each service line staffed by fewer than 3 people"
+          - "Difficulty describing what the firm 'does' in a single sentence"
+          - "Winning work primarily through existing relationships rather than expertise-based positioning"
+        routes_to_skills: ["blue-ocean-strategy", "porters-five-forces", "eisenhower-matrix"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Unable to decline any project regardless of fit — a sign that financial pressure has overridden strategic discipline."
+      - "The firm's website lists more than 8 service categories — typically an indicator of everything-for-everyone positioning."
+      - "Revenue spread evenly across unrelated industries and service types with no identifiable specialization."
+
+  # ─────────────────────────────────────────────
+  # 9. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency team dysfunction has characteristic patterns driven by the client-service nature of the business. The most common dysfunctions: account managers over-promise while delivery teams under-deliver, senior staff hoard client relationships while junior staff feel excluded, creative/strategy teams and execution teams operate in silos, and the pressure to be billable suppresses the collaborative, unbillable time that builds team cohesion."
+    additional_triage_questions:
+      - question: "Is there tension between the people who sell work (partners, account managers) and the people who deliver it (creatives, developers, consultants) — specifically, are commitments made during the sales process that delivery cannot fulfill?"
+        purpose: "The sell-deliver gap is the most common and most damaging agency dysfunction. It creates impossible expectations, frustrated delivery teams, disappointed clients, and mutual blame between functions."
+        routing_impact: "Sell-deliver misalignment routes to cooperative-negotiation for internal process redesign and trust-equation for rebuilding internal trust between functions."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Sell-deliver gap"
+          reason: "Agency sales incentives (winning the pitch) and delivery incentives (quality within scope) are structurally misaligned. Without deliberate processes to reconcile these, tension is inevitable."
+        - diagnosis: "Burnout-driven dysfunction"
+          reason: "Agency work involves high emotional labor (demanding clients, tight deadlines, personal investment in creative output). Teams that are consistently overutilized degrade in collaboration, quality, and morale."
+      less_likely:
+        - diagnosis: "Insufficient talent"
+          reason: "What appears as talent insufficiency in agencies is often a systems problem: talented people performing poorly because of unclear priorities, impossible workloads, or dysfunctional processes."
+    agency_specific_diagnoses:
+      - name: "Talent retention crisis — key people leaving and taking clients"
+        description: "Senior staff with deep client relationships are departing — and taking clients with them. The firm's client base is hollowing out as the people who are the firm's product walk out the door."
+        symptoms:
+          - "Senior employee departures followed by client departures within 3-6 months"
+          - "Clients requesting specific individuals rather than engaging the firm as an institution"
+          - "No non-compete or non-solicit agreements in employment contracts"
+          - "Client relationships concentrated in individual employees rather than distributed across the firm"
+        routes_to_skills: ["inspiring-and-retaining", "organisational-culture", "trust-equation"]
+        routes_to_templates: ["hiring-scorecard", "team-health-check"]
+    sector_red_flags:
+      - "Delivery team attrition above 25% — the firm cannot maintain quality or client relationships with this level of turnover."
+      - "Account manager making commitments to clients without delivery team input — a structural sell-deliver gap."
+      - "Key person dependency — any individual whose departure would directly cause client loss."
+
+  # ─────────────────────────────────────────────
+  # 10. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency co-founder (and co-partner) conflicts cluster around four issues: client ownership (who 'owns' which relationships), revenue contribution (who brings in more business), role boundaries (who decides what), and strategic direction (generalist vs. specialist, growth vs. lifestyle). The personal nature of agency work makes these conflicts particularly intense — each partner's contribution is directly measurable through billings and client retention."
+    additional_triage_questions:
+      - question: "Is the conflict about strategic direction (what the firm should become), revenue contribution (who generates more business), or operational authority (who decides how work is done)?"
+        purpose: "Each conflict type requires different intervention. Strategic conflicts need facilitated alignment sessions. Revenue contribution disputes need transparent metrics and equitable compensation structures. Authority conflicts need explicit role definitions."
+        routing_impact: "Strategic direction routes to strategic-thinking-and-alignment and scenario-planning. Revenue contribution routes to balanced-scorecard with transparent partner metrics. Authority routes to delegation-and-empowerment and explicit role documentation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Unequal contribution resentment"
+          reason: "In agencies, each partner's contribution is visible — billings, clients brought in, people managed. When one partner perceives an imbalance, resentment builds rapidly."
+      less_likely:
+        - diagnosis: "Vision misalignment"
+          reason: "Most agency partnership conflicts are operational, not visionary. Partners usually agree on what a good agency looks like — they disagree on roles, compensation, and authority."
+    agency_specific_diagnoses:
+      - name: "Partner lifestyle mismatch"
+        description: "One partner wants to grow aggressively (hire, take on debt, pursue large clients) while the other wants to maintain a lifestyle practice (stable income, manageable hours, select clients). Neither goal is wrong, but they are incompatible in a single firm."
+        symptoms:
+          - "Recurring arguments about hiring decisions, debt, and investment"
+          - "One partner working significantly more hours than the other"
+          - "Disagreement about whether to take on large, risky opportunities"
+          - "One partner subtly sabotaging growth initiatives or cost-cutting measures"
+        routes_to_skills: ["cooperative-negotiation", "evaluating-and-deciding", "covey-seven-habits"]
+        routes_to_templates: ["decision-rationale-memo", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Partners communicating through staff rather than directly — a sign the conflict has become personal."
+      - "Key staff choosing sides — the conflict is contaminating the entire organization."
+      - "One partner quietly meeting with clients to establish independent relationships — possible prelude to a split."
+
+  # ─────────────────────────────────────────────
+  # 11. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Market entry for agencies means entering a new vertical, a new service line, or a new geographic market. Unlike product companies, agencies can 'enter' a new market by winning a single client — but sustaining that entry requires building credible expertise and a reference-worthy track record. The key question is always: can the firm build sufficient credibility in the new market to win competitively, or will it always be an outsider competing against firms with deeper domain expertise?"
+    additional_triage_questions:
+      - question: "Do you have at least one reference client in the target market — someone who can vouch for your work in this specific context?"
+        purpose: "Agency market entry without a reference client is nearly impossible. Prospects in any market want to see proof of domain experience. The first reference client is the gateway."
+        routing_impact: "No reference client routes to a landing strategy: discounted or pro-bono first engagement to build the reference. Existing reference routes to targeted outreach using the case study."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Credibility gap in the target market"
+          reason: "Agencies entering new verticals face the 'but have you done this in our industry?' objection. Overcoming the credibility gap is the primary market-entry challenge."
+      less_likely:
+        - diagnosis: "Inadequate market size"
+          reason: "Most professional services verticals are large enough to support multiple agencies. Market size is rarely the barrier — credibility and relationships are."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "Entering a new market without a single reference client or case study — nearly impossible to win competitive pitches without proof of domain expertise."
+      - "Adding a new service line without hiring someone who has delivered it before — quality risk is high."
+
+  # ─────────────────────────────────────────────
+  # 12. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency hiring is uniquely consequential because every hire directly affects delivery capacity, client relationships, and revenue. Hiring too slow means turning away work; hiring too fast means paying for bench time. The critical agency hiring decisions: when to add the first non-billable role (operations, office management), when to hire senior versus junior (the leverage decision), and when to hire full-time versus freelance (the Shamrock decision)."
+    additional_triage_questions:
+      - question: "Is this hire intended to fill existing billable demand (you have work waiting) or to build capacity for expected future demand (you hope work will come)?"
+        purpose: "Hiring against existing demand is low-risk. Hiring against expected demand is speculative — and the most common cause of utilization death spirals in agencies."
+        routing_impact: "Hiring against existing demand routes to rapid hiring execution. Hiring speculatively routes to scenario-planning and the decision to use freelancers instead of full-time hires until demand is confirmed."
+      - question: "Are you hiring a 'doer' (someone to produce work) or a 'grower' (someone to bring in and manage client relationships)?"
+        purpose: "Agencies need both but often hire doers when they need growers. A firm at capacity that hires another developer when it needs a business developer will not solve its growth problem."
+        routing_impact: "Doer hire routes to utilization and leverage optimization. Grower hire routes to business development strategy and role-description-template."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Hiring doers when the firm needs growers"
+          reason: "Agencies default to hiring the type of person the founder is — usually a practitioner. But growth requires people who can sell, manage relationships, and develop business."
+        - diagnosis: "Hiring full-time when freelancers would suffice"
+          reason: "Many agency hiring 'needs' are actually surge-capacity needs that the Shamrock model (freelancers) handles more efficiently than permanent headcount."
+      less_likely:
+        - diagnosis: "Compensation insufficient to attract talent"
+          reason: "While agency salaries are often lower than tech company salaries, talented people choose agencies for variety, autonomy, and interesting work. Compensation is rarely the binding constraint."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "Hiring three or more people simultaneously without confirmed project pipeline — high risk of bench-time crisis."
+      - "First senior hire (VP, Director level) without a clear mandate and success criteria — expensive failure is likely."
+      - "Every new hire being a practitioner with zero hires in business development or operations — the firm will hit a growth ceiling."
+
+  # ─────────────────────────────────────────────
+  # 13. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency operational chaos manifests as missed deadlines, inaccurate time tracking, billing disputes, resource conflicts (multiple projects competing for the same person), and communication breakdowns between account management and delivery. Unlike product companies where operations center on technology infrastructure, agency operations center on people management — scheduling, utilization tracking, project profitability monitoring, and capacity planning."
+    additional_triage_questions:
+      - question: "Do you have a resource management system — a way to see who is assigned to what, who is available, and what capacity exists for new work?"
+        purpose: "Most agencies under 20 people have no formal resource management. Work assignments happen through hallway conversations, Slack messages, and the founder's mental model. This breaks at scale."
+        routing_impact: "No resource management routes to immediate process implementation. Existing system with poor adoption routes to process enforcement and training."
+      - question: "What percentage of projects deliver on time, on scope, and on budget?"
+        purpose: "On-time, on-scope, on-budget delivery is the operational health metric for agencies. Below 60% indicates systemic operational problems."
+        routing_impact: "Below 60% routes to systems-thinking for root cause analysis and action-plan for structured improvement."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Scope creep epidemic"
+          reason: "The most common operational chaos in agencies is unmanaged scope expansion — work grows beyond the original agreement without corresponding billing, eating into margins project by project."
+      less_likely:
+        - diagnosis: "Technology failure"
+          reason: "Agencies rarely fail because of technology. They fail because of people management, scoping, and process problems."
+    agency_specific_diagnoses:
+      - name: "Scope creep epidemic"
+        description: "The majority of projects systematically exceed their original scope, budget, and timeline. The firm absorbs the overruns without billing, effectively subsidizing client work with agency profits. Root causes include: optimistic scoping, unclear contracts, inability to say no to client requests, and lack of change-order processes."
+        symptoms:
+          - "More than 40% of projects exceeding scope by more than 15%"
+          - "No formal change-order process or the process exists but is rarely invoked"
+          - "Effective billable rate more than 20% below standard rate"
+          - "Project managers reporting they feel unable to push back on client scope additions"
+          - "Client expectations consistently exceed what was agreed in the SOW"
+        routes_to_skills: ["competitive-negotiation", "delivering-the-deal", "systems-thinking"]
+        routes_to_templates: ["service-level-agreement", "project-kickoff-document"]
+    sector_red_flags:
+      - "No time tracking system or time tracked but not reviewed — the firm is flying blind on utilization and project profitability."
+      - "More than 40% of projects exceeding scope — systemic scoping or boundary-setting failure."
+      - "AR exceeding 60 days — operational cash flow crisis building."
+
+  # ─────────────────────────────────────────────
+  # 14. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Leadership crises in agencies are amplified by the founder-as-product dynamic. When the founder burns out, the firm's primary sales channel, quality assurance mechanism, and client relationship manager all degrade simultaneously. Agency leadership crises also occur during partnership disputes, when key clients threaten to leave, or when the founder must transition from practitioner to manager — a transition many founders resist or fail."
+    additional_triage_questions:
+      - question: "Is the leadership crisis driven by founder burnout (overwork and exhaustion), a partnership conflict, or a failure to transition from practitioner to manager?"
+        purpose: "Each crisis type requires different intervention. Burnout requires immediate workload reduction. Partnership conflict requires mediation or structured separation. Transition failure requires coaching and delegation support."
+        routing_impact: "Burnout routes to founder-mental-health-check and immediate delegation. Partnership conflict routes to cofounder-conflict-diagnosis. Transition failure routes to delegation-and-empowerment and leadership-pipeline."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Founder burnout"
+          reason: "Agency founders work extremely long hours, carry emotional weight of client relationships, and often feel they cannot step back without the business collapsing. Burnout is endemic."
+      less_likely:
+        - diagnosis: "External leadership crisis (board pressure, investor conflict)"
+          reason: "Most agencies do not have boards or external investors. Leadership crises are internal — between founders, between partners, or within the founder's own capacity."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "Founder working 60+ hours per week for more than 6 consecutive months — burnout is imminent."
+      - "Founder avoiding difficult decisions (pricing, hiring, firing, client conversations) — decision fatigue indicating deeper leadership exhaustion."
+      - "Key leadership departure without a succession plan — the departure may cascade to additional losses."
+
+  # ─────────────────────────────────────────────
+  # 15. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Decision paralysis in agencies often centers on the growth-versus-lifestyle choice, pricing decisions (afraid to raise rates), specialization decisions (afraid to narrow the offering), and hiring decisions (afraid to commit to permanent overhead). These decisions feel high-stakes because they are highly personal — they directly affect the founder's income, workload, and identity."
+    additional_triage_questions:
+      - question: "Which decision has been deferred longest — and what is the cost of continued delay?"
+        purpose: "Naming the deferred decision and quantifying its cost often provides the urgency needed to act."
+        routing_impact: "Pricing decision deferred routes to pricing-diagnosis with urgency framing. Growth/lifestyle decision deferred routes to covey-seven-habits for 'Begin with the End in Mind' exercise."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Fear of irreversibility"
+          reason: "Agency founders often treat reversible decisions as irreversible. Raising rates, narrowing the offering, or hiring a new role feel permanent but are almost always adjustable."
+      less_likely:
+        - diagnosis: "Insufficient information"
+          reason: "Agency decisions rarely require more data. The founder usually knows what to do — the barrier is emotional, not informational."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "Pricing unchanged for 24+ months while costs have risen — the decision to raise rates has been paralyzed by fear."
+      - "Specialization discussed for years but never implemented — the firm remains a generalist because the decision to narrow feels risky."
+      - "Key hire identified but not made for 6+ months — paralysis is constraining growth."
+
+  # ─────────────────────────────────────────────
+  # 16. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency innovation drought manifests as stale service offerings, outdated methodologies, and failure to adopt new tools and approaches. Client work consumes all capacity, leaving nothing for R&D, experimentation, or new service development. The result: the firm delivers the same services it offered five years ago while the market evolves around it."
+    additional_triage_questions:
+      - question: "What new service, methodology, or capability has the firm developed in the past 12 months — not for a client, but as a proactive investment?"
+        purpose: "If the answer is 'nothing,' the firm is coasting on past innovation. Every year without proactive investment in new capabilities increases the risk of commoditization."
+        routing_impact: "No recent innovation routes to eisenhower-matrix for capacity creation and doblin-ten-types for innovation opportunity identification."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Client delivery consuming all innovation capacity"
+          reason: "The classic agency trap: 100% of capacity is consumed by client work, leaving zero for R&D, new service development, or methodology refinement."
+      less_likely:
+        - diagnosis: "Lack of creative talent"
+          reason: "Agency teams are typically creative and capable. Innovation drought is a capacity and prioritization problem, not a talent problem."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "No internal R&D or innovation time allocated in the past year — the firm is running entirely on legacy capabilities."
+      - "Competitors adopting AI, new methodologies, or new service models while the firm's offering remains static."
+      - "Clients asking about capabilities the firm does not have — the market is signaling unmet needs."
+
+  # ─────────────────────────────────────────────
+  # 17. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency partnerships operate differently from product partnerships. Agency partnerships include: referral partnerships (firms that send clients to each other), subcontracting relationships (firms that extend each other's capacity), technology partnerships (platforms and tools that the agency implements), and strategic alliances (firms that collaborate on large opportunities neither could win alone). The most valuable agency partnerships are reciprocal referral relationships with complementary firms — they generate the highest-quality leads at the lowest cost."
+    additional_triage_questions:
+      - question: "Is this a referral partnership (you send each other clients), a delivery partnership (you subcontract to each other), or a technology partnership (you implement their platform)?"
+        purpose: "Each partnership type has different value dynamics and risks. Referral partnerships are low-risk, high-value. Delivery partnerships require quality alignment. Technology partnerships create dependency."
+        routing_impact: "Referral partnerships route to cooperative-negotiation for mutual benefit structuring. Delivery partnerships route to shamrock-organisation for quality management. Technology partnerships route to information-asymmetry for dependency risk assessment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Informal partnerships that lack structure"
+          reason: "Most agency partnerships are handshake arrangements without clear expectations, referral tracking, or reciprocity metrics. They atrophy because neither party manages them actively."
+      less_likely:
+        - diagnosis: "Fundamentally incompatible partners"
+          reason: "Agency partnership failures are usually about neglect and misaligned expectations, not fundamental incompatibility."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "Technology partnership creating revenue dependency — more than 40% of revenue comes from implementing a single platform."
+      - "One-sided referral relationship — the agency sends referrals but never receives them."
+      - "Partnership agreements without defined terms, referral fees, or accountability mechanisms."
+
+  # ─────────────────────────────────────────────
+  # 18. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Communication in agencies operates on two axes simultaneously: internal communication (between partners, account managers, and delivery teams) and external communication (with clients). Breakdowns on either axis damage the business, but the interaction between the two is where the most damaging failures occur — for example, when internal miscommunication about project scope leads to incorrect client expectations."
+    additional_triage_questions:
+      - question: "Is the communication breakdown primarily internal (team members not aligned on scope, priorities, or timelines) or external (client expectations not matching what is being delivered)?"
+        purpose: "Internal breakdowns require process and tool fixes. External breakdowns require client communication protocol redesign."
+        routing_impact: "Internal breakdown routes to team process improvement. External breakdown routes to client communication cadence and expectation management."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Internal-external communication disconnect"
+          reason: "The most damaging communication breakdown in agencies occurs when the account team and the delivery team have different understandings of what was agreed with the client."
+      less_likely:
+        - diagnosis: "Technology-driven communication failure"
+          reason: "Agency communication failures are almost never about tools. They are about processes, habits, and the cultural norms around transparency."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "Client complaints about 'not knowing what is happening' on their projects — a project communication cadence failure."
+      - "Delivery team and account team disagreeing about project scope in front of the client — internal alignment failure."
+      - "Critical information communicated verbally but never documented — leading to 'I thought you said' disputes."
+
+  # ─────────────────────────────────────────────
+  # 19. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency negotiations get stuck in predictable ways: scope negotiations where the client wants more work for the same price, rate negotiations where procurement demands discounts the agency cannot absorb, contract negotiations where legal terms (liability, IP ownership, indemnification) create impasses, and internal negotiations where partners disagree on strategic direction or resource allocation."
+    additional_triage_questions:
+      - question: "Is the negotiation stuck on scope (what you will deliver), price (what they will pay), terms (contractual conditions), or timing (when work starts or payment is due)?"
+        purpose: "Each stall type has different resolution tactics. Scope stalls resolve through phased delivery. Price stalls resolve through value reframing. Terms stalls require creative legal solutions. Timing stalls require urgency creation."
+        routing_impact: "Scope stalls route to phased-proposal design. Price stalls route to value-based reframing and competitive-negotiation. Terms stalls route to delivering-the-deal with emphasis on flexible contract templates."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Scope-price deadlock"
+          reason: "The most common agency negotiation stall: the client wants more than the budget allows. The resolution is usually scope reduction, phased delivery, or value-based justification for the higher investment."
+      less_likely:
+        - diagnosis: "Fundamental value disagreement"
+          reason: "If the client is negotiating, they have already decided the agency provides value. The stall is about terms, not about whether to engage."
+    agency_specific_diagnoses: []
+    sector_red_flags:
+      - "Proposals stalling for 60+ days without resolution — the client may be using the proposal to justify an internal budget or benchmark another vendor."
+      - "Procurement demanding rate reductions below the firm's cost floor — this is not a negotiation, it is a signal that the client values cost over quality."
+      - "Internal partner negotiation about firm direction stalled for 6+ months — the firm is paralyzed."
+
+  # ─────────────────────────────────────────────
+  # 20. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Agency culture is uniquely vulnerable because the work is intensely personal, client demands create constant external pressure, and the creative/strategic professionals who drive agency value are highly sensitive to cultural degradation. Culture erosion in agencies often begins when the firm prioritizes client satisfaction over employee experience — accepting unreasonable client demands, tolerating abusive client behavior, and burning teams on impossible deadlines to maintain client relationships."
+    additional_triage_questions:
+      - question: "Has the firm accepted client behavior (yelling, unreasonable deadlines, scope abuse, disrespect) that undermines team morale — and if so, why?"
+        purpose: "Agencies often tolerate client behavior they would never accept from an employee because the client represents revenue. This tolerance sends a message to the team: the client matters more than you do."
+        routing_impact: "Client behavior tolerance routes to trust-equation and boundary-setting frameworks. The agency must be willing to fire toxic clients to protect culture."
+      - question: "Has the firm's growth outpaced its ability to maintain the culture that attracted early employees?"
+        purpose: "The culture that works at 5 people (founder-led, informal, family-like) does not work at 25 people. Culture must be deliberately evolved, not left to erode."
+        routing_impact: "Growth-driven erosion routes to organisational-culture and team-culture-and-dynamics for deliberate culture scaling."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Client-above-team culture"
+          reason: "The most common culture erosion pattern in agencies: prioritizing client satisfaction at the expense of employee wellbeing until the best people leave."
+        - diagnosis: "Growth outpacing culture infrastructure"
+          reason: "Agencies that double headcount without investing in onboarding, communication norms, and cultural rituals lose the culture that made them attractive."
+      less_likely:
+        - diagnosis: "Toxic leadership"
+          reason: "Most agency culture erosion is caused by neglect — no one is responsible for culture — rather than malicious leadership."
+    agency_specific_diagnoses:
+      - name: "Client-abuse tolerance"
+        description: "The agency tolerates abusive client behavior — aggressive communication, unreasonable demands, last-minute changes without additional compensation, disrespect toward team members — because the revenue is needed. This tolerance erodes team morale, drives attrition among the best people, and ultimately damages the agency's capacity to serve any client well."
+        symptoms:
+          - "Team members requesting to be reassigned from specific clients"
+          - "Higher attrition among staff assigned to demanding accounts"
+          - "Senior leadership rationalizing poor client behavior ('they are just passionate')"
+          - "eNPS declining while client NPS remains stable — the team absorbs the cost of client satisfaction"
+        routes_to_skills: ["trust-equation", "radical-candor", "psychological-safety-practice"]
+        routes_to_templates: ["culture-values-document", "team-health-check"]
+    sector_red_flags:
+      - "eNPS below 10 — the team is not just disengaged but actively unhappy."
+      - "Employee attrition above 25% — culture problems are driving out talent faster than the firm can replace them."
+      - "The firm has never fired a client for behavioral reasons — a sign that revenue is prioritized over people in every case."

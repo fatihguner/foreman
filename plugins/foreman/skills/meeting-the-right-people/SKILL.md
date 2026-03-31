@@ -1,0 +1,1 @@
+../../../../.claude/skills/people/meeting-the-right-people.md

@@ -1,0 +1,1 @@
+../../../../.claude/skills/people/resolving-people-conflict.md

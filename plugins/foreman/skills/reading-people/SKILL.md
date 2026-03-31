@@ -1,0 +1,1 @@
+../../../../.claude/skills/people/reading-people.md

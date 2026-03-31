@@ -1,0 +1,230 @@
+# Solo Audience Mapping
+#
+# Defines how the five output audiences remap when solo mode is active.
+# The output-agent loads this file and applies transformations before
+# rendering any template.
+#
+# Two audiences (client, self) are unchanged.
+# Three audiences (investor, board, team) require fundamental reframing.
+
+audience_mapping:
+
+  # ─────────────────────────────────────────────
+  # INVESTOR → SELF-FUNDING-ANALYSIS
+  # ─────────────────────────────────────────────
+
+  investor:
+    solo_equivalent: "self-funding-analysis"
+    description: "Investor-facing outputs become personal financial analysis documents. The solopreneur is both the operator and the capital allocator. Replace investor persuasion framing with honest self-assessment of business viability and personal income sustainability."
+    tone_shift: "Remove persuasive pitch framing. Replace with analytical self-assessment. The audience is you — be honest, not impressive."
+    structural_changes:
+      - "Replace 'investor returns' with 'personal income sustainability and wealth building'"
+      - "Replace 'fundraising narrative' with 'business viability assessment'"
+      - "Replace 'term sheet negotiation' with 'financing terms evaluation (loans, grants, revenue-based financing)'"
+      - "Replace 'board seat allocation' with 'advisory relationship structure'"
+      - "Replace 'exit strategy' with 'long-term business trajectory and personal exit options'"
+      - "Replace 'dilution analysis' with 'ownership and control preservation'"
+    exception: "If identity.yaml indicates the solopreneur has external investors (angels, micro-VCs, loan providers), use a hybrid approach: retain financial rigor but strip the pitch language. Present data, not a narrative designed to persuade."
+
+    template_adaptations:
+      - template: "investor/cap-table-summary"
+        adaptation: "Reframe as ownership and equity structure document. If no external investors, simplify to a single-owner statement with any contractor equity or profit-sharing arrangements noted."
+
+      - template: "investor/competitive-landscape-brief"
+        adaptation: "Use as-is. Competitive analysis is equally relevant to solopreneurs. Remove the 'defensibility pitch' angle and replace with 'competitive awareness for strategic positioning.'"
+
+      - template: "investor/decision-rationale-memo"
+        adaptation: "Reframe as personal decision journal entry. Replace 'communicate rationale to investors' with 'document your reasoning for future reference and accountability partner review.'"
+
+      - template: "investor/due-diligence-checklist"
+        adaptation: "Reframe as annual business health audit. The solopreneur performs due diligence on their own business. Replace 'what investors will check' with 'what you should verify about your business quarterly.'"
+
+      - template: "investor/exit-scenario-analysis"
+        adaptation: "Reframe as long-term optionality analysis. Replace 'exit for investor returns' with 'options for the future: sell, wind down, transition to lifestyle business, hire and grow, or continue as-is.'"
+
+      - template: "investor/fundraising-deck-outline"
+        adaptation: "Reframe as business plan outline for personal clarity or loan/grant applications. Strip the slide-by-slide investor deck structure and replace with a written business plan format."
+
+      - template: "investor/investor-update-email"
+        adaptation: "Reframe as monthly self-review email to accountability partner or mentor. Replace investor-specific metrics framing with personal progress metrics. If the solopreneur has angel investors, retain the format but adjust tone from 'selling' to 'reporting.'"
+
+      - template: "investor/market-opportunity-summary"
+        adaptation: "Use mostly as-is. Market sizing applies regardless of company size. Remove 'TAM/SAM/SOM for investor persuasion' framing and replace with 'addressable market for realistic revenue planning.'"
+
+      - template: "investor/strategic-analysis-one-pager"
+        adaptation: "Reframe as personal strategic summary. A one-page overview of where the business stands, written for the solopreneur's own clarity and for sharing with mentors."
+
+      - template: "investor/unit-economics-snapshot"
+        adaptation: "Reframe as personal income sustainability dashboard. Replace 'metrics that trigger investor concern' with 'metrics that indicate business health.' Focus on: personal draw, profit margin, effective hourly rate, client concentration risk, revenue predictability."
+
+  # ─────────────────────────────────────────────
+  # BOARD → MENTOR-ADVISOR
+  # ─────────────────────────────────────────────
+
+  board:
+    solo_equivalent: "mentor-advisor"
+    description: "Board-facing outputs become mentor or accountability partner briefs. The solopreneur has no board of directors. Governance language is replaced with personal accountability language. Formal board structures are replaced with informal but rigorous self-governance practices."
+    tone_shift: "Remove formal governance tone. Replace with direct, conversational briefing appropriate for a trusted mentor. Less 'resolution' language, more 'here is where I am and what I am thinking.'"
+    structural_changes:
+      - "Replace 'board of directors' with 'mentor, advisor, or accountability partner'"
+      - "Replace 'board resolution' with 'decision rationale documented for review'"
+      - "Replace 'quarterly board review' with 'quarterly self-review shared with mentor'"
+      - "Replace 'committee recommendation' with 'personal analysis and conclusion'"
+      - "Replace 'board approval required' with 'decision point: commit or defer'"
+      - "Replace 'fiduciary responsibility' with 'personal responsibility and ethical commitment'"
+    exception: "If the solopreneur has a formal advisory board (not a governance board), retain the briefing format but adjust the power dynamic. Advisors advise; they do not approve or veto."
+
+    template_adaptations:
+      - template: "board/board-meeting-agenda"
+        adaptation: "Reframe as structured mentor meeting agenda. Replace governance items (approvals, resolutions, committee reports) with discussion items: strategic questions, decision pressure-tests, and accountability check-ins."
+
+      - template: "board/ceo-succession-brief"
+        adaptation: "Reframe as business continuity plan. The solopreneur has no CEO to succeed, but does need a plan for what happens if they are incapacitated, want to step back, or decide to sell. Replace succession language with contingency planning."
+
+      - template: "board/change-initiative-proposal"
+        adaptation: "Reframe as personal pivot or strategic shift memo. Replace 'propose to the board' with 'document the change rationale for personal clarity and mentor discussion.'"
+
+      - template: "board/compensation-review-brief"
+        adaptation: "Reframe as personal draw and compensation structure review. Replace employee compensation analysis with: what the solopreneur pays themselves, whether the amount is sustainable, and how it compares to market alternatives (employment)."
+
+      - template: "board/quarterly-strategic-review"
+        adaptation: "Reframe as quarterly self-assessment. Retain the strategic review structure (performance vs. goals, market conditions, competitive position) but address it to yourself or your mentor. Replace 'board discussion points' with 'decisions to make this quarter.'"
+
+      - template: "board/regulatory-compliance-update"
+        adaptation: "Use mostly as-is. Regulatory compliance applies to solo businesses. Remove board-specific reporting structure and present as a personal compliance checklist."
+
+      - template: "board/risk-assessment-brief"
+        adaptation: "Reframe as personal risk register. Replace organizational risk categories with solo-specific risks: key-person dependency (you), client concentration, revenue volatility, health and burnout, skill gaps without team coverage."
+
+  # ─────────────────────────────────────────────
+  # TEAM → SYSTEMS-AND-PROCESSES
+  # ─────────────────────────────────────────────
+
+  team:
+    solo_equivalent: "systems-and-processes"
+    description: "Team-facing outputs become process documentation, personal operating procedures, and contractor briefs. Where the default creates alignment documents for humans on a team, solo mode creates reference documents for the solopreneur's own consistency, for onboarding contractors, or for delegating to AI tools."
+    tone_shift: "Remove alignment and motivation language. Replace with clear, procedural instruction. The audience is either future-you (who will forget the details) or a contractor (who needs explicit direction)."
+    structural_changes:
+      - "Replace 'team alignment' with 'process documentation'"
+      - "Replace 'communicate to team' with 'document for personal reference or contractor handoff'"
+      - "Replace 'team meeting' with 'weekly self-review or contractor check-in'"
+      - "Replace 'assign to team member' with 'schedule in personal workflow or brief to contractor'"
+      - "Replace 'team values' with 'business principles and personal standards'"
+      - "Replace 'onboarding new hire' with 'onboarding new contractor or documenting for future delegation'"
+
+    template_adaptations:
+      - template: "team/action-plan"
+        adaptation: "Reframe as personal implementation plan. Replace 'owner' column (team members) with 'method' column (do personally, outsource to contractor, automate, defer). Add time estimate per item."
+
+      - template: "team/culture-values-document"
+        adaptation: "Reframe as business principles and brand values document. Replace organizational culture language with personal business philosophy: how you treat clients, what you refuse to compromise on, how you make decisions."
+
+      - template: "team/feedback-360-template"
+        adaptation: "Reframe as client feedback collection template. Replace peer and manager feedback sections with: client satisfaction questions, referral source interviews, and self-assessment against business goals."
+
+      - template: "team/hiring-scorecard"
+        adaptation: "Reframe as contractor evaluation scorecard. Replace hiring criteria (culture fit, growth potential, team dynamics) with contractor criteria: deliverable quality, communication reliability, rate alignment, domain expertise."
+
+      - template: "team/incident-postmortem"
+        adaptation: "Use mostly as-is. Postmortems are valuable for solo operators. Replace 'team debrief' with 'personal debrief.' The root cause analysis and prevention steps apply identically."
+
+      - template: "team/meeting-notes-template"
+        adaptation: "Reframe as client meeting notes or contractor check-in notes. Replace internal meeting structure with external meeting documentation."
+
+      - template: "team/new-initiative-brief"
+        adaptation: "Reframe as new project brief for personal planning. Replace 'team resources required' with 'time investment required, contractor support needed, tools to acquire.'"
+
+      - template: "team/offsite-planning-guide"
+        adaptation: "Reframe as personal strategic retreat planning guide. Replace team offsite logistics with solo retreat structure: reflection exercises, strategic planning blocks, environment design."
+
+      - template: "team/one-on-one-template"
+        adaptation: "Reframe as mentor meeting preparation template or contractor check-in template. Replace manager-report dynamic with peer advisory dynamic."
+
+      - template: "team/project-kickoff-document"
+        adaptation: "Reframe as project start checklist. Replace team roles and responsibilities with personal task breakdown and contractor scope definitions."
+
+      - template: "team/retrospective-template"
+        adaptation: "Reframe as personal retrospective. Replace team retrospective facilitation with structured self-reflection: what went well, what did not, what to change. A weekly or monthly solo practice."
+
+      - template: "team/role-description-template"
+        adaptation: "Reframe as contractor scope of work template. Replace job description format with project-based scope definition: deliverables, timeline, communication expectations, quality standards."
+
+      - template: "team/team-health-check"
+        adaptation: "Reframe as personal sustainability check. Replace team health dimensions (morale, alignment, psychological safety) with solo health dimensions: energy level, financial runway, client satisfaction, skill development, work-life sustainability."
+
+  # ─────────────────────────────────────────────
+  # CLIENT → CLIENT (unchanged)
+  # ─────────────────────────────────────────────
+
+  client:
+    solo_equivalent: "client"
+    description: "Client-facing outputs require no adaptation. The solopreneur serves clients in the same professional capacity as a larger firm. Quality standards and communication expectations are identical."
+    tone_shift: "No change."
+    structural_changes: []
+
+    template_adaptations:
+      - template: "client/analysis-report"
+        adaptation: "Use as-is."
+
+      - template: "client/case-study-template"
+        adaptation: "Use as-is."
+
+      - template: "client/onboarding-welcome-packet"
+        adaptation: "Use as-is."
+
+      - template: "client/partnership-memo"
+        adaptation: "Use as-is."
+
+      - template: "client/project-status-update"
+        adaptation: "Use as-is."
+
+      - template: "client/proposal-outline"
+        adaptation: "Use as-is."
+
+      - template: "client/quarterly-business-review"
+        adaptation: "Use as-is."
+
+      - template: "client/service-level-agreement"
+        adaptation: "Use as-is."
+
+  # ─────────────────────────────────────────────
+  # SELF → SELF (unchanged, elevated to default)
+  # ─────────────────────────────────────────────
+
+  self:
+    solo_equivalent: "self"
+    description: "Self-facing outputs are already personal. In solo mode, self becomes the default audience when no audience is specified. These templates are the solopreneur's primary working documents."
+    tone_shift: "No change. Already appropriately personal."
+    structural_changes:
+      - "Elevate to default audience when no audience is specified (in default mode, the system infers audience from context; in solo mode, self is the fallback)"
+
+    template_adaptations:
+      - template: "self/annual-review-and-planning"
+        adaptation: "Use as-is. Add emphasis on personal income review and work-life sustainability assessment."
+
+      - template: "self/career-strategy-canvas"
+        adaptation: "Use as-is. In solo mode, career strategy and business strategy are the same document."
+
+      - template: "self/decision-journal"
+        adaptation: "Use as-is. Elevated importance — the decision journal is the solopreneur's primary accountability mechanism."
+
+      - template: "self/founder-mental-health-check"
+        adaptation: "Use as-is. Add solo-specific prompts: isolation assessment, boundary audit, support network inventory."
+
+      - template: "self/leadership-reflection"
+        adaptation: "Reframe as business owner reflection. Replace leadership-of-others prompts with leadership-of-self prompts."
+
+      - template: "self/learning-plan"
+        adaptation: "Use as-is. Learning is more urgent when there is no team with complementary skills."
+
+      - template: "self/negotiation-prep-sheet"
+        adaptation: "Use as-is."
+
+      - template: "self/personal-board-tracker"
+        adaptation: "Reframe as mentor and advisor network tracker. Replace board governance tracking with informal advisory relationship management."
+
+      - template: "self/stakeholder-map"
+        adaptation: "Use as-is. The solopreneur's stakeholder map is simpler (no internal stakeholders) but still valuable for client, partner, and vendor relationship management."
+
+      - template: "self/weekly-ceo-review"
+        adaptation: "Reframe as weekly business owner review. Replace CEO framing with owner-operator framing. This becomes the solopreneur's primary weekly practice."

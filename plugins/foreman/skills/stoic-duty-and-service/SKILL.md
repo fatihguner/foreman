@@ -1,0 +1,1 @@
+../../../../.claude/skills/stoic/stoic-duty-and-service.md

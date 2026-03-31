@@ -1,0 +1,988 @@
+# Agency/Consulting Industry Pack — Benchmarks
+#
+# 25 agency- and consulting-specific metrics with real benchmark data sourced
+# from public studies and industry reports. The orchestrator surfaces these when
+# applying quantitative skills, generating output templates with financial
+# metrics, or diagnosing growth, utilization, and profitability issues.
+#
+# The fundamental equation of professional services: Revenue = People x
+# Utilization x Rate. Every metric in this file connects to that equation.
+# There is no MRR in the traditional sense — there are retainers, projects,
+# and hourly engagements. The "product" is people's time and expertise.
+#
+# Primary data sources:
+#   - SPI Research (Service Performance Insight) Professional Services
+#     Maturity Benchmark (2023, 2024)
+#   - Deltek Clarity Architecture & Engineering / Professional Services
+#     Industry Study (2023, 2024)
+#   - HubSpot Agency Pricing & Benchmarks Report (2023, 2024)
+#   - Promethean Research Agency Benchmarks (2023, 2024)
+#   - Agency Management Institute (AMI) Financial Benchmarks (2023)
+#   - Hinge Research Institute High Growth Study (2023)
+#   - David C. Baker / ReCourses — agency economics benchmarks
+#   - Bureau of Labor Statistics (BLS) — professional services sector data
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among established agencies and consultancies at the relevant stage.
+
+pack_metadata:
+  sector: "agency-consulting"
+  display_name: "Agency / Consulting"
+  version: "1.0.0"
+  description: "Benchmark data for service businesses — consulting firms, digital agencies, creative studios, development shops, marketing agencies, PR firms, staffing firms, and professional services — where people, utilization, and rates are the fundamental economic drivers."
+  applicable_stages:
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"
+  compatible_modes:
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # REVENUE & GROWTH METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Revenue"
+    id: "revenue"
+    category: "growth"
+    definition: "Total annual revenue from all sources — project fees, retainers, hourly billing, and productized services — before any cost deductions."
+    formula: "Sum of all client payments recognized in the fiscal year"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $250K annual revenue"
+        signal: "Solo practitioner or very early agency. Revenue depends entirely on the founder's personal billing capacity, leaving no margin for growth investment."
+      below_average:
+        value: "$250K-$750K"
+        signal: "Small agency with 2-5 people. Enough to cover salaries but insufficient to invest in sales, marketing, or operational infrastructure."
+      average:
+        value: "$750K-$3M"
+        signal: "Established small agency. Can support a dedicated leadership layer and begin investing in business development beyond founder-led sales."
+      good:
+        value: "$3M-$10M"
+        signal: "Mid-size agency with departmental structure, multiple service lines, and a client portfolio diversified enough to weather individual client losses."
+      excellent:
+        value: "> $10M"
+        signal: "Large agency with institutional client relationships, strong brand recognition, and the capacity to invest in proprietary methodologies or productized offerings."
+    stage_notes:
+      seed: "Most agencies start as solo consultancies or partnerships. Revenue below $250K is typical for year one. Focus on landing 2-3 anchor clients rather than chasing scale."
+      series_a: "Agencies rarely raise venture capital. At the $1M-$3M stage, the equivalent milestone is hiring the first non-billable role (ops manager, business developer) and proving the firm can generate revenue beyond the founder."
+      series_b_plus: "At $5M+, the agency faces the 'scaling wall' — the founder can no longer personally oversee every engagement. Systems, processes, and a management layer become essential."
+    data_sources:
+      - source: "Agency Management Institute Financial Benchmarks"
+        year: "2023"
+      - source: "Promethean Research Agency Revenue Study"
+        year: "2024"
+    related_metrics: ["revenue-per-employee", "revenue-per-client"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Revenue in agencies can be reported as gross revenue (total billings) or net revenue (after subcontractor and pass-through costs). Always clarify which basis is used. Net revenue is the more meaningful figure for benchmarking."
+
+  - name: "Revenue per Employee"
+    id: "revenue-per-employee"
+    category: "efficiency"
+    definition: "Total annual revenue divided by average full-time-equivalent headcount, measuring the revenue-generating efficiency of the team."
+    formula: "Annual revenue / Average FTE headcount"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $100K per employee"
+        signal: "Severe underpricing, chronic low utilization, or excessive overhead. The firm cannot sustain competitive salaries at this level."
+      below_average:
+        value: "$100K-$150K"
+        signal: "Below the sustainability threshold for most markets. Either rates are too low, utilization is poor, or non-billable headcount is excessive."
+      average:
+        value: "$150K-$200K"
+        signal: "Solid baseline for a healthy agency. Supports market-rate salaries, reasonable overhead, and modest profit margins."
+      good:
+        value: "$200K-$300K"
+        signal: "Strong revenue productivity. Indicates premium pricing, high utilization, or an efficient leverage model with lower-cost junior staff."
+      excellent:
+        value: "> $300K per employee"
+        signal: "Elite efficiency. Typical of strategy consultancies, specialized technical firms, or agencies with a strong productized service component."
+    stage_notes:
+      seed: "Sole consultants often exceed $200K because there is no overhead. The metric becomes meaningful only after the first few hires, when the denominator includes non-billable staff."
+      series_a: "At 10-25 employees, this metric reveals whether the firm can maintain economic efficiency as it adds management and operational layers."
+      series_b_plus: "At 50+ employees, revenue per employee typically compresses as the firm adds middle management, HR, finance, and operations. Maintaining $200K+ at scale signals a well-run operation."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+    related_metrics: ["revenue", "utilization-rate", "average-billable-rate"]
+    related_skills: ["balanced-scorecard", "shamrock-organisation"]
+    caveats: "Revenue per employee varies dramatically by geography, service type, and seniority mix. A strategy consultancy and a staffing firm are not comparable on this metric. Benchmark within the firm's specific discipline."
+
+  - name: "Revenue per Client"
+    id: "revenue-per-client"
+    category: "growth"
+    definition: "Average annual revenue generated from each active client, indicating account depth and the ability to expand relationships."
+    formula: "Annual revenue / Number of active clients"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $10K per client annually"
+        signal: "Transactional client relationships. The firm is doing small, one-off projects with little relationship depth or expansion potential."
+      below_average:
+        value: "$10K-$30K"
+        signal: "Some repeat business but accounts are not deep enough to justify dedicated account management."
+      average:
+        value: "$30K-$75K"
+        signal: "Meaningful client relationships. Large enough to warrant strategic account planning and regular relationship maintenance."
+      good:
+        value: "$75K-$200K"
+        signal: "Strong account depth. Clients are engaging the firm across multiple services or on sustained retainers."
+      excellent:
+        value: "> $200K per client annually"
+        signal: "Deep strategic partnerships. The firm is embedded in the client's operations. High switching costs for the client."
+    stage_notes:
+      seed: "Early agencies should aim for fewer, deeper client relationships rather than many small ones. One $100K client is more valuable than ten $10K clients at this stage."
+      series_a: "As the agency grows, balancing account depth with diversification becomes critical. Target a minimum of $50K per client with no single client exceeding 25% of revenue."
+      series_b_plus: "At scale, revenue per client becomes a segmentation tool. Identify which client tier generates the best margin and concentrate growth there."
+    data_sources:
+      - source: "Promethean Research Agency Benchmarks"
+        year: "2024"
+      - source: "Agency Management Institute Financial Benchmarks"
+        year: "2023"
+    related_metrics: ["client-concentration", "client-retention-rate"]
+    related_skills: ["business-model-canvas", "net-promoter-score"]
+    caveats: "This metric must be interpreted alongside client count. A $3M agency with 3 clients ($1M each) has dangerous concentration. A $3M agency with 30 clients ($100K each) may have insufficient account depth."
+
+  # ─────────────────────────────────────────────
+  # UTILIZATION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Utilization Rate"
+    id: "utilization-rate"
+    category: "efficiency"
+    definition: "The percentage of total available working hours that are spent on client-billable or client-related productive work, including both billed and unbilled client work."
+    formula: "(Total hours on client work / Total available working hours) x 100"
+    unit: "percentage"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "< 55%"
+        signal: "Chronic underutilization. Staff are idle or consumed by internal work. Revenue cannot cover costs at this level unless rates are extraordinarily high."
+      below_average:
+        value: "55%-62%"
+        signal: "Below optimal. Either bench time is excessive, too much time is consumed by non-billable overhead, or the firm has hired ahead of demand."
+      average:
+        value: "62%-68%"
+        signal: "Healthy utilization for most agencies and consultancies. Leaves room for professional development, sales, and administrative work."
+      good:
+        value: "68%-75%"
+        signal: "Strong utilization. The firm is running efficiently without burning out staff. Typical of well-managed mid-size agencies."
+      excellent:
+        value: "75%-80%"
+        signal: "Near-optimal utilization. Beyond 80%, quality degrades, burnout accelerates, and no capacity exists for new business development."
+    stage_notes:
+      seed: "Solo consultants can achieve 70-80% utilization because they have minimal overhead. Once the first non-billable hire is made, overall utilization drops mechanically."
+      series_a: "At 10-25 people, target 65% firm-wide utilization. Leadership and operations staff should not be expected to bill significant hours."
+      series_b_plus: "Larger firms target 65-70% for billable staff, with firm-wide utilization (including leadership and ops) averaging 55-65%."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+    related_metrics: ["billable-utilization-rate", "bench-time", "revenue-per-employee"]
+    related_skills: ["balanced-scorecard", "eisenhower-matrix"]
+    caveats: "Utilization above 80% is not a goal — it is a warning sign. Sustained high utilization leaves no capacity for professional development, innovation, or new business pursuit. It also correlates strongly with employee attrition."
+
+  - name: "Billable Utilization Rate"
+    id: "billable-utilization-rate"
+    category: "efficiency"
+    definition: "The percentage of total available working hours that are actually billed to and paid by clients, excluding unbilled client work, write-offs, and internal time."
+    formula: "(Hours billed to clients / Total available working hours) x 100"
+    unit: "percentage"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "< 50%"
+        signal: "Fewer than half of available hours generate revenue. The gap between utilization and billable utilization suggests significant write-offs, scope creep, or unbilled work."
+      below_average:
+        value: "50%-58%"
+        signal: "Moderate leakage between worked hours and billed hours. Common causes: scope creep, poor time tracking, and reluctance to bill for all work performed."
+      average:
+        value: "58%-65%"
+        signal: "Acceptable billable efficiency. The gap between utilization rate and billable rate should be under 7 percentage points."
+      good:
+        value: "65%-72%"
+        signal: "Strong billing discipline. The firm captures most productive time as revenue and maintains tight scope management."
+      excellent:
+        value: "72%-78%"
+        signal: "Exceptional billing efficiency. Characteristic of firms with rigorous time tracking, clear scoping, and value-based pricing that minimizes the billable-hours problem."
+    stage_notes:
+      seed: "Solo consultants should track the gap between time worked and time billed. A gap above 10 percentage points indicates systemic scope creep or undercharging."
+      series_a: "As the firm grows, the billable utilization rate for delivery staff should be tracked separately from firm-wide utilization."
+      series_b_plus: "Mature agencies use the gap between utilization and billable utilization as a management metric — it reveals operational efficiency."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+    related_metrics: ["utilization-rate", "effective-billable-rate", "scope-creep-rate"]
+    related_skills: ["balanced-scorecard", "smart-goals"]
+    caveats: "Firms using fixed-price or retainer models may find billable utilization difficult to measure precisely. In these cases, track 'productive utilization' against contracted deliverables rather than hourly billing."
+
+  - name: "Bench Time"
+    id: "bench-time"
+    category: "efficiency"
+    definition: "The percentage of billable staff who are currently unassigned to any client project, representing idle capacity and a direct cost to the business."
+    formula: "(FTEs without client assignments / Total billable FTEs) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 20%"
+        signal: "One in five billable staff is idle. This drains cash and indicates either a sales pipeline failure or overhiring relative to demand."
+      below_average:
+        value: "15%-20%"
+        signal: "Elevated bench. Acceptable for brief periods between major projects but unsustainable beyond one quarter."
+      average:
+        value: "10%-15%"
+        signal: "Manageable bench level. Some bench time is healthy — it enables rapid response to new opportunities and allows for professional development."
+      good:
+        value: "5%-10%"
+        signal: "Lean operation with modest buffer capacity. The firm can respond to new work without significant hiring lag."
+      excellent:
+        value: "< 5%"
+        signal: "Near-full deployment. Efficient but potentially fragile — no surge capacity for unexpected opportunities or client emergencies."
+    stage_notes:
+      seed: "Bench is rarely relevant for agencies under 5 people — everyone works on everything. The concept becomes meaningful at 10+ billable staff."
+      series_a: "At 10-25 people, bench management becomes a critical skill. Track bench weekly, not monthly. A two-week bench period per person per year is a reasonable target."
+      series_b_plus: "Larger agencies use bench strategically — assigning benched staff to R&D, internal tools, thought leadership, or pre-sales activities."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+    related_metrics: ["utilization-rate", "revenue-per-employee"]
+    related_skills: ["scenario-planning", "eisenhower-matrix"]
+    caveats: "Zero bench time is not a goal. Firms with zero bench cannot respond to new opportunities, leading to turned-away revenue. Optimal bench is 5-10%, deployed productively."
+
+  # ─────────────────────────────────────────────
+  # PRICING & RATE METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Average Billable Rate"
+    id: "average-billable-rate"
+    category: "unit-economics"
+    definition: "The mean hourly rate charged across all billable staff and engagement types, before any discounts, write-offs, or scope adjustments."
+    formula: "Total standard billings / Total hours billed"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $100/hour"
+        signal: "Commodity pricing territory. At this rate, the firm competes with freelancers and offshore teams. Margins are thin and talent retention is difficult."
+      below_average:
+        value: "$100-$150/hour"
+        signal: "Mid-market rate. Viable for execution-focused agencies but insufficient for strategic advisory or premium creative work."
+      average:
+        value: "$150-$225/hour"
+        signal: "Professional-grade rate. Supports experienced staff, decent margins, and investment in the business. Typical for competent mid-market agencies."
+      good:
+        value: "$225-$350/hour"
+        signal: "Premium rate. Commands respect and supports higher-caliber talent. Typical for specialized consultancies and top-tier creative agencies."
+      excellent:
+        value: "> $350/hour"
+        signal: "Elite rate. Reserved for management consultancies, highly specialized technical firms, and agencies with exceptional brand and track record."
+    stage_notes:
+      seed: "New consultants often underprice to win work. Calculate a minimum viable rate: (target salary + overhead + profit margin) / (available billable hours). Most solos should charge more than they think."
+      series_a: "Blended rate matters more than individual rates. The firm should have a rate card by seniority level and manage the staff mix to achieve target blended rate."
+      series_b_plus: "At scale, rate management becomes strategic. Senior staff should command rates 3-5x junior staff. The blended rate should rise as the firm's reputation grows."
+    data_sources:
+      - source: "HubSpot Agency Pricing Report"
+        year: "2024"
+      - source: "Promethean Research Agency Benchmarks"
+        year: "2024"
+    related_metrics: ["effective-billable-rate", "revenue-per-employee"]
+    related_skills: ["pricing-diagnosis", "four-ps-marketing"]
+    caveats: "Rates vary enormously by geography, discipline, and client segment. A $150/hour rate in a low-cost market may represent premium pricing. Always benchmark within the firm's specific context."
+
+  - name: "Effective Billable Rate"
+    id: "effective-billable-rate"
+    category: "unit-economics"
+    definition: "The actual revenue earned per hour of work performed on client engagements, accounting for discounts, write-offs, scope creep, and fixed-price overruns."
+    formula: "Actual revenue collected / Total hours worked on client projects (billed and unbilled)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 60% of standard rate"
+        signal: "Massive value leakage. For every dollar the firm should earn, it collects less than 60 cents. Discounting, write-offs, and scope creep are eroding the business."
+      below_average:
+        value: "60%-75% of standard rate"
+        signal: "Significant rate erosion. Common causes: aggressive discounting to win work, poor scope management, and failure to bill for change orders."
+      average:
+        value: "75%-85% of standard rate"
+        signal: "Moderate erosion. The gap between standard and effective rate is manageable but indicates room for improvement in scope and billing discipline."
+      good:
+        value: "85%-92% of standard rate"
+        signal: "Strong rate realization. The firm maintains discipline on scope, billing, and discounts while remaining competitive."
+      excellent:
+        value: "> 92% of standard rate"
+        signal: "Exceptional rate realization. Nearly all work performed is captured as revenue. Characteristic of firms with strong positioning and negotiation discipline."
+    stage_notes:
+      seed: "Solo consultants should track effective rate obsessively. The gap between what they charge and what they actually earn per hour often reveals shocking underpricing."
+      series_a: "At 10-25 people, effective rate realization becomes a management discipline. Train project managers to track hours against estimates and flag overruns early."
+      series_b_plus: "Mature agencies target 85%+ effective rate realization and include it in project manager KPIs."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Agency Management Institute Financial Benchmarks"
+        year: "2023"
+    related_metrics: ["average-billable-rate", "scope-creep-rate", "gross-margin"]
+    related_skills: ["pricing-diagnosis", "competitive-negotiation"]
+    caveats: "Effective rate is the single most revealing metric for agency profitability. A firm with a high standard rate but low effective rate has a discipline problem, not a pricing problem."
+
+  # ─────────────────────────────────────────────
+  # PROFITABILITY METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Gross Margin"
+    id: "gross-margin"
+    category: "financial"
+    definition: "Revenue minus direct costs of service delivery (staff salaries, freelancer costs, subcontractor fees, and direct project expenses), expressed as a percentage of revenue."
+    formula: "(Revenue - Direct costs of delivery) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 40%"
+        signal: "Dangerously thin margins. After overhead, the firm is likely unprofitable. Either rates are too low, utilization is poor, or the cost of delivery is excessive."
+      below_average:
+        value: "40%-50%"
+        signal: "Thin margins that leave little room for overhead, business development, and profit. Common in agencies competing on price."
+      average:
+        value: "50%-55%"
+        signal: "Acceptable gross margin for most agency types. Enough to cover overhead and generate a modest profit."
+      good:
+        value: "55%-65%"
+        signal: "Healthy margins indicating strong pricing, efficient delivery, and good leverage (appropriate mix of senior and junior staff)."
+      excellent:
+        value: "> 65%"
+        signal: "Premium margins. Typical of strategy consultancies, highly specialized firms, or agencies with significant productized revenue."
+    stage_notes:
+      seed: "Solo consultants without subcontractors may see gross margins of 90%+ because there are no direct labor costs beyond their own time. This compresses dramatically with the first hires."
+      series_a: "At 10-25 people, gross margin is the critical metric. If gross margin is below 50%, the firm cannot sustain the overhead structure needed to grow."
+      series_b_plus: "Mature agencies should maintain gross margin above 50% while investing in senior talent and specialized capabilities."
+    data_sources:
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+      - source: "Agency Management Institute Financial Benchmarks"
+        year: "2023"
+    related_metrics: ["ebitda-margin", "effective-billable-rate", "leverage-ratio"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Gross margin in agencies depends heavily on how 'direct costs' are classified. Some firms include all staff salaries in COGS; others include only billable staff. Ensure consistent classification when benchmarking."
+
+  - name: "EBITDA Margin"
+    id: "ebitda-margin"
+    category: "financial"
+    definition: "Earnings before interest, taxes, depreciation, and amortization as a percentage of revenue, representing the operating profitability of the firm."
+    formula: "(Revenue - All operating expenses) / Revenue x 100 (before interest, taxes, depreciation, amortization)"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5%"
+        signal: "Near breakeven. The firm has no margin of safety. A single lost client or late payment could create a cash crisis."
+      below_average:
+        value: "5%-10%"
+        signal: "Thin profitability. Sufficient to survive but not to invest in growth, build reserves, or reward partners generously."
+      average:
+        value: "10%-15%"
+        signal: "Respectable profitability for a well-run agency. Enough to build cash reserves, invest modestly in growth, and provide competitive partner compensation."
+      good:
+        value: "15%-20%"
+        signal: "Strong profitability. The firm can invest in growth, weather downturns, and attract partner-level talent with meaningful equity or profit participation."
+      excellent:
+        value: "> 20%"
+        signal: "Exceptional profitability. Typical of specialized consultancies, firms with productized offerings, or agencies with dominant market positions."
+    stage_notes:
+      seed: "Profitability in year one is a luxury but not a requirement. However, agencies should target breakeven within 12-18 months — unlike product companies, agencies should not burn cash for years."
+      series_a: "At 10-25 employees, target 10%+ EBITDA margin. If margins are thinner, examine overhead ratio and utilization before cutting salaries."
+      series_b_plus: "Mature agencies operating below 10% EBITDA are likely either overinvesting in growth or suffering from structural margin problems."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+    related_metrics: ["gross-margin", "overhead-ratio", "revenue-per-employee"]
+    related_skills: ["balanced-scorecard", "scenario-planning"]
+    caveats: "In owner-operated agencies, EBITDA may be understated because the owner takes a below-market salary, or overstated because the owner pays themselves above-market. Normalize owner compensation to market rate before benchmarking."
+
+  # ─────────────────────────────────────────────
+  # CLIENT METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Client Concentration"
+    id: "client-concentration"
+    category: "financial"
+    definition: "The revenue share attributable to the single largest client, measuring dependency risk."
+    formula: "Revenue from largest client / Total revenue x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 40%"
+        signal: "Existential dependency. Losing this client would threaten the firm's survival. The client also holds excessive negotiating power over rates and terms."
+      below_average:
+        value: "30%-40%"
+        signal: "Dangerously concentrated. The firm's strategic decisions are constrained by the need to retain this account."
+      average:
+        value: "20%-30%"
+        signal: "Moderate concentration. Manageable if the relationship is strong, but diversification should be an active priority."
+      good:
+        value: "10%-20%"
+        signal: "Healthy balance between account depth and diversification. No single client loss would fundamentally threaten the business."
+      excellent:
+        value: "< 10%"
+        signal: "Well-diversified. The firm can walk away from any single client without existential risk, which paradoxically strengthens negotiating power."
+    stage_notes:
+      seed: "High concentration is inevitable in the first 1-2 years. Accept it, but actively pursue diversification. Every new client reduces existential risk."
+      series_a: "At $1M-$3M revenue, no client should exceed 25%. This is the stage where concentration risk transitions from 'understood and managed' to 'structural vulnerability.'"
+      series_b_plus: "At $5M+, target sub-15% for the largest client and ensure the top 5 clients combined represent no more than 50% of revenue."
+    data_sources:
+      - source: "Agency Management Institute Financial Benchmarks"
+        year: "2023"
+      - source: "David C. Baker / ReCourses — agency economics"
+        year: "2024"
+    related_metrics: ["revenue-per-client", "client-retention-rate"]
+    related_skills: ["scenario-planning", "porters-five-forces"]
+    caveats: "Concentration is acceptable when the client is contractually committed (multi-year retainer) and strategically aligned. It is dangerous when the relationship is month-to-month and dependent on a single champion."
+
+  - name: "Client Retention Rate"
+    id: "client-retention-rate"
+    category: "retention"
+    definition: "The percentage of clients from the prior year who continue to engage the firm in the current year, measuring relationship durability."
+    formula: "(Clients retained from prior year / Total clients in prior year) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 60%"
+        signal: "The firm loses nearly half its clients annually. This forces constant new business development and prevents account deepening. Often a quality or relationship problem."
+      below_average:
+        value: "60%-70%"
+        signal: "Below average retention. The firm is on a treadmill — acquiring new clients to replace departing ones rather than growing existing relationships."
+      average:
+        value: "70%-80%"
+        signal: "Reasonable retention for most agency types. Some churn is natural as client needs evolve, budgets shift, or projects conclude."
+      good:
+        value: "80%-90%"
+        signal: "Strong retention indicating the firm is embedded in client operations and delivering consistent value."
+      excellent:
+        value: "> 90%"
+        signal: "Exceptional client loyalty. The firm has become a trusted extension of the client's team. Typical of deep retainer relationships."
+    stage_notes:
+      seed: "Early-stage retention is volatile because the client base is small — losing one of three clients is 33% churn. Track retention carefully but interpret it within the context of a small sample."
+      series_a: "At 15-30 clients, retention rate becomes statistically meaningful and a leading indicator of firm health."
+      series_b_plus: "Mature firms should segment retention by client tier. Retaining top-tier clients (top 20% by revenue) matters far more than retaining small project clients."
+    data_sources:
+      - source: "Hinge Research Institute High Growth Study"
+        year: "2023"
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+    related_metrics: ["client-concentration", "revenue-per-client", "nps-client"]
+    related_skills: ["net-promoter-score", "trust-equation"]
+    caveats: "Retention does not measure revenue retention. A firm can retain 90% of clients while revenue from those clients declines. Track both logo and revenue retention."
+
+  # ─────────────────────────────────────────────
+  # SALES & PIPELINE METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Average Project Value"
+    id: "average-project-value"
+    category: "sales"
+    definition: "The mean revenue from a single client engagement, whether a discrete project, a retainer period, or a phase of work."
+    formula: "Total project revenue / Number of projects closed"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $5K"
+        signal: "Micro-projects with high overhead relative to revenue. The firm spends as much time selling and onboarding as delivering."
+      below_average:
+        value: "$5K-$15K"
+        signal: "Small projects. Viable for freelancers but challenging for agencies with overhead. Requires high volume to generate meaningful revenue."
+      average:
+        value: "$15K-$50K"
+        signal: "Standard agency project size. Large enough to justify structured delivery and account management."
+      good:
+        value: "$50K-$150K"
+        signal: "Meaningful engagements that warrant strategic planning, phased delivery, and senior oversight. Typical of mid-market consulting."
+      excellent:
+        value: "> $150K"
+        signal: "Large, complex engagements. These projects define the firm's reputation and require sophisticated project management and executive attention."
+    stage_notes:
+      seed: "Small agencies should raise average project value steadily. Moving from $10K to $25K average project size transforms the economics of the business."
+      series_a: "At $1M-$3M revenue, the firm should have a clear minimum project size and decline work below it. Minimum thresholds reduce operational complexity."
+      series_b_plus: "Larger agencies use project tiering — small projects ($10K-$50K), medium ($50K-$200K), large ($200K+) — with different delivery models for each."
+    data_sources:
+      - source: "HubSpot Agency Pricing Report"
+        year: "2024"
+      - source: "Promethean Research Agency Benchmarks"
+        year: "2024"
+    related_metrics: ["revenue-per-client", "win-rate", "sales-cycle-length"]
+    related_skills: ["pricing-diagnosis", "competitive-negotiation"]
+    caveats: "Average project value can be misleading if the firm has a bimodal distribution — many small projects and a few large ones. Examine the distribution, not just the mean."
+
+  - name: "Pipeline Coverage Ratio"
+    id: "pipeline-coverage-ratio"
+    category: "sales"
+    definition: "The ratio of total pipeline value to the revenue target for the period, indicating whether the firm has sufficient opportunities to meet its goals."
+    formula: "Total weighted pipeline value / Revenue target for the period"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 2x"
+        signal: "Insufficient pipeline. The firm will almost certainly miss its revenue target. Immediate new business development investment is needed."
+      below_average:
+        value: "2x-3x"
+        signal: "Thin coverage. Achievable only if win rates are above average. No margin for slippage or delayed decisions."
+      average:
+        value: "3x-4x"
+        signal: "Adequate coverage for most agencies. Provides a reasonable buffer against lost opportunities and delayed client decisions."
+      good:
+        value: "4x-5x"
+        signal: "Strong pipeline. The firm can be selective about which opportunities to pursue and negotiate from a position of strength."
+      excellent:
+        value: "> 5x"
+        signal: "Robust pipeline. Enables strategic client selection and premium pricing. The firm can decline work that does not align with its positioning."
+    stage_notes:
+      seed: "Pipeline discipline is rare in small agencies. Even a simple spreadsheet tracking opportunities, probability, and timeline is transformative."
+      series_a: "At $1M-$3M, formalize the pipeline with stages and probability weights. Weekly pipeline reviews should become a non-negotiable management ritual."
+      series_b_plus: "Mature agencies track pipeline velocity (how fast deals progress), pipeline quality (weighted by ideal client criteria), and pipeline source (referral vs. outbound vs. inbound)."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Hinge Research Institute High Growth Study"
+        year: "2023"
+    related_metrics: ["win-rate", "sales-cycle-length", "revenue"]
+    related_skills: ["balanced-scorecard", "scenario-planning"]
+    caveats: "Pipeline coverage is only meaningful with honest probability weighting. A 5x pipeline filled with unqualified, low-probability opportunities provides false comfort."
+
+  - name: "Win Rate"
+    id: "win-rate"
+    category: "sales"
+    definition: "The percentage of formal proposals or pitches that result in a signed engagement, measuring the firm's competitive effectiveness."
+    formula: "(Proposals won / Total proposals submitted) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20%"
+        signal: "Four out of five proposals fail. Either the firm is pursuing the wrong opportunities, the proposals are weak, or pricing is misaligned."
+      below_average:
+        value: "20%-30%"
+        signal: "Below average but not uncommon, especially for agencies that respond to open RFPs. Qualification discipline would improve this metric."
+      average:
+        value: "30%-40%"
+        signal: "Standard win rate for agencies with a mix of referral and competitive pitches."
+      good:
+        value: "40%-55%"
+        signal: "Strong conversion. The firm is qualifying well, positioning effectively, and pricing competitively."
+      excellent:
+        value: "> 55%"
+        signal: "Exceptional win rate. Indicates strong referral pipeline, expert positioning, or excellent pre-qualification. The firm may not be pitching enough."
+    stage_notes:
+      seed: "Early agencies should track win rate from day one. A pattern of losing helps identify positioning weaknesses faster than a pattern of not pitching at all."
+      series_a: "At $1M-$3M, analyze win rate by source: referral wins should exceed 50%, competitive pitch wins will be lower. If overall rate is below 25%, the firm has a positioning or pricing problem."
+      series_b_plus: "Mature agencies use win/loss analysis to improve positioning. Interview lost prospects to understand why they chose a competitor."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Hinge Research Institute High Growth Study"
+        year: "2023"
+    related_metrics: ["pipeline-coverage-ratio", "sales-cycle-length", "average-project-value"]
+    related_skills: ["competitive-negotiation", "delivering-the-deal"]
+    caveats: "A very high win rate (>60%) may indicate the firm is only pursuing 'safe' opportunities and not stretching into larger or more prestigious engagements."
+
+  - name: "Sales Cycle Length"
+    id: "sales-cycle-length"
+    category: "sales"
+    definition: "The average elapsed time from initial qualified contact with a prospect to a signed contract, measuring the speed of the sales process."
+    formula: "Average days from first qualified meeting to contract signature"
+    unit: "days"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 120 days"
+        signal: "Excessively long sales cycle. Either the firm is pursuing enterprise clients without the infrastructure to support long cycles, or decisions are stalling without resolution."
+      below_average:
+        value: "90-120 days"
+        signal: "Lengthy for most agency engagements. Acceptable for large, complex projects but a drag on cash flow for standard work."
+      average:
+        value: "45-90 days"
+        signal: "Typical for mid-market agency work. Allows for proper scoping, proposal development, and client decision-making."
+      good:
+        value: "21-45 days"
+        signal: "Efficient sales process. The firm qualifies quickly, proposes clearly, and drives decisions. Typical of firms with strong referral pipelines."
+      excellent:
+        value: "< 21 days"
+        signal: "Rapid conversion. Characteristic of firms selling productized services, working from strong referrals, or engaging repeat clients on new projects."
+    stage_notes:
+      seed: "Early agencies should aim for short cycles. Long sales cycles consume founder time that should be spent on delivery and relationship building."
+      series_a: "At $1M-$3M, segment sales cycle by engagement type. Retainer renewals should close in 1-2 weeks; new client projects in 30-60 days."
+      series_b_plus: "Mature agencies track sales cycle by client tier. Enterprise engagements with procurement involvement will naturally take longer."
+    data_sources:
+      - source: "HubSpot Agency Pricing Report"
+        year: "2024"
+      - source: "Promethean Research Agency Benchmarks"
+        year: "2024"
+    related_metrics: ["win-rate", "pipeline-coverage-ratio"]
+    related_skills: ["delivering-the-deal", "competitive-negotiation"]
+    caveats: "Sales cycle length should be measured from the first qualified interaction, not from initial contact. Including unqualified leads inflates the metric and obscures the real conversion timeline."
+
+  - name: "Cost per Lead"
+    id: "cost-per-lead"
+    category: "sales"
+    definition: "The total cost of generating a qualified new business lead, including marketing, business development, events, and content creation costs."
+    formula: "Total business development and marketing spend / Number of qualified leads generated"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $2,000 per lead"
+        signal: "Extremely expensive lead generation. At this cost, the firm needs very high average project values and win rates to achieve positive ROI on business development."
+      below_average:
+        value: "$1,000-$2,000"
+        signal: "Elevated cost. Acceptable for agencies targeting enterprise clients with $100K+ engagements, but expensive for mid-market firms."
+      average:
+        value: "$500-$1,000"
+        signal: "Reasonable lead cost for most professional services firms. Achievable through a mix of content marketing, networking, and selective paid channels."
+      good:
+        value: "$200-$500"
+        signal: "Efficient lead generation. Typically driven by strong referral networks, thought leadership content, and organic reputation."
+      excellent:
+        value: "< $200 per lead"
+        signal: "Highly efficient. Usually indicates a strong referral engine or dominant thought leadership position that generates inbound interest at low cost."
+    stage_notes:
+      seed: "Most early agencies spend $0 on formal lead generation — leads come from the founder's network. Track the implicit cost of the founder's time on business development."
+      series_a: "At $1M-$3M, begin tracking lead source and cost by channel. Referrals are typically the cheapest and highest-converting source."
+      series_b_plus: "Mature agencies diversify lead sources while monitoring cost per lead by channel. Content marketing and speaking engagements often deliver the best long-term CPL."
+    data_sources:
+      - source: "HubSpot Agency Pricing Report"
+        year: "2024"
+      - source: "Hinge Research Institute High Growth Study"
+        year: "2023"
+    related_metrics: ["win-rate", "pipeline-coverage-ratio", "average-project-value"]
+    related_skills: ["four-ps-marketing", "business-model-canvas"]
+    caveats: "Many agencies undercount lead cost by ignoring the opportunity cost of senior staff time spent on business development. A partner spending 30% of their time on BD has a real cost even if no cash is spent on marketing."
+
+  # ─────────────────────────────────────────────
+  # PEOPLE & TALENT METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Employee Retention Rate"
+    id: "employee-retention-rate"
+    category: "retention"
+    definition: "The percentage of employees who remain with the firm over a twelve-month period, measuring talent stability and organizational health."
+    formula: "(Employees at end of period - New hires during period) / Employees at start of period x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 70%"
+        signal: "Crisis-level attrition. Nearly a third of the team leaves annually. Client relationships, institutional knowledge, and delivery quality all suffer."
+      below_average:
+        value: "70%-80%"
+        signal: "Elevated turnover. The firm is spending excessive time and money on recruiting and onboarding replacements. Key client relationships may be at risk."
+      average:
+        value: "80%-85%"
+        signal: "Industry-standard retention for agencies. Some turnover is natural as junior staff advance their careers."
+      good:
+        value: "85%-92%"
+        signal: "Strong retention indicating healthy culture, competitive compensation, and meaningful work."
+      excellent:
+        value: "> 92%"
+        signal: "Exceptional loyalty. The firm is a destination employer in its market. Key staff departures are rare and managed proactively."
+    stage_notes:
+      seed: "At under 10 people, every departure is destabilizing. Retention is existential — losing one of five people is a 20% attrition event."
+      series_a: "At 10-25 people, institute stay interviews, not just exit interviews. Understand why people stay and reinforce those factors."
+      series_b_plus: "Track retention by seniority tier. Losing junior staff at 15% annually is manageable. Losing senior staff at 15% is a crisis."
+    data_sources:
+      - source: "Bureau of Labor Statistics — Professional Services"
+        year: "2024"
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+    related_metrics: ["enps", "revenue-per-employee", "leverage-ratio"]
+    related_skills: ["inspiring-and-retaining", "organisational-culture"]
+    caveats: "Aggregate retention masks 'regrettable' versus 'non-regrettable' attrition. Track whether departures are top performers (regrettable) or underperformers (often healthy). The quality of retention matters as much as the rate."
+
+  - name: "Revenue per Partner/Principal"
+    id: "revenue-per-partner"
+    category: "efficiency"
+    definition: "Total firm revenue divided by the number of partners, principals, or senior leaders, measuring the revenue-generation capacity of the leadership team."
+    formula: "Annual revenue / Number of partners or principals"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $500K per partner"
+        signal: "Partners are not generating sufficient revenue to justify their compensation and the overhead they represent."
+      below_average:
+        value: "$500K-$750K"
+        signal: "Below the threshold for competitive partner compensation in most markets. The firm may have too many partners relative to its revenue base."
+      average:
+        value: "$750K-$1.2M"
+        signal: "Sustainable revenue per partner. Supports competitive compensation and modest reinvestment in the firm."
+      good:
+        value: "$1.2M-$2M"
+        signal: "Strong partner productivity. Partners are effectively leveraging teams and winning significant work."
+      excellent:
+        value: "> $2M per partner"
+        signal: "Exceptional leverage. Partners are managing large teams and major accounts. Typical of management consultancies and large agencies with strong brands."
+    stage_notes:
+      seed: "For solo consultants, this metric equals total revenue. It becomes meaningful when the firm adds a second partner or principal."
+      series_a: "At the point of adding partners, this metric determines whether the firm can afford them. A partner should generate at least $750K within their first full year."
+      series_b_plus: "Mature firms use revenue per partner as a promotion criterion. Partners who consistently fall below the threshold are a drag on firm economics."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "David C. Baker / ReCourses — agency economics"
+        year: "2024"
+    related_metrics: ["revenue-per-employee", "leverage-ratio"]
+    related_skills: ["leadership-pipeline", "delegation-and-empowerment"]
+    caveats: "Revenue per partner varies enormously by firm type. A solo-practice consultant at $400K is healthy; a partner at a 50-person agency at $400K is underperforming. Always benchmark within the firm's context."
+
+  - name: "Leverage Ratio"
+    id: "leverage-ratio"
+    category: "efficiency"
+    definition: "The ratio of junior billable staff to senior billable staff (partners, principals, directors), measuring the firm's ability to scale expertise through staffing structure."
+    formula: "Number of junior/mid-level billable staff / Number of senior staff (partners, principals, directors)"
+    unit: "ratio"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "< 2:1"
+        signal: "Top-heavy firm. Too many senior staff relative to junior. Margins are compressed because high-cost talent does work that lower-cost staff could handle."
+      below_average:
+        value: "2:1 to 3:1"
+        signal: "Low leverage. The firm is not fully utilizing the capacity of senior staff to supervise and develop junior talent."
+      average:
+        value: "3:1 to 5:1"
+        signal: "Balanced leverage for most consulting and agency models. Senior staff can oversee work quality while junior staff handle execution."
+      good:
+        value: "5:1 to 8:1"
+        signal: "Strong leverage. Seniors focus on client relationships, quality, and sales while junior staff execute. Margins benefit from the cost differential."
+      excellent:
+        value: "> 8:1"
+        signal: "High leverage. Typical of staffing firms or agencies with highly standardized delivery models. Requires robust training and quality control systems."
+    stage_notes:
+      seed: "Leverage is irrelevant for solo consultants and becomes meaningful only after the first few junior hires."
+      series_a: "At 10-25 people, deliberately design the leverage model. Each senior person should manage 3-5 junior staff. Hiring a senior person without a team to leverage is economically inefficient."
+      series_b_plus: "Mature firms explicitly manage leverage as a profit driver. Every percentage point shift from senior to junior delivery (at maintained quality) flows directly to margin."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "David C. Baker / ReCourses — agency economics"
+        year: "2024"
+    related_metrics: ["revenue-per-partner", "gross-margin", "revenue-per-employee"]
+    related_skills: ["shamrock-organisation", "leadership-pipeline"]
+    caveats: "High leverage only works if the firm invests in training, methodology, and quality control. Without these, leverage becomes a euphemism for letting inexperienced staff do senior work poorly."
+
+  - name: "Overhead Ratio"
+    id: "overhead-ratio"
+    category: "financial"
+    definition: "Total non-delivery overhead costs (rent, administration, non-billable salaries, technology, insurance, marketing) as a percentage of revenue."
+    formula: "Total overhead costs / Revenue x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 45%"
+        signal: "Overhead consuming nearly half of revenue. Even with healthy gross margins, profitability is crushed by excessive non-delivery costs."
+      below_average:
+        value: "35%-45%"
+        signal: "Elevated overhead. Common in firms with expensive office space, large non-billable staff, or excessive technology spend."
+      average:
+        value: "25%-35%"
+        signal: "Typical overhead range for professional services firms. Manageable if gross margin is healthy."
+      good:
+        value: "18%-25%"
+        signal: "Lean overhead. The firm runs efficiently with minimal non-delivery costs. Often achieved by remote-first firms or those with minimal office space."
+      excellent:
+        value: "< 18%"
+        signal: "Ultra-lean overhead. Typical of virtual agencies, solo consultancies with minimal infrastructure, or firms that have ruthlessly eliminated non-productive costs."
+    stage_notes:
+      seed: "Solo consultants naturally have low overhead. Track overhead percentage from the start to establish a baseline before it creeps up."
+      series_a: "The first office lease, the first full-time operations hire, and the first CRM subscription represent overhead step-changes. Ensure each addition is justified by revenue capacity."
+      series_b_plus: "At scale, overhead ratio is the primary controllable lever for EBITDA improvement. Conduct an annual overhead audit to identify costs that no longer deliver value."
+    data_sources:
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+      - source: "Agency Management Institute Financial Benchmarks"
+        year: "2023"
+    related_metrics: ["ebitda-margin", "gross-margin", "revenue-per-employee"]
+    related_skills: ["eisenhower-matrix", "balanced-scorecard"]
+    caveats: "Some overhead is investment (marketing, training, R&D). Cutting all overhead to minimize the ratio can starve the firm of growth capability. Distinguish between productive overhead and waste."
+
+  # ─────────────────────────────────────────────
+  # PROJECT & DELIVERY METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Scope Creep Rate"
+    id: "scope-creep-rate"
+    category: "efficiency"
+    definition: "The percentage of projects that exceed their original scope, budget, or timeline by more than 10%, measuring the firm's scoping and project management discipline."
+    formula: "(Projects exceeding original scope by >10% / Total projects completed) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 50%"
+        signal: "More than half of projects overrun. This is a systemic scoping, negotiation, or project management failure that directly erodes margins."
+      below_average:
+        value: "35%-50%"
+        signal: "Frequent scope creep. The firm is likely absorbing significant unbilled work. Effective rate realization is depressed."
+      average:
+        value: "20%-35%"
+        signal: "Moderate scope creep. Some overruns are inevitable, but at this level the firm should have change-order processes that capture additional scope as additional revenue."
+      good:
+        value: "10%-20%"
+        signal: "Well-managed scope. The firm scopes accurately, communicates boundaries clearly, and uses change orders effectively."
+      excellent:
+        value: "< 10%"
+        signal: "Exceptional scope discipline. Nearly all projects deliver within the original parameters. Characteristic of firms with mature methodologies and experienced project managers."
+    stage_notes:
+      seed: "Early agencies frequently underscope because they want to impress clients and lack experience with estimation. Track actuals versus estimates from the first project."
+      series_a: "At $1M-$3M, implement formal change-order processes. Every scope expansion should be documented and either billed or explicitly absorbed as an investment."
+      series_b_plus: "Mature agencies use scope creep data to improve estimation accuracy, identify which project types and client types are most prone to overruns, and adjust pricing accordingly."
+    data_sources:
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+    related_metrics: ["effective-billable-rate", "gross-margin"]
+    related_skills: ["competitive-negotiation", "delivering-the-deal"]
+    caveats: "Not all scope expansion is negative. Strategic scope extension on a key account can deepen the relationship and lead to expansion. The issue is unmanaged scope creep — work that is neither billed nor strategically justified."
+
+  - name: "Accounts Receivable Days"
+    id: "ar-days"
+    category: "financial"
+    definition: "The average number of days between invoicing and payment collection, measuring cash collection efficiency."
+    formula: "(Accounts Receivable / Annual Revenue) x 365"
+    unit: "days"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 75 days"
+        signal: "Dangerously slow collections. The firm is financing client operations with its own cash. Cash flow crises are likely."
+      below_average:
+        value: "60-75 days"
+        signal: "Elevated AR. The firm is extending significant implicit credit to clients. Cash flow is strained, especially during growth periods."
+      average:
+        value: "45-60 days"
+        signal: "Typical for agencies billing on net-30 terms with some payment delays. Manageable but room for improvement."
+      good:
+        value: "30-45 days"
+        signal: "Healthy cash collection. Clients pay within terms. The firm has adequate cash flow to meet payroll and operating expenses."
+      excellent:
+        value: "< 30 days"
+        signal: "Excellent cash discipline. Achieved through upfront deposits, milestone-based billing, retainer pre-payment, or credit card billing."
+    stage_notes:
+      seed: "Cash flow kills more agencies than lack of revenue. Require deposits (25-50% upfront) on all new projects from day one. Never start work without a signed contract and deposit."
+      series_a: "At $1M-$3M, AR management becomes a dedicated function. Late-paying clients should be flagged, followed up, and — for chronic offenders — moved to pre-payment or retainer terms."
+      series_b_plus: "Mature agencies negotiate payment terms as actively as they negotiate rates. Net-15 or retainer pre-payment structures dramatically improve cash position."
+    data_sources:
+      - source: "Deltek Clarity Industry Study"
+        year: "2023"
+      - source: "Agency Management Institute Financial Benchmarks"
+        year: "2023"
+    related_metrics: ["ebitda-margin", "revenue"]
+    related_skills: ["competitive-negotiation", "delivering-the-deal"]
+    caveats: "AR days can be artificially improved by front-loading billing (billing before work is complete) or worsened by client-imposed payment terms (net-60 or net-90 at large enterprises). Understand the underlying payment dynamics, not just the number."
+
+  # ─────────────────────────────────────────────
+  # SATISFACTION & LOYALTY METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Client NPS"
+    id: "nps-client"
+    category: "retention"
+    definition: "Net Promoter Score measured among the firm's client contacts, indicating client satisfaction and likelihood to refer."
+    formula: "% Promoters (9-10) - % Detractors (0-6) on a 0-10 recommendation scale"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20"
+        signal: "Clients are dissatisfied or indifferent. Referrals will be rare and churn is likely. The firm has a service quality or relationship problem."
+      below_average:
+        value: "20-35"
+        signal: "Below average satisfaction. Some clients are happy, but a meaningful portion would not recommend the firm."
+      average:
+        value: "35-50"
+        signal: "Acceptable satisfaction. Clients are generally content but the firm is not generating the enthusiasm that drives organic referrals."
+      good:
+        value: "50-70"
+        signal: "Strong client advocacy. Clients actively recommend the firm to peers. Referral pipeline should be healthy."
+      excellent:
+        value: "> 70"
+        signal: "Exceptional client loyalty. The firm is a trusted partner whose clients enthusiastically advocate for it. This is the strongest growth engine in professional services."
+    stage_notes:
+      seed: "Even with 3-5 clients, measuring NPS establishes a feedback discipline. Use the qualitative follow-up question to understand what drives satisfaction."
+      series_a: "At 15-30 clients, NPS becomes predictive. Segment by engagement type (project vs. retainer) and client tier. Retainer client NPS should be higher."
+      series_b_plus: "Mature agencies tie NPS to account manager performance and use detractor feedback to drive operational improvements."
+    data_sources:
+      - source: "Hinge Research Institute High Growth Study"
+        year: "2023"
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+    related_metrics: ["client-retention-rate", "revenue-per-client"]
+    related_skills: ["net-promoter-score", "trust-equation"]
+    caveats: "NPS in agencies is relationship-dependent — the score often reflects the quality of the account manager or lead consultant rather than the firm as a whole. Survey multiple contacts per client for a balanced view."
+
+  - name: "Employee NPS (eNPS)"
+    id: "enps"
+    category: "retention"
+    definition: "Net Promoter Score measured among the firm's employees, indicating satisfaction, engagement, and likelihood to recommend the firm as an employer."
+    formula: "% Employee Promoters (9-10) - % Employee Detractors (0-6)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 0"
+        signal: "More detractors than promoters. The firm has a serious culture, compensation, or management problem. Attrition will accelerate."
+      below_average:
+        value: "0-15"
+        signal: "Net positive but weak. Employees are not enthusiastic advocates. Vulnerability to external offers is high."
+      average:
+        value: "15-30"
+        signal: "Decent employee satisfaction. The firm is a reasonable place to work but not a destination employer."
+      good:
+        value: "30-50"
+        signal: "Strong employee advocacy. Staff recommend the firm to talented friends — a powerful recruiting advantage."
+      excellent:
+        value: "> 50"
+        signal: "Exceptional employer brand. Recruiting is easier, retention is strong, and employee engagement drives client satisfaction."
+    stage_notes:
+      seed: "At under 10 people, formal eNPS is less relevant than direct, honest conversations. Institute monthly check-ins with every team member."
+      series_a: "At 10-25 people, quarterly eNPS surveys provide a scalable feedback mechanism. Pair quantitative scores with open-ended qualitative input."
+      series_b_plus: "At 50+, eNPS becomes a leading indicator of attrition, client satisfaction, and firm performance. Track and act on it with the same rigor as financial metrics."
+    data_sources:
+      - source: "Bureau of Labor Statistics — Professional Services"
+        year: "2024"
+      - source: "SPI Research Professional Services Maturity Benchmark"
+        year: "2024"
+    related_metrics: ["employee-retention-rate", "nps-client"]
+    related_skills: ["organisational-culture", "psychological-safety-practice"]
+    caveats: "eNPS is a lagging indicator — by the time it drops, the damage is done. Pair eNPS with leading indicators: Glassdoor reviews, offer acceptance rate, and informal sentiment from managers."

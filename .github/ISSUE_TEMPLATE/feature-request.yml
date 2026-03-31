@@ -1,0 +1,70 @@
+name: Feature Request
+description: Suggest a new skill, template, diagnostic, playbook, or system improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to make Foreman better? Describe the problem you want solved and your proposed approach. If you are proposing a new skill specifically, use the **Skill Proposal** template instead.
+
+  - type: textarea
+    id: problem-description
+    attributes:
+      label: Problem Description
+      description: What problem does this solve? Describe the gap or friction you have encountered.
+      placeholder: A clear description of the problem or unmet need.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: How should this work? Be as specific as possible.
+      placeholder: Describe the desired behavior, new files, or changes to existing files.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affected-layer
+    attributes:
+      label: Affected Layer
+      description: Which part of the system would this change or extend?
+      options:
+        - Skills
+        - Output Templates
+        - Diagnostics
+        - Playbooks
+        - Hooks
+        - Agents
+        - Memory
+        - Commands
+        - Scripts
+        - Industry Packs
+        - Research Guides
+        - Implementation
+        - Simulation
+        - Org Politics
+        - Solo Mode
+        - Stoic Mode
+        - Language Mode
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives-considered
+    attributes:
+      label: Alternatives Considered
+      description: What other approaches did you consider, and why did you rule them out?
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information -- mockups, references, related issues, or examples from other projects.
+    validations:
+      required: false

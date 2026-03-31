@@ -1,0 +1,1 @@
+../../../../.claude/skills/stoic/stoic-right-action.md

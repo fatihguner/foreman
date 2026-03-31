@@ -1,0 +1,46 @@
+{
+  "name": "foreman",
+  "version": "1.0.0",
+  "description": "AI-powered strategic advisor for entrepreneurs. 158 skills across 12 categories, from Porter's Five Forces to Stoic philosophy, with diagnostics, playbooks, output templates, and industry-specific packs.",
+  "author": {
+    "name": "Fatih Guner",
+    "url": "https://foreman.sh"
+  },
+  "homepage": "https://foreman.sh",
+  "repository": "https://github.com/fatihguner/foreman",
+  "license": "MIT",
+  "keywords": [
+    "entrepreneurship",
+    "strategy",
+    "frameworks",
+    "business",
+    "startup",
+    "leadership",
+    "negotiation",
+    "stoicism",
+    "game-theory",
+    "decision-making",
+    "ai-advisor"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Foreman",
+    "shortDescription": "AI-powered strategic advisor for entrepreneurs",
+    "longDescription": "Foreman provides 158 business frameworks, 24 diagnostic triage systems, 21 multi-step playbooks, 48 output templates, and 9 industry-specific packs. It diagnoses entrepreneurial problems, applies the right framework to the entrepreneur's context, and produces professional deliverables for investors, boards, teams, and clients. Supports solo mode for solopreneurs, Stoic mode for philosophical depth, and language mode for multilingual output.",
+    "developerName": "Fatih Guner",
+    "category": "Productivity",
+    "capabilities": [
+      "Strategic analysis using 158 business frameworks",
+      "Problem diagnosis through 24 triage systems",
+      "Multi-step playbooks for complex scenarios",
+      "Professional output templates for 5 audiences",
+      "Industry-specific packs for 9 sectors",
+      "Board simulation with 10 adversarial personas",
+      "Implementation tracking and accountability",
+      "Research guides for data collection"
+    ],
+    "websiteURL": "https://foreman.sh",
+    "defaultPrompt": "I'm an entrepreneur and I need strategic guidance.",
+    "brandColor": "#1a1a2e"
+  }
+}

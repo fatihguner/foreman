@@ -1,0 +1,1 @@
+../../../../.claude/skills/game-theory/negotiation-game-theory.md

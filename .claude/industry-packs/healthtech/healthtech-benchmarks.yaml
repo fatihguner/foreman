@@ -1,0 +1,944 @@
+# Healthtech Industry Pack — Benchmarks
+#
+# 24 healthtech-specific metrics with real benchmark data sourced from public studies.
+# The orchestrator surfaces these when applying quantitative skills, generating
+# output templates with financial metrics, or diagnosing growth, clinical validation,
+# regulatory, and reimbursement issues in digital health, telemedicine, health SaaS
+# (EHR/EMR), clinical decision support, digital therapeutics (DTx), remote patient
+# monitoring, health data analytics, genomics platforms, mental health tech, and
+# AI-powered diagnostics companies.
+#
+# Primary data sources:
+#   - Rock Health Digital Health Funding Reports (2023, 2024, 2025)
+#   - CB Insights State of Digital Health (2023, 2024)
+#   - IQVIA Digital Health Trends (2023, 2024)
+#   - FDA Digital Health Center of Excellence Reports (2023, 2024)
+#   - Deloitte Life Sciences & Health Care Outlook (2024, 2025)
+#   - Health System CIO Surveys — CHIME/KLAS (2023, 2024)
+#   - McKinsey Healthcare Practice Reports (2023, 2024)
+#   - American Medical Association Digital Health Research (2023, 2024)
+#   - CMS Innovation Center Evaluation Reports (2023, 2024)
+#   - Journal of Medical Internet Research — Digital Health Outcomes Meta-Analyses (2023, 2024)
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among funded healthtech companies at the relevant stage.
+#
+# PATIENT SAFETY NOTE: Several metrics in this file carry clinical implications.
+# Benchmarks involving patient outcomes, clinical validation, and provider adoption
+# are not merely business metrics — they reflect the company's capacity to deliver
+# safe, effective care. Falling below minimum thresholds on clinical metrics may
+# signal risk to patients, not merely risk to the business.
+
+pack_metadata:
+  sector: "healthtech"
+  display_name: "Healthtech"
+  version: "1.0.0"
+  description: "Benchmark data for healthtech companies spanning digital health, telemedicine, health SaaS, clinical decision support, digital therapeutics, remote patient monitoring, health data analytics, genomics, mental health tech, and AI-powered diagnostics — with patient safety, clinical validation, and regulatory compliance as first-class dimensions."
+  applicable_stages:
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"
+  compatible_modes:
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # CLINICAL VALIDATION & REGULATORY METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Clinical Validation Stage"
+    id: "clinical-validation-stage"
+    category: "product"
+    definition: "The highest level of clinical evidence the product has achieved, ranging from internal pilot data to peer-reviewed randomized controlled trial results and regulatory clearance. This metric defines the company's credibility with providers, payers, and regulators."
+    formula: "Categorical: Pilot (internal data) → Observational Study → RCT → Peer-Reviewed Publication → Regulatory Clearance/Approval"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Pilot data only, no external validation"
+        signal: "Insufficient evidence to convince health systems, payers, or regulators. The product is a hypothesis, not a validated intervention. Sales conversations stall at the clinical evidence question."
+      below_average:
+        value: "Single-arm observational study, < 100 patients"
+        signal: "Early signal but not sufficient for most health system procurement committees or payer coverage decisions. Useful for generating interest, not for closing contracts."
+      average:
+        value: "Multi-site observational study or single-site RCT, 100-500 patients, abstract presented at clinical conference"
+        signal: "Meaningful evidence that supports pilot agreements with health systems. Payers may consider coverage with conditions. Sufficient for seed/Series A fundraising from health-focused investors."
+      good:
+        value: "Multi-site RCT, 500+ patients, peer-reviewed publication in indexed journal"
+        signal: "Strong evidence base that satisfies most health system clinical review committees. Payer coverage discussions become substantive. Regulatory submission supported by this level of evidence."
+      excellent:
+        value: "Multiple RCTs, published in high-impact journals (NEJM, JAMA, Lancet), regulatory clearance/approval obtained"
+        signal: "Gold-standard evidence. Health systems adopt based on evidence alone. Payers offer reimbursement. The company has a durable competitive moat built on clinical proof."
+    stage_notes:
+      seed: "Pilot data is expected at seed. Investors assess the clinical study design and the team's ability to execute it, not the results themselves. A credible study protocol with IRB approval is a meaningful signal."
+      series_a: "At least one published or conference-presented study is expected. Series A health investors will evaluate whether the study design is rigorous enough to support future regulatory and reimbursement claims."
+      series_b_plus: "Peer-reviewed publications and regulatory milestones are expected. Without them, the product remains a science project. Clinical validation is the single strongest moat in healthtech."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "FDA Digital Health Center of Excellence"
+        year: "2024"
+    related_metrics: ["clinical-evidence-strength", "patient-outcomes-improvement", "regulatory-approval-status"]
+    related_skills: ["trust-equation", "balanced-scorecard"]
+    caveats: "Clinical validation stage is not binary — a strong observational study in the right patient population may outweigh a weak RCT. The relevance of each evidence level varies by therapeutic area, regulatory pathway, and payer requirements."
+
+  - name: "Regulatory Approval Status"
+    id: "regulatory-approval-status"
+    category: "product"
+    definition: "The current status of the product on its regulatory pathway — pre-submission, submitted, cleared/approved, or exempt. For FDA-regulated products, this encompasses 510(k) clearance, De Novo classification, PMA approval, or Breakthrough Device designation. For non-FDA products, this covers state licensing, CLIA certification, or CE marking."
+    formula: "Categorical: Not Applicable (wellness) → Pre-Submission → Submitted → Cleared/Approved"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Product requires regulatory clearance but no submission timeline exists"
+        signal: "Existential risk. The company is building a product it cannot legally sell. Every month of development without a regulatory strategy is potentially wasted."
+      below_average:
+        value: "Pre-submission meeting requested or completed; submission 6-12 months away"
+        signal: "Regulatory strategy exists but execution has not begun. Investors will discount the company for regulatory risk. Health systems will not pilot without a clear pathway."
+      average:
+        value: "Submission filed or Breakthrough Device designation obtained; clearance expected within 6 months"
+        signal: "Active regulatory engagement. Breakthrough Device designation provides FDA interaction advantages and accelerated review. Health systems may begin pilot agreements contingent on clearance."
+      good:
+        value: "510(k) cleared or De Novo classified; CE mark obtained for EU market"
+        signal: "Regulatory barrier crossed. The product can be legally marketed and sold. This is a major de-risking event that unlocks health system procurement and payer coverage conversations."
+      excellent:
+        value: "PMA approved or multiple regulatory clearances across geographies (FDA + CE + additional markets)"
+        signal: "Strongest regulatory position. PMA creates a higher barrier for competitors. Multi-geography clearance enables global commercialization."
+    stage_notes:
+      seed: "A clear regulatory pathway and classification strategy is expected at seed. Founders should have completed an FDA pre-submission meeting or equivalent. Investors assess regulatory literacy as a proxy for execution capability."
+      series_a: "Submission filed or clearance obtained is ideal at Series A. The 2024-2026 funding environment penalizes healthtech companies that have not de-risked regulatory pathway."
+      series_b_plus: "Clearance is a prerequisite for Series B in regulated healthtech. Companies raising at this stage without clearance face significant valuation compression."
+    data_sources:
+      - source: "FDA Digital Health Center of Excellence"
+        year: "2024"
+      - source: "IQVIA Digital Health Trends"
+        year: "2024"
+    related_metrics: ["clinical-validation-stage", "time-to-regulatory-clearance", "regulatory-pathway-cost"]
+    related_skills: ["scenario-planning", "vuca-framework"]
+    caveats: "Not all healthtech products require FDA clearance. Wellness apps, provider workflow tools, and certain clinical decision support tools may be exempt under FDA guidance. Misclassifying a regulated product as exempt is a serious legal and business risk."
+
+  - name: "Patient Outcomes Improvement (%)"
+    id: "patient-outcomes-improvement"
+    category: "product"
+    definition: "The measurable improvement in patient health outcomes attributable to the product, expressed as a percentage improvement over standard of care or control group. This is the ultimate measure of whether the product fulfills its clinical promise."
+    formula: "(Outcome_intervention - Outcome_control) / Outcome_control x 100, where outcome is the primary clinical endpoint"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5% improvement or not statistically significant"
+        signal: "The product does not demonstrably improve outcomes. Without measurable improvement, the value proposition rests on operational efficiency alone — a weaker position for reimbursement and adoption."
+      below_average:
+        value: "5-10% improvement, p < 0.05 in pilot study"
+        signal: "Modest improvement that may not meet clinical significance thresholds. Sufficient for internal use cases but unlikely to secure dedicated reimbursement or change clinical guidelines."
+      average:
+        value: "10-20% improvement, p < 0.05 in adequately powered study"
+        signal: "Clinically meaningful improvement. Sufficient to support health economic arguments and to interest health system clinical review committees."
+      good:
+        value: "20-35% improvement, replicated across multiple sites"
+        signal: "Strong clinical impact. Sufficient for guideline inclusion, payer coverage with dedicated reimbursement codes, and differentiated positioning against competitors."
+      excellent:
+        value: "> 35% improvement, published in high-impact journal with health economic analysis"
+        signal: "Transformative clinical impact. The product becomes a standard-of-care candidate. Payers actively seek to cover it because better outcomes reduce downstream costs."
+    stage_notes:
+      seed: "Outcome data is aspirational at seed. The metric should be defined (what primary endpoint will be measured) even if results are not yet available."
+      series_a: "Preliminary outcome data from pilot studies should be available. Even directional improvement with a credible study design is valuable."
+      series_b_plus: "Robust outcome data is required. Health-focused investors at this stage perform clinical due diligence as rigorous as financial due diligence."
+    data_sources:
+      - source: "Journal of Medical Internet Research — Digital Health Outcomes"
+        year: "2024"
+      - source: "IQVIA Digital Health Trends"
+        year: "2024"
+    related_metrics: ["clinical-validation-stage", "clinical-evidence-strength", "patient-satisfaction-score"]
+    related_skills: ["balanced-scorecard", "net-promoter-score"]
+    caveats: "Outcome improvement varies dramatically by condition, intervention type, and comparator. A 10% improvement in cancer survival is transformative; a 10% improvement in appointment scheduling convenience is trivial. Context is everything."
+
+  - name: "Clinical Evidence Strength (Levels 1-5)"
+    id: "clinical-evidence-strength"
+    category: "product"
+    definition: "A composite rating of the strength and quality of clinical evidence supporting the product, based on the Oxford Centre for Evidence-Based Medicine levels. Level 1: systematic reviews of RCTs. Level 2: individual RCTs. Level 3: controlled cohort studies. Level 4: case series or poor-quality cohort. Level 5: expert opinion or mechanism-based reasoning."
+    formula: "Oxford CEBM Level assignment based on highest-quality study supporting the product's primary clinical claim"
+    unit: "ratio"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "Level 5 — Expert opinion or mechanism-based reasoning only"
+        signal: "No clinical data. The product's claims rest on theoretical arguments. Providers and payers will not adopt based on theory alone."
+      below_average:
+        value: "Level 4 — Case series or poor-quality cohort study"
+        signal: "Anecdotal evidence that may support early-stage fundraising but cannot support reimbursement or guideline inclusion."
+      average:
+        value: "Level 3 — Non-randomized controlled cohort study"
+        signal: "Meaningful evidence that supports pilot deployment and early payer conversations. Most digital health companies at Series A operate at this level."
+      good:
+        value: "Level 2 — Well-designed RCT"
+        signal: "Strong evidence. Supports regulatory submission, payer coverage decisions, and health system adoption. A competitive advantage over companies with lower evidence levels."
+      excellent:
+        value: "Level 1 — Systematic review of RCTs or multiple high-quality RCTs"
+        signal: "Highest evidence quality. The product is supported by the same evidence standard as pharmaceutical interventions. This is rare in digital health and represents a formidable competitive moat."
+    stage_notes:
+      seed: "Level 4-5 is acceptable at seed. The study design and protocol for achieving Level 2-3 evidence should be articulated."
+      series_a: "Level 3 evidence is expected. Companies with Level 2 evidence at Series A command premium valuations."
+      series_b_plus: "Level 2 evidence is the target. Companies at Level 3 or below face questions about whether the product will ever achieve the evidence threshold needed for scale."
+    data_sources:
+      - source: "Oxford Centre for Evidence-Based Medicine"
+        year: "2024"
+      - source: "IQVIA Digital Health Trends"
+        year: "2024"
+    related_metrics: ["clinical-validation-stage", "patient-outcomes-improvement"]
+    related_skills: ["trust-equation", "systems-thinking"]
+    caveats: "Evidence level alone does not determine clinical utility. A well-designed Level 3 study in the right population may be more persuasive than a poorly executed Level 2 study. Quality within each level matters as much as the level itself."
+
+  - name: "Time to Regulatory Clearance"
+    id: "time-to-regulatory-clearance"
+    category: "product"
+    definition: "The elapsed time from the decision to pursue regulatory clearance to the date of clearance/approval, including pre-submission meetings, study execution, submission preparation, and FDA review."
+    formula: "Date of clearance — Date of regulatory strategy initiation"
+    unit: "months"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 36 months"
+        signal: "Regulatory process has stalled or the company underestimated complexity. Runway consumption during extended regulatory timelines is the leading cause of healthtech company failure."
+      below_average:
+        value: "24-36 months"
+        signal: "Within range for complex submissions (De Novo, PMA) but long for 510(k). May indicate regulatory strategy missteps or insufficient pre-submission engagement."
+      average:
+        value: "12-24 months"
+        signal: "Typical for a well-managed 510(k) process including clinical study execution. De Novo classifications also fall in this range with Breakthrough Device designation."
+      good:
+        value: "6-12 months"
+        signal: "Efficient regulatory process. Common for 510(k) submissions with strong predicate device arguments and existing clinical data. Indicates regulatory sophistication."
+      excellent:
+        value: "< 6 months"
+        signal: "Exceptional speed, typically achieved through Breakthrough Device program pre-review alignment, strong predicate arguments, or prior regulatory experience. Rare for first-time submissions."
+    stage_notes:
+      seed: "Time to clearance is estimated at seed. Investors assess the realism of the timeline based on pathway complexity and team regulatory experience."
+      series_a: "Active regulatory engagement should be underway. The timeline should be supported by pre-submission meeting feedback and a concrete study protocol."
+      series_b_plus: "Clearance should be obtained or imminent. Companies raising Series B with 18+ months of remaining regulatory timeline face severe valuation compression."
+    data_sources:
+      - source: "FDA Digital Health Center of Excellence"
+        year: "2024"
+      - source: "Deloitte Life Sciences Outlook"
+        year: "2025"
+    related_metrics: ["regulatory-approval-status", "regulatory-pathway-cost"]
+    related_skills: ["scenario-planning", "smart-goals"]
+    caveats: "Timelines vary dramatically by pathway. A 510(k) with a strong predicate can clear in 3-6 months of FDA review. A PMA requiring clinical trials may take 3-5 years. De Novo falls between. Always specify the pathway when citing this metric."
+
+  - name: "Regulatory Pathway Cost"
+    id: "regulatory-pathway-cost"
+    category: "financial"
+    definition: "The total cost incurred to achieve regulatory clearance or approval, including regulatory consulting, clinical study costs, submission fees, legal expenses, and internal staff time allocated to regulatory affairs."
+    formula: "SUM(regulatory consulting fees + clinical study costs + FDA user fees + legal costs + internal regulatory staff allocation)"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $5M for 510(k); > $20M for De Novo/PMA"
+        signal: "Regulatory costs consuming a disproportionate share of capital. May indicate scope creep in clinical studies, regulatory strategy pivots, or insufficient internal regulatory expertise leading to over-reliance on consultants."
+      below_average:
+        value: "$2M-$5M for 510(k); $10M-$20M for De Novo/PMA"
+        signal: "High end of normal. Acceptable if the regulatory pathway is complex or involves a novel technology, but warrants cost optimization review."
+      average:
+        value: "$500K-$2M for 510(k); $3M-$10M for De Novo/PMA"
+        signal: "Typical range for well-managed regulatory processes. Clinical study costs are usually the largest component."
+      good:
+        value: "$200K-$500K for 510(k); $1M-$3M for De Novo"
+        signal: "Capital-efficient regulatory process. Indicates strong predicate strategy, efficient study design, or leveraged real-world evidence."
+      excellent:
+        value: "< $200K for 510(k); < $1M for De Novo"
+        signal: "Exceptional efficiency. Often achieved by companies with experienced regulatory leadership, strong predicate arguments, or innovative use of real-world data in lieu of prospective studies."
+    stage_notes:
+      seed: "Regulatory cost estimates should be included in financial projections. Under-budgeting regulatory costs is the most common financial planning error in healthtech."
+      series_a: "Actual regulatory spend should be tracked against projections. Investors evaluate cost discipline alongside regulatory progress."
+      series_b_plus: "Regulatory costs should be substantially amortized by this stage. Ongoing regulatory costs (post-market surveillance, periodic reporting) are typically modest."
+    data_sources:
+      - source: "Deloitte Life Sciences Outlook"
+        year: "2025"
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+    related_metrics: ["time-to-regulatory-clearance", "regulatory-approval-status", "r-and-d-pct-of-revenue"]
+    related_skills: ["scenario-planning", "business-model-canvas"]
+    caveats: "Regulatory pathway cost varies by 10-50x depending on the pathway, therapeutic area, and whether prospective clinical studies are required. Comparing 510(k) costs to PMA costs is meaningless without pathway context."
+
+  # ─────────────────────────────────────────────
+  # ADOPTION & ENGAGEMENT METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Provider Adoption Rate"
+    id: "provider-adoption-rate"
+    category: "product"
+    definition: "The percentage of targeted providers (physicians, nurses, therapists) who actively use the product in their clinical workflow after it has been made available to them. Active use means the provider has used the product for clinical purposes at least once in the trailing 30 days."
+    formula: "Active providers (used in last 30 days) / Total providers with access x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20%"
+        signal: "Critical adoption failure. The majority of providers with access are not using the product. This typically signals workflow disruption, insufficient training, or a product that adds burden without commensurate clinical value."
+      below_average:
+        value: "20-40%"
+        signal: "Partial adoption. Some providers find value but the product has not crossed the threshold where it becomes embedded in standard workflow. Risk of contract non-renewal at health system level."
+      average:
+        value: "40-60%"
+        signal: "Moderate adoption. Sufficient for contract renewal but unlikely to drive organic expansion. Provider feedback likely reveals workflow integration gaps."
+      good:
+        value: "60-80%"
+        signal: "Strong adoption. The product has become part of standard workflow for the majority of targeted providers. This level supports health system expansion and peer referral."
+      excellent:
+        value: "> 80%"
+        signal: "Exceptional adoption. The product is embedded in clinical workflow. Providers resist its removal. This creates a powerful retention moat and supports organic expansion."
+    stage_notes:
+      seed: "Adoption rate is measured in pilot settings. Even 5-10 engaged providers who provide deep feedback are more valuable than 50 providers with superficial adoption."
+      series_a: "Pilot adoption rates above 60% are a strong signal. Demonstrating that providers voluntarily continue using the product after the pilot period is critical."
+      series_b_plus: "System-wide adoption rates should be tracked across all deployed health system customers. Variation between customers reveals implementation quality differences."
+    data_sources:
+      - source: "AMA Digital Health Research"
+        year: "2024"
+      - source: "KLAS Research — Provider Adoption Studies"
+        year: "2024"
+    related_metrics: ["clinical-workflow-integration-score", "provider-nps", "time-to-value-implementation"]
+    related_skills: ["kotter-change-model", "net-promoter-score"]
+    caveats: "Provider adoption in healthtech is fundamentally different from user adoption in consumer software. Providers are time-constrained, change-resistant, and motivated by patient outcomes — not features. A product that saves 2 minutes per patient encounter will be adopted; one that adds 30 seconds will be rejected regardless of its other benefits."
+
+  - name: "Patient Engagement Rate"
+    id: "patient-engagement-rate"
+    category: "product"
+    definition: "The percentage of enrolled patients who actively engage with the product within a defined period. For patient-facing products (apps, DTx, remote monitoring), this measures whether patients use the product as intended by the clinical protocol."
+    formula: "Active patients (completed ≥ 1 engagement action in trailing 7 days) / Enrolled patients x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20% weekly engagement"
+        signal: "Patients are not using the product. For DTx and remote monitoring, this means the clinical intervention is not being delivered. Low engagement invalidates clinical outcomes data and undermines the value proposition to providers and payers."
+      below_average:
+        value: "20-35% weekly engagement"
+        signal: "Partial engagement. Some patients are using the product but the majority are not. Engagement decay from enrollment is likely steep."
+      average:
+        value: "35-50% weekly engagement"
+        signal: "Moderate engagement. Sufficient for clinical effect in some therapeutic areas but below the threshold that DTx companies must demonstrate for reimbursement."
+      good:
+        value: "50-70% weekly engagement"
+        signal: "Strong engagement. Sufficient for most clinical protocols and reimbursement requirements. Demonstrates that the product maintains patient attention in a competitive attention environment."
+      excellent:
+        value: "> 70% weekly engagement"
+        signal: "Exceptional for digital health. Rare outside acute-phase interventions and products with strong provider reinforcement loops. This level supports premium reimbursement and clinical outcome claims."
+    stage_notes:
+      seed: "Engagement is measured in small cohorts. Qualitative understanding of why patients engage or disengage is more valuable than the rate itself."
+      series_a: "Engagement data from pilot studies should show the shape of the engagement curve — does it flatten (sustainable) or continue declining (unsustainable)?"
+      series_b_plus: "Engagement at scale is the key question. Products that maintain engagement beyond 90 days demonstrate durability that payers and providers require."
+    data_sources:
+      - source: "IQVIA Digital Health Trends"
+        year: "2024"
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+    related_metrics: ["monthly-active-patients", "patient-satisfaction-score", "patient-outcomes-improvement"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "Engagement must be measured against the clinical protocol's dosage requirement, not arbitrary usage metrics. A DTx requiring daily use has different engagement thresholds than a remote monitoring system requiring weekly check-ins. Over-engagement (patient anxiety from constant monitoring) is also a risk."
+
+  - name: "Monthly Active Patients"
+    id: "monthly-active-patients"
+    category: "growth"
+    definition: "The total number of unique patients who completed at least one clinically meaningful action on the platform in the trailing 30 days. For provider-facing products, this is the number of patients whose care was supported by the product."
+    formula: "COUNT(DISTINCT patients with ≥ 1 clinical action in trailing 30 days)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1,000 MAP at 12 months post-launch"
+        signal: "Insufficient scale to generate meaningful clinical data, attract payer interest, or sustain the business. Distribution channels are not working."
+      below_average:
+        value: "1,000-5,000 MAP at 12 months"
+        signal: "Early traction but limited to pilot deployments. Insufficient scale for robust outcomes analysis."
+      average:
+        value: "5,000-25,000 MAP at 12 months"
+        signal: "Meaningful scale. Sufficient patient volume for credible outcomes analysis and to demonstrate health system adoption. Attractive for Series A health-focused investors."
+      good:
+        value: "25,000-100,000 MAP at 12 months"
+        signal: "Strong scale across multiple health system customers. Clinical data at this volume supports peer-reviewed publication and payer coverage submissions."
+      excellent:
+        value: "> 100,000 MAP at 12 months"
+        signal: "Exceptional scale. Sufficient for population health analyses, real-world evidence generation, and health plan partnerships. Data at this scale becomes a strategic asset."
+    stage_notes:
+      seed: "MAP is measured in hundreds during pilots. The metric matters less than the depth of engagement and quality of outcomes data generated."
+      series_a: "5,000-25,000 MAP across multiple sites demonstrates repeatable deployment. Growth rate matters more than absolute level."
+      series_b_plus: "MAP growth should compound as health system deployments expand. The ratio of MAP to contracted lives indicates penetration within deployed customers."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "CB Insights State of Digital Health"
+        year: "2024"
+    related_metrics: ["patient-engagement-rate", "revenue-per-patient-per-month"]
+    related_skills: ["balanced-scorecard", "growth-share-matrix"]
+    caveats: "MAP is not equivalent to MAU in consumer apps. In healthtech, each 'active patient' represents a clinical relationship with associated safety obligations. Rapid MAP growth without proportional clinical support infrastructure is a patient safety risk."
+
+  - name: "Clinical Workflow Integration Score"
+    id: "clinical-workflow-integration-score"
+    category: "product"
+    definition: "A composite metric measuring the depth of integration between the product and existing clinical workflows — EHR integration level, single sign-on availability, data interchange standards support (HL7 FHIR, SMART on FHIR), and the number of additional clicks or steps required in the provider's workflow."
+    formula: "Weighted composite: EHR integration (40%) + standards compliance (25%) + additional workflow steps (20%) + data bidirectionality (15%)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Score < 30 — Standalone product with no EHR integration, requires separate login and manual data entry"
+        signal: "Dead on arrival in most health system sales processes. Providers will not adopt a product that requires them to leave their EHR workflow. Manual data entry creates clinical risk through transcription errors."
+      below_average:
+        value: "Score 30-50 — Basic EHR integration (read-only), single sign-on, limited data standards support"
+        signal: "Minimum viable integration. Providers can access the product from the EHR but must re-enter clinical data. Acceptable for pilot phase but insufficient for scaled deployment."
+      average:
+        value: "Score 50-70 — Bidirectional EHR integration via HL7 FHIR, data flows both directions, integrated alerting"
+        signal: "Solid integration level. The product participates in the clinical workflow without creating significant additional burden. Most health system IT teams will approve deployment."
+      good:
+        value: "Score 70-85 — Deep EHR embedding via SMART on FHIR, appears as a native EHR module, zero additional clicks for core workflow"
+        signal: "Strong integration. The product is nearly invisible in the workflow — it adds value without adding steps. This is the threshold for enterprise-wide deployment approval."
+      excellent:
+        value: "Score > 85 — Fully embedded, ambient operation (requires no provider action for core function), works across multiple EHR vendors"
+        signal: "Exceptional integration. The product operates within the EHR environment as if native, across Epic, Cerner/Oracle Health, and other systems. Multi-vendor support is a significant competitive advantage."
+    stage_notes:
+      seed: "Integration strategy should be defined at seed. The target EHR platform and integration approach must be identified. SMART on FHIR capabilities are increasingly expected by health systems."
+      series_a: "Working integration with at least one major EHR (Epic or Cerner/Oracle Health) should be demonstrated. Health system customers will verify integration depth during evaluation."
+      series_b_plus: "Multi-EHR support and deep integration are expected. Health system CIOs increasingly require SMART on FHIR compliance and participation in EHR app marketplaces (Epic App Orchard, Cerner Code)."
+    data_sources:
+      - source: "KLAS Research — Provider Adoption Studies"
+        year: "2024"
+      - source: "CHIME CIO Surveys"
+        year: "2024"
+    related_metrics: ["provider-adoption-rate", "time-to-value-implementation"]
+    related_skills: ["systems-thinking", "doblin-ten-types"]
+    caveats: "Integration depth must be balanced against vendor dependency. Building exclusively on Epic's proprietary APIs creates lock-in. FHIR-first architecture with EHR-specific adapters provides the best balance of integration depth and vendor flexibility."
+
+  # ─────────────────────────────────────────────
+  # REIMBURSEMENT & REVENUE METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Payer Reimbursement Rate"
+    id: "payer-reimbursement-rate"
+    category: "financial"
+    definition: "The percentage of product usage that is covered by health insurance payers (commercial, Medicare, Medicaid), as opposed to self-pay or employer direct-contract arrangements. For healthtech, payer reimbursement is the gatekeeper to scalable revenue."
+    formula: "Revenue from payer-reimbursed encounters / Total revenue from clinical encounters x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10% payer-covered"
+        signal: "The product operates almost entirely outside the reimbursement system. Revenue depends on out-of-pocket patient spend or direct employer contracts — both limited and fragile channels."
+      below_average:
+        value: "10-30% payer-covered"
+        signal: "Some payer coverage secured but not the norm. Revenue model likely depends on a mix of reimbursement and alternative payment mechanisms. Scalability constrained."
+      average:
+        value: "30-60% payer-covered"
+        signal: "Material payer coverage. Reimbursement pathway exists and is growing. The company can demonstrate to health systems that the product generates reimbursable revenue."
+      good:
+        value: "60-80% payer-covered"
+        signal: "Strong reimbursement position. Majority of usage is payer-covered, reducing patient and health system financial burden. Scalable revenue model validated."
+      excellent:
+        value: "> 80% payer-covered with dedicated CPT or HCPCS codes"
+        signal: "Best-in-class reimbursement. Dedicated billing codes provide pricing transparency and predictability. The product is integrated into the healthcare payment infrastructure."
+    stage_notes:
+      seed: "Reimbursement strategy should be defined, including target CPT codes and payer engagement plan. Reimbursement-naivety at seed is the most common indicator of healthtech failure at later stages."
+      series_a: "Some form of reimbursement should be demonstrated — even if through existing codes or pilot payer agreements. A clear pathway to broader coverage must be articulated."
+      series_b_plus: "Broad payer coverage is expected for revenue-stage companies. The transition from pilot payer agreements to at-scale reimbursement is a critical Series B milestone."
+    data_sources:
+      - source: "CMS Innovation Center Evaluation Reports"
+        year: "2024"
+      - source: "McKinsey Healthcare Practice Reports"
+        year: "2024"
+    related_metrics: ["revenue-per-patient-per-month", "clinical-validation-stage"]
+    related_skills: ["business-model-canvas", "pricing-diagnosis"]
+    caveats: "Reimbursement rates vary dramatically by payer, geography, and product type. Medicare coverage decisions set precedents that commercial payers follow, but not immediately — there is typically a 12-24 month lag. State Medicaid programs have independent coverage decisions."
+
+  - name: "Revenue per Patient per Month"
+    id: "revenue-per-patient-per-month"
+    category: "unit-economics"
+    definition: "The average monthly revenue generated per active patient on the platform, including all revenue streams: payer reimbursement, patient co-pays, health system SaaS fees allocated per patient, and employer direct-pay allocated per covered life."
+    formula: "Total monthly revenue / Monthly active patients"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $5 per patient per month"
+        signal: "Revenue per patient too low to cover clinical support costs. The unit economics cannot support the clinical oversight and safety monitoring required for patient-facing health products."
+      below_average:
+        value: "$5-$20 per patient per month"
+        signal: "Low margin per patient. Sustainable only at very high volume with minimal clinical support requirements. Typical of wellness-adjacent products without dedicated reimbursement."
+      average:
+        value: "$20-$75 per patient per month"
+        signal: "Moderate per-patient revenue. Common for remote patient monitoring and chronic disease management platforms with CPT-code-based reimbursement."
+      good:
+        value: "$75-$200 per patient per month"
+        signal: "Strong per-patient revenue. Typical of digital therapeutics with dedicated reimbursement, specialty-focused platforms, and clinical decision support tools with demonstrated outcome improvement."
+      excellent:
+        value: "> $200 per patient per month"
+        signal: "Premium per-patient revenue. Achieved by products serving high-acuity conditions, products with pharma co-pay assistance, or products that replace significantly more expensive alternatives."
+    stage_notes:
+      seed: "Revenue per patient is estimated from the reimbursement strategy. Seed-stage companies should model both reimbursed and non-reimbursed scenarios."
+      series_a: "Actual revenue per patient from pilot deployments should be available. The gap between contracted revenue and realized revenue (patient dropout, engagement decay) must be understood."
+      series_b_plus: "Revenue per patient should be stable or growing. Expansion through additional services per patient is a key growth lever."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "CMS Innovation Center Evaluation Reports"
+        year: "2024"
+    related_metrics: ["payer-reimbursement-rate", "monthly-active-patients", "patient-engagement-rate"]
+    related_skills: ["pricing-diagnosis", "business-model-canvas"]
+    caveats: "Revenue per patient must be interpreted in the context of clinical support costs per patient. A $100/patient/month product that requires $80/patient/month in clinical staffing has fundamentally different economics than one requiring $10/patient/month."
+
+  - name: "Customer Acquisition Cost (per Provider/Health System)"
+    id: "cac-health-system"
+    category: "sales"
+    definition: "The fully loaded cost to acquire a new health system or provider group customer, including sales team costs, marketing, clinical pilot costs, integration implementation, and regulatory/compliance review costs incurred during the sales process."
+    formula: "Total sales & marketing cost (including pilot costs) / Number of new health system customers acquired"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $500K per health system customer"
+        signal: "Acquisition cost is unsustainably high. The sales process likely includes extensive free pilot periods, custom integration work, and long clinical evaluation cycles that the company is funding entirely."
+      below_average:
+        value: "$200K-$500K per health system customer"
+        signal: "High but not unusual for enterprise health system sales. Acceptable only if contract values and retention rates justify the investment."
+      average:
+        value: "$75K-$200K per health system customer"
+        signal: "Moderate CAC for health system sales. Typical for companies with established clinical evidence and streamlined implementation processes."
+      good:
+        value: "$25K-$75K per health system customer"
+        signal: "Efficient customer acquisition. Indicates strong inbound demand driven by clinical evidence, peer referral, or health system innovation network effects."
+      excellent:
+        value: "< $25K per health system customer"
+        signal: "Exceptional efficiency. Often achieved through health system innovation programs, EHR marketplace distribution, or products with such strong clinical evidence that they sell themselves."
+    stage_notes:
+      seed: "CAC is difficult to measure at seed — early customers are often acquired through founder relationships. Track the full cost of pilot deployments as a proxy."
+      series_a: "CAC should be measured for non-founder-sourced customers. The ratio of CAC to first-year contract value indicates commercial viability."
+      series_b_plus: "CAC should be declining as brand recognition, clinical evidence, and referenceable customers reduce the sales effort required."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "CB Insights State of Digital Health"
+        year: "2024"
+    related_metrics: ["sales-cycle-length", "contract-value-health-system", "provider-adoption-rate"]
+    related_skills: ["four-ps-marketing", "blue-ocean-strategy"]
+    caveats: "Health system CAC must include the cost of clinical pilots, which are often provided free or at reduced cost. Excluding pilot costs from CAC understates the true acquisition cost by 30-60%."
+
+  - name: "Sales Cycle Length"
+    id: "sales-cycle-length"
+    category: "sales"
+    definition: "The elapsed time from initial qualified engagement with a health system or provider group buyer to signed contract. In healthtech, this cycle includes clinical evaluation, IT security review, legal review, and often a pilot period."
+    formula: "Median days from first qualified meeting to signed contract"
+    unit: "months"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 18 months"
+        signal: "Sales cycle is dangerously long. At this duration, the company must maintain 18+ months of pipeline to sustain growth, and customer requirements may change during the process."
+      below_average:
+        value: "12-18 months"
+        signal: "Long but within range for complex health system enterprise sales. Common for novel products requiring clinical evaluation committees and pilot deployment."
+      average:
+        value: "6-12 months"
+        signal: "Typical for health system SaaS sales with established clinical evidence. The cycle includes IT review, clinical evaluation, and contract negotiation."
+      good:
+        value: "3-6 months"
+        signal: "Efficient for healthtech. Achieved by products with strong clinical evidence, streamlined implementation, and established procurement pathways."
+      excellent:
+        value: "< 3 months"
+        signal: "Exceptional speed. Rare for health system enterprise sales. Typically achieved through EHR marketplace distribution, self-serve models for individual providers, or products sold to non-clinical buyers."
+    stage_notes:
+      seed: "Sales cycle length is discovered, not planned, at seed. Early customers teach the company what the real buying process looks like."
+      series_a: "Sales cycle data from 5-10 deals should inform forecasting and pipeline management. Investors will evaluate whether the sales cycle is compatible with the company's runway."
+      series_b_plus: "Sales cycle optimization becomes a key efficiency lever. Reducing cycle length by 30% has the same revenue impact as increasing pipeline by 30%."
+    data_sources:
+      - source: "CHIME CIO Surveys"
+        year: "2024"
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+    related_metrics: ["cac-health-system", "contract-value-health-system"]
+    related_skills: ["first-mover-strategy", "negotiation-game-theory"]
+    caveats: "Health system sales cycles are structural, not sales-execution problems. Clinical evaluation, IT security review, and legal review have minimum durations that cannot be compressed through sales technique. The answer is not faster selling but better pipeline management."
+
+  - name: "Contract Value (Health System Deals)"
+    id: "contract-value-health-system"
+    category: "sales"
+    definition: "The total annual contract value of health system enterprise deals, including SaaS fees, implementation fees, and any per-patient or per-encounter fees based on contracted volume."
+    formula: "Annual SaaS fees + (per-patient/encounter fee x contracted volume) + implementation fees (amortized over contract term)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $50K ACV"
+        signal: "Contract value too low to justify health system enterprise sales motion. The economics do not support the long sales cycle and implementation effort required."
+      below_average:
+        value: "$50K-$150K ACV"
+        signal: "Low-end enterprise deal. Sustainable if sales cycle is under 6 months and implementation is lightweight. Typical for departmental (not enterprise-wide) deployments."
+      average:
+        value: "$150K-$500K ACV"
+        signal: "Mid-market health system deal. Justifies dedicated sales effort and implementation support. Common for clinical decision support, analytics, and remote monitoring platforms."
+      good:
+        value: "$500K-$2M ACV"
+        signal: "Strong enterprise deal. Indicates broad deployment across the health system. The contract likely includes multi-department or system-wide licensing."
+      excellent:
+        value: "> $2M ACV"
+        signal: "Large enterprise deal. Typically system-wide deployment at a large IDN (Integrated Delivery Network). These deals often include multi-year commitments and strategic partnership elements."
+    stage_notes:
+      seed: "Contract value is negotiated in early pilots. Founders should resist the temptation to give the product away — even pilot pricing establishes a reference point for future negotiations."
+      series_a: "Multiple contracts at consistent ACV levels demonstrate repeatable commercial traction. ACV growth from initial to subsequent deals is a positive signal."
+      series_b_plus: "ACV expansion within existing customers (land-and-expand) is as important as new customer ACV. Multi-year contracts with annual escalators provide revenue predictability."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "KLAS Research — Emerging Technology Studies"
+        year: "2024"
+    related_metrics: ["sales-cycle-length", "cac-health-system", "revenue-per-patient-per-month"]
+    related_skills: ["pricing-diagnosis", "competitive-negotiation"]
+    caveats: "Contract value must be distinguished from realized revenue. Health system contracts often include ramp periods, volume-contingent pricing, and outcome-based components. A $1M ACV contract that is 50% outcome-contingent has very different economics than a $500K fully committed contract."
+
+  # ─────────────────────────────────────────────
+  # SATISFACTION & TRUST METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Patient Satisfaction Score"
+    id: "patient-satisfaction-score"
+    category: "product"
+    definition: "A composite patient experience metric derived from validated survey instruments (CAHPS, SUS adapted for health, proprietary NPS), measuring patient satisfaction with the digital health experience — distinct from clinical outcome satisfaction."
+    formula: "Mean score on validated patient satisfaction instrument, normalized to 0-100 scale"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 50"
+        signal: "Patients actively dislike the experience. High abandonment risk. In healthtech, dissatisfied patients stop using the product — which means the clinical intervention stops, outcomes deteriorate, and the value proposition collapses."
+      below_average:
+        value: "50-65"
+        signal: "Below average patient experience. The product may deliver clinical value but the experience creates friction that limits engagement and retention."
+      average:
+        value: "65-75"
+        signal: "Adequate patient experience. Patients tolerate the product for its clinical benefits. Room for improvement, especially in UX design for diverse health literacy levels."
+      good:
+        value: "75-85"
+        signal: "Strong patient experience. Patients recommend the product to peers. This level supports word-of-mouth growth and payer satisfaction metrics."
+      excellent:
+        value: "> 85"
+        signal: "Exceptional patient experience. Rare in healthcare technology. The product has achieved the difficult balance of clinical rigor and consumer-grade UX."
+    stage_notes:
+      seed: "Patient satisfaction is measured qualitatively through pilot participant interviews. Net Promoter Score is a reasonable proxy at this stage."
+      series_a: "Quantitative satisfaction data from pilot studies should be available. Comparison to benchmark scores in the therapeutic area provides context."
+      series_b_plus: "Patient satisfaction should be tracked continuously and reported to health system customers as part of QBR materials."
+    data_sources:
+      - source: "IQVIA Digital Health Trends"
+        year: "2024"
+      - source: "AMA Digital Health Research"
+        year: "2024"
+    related_metrics: ["patient-engagement-rate", "provider-nps"]
+    related_skills: ["net-promoter-score", "emotional-intelligence"]
+    caveats: "Patient satisfaction and clinical outcomes are not always correlated. Patients may be satisfied with a product that does not improve outcomes (pleasant but ineffective) or dissatisfied with one that does (effective but unpleasant). Both dimensions must be tracked independently."
+
+  - name: "Provider NPS"
+    id: "provider-nps"
+    category: "product"
+    definition: "Net Promoter Score measured among providers (physicians, nurses, clinical staff) who use the product. Reflects whether clinicians would recommend the product to colleagues — the single most powerful distribution mechanism in healthcare."
+    formula: "% Promoters (9-10) - % Detractors (0-6) among surveyed providers"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 0"
+        signal: "More detractors than promoters among providers. The product is generating negative word-of-mouth in clinical networks — an existential threat given how heavily providers rely on peer recommendations."
+      below_average:
+        value: "0-20"
+        signal: "Tepid provider sentiment. The product is tolerated but not championed. Organic expansion through provider referral will not occur at this level."
+      average:
+        value: "20-40"
+        signal: "Positive but not enthusiastic. Providers see value but also experience friction. Most health IT products cluster in this range."
+      good:
+        value: "40-60"
+        signal: "Strong provider advocacy. Providers actively recommend the product to colleagues. This is the threshold where organic adoption within and across health systems accelerates."
+      excellent:
+        value: "> 60"
+        signal: "Exceptional provider advocacy. Rare in health IT where clinician satisfaction with technology is chronically low. A provider NPS above 60 is a formidable competitive moat."
+    stage_notes:
+      seed: "Provider NPS from pilot clinicians should be collected. Even a small sample (n=10-20) reveals whether clinicians find the product genuinely valuable."
+      series_a: "Provider NPS should be tracked across all deployment sites. Variation between sites reveals implementation quality and workflow fit differences."
+      series_b_plus: "Provider NPS should be published in sales materials and QBR reports. High provider NPS is a differentiated asset in health system procurement processes."
+    data_sources:
+      - source: "KLAS Research — Provider Satisfaction"
+        year: "2024"
+      - source: "AMA Digital Health Research"
+        year: "2024"
+    related_metrics: ["provider-adoption-rate", "patient-satisfaction-score"]
+    related_skills: ["net-promoter-score", "trust-equation"]
+    caveats: "Provider NPS is influenced by implementation quality as much as product quality. A good product poorly implemented will receive low NPS. Always segment NPS by deployment maturity to separate product quality from implementation quality."
+
+  - name: "HIPAA Compliance Score"
+    id: "hipaa-compliance-score"
+    category: "efficiency"
+    definition: "A composite metric measuring the completeness and maturity of the company's HIPAA compliance program, including technical safeguards, administrative safeguards, physical safeguards, breach notification procedures, and business associate agreement coverage."
+    formula: "Weighted composite across HIPAA Security Rule requirements: Technical (35%) + Administrative (35%) + Physical (15%) + BAA coverage (15%), scored 0-100"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Score < 50 — Material gaps in HIPAA compliance"
+        signal: "The company is operating with significant legal and operational risk. A breach or OCR audit at this compliance level could result in civil monetary penalties ($100-$50K per violation, up to $1.5M per violation category per year), corrective action plans, and reputational damage that destroys customer relationships."
+      below_average:
+        value: "Score 50-70 — Basic safeguards in place but gaps in documentation, training, or BAA coverage"
+        signal: "Minimum compliance posture. Sufficient to pass a cursory review but vulnerable to OCR investigation. Health system customers' security teams will identify gaps during vendor assessment."
+      average:
+        value: "Score 70-85 — Comprehensive compliance program with regular risk assessments, documented policies, and staff training"
+        signal: "Solid compliance posture. Sufficient for most health system procurement processes. Annual risk assessment conducted and documented."
+      good:
+        value: "Score 85-95 — Mature compliance program with independent audit, incident response testing, and continuous monitoring"
+        signal: "Strong compliance. Third-party HIPAA audit completed (e.g., HITRUST CSF certification). Health system customers can rely on independent validation rather than conducting their own assessment."
+      excellent:
+        value: "Score > 95 — HITRUST CSF certified, SOC 2 Type II, ongoing penetration testing, zero findings on most recent audit"
+        signal: "Best-in-class compliance. HITRUST certification with SOC 2 Type II provides the highest assurance level. Accelerates health system sales by eliminating security review as a sales cycle bottleneck."
+    stage_notes:
+      seed: "Foundational HIPAA compliance (encryption, access controls, BAAs with all vendors) must be in place from day one. Cutting corners on HIPAA at seed creates technical and legal debt that compounds."
+      series_a: "A formal risk assessment and documented compliance program should be completed. Third-party audit (HITRUST or SOC 2) should be on the near-term roadmap."
+      series_b_plus: "HITRUST CSF certification or SOC 2 Type II should be obtained. Large health system customers will require one or both."
+    data_sources:
+      - source: "HHS OCR Enforcement Data"
+        year: "2024"
+      - source: "CHIME CIO Surveys"
+        year: "2024"
+    related_metrics: ["data-security-incident-rate"]
+    related_skills: ["balanced-scorecard", "vuca-framework"]
+    caveats: "HIPAA compliance is a floor, not a ceiling. Passing a HIPAA audit does not mean the company has strong security — it means the company meets minimum federal requirements. State health data privacy laws (e.g., California CMIA, New York SHIELD Act) may impose additional requirements."
+
+  - name: "Data Security Incident Rate"
+    id: "data-security-incident-rate"
+    category: "efficiency"
+    definition: "The number of data security incidents involving protected health information (PHI) per quarter, including breaches, unauthorized access events, and near-misses. A breach affecting 500+ individuals triggers HHS notification and public disclosure."
+    formula: "COUNT(security incidents involving PHI) per quarter"
+    unit: "ratio"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 3 incidents per quarter or any breach affecting 500+ individuals"
+        signal: "Critical security problem. A breach affecting 500+ individuals triggers HHS notification, public disclosure on the HHS 'Wall of Shame,' mandatory OCR investigation, and potential civil monetary penalties. The business may not survive the reputational damage."
+      below_average:
+        value: "2-3 incidents per quarter (sub-500 individuals)"
+        signal: "Concerning incident rate. Each incident requires breach risk assessment under HIPAA, notification to affected individuals, and internal investigation. Cumulative incidents suggest systemic security weaknesses."
+      average:
+        value: "1 incident per quarter (sub-500 individuals)"
+        signal: "Occasional incidents within range for growing healthtech companies. Each incident should trigger root cause analysis and security improvement."
+      good:
+        value: "0-1 incidents per year"
+        signal: "Strong security posture. Incident rate consistent with mature security programs. Proactive threat monitoring and security testing are keeping pace with threat evolution."
+      excellent:
+        value: "Zero incidents for 12+ months with active penetration testing and threat monitoring"
+        signal: "Exceptional security. Not merely the absence of detected incidents but the presence of active security testing that validates the security posture continuously."
+    stage_notes:
+      seed: "Zero incidents is the only acceptable target from day one. A PHI breach at seed stage can destroy the company before it begins."
+      series_a: "Incident response procedures should be documented and tested. Penetration testing should be conducted at least annually."
+      series_b_plus: "Continuous security monitoring and regular penetration testing (quarterly) are expected. Health system customers will audit incident history during procurement."
+    data_sources:
+      - source: "HHS OCR Breach Portal"
+        year: "2024"
+      - source: "HITRUST Cyber Threat Intelligence Reports"
+        year: "2024"
+    related_metrics: ["hipaa-compliance-score"]
+    related_skills: ["black-swans", "systems-thinking"]
+    caveats: "Zero incidents may reflect a lack of detection capability rather than a lack of incidents. Security incident metrics must be paired with proactive security testing (penetration testing, red teaming) to distinguish between 'no incidents' and 'no detected incidents.'"
+
+  # ─────────────────────────────────────────────
+  # RETENTION & CHURN METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Churn Rate (Provider/Health System)"
+    id: "churn-rate-provider"
+    category: "retention"
+    definition: "The percentage of provider or health system customers who terminate their contract or fail to renew in a given period. In healthtech, provider churn has both business and clinical implications — when a health system leaves, patients lose access to the intervention."
+    formula: "Customers lost in period / Customers at start of period x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 20% annual churn"
+        signal: "Severe retention failure. Losing one in five health system customers annually means the company must replace its entire customer base every five years just to maintain revenue. This rate also suggests the product is not delivering sustained clinical or operational value."
+      below_average:
+        value: "15-20% annual churn"
+        signal: "High churn that undermines growth economics. Each churned health system represents lost patients, lost clinical data continuity, and lost reference potential."
+      average:
+        value: "10-15% annual churn"
+        signal: "Moderate churn. Typical for healthtech companies in early scaling phase where implementation quality varies across customers."
+      good:
+        value: "5-10% annual churn"
+        signal: "Strong retention. Most health system customers are renewing and expanding. Churn is concentrated among poor-fit customers or those with organizational changes (M&A, leadership turnover)."
+      excellent:
+        value: "< 5% annual churn"
+        signal: "Exceptional retention. The product is embedded in clinical workflow and delivering sustained value. Health systems consider it a critical part of their technology infrastructure."
+    stage_notes:
+      seed: "Churn is unmeasurable with a few pilot customers. Focus on qualitative renewal intent signals — would this customer renew at full price?"
+      series_a: "First renewal data should be available. The transition from free/reduced pilot to paid contract is the moment of truth for retention."
+      series_b_plus: "Churn should be disaggregated by customer cohort, deployment size, and therapeutic area. Identifying patterns in churn enables targeted retention interventions."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "KLAS Research — Emerging Technology Studies"
+        year: "2024"
+    related_metrics: ["churn-rate-patient", "provider-nps", "provider-adoption-rate"]
+    related_skills: ["net-promoter-score", "systems-thinking"]
+    caveats: "Health system churn often follows personnel changes — when the clinical champion who adopted the product leaves, the contract is at risk. Reducing key-person dependency requires embedding the product in workflow rather than relying on individual advocacy."
+
+  - name: "Churn Rate (Patient)"
+    id: "churn-rate-patient"
+    category: "retention"
+    definition: "The percentage of enrolled patients who disengage from the product in a given period, measured as patients who have not completed a clinical engagement action in 30+ days. Patient churn in healthtech is not merely a business metric — it means a patient is no longer receiving the intended clinical intervention."
+    formula: "Patients inactive for 30+ days in period / Patients active at start of period x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 40% monthly churn"
+        signal: "Catastrophic engagement failure. Most patients abandon the product within weeks of enrollment. The clinical intervention is not being delivered to the majority of patients. Clinical outcome claims are undermined."
+      below_average:
+        value: "25-40% monthly churn"
+        signal: "High attrition that limits clinical effectiveness. Typical of products with poor onboarding, low perceived value, or excessive burden on patients."
+      average:
+        value: "15-25% monthly churn"
+        signal: "Moderate attrition. Common in digital health, where patient engagement naturally decays over time. The challenge is to flatten the engagement curve."
+      good:
+        value: "8-15% monthly churn"
+        signal: "Strong patient retention. The product maintains engagement beyond the initial novelty period. Clinical outcome data at this retention level is credible."
+      excellent:
+        value: "< 8% monthly churn"
+        signal: "Exceptional patient retention. Rare in digital health. Typically achieved by products with strong provider reinforcement loops, tangible daily value, and personalized engagement."
+    stage_notes:
+      seed: "Patient churn patterns are being discovered. The shape of the engagement decay curve (steep initial drop vs. gradual decline vs. flattening) is more informative than the rate itself."
+      series_a: "Patient retention data across multiple cohorts should show improving trends as the product evolves. Cohort-over-cohort improvement is a key investor signal."
+      series_b_plus: "Patient retention at scale must support clinical outcome claims. If the product's clinical study assumed 70% engagement but real-world engagement is 30%, outcome expectations must be adjusted."
+    data_sources:
+      - source: "IQVIA Digital Health Trends"
+        year: "2024"
+      - source: "Journal of Medical Internet Research — Engagement Studies"
+        year: "2024"
+    related_metrics: ["patient-engagement-rate", "monthly-active-patients", "patient-satisfaction-score"]
+    related_skills: ["product-life-cycle", "systems-thinking"]
+    caveats: "Not all patient churn is negative. Patients who complete a therapeutic protocol and graduate from the product are 'positive churn' — they have received the intended intervention. Separate therapeutic completion from disengagement in churn analysis."
+
+  # ─────────────────────────────────────────────
+  # FINANCIAL METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Gross Margin"
+    id: "gross-margin"
+    category: "financial"
+    definition: "Revenue minus cost of goods sold as a percentage of revenue. In healthtech, COGS includes not only hosting and infrastructure but also clinical staff costs (if the product requires clinician involvement for delivery), regulatory compliance costs allocated to service delivery, and clinical content maintenance."
+    formula: "(Revenue - COGS) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 40%"
+        signal: "Margin too low for a technology company. The product likely requires significant human clinical intervention per patient, making it a services business with a technology wrapper."
+      below_average:
+        value: "40-55%"
+        signal: "Below software margins. Common for healthtech products with embedded clinical services (telehealth with employed clinicians, RPM with nurse monitoring). Investors will question scalability."
+      average:
+        value: "55-70%"
+        signal: "Moderate margins. Typical for healthtech products with some clinical service component. Improving margins through automation and AI-assisted clinical workflows is a common growth strategy."
+      good:
+        value: "70-80%"
+        signal: "Software-like margins. Achieved by products that deliver value through technology with minimal per-patient clinical staff cost. This is the target range for scalable healthtech."
+      excellent:
+        value: "> 80%"
+        signal: "Pure software margins. Typical for health data analytics, clinical decision support tools, and administrative workflow products that do not require clinical staff per encounter."
+    stage_notes:
+      seed: "Gross margin is estimated at seed. The key question is whether the product's clinical model requires human clinicians per patient interaction (services) or whether technology delivers the intervention (software)."
+      series_a: "Actual gross margin from revenue-generating operations should be calculated. If below 50%, a clear path to margin expansion must be articulated."
+      series_b_plus: "Gross margin should be trending toward 60%+. Companies with clinical services components should show a path to automating clinical workflows."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "CB Insights State of Digital Health"
+        year: "2024"
+    related_metrics: ["revenue-per-patient-per-month", "r-and-d-pct-of-revenue"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Healthtech gross margin classification is contested. Whether clinical staff costs belong in COGS or OpEx depends on whether clinicians are essential to product delivery (COGS) or provide supplementary support (OpEx). Be consistent and transparent about classification methodology."
+
+  - name: "R&D as % of Revenue (Clinical + Technical)"
+    id: "r-and-d-pct-of-revenue"
+    category: "efficiency"
+    definition: "The percentage of revenue invested in research and development, including both technical R&D (software engineering, infrastructure, AI/ML development) and clinical R&D (clinical study design and execution, regulatory affairs, medical writing, clinical evidence generation)."
+    formula: "(Technical R&D spend + Clinical R&D spend) / Total revenue x 100"
+    unit: "percentage"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "> 80% of revenue (at growth stage) or < 15% (at any stage)"
+        signal: "Either unsustainably high R&D spend that depletes capital without corresponding clinical or commercial progress, or dangerously low investment that starves the clinical evidence pipeline and product development."
+      below_average:
+        value: "50-80% of revenue (growth stage)"
+        signal: "High R&D intensity. Acceptable during clinical validation phase but must be declining as a percentage of revenue as the company transitions to commercial scaling."
+      average:
+        value: "30-50% of revenue"
+        signal: "Typical for healthtech companies balancing ongoing clinical evidence generation with product development. The split between clinical and technical R&D reveals strategic priorities."
+      good:
+        value: "20-30% of revenue"
+        signal: "Efficient R&D investment. Indicates the company has passed the heaviest clinical validation investment phase and is optimizing returns on existing evidence assets."
+      excellent:
+        value: "15-20% of revenue with continued clinical evidence publication"
+        signal: "Optimal balance. Sufficient investment to maintain clinical evidence leadership and product innovation while preserving capital for commercial scaling."
+    stage_notes:
+      seed: "R&D is effectively 100% of spend at seed. The relevant question is the split between clinical and technical R&D — both must be funded."
+      series_a: "R&D split (clinical vs. technical) should be explicit. Investors assess whether the company is allocating sufficient resources to clinical evidence generation alongside product development."
+      series_b_plus: "R&D as percentage of revenue should be declining as revenue scales. However, cutting clinical R&D too aggressively leaves the company vulnerable to competitors who build stronger evidence."
+    data_sources:
+      - source: "Rock Health Digital Health Funding Report"
+        year: "2024"
+      - source: "Deloitte Life Sciences Outlook"
+        year: "2025"
+    related_metrics: ["gross-margin", "clinical-validation-stage"]
+    related_skills: ["balanced-scorecard", "eisenhower-matrix"]
+    caveats: "Clinical R&D in healthtech is not optional — it is the equivalent of product R&D in software. Companies that cut clinical evidence investment to improve short-term financials risk losing the evidence advantage that sustains their market position."
+
+  - name: "Time to Value (Implementation at Health System)"
+    id: "time-to-value-implementation"
+    category: "sales"
+    definition: "The elapsed time from contract signing to the health system customer realizing measurable value from the product — defined as the point at which the system is live, providers are trained, and clinical workflow integration is complete."
+    formula: "Date of measurable value realization — Date of contract signing"
+    unit: "months"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 12 months"
+        signal: "Implementation is a major bottleneck. Health system customers become frustrated, internal champions lose political capital, and the risk of pre-go-live cancellation increases."
+      below_average:
+        value: "6-12 months"
+        signal: "Long implementation. Common for complex EHR integrations and enterprise-wide deployments but creates significant risk of customer disengagement."
+      average:
+        value: "3-6 months"
+        signal: "Typical for healthtech products requiring EHR integration, provider training, and clinical workflow adaptation. Manageable if expectations are set clearly during the sales process."
+      good:
+        value: "1-3 months"
+        signal: "Efficient implementation. Achieved through standardized deployment playbooks, pre-built EHR integrations, and scalable provider training programs."
+      excellent:
+        value: "< 1 month"
+        signal: "Rapid time to value. Exceptional for health system enterprise products. Typically achieved by cloud-native products with self-service EHR integration (SMART on FHIR) and on-demand training."
+    stage_notes:
+      seed: "Time to value is being optimized during early deployments. Each pilot reveals integration and training bottlenecks that inform the implementation playbook."
+      series_a: "Implementation time should be trending downward as the company standardizes deployment. A repeatable implementation playbook is a key scaling prerequisite."
+      series_b_plus: "Time to value should be a competitive advantage. Companies that deploy faster earn revenue faster, generate outcomes data faster, and create stronger customer relationships."
+    data_sources:
+      - source: "KLAS Research — Implementation Studies"
+        year: "2024"
+      - source: "CHIME CIO Surveys"
+        year: "2024"
+    related_metrics: ["provider-adoption-rate", "clinical-workflow-integration-score", "cac-health-system"]
+    related_skills: ["kotter-change-model", "smart-goals"]
+    caveats: "Time to value must be measured from the customer's perspective, not the company's. Going live is not value realization — value realization occurs when providers are actively using the product and clinical or operational outcomes are measurable. Many healthtech companies declare 'go-live' before the customer experiences value."

@@ -1,0 +1,1 @@
+../../../../.claude/skills/stoic/stoic-unbiased-thought.md

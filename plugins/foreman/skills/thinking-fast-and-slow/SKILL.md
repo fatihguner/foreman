@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/thinking-fast-and-slow.md

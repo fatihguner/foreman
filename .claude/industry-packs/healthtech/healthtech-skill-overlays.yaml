@@ -1,0 +1,436 @@
+# Healthtech Industry Pack — Skill Overlays
+#
+# For 35 of the 158 Foreman skills, this file provides healthtech-specific context
+# that the skill executor agent applies as additional framing. These overlays
+# do not replace the base skill content — they add a healthtech lens.
+#
+# PATIENT SAFETY PRINCIPLE: Every overlay addresses how patient safety shapes the
+# framework's application. Healthtech is uniquely constrained by the clinical
+# obligation to "first, do no harm." Unlike fintech (where the worst outcome is
+# financial loss) or SaaS (where the worst outcome is business failure), healthtech
+# errors can harm or kill patients. This obligation pervades every strategic
+# decision — from pricing to competitive positioning to go-to-market.
+#
+# TRIPLE STAKEHOLDER PRINCIPLE: Healthtech must satisfy three stakeholders
+# simultaneously — patients (who receive care), providers (who deliver care),
+# and payers (who fund care). The "triple aim" of better outcomes, better
+# experience, and lower cost must be addressed in every framework application.
+#
+# Selection criteria for the 35 skills:
+#   - Frameworks with direct healthtech application (strategy, pricing, trust, growth)
+#   - Game theory skills (regulatory strategy, payer negotiation, provider adoption)
+#   - Decision and thinking skills (clinical risk-weighted decision-making)
+#   - Negotiation skills (health system deals, payer contracts, regulatory engagement)
+#   - Leadership skills most affected by clinical culture and safety obligations
+#   - AI/data skills (clinical AI, algorithmic fairness, FDA AI/ML guidance)
+#
+# Relevance tiers:
+#   critical — The healthtech overlay materially changes how the skill is applied.
+#              The skill executor should always surface healthtech context.
+#   high     — Healthtech context adds significant value. Surface when relevant.
+#   moderate — Useful healthtech framing but the base skill works well as-is.
+
+pack_metadata:
+  sector: "healthtech"
+  display_name: "Healthtech"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# SKILL OVERLAYS
+# ═══════════════════════════════════════════════════════════════
+
+skill_overlays:
+
+  # ─────────────────────────────────────────────
+  # FRAMEWORKS (18 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "porters-five-forces"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "Porter's Five Forces in healthtech are dominated by a force the original model does not explicitly name: regulatory power. Buyer power is concentrated not in patients but in health system procurement committees and payer organizations — both operate with institutional purchasing processes that take 6-18 months. Threat of new entrants is suppressed by regulatory barriers (FDA clearance, HIPAA compliance, clinical evidence requirements) that cost $500K-$20M to cross. Supplier power concentrates in EHR vendors (Epic and Oracle Health control 60%+ of the hospital market), clinical data partners, and specialized clinical talent. Substitutes include not just competing digital products but the status quo of manual clinical processes — the most powerful 'competitor' in healthtech is 'do nothing differently.' Rivalry intensity is shaped by clinical evidence: the company with the strongest published outcomes data wins, regardless of product polish."
+    healthtech_anti_patterns:
+      - "Treating the patient as the buyer. In most healthtech business models, the buyer is the health system (who procures the technology), the payer (who reimburses for its use), or the employer (who contracts for employee health benefits). The patient is the beneficiary, not the purchaser. Misidentifying the buyer distorts every strategic decision."
+      - "Underestimating the power of EHR vendors as suppliers. Epic and Oracle Health (Cerner) are not neutral platforms — they are gatekeepers who control clinical workflow access. Their app marketplaces, integration policies, and strategic priorities determine which healthtech products can reach providers."
+      - "Ignoring 'do nothing' as the strongest substitute. Health systems adopt new technology slowly because the cost of change (workflow disruption, training, clinical risk) often exceeds the perceived benefit of adoption. The five forces analysis must quantify the switching cost from current workflows, not just from competing products."
+    healthtech_example: "A clinical decision support startup applies Porter's Five Forces and discovers that its apparent competitive advantage — superior AI accuracy — is irrelevant to the buying decision. Buyer power analysis reveals that health system procurement committees prioritize EHR integration depth and clinical evidence level over algorithmic performance. Supplier power analysis shows that Epic's integration policies effectively determine market access. The threat of substitutes reveals that 70% of target clinicians use a combination of UpToDate, peer consultation, and clinical experience as their 'decision support tool' — and they are satisfied with it. This analysis pivots the strategy from AI performance marketing to deep Epic integration, published clinical evidence, and workflow time-savings messaging."
+    benchmark_references: ["clinical-workflow-integration-score", "provider-adoption-rate", "sales-cycle-length"]
+
+  - skill: "blue-ocean-strategy"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "Blue ocean strategy in healthtech must navigate a unique constraint: you cannot create an uncontested market space by bypassing clinical evidence, regulatory requirements, or reimbursement pathways. The most successful healthtech blue oceans are found in therapeutic areas that incumbent health IT ignores (behavioral health, musculoskeletal care, chronic pain), in care settings that existing technology does not serve (home-based care, rural health, community health centers), or in reimagining the care delivery model itself (asynchronous care, AI-augmented diagnosis, prescription digital therapeutics). The strategy canvas must include a clinical evidence axis — products that create blue oceans through evidence-based clinical differentiation build durable moats that marketing-led differentiation cannot replicate."
+    healthtech_anti_patterns:
+      - "Pursuing a blue ocean that exists because the therapeutic area lacks reimbursement. Some clinical areas are uncontested not because competitors overlooked them but because payers do not cover interventions in that space. A blue ocean without a reimbursement pathway is a desert."
+      - "Creating uncontested space by avoiding FDA regulation. Products marketed as 'wellness' to sidestep regulatory requirements sacrifice the clinical credibility that health systems and payers require. The regulatory exemption that enabled the blue ocean also limits the addressable market."
+      - "Confusing consumer health engagement with clinical blue ocean. Consumer-facing health apps operate in a different market than clinical healthtech. A beautifully designed wellness app is not competing in the same ocean as a clinically validated diagnostic tool."
+    healthtech_example: "Pear Therapeutics created a blue ocean in behavioral health by pursuing FDA clearance for prescription digital therapeutics — a category that did not exist. Instead of competing with the hundreds of unregulated mental health apps, Pear obtained De Novo FDA authorization for reSET (substance use disorder) and reSET-O (opioid use disorder), creating a new category: software that is prescribed like a drug, covered by insurance, and supported by RCT evidence. The blue ocean was not 'digital mental health' (crowded) but 'FDA-cleared, reimbursable, prescription software for substance use disorders' (uncontested). The regulatory pathway that competitors avoided became the moat."
+    benchmark_references: ["clinical-validation-stage", "regulatory-approval-status", "payer-reimbursement-rate"]
+
+  - skill: "business-model-canvas"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "The Business Model Canvas for healthtech demands a triple-stakeholder lens across every block. Value Proposition must articulate separate value for patients (better outcomes, better experience), providers (clinical workflow improvement, reduced burden), and payers (cost reduction, quality improvement). Customer Segments must identify the buyer (health system, payer, employer, patient) and distinguish them from the user (provider, patient) and the beneficiary (patient). Channels must account for health system procurement processes, EHR marketplace distribution, payer contracting, and clinical society endorsement. Revenue Streams must distinguish between payer reimbursement (CPT/HCPCS coded), health system SaaS fees, employer direct contracts, and patient self-pay. Key Activities must include clinical validation (evidence generation is a core business activity, not R&D overhead), regulatory affairs, and HIPAA compliance. Key Resources include clinical evidence, regulatory clearances, clinical advisory board relationships, and payer contracts — all of which are non-replicable assets."
+    healthtech_anti_patterns:
+      - "Designing the canvas with the patient as the only customer. The patient is the ultimate beneficiary, but the customer (who pays) is typically the health system, the payer, or the employer. A canvas that ignores the buyer's needs will produce a product that patients love but no one procures."
+      - "Omitting clinical evidence generation from Key Activities. In healthtech, generating and publishing clinical evidence is as critical as building the product itself. Companies that treat evidence as an afterthought discover that sales stall when clinical review committees ask for data."
+      - "Treating regulatory compliance as a Cost Structure line item rather than a Key Activity and Key Resource. Regulatory clearance is an asset that enables the business — a competitive moat, not an expense to minimize."
+    healthtech_example: "A remote patient monitoring startup maps its Business Model Canvas and discovers a critical misalignment: the Value Proposition emphasizes patient engagement features, but the Customer (health system) evaluates based on clinical outcome improvement and EHR integration, while the Payer evaluates based on cost avoidance (reduced ED visits, avoided hospitalizations). The canvas redesign creates three aligned value propositions: patient-facing (convenient monitoring with personalized insights), provider-facing (ambient data collection that reduces documentation burden), and payer-facing (demonstrated 25% reduction in preventable hospitalizations with published evidence). Revenue Streams shift from patient subscription to payer reimbursement via RPM CPT codes (99453, 99454, 99457, 99458), tripling the per-patient revenue and removing the patient willingness-to-pay constraint."
+    benchmark_references: ["payer-reimbursement-rate", "revenue-per-patient-per-month", "clinical-validation-stage"]
+
+  - skill: "four-ps-marketing"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "The Four Ps in healthtech operate under constraints that fundamentally differ from consumer or enterprise software. Product is subject to FDA regulation — changes to a cleared device require regulatory impact assessment, and marketing claims must be consistent with the cleared indication for use. Price in healthtech is often not market-determined but reimbursement-determined: CPT codes, DRG payments, and payer fee schedules set the effective price ceiling regardless of the product's value. Place (distribution) runs through health system procurement, EHR marketplaces, clinical society endorsements, and payer formularies — not app stores, content marketing, or outbound sales. Promotion faces strict constraints: FDA labeling requirements limit what can be claimed, FTC health advertising rules prohibit unsubstantiated claims, and clinical audiences respond to peer-reviewed evidence and key opinion leader endorsement, not marketing copy."
+    healthtech_anti_patterns:
+      - "Setting price based on willingness-to-pay surveys or competitor matching. In healthtech, the price ceiling is often the reimbursement rate for the relevant CPT or HCPCS code. Pricing above reimbursement means the health system absorbs the gap — a losing proposition for adoption."
+      - "Treating consumer digital marketing as the distribution strategy. Health system buyers do not discover clinical tools through Google ads or content marketing. They discover them through clinical conferences, peer publications, EHR marketplace listings, and clinical advisory network recommendations."
+      - "Making clinical claims in marketing materials that exceed the evidence base or the FDA-cleared indications. This triggers FDA enforcement risk, FTC action, and — most damaging — loss of credibility with the clinical audience that evaluates claims with scientific rigor."
+    healthtech_example: "A digital therapeutics company applies the Four Ps and restructures its entire go-to-market. Product: they scope the product to match the FDA-cleared indication exactly, resisting feature creep that would trigger a new regulatory submission. Price: they align pricing to the CPT code reimbursement rate for remote therapeutic monitoring (99457, 99458), ensuring health systems can bill payers for the product's use without margin loss. Place: they abandon direct-to-consumer advertising and instead pursue Epic App Orchard listing, clinical conference presentations, and health plan formulary inclusion. Promotion: they replace feature-focused marketing with an evidence brief summarizing their published RCT results, distributed through medical affairs channels rather than marketing channels."
+    benchmark_references: ["payer-reimbursement-rate", "revenue-per-patient-per-month", "provider-adoption-rate"]
+
+  - skill: "net-promoter-score"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "NPS in healthtech must be measured separately for each stakeholder: patients, providers, and payer partners. Provider NPS is the most commercially consequential because provider word-of-mouth drives adoption across health systems — a physician champion at one hospital who recommends the product to colleagues at the next health system is the most powerful sales channel in healthcare. Patient NPS is clinically consequential because dissatisfied patients disengage, and disengagement means the clinical intervention stops. Payer NPS matters for contract renewal but is rarely measured. NPS surveys in healthtech must be triggered by clinical milestones (first clinical encounter with the product, 30-day check-in, treatment completion) rather than arbitrary time intervals, and must be designed for diverse health literacy levels."
+    healthtech_anti_patterns:
+      - "Measuring a single NPS score that blends patients and providers. These populations have fundamentally different relationships with the product, different satisfaction drivers, and different impact on the business. Blended NPS obscures both signals."
+      - "Optimizing patient NPS by removing clinical friction. Some clinical friction is necessary — adherence reminders, symptom tracking requirements, and escalation protocols serve patient safety even when they reduce satisfaction. NPS optimization that compromises clinical protocols is dangerous."
+      - "Using NPS testimonials as clinical evidence. Anecdotal patient satisfaction is not the same as clinical validation. Investors, payers, and regulators evaluate evidence, not testimonials. Conflating the two undermines credibility with clinical audiences."
+    healthtech_example: "A chronic disease management platform segments NPS and discovers a dangerous gap: patient NPS is 65 (strong) but provider NPS is -12 (deeply negative). Investigation reveals that patients love the app's engagement features, but providers are frustrated by alert fatigue — the system generates too many low-priority clinical alerts that interrupt workflow. The provider NPS insight triggers a clinical alert redesign that reduces alert volume by 70% while maintaining safety-critical escalations. Provider NPS rises to 35 within one quarter, and the health system expands from a pilot deployment to enterprise-wide licensing."
+    benchmark_references: ["provider-nps", "patient-satisfaction-score", "provider-adoption-rate"]
+
+  - skill: "product-life-cycle"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "The product lifecycle in healthtech is fundamentally slower than in software because regulatory requirements create stage gates between lifecycle phases. Introduction requires not just product launch but regulatory clearance, clinical evidence generation, and payer reimbursement — each adding 6-24 months. Growth is constrained by health system sales cycles (6-18 months per customer) and implementation timelines (1-12 months per deployment). Maturity arrives when the clinical evidence base is well-established, reimbursement is broadly available, and the technology is integrated into clinical guidelines. Decline in healthtech is often triggered not by technology obsolescence but by new clinical evidence that a competing intervention is superior, or by regulatory changes that alter the competitive landscape. The critical insight for healthtech is that clinical evidence generates compounding returns — the lifecycle can be extended almost indefinitely if the company continues to publish outcomes data."
+    healthtech_anti_patterns:
+      - "Applying consumer technology lifecycle expectations to healthtech. Products that achieve mass adoption in 12 months in consumer software may take 5-7 years to reach the same adoption level in healthcare. This is not failure — it is the structural reality of clinical adoption."
+      - "Treating regulatory clearance as the product launch. Clearance is the beginning of commercialization, not the end of development. Post-market surveillance, real-world evidence generation, and ongoing clinical validation continue throughout the lifecycle."
+      - "Assuming that a clinically validated product is immune to lifecycle decline. New clinical evidence — even evidence about competing approaches — can rapidly shift clinical guidelines and render a previously dominant product obsolete."
+    healthtech_example: "A telemedicine platform applies product lifecycle analysis and recognizes that its core video visit product has reached maturity — adoption plateaued during COVID and is now declining as health systems rebalance toward in-person care. Rather than defending the mature product, the company identifies that asynchronous care (store-and-forward clinical consultations) is in the Introduction phase with growing clinical evidence and emerging reimbursement. They allocate 60% of R&D to asynchronous care capabilities while maintaining the video visit product as a cash cow that funds the transition."
+    benchmark_references: ["provider-adoption-rate", "clinical-validation-stage", "monthly-active-patients"]
+
+  - skill: "growth-share-matrix"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "The BCG Growth-Share Matrix maps to healthtech product portfolios with an essential modification: market share in healthtech is measured not by revenue share but by clinical evidence share and formulary/guideline inclusion. A Star is a product line with strong clinical evidence in a growing therapeutic area. A Cash Cow is a product with established reimbursement and embedded health system integration in a mature clinical area. Question Marks are products in emerging therapeutic areas with promising but unproven evidence. Dogs are products in declining therapeutic areas or those that failed to achieve clinical validation. The matrix is particularly useful for multi-product healthtech companies deciding where to invest clinical R&D resources."
+    healthtech_anti_patterns:
+      - "Measuring market share by revenue alone. In healthtech, clinical evidence share (number and quality of publications, guideline mentions, key opinion leader endorsement) is a leading indicator that predicts revenue share 12-24 months in advance."
+      - "Killing 'Dog' product lines that serve a patient safety function. Some low-growth, low-share products in healthtech serve critical but small patient populations. Discontinuing them has ethical implications that do not arise in other industries."
+      - "Investing in Stars without ensuring clinical evidence keeps pace with growth. Rapid commercial scaling ahead of clinical evidence creates vulnerability — a competitor who publishes superior outcomes data can displace a market leader regardless of installed base."
+    healthtech_example: "A digital health company with products across diabetes management (Star — growing market, strong RCT evidence), hypertension monitoring (Cash Cow — mature market, established reimbursement), mental health screening (Question Mark — growing market, pilot data only), and weight management (Dog — crowded market, weak evidence) uses the matrix to allocate clinical R&D. They fund a multi-site RCT for mental health screening (to determine if it becomes a Star or is divested) while maintaining the diabetes product's evidence advantage and harvesting hypertension monitoring revenue to fund the portfolio."
+    benchmark_references: ["clinical-validation-stage", "monthly-active-patients", "revenue-per-patient-per-month"]
+
+  - skill: "disruptive-innovation"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "Healthtech is the canonical domain for disruptive innovation with a safety constraint. Disruption in healthcare follows a specific pattern: moving clinical capabilities from higher-cost settings to lower-cost settings (hospital to clinic, clinic to home, home to self-care) and from specialist-dependent to technology-enabled (radiologist interpretation to AI-assisted screening, physician diagnosis to nurse-led with decision support). The disruption trajectory is limited by clinical safety — you cannot disrupt a care setting if the lower-cost alternative compromises patient outcomes. The most successful healthtech disruptors achieve equivalent or superior clinical outcomes at lower cost and greater convenience, validated through rigorous clinical studies. This evidence-validated disruption is the only sustainable path."
+    healthtech_anti_patterns:
+      - "Attempting to disrupt clinical processes without clinical evidence that the disruption is safe. 'Move fast and break things' in healthcare means patients get hurt. Every disruption of a clinical process requires evidence that patient outcomes are maintained or improved."
+      - "Disrupting the provider's role without provider involvement in the design. Healthtech products that attempt to disintermediate physicians face fierce resistance and often fail clinically because they lack the clinical nuance that providers contribute."
+      - "Assuming that consumer adoption is sufficient validation. Patients adopting a health app does not validate clinical effectiveness. Consumer popularity and clinical efficacy are independent dimensions."
+    healthtech_example: "Livongo disrupted chronic disease management by moving continuous glucose monitoring and behavioral intervention from the endocrinologist's office to the patient's home. The disruption was validated through clinical studies showing equivalent or improved A1C outcomes at 30% lower cost. Critically, Livongo did not disintermediate endocrinologists — it complemented their care by providing continuous data between visits. The disruption's safety was evidence-validated, and its economic model was reimbursement-ready. This combination — clinically validated, provider-complementary, payer-attractive — is the healthtech disruption template."
+    benchmark_references: ["patient-outcomes-improvement", "revenue-per-patient-per-month", "payer-reimbursement-rate"]
+
+  - skill: "balanced-scorecard"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "The Balanced Scorecard for healthtech requires a fifth perspective beyond the original four: Clinical Outcomes. Financial: revenue, gross margin, reimbursement rate, burn rate. Customer: must be split into provider satisfaction and patient satisfaction, tracked independently. Internal Process: clinical workflow integration, regulatory milestone progress, implementation velocity, HIPAA compliance posture. Learning & Growth: clinical evidence pipeline, regulatory capability development, clinical advisory board strength. Clinical Outcomes: patient outcomes improvement, clinical evidence strength, adverse event rate, patient safety incident rate. This fifth perspective is non-negotiable — it is the ethical and commercial foundation of the business."
+    healthtech_anti_patterns:
+      - "Omitting the Clinical Outcomes perspective. A healthtech balanced scorecard that does not track patient outcomes is equivalent to a manufacturing scorecard that does not track product quality — the omission eventually manifests as catastrophic failure."
+      - "Subordinating clinical metrics to financial metrics. In healthtech, clinical outcomes lead financial outcomes by 12-24 months. Declining outcome metrics predict declining revenue, not the reverse. The scorecard must reflect this causal hierarchy."
+      - "Tracking only lagging indicators. Healthtech scorecards must include leading indicators for clinical risk: adverse event near-misses, patient safety concern reports, and clinical protocol deviation rates. By the time a lagging indicator reveals a clinical problem, patients may already have been harmed."
+    healthtech_example: "A remote patient monitoring company implements a five-perspective balanced scorecard: Financial (RPM reimbursement revenue, gross margin, CAC payback), Provider (provider NPS, provider adoption rate, clinical workflow integration score), Patient (patient engagement rate, patient satisfaction, monthly active patients), Internal Process (implementation time to value, HIPAA compliance score, EHR integration coverage), Clinical Outcomes (30-day readmission reduction, A1C improvement, patient safety incident rate). The scorecard reveals that financial metrics are strong but clinical outcome improvement has plateaued — the product is generating revenue from RPM billing codes but not delivering the outcome improvement that sustains long-term payer support. This triggers an R&D reallocation toward clinical effectiveness."
+    benchmark_references: ["patient-outcomes-improvement", "provider-nps", "patient-engagement-rate", "hipaa-compliance-score", "gross-margin"]
+
+  - skill: "swot-pest-analysis"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "SWOT and PEST for healthtech must account for the regulatory and clinical forces that dominate the external environment. Political: FDA policy shifts (AI/ML guidance evolution, digital health pre-certification program), CMS reimbursement policy changes, state telehealth parity laws, and congressional healthcare reform legislation. Economic: health system IT budget cycles, payer reimbursement rate adjustments, employer health benefit spending trends, and venture capital appetite for healthtech. Social: patient digital health literacy gaps, provider technology adoption resistance, health equity disparities in digital access, and post-COVID telehealth utilization normalization. Technological: AI/ML model validation standards for clinical use, interoperability standards (FHIR, USCDI), cloud security evolution, and genomics/precision medicine technology maturation."
+    healthtech_anti_patterns:
+      - "Listing 'HIPAA compliance' as a strength. Every healthtech company must be HIPAA compliant — it is a legal requirement, not a differentiator. Strengths must be genuinely distinctive."
+      - "Ignoring the political dimension of reimbursement. CMS reimbursement decisions are as much political as clinical — congressional mandates, budget constraints, and policy priorities shape which digital health services receive coverage."
+      - "Conducting SWOT against direct competitors only. The most dangerous competitor in healthtech is often not another startup but a new clinical guideline that recommends an alternative approach, a payer coverage decision that excludes digital interventions, or an EHR vendor building native functionality."
+    healthtech_example: "A mental health tech company applies PEST and identifies a convergence of Political tailwinds (Mental Health Parity Act enforcement increasing, state telehealth parity laws expanding), Economic support (employer mental health benefit spending growing 25% annually), and Social momentum (post-pandemic destigmatization of digital mental health services). However, Technological analysis reveals that GPT-4 class models are enabling conversational AI therapy tools that could commoditize the company's chatbot-based intervention. The SWOT synthesis positions the company to leverage the political/economic/social tailwinds by pivoting from chatbot delivery to provider-augmented digital therapy with published clinical evidence — a moat that general-purpose AI cannot replicate."
+    benchmark_references: ["payer-reimbursement-rate", "regulatory-approval-status", "monthly-active-patients"]
+
+  - skill: "scenario-planning"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "Scenario planning in healthtech must address the high-variance regulatory and reimbursement environment. The three most critical scenario dimensions are: regulatory pathway outcome (cleared/approved vs. delayed vs. rejected), reimbursement decision (payer covers vs. payer declines vs. payer covers with conditions), and clinical evidence results (positive outcomes vs. null results vs. adverse findings). Each dimension has downstream effects on revenue, fundraising, and competitive position that cascade through the business model. Healthtech scenario planning must also include a clinical safety scenario — what happens if the product causes patient harm, and what contingencies are in place."
+    healthtech_anti_patterns:
+      - "Building all scenarios on the assumption that regulatory clearance is obtained. A scenario plan that does not include a 'clearance delayed 12 months' or 'clearance denied' scenario is not a scenario plan — it is a single plan with different revenue assumptions."
+      - "Ignoring the reimbursement scenario. A product with FDA clearance but no payer coverage has limited commercial viability. The reimbursement dimension is as important as the regulatory dimension."
+      - "Excluding the adverse clinical event scenario. Products that interact with patient care carry a non-zero probability of causing harm. A scenario plan must include this possibility and the company's clinical, legal, and communication response."
+    healthtech_example: "A clinical AI company builds four scenarios for the next 24 months: (1) Base: FDA clearance in 12 months, Medicare coverage decision in 18 months, positive RCT results. (2) Upside: Breakthrough Device designation accelerates clearance to 6 months, commercial payers follow Medicare coverage. (3) Regulatory Delay: FDA requests additional data, clearance delayed 12 months, requiring runway extension through cost reduction. (4) Adverse Event: Post-market surveillance reveals a safety signal requiring product modification and supplemental submission. Each scenario has pre-committed strategic responses: runway management, communication plans, regulatory response protocols, and clinical advisory board engagement."
+    benchmark_references: ["time-to-regulatory-clearance", "regulatory-pathway-cost", "payer-reimbursement-rate"]
+
+  - skill: "pricing-diagnosis"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "Pricing in healthtech is fundamentally reimbursement-constrained. Unlike SaaS where pricing is a free strategic variable, healthtech pricing must align with the CPT, HCPCS, or DRG codes through which the product generates revenue. The pricing diagnosis must evaluate: reimbursement pathway (which codes apply, what rates they pay, which payers cover them), pricing model (per-patient-per-month, per-encounter, site license, hybrid), the gap between product cost and reimbursement rate (margin analysis), and whether the product generates new reimbursable events or substitutes for existing ones. The diagnosis must also address the three-payer problem: Medicare sets a national rate, commercial payers negotiate independently, and Medicaid varies by state — creating three distinct pricing realities."
+    healthtech_anti_patterns:
+      - "Setting price based on value-based pricing methodology without verifying that a reimbursement pathway exists at that price. A product worth $500/patient/month to the health system is worthless commercially if the applicable CPT code reimburses at $50."
+      - "Ignoring the distinction between facility and professional reimbursement. Some CPT codes have different rates depending on whether the service is provided in a hospital or a physician office — this affects the product's economic attractiveness in each setting."
+      - "Treating price increases as a growth lever. Healthtech price increases are constrained by reimbursement rates, health system budget cycles, and contractual terms that often include rate locks. The expansion lever in healthtech is more patients or more services per patient, not higher prices."
+    healthtech_example: "A remote patient monitoring company conducts a pricing diagnosis and discovers that its $150/patient/month price exceeds the combined reimbursement from RPM CPT codes (99453 + 99454 + 99457 + 99458 = approximately $120/patient/month at Medicare rates). Health system customers are absorbing a $30/patient/month loss on every enrolled patient. The pricing diagnosis triggers a restructuring: base platform fee aligned to reimbursement rates, with premium analytics and population health features sold as a separate SaaS license that is not reimbursement-dependent. This separates the reimbursement-constrained clinical product from the market-priced analytics product."
+    benchmark_references: ["payer-reimbursement-rate", "revenue-per-patient-per-month", "gross-margin"]
+
+  - skill: "trust-equation"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "Trust in healthtech operates at a higher standard than in any other technology sector because the stakes are human health and life. The trust equation (Credibility + Reliability + Intimacy / Self-Orientation) must be interpreted through a clinical lens. Credibility in healthtech requires published clinical evidence, not marketing claims — providers evaluate trust through peer-reviewed publications, clinical conference presentations, and key opinion leader endorsement. Reliability means clinical uptime and consistent performance on clinical metrics, not merely system availability — a clinical decision support tool that provides inconsistent recommendations destroys trust faster than system downtime. Intimacy means respecting the clinician-patient relationship and the provider's clinical judgment — products that override or undermine provider autonomy are rejected. Self-Orientation in healthtech is measured by whether the company prioritizes patient outcomes over revenue growth — clinical audiences have finely tuned sensors for commercial motives disguised as clinical concern."
+    healthtech_anti_patterns:
+      - "Building trust through marketing testimonials rather than clinical evidence. Providers trust peer-reviewed studies, not patient testimonials. A single well-designed RCT builds more trust than a thousand marketing case studies."
+      - "Treating HIPAA compliance as a trust-building credential. HIPAA compliance is the minimum legal requirement, not a trust differentiator. Trust is built through evidence, clinical expertise, and demonstrated commitment to patient outcomes."
+      - "Moving fast at the expense of clinical reliability. In SaaS, a bug costs customer satisfaction. In healthtech, a clinical recommendation error can cost a patient's life. The trust equation's Reliability numerator must be weighted for clinical consequence."
+    healthtech_example: "A clinical AI startup struggles to gain traction despite superior diagnostic accuracy. Applying the trust equation reveals the problem: Credibility is low because results are published only on arXiv preprints, not in clinical journals — providers do not trust unreviewed claims. Reliability is undermined by inconsistent model performance across patient demographics, which providers have noticed. Intimacy is damaged because the product presents AI recommendations as directives rather than decision support, threatening provider autonomy. Self-Orientation is perceived as high because the company's marketing emphasizes 'replacing radiologists' rather than 'supporting clinical decisions.' The trust analysis triggers a strategic reset: publish in JAMA Radiology, conduct bias audits across demographics, redesign the UX to position AI as advisory, and reframe messaging around clinical augmentation."
+    benchmark_references: ["clinical-evidence-strength", "provider-nps", "provider-adoption-rate"]
+
+  - skill: "doblin-ten-types"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "The Ten Types of Innovation framework reveals that healthtech companies over-invest in Product Performance innovation (clinical accuracy, feature richness) while underinvesting in the innovation types that drive adoption and sustainability. The most impactful healthtech innovations often come from Profit Model (reimbursement-aligned pricing, risk-sharing with payers), Network (EHR integration ecosystem, clinical data partnerships), Process (clinical workflow optimization, regulatory pathway efficiency), Channel (EHR marketplace distribution, clinical society endorsement), Customer Engagement (patient engagement design, provider champion programs), and Service (implementation support, clinical training programs). Channel and Service innovations are particularly underinvested in healthtech — companies build clinically excellent products and then struggle with distribution because they ignore the innovation types that connect the product to its clinical audience."
+    healthtech_anti_patterns:
+      - "Treating clinical accuracy as the only innovation vector. A diagnostic AI with 99% accuracy that cannot be integrated into clinical workflow is less innovative than one with 95% accuracy that operates natively within the EHR."
+      - "Ignoring Service innovation. Health system customers evaluate the total experience — implementation support, clinical training, ongoing support, and QBR reporting — not just the product. Service innovation is the most underrated competitive lever in healthtech."
+      - "Skipping Profit Model innovation. The shift from fee-for-service to value-based care creates opportunities for healthtech companies to innovate on pricing — risk-sharing arrangements, outcome-based pricing, and shared savings models that align company revenue with patient outcomes."
+    healthtech_example: "A population health analytics company maps its innovation portfolio across the ten types and discovers that 85% of R&D investment is in Product Performance (better algorithms, more data sources, faster processing). Channel innovation (how health systems discover and adopt the product), Service innovation (implementation and training), and Customer Engagement innovation (provider champion development, clinical community building) receive less than 5% combined. Rebalancing investment toward Channel (Epic App Orchard listing, HIMSS presence), Service (standardized implementation playbook, provider certification program), and Engagement (clinical advisory board expansion, outcomes publication program) accelerates adoption more than the next algorithmic improvement would."
+    benchmark_references: ["provider-adoption-rate", "clinical-workflow-integration-score", "time-to-value-implementation"]
+
+  - skill: "eisenhower-matrix"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "Healthtech founders face an additional prioritization dimension that the Eisenhower Matrix must accommodate: clinical urgency. A patient safety concern is always Urgent and Important — it cannot be delegated or scheduled for later. A regulatory submission deadline is Urgent and Important. A clinical study protocol revision may be Not Urgent but is Important for long-term reimbursement viability. Health system sales cycles create artificial urgency ('we need this feature by go-live next month') that often falls in Urgent/Not Important. The key healthtech adaptation is to separate clinical urgency (patient safety, regulatory compliance) from commercial urgency (customer requests, sales pressure) — clinical urgency always takes precedence."
+    healthtech_anti_patterns:
+      - "Treating health system feature requests with the same urgency as patient safety concerns. A health system asking for a report format change is commercially urgent but not clinically important. A clinical alert system failure is both."
+      - "Delegating regulatory affairs tasks to the Not Urgent/Important quadrant. Regulatory deadlines are unforgiving — a missed submission window can delay clearance by 6-12 months."
+      - "Spending all capacity on Urgent/Important clinical and regulatory tasks, leaving no capacity for the Not Urgent/Important work (clinical evidence strategy, payer relationship development, product vision) that determines long-term success."
+    healthtech_example: "A healthtech CEO uses the Eisenhower Matrix to regain strategic capacity. Urgent/Important: a clinical safety alert that requires immediate investigation and response protocol activation. Urgent/Not Important: a health system customer requesting a custom EHR integration variant — delegated to the implementation team with standard integration templates. Not Urgent/Important: designing the clinical study that will generate the evidence needed for Medicare coverage in 18 months — the CEO allocates weekly protected time for this strategic work. Not Urgent/Not Important: attending a general tech conference with no healthtech-specific content — declined."
+    benchmark_references: []
+
+  - skill: "kotter-change-model"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "Kotter's change model is essential for healthtech because every product deployment at a health system is a change management project. Providers resist new technology not because they are technophobic but because clinical workflow changes carry patient safety risk and add to already-excessive workloads. Step 1 (Create Urgency) must be grounded in clinical evidence — 'your readmission rate is 22% when the national benchmark is 15%' is more compelling than 'our product improves efficiency.' Step 3 (Form a Coalition) requires a clinical champion (respected physician who endorses the product), an IT sponsor (who approves integration), and an administrative sponsor (who approves the budget). Step 5 (Remove Obstacles) means addressing EHR integration barriers, training gaps, and clinical workflow disruptions. Step 6 (Quick Wins) must be clinical — a measurable improvement in a clinical metric within the first 30 days of deployment."
+    healthtech_anti_patterns:
+      - "Attempting change without a clinical champion. Technology-led change initiatives that lack a respected physician advocate are rejected by clinical staff. The champion must be a peer, not an administrator."
+      - "Equating training with change management. Training teaches how to use the product. Change management addresses why the product matters, how it fits into clinical workflow, and what will change in daily practice. Training alone is insufficient."
+      - "Measuring change success by adoption metrics (logins, usage) rather than clinical outcome metrics (patient outcomes, workflow efficiency). Providers respect evidence of impact, not evidence of activity."
+    healthtech_example: "A clinical decision support company deploys at a 500-bed hospital using Kotter's model. Step 1: Present data showing that the hospital's sepsis mortality rate exceeds the CMS benchmark, creating clinical urgency. Step 3: Recruit the Chief Medical Officer as executive sponsor, a hospitalist physician champion, and the CMIO as IT sponsor. Step 5: Integrate the sepsis alert directly into the Epic workflow so it requires zero additional clicks. Step 6: After 30 days, publish internal data showing a 15% improvement in time-to-antibiotic for sepsis patients — a quick win that converts skeptical clinicians into advocates."
+    benchmark_references: ["provider-adoption-rate", "time-to-value-implementation", "patient-outcomes-improvement"]
+
+  - skill: "systems-thinking"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "Healthcare is the most complex adaptive system that any entrepreneur will encounter. Systems thinking is not optional in healthtech — it is a survival skill. The healthcare system comprises interconnected subsystems (clinical delivery, payment, regulation, public health, research) where interventions in one area produce unpredictable effects in others. A digital health product that improves patient outcomes may increase health system costs (more survivors requiring continued care), reduce provider revenue (fewer procedures), or trigger regulatory scrutiny (new safety monitoring requirements). Healthtech entrepreneurs must map the causal loops, feedback mechanisms, and unintended consequences of their products within the healthcare system — and design for the systemic effects, not just the primary clinical effect."
+    healthtech_anti_patterns:
+      - "Optimizing for a single metric without understanding system-level effects. Reducing hospital readmissions (a common healthtech value proposition) may reduce hospital revenue under fee-for-service payment — creating perverse incentives that block adoption."
+      - "Assuming that better clinical outcomes automatically lead to business success. The healthcare system's misaligned incentives mean that products improving patient outcomes may not generate revenue, while products that generate revenue may not improve outcomes."
+      - "Ignoring the provider workforce system. Products that increase clinical workload — even marginally — in an already-burned-out healthcare workforce face adoption resistance regardless of their clinical merit."
+    healthtech_example: "A hospital-at-home technology company applies systems thinking and maps the full causal loop of their intervention: Product reduces hospital stays (primary effect) → Reduces hospital bed utilization (secondary effect) → Reduces hospital revenue under fee-for-service (negative business effect for the customer) → BUT reduces 30-day readmissions (positive quality effect) → Improves CMS quality scores → Increases hospital reimbursement through value-based incentive programs (positive business effect). The systems map reveals that the product's value proposition depends entirely on the hospital's payment model mix. Hospitals with >30% value-based contracts benefit financially; hospitals with <10% value-based contracts lose revenue. This insight transforms the sales strategy: target hospitals with high value-based contract exposure."
+    benchmark_references: ["patient-outcomes-improvement", "payer-reimbursement-rate", "provider-adoption-rate"]
+
+  - skill: "smart-goals"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "SMART goals in healthtech must be clinically specific, not just commercially specific. A goal like 'increase revenue 30%' is incomplete — it must be decomposed into clinical components: 'enroll 500 new patients in RPM program (clinical), achieve >60% 90-day engagement rate (clinical), secure billing code coverage from 3 additional commercial payers (reimbursement), reduce 30-day readmission rate by 15% in enrolled population (outcomes).' Every commercial goal should be traceable to a clinical goal, because in healthtech, clinical outcomes drive commercial outcomes, not the reverse."
+    healthtech_anti_patterns:
+      - "Setting commercial goals without clinical outcome targets. Revenue targets that lack corresponding patient outcome targets signal a business-first culture that undermines clinical credibility."
+      - "Setting clinical goals without reimbursement pathway analysis. A goal to 'demonstrate 20% outcome improvement' is incomplete if the improvement does not align with a reimbursable service or measurable quality metric."
+    healthtech_example: "A digital therapeutics company sets SMART goals that integrate clinical and commercial dimensions: Specific — Achieve FDA clearance for insomnia DTx and secure coverage from 3 of the top 10 commercial payers. Measurable — Published RCT demonstrating >40% improvement in ISI (Insomnia Severity Index), coverage covering >30M insured lives. Achievable — RCT enrollment complete, regulatory pre-submission meeting positive. Relevant — Insomnia affects 30% of adults, represents $100B+ in economic impact, and has inadequate pharmacological treatment. Time-bound — Clearance within 8 months, payer coverage within 14 months."
+    benchmark_references: ["regulatory-approval-status", "payer-reimbursement-rate", "patient-outcomes-improvement"]
+
+  # ─────────────────────────────────────────────
+  # GAME THEORY (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "game-theory-fundamentals"
+    category: "game-theory"
+    healthtech_relevance: "high"
+    healthtech_context: "Game theory in healthtech must account for multi-player games with asymmetric information and non-financial payoffs. The key players are the healthtech company, health systems, payers, regulators, providers, patients, and competing healthtech companies. Unlike most industries, the 'game' is not purely competitive — healthcare norms emphasize cooperation and patient welfare, creating mixed-motive games where pure self-interest strategies backfire. The regulator (FDA) is a player whose moves are partially predictable through public guidance and pre-submission feedback. Payers play a sequential game — Medicare moves first, and commercial payers follow with a lag. Health systems play a signaling game — early adopters send signals to later adopters through conference presentations and publications."
+    healthtech_anti_patterns:
+      - "Applying zero-sum competitive logic. Healthcare is fundamentally cooperative — providers, payers, and healthtech companies share a common interest in patient outcomes. Pure competitive strategies that harm other players damage the company's reputation in a trust-dependent ecosystem."
+      - "Ignoring the regulator as a player. FDA is not a passive rule-setter but an active participant whose guidance documents, enforcement actions, and pre-submission feedback shape the competitive landscape."
+    healthtech_example: "A clinical AI company analyzes the competitive game among three AI diagnostic startups competing for FDA clearance in the same indication. Game theory reveals that the first company to publish a peer-reviewed clinical study sets the evidence benchmark — subsequent entrants must meet or exceed it. This first-mover advantage in evidence generation is more valuable than first-mover advantage in product features. The company accelerates its clinical study timeline, accepting a slightly smaller sample size (adequate for 510(k) but not for the comprehensive study it originally planned) to establish the evidence benchmark before competitors."
+    benchmark_references: ["clinical-validation-stage", "regulatory-approval-status"]
+
+  - skill: "first-mover-strategy"
+    category: "game-theory"
+    healthtech_relevance: "high"
+    healthtech_context: "First-mover advantage in healthtech manifests differently than in consumer technology. Being first to market with a product is less valuable than being first to publish clinical evidence, first to obtain regulatory clearance, or first to secure payer reimbursement. These 'regulatory firsts' create durable advantages because: (1) the first cleared product establishes the predicate device that subsequent entrants must reference, (2) the first published RCT sets the evidence standard, (3) the first company to negotiate payer coverage establishes the reimbursement code and rate that defines the market. The risk of being first is also higher in healthtech — first movers bear the full cost of clinical validation and may discover that the market is not reimbursement-ready."
+    healthtech_anti_patterns:
+      - "Prioritizing product launch speed over clinical evidence. In healthtech, launching first without evidence is worse than launching second with evidence. The first-mover advantage accrues to the evidence leader, not the product leader."
+      - "Assuming first-mover regulatory clearance creates a permanent moat. FDA clearance for a competitor is typically achievable within 12-24 months using the first mover's device as a predicate. The durable moat is clinical evidence and health system relationships, not the clearance itself."
+    healthtech_example: "In the continuous glucose monitoring market, Dexcom's first-mover advantage was built not on product features but on three regulatory firsts: first to achieve FDA clearance for a non-adjunctive CGM (patients could dose insulin based on CGM readings alone), first to publish the evidence that supported this clearance, and first to establish Medicare coverage. Abbott's FreeStyle Libre followed with a competitive product — but Dexcom's regulatory and reimbursement head start created a durable clinical workflow and payer relationship advantage that took Abbott years to close."
+    benchmark_references: ["regulatory-approval-status", "time-to-regulatory-clearance", "payer-reimbursement-rate"]
+
+  - skill: "prisoners-dilemma-and-cooperation"
+    category: "game-theory"
+    healthtech_relevance: "high"
+    healthtech_context: "The prisoner's dilemma appears repeatedly in healthtech: between healthtech companies and health systems (share clinical data vs. hoard it), between competing healthtech companies (collaborate on standards vs. pursue proprietary lock-in), and between healthtech and payers (invest in long-term outcomes vs. optimize short-term costs). The cooperative equilibrium is both more ethical and more profitable in healthtech because the ecosystem is small, reputation-dependent, and long-memory. Defecting (e.g., over-claiming clinical results, locking in health systems with proprietary data formats) yields short-term advantage but destroys the trust that health system and payer relationships require."
+    healthtech_anti_patterns:
+      - "Defecting on data interoperability. Building proprietary data formats to lock in health system customers creates short-term switching costs but generates long-term resentment and regulatory risk (FHIR interoperability mandates)."
+      - "Defecting on clinical evidence integrity. Overstating clinical results to win a deal may succeed once, but the health system will discover the discrepancy — and will communicate the betrayal to every other system in its network."
+    healthtech_example: "Two competing remote patient monitoring companies face a prisoner's dilemma on industry data standards. Company A adopts open FHIR-based data standards, making it easy for health systems to switch providers. Company B builds proprietary data formats. In the short run, Company B retains customers through lock-in. In the long run, health system CIOs refuse to adopt Company B's closed system, and CMS interoperability mandates force Company B to adopt open standards anyway — having spent resources on a proprietary system that must be rebuilt. Company A's cooperative strategy wins because the regulatory environment and buyer preferences penalize defection."
+    benchmark_references: ["clinical-workflow-integration-score", "churn-rate-provider"]
+
+  - skill: "information-asymmetry"
+    category: "game-theory"
+    healthtech_relevance: "high"
+    healthtech_context: "Information asymmetry in healthtech takes a unique form: the healthtech company knows its product's clinical data intimately, while health system buyers, payers, and patients must rely on the company's disclosures. This creates a moral hazard — the company is incentivized to emphasize positive results and downplay limitations. Healthcare's response to this asymmetry is institutional: clinical peer review, IRB oversight, FDA review, and clinical advisory board scrutiny all serve as information asymmetry reduction mechanisms. Healthtech companies that proactively reduce information asymmetry (by publishing all clinical data, including unfavorable results) build trust faster than those that manage information strategically."
+    healthtech_anti_patterns:
+      - "Selectively disclosing clinical data. Publishing favorable results while suppressing unfavorable ones is a form of information manipulation that, when discovered, destroys clinical credibility permanently."
+      - "Exploiting patient information asymmetry. Patients cannot evaluate clinical claims with the same rigor as providers. Products that make unsupported claims to patients are ethically problematic and legally vulnerable."
+    healthtech_example: "A clinical AI company voluntarily publishes its model's performance across demographic subgroups, revealing that accuracy is lower for certain populations. This transparency initially concerns potential health system customers. However, the disclosure — and the company's plan to address the disparity — builds trust with clinical advisory boards and positions the company as an ethical leader. A competitor that conceals similar disparities faces a devastating public disclosure when an academic researcher identifies the bias, destroying that company's clinical credibility."
+    benchmark_references: ["clinical-evidence-strength", "provider-nps"]
+
+  # ─────────────────────────────────────────────
+  # NEGOTIATION (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "cooperative-negotiation"
+    category: "negotiation"
+    healthtech_relevance: "critical"
+    healthtech_context: "Health system and payer negotiations in healthtech are inherently cooperative because the relationship extends over years and the shared interest is patient outcomes. Adversarial negotiation tactics destroy the trust required for clinical partnerships. Cooperative negotiation in healthtech means: structuring pilot agreements as mutual learning exercises (not win/lose evaluations), designing contracts with shared outcome metrics (not just SaaS seat licenses), and treating the health system's clinical champion as a co-developer (not a customer). The negotiation framework must also address the multi-stakeholder nature of health system deals: the clinical champion, the CIO/CMIO, procurement, legal, and the clinical review committee each have different interests that must be satisfied cooperatively."
+    healthtech_anti_patterns:
+      - "Negotiating against the clinical champion. The clinical champion is the company's strongest advocate inside the health system. An adversarial negotiation stance with this person damages the most valuable relationship in the deal."
+      - "Using artificial urgency or competitive pressure tactics. Health system procurement moves at its own pace — creating false urgency undermines trust and signals commercial desperation."
+    healthtech_example: "A healthtech company negotiating a $500K enterprise deployment at a major health system structures the deal cooperatively: a 90-day pilot with jointly defined clinical outcome metrics, pricing that starts at cost during the pilot and escalates to full rate upon outcome achievement, shared publication rights for clinical results, and a dedicated implementation liaison who reports to both the company and the health system CMIO. This structure converts a vendor-buyer negotiation into a clinical partnership — and the health system becomes a referenceable advocate."
+    benchmark_references: ["contract-value-health-system", "sales-cycle-length", "time-to-value-implementation"]
+
+  - skill: "competitive-negotiation"
+    category: "negotiation"
+    healthtech_relevance: "moderate"
+    healthtech_context: "Competitive negotiation in healthtech applies primarily in three contexts: payer rate negotiations (where the healthtech company negotiates reimbursement rates with commercial payers), exclusive distribution agreements (where health systems demand exclusive territory rights), and M&A discussions. In payer negotiations, the company's clinical evidence is its primary leverage — published outcomes data that demonstrates cost avoidance is the strongest argument for higher reimbursement rates. In exclusive territory negotiations, the company must balance the value of exclusivity (guaranteed volume) against the cost (limited market access)."
+    healthtech_anti_patterns:
+      - "Using competitive negotiation tactics in health system relationships. Health systems are long-term clinical partners, not adversarial counterparties. Competitive tactics that win a deal but damage the relationship cost more in the long run."
+      - "Negotiating payer rates without published health economic data. Payers evaluate reimbursement based on cost-effectiveness evidence. Without it, the negotiation lacks a credible anchor."
+    healthtech_example: "A digital therapeutics company negotiates with a large commercial payer for formulary inclusion. The company's competitive advantage is a published RCT showing 35% improvement in outcomes and a health economic analysis demonstrating $4,200 in avoided medical costs per patient per year. The negotiation anchors on value: the company requests a reimbursement rate of $200/patient/month ($2,400/year) — significantly less than the $4,200 in demonstrated savings. The payer accepts because the cost-savings ratio is compelling, and the clinical evidence provides the internal justification for the coverage decision."
+    benchmark_references: ["payer-reimbursement-rate", "patient-outcomes-improvement", "clinical-evidence-strength"]
+
+  - skill: "negotiation-game-theory"
+    category: "game-theory"
+    healthtech_relevance: "high"
+    healthtech_context: "Negotiation game theory in healthtech must account for the sequential nature of health system and payer negotiations. Health systems negotiate with full awareness that Medicare rates set a reference price, that competing health systems have likely received similar proposals, and that the healthtech company's clinical evidence is either strong or weak (not something that can be bluffed). The repeated-game nature of healthcare negotiations (annual renewals, multi-year contracts, expanding relationships) means that cooperative strategies dominate competitive ones. Healthtech negotiations are also information-rich: both parties can observe clinical outcomes, usage data, and patient engagement metrics in real time."
+    healthtech_anti_patterns:
+      - "Bluffing about clinical evidence or product capabilities. Healthcare negotiations are conducted by clinically sophisticated buyers who verify claims independently. Being caught in a bluff destroys not just the deal but the company's reputation across the health system network."
+      - "Treating each negotiation as independent. Health system purchasing networks share information. A concession made to one system becomes the expected baseline for the next."
+    healthtech_example: "A healthtech company analyzes the negotiation game across its health system pipeline and recognizes that its first major health system deal will set the reference price for all subsequent negotiations. Game theory analysis suggests a strategy of accepting slightly lower pricing on the first deal in exchange for contractual permission to publish clinical outcomes data — the published results from a prestigious health system become leverage for higher pricing in subsequent negotiations."
+    benchmark_references: ["contract-value-health-system", "sales-cycle-length"]
+
+  # ─────────────────────────────────────────────
+  # LEADERSHIP & PEOPLE (5 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "decision-making-under-pressure"
+    category: "leadership"
+    healthtech_relevance: "critical"
+    healthtech_context: "Decision-making under pressure in healthtech carries a dimension absent from other technology sectors: clinical consequence. A decision to ship a product update may affect patient care. A decision to delay a feature may leave patients without a beneficial intervention. A decision to cut costs may reduce clinical support staffing below safe levels. Healthtech leaders must develop a decision framework that explicitly weighs patient safety alongside commercial considerations — and when the two conflict, patient safety must prevail without exception. This is not merely an ethical stance but a practical one: a single patient safety incident can destroy the company through regulatory action, litigation, and reputational damage."
+    healthtech_anti_patterns:
+      - "Applying the 'bias toward action' startup philosophy to clinical decisions. Speed is valuable for commercial decisions but dangerous for clinical ones. Clinical decisions require deliberation proportional to the potential for patient harm."
+      - "Delegating clinical safety decisions to non-clinical team members. Patient safety decisions must involve clinical expertise — a product manager or engineer without clinical background should not make decisions that affect patient care pathways."
+    healthtech_example: "A healthtech CEO faces a pressure decision: a health system customer demands a product feature change that would bypass a clinical safety alert to reduce provider alert fatigue. The commercial pressure is significant — the customer threatens contract non-renewal. The CEO consults the clinical advisory board, which determines that the safety alert prevents a rare but potentially fatal drug interaction. The decision: the alert remains mandatory, but the product team redesigns the alert UX to reduce fatigue without compromising safety. The customer renews after seeing the redesigned experience."
+    benchmark_references: ["data-security-incident-rate", "provider-nps"]
+
+  - skill: "leading-through-change"
+    category: "leadership"
+    healthtech_relevance: "high"
+    healthtech_context: "Leading through change in healthtech requires understanding that the healthcare workforce is simultaneously the most change-resistant and the most overburdened workforce in the economy. Physicians have trained for 10-15 years in specific clinical practices. Nurses manage care under extreme time pressure. Asking these professionals to adopt new technology is asking them to change deeply embedded clinical behaviors while maintaining patient safety standards. Change leadership in healthtech must respect this reality — change must be clinically justified (not just commercially motivated), incrementally introduced (not big-bang deployed), and champion-led (not mandated from above)."
+    healthtech_anti_patterns:
+      - "Mandating technology adoption without clinical justification. Providers comply with mandates but do not engage. Mandated adoption without clinical buy-in leads to workarounds that undermine the product's clinical effectiveness."
+      - "Deploying to all providers simultaneously. Phased rollout with clinical champions who train and support their peers produces better adoption than enterprise-wide simultaneous deployment."
+    healthtech_example: "A health system deploys a clinical AI tool for early sepsis detection using a change leadership approach. Phase 1: Three physician champions use the tool for 30 days and present their experience (including saved lives) at a medical staff meeting. Phase 2: Their departments adopt, with champions available for peer support. Phase 3: Hospital-wide rollout with the original champions serving as clinical super-users. This champion-cascade model achieves 75% adoption in 90 days — compared to a failed previous deployment of a different tool that mandated simultaneous adoption and achieved 25%."
+    benchmark_references: ["provider-adoption-rate", "time-to-value-implementation"]
+
+  - skill: "emotional-intelligence"
+    category: "frameworks"
+    healthtech_relevance: "high"
+    healthtech_context: "Emotional intelligence in healthtech extends beyond interpersonal dynamics to include clinical empathy — the ability to understand the emotional experience of patients navigating illness and the emotional burden of providers managing life-and-death decisions daily. Healthtech founders who lack clinical empathy build products that treat healthcare as a workflow optimization problem rather than a human experience. The most successful healthtech companies are led by founders who understand that a patient using their product may be frightened, a provider may be exhausted, and a health system administrator may be overwhelmed — and who design products that respect these emotional realities."
+    healthtech_anti_patterns:
+      - "Treating provider resistance as irrational. Provider skepticism toward new technology is often rational — they have seen countless 'revolutionary' health IT products fail, disrupt workflow, and waste their time. Emotional intelligence means respecting this learned skepticism."
+      - "Designing patient-facing products without understanding the emotional state of the patient population. A patient recently diagnosed with cancer has different emotional needs from a patient managing stable diabetes. One-size-fits-all engagement design ignores these differences."
+    healthtech_example: "A mental health tech company redesigns its patient onboarding after emotional intelligence analysis reveals that patients referred to the platform are often in crisis — they are not calmly evaluating software features. The redesigned onboarding eliminates all setup friction, immediately provides a therapeutic exercise (not an account creation form), and offers a human crisis line as the first contact option. Completion rates increase from 30% to 65%, and patient NPS for the onboarding experience rises from 40 to 78."
+    benchmark_references: ["patient-satisfaction-score", "patient-engagement-rate"]
+
+  - skill: "psychological-safety"
+    category: "frameworks"
+    healthtech_relevance: "critical"
+    healthtech_context: "Psychological safety in healthtech carries clinical safety implications. A team that lacks psychological safety will not report product defects that could affect patient care, will not raise concerns about clinical evidence quality, and will not challenge decisions that prioritize commercial objectives over patient outcomes. In healthcare, the concept of a 'just culture' — where reporting errors and near-misses is encouraged and non-punitive — has been shown to reduce patient harm. Healthtech companies must extend this just culture to their product development process: engineers must feel safe reporting bugs that could affect clinical decisions, clinical team members must feel safe challenging product decisions that could compromise patient safety, and quality assurance must have the authority to halt releases that fail safety criteria."
+    healthtech_anti_patterns:
+      - "Treating product defect reports as negative events rather than safety contributions. In healthtech, an engineer who identifies a clinical decision support error before deployment has potentially saved lives. The reporting behavior must be celebrated, not punished."
+      - "Allowing commercial pressure to silence clinical safety concerns. If a product manager overrides a clinical team member's safety concern to meet a release deadline, the company has failed at psychological safety — and has potentially endangered patients."
+    healthtech_example: "A clinical AI company establishes a 'clinical safety stop' protocol: any team member, regardless of seniority, can halt a product release by raising a clinical safety concern. The concern is evaluated by the Chief Medical Officer within 24 hours. In the first year, the stop protocol is invoked seven times — four concerns are substantiated and trigger product modifications before release, three are cleared after review. The protocol prevents two algorithmic errors that would have affected clinical recommendations for thousands of patients."
+    benchmark_references: ["data-security-incident-rate", "provider-nps"]
+
+  - skill: "purpose-driven-leadership"
+    category: "leadership"
+    healthtech_relevance: "high"
+    healthtech_context: "Purpose-driven leadership in healthtech is not aspirational — it is operational. The purpose (improving patient health outcomes) provides the decision-making framework for every trade-off: when commercial interests conflict with clinical interests, purpose resolves the tie. Healthtech companies with genuine purpose-driven leadership attract clinical talent who want to improve healthcare, build products that providers trust, and develop the clinical evidence rigor that payers require. Companies where purpose is performative (marketing language without operational commitment) are identified quickly by clinical audiences, who have finely tuned sensors for authenticity."
+    healthtech_anti_patterns:
+      - "Using patient outcomes language in marketing without tracking patient outcomes operationally. If the company's dashboards show revenue and engagement but not clinical outcome metrics, the purpose is performative."
+      - "Making purpose-driven hiring claims while compensating executives purely on financial metrics. Executive incentive structures that lack clinical outcome components signal that purpose is subordinate to profit."
+    healthtech_example: "A healthtech CEO restructures executive compensation to include a clinical outcome component: 20% of variable compensation is tied to patient outcomes improvement metrics. The board initially resists, arguing that clinical outcomes are influenced by factors outside the company's control. The CEO counters that revenue is also influenced by external factors but no one questions revenue-based incentives. The compensation restructuring sends a powerful signal to the clinical team, to health system customers, and to investors that patient outcomes are a first-class business metric."
+    benchmark_references: ["patient-outcomes-improvement", "provider-nps"]
+
+  # ─────────────────────────────────────────────
+  # AI & DATA (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "ai-vision-and-strategy"
+    category: "ai-leadership"
+    healthtech_relevance: "critical"
+    healthtech_context: "AI strategy in healthtech must navigate the FDA's evolving framework for AI/ML-based Software as a Medical Device (SaMD). The FDA's 2023 AI/ML Action Plan and subsequent guidance documents require that AI-based clinical tools demonstrate safety and effectiveness, maintain performance over time (no model drift degradation), and provide transparency about the AI's role in clinical decision-making. AI strategy in healthtech must address: regulatory pathway for AI-based products (predetermined change control plans for iterative model updates), clinical validation (prospective clinical studies, not just retrospective accuracy testing), algorithmic fairness (performance across demographic subgroups), and explainability (clinicians must understand why the AI makes a recommendation). The AI strategy must also address the unique risk that an AI-based clinical error could harm patients — making AI safety a patient safety obligation."
+    healthtech_anti_patterns:
+      - "Treating AI accuracy on retrospective datasets as clinical validation. FDA requires prospective clinical evidence, not just technical benchmarks. An AI with 99% accuracy on a research dataset may perform very differently in real clinical practice with messy, incomplete data."
+      - "Building 'black box' AI clinical tools. The FDA and clinical audiences require explainability — clinicians will not trust (and should not trust) recommendations they cannot understand. Explainability is a regulatory requirement and a clinical adoption requirement."
+      - "Planning continuous model updates without a predetermined change control plan. The FDA requires that SaMD companies define in advance which types of model changes require new regulatory submissions versus ongoing monitoring."
+    healthtech_example: "A clinical AI company develops a strategy that addresses FDA requirements from the architecture level. The AI system is designed with an explainability layer that provides clinicians with the top three factors influencing each recommendation. The company files a predetermined change control plan with FDA that defines the boundaries of autonomous model updates (performance improvement within the cleared indication) versus changes requiring new submission (new indications, new data types, architecture changes). Clinical validation includes a prospective multi-site study with pre-specified performance thresholds across eight demographic subgroups."
+    benchmark_references: ["regulatory-approval-status", "clinical-evidence-strength", "clinical-validation-stage"]
+
+  - skill: "ai-human-centered-approach"
+    category: "ai-leadership"
+    healthtech_relevance: "critical"
+    healthtech_context: "Human-centered AI in healthtech means provider-centered and patient-centered simultaneously. For providers, human-centered AI means decision support (not decision replacement), transparent reasoning, graceful degradation when uncertain, and respect for clinical judgment when the provider disagrees with the AI. For patients, it means accessible explanations, respect for health literacy variation, cultural sensitivity, and the ability to involve family or caregivers. The 'human in the loop' is not optional in clinical AI — it is a regulatory and ethical requirement. FDA guidance emphasizes that AI/ML-based SaMD should augment clinical decision-making, not replace it."
+    healthtech_anti_patterns:
+      - "Designing AI that bypasses the clinician. Autonomous AI clinical decision-making without clinician oversight is neither regulatorily permissible (for most clinical applications) nor clinically safe. The clinician must remain the decision-maker."
+      - "Treating AI explanations as technical documentation. Explanations for clinical AI must be written for clinicians, not engineers — using clinical terminology, citing clinical reasoning, and relating to the specific patient context."
+    healthtech_example: "A clinical AI radiology tool is redesigned using human-centered principles. Instead of presenting a diagnosis, the tool highlights regions of interest in the image, provides a confidence score with clinical context ('85% probability of malignancy based on lesion characteristics consistent with [clinical criteria]'), and offers the radiologist the option to accept, modify, or reject the assessment. The tool also presents relevant comparison cases from its training data. This design respects the radiologist's expertise while providing AI-augmented decision support that improves diagnostic accuracy by 15% in a prospective study."
+    benchmark_references: ["provider-nps", "provider-adoption-rate", "clinical-evidence-strength"]
+
+  - skill: "ai-stakeholder-balance"
+    category: "ai-leadership"
+    healthtech_relevance: "high"
+    healthtech_context: "AI stakeholder balance in healthtech requires managing the competing interests of patients (who want accurate, fair, and private AI), providers (who want reliable, explainable, and non-disruptive AI), health systems (who want cost-effective, interoperable AI), payers (who want evidence-based, cost-reducing AI), regulators (who want safe, transparent, and well-monitored AI), and the company's investors (who want scalable, high-margin AI). These interests frequently conflict: investor pressure for rapid scaling conflicts with the clinical evidence timeline required by regulators. Provider desire for explainability conflicts with the complexity of deep learning models. Patient privacy requirements conflict with the data volume needed for model improvement."
+    healthtech_anti_patterns:
+      - "Prioritizing investor scalability demands over regulatory safety requirements. Scaling an AI clinical tool before adequate safety monitoring is in place creates patient risk and regulatory risk simultaneously."
+      - "Satisfying provider explainability demands by oversimplifying the AI's reasoning. Explanations must be accurate as well as accessible — a simplified explanation that misrepresents the AI's actual reasoning process is misleading."
+    healthtech_example: "A clinical AI company creates a stakeholder balance map for its diagnostic AI: Patient interest — equitable accuracy across demographics (requires bias audits). Provider interest — explainable recommendations (requires interpretability layer). Health system interest — EHR integration and workflow compatibility (requires SMART on FHIR architecture). Payer interest — published cost-effectiveness data (requires health economic study). Regulator interest — predetermined change control plan and post-market surveillance (requires regulatory infrastructure). Investor interest — capital-efficient scaling (requires automated deployment and monitoring). The map reveals that the regulatory and clinical evidence requirements must be satisfied first because they enable all other stakeholder interests."
+    benchmark_references: ["clinical-evidence-strength", "regulatory-approval-status", "provider-adoption-rate"]
+
+  # ─────────────────────────────────────────────
+  # THINKING & DECISIONS (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "defining-and-exploring-problems"
+    category: "thinking"
+    healthtech_relevance: "high"
+    healthtech_context: "Problem definition in healthtech must begin with the clinical problem, not the technology solution. The most common healthtech failure mode is building a technically impressive product that solves a problem clinicians do not consider important or that creates more burden than it eliminates. Problem exploration must involve clinicians (who understand the clinical workflow), patients (who experience the health condition), and payers (who fund the intervention). The problem definition must pass the 'triple aim test': does solving this problem improve patient outcomes, improve patient/provider experience, and reduce cost? Problems that satisfy only one or two of the triple aim have limited commercial viability in healthcare."
+    healthtech_anti_patterns:
+      - "Starting with the technology and searching for a clinical problem to solve. Technology-first problem definition leads to products that demonstrate technical capability without clinical utility."
+      - "Defining the problem based on clinician interviews alone without observing actual clinical workflow. What clinicians say they need and what clinical observation reveals they need are often different."
+    healthtech_example: "A healthtech startup redefines its problem statement after clinical workflow observation. The original problem: 'Clinicians need better diagnostic AI.' After observing 50 clinical encounters, the revised problem: 'Primary care physicians spend 18 minutes per patient encounter on documentation, leaving 7 minutes for clinical assessment — the documentation burden, not diagnostic capability, is the constraint on care quality.' The product pivots from diagnostic AI to ambient clinical documentation, which generates significantly more provider enthusiasm and a clearer reimbursement pathway."
+    benchmark_references: ["provider-adoption-rate", "provider-nps"]
+
+  - skill: "evaluating-and-deciding"
+    category: "thinking"
+    healthtech_relevance: "high"
+    healthtech_context: "Evaluation and decision-making in healthtech must incorporate clinical risk as a first-class dimension alongside financial and operational considerations. Every decision framework should include the question: 'If this decision leads to the worst plausible clinical outcome, what happens to patients?' This is not paranoia — it is the clinical version of pre-mortem analysis. Decisions that create even a small probability of patient harm require more rigorous evaluation than those with purely financial consequences. The evaluation framework should also weight irreversibility: clinical product changes that affect patient care are harder to reverse than pricing or marketing changes."
+    healthtech_anti_patterns:
+      - "Applying purely financial decision criteria to decisions with clinical implications. A cost-benefit analysis that shows a positive ROI for shipping a product faster should not override clinical safety concerns about the accelerated timeline."
+      - "Using consumer technology decision-making speed for clinical product decisions. The 'ship it and iterate' approach is appropriate for engagement features but not for clinical decision support algorithms."
+    healthtech_example: "A healthtech company evaluates whether to expand its clinical AI into a new therapeutic area. The evaluation framework includes four dimensions: Clinical (is there sufficient evidence that AI improves outcomes in this area?), Regulatory (what pathway is required and what is the timeline?), Reimbursement (do billing codes exist and will payers cover it?), and Safety (what is the worst plausible clinical outcome if the AI performs poorly?). The Safety dimension reveals that errors in the proposed therapeutic area (oncology) carry higher consequence than the current area (dermatology) — the evaluation triggers a more rigorous clinical validation plan before market entry."
+    benchmark_references: ["clinical-validation-stage", "regulatory-approval-status"]

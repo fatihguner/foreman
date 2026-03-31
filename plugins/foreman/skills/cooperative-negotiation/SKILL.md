@@ -1,0 +1,1 @@
+../../../../.claude/skills/negotiation/cooperative-negotiation.md

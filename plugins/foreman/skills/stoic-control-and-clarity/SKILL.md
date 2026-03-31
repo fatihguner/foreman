@@ -1,0 +1,1 @@
+../../../../.claude/skills/stoic/stoic-control-and-clarity.md

@@ -1,0 +1,96 @@
+name: Bug Report
+description: Report a broken skill, incorrect routing, or system malfunction
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug. Please fill out the fields below so we can reproduce and fix the issue efficiently.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the bug clearly. What went wrong?
+      placeholder: A concise description of the unexpected behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Provide the exact steps to trigger this bug.
+      placeholder: |
+        1. Run `/apply ...`
+        2. Provide context: ...
+        3. Observe output: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected Behavior
+      description: What should have happened instead?
+      placeholder: Describe what you expected the system to do.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual Behavior
+      description: What actually happened?
+      placeholder: Describe what the system actually did, including any error messages or incorrect output.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: affected-component
+    attributes:
+      label: Affected Component
+      description: Which part of the system is affected?
+      options:
+        - Skills
+        - Output Templates
+        - Diagnostics
+        - Playbooks
+        - Hooks
+        - Agents
+        - Memory
+        - Commands
+        - Scripts
+        - Industry Packs
+        - Research Guides
+        - Implementation
+        - Simulation
+        - Org Politics
+        - Solo Mode
+        - Stoic Mode
+        - Language Mode
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Any relevant environment details.
+      placeholder: |
+        - Claude model version: (e.g., Claude Opus 4, Claude Sonnet 4)
+        - OS: (e.g., macOS 15.3, Ubuntu 24.04)
+        - Shell: (e.g., zsh, bash)
+        - Claude Code version: (if applicable)
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help us diagnose the issue -- logs, screenshots, related issues, etc.
+    validations:
+      required: false

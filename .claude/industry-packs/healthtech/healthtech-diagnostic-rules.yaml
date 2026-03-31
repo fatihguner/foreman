@@ -1,0 +1,728 @@
+# Healthtech Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift in a healthtech context.
+# The diagnostic agent loads these rules when the healthtech industry pack is active.
+#
+# PATIENT SAFETY PRINCIPLE: Every diagnostic adaptation addresses how patient
+# safety, clinical validation, and regulatory compliance shape the diagnosis.
+# In healthtech, the presenting business symptom (revenue decline, growth stall,
+# churn) often has a clinical root cause — insufficient evidence, provider
+# adoption failure, reimbursement denial, or regulatory delay. Diagnostics
+# must surface clinical dimensions even when the presenting symptom appears
+# purely commercial.
+#
+# TRIPLE STAKEHOLDER PRINCIPLE: Healthtech diagnostics must consider whether the
+# problem originates with patients (engagement, outcomes), providers (adoption,
+# satisfaction), or payers (reimbursement, coverage). The root cause often lies
+# in a different stakeholder group than the symptom suggests.
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for healthtech companies.
+#   enhanced — The diagnostic is relevant but benefits from additional healthtech-specific
+#              triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for healthtech.
+
+pack_metadata:
+  sector: "healthtech"
+  display_name: "Healthtech"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Churn in healthtech has three distinct dimensions absent from other industries. Provider churn (health systems terminating contracts) is driven by adoption failure, clinical evidence gaps, or reimbursement changes — not product satisfaction in the SaaS sense. Patient churn (patients disengaging) has clinical consequences — a patient who stops using a DTx is not merely a lost user but a patient not receiving their prescribed intervention. Payer churn (payers discontinuing coverage) eliminates the revenue foundation for an entire patient population. Separating these three churn vectors is essential for accurate diagnosis."
+    additional_triage_questions:
+      - question: "Which stakeholder is churning — health system customers (contract non-renewal), patients (disengagement from the clinical intervention), or payers (coverage termination)?"
+        purpose: "Each churn type has fundamentally different root causes and solutions. Health system churn signals adoption or evidence failure. Patient churn signals engagement or clinical relevance failure. Payer churn signals reimbursement or evidence failure."
+        routing_impact: "Health system churn routes to provider-adoption-rate analysis and clinical-workflow-integration assessment. Patient churn routes to patient-engagement-rate analysis and clinical protocol review. Payer churn routes to clinical-evidence-strength assessment and reimbursement strategy review."
+      - question: "Is provider adoption within the health system customer above 50%, or are contracted providers not using the product?"
+        purpose: "Health systems may terminate contracts not because the product is inadequate but because their providers did not adopt it — an implementation failure, not a product failure. Low adoption within contracted systems is the most common and most fixable healthtech churn driver."
+        routing_impact: "Low adoption (<50%) routes to implementation process review, provider training assessment, and clinical workflow integration analysis. High adoption with churn routes to clinical evidence review and competitive analysis."
+      - question: "Did the churn coincide with a change in reimbursement policy, clinical guidelines, or the departure of the clinical champion at the health system?"
+        purpose: "Healthtech churn is frequently triggered by external events — a payer discontinuing coverage eliminates the revenue justification, updated clinical guidelines that favor a different approach reduce the evidence argument, and the departure of the physician champion removes the internal advocate."
+        routing_impact: "Reimbursement-driven churn routes to payer strategy review and alternative revenue model exploration. Guideline-driven churn routes to clinical evidence strategy reassessment. Champion-departure churn routes to relationship diversification and implementation depth analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Provider adoption failure driving health system churn"
+          reason: "The most common healthtech churn pattern: the health system buys the product, but providers do not use it. Low adoption leads to low outcomes, which leads to non-renewal. The product may be excellent — but if providers do not adopt it, the clinical value is never delivered."
+        - diagnosis: "Reimbursement loss undermining the business case for continued use"
+          reason: "When payers reduce or eliminate coverage for the product's clinical use case, health systems lose the financial justification for the contract. The product's clinical value is unchanged, but the economic model collapses."
+      less_likely:
+        - diagnosis: "Product feature inadequacy"
+          reason: "Healthtech churn is rarely driven by missing features. It is driven by workflow disruption, insufficient evidence, reimbursement failure, or adoption barriers. Feature gap is the most over-diagnosed and least accurate churn driver in healthtech."
+    healthtech_specific_diagnoses:
+      - name: "Clinical validation gap driving payer and provider rejection"
+        description: "The product lacks sufficient clinical evidence to satisfy health system clinical review committees and payer coverage criteria. Sales stall at the evidence question, and existing customers do not renew because they cannot demonstrate clinical value to their internal stakeholders. The product may be effective, but without published evidence, effectiveness cannot be verified."
+        symptoms:
+          - "Health system clinical review committees requesting evidence that does not exist"
+          - "Payers declining coverage citing insufficient evidence"
+          - "Existing customers unable to justify renewal to their clinical and administrative leadership"
+          - "Competitors with published studies winning head-to-head evaluations despite inferior product"
+        routes_to_skills: ["trust-equation", "balanced-scorecard", "scenario-planning"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+      - name: "Provider adoption resistance causing implementation failure"
+        description: "The product has been deployed at health systems, but providers are not using it. The product adds steps to clinical workflow, generates excessive alerts, requires a separate login, or simply does not fit the way clinicians work. The health system sees low utilization data and declines to renew."
+        symptoms:
+          - "Provider adoption rate below 30% at deployed health systems"
+          - "Health system CIO or CMIO citing 'low utilization' as reason for non-renewal"
+          - "Provider feedback referencing 'extra clicks,' 'alert fatigue,' or 'workflow disruption'"
+          - "Support tickets dominated by workflow and integration issues rather than product defects"
+        routes_to_skills: ["kotter-change-model", "systems-thinking", "net-promoter-score"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+      - name: "Patient engagement collapse undermining clinical outcomes"
+        description: "Patients enroll in the product but disengage within weeks. For patient-facing healthtech (DTx, RPM, chronic disease management), patient disengagement means the clinical intervention is not being delivered. Without sustained engagement, outcomes cannot improve, and the clinical value proposition collapses."
+        symptoms:
+          - "Patient engagement rate declining below 25% by week 4 post-enrollment"
+          - "Clinical outcome metrics showing no improvement because patients are not receiving the intervention"
+          - "Provider and payer questioning the product's clinical effectiveness based on real-world engagement data"
+          - "Published clinical trial engagement rates significantly higher than real-world deployment engagement"
+        routes_to_skills: ["product-life-cycle", "net-promoter-score", "emotional-intelligence"]
+        routes_to_templates: ["action-plan", "quarterly-business-review"]
+    sector_red_flags:
+      - "Health system contract non-renewal when provider adoption was below 40% — signals an implementation problem, not a product problem, but the commercial outcome is identical."
+      - "Payer coverage termination affecting multiple health system customers simultaneously — a systemic reimbursement risk that can collapse revenue rapidly."
+      - "Patient disengagement rate exceeding the rate observed in clinical trials — signals that real-world conditions do not replicate trial conditions, undermining the evidence base."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Healthtech growth stalls have structural causes absent from other industries. Growth can stall because of regulatory bottlenecks (waiting for FDA clearance to market the product), clinical validation delays (study takes longer than projected), health system sales cycle length (12-18 month cycles create lumpy, unpredictable growth), provider change resistance (clinicians adopt slowly regardless of product quality), or reimbursement gaps (product cleared but not covered). The growth stall diagnostic must separate market-driven stalls from regulation-driven stalls, evidence-driven stalls, and reimbursement-driven stalls."
+    additional_triage_questions:
+      - question: "Is the growth stall occurring pre-regulatory clearance (cannot market the product), post-clearance but pre-reimbursement (can market but health systems cannot bill for it), or post-reimbursement (can market and bill but customers are not buying)?"
+        purpose: "Each phase has a fundamentally different growth constraint. Pre-clearance stalls are regulatory problems. Pre-reimbursement stalls are payer strategy problems. Post-reimbursement stalls are commercial execution problems."
+        routing_impact: "Pre-clearance routes to regulatory pathway assessment and scenario-planning for timeline extension. Pre-reimbursement routes to payer strategy and alternative revenue model development. Post-reimbursement routes to standard commercial growth diagnosis."
+      - question: "How many health system customers are in active sales pipeline, and what is the median time-in-stage for each pipeline phase?"
+        purpose: "Healthtech pipeline is notoriously long. A growth stall may reflect pipeline maturation (deals progressing slowly through clinical evaluation, IT review, and legal) rather than pipeline weakness (insufficient inbound demand). The distinction determines the response."
+        routing_impact: "Long time-in-stage routes to sales process optimization and health system procurement cycle alignment. Weak pipeline routes to clinical evidence marketing and demand generation strategy."
+      - question: "Is the growth stall concentrated in health systems that have not seen your clinical evidence, or in health systems that have evaluated and declined?"
+        purpose: "Awareness-driven stalls (health systems do not know about the product) are marketing problems. Evaluation-driven stalls (health systems evaluated and said no) are evidence, pricing, or workflow problems."
+        routing_impact: "Awareness-driven routes to clinical conference strategy, KOL engagement, and medical affairs investment. Evaluation-driven routes to root cause analysis of declines — evidence gap, pricing gap, or workflow integration gap."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory bottleneck delaying market access"
+          reason: "FDA clearance delays are the most common healthtech growth stall cause. Companies that under-budgeted regulatory timeline find themselves unable to sell while burning cash."
+        - diagnosis: "Clinical evidence insufficient for health system procurement"
+          reason: "Health system clinical review committees increasingly require published evidence before approving new technology. Companies without peer-reviewed publications face a wall in the sales process."
+        - diagnosis: "Sales cycle length creating cash flow gap"
+          reason: "12-18 month health system sales cycles mean that a company must fund 12-18 months of sales effort before the first dollar of revenue. Growth stalls often reflect pipeline maturation time, not market rejection."
+      less_likely:
+        - diagnosis: "Product-market fit failure"
+          reason: "If clinical evidence shows outcome improvement and health systems are interested but the process is slow, the problem is structural (sales cycle, reimbursement) not fundamental (product-market fit)."
+    healthtech_specific_diagnoses:
+      - name: "Regulatory pathway failure stalling commercialization"
+        description: "The product requires FDA clearance but the regulatory process has stalled — either because FDA has requested additional data, the pre-submission meeting revealed a more complex pathway than expected, or the company's regulatory strategy was based on incorrect classification assumptions. Until clearance is obtained, the product cannot be marketed for clinical use."
+        symptoms:
+          - "FDA requesting additional clinical data beyond what was planned and budgeted"
+          - "Regulatory pathway reclassification (e.g., from 510(k) to De Novo) extending timeline by 12+ months"
+          - "Pre-submission meeting feedback more negative than expected"
+          - "Regulatory timeline extending beyond the company's cash runway"
+        routes_to_skills: ["scenario-planning", "vuca-framework", "systems-thinking"]
+        routes_to_templates: ["risk-assessment-brief", "strategic-analysis-one-pager"]
+      - name: "Reimbursement denial blocking revenue scalability"
+        description: "The product has FDA clearance and health system interest, but payers are not covering the product's clinical use case. Without reimbursement, health systems must fund the product from operational budgets — a much smaller and more competitive funding source than payer reimbursement. Revenue growth is capped at what health systems will pay out-of-pocket."
+        symptoms:
+          - "Medicare coverage determination pending or denied"
+          - "Commercial payers declining coverage citing insufficient evidence or non-essential classification"
+          - "Health system customers requesting that the product generate reimbursable events through existing CPT codes"
+          - "Revenue growth plateauing at a level consistent with health system IT budget allocation rather than clinical service reimbursement"
+        routes_to_skills: ["pricing-diagnosis", "business-model-canvas", "competitive-negotiation"]
+        routes_to_templates: ["market-opportunity-summary", "decision-rationale-memo"]
+      - name: "Provider change resistance limiting deployment expansion"
+        description: "The product is cleared, reimbursed, and contracted, but provider adoption within deployed health systems is low. Clinicians are resistant to changing established workflows, skeptical of the product's clinical value, or overwhelmed by the current technology burden. Growth stalls because land-and-expand within health systems fails."
+        symptoms:
+          - "Provider adoption rate below 40% at deployed health systems despite available training"
+          - "Health system expansion from pilot to enterprise blocked by low pilot adoption metrics"
+          - "Provider feedback citing workflow disruption, alert fatigue, or insufficient clinical value"
+          - "Clinical champions frustrated by peers' refusal to adopt"
+        routes_to_skills: ["kotter-change-model", "trust-equation", "leading-through-change"]
+        routes_to_templates: ["action-plan", "new-initiative-brief"]
+    sector_red_flags:
+      - "Regulatory clearance delayed 6+ months beyond projected timeline — triggers cascade: delayed revenue, extended burn, potential need for bridge financing."
+      - "Pipeline consisting of fewer than 10 qualified health system opportunities — healthtech requires a larger pipeline than the close rate suggests because health system evaluations are long and unpredictable."
+      - "Zero payer coverage obtained 12+ months after FDA clearance — signals that the clinical evidence does not meet payer standards or that the reimbursement strategy is flawed."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Product-market fit in healthtech requires satisfying three markets simultaneously: patients (who benefit), providers (who use), and payers (who fund). A product can have patient-market fit (patients love it) without provider-market fit (providers will not prescribe it) or payer-market fit (payers will not cover it). True healthtech PMF exists when all three stakeholders validate the product — patients engage, providers adopt, and payers reimburse. Partial PMF is the most dangerous state: strong signal from one stakeholder masks the absence from another."
+    additional_triage_questions:
+      - question: "Which stakeholder is validating the product and which is not — are patients engaged but providers not prescribing, or are providers interested but payers not covering?"
+        purpose: "Identifies which leg of the triple aim is failing. Patient-only validation (engagement without provider prescription) suggests a consumer product mislabeled as clinical. Provider-only validation (interest without patient engagement) suggests a workflow tool that patients do not use. Payer-only validation is impossible without evidence."
+        routing_impact: "Patient without provider routes to clinical evidence strengthening and provider engagement strategy. Provider without payer routes to reimbursement pathway analysis. Provider without patient routes to patient experience redesign."
+      - question: "Does the product's retention curve flatten — do patients and providers who stay past an initial period continue long-term — or does it continuously decline?"
+        purpose: "A flattening retention curve for both patients and providers is the strongest healthtech PMF signal. Continuous decline in either population indicates PMF has not been achieved."
+        routing_impact: "Flattening curves with low initial retention routes to onboarding optimization. Continuously declining curves route to fundamental value proposition reassessment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "PMF for one stakeholder but not the triple aim"
+          reason: "Healthtech companies frequently achieve PMF with one stakeholder (usually patients or providers) while failing with another (usually payers). This partial PMF creates a business that generates enthusiasm but not sustainable revenue."
+        - diagnosis: "Clinical evidence insufficient to validate PMF"
+          reason: "Unlike SaaS where retention data validates PMF, healthtech PMF requires clinical outcome data. A product that retains users but does not improve outcomes has consumer PMF but not clinical PMF."
+      less_likely:
+        - diagnosis: "Product is fundamentally flawed"
+          reason: "If any clinical stakeholder validates the product, the technology likely works for someone. The question is usually not product quality but clinical-commercial alignment."
+    healthtech_specific_diagnoses:
+      - name: "Triple-aim misalignment"
+        description: "The product satisfies one or two of the triple aim (better outcomes, better experience, lower cost) but fails on the third. Payers require all three. A product that improves outcomes but increases cost will not receive broad reimbursement. A product that reduces cost but worsens experience will not be adopted by patients or providers."
+        symptoms:
+          - "Strong clinical outcome data but payer rejection citing cost-effectiveness"
+          - "Strong patient engagement but providers reporting workflow burden"
+          - "Strong provider adoption but patient outcome metrics not improving"
+          - "Health economic analysis showing that the product's cost exceeds the cost of the alternative it replaces"
+        routes_to_skills: ["business-model-canvas", "systems-thinking", "balanced-scorecard"]
+        routes_to_templates: ["strategic-analysis-one-pager", "unit-economics-snapshot"]
+    sector_red_flags:
+      - "Provider NPS above 40 but payer coverage denied — the product has clinical validation but not economic validation."
+      - "Patient engagement above 50% but clinical outcomes not improving — the product is engaging but not clinically effective."
+      - "Clinical outcomes improving but gross margin below 40% — the clinical model is too labor-intensive for scalable delivery."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Pricing in healthtech is fundamentally reimbursement-constrained. The diagnostic must determine whether the pricing problem is: (1) reimbursement misalignment (product priced above what payers will cover), (2) billing code mismatch (product's clinical service does not map to existing CPT/HCPCS codes), (3) health system budget constraint (product requires operational budget because no reimbursement pathway exists), or (4) value-capture failure (product delivers value but captures too little of it through pricing). The standard pricing diagnosis framework (value-based pricing, competitive pricing, cost-plus) must be adapted because the 'price' in healthtech is often determined by CMS, not by the company."
+    additional_triage_questions:
+      - question: "Is the product's revenue dependent on payer reimbursement (billing CPT/HCPCS codes), health system SaaS subscription, employer direct contract, or patient self-pay?"
+        purpose: "Each revenue model has different pricing constraints. Reimbursement-dependent revenue is price-capped by CMS and commercial payer schedules. SaaS subscription is negotiated with health system IT budgets. Employer direct pay is negotiated with benefits purchasers. Self-pay is constrained by patient willingness to pay."
+        routing_impact: "Reimbursement-dependent routes to CPT code analysis and payer rate optimization. SaaS subscription routes to health system IT budget analysis and value demonstration. Employer direct routes to benefits ROI analysis. Self-pay routes to consumer pricing and willingness-to-pay research."
+      - question: "Have you identified the specific CPT or HCPCS codes that apply to your product's clinical service, and have you verified the reimbursement rates with the target payer population?"
+        purpose: "Many healthtech pricing problems originate in a fundamental disconnect between the product's clinical service and the billing code system. If no applicable code exists, or if the applicable code's reimbursement rate is below the product's cost to deliver, the pricing problem is structural."
+        routing_impact: "No applicable code routes to new code application strategy (CPT Category III or HCPCS application) and alternative revenue model development. Applicable code with low reimbursement routes to margin optimization and service delivery cost reduction."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Reimbursement rate below product cost to deliver"
+          reason: "The most common healthtech pricing problem: the product's clinical service maps to a CPT code that reimburses at a rate below the cost of delivery, including clinical support staff, technology, and overhead."
+        - diagnosis: "No applicable billing code exists"
+          reason: "Many novel healthtech products deliver clinical services that do not map neatly to existing billing codes. Without a code, the product must rely on health system operational budgets — a much smaller and more competitive funding source."
+      less_likely:
+        - diagnosis: "Over-pricing relative to competition"
+          reason: "Healthtech pricing is typically constrained below market-clearing levels by reimbursement rates. Over-pricing relative to competition is less common than under-reimbursement relative to cost."
+    healthtech_specific_diagnoses:
+      - name: "Reimbursement code mismatch"
+        description: "The product's clinical service does not map to existing CPT or HCPCS codes, or maps to codes that reimburse at rates far below the product's cost of delivery. The company must either adapt its service model to match existing codes, pursue new code creation (a 2-4 year process), or find non-reimbursement revenue models."
+        symptoms:
+          - "Health system billing departments unable to identify applicable codes"
+          - "Reimbursement revenue per patient significantly below contracted SaaS price per patient"
+          - "Health systems requesting that the product be structured to generate billable events under existing codes"
+          - "CPT application submitted but timeline extends 2+ years"
+        routes_to_skills: ["business-model-canvas", "pricing-diagnosis", "scenario-planning"]
+        routes_to_templates: ["unit-economics-snapshot", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Product priced above Medicare reimbursement rate for the applicable CPT code — health systems absorb the gap, creating adoption resistance."
+      - "Revenue model dependent entirely on patient self-pay for a clinical product — this limits addressable market to patients with disposable income and willingness to pay for healthcare out-of-pocket."
+      - "No reimbursement strategy articulated despite clinical product positioning — a signal that the company has not confronted the fundamental revenue question."
+
+  # ─────────────────────────────────────────────
+  # 5. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech fundraising requires demonstrating clinical validation milestones alongside commercial traction. Health-focused investors (Rock Health portfolio companies, a16z Bio+Health, GV Health) apply clinical due diligence as rigorously as financial due diligence. The diagnostic must evaluate whether the company's regulatory pathway, clinical evidence, and reimbursement strategy are investor-ready."
+    additional_triage_questions:
+      - question: "What is your clinical validation stage — pilot data, observational study, RCT, peer-reviewed publication, or regulatory clearance?"
+        purpose: "Clinical validation stage is the single most important variable in healthtech fundraising readiness. Seed investors accept pilot data. Series A investors expect at least observational study results. Series B investors expect peer-reviewed publications or regulatory clearance."
+        routing_impact: "Below-threshold clinical evidence routes to clinical study design and execution planning before fundraising. At-threshold evidence routes to investor narrative development."
+      - question: "Can you articulate the regulatory pathway, timeline, and cost for your product?"
+        purpose: "Regulatory literacy is a gating criterion for healthtech fundraising. Investors evaluate whether the founder understands the FDA pathway, has budgeted appropriately, and has a realistic timeline."
+        routing_impact: "Unclear regulatory pathway routes to regulatory strategy development before fundraising. Clear pathway routes to regulatory milestone integration into pitch narrative."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical evidence gap reducing investor confidence"
+          reason: "The most common healthtech fundraising failure: the product shows promising metrics but lacks the clinical evidence that health-focused investors require. General tech investors may not notice this gap, but they cannot help with health system commercialization."
+        - diagnosis: "Regulatory risk perceived as too high"
+          reason: "Investors discount healthtech companies with uncertain regulatory pathways. A company that might need a De Novo versus a 510(k) carries significantly more risk than one with a clear predicate-based 510(k) strategy."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "Healthcare markets are enormous. 'Market too small' in healthtech usually means the company has not articulated the reimbursement pathway that unlocks the addressable market."
+    healthtech_specific_diagnoses:
+      - name: "Investor-clinical evidence mismatch"
+        description: "The company's clinical evidence stage does not match the expectations of the target investor tier. Presenting pilot data to Series B investors, or approaching general tech investors with a regulatory-heavy pitch, creates a fundamental mismatch."
+        symptoms:
+          - "Health-focused investors requesting clinical data that does not exist"
+          - "General tech investors unable to evaluate the clinical value proposition"
+          - "Investor feedback consistently referencing 'evidence' or 'regulatory risk' as concerns"
+          - "Fundraising process extending beyond 6 months without term sheet"
+        routes_to_skills: ["story-structure-and-arc", "trust-equation", "scenario-planning"]
+        routes_to_templates: ["fundraising-deck-outline", "market-opportunity-summary"]
+    sector_red_flags:
+      - "Raising Series A without any published clinical study — health-focused investors will pass."
+      - "Raising with regulatory clearance timeline extending beyond 18 months — investors see 18+ months of pre-revenue burn."
+      - "No clinical advisory board — signals that the founder has not engaged the clinical community."
+
+  # ─────────────────────────────────────────────
+  # 6. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Revenue in healthtech decomposes along three dimensions: revenue source (payer reimbursement, health system SaaS, employer direct, patient self-pay), revenue driver (number of patients x revenue per patient, or number of health systems x contract value), and revenue quality (reimbursement-backed revenue is more durable than operational budget allocations). The diagnostic must identify which dimension is underperforming."
+    additional_triage_questions:
+      - question: "What percentage of revenue comes from payer reimbursement versus health system operational budgets versus other sources?"
+        purpose: "Revenue mix determines durability and scalability. Reimbursement-backed revenue scales with patient volume. Operational budget revenue is capped by IT spending limits. The mix determines the company's ceiling."
+        routing_impact: "Low reimbursement share routes to payer strategy and clinical evidence development. High reimbursement share with low revenue routes to patient volume and provider adoption analysis."
+      - question: "Is the revenue problem driven by too few customers (health systems), too few patients per customer, or too little revenue per patient?"
+        purpose: "Healthtech revenue is a three-variable equation. Identifying which variable is underperforming focuses the diagnostic."
+        routing_impact: "Too few customers routes to sales process and demand generation analysis. Too few patients per customer routes to provider adoption and implementation quality. Too little revenue per patient routes to reimbursement and pricing analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Reimbursement underperformance"
+          reason: "The most common healthtech revenue problem: the product generates clinical value but the reimbursement rate is too low, the coverage is too narrow, or the billing process is too complex for health system billing departments."
+        - diagnosis: "Low patient volume per health system customer"
+          reason: "Health system contracts often project patient volumes that are not realized because provider adoption is low, patient enrollment is slow, or the clinical use case is narrower than contracted."
+      less_likely:
+        - diagnosis: "Pricing too low"
+          reason: "Healthtech pricing is typically constrained by reimbursement rates. The revenue problem is usually not pricing but volume — either patient volume or health system customer volume."
+    healthtech_specific_diagnoses:
+      - name: "Revenue model-clinical model mismatch"
+        description: "The revenue model assumes one clinical delivery model, but the actual clinical delivery requires a different model. For example: the revenue model assumes per-patient SaaS pricing, but clinical effectiveness requires clinician-monitored RPM — the clinician cost is not captured in the revenue model, creating a structural margin problem."
+        symptoms:
+          - "Gross margin declining as patient volume increases (clinical support costs scaling linearly while revenue scales sub-linearly)"
+          - "Clinical team headcount growing faster than patient enrollment"
+          - "Health system customers requesting clinical support that exceeds the contracted service level"
+          - "Clinical outcome metrics requiring higher-touch intervention than the technology alone provides"
+        routes_to_skills: ["business-model-canvas", "systems-thinking", "balanced-scorecard"]
+        routes_to_templates: ["unit-economics-snapshot", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Revenue per patient declining as the company scales — signals that higher-acuity (higher-revenue) patients were served first and the marginal patient generates less revenue."
+      - "Health system contract renewals at lower ACV than initial contracts — signals value delivery concerns or competitive pressure on pricing."
+      - "More than 40% of contracted patient volume not realized — signals provider adoption or patient enrollment failure."
+
+  # ─────────────────────────────────────────────
+  # 7. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech competitive threats come from four sources beyond traditional competitors: EHR vendors building native functionality (Epic and Oracle Health adding clinical decision support, remote monitoring, and AI features directly into their platforms), pharmaceutical companies funding digital companions (Pharma-sponsored DTx and patient engagement tools), academic medical centers developing and commercializing clinical tools, and large technology companies entering healthcare (Google Health, Amazon Health, Apple Health). Each threat type requires a different response."
+    additional_triage_questions:
+      - question: "Is the competitive threat from a peer healthtech startup, an EHR vendor building native functionality, a pharma company sponsoring a competing digital intervention, or a big tech company entering healthcare?"
+        purpose: "Each threat source has different capabilities, motivations, and vulnerabilities. Peer startups compete on evidence and execution. EHR vendors compete on integration. Pharma competes on clinical reach and funding. Big tech competes on data and distribution."
+        routing_impact: "Peer startup routes to clinical evidence differentiation and first-mover advantage. EHR vendor routes to integration depth analysis and partnership strategy. Pharma routes to clinical evidence superiority and independence positioning. Big tech routes to clinical specialization and regulatory expertise as differentiators."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "EHR vendor platform encroachment"
+          reason: "Epic and Oracle Health are expanding clinical functionality within their platforms. A healthtech product that operates outside the EHR is vulnerable to a native equivalent that requires no additional integration, procurement, or training."
+        - diagnosis: "Clinical evidence leapfrog"
+          reason: "A competitor publishing superior clinical evidence (larger study, higher-impact journal, better outcomes) can rapidly shift health system and payer preferences. Clinical evidence is the primary competitive weapon in healthtech."
+      less_likely:
+        - diagnosis: "Price-based competitive displacement"
+          reason: "Health systems rarely switch clinical tools based on price alone. Clinical evidence, workflow integration, and provider satisfaction drive switching decisions."
+    healthtech_specific_diagnoses:
+      - name: "Clinical workflow disruption from EHR-native alternative"
+        description: "The primary EHR vendor (Epic or Oracle Health) has released or announced native functionality that replicates the healthtech product's core capability. Because the native functionality is embedded in the clinical workflow, requires no additional integration, and is included in the existing EHR license, health systems default to the EHR-native option — even if it is clinically inferior."
+        symptoms:
+          - "Health system prospects citing 'we will wait for Epic/Cerner to build it' in sales conversations"
+          - "Existing customers asking about migration to EHR-native alternatives"
+          - "EHR vendor announcing roadmap features that overlap with the product's core functionality"
+          - "Pipeline deals pausing pending EHR vendor product evaluation"
+        routes_to_skills: ["porters-five-forces", "disruptive-innovation", "blue-ocean-strategy"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Epic or Oracle Health announcing a feature set that replicates the product's core capability — the most consequential competitive threat in healthtech."
+      - "A competitor publishing an RCT in NEJM or JAMA that demonstrates superior outcomes."
+      - "A pharmaceutical company launching a competing digital therapeutic with pharma-scale clinical trial funding and physician detailing distribution."
+
+  # ─────────────────────────────────────────────
+  # 8. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech strategic drift often manifests as expanding the clinical scope beyond the evidence base — pursuing additional indications, therapeutic areas, or clinical use cases before validating the first one. The long feedback loops in healthtech (12-24 months for clinical studies, 6-18 months for health system sales) make drift harder to detect and more damaging when discovered."
+    additional_triage_questions:
+      - question: "Is the product pursuing additional clinical indications or therapeutic areas beyond the one where clinical evidence has been established?"
+        purpose: "Healthtech companies are tempted to expand clinical scope before validating the first indication. Each new indication requires independent clinical evidence, potentially a new regulatory submission, and new payer coverage — each representing 12-36 months of additional investment."
+        routing_impact: "Premature clinical expansion routes to focus assessment and evidence-first strategy. Evidence-validated expansion routes to portfolio planning using growth-share-matrix."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical scope creep ahead of evidence"
+          reason: "Health system customers request the product for additional clinical use cases. The company expands to satisfy customers but without the evidence base to support the expanded claims."
+        - diagnosis: "Regulatory classification confusion"
+          reason: "As the product expands features and clinical scope, its regulatory classification may shift — a wellness product that adds diagnostic features may suddenly require FDA clearance."
+      less_likely:
+        - diagnosis: "Market-driven strategic shift"
+          reason: "Healthcare markets are large and stable. True market-driven strategic shifts are rare — most healthtech strategic drift is internal, driven by opportunity chasing rather than market forces."
+    healthtech_specific_diagnoses:
+      - name: "HIPAA breach response consuming strategic capacity"
+        description: "A data security incident involving protected health information has consumed executive attention, engineering resources, and legal budget. The company is in crisis response mode — regulatory notification, patient notification, OCR investigation preparation — and strategic initiatives have stalled."
+        symptoms:
+          - "PHI breach reported to HHS OCR"
+          - "Executive team spending >50% of time on breach response and investigation"
+          - "Product development halted for security remediation"
+          - "Health system customers requesting security audit and considering contract termination"
+        routes_to_skills: ["black-swans", "vuca-framework", "systems-thinking"]
+        routes_to_templates: ["incident-postmortem", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Product marketed for clinical use cases not supported by the clinical evidence base — creates regulatory and liability risk."
+      - "Three or more therapeutic areas being pursued simultaneously with clinical evidence in none."
+      - "Regulatory classification shifting due to feature additions — signals that product decisions are being made without regulatory impact assessment."
+
+  # ─────────────────────────────────────────────
+  # 9. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech team dysfunction has a unique dimension: the tension between clinical and commercial teams. Clinical team members (CMO, clinical operations, medical affairs) prioritize patient safety, evidence rigor, and clinical protocol adherence. Commercial team members (CEO, sales, marketing) prioritize growth, revenue, and market expansion. When these priorities conflict — and they inevitably do — the resolution determines both the company's culture and its clinical integrity."
+    additional_triage_questions:
+      - question: "Is there a structural tension between the clinical team (CMO, medical affairs) and the commercial team (CEO, sales) regarding product direction, evidence requirements, or marketing claims?"
+        purpose: "Clinical-commercial tension is the healthtech-specific variant of the SaaS product-sales tension, but with higher stakes. When commercial pressure overrides clinical judgment, the consequences include regulatory risk, patient safety risk, and reputational damage."
+        routing_impact: "Clinical-commercial misalignment routes to governance structure assessment and clinical-commercial decision framework development."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical-commercial team misalignment"
+          reason: "The most common and most consequential healthtech team dysfunction. When the CMO and CEO disagree on whether the clinical evidence is sufficient to support a marketing claim, the resolution — and the process for reaching it — defines the company."
+      less_likely:
+        - diagnosis: "Individual performance issues"
+          reason: "Healthtech team members tend to be highly motivated by the mission. Performance issues are more often structural (unclear decision authority between clinical and commercial) than individual."
+    healthtech_specific_diagnoses:
+      - name: "Clinical leadership void"
+        description: "The company lacks a credible clinical leader (CMO, VP Clinical) with the authority to make clinical decisions. Product, regulatory, and evidence decisions are made by non-clinical executives, leading to clinical missteps, provider distrust, and regulatory risk."
+        symptoms:
+          - "Clinical decisions made by product managers or engineers without clinical input"
+          - "No clinical advisory board or a board that meets fewer than twice per year"
+          - "Provider customers expressing concern about the company's clinical credibility"
+          - "Marketing materials making clinical claims not reviewed by a clinical professional"
+        routes_to_skills: ["hackman-enabling-conditions", "leadership-pipeline", "trust-equation"]
+        routes_to_templates: ["role-description-template", "hiring-scorecard"]
+    sector_red_flags:
+      - "CMO resignation — signals irreconcilable conflict between clinical and commercial priorities."
+      - "Clinical advisory board members disengaging — signals that clinical advice is being ignored."
+      - "Marketing claims exceeding the clinical evidence base — signals that commercial pressure has overridden clinical governance."
+
+  # ─────────────────────────────────────────────
+  # 10. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech co-founder conflicts often center on the clinical-commercial divide — the physician co-founder prioritizes clinical rigor and patient safety while the technology co-founder prioritizes product development speed and market scaling. This tension is productive when managed well (it ensures both clinical quality and commercial viability) and destructive when it degenerates into mutual veto power."
+    additional_triage_questions:
+      - question: "Is the conflict centered on clinical evidence standards (how much evidence is enough before scaling), product direction (clinical depth vs. market breadth), or resource allocation (clinical R&D vs. commercial investment)?"
+        purpose: "Each conflict type has a different resolution path. Evidence disagreements require external benchmarking against health system and payer requirements. Product direction conflicts require customer input. Resource allocation requires financial modeling."
+        routing_impact: "Evidence standard conflicts route to health system and payer requirements analysis. Product direction routes to customer discovery and clinical advisory board input. Resource allocation routes to financial scenario planning."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical-commercial priority tension between physician and technology co-founders"
+          reason: "The most common healthtech co-founder conflict pattern. The physician founder sees every corner cut as a patient safety risk. The technology founder sees every clinical requirement as a commercial impediment."
+      less_likely:
+        - diagnosis: "Equity and compensation disputes"
+          reason: "Healthtech co-founders are often mission-driven. Equity conflicts are less common than priority conflicts about how to pursue the mission."
+    healthtech_specific_diagnoses:
+      - name: "Evidence-standard deadlock"
+        description: "The physician co-founder refuses to support commercialization until clinical evidence meets academic standards (multi-site RCT, peer-reviewed publication). The technology co-founder argues that waiting for this level of evidence consumes runway and allows competitors to establish market position. Both are partially right — and the deadlock prevents either path from being pursued."
+        symptoms:
+          - "Product commercially available but CMO/physician co-founder declines to endorse marketing claims"
+          - "Commercial launch repeatedly delayed pending 'one more study'"
+          - "Technology co-founder pursuing sales conversations without clinical co-founder involvement"
+          - "Board unable to resolve the disagreement because both positions are defensible"
+        routes_to_skills: ["cooperative-negotiation", "evaluating-and-deciding", "scenario-planning"]
+        routes_to_templates: ["decision-journal", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Physician co-founder publicly expressing concerns about the product's clinical readiness — damages credibility with health system customers."
+      - "Technology co-founder making clinical claims without physician co-founder endorsement — creates regulatory and liability exposure."
+
+  # ─────────────────────────────────────────────
+  # 11. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Market entry in healthtech is not about digital distribution — it is about clinical validation, regulatory clearance, and reimbursement. The question is not 'can we enter this market?' but 'do we have the evidence, the regulatory status, and the reimbursement pathway to enter this market sustainably?' Healthtech market entry without these three foundations creates a business that can sell but cannot scale."
+    additional_triage_questions:
+      - question: "Does the target clinical market have established reimbursement codes, or would entry require creating new reimbursement pathways?"
+        purpose: "Entering a market with established reimbursement is fundamentally different from entering one that requires new code creation. Established codes mean revenue is available upon launch. New codes require 2-4 years of CMS/AMA application process."
+        routing_impact: "Established reimbursement routes to competitive positioning and sales strategy. No reimbursement routes to alternative revenue model development and reimbursement pathway timeline planning."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Market entry without reimbursement foundation"
+          reason: "The most common healthtech market entry failure: building and clearing a product for a clinical market where no reimbursement pathway exists. Revenue remains limited to health system operational budgets."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "Clinical markets are large. 'Too small' usually means the company has not identified the patient population or reimbursement pathway that unlocks the addressable market."
+    healthtech_specific_diagnoses:
+      - name: "Regulatory pathway mismatch for target market"
+        description: "The company's regulatory strategy is misaligned with the target clinical market's requirements. A product positioned for clinical diagnosis may require PMA (not 510(k)), a product marketed to patients directly may need different clearance than one marketed to providers, or the regulatory classification chosen limits the clinical claims that drive market entry."
+        symptoms:
+          - "FDA pre-submission feedback indicating a more complex pathway than planned"
+          - "Clinical claims constrained by regulatory classification, limiting the addressable market"
+          - "Competitors with different regulatory classifications making broader clinical claims"
+        routes_to_skills: ["scenario-planning", "first-mover-strategy", "systems-thinking"]
+        routes_to_templates: ["market-opportunity-summary", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Entering a clinical market without engaging a regulatory consultant or performing a regulatory pathway assessment."
+      - "Market entry plan that does not include a reimbursement strategy — will produce revenue ceiling surprises."
+
+  # ─────────────────────────────────────────────
+  # 12. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech hiring requires specialized talent that spans the clinical-commercial divide: clinical informaticists, regulatory affairs specialists, health economics and outcomes researchers (HEOR), and clinical operations professionals. These roles do not exist in standard technology company hiring playbooks. The most critical and most commonly failed healthtech hire is the Chief Medical Officer — finding a physician who combines clinical credibility, strategic thinking, and startup operational capacity is rare and expensive."
+    additional_triage_questions:
+      - question: "Are you hiring clinical talent (CMO, clinical operations, medical affairs, HEOR) or commercial/technical talent, and do you have the domain expertise to evaluate clinical candidates?"
+        purpose: "Clinical hiring failures are the most expensive in healthtech. A CMO without startup operational capacity, a clinical operations hire without health system experience, or a HEOR professional without payer engagement experience can set the company back 12-18 months."
+        routing_impact: "Clinical hiring routes to clinical advisory board-led hiring process and specialized healthtech recruiting. Commercial/technical hiring routes to standard hiring processes with healthtech domain requirements."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical leadership hiring failure"
+          reason: "The most common and most consequential healthtech hiring mistake: hiring a CMO from academia who lacks commercial instincts, or a CMO from industry who lacks clinical credibility with the provider audience."
+      less_likely:
+        - diagnosis: "Compensation competitiveness"
+          reason: "Clinical talent in healthtech is motivated by mission and clinical impact. Compensation matters but is rarely the primary barrier for CMO or clinical operations hires."
+    healthtech_specific_diagnoses:
+      - name: "Clinical-technical culture clash"
+        description: "Clinical hires (physicians, nurses, pharmacists) and technical hires (engineers, product managers) operate with fundamentally different work cultures. Clinical culture values thoroughness, evidence, protocol adherence, and patient safety. Technology culture values speed, iteration, experimentation, and shipping. Without deliberate cultural integration, the two groups develop mutual frustration that manifests as slow decisions, unresolved tensions, and talent attrition."
+        symptoms:
+          - "Clinical team describing engineering team as 'reckless' or 'careless with patient safety'"
+          - "Engineering team describing clinical team as 'blockers' or 'too slow'"
+          - "Product decisions oscillating between clinical and technical priorities without resolution framework"
+          - "Clinical or engineering talent leaving within first year, citing cultural misfit"
+        routes_to_skills: ["organisational-culture", "psychological-safety", "thomas-kilmann-conflict"]
+        routes_to_templates: ["culture-values-document", "team-health-check"]
+    sector_red_flags:
+      - "No clinical leadership (CMO or equivalent) hired by Series A — signals that clinical governance is absent."
+      - "CMO or clinical leader attrition within 12 months — signals clinical-commercial cultural incompatibility."
+
+  # ─────────────────────────────────────────────
+  # 13. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Operational chaos in healthtech has clinical safety implications absent from other industries. A deployment failure, data error, or system outage in a clinical product can affect patient care. HIPAA compliance adds operational requirements (security monitoring, access controls, audit logging, breach notification procedures) that do not exist in non-health industries. The operational chaos diagnostic must evaluate whether operational failures are creating patient safety risk."
+    additional_triage_questions:
+      - question: "Has any operational failure (system outage, data error, deployment issue) affected clinical operations or patient care at a health system customer?"
+        purpose: "Clinical operational failures are categorically different from standard SaaS outages. A clinical decision support tool that is unavailable during a clinical shift forces providers to fall back to pre-technology workflows — which may not be available or may be unfamiliar to newer staff."
+        routing_impact: "Clinical operational failures route to patient safety incident review and clinical risk assessment. Non-clinical operational failures route to standard DevOps improvement."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "HIPAA compliance gaps creating operational burden"
+          reason: "Companies that did not build HIPAA compliance into their operational foundation from day one face escalating remediation costs as they scale — each new health system customer adds compliance requirements."
+      less_likely:
+        - diagnosis: "Over-process"
+          reason: "Healthtech companies rarely have too much process. Given the regulatory and safety requirements, the typical failure is under-process — insufficient quality assurance, incomplete documentation, and inadequate incident response procedures."
+    healthtech_specific_diagnoses:
+      - name: "Clinical system availability failure"
+        description: "The product's uptime and reliability do not meet clinical availability standards. Health systems require near-100% availability for clinical tools because unavailability during clinical care creates patient safety risk. Standard SaaS uptime (99.5%) may be insufficient for clinical applications."
+        symptoms:
+          - "System outages during clinical hours generating patient safety concern reports"
+          - "Health system customers requiring SLA amendments with higher availability guarantees and financial penalties"
+          - "Clinical staff creating paper-based workarounds for system unavailability — indicating distrust of system reliability"
+          - "Incident rate exceeding health system vendor management thresholds"
+        routes_to_skills: ["systems-thinking", "kaizen-bpr", "balanced-scorecard"]
+        routes_to_templates: ["incident-postmortem", "action-plan"]
+    sector_red_flags:
+      - "Any system outage that affected active patient care — requires patient safety incident review and root cause analysis."
+      - "HIPAA security assessment identifying critical gaps — requires immediate remediation before additional health system deployments."
+
+  # ─────────────────────────────────────────────
+  # 14. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Leadership crises in healthtech carry additional dimensions: a CEO who loses the trust of the clinical advisory board, a CMO who resigns citing ethical concerns, or a leadership team that is perceived as prioritizing commercial interests over patient welfare can trigger cascading damage — health system customers re-evaluate contracts, clinical talent departs, and the company's clinical reputation suffers."
+    additional_triage_questions:
+      - question: "Has the leadership crisis affected the clinical advisory board's engagement, the CMO's confidence in the product's safety, or health system customers' trust in the company's clinical commitment?"
+        purpose: "Leadership crises in healthtech can cascade into clinical credibility crises. If the clinical advisory board disengages, the company loses its clinical governance infrastructure."
+        routing_impact: "Clinical credibility impact routes to clinical governance restoration and advisory board re-engagement. No clinical credibility impact routes to standard leadership crisis resolution."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical leadership crisis"
+          reason: "The departure or disengagement of the CMO or clinical advisory board creates a credibility vacuum that is uniquely damaging in healthtech."
+      less_likely: []
+    healthtech_specific_diagnoses: []
+    sector_red_flags:
+      - "Clinical advisory board members resigning — signals that clinical governance has failed."
+      - "CMO expressing public concerns about patient safety — existential reputational risk."
+
+  # ─────────────────────────────────────────────
+  # 15. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech faces a legitimate tension between decision speed and clinical caution. Some decisions that would be 'just ship it' in SaaS require deliberation in healthtech because they affect patient care. The diagnostic must distinguish between appropriate clinical caution (deliberation that protects patients) and decision paralysis (inaction that delays value without protecting anyone)."
+    additional_triage_questions:
+      - question: "Is the delayed decision one that could affect patient safety if made incorrectly, or is it a commercial or operational decision with no clinical implications?"
+        purpose: "Clinical decisions merit deliberation proportional to their patient safety impact. Commercial decisions should not be held to the same standard — the opportunity cost of delay is real."
+        routing_impact: "Clinical decisions route to risk-benefit analysis with clinical advisory input. Commercial decisions route to bias-toward-action with reversibility assessment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical caution masquerading as decision paralysis"
+          reason: "In healthtech, some apparent paralysis is actually appropriate caution — the CMO delaying a product release pending additional safety review is exercising clinical judgment, not avoiding decisions."
+      less_likely:
+        - diagnosis: "Insufficient information"
+          reason: "Healthtech companies typically have more information than they can process — clinical data, regulatory guidance, payer feedback. The problem is usually synthesis, not data availability."
+    healthtech_specific_diagnoses: []
+    sector_red_flags:
+      - "Regulatory submission delayed more than 6 months beyond readiness due to internal disagreement — the opportunity cost of delay in regulatory timeline is severe."
+      - "Product decisions requiring consensus from clinical, regulatory, commercial, and technical teams simultaneously — a sign of unclear decision authority."
+
+  # ─────────────────────────────────────────────
+  # 16. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Innovation in healthtech faces a unique constraint: regulatory requirements can slow the pace of product evolution. Changes to FDA-cleared products may require supplemental submissions. Clinical evidence requirements mean that new features with clinical claims must be validated before marketing. The diagnostic must distinguish between regulatory-constrained innovation (slow but appropriate) and organizational innovation failure (slow due to internal dysfunction)."
+    additional_triage_questions:
+      - question: "Is the innovation constraint regulatory (changes require FDA submissions or clinical validation) or organizational (the team is not generating or prioritizing innovative ideas)?"
+        purpose: "Regulatory innovation constraints are structural and cannot be 'solved' — they must be designed around. Organizational innovation constraints are addressable through process and culture changes."
+        routing_impact: "Regulatory constraint routes to predetermined change control planning and innovation within cleared indications. Organizational constraint routes to standard innovation cultivation approaches."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory burden consuming innovation capacity"
+          reason: "Post-market surveillance, adverse event reporting, and regulatory submission preparation consume engineering and clinical resources that would otherwise fund innovation."
+      less_likely:
+        - diagnosis: "Lack of creative talent"
+          reason: "Healthtech teams are typically highly qualified and intrinsically motivated by the mission. Innovation failure is more often structural than talent-driven."
+    healthtech_specific_diagnoses:
+      - name: "Clinical evidence treadmill"
+        description: "The company must continuously generate new clinical evidence to maintain and expand market position — but the evidence generation process consumes the R&D resources that would fund product innovation. The company is trapped in a cycle of proving what it has rather than building what comes next."
+        symptoms:
+          - "More than 50% of clinical R&D budget allocated to studies validating existing features rather than developing new capabilities"
+          - "Competitor product innovation outpacing the company despite inferior current evidence"
+          - "Clinical team overwhelmed by study management, data collection, and publication preparation"
+          - "No product roadmap items beyond evidence generation for current capabilities"
+        routes_to_skills: ["eisenhower-matrix", "balanced-scorecard", "growth-share-matrix"]
+        routes_to_templates: ["quarterly-strategic-review", "new-initiative-brief"]
+    sector_red_flags:
+      - "No product capability additions in 12+ months despite active engineering team — resources consumed by maintenance, compliance, and evidence generation."
+      - "Competitors launching features that health system customers request — signals innovation gap."
+
+  # ─────────────────────────────────────────────
+  # 17. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech partnerships are ecosystem-critical: EHR vendor partnerships determine market access, pharmaceutical company partnerships fund clinical studies and provide distribution, health system partnerships provide clinical validation sites, and payer partnerships enable reimbursement. Each partnership type has different power dynamics and risk profiles."
+    additional_triage_questions:
+      - question: "Is this a technology partnership (EHR integration), a clinical validation partnership (health system study site), a distribution partnership (pharma or health plan), or a data partnership (clinical data access)?"
+        purpose: "Each healthtech partnership type has unique dynamics. EHR partnerships are gatekeeper relationships. Health system partnerships are clinical credibility relationships. Pharma partnerships provide funding but may create independence concerns. Data partnerships raise HIPAA compliance requirements."
+        routing_impact: "EHR partnership routes to integration strategy and vendor relationship management. Health system partnership routes to clinical study design and mutual publication agreements. Pharma partnership routes to independence governance and conflict-of-interest management. Data partnership routes to HIPAA compliance and data use agreement structuring."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "EHR vendor dependency creating existential risk"
+          reason: "A healthtech company that depends on Epic or Oracle Health integration for market access is in a structurally dependent relationship. The EHR vendor can change integration policies, launch competing functionality, or deprioritize the integration partnership."
+      less_likely:
+        - diagnosis: "Partnership value misalignment"
+          reason: "Healthcare partnerships tend to be well-aligned on patient outcomes, even when commercial interests diverge. The shared mission provides a foundation for partnership that other industries lack."
+    healthtech_specific_diagnoses:
+      - name: "Pharma partnership independence erosion"
+        description: "A pharmaceutical company partnership provides valuable funding, distribution, or clinical study support, but the partnership creates perceived or actual conflicts of interest. Health systems and providers may question whether the healthtech product serves patient interests or pharma commercial interests. The partnership that enables growth simultaneously undermines clinical credibility."
+        symptoms:
+          - "Health system customers expressing concern about pharma influence on clinical recommendations"
+          - "Clinical advisory board members questioning independence from pharma partner"
+          - "Product roadmap influenced by pharma partner's commercial priorities rather than clinical evidence"
+          - "Provider adoption declining after pharma partnership announcement"
+        routes_to_skills: ["trust-equation", "prisoners-dilemma-and-cooperation", "information-asymmetry"]
+        routes_to_templates: ["partnership-memo", "risk-assessment-brief"]
+    sector_red_flags:
+      - "EHR vendor partnership agreement with exclusivity clauses that limit future strategic options."
+      - "Pharma partnership that influences clinical content or recommendations — destroys provider trust."
+      - "Health system research partnership with publication veto rights — undermines evidence credibility."
+
+  # ─────────────────────────────────────────────
+  # 18. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Communication breakdowns in healthtech have clinical safety implications. Miscommunication between clinical and engineering teams about product behavior can result in clinical tools that function differently from what clinicians expect. Miscommunication between the company and health system customers about product capabilities can lead to clinical decisions based on incorrect assumptions about the product's scope or accuracy."
+    additional_triage_questions:
+      - question: "Has a communication breakdown between the clinical team and the engineering team resulted in a product that behaves differently from what clinicians expect or what clinical documentation describes?"
+        purpose: "Clinical-engineering communication failures can create patient safety risk if the product's clinical behavior diverges from what providers have been trained to expect."
+        routing_impact: "Clinical-engineering communication gaps route to clinical requirements documentation improvement and cross-functional review processes. Non-clinical communication issues route to standard communication improvement."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Clinical-technical translation failure"
+          reason: "Clinical requirements expressed in medical terminology may be misinterpreted by engineering teams. Engineering constraints expressed in technical terminology may not convey clinical implications to the clinical team."
+      less_likely: []
+    healthtech_specific_diagnoses: []
+    sector_red_flags:
+      - "Product clinical documentation inconsistent with actual product behavior — a patient safety and regulatory risk."
+      - "Health system customers reporting product behavior that surprises clinical staff — indicates training or documentation failure."
+
+  # ─────────────────────────────────────────────
+  # 19. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech negotiations get stuck in characteristic ways: health system procurement processes that require clinical evaluation committee approval (adding 3-6 months), IT security reviews that demand HITRUST or SOC 2 certification (adding 2-4 months if not already obtained), legal reviews requiring HIPAA-compliant BAA terms, and payer contract negotiations that require clinical evidence dossier review."
+    additional_triage_questions:
+      - question: "Is the negotiation stuck at clinical evaluation (clinical review committee), IT/security review (HIPAA, SOC 2, HITRUST assessment), legal review (BAA, data use agreement), or commercial terms (pricing, contract structure)?"
+        purpose: "Each health system procurement gate has different resolution strategies. Clinical committee stalls require evidence. IT stalls require certifications. Legal stalls require standardized agreements. Commercial stalls require pricing creativity."
+        routing_impact: "Clinical committee stall routes to evidence strengthening and clinical champion engagement. IT security stall routes to certification acceleration and pre-prepared security documentation. Legal stall routes to BAA template preparation. Commercial stall routes to pricing restructuring."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "IT security review blocking the deal"
+          reason: "Health system IT security reviews are increasingly rigorous. HITRUST CSF certification or SOC 2 Type II is becoming a prerequisite, not a nice-to-have. Companies without these certifications face 2-6 month deal delays."
+        - diagnosis: "Clinical evaluation committee requiring additional evidence"
+          reason: "Health system clinical review committees evaluate new technology with the same rigor they apply to clinical protocol changes. Insufficient evidence stalls the evaluation, sometimes indefinitely."
+      less_likely:
+        - diagnosis: "Price disagreement"
+          reason: "Healthtech negotiations rarely stall on price alone — they stall on clinical evidence, security certification, or contractual terms. Price is usually the last and easiest issue to resolve."
+    healthtech_specific_diagnoses: []
+    sector_red_flags:
+      - "Deals stalling 60+ days in IT security review — indicates the company needs HITRUST or SOC 2 certification to unblock the pipeline."
+      - "Clinical evaluation committee requesting a pilot study before contracting — adds 3-12 months to the sales cycle."
+
+  # ─────────────────────────────────────────────
+  # 20. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Healthtech culture erosion carries patient safety consequences. A culture that deprioritizes clinical rigor, tolerates shortcuts in evidence generation, or allows commercial pressure to override clinical judgment creates conditions where patient harm becomes more likely. The most dangerous form of healthtech culture erosion is the normalization of clinical corners being cut — each small compromise establishes a precedent for the next, until the cumulative effect creates serious clinical risk."
+    additional_triage_questions:
+      - question: "Has the company's culture shifted from 'patient outcomes first' to 'growth first' — and do clinical team members feel empowered to challenge decisions that they believe compromise patient safety?"
+        purpose: "The health of the patient-safety culture is the most consequential cultural metric in healthtech. When clinical team members feel unable to raise safety concerns, the company has lost its most important cultural asset."
+        routing_impact: "Patient-safety culture erosion routes to psychological-safety assessment and clinical governance restructuring. Non-safety culture issues route to standard culture improvement."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Commercial pressure eroding clinical culture"
+          reason: "As healthtech companies face growth pressure from investors and board members, the temptation to deprioritize clinical rigor in favor of commercial velocity increases. This erosion is gradual and often unrecognized until a clinical incident reveals the accumulated risk."
+      less_likely:
+        - diagnosis: "Growth outpacing culture infrastructure"
+          reason: "Healthtech companies grow more slowly than consumer tech, providing more time to develop culture. When culture erodes, the cause is usually pressure, not pace."
+    healthtech_specific_diagnoses:
+      - name: "Clinical integrity erosion"
+        description: "The company's commitment to clinical rigor has eroded under commercial pressure. Evidence standards have been relaxed, marketing claims have crept beyond the evidence base, clinical advisory board input is being ignored, and the CMO or clinical leadership feels unable to enforce clinical standards. The company has not yet experienced a patient safety incident, but the conditions for one are developing."
+        symptoms:
+          - "Clinical team members expressing private concern about evidence standards but not raising them formally"
+          - "Marketing materials making claims that the clinical team would not endorse if asked directly"
+          - "Clinical advisory board meetings becoming shorter, less substantive, or less frequent"
+          - "Commercial milestones being celebrated while clinical milestones are treated as obstacles"
+          - "New hires describing the culture as 'a tech company that happens to be in health' rather than 'a health company that uses technology'"
+        routes_to_skills: ["psychological-safety", "purpose-driven-leadership", "organisational-culture"]
+        routes_to_templates: ["culture-values-document", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Clinical team attrition above 20% annually — the most sensitive indicator of clinical culture erosion."
+      - "Clinical advisory board members declining to participate in marketing or sales activities — signals concern about clinical integrity."
+      - "Any instance of a clinical safety concern being overridden by commercial pressure without documented clinical review — this is the sentinel event that predicts future patient harm."

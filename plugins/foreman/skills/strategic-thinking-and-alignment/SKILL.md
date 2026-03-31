@@ -1,0 +1,1 @@
+../../../../.claude/skills/leadership/strategic-thinking-and-alignment.md

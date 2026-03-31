@@ -1,0 +1,1 @@
+../../../../.claude/skills/stoic/stoic-fortitude-and-resilience.md

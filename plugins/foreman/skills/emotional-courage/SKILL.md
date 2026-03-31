@@ -1,0 +1,1 @@
+../../../../.claude/skills/leadership/emotional-courage.md

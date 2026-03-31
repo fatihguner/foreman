@@ -1,0 +1,1 @@
+../../../../.claude/skills/people/understanding-people.md

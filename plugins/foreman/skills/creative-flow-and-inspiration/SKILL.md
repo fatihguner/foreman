@@ -1,0 +1,1 @@
+../../../../.claude/skills/creative/creative-flow-and-inspiration.md

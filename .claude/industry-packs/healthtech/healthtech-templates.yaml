@@ -1,0 +1,1031 @@
+# Healthtech Industry Pack — Output Template Adaptations
+#
+# For each of the 48 Foreman output templates, this file defines how fields
+# and sections adapt for healthtech companies. The output agent loads these rules
+# when generating documents with the healthtech industry pack active.
+#
+# PATIENT SAFETY PRINCIPLE: All materials — investor, board, team, self, and
+# client — must incorporate patient safety as a first-class dimension. Risk
+# sections include patient safety risk alongside business risk. Clinical metrics
+# appear alongside financial metrics. Regulatory and reimbursement status are
+# reported as standard elements, not appendices.
+#
+# TRIPLE STAKEHOLDER PRINCIPLE: Investor and board materials must address the
+# triple-aim value proposition (patient outcomes, provider experience, cost
+# reduction) because healthtech viability depends on all three. Unit economics
+# include clinical validation cost amortization. Board materials distinguish
+# clinical advisory board governance from corporate board governance.
+#
+# Adaptation types:
+#   as-is    — The template works without modification for healthtech companies.
+#   modified — The template requires field changes, additional sections, or
+#              reframing of existing sections for healthtech context.
+
+pack_metadata:
+  sector: "healthtech"
+  display_name: "Healthtech"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# TEMPLATE ADAPTATIONS
+# ═══════════════════════════════════════════════════════════════
+
+template_adaptations:
+
+  # ─────────────────────────────────────────────
+  # INVESTOR TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "unit-economics-snapshot"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech unit economics are per-patient, not per-account, and include clinical validation cost amortization, regulatory pathway investment, and reimbursement-dependent revenue. The snapshot must show investors that the per-patient economics are sustainable after accounting for clinical evidence investment and regulatory costs — expenses unique to healthtech that do not exist in standard SaaS."
+    field_changes:
+      - field: "Revenue per unit"
+        sector_label: "Revenue per Patient per Month (by Source)"
+        sector_guidance: "Decompose revenue per patient by source: payer reimbursement (specify CPT/HCPCS codes and rates), health system SaaS allocation per patient, employer direct-pay allocation per covered life, and patient self-pay. Report each separately because regulatory exposure, durability, and margin profiles differ."
+      - field: "Cost per unit"
+        sector_label: "CAC per Health System + Patient Acquisition Cost"
+        sector_guidance: "Report two CAC figures: (1) CAC per health system customer (fully loaded including pilot costs, clinical evaluation support, integration implementation, and sales effort). (2) Patient acquisition cost within deployed health systems (enrollment, onboarding, clinician training per patient). In healthtech, the health system is acquired first, then patients within the system are enrolled."
+      - field: "Margin per unit"
+        sector_label: "Gross Margin per Patient"
+        sector_guidance: "Calculate per-patient gross margin including: clinical support staff cost per patient (if applicable), technology cost per patient, and regulatory compliance cost allocation per patient. Distinguish technology-only margin from blended margin including clinical services."
+      - field: "Lifetime value"
+        sector_label: "Patient LTV (Clinically Adjusted)"
+        sector_guidance: "Calculate LTV incorporating: revenue per patient per month, patient retention rate, clinical program duration (some interventions are time-limited), and gross margin. Disclose whether the clinical protocol has a defined endpoint (e.g., 12-week DTx program) or is ongoing (e.g., chronic disease monitoring). Clinical validation cost should be amortized across projected lifetime patient volume."
+      - field: "Acquisition cost"
+        sector_label: "CAC Payback Period (Blended)"
+        sector_guidance: "Report payback in months, calculated on the blended CAC (health system acquisition cost amortized across expected patient volume plus per-patient enrollment cost). Note: healthtech payback periods are typically longer than SaaS because health system sales cycles extend the time to first revenue."
+      - field: "Unit economics ratio"
+        sector_label: "Patient LTV:CAC Ratio"
+        sector_guidance: "Report the blended ratio and compare to the 3x-5x benchmark. Because healthtech CAC includes clinical validation costs (study execution, regulatory pathway), the ratio may appear lower than SaaS — explain this distinction for investors comparing across sectors."
+    sections_to_add:
+      - section_name: "Healthtech Metrics Dashboard"
+        placement: "before:Revenue per Patient per Month (by Source)"
+        description: "Core healthtech metrics in a format health-focused investors expect."
+        fields:
+          - "Monthly Active Patients and growth rate"
+          - "Revenue per Patient per Month"
+          - "Payer Reimbursement Rate (%)"
+          - "Provider Adoption Rate (%)"
+          - "Patient Engagement Rate (weekly)"
+          - "Clinical Outcome Improvement (primary endpoint)"
+          - "Gross Margin (technology-only and blended)"
+          - "Clinical Evidence Stage"
+          - "Regulatory Status"
+      - section_name: "Clinical Validation Cost Amortization"
+        placement: "after:Patient LTV:CAC Ratio"
+        description: "Clinical evidence investment and its amortization across the patient base."
+        fields:
+          - "Total clinical validation investment to date (studies, regulatory, medical writing)"
+          - "Projected total clinical validation investment"
+          - "Clinical validation cost per patient (amortized across projected patient volume)"
+          - "Regulatory pathway cost incurred and remaining"
+      - section_name: "Reimbursement Structure"
+        placement: "after:Clinical Validation Cost Amortization"
+        description: "How the product generates revenue through the healthcare payment system."
+        fields:
+          - "Applicable CPT/HCPCS codes and reimbursement rates"
+          - "Payer coverage status (Medicare, top 10 commercial payers)"
+          - "Revenue per patient under full reimbursement vs. current reimbursement"
+          - "Path to broader payer coverage (timeline and milestones)"
+    sections_to_remove: []
+    benchmark_references: ["revenue-per-patient-per-month", "cac-health-system", "gross-margin", "payer-reimbursement-rate", "clinical-validation-stage", "regulatory-approval-status", "patient-engagement-rate", "monthly-active-patients"]
+
+  - template: "investor-update-email"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech investor updates must include clinical milestones and regulatory status alongside financial metrics. Health-focused investors expect proactive disclosure of clinical evidence progress, regulatory interactions, and reimbursement developments. Clinical milestones (study enrollment, data analysis, publication, regulatory submission) are as important as commercial milestones."
+    field_changes:
+      - field: "Financial highlights"
+        sector_label: "Healthtech KPIs"
+        sector_guidance: "Report: Monthly Active Patients, Revenue (total and per-patient), Payer Reimbursement Rate (% of revenue), Provider Adoption Rate, Patient Engagement Rate, and Gross Margin. Present as a small table with current month, prior month, and trend arrow."
+      - field: "Key metrics"
+        sector_label: "Clinical & Regulatory Milestones"
+        sector_guidance: "Report: clinical study enrollment/completion status, regulatory submission status, payer coverage decisions, clinical evidence publications, and adverse event summary (if applicable). These milestones are as consequential as revenue metrics for healthtech investors."
+      - field: "Wins"
+        sector_label: "Wins"
+        sector_guidance: "Include at least one clinical win: a patient outcome improvement demonstrated, a health system deployment completed, a clinical publication accepted, or a regulatory milestone achieved. Financial wins should be reported alongside clinical wins, not instead of them."
+      - field: "Challenges"
+        sector_label: "Challenges"
+        sector_guidance: "Lead with challenges. In healthtech, challenges often have regulatory or clinical dimensions: regulatory feedback requiring additional data, payer coverage denial, provider adoption below target, or patient engagement declining. Investors respect transparency about clinical challenges."
+      - field: "Asks"
+        sector_label: "Asks"
+        sector_guidance: "Be specific. Healthtech-specific asks: introduction to a health system CIO or CMIO for pilot discussion, connection to a payer medical director for coverage discussion, introduction to clinical key opinion leaders for advisory engagement."
+    sections_to_add:
+      - section_name: "Regulatory & Clinical Status"
+        placement: "after:Healthtech KPIs"
+        description: "Standing regulatory and clinical evidence status that investors can track month-over-month."
+        fields:
+          - "FDA regulatory status (current stage and next milestone)"
+          - "Clinical study status (enrollment, data collection, analysis, publication)"
+          - "Payer coverage status (applications pending, decisions received)"
+          - "Patient safety summary (adverse events, if any)"
+      - section_name: "Cash Position"
+        placement: "after:Regulatory & Clinical Status"
+        description: "Cash and runway with regulatory milestone overlay."
+        fields:
+          - "Cash balance (end of month)"
+          - "Monthly burn rate (trailing 3-month average)"
+          - "Months of runway"
+          - "Runway relative to next regulatory milestone"
+    sections_to_remove: []
+    benchmark_references: ["monthly-active-patients", "revenue-per-patient-per-month", "payer-reimbursement-rate", "regulatory-approval-status", "clinical-validation-stage"]
+
+  - template: "competitive-landscape-brief"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech competitive analysis must include clinical evidence comparison, regulatory status comparison, and reimbursement status — dimensions that do not exist in standard competitive briefs. The most important competitive axis in healthtech is clinical evidence strength, not product features or pricing."
+    field_changes:
+      - field: "Competitor overview"
+        sector_label: "Clinical Competitive Map"
+        sector_guidance: "Map competitors on a 2x2 matrix: X-axis = clinical evidence strength (pilot data to published RCTs), Y-axis = regulatory/reimbursement status (pre-clearance to broadly reimbursed). Position your product and each competitor. Include EHR vendor native capabilities as competitors."
+      - field: "Competitive advantages"
+        sector_label: "Clinical Defensibility Analysis"
+        sector_guidance: "Assess defensibility along healthtech-specific dimensions: clinical evidence moat (published outcomes superior to competitors), regulatory moat (clearance timeline advantage), reimbursement moat (payer coverage secured before competitors), workflow integration moat (deep EHR integration), and clinical relationship moat (health system champions and advisory board)."
+      - field: "Competitive threats"
+        sector_label: "Threat Vectors"
+        sector_guidance: "Categorize threats: (1) Peer healthtech — same clinical area, similar product. (2) EHR vendor — native functionality replacing standalone product. (3) Pharmaceutical company — pharma-funded digital companion with massive clinical trial budget. (4) Academic medical center — research institution commercializing internally developed tool. (5) Big tech — Google, Amazon, Apple entering the clinical space."
+    sections_to_add:
+      - section_name: "Clinical Evidence Comparison"
+        placement: "after:Clinical Competitive Map"
+        description: "Head-to-head clinical evidence comparison with competitors."
+        fields:
+          - "Evidence level comparison by competitor (Oxford CEBM level)"
+          - "Published outcomes data by competitor"
+          - "Regulatory status by competitor"
+          - "Payer coverage status by competitor"
+      - section_name: "EHR Platform Threat Assessment"
+        placement: "after:Threat Vectors"
+        description: "Assessment of EHR vendor native functionality as competitive threat."
+        fields:
+          - "Epic native capabilities that overlap with the product"
+          - "Oracle Health (Cerner) native capabilities that overlap"
+          - "EHR vendor roadmap announcements relevant to the product"
+          - "Defensibility against EHR vendor encroachment"
+    sections_to_remove: []
+    benchmark_references: ["clinical-evidence-strength", "regulatory-approval-status", "payer-reimbursement-rate", "clinical-workflow-integration-score"]
+
+  - template: "fundraising-deck-outline"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech pitch decks require clinical evidence, regulatory pathway, and reimbursement strategy slides that do not exist in standard pitch templates. Health-focused investors evaluate these dimensions with the same rigor as financial metrics. The deck must demonstrate clinical credibility alongside commercial viability."
+    field_changes:
+      - field: "Market opportunity"
+        sector_label: "Clinical Market Opportunity"
+        sector_guidance: "Present the clinical problem first: prevalence, burden of disease, cost to the healthcare system, and inadequacy of current solutions. Then size the market bottom-up: (patient population) x (reimbursement rate per patient) = addressable market. Include the payer perspective: what are payers currently spending on this condition, and how does the product reduce that spend?"
+      - field: "Business model"
+        sector_label: "Healthtech Business Model"
+        sector_guidance: "Cover: revenue model (reimbursement-based, SaaS, hybrid), triple-stakeholder value proposition (patient outcomes, provider experience, cost reduction), reimbursement pathway (CPT codes, payer engagement), and the clinical evidence that supports each value claim."
+      - field: "Traction"
+        sector_label: "Clinical & Commercial Traction"
+        sector_guidance: "Dual-axis traction slide: commercial metrics (Monthly Active Patients, revenue, health system customers) alongside clinical metrics (clinical evidence stage, patient outcomes improvement, regulatory milestones). Both dimensions must show progress."
+    sections_to_add:
+      - section_name: "Clinical Evidence Slide"
+        placement: "after:Clinical & Commercial Traction"
+        description: "Dedicated slide summarizing the clinical evidence base — the most scrutinized slide in a healthtech pitch."
+        fields:
+          - "Clinical study design, patient population, and primary endpoint"
+          - "Key outcome results with statistical significance"
+          - "Publication status (journal, conference presentations)"
+          - "Ongoing and planned studies"
+      - section_name: "Regulatory Pathway Slide"
+        placement: "after:Clinical Evidence Slide"
+        description: "Regulatory strategy and timeline — a gating factor for healthtech investors."
+        fields:
+          - "Regulatory classification and pathway (510(k), De Novo, PMA, exempt)"
+          - "Current regulatory status"
+          - "Timeline to clearance/approval"
+          - "Regulatory cost budget and spend to date"
+      - section_name: "Reimbursement Strategy Slide"
+        placement: "after:Regulatory Pathway Slide"
+        description: "How the product generates revenue through the healthcare payment system."
+        fields:
+          - "Applicable billing codes (CPT, HCPCS)"
+          - "Current payer coverage (Medicare, top commercial payers)"
+          - "Reimbursement rate per patient per month"
+          - "Path to broader payer coverage"
+      - section_name: "Per-Patient Unit Economics Slide"
+        placement: "after:Reimbursement Strategy Slide"
+        description: "Per-patient economics including clinical validation cost amortization."
+        fields:
+          - "Revenue per patient per month (by source)"
+          - "Cost per patient per month (technology + clinical support)"
+          - "Patient LTV:CAC ratio"
+          - "Clinical validation cost amortized per patient"
+    sections_to_remove: []
+    benchmark_references: ["clinical-validation-stage", "regulatory-approval-status", "payer-reimbursement-rate", "revenue-per-patient-per-month", "patient-outcomes-improvement", "monthly-active-patients"]
+
+  - template: "strategic-analysis-one-pager"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A healthtech strategic one-pager must anchor analysis in clinical evidence strength, regulatory position, and reimbursement viability alongside standard commercial metrics."
+    field_changes:
+      - field: "Strategic position"
+        sector_label: "Healthtech Strategic Position"
+        sector_guidance: "Frame position across four dimensions: clinical evidence strength relative to competitors, regulatory status and timeline, reimbursement position and payer coverage, and health system adoption and provider satisfaction."
+      - field: "Key metrics"
+        sector_label: "Healthtech Health Metrics"
+        sector_guidance: "Core 5: Monthly Active Patients + growth rate, Patient Outcomes Improvement, Payer Reimbursement Rate, Provider Adoption Rate, Gross Margin. Compare each to stage-appropriate benchmarks."
+    sections_to_add:
+      - section_name: "Triple-Aim Assessment"
+        placement: "end"
+        description: "Assessment of the company's position on the healthcare triple aim."
+        fields:
+          - "Better outcomes: clinical evidence summary and outcome improvement metrics"
+          - "Better experience: patient satisfaction and provider NPS"
+          - "Lower cost: health economic analysis and cost avoidance data"
+          - "Triple-aim alignment: which dimensions are strong, which need improvement"
+    sections_to_remove: []
+    benchmark_references: ["monthly-active-patients", "patient-outcomes-improvement", "payer-reimbursement-rate", "provider-adoption-rate", "gross-margin"]
+
+  - template: "market-opportunity-summary"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech market sizing must be grounded in clinical epidemiology and reimbursement economics, not generic TAM calculations."
+    field_changes:
+      - field: "Total addressable market"
+        sector_label: "Clinical TAM / SAM / SOM"
+        sector_guidance: "Bottom-up sizing using clinical data: (patient prevalence in target population) x (reimbursement rate per patient per year) = SAM. Cross-reference with payer spending data in the therapeutic area. Do not use top-down healthcare market size estimates."
+      - field: "Market dynamics"
+        sector_label: "Clinical Market Dynamics"
+        sector_guidance: "Address: clinical guideline evolution (is the clinical standard of care shifting toward digital interventions?), reimbursement trends (are payers expanding or contracting digital health coverage?), provider adoption trends (are clinicians increasingly willing to prescribe digital interventions?), and regulatory trends (is FDA facilitating or constraining the market?)."
+    sections_to_add:
+      - section_name: "Reimbursement Landscape"
+        placement: "end"
+        description: "Current and projected reimbursement environment for the clinical area."
+        fields:
+          - "Current reimbursement codes applicable to the product"
+          - "Recent CMS coverage decisions in the therapeutic area"
+          - "Commercial payer coverage trends"
+          - "Projected reimbursement expansion timeline"
+    sections_to_remove: []
+    benchmark_references: ["payer-reimbursement-rate", "monthly-active-patients"]
+
+  - template: "due-diligence-checklist"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech due diligence requires clinical evidence verification, regulatory pathway assessment, HIPAA compliance audit, and reimbursement strategy evaluation — dimensions that do not exist in standard technology due diligence."
+    field_changes:
+      - field: "Financial review"
+        sector_label: "Financial & Revenue Model Verification"
+        sector_guidance: "Verify: revenue decomposition by source (reimbursement vs. SaaS vs. self-pay), per-patient economics, clinical validation cost accounting, and regulatory cost budget versus actuals. Request access to billing data and payer contracts."
+      - field: "Operational review"
+        sector_label: "Clinical Operations & Compliance Review"
+        sector_guidance: "Review: HIPAA compliance documentation, clinical governance structure, adverse event reporting procedures, clinical study protocols and results, regulatory submission history, and payer coverage decisions."
+    sections_to_add:
+      - section_name: "Clinical Evidence Due Diligence"
+        placement: "after:Financial & Revenue Model Verification"
+        description: "Clinical evidence verification — the healthtech equivalent of financial audit."
+        fields:
+          - "Clinical study protocols, IRB approvals, and results"
+          - "Statistical analysis plans and primary endpoint definitions"
+          - "Publication history and journal quality"
+          - "Clinical advisory board composition and engagement level"
+          - "Adverse event history and reporting procedures"
+      - section_name: "Regulatory & Compliance Due Diligence"
+        placement: "after:Clinical Evidence Due Diligence"
+        description: "Regulatory pathway and compliance assessment."
+        fields:
+          - "FDA regulatory classification and pathway"
+          - "Regulatory submission history and FDA feedback"
+          - "HIPAA compliance assessment (HITRUST, SOC 2, or equivalent)"
+          - "State licensing requirements and compliance"
+          - "Data security incident history"
+      - section_name: "Reimbursement Due Diligence"
+        placement: "after:Regulatory & Compliance Due Diligence"
+        description: "Reimbursement pathway viability assessment."
+        fields:
+          - "Applicable CPT/HCPCS codes and reimbursement rates"
+          - "Payer coverage status across Medicare and top commercial payers"
+          - "Health economic analysis (cost-effectiveness data)"
+          - "Reimbursement risk assessment (pending coverage decisions, code sunset risk)"
+    sections_to_remove: []
+    benchmark_references: ["clinical-validation-stage", "regulatory-approval-status", "hipaa-compliance-score", "payer-reimbursement-rate"]
+
+  - template: "cap-table-summary"
+    audience: "investor"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Cap table structure is not healthtech-specific. Standard venture capital cap table formats apply regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "decision-rationale-memo"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech decision rationale memos must include clinical impact assessment for decisions that affect patient care, regulatory status, or clinical evidence strategy."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context (Clinical & Commercial)"
+        sector_guidance: "For decisions with clinical implications, document the clinical context alongside the commercial context: what patient population is affected, what clinical outcomes could change, and what regulatory or compliance implications exist."
+    sections_to_add:
+      - section_name: "Patient Safety Impact Assessment"
+        placement: "end"
+        description: "Assessment of the decision's potential impact on patient safety — required for any decision affecting clinical product behavior."
+        fields:
+          - "Patient population affected"
+          - "Potential positive clinical impact"
+          - "Potential negative clinical impact (worst plausible scenario)"
+          - "Mitigation measures"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "exit-scenario-analysis"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech exit scenarios are governed by clinical evidence strength, regulatory clearances, and payer coverage — these are the primary value drivers in healthtech M&A. Acquirer categories include health system spin-outs, pharma companies, medtech companies, and health IT platforms."
+    field_changes:
+      - field: "Valuation methodology"
+        sector_label: "Healthtech Valuation Drivers"
+        sector_guidance: "Healthtech valuation is driven by: clinical evidence strength (published outcomes data), regulatory status (clearances held), reimbursement position (payer coverage secured), and commercial traction (revenue, patients, health systems). Revenue multiples for healthtech vary by sub-sector: pure software (8-15x ARR), clinical services-included (3-8x ARR), pre-revenue with clearance (milestone-based)."
+      - field: "Potential acquirers"
+        sector_label: "Healthtech Acquirer Landscape"
+        sector_guidance: "Categorize: (1) Health IT platforms — EHR vendors, population health companies (acquire for product expansion). (2) Pharma/biotech — therapeutic companies (acquire for digital companion or real-world evidence). (3) Medtech — device companies (acquire for digital extension of physical devices). (4) Health systems — integrated delivery networks (acquire for internal capability). (5) Private equity — health services PE firms (acquire for portfolio company integration)."
+    sections_to_add:
+      - section_name: "Clinical Asset Valuation"
+        placement: "after:Healthtech Valuation Drivers"
+        description: "Valuation of clinical assets that are unique to healthtech M&A."
+        fields:
+          - "Clinical evidence portfolio value (cost to replicate)"
+          - "Regulatory clearance value (time and cost for acquirer to obtain independently)"
+          - "Payer coverage value (contracts and covered lives)"
+          - "Clinical relationship value (health system customers, KOL network, advisory board)"
+    sections_to_remove: []
+    benchmark_references: ["clinical-validation-stage", "regulatory-approval-status", "payer-reimbursement-rate", "monthly-active-patients"]
+
+  # ─────────────────────────────────────────────
+  # BOARD TEMPLATES (7)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-strategic-review"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech board reviews must integrate clinical metrics alongside commercial metrics, report regulatory milestone progress, and distinguish clinical advisory board governance from corporate board governance. Board members must see clinical outcomes data alongside financial data — in healthtech, clinical performance leads financial performance."
+    field_changes:
+      - field: "Financial summary"
+        sector_label: "Clinical & Financial Dashboard"
+        sector_guidance: "Present dual dashboards: Clinical (patient outcomes improvement, patient engagement rate, provider adoption rate, clinical evidence milestones, adverse event summary) and Financial (revenue, per-patient economics, gross margin, burn rate, runway). Clinical metrics appear first because they are leading indicators of financial performance."
+      - field: "Strategic priorities"
+        sector_label: "Clinical & Commercial Priorities"
+        sector_guidance: "Report against quarterly priorities across both clinical (study milestones, regulatory milestones, reimbursement milestones) and commercial (health system deals, revenue targets, operational metrics) dimensions. Flag any clinical milestone that is off-track with root cause and corrective action."
+      - field: "Risks"
+        sector_label: "Risk Dashboard"
+        sector_guidance: "Categorize: (1) Patient safety risk — adverse events, product reliability, clinical protocol deviations. (2) Regulatory risk — clearance timeline, FDA feedback, compliance gaps. (3) Reimbursement risk — payer coverage decisions, code changes, rate adjustments. (4) Commercial risk — pipeline, churn, competitive threats. (5) Operational risk — security, uptime, HIPAA compliance. Patient safety risk appears first."
+    sections_to_add:
+      - section_name: "Regulatory & Evidence Milestone Tracker"
+        placement: "before:Clinical & Financial Dashboard"
+        description: "Quarter-by-quarter tracking of regulatory and clinical evidence milestones."
+        fields:
+          - "FDA regulatory milestones (status and next step)"
+          - "Clinical study milestones (enrollment, data collection, analysis, publication)"
+          - "Payer coverage milestones (applications, decisions)"
+          - "Milestone timeline vs. plan (ahead/on-track/behind)"
+      - section_name: "Clinical Advisory Board Report"
+        placement: "after:Risk Dashboard"
+        description: "Summary of clinical advisory board activity and recommendations — distinct from corporate board governance."
+        fields:
+          - "Clinical advisory board meeting summary (recommendations, concerns raised)"
+          - "Advisory board composition and any changes"
+          - "Clinical governance decisions made and rationale"
+          - "Patient safety review summary"
+    sections_to_remove: []
+    benchmark_references: ["patient-outcomes-improvement", "provider-adoption-rate", "patient-engagement-rate", "regulatory-approval-status", "payer-reimbursement-rate", "gross-margin"]
+
+  - template: "board-meeting-agenda"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech board meeting agendas must allocate time for clinical governance, regulatory updates, and patient safety review alongside standard business topics."
+    field_changes:
+      - field: "Agenda items"
+        sector_label: "Healthtech Board Agenda"
+        sector_guidance: "Standard healthtech board agenda: (1) Patient safety and clinical governance report — 10 min (any adverse events, clinical protocol changes, advisory board recommendations). (2) Regulatory and clinical evidence update — 10 min (milestone progress, FDA interactions, publication pipeline). (3) Financial and commercial metrics review — 15 min (pre-read, discussion only). (4) Strategic topic deep-dive — 30 min (one topic: clinical evidence strategy, reimbursement pathway, health system expansion, competitive response). (5) CEO asks — 10 min. (6) Executive session — 15 min. Total: 90 minutes. Patient safety review is first, non-negotiable."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "risk-assessment-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech risk assessment must place patient safety risk as the first category, above commercial and operational risk. Regulatory risk, reimbursement risk, and clinical evidence risk are sector-specific categories that do not exist in standard risk frameworks."
+    field_changes:
+      - field: "Risk categories"
+        sector_label: "Healthtech Risk Categories"
+        sector_guidance: "Include in this order: (1) Patient safety risk — adverse events, product errors, clinical protocol deviations, the risk that the product causes harm. (2) Regulatory risk — clearance delays, FDA warning letters, compliance gaps, post-market surveillance findings. (3) Reimbursement risk — payer coverage denials, code changes, rate reductions. (4) Clinical evidence risk — study failures, null results, competitor evidence leapfrog. (5) Commercial risk — pipeline, churn, competitive threats, health system concentration. (6) Operational risk — security, HIPAA compliance, system reliability. Patient safety risk is first because it is the most consequential and the most irreversible."
+    sections_to_add:
+      - section_name: "Patient Safety Incident Log"
+        placement: "before:Healthtech Risk Categories"
+        description: "Summary of any patient safety-related events since the last board meeting."
+        fields:
+          - "Adverse events reported (count, severity, resolution status)"
+          - "Product reliability incidents affecting clinical operations"
+          - "Clinical protocol deviations identified"
+          - "Corrective actions taken and their effectiveness"
+      - section_name: "Regulatory Risk Heat Map"
+        placement: "after:Healthtech Risk Categories"
+        description: "Visual assessment of regulatory risks across dimensions."
+        fields:
+          - "FDA regulatory status and risk level (green/yellow/red)"
+          - "HIPAA compliance posture and risk level"
+          - "State licensing and compliance risk"
+          - "Upcoming regulatory changes that could affect the business"
+    sections_to_remove: []
+    benchmark_references: ["data-security-incident-rate", "hipaa-compliance-score", "regulatory-approval-status"]
+
+  - template: "change-initiative-proposal"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Change initiatives in healthtech must include clinical impact assessment — any organizational or product change may affect patient care delivery."
+    field_changes:
+      - field: "Expected outcomes"
+        sector_label: "Expected Clinical & Commercial Outcomes"
+        sector_guidance: "Quantify both clinical impact (patient outcomes, provider experience, safety) and commercial impact (revenue, margin, growth). Initiatives with negative clinical impact should not be approved regardless of commercial benefit."
+    sections_to_add:
+      - section_name: "Patient Safety Impact Assessment"
+        placement: "end"
+        description: "Assessment of how the proposed change could affect patient safety."
+        fields:
+          - "Patient populations affected by the change"
+          - "Potential positive patient impact"
+          - "Potential negative patient impact and mitigation"
+          - "Clinical governance review status"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "compensation-review-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech compensation must address the clinical-commercial talent spectrum and include clinical outcome-linked incentives for leadership."
+    field_changes:
+      - field: "Compensation benchmarks"
+        sector_label: "Healthtech Compensation Benchmarks"
+        sector_guidance: "Use healthtech-specific comp data from Rock Health compensation surveys and Carta health sector data. Include: CMO compensation (cash + equity), clinical operations compensation, regulatory affairs compensation, and standard technical and commercial roles. Clinical leadership compensation is typically higher than comparable SaaS roles due to the specialized skill set."
+    sections_to_add:
+      - section_name: "Clinical Outcome-Linked Compensation"
+        placement: "end"
+        description: "Assessment of whether leadership incentives include clinical outcome components."
+        fields:
+          - "Percentage of leadership variable comp tied to clinical outcomes"
+          - "Clinical outcome metrics used in compensation calculations"
+          - "Clinical advisory board compensation structure"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "regulatory-compliance-update"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "This template is the most critical board template for healthtech companies. It must cover FDA regulatory status, HIPAA compliance, state licensing, and clinical governance in depth."
+    field_changes:
+      - field: "Regulatory landscape"
+        sector_label: "Healthtech Regulatory Landscape"
+        sector_guidance: "Cover: FDA regulatory status (current submissions, pending clearances, post-market requirements), HIPAA compliance posture (assessment results, remediation items, breach history), state licensing (telehealth, clinical services), AI/ML regulatory developments (FDA AI/ML Action Plan updates), and international regulatory status (CE marking, MDR compliance) if applicable."
+    sections_to_add:
+      - section_name: "FDA Regulatory Status"
+        placement: "before:Healthtech Regulatory Landscape"
+        description: "Detailed FDA regulatory status and milestone tracking."
+        fields:
+          - "Current regulatory classification and pathway"
+          - "Submission status and timeline"
+          - "FDA interactions since last board meeting"
+          - "Post-market surveillance findings (if applicable)"
+          - "Predetermined change control plan status (for AI/ML products)"
+      - section_name: "HIPAA & Data Security"
+        placement: "after:Healthtech Regulatory Landscape"
+        description: "HIPAA compliance and data security status."
+        fields:
+          - "HIPAA risk assessment status (last completed, findings)"
+          - "HITRUST CSF or SOC 2 certification status"
+          - "Penetration testing results (last completed, findings)"
+          - "Security incident log (since last board meeting)"
+          - "Business associate agreement coverage (%)"
+      - section_name: "Clinical Governance"
+        placement: "after:HIPAA & Data Security"
+        description: "Clinical governance structure and activity."
+        fields:
+          - "Clinical advisory board meeting summary"
+          - "Clinical protocol changes and rationale"
+          - "Adverse event reporting summary"
+          - "Clinical quality metrics"
+    sections_to_remove: []
+    benchmark_references: ["hipaa-compliance-score", "data-security-incident-rate", "regulatory-approval-status"]
+
+  - template: "ceo-succession-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "CEO succession in healthtech must consider whether the successor has clinical credibility and regulatory literacy alongside standard leadership capabilities."
+    field_changes:
+      - field: "Succession criteria"
+        sector_label: "Healthtech CEO Succession Criteria"
+        sector_guidance: "Include healthtech-specific criteria: (1) Clinical credibility — can the successor engage credibly with clinical advisory boards, health system CMOs, and the CMO/clinical team? (2) Regulatory literacy — does the successor understand the FDA pathway and HIPAA obligations? (3) Payer relationship capability — can the successor negotiate with payer organizations? (4) Health system relationship management — can the successor maintain and expand health system customer relationships?"
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # TEAM TEMPLATES (13)
+  # ─────────────────────────────────────────────
+
+  - template: "action-plan"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech action plans must distinguish between clinical actions (which may affect patient safety) and commercial/operational actions. Clinical actions require clinical review before execution."
+    field_changes:
+      - field: "Success metrics"
+        sector_label: "Clinical & Commercial KPI Targets"
+        sector_guidance: "Define success using both clinical and commercial metrics: patient outcome improvement target, provider adoption rate target, patient engagement rate improvement, alongside revenue or growth targets. Every commercial action item should be traceable to a clinical impact."
+    sections_to_add:
+      - section_name: "Clinical Impact Assessment"
+        placement: "end"
+        description: "Assessment of whether any action items could affect patient care."
+        fields:
+          - "Action items requiring clinical review before execution"
+          - "Patient populations potentially affected"
+          - "Clinical governance approval status"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "new-initiative-brief"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech initiative briefs must include clinical impact assessment and regulatory impact assessment alongside standard project metrics."
+    field_changes:
+      - field: "Expected outcomes"
+        sector_label: "Expected Clinical & Commercial Impact"
+        sector_guidance: "Quantify impact on both clinical metrics (patient outcomes, provider adoption, patient engagement) and commercial metrics (revenue, margin, growth). Include the time to measurable clinical impact."
+      - field: "Resource requirements"
+        sector_label: "Resource Requirements (Clinical & Technical)"
+        sector_guidance: "Specify both technical resources (engineering weeks) and clinical resources (clinical study support, regulatory review, medical writing). Healthtech initiatives often require clinical resources that are scarcer and more expensive than engineering resources."
+    sections_to_add:
+      - section_name: "Regulatory Impact Assessment"
+        placement: "after:Expected Clinical & Commercial Impact"
+        description: "Assessment of whether the initiative triggers regulatory requirements."
+        fields:
+          - "Does this initiative modify a cleared/approved product?"
+          - "Regulatory classification impact (if any)"
+          - "Clinical validation requirements"
+          - "HIPAA compliance implications"
+    sections_to_remove: []
+    benchmark_references: ["patient-outcomes-improvement", "provider-adoption-rate"]
+
+  - template: "project-kickoff-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech project kickoffs must define clinical success criteria and identify any patient safety implications of the project."
+    field_changes:
+      - field: "Success criteria"
+        sector_label: "Clinical & Commercial Success Criteria"
+        sector_guidance: "Define 2-3 clinical metrics and 2-3 commercial metrics. Clinical: patient outcome improvement target, provider adoption change, patient engagement change. Commercial: revenue impact, deployment count, contract value. Include a patient safety criterion: 'zero adverse events attributable to this project.'"
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["patient-outcomes-improvement", "provider-adoption-rate"]
+
+  - template: "hiring-scorecard"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech hiring scorecards must include clinical domain assessment for roles that interact with clinical content, health system customers, or regulatory processes."
+    field_changes:
+      - field: "Required competencies"
+        sector_label: "Healthtech-Specific Competencies"
+        sector_guidance: "For clinical roles (CMO, clinical operations, medical affairs): clinical credibility, health system experience, regulatory affairs knowledge, clinical study design capability. For commercial roles: health system enterprise sales experience, understanding of reimbursement, familiarity with clinical evaluation processes. For technical roles: HIPAA compliance awareness, healthcare data standards (HL7, FHIR), clinical data handling experience."
+    sections_to_add:
+      - section_name: "Clinical Domain Assessment"
+        placement: "end"
+        description: "Assessment of the candidate's healthcare domain expertise."
+        fields:
+          - "Clinical or healthcare domain experience (years, context)"
+          - "Understanding of healthcare regulatory environment"
+          - "Experience with health system customers or clinical workflows"
+          - "HIPAA compliance awareness assessment"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "incident-postmortem"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech incident postmortems must include patient safety impact assessment, HIPAA breach assessment, and clinical operations impact — dimensions that carry legal and regulatory consequences beyond standard SaaS incidents."
+    field_changes:
+      - field: "Impact assessment"
+        sector_label: "Clinical, Patient Safety & Business Impact"
+        sector_guidance: "Assess three impact dimensions: (1) Patient safety — were any patients affected? Were clinical workflows disrupted? Were clinical decisions made without the product's support during the incident? (2) HIPAA/regulatory — was PHI exposed or compromised? Is HHS/OCR notification required? (3) Business — revenue at risk, customer relationship impact, SLA breach."
+    sections_to_add:
+      - section_name: "HIPAA Breach Assessment"
+        placement: "after:Clinical, Patient Safety & Business Impact"
+        description: "Formal assessment of whether the incident constitutes a HIPAA breach."
+        fields:
+          - "Was PHI accessed, disclosed, or compromised?"
+          - "Breach risk assessment (per HIPAA Breach Notification Rule)"
+          - "Notification requirements (individuals, HHS, media if >500 affected)"
+          - "Notification timeline and completion status"
+      - section_name: "Clinical Impact Review"
+        placement: "after:HIPAA Breach Assessment"
+        description: "Assessment of the incident's impact on patient care."
+        fields:
+          - "Clinical operations disrupted (duration and scope)"
+          - "Patients potentially affected (count and impact severity)"
+          - "Provider communication log (when clinical staff were notified)"
+          - "Patient safety incident report filed (if applicable)"
+    sections_to_remove: []
+    benchmark_references: ["data-security-incident-rate", "hipaa-compliance-score"]
+
+  - template: "retrospective-template"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech retrospectives must include a clinical quality dimension alongside standard agile retrospective categories."
+    field_changes:
+      - field: "What went well"
+        sector_label: "What Went Well (Clinical & Technical)"
+        sector_guidance: "Include clinical quality achievements alongside technical and process achievements: clinical protocol adherence, patient safety maintained, regulatory milestone achieved, clinical evidence generated."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "meeting-notes-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Meeting notes structure is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "one-on-one-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "One-on-one meeting structure is not sector-specific. The content naturally adapts to healthtech context."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "team-health-check"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech team health must include clinical-commercial alignment assessment and patient safety culture health alongside standard team metrics."
+    field_changes:
+      - field: "Health indicators"
+        sector_label: "Healthtech Team Health Indicators"
+        sector_guidance: "Include healthtech-specific indicators: clinical-commercial alignment (do clinical and commercial teams agree on priorities?), patient safety culture (do team members feel empowered to raise safety concerns?), regulatory literacy (does the team understand the regulatory constraints?), and clinical workflow empathy (does the technical team understand provider needs?)."
+    sections_to_add:
+      - section_name: "Clinical-Commercial Alignment Score"
+        placement: "end"
+        description: "Assessment of alignment between clinical and commercial functions."
+        fields:
+          - "Clinical-commercial priority alignment (shared understanding of what comes next)"
+          - "Evidence-commercial alignment (clinical evidence strategy supports commercial needs)"
+          - "Patient safety culture score (team members feel empowered to raise safety concerns)"
+          - "Cross-functional clinical literacy (technical team understands clinical context)"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "culture-values-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech culture and values documents must include patient safety as a core value — not a compliance requirement but a foundational commitment."
+    field_changes:
+      - field: "Core values"
+        sector_label: "Core Values (Clinical & Organizational)"
+        sector_guidance: "Include patient safety and clinical integrity as explicit core values. These should not be aspirational statements but operational commitments with specific behavioral expectations — for example, 'Any team member can halt a product release for a patient safety concern' or 'Clinical evidence informs all product decisions.'"
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "feedback-360-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "360 feedback follows standard practices regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "offsite-planning-guide"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Offsite planning is not sector-specific, though the content discussed at offsites will naturally address healthtech topics."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "role-description-template"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech role descriptions must reference clinical domain requirements and regulatory literacy expectations."
+    field_changes:
+      - field: "Key responsibilities"
+        sector_label: "Key Responsibilities and Clinical Impact"
+        sector_guidance: "For each responsibility, specify the clinical and/or commercial metric the role owner is accountable for. Examples: CMO owns clinical evidence strategy and patient safety governance; VP Clinical Operations owns provider adoption rate and patient engagement; VP Regulatory owns FDA pathway timeline and compliance posture."
+      - field: "Required experience"
+        sector_label: "Healthtech Experience Requirements"
+        sector_guidance: "Specify: healthcare domain experience, HIPAA compliance familiarity, experience with health system customers, regulatory environment understanding, and for clinical roles — clinical credentials and licensure."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # SELF TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "weekly-ceo-review"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A healthtech CEO's weekly review must include clinical metrics and patient safety status alongside commercial metrics."
+    field_changes:
+      - field: "Weekly metrics"
+        sector_label: "Weekly Healthtech Dashboard"
+        sector_guidance: "Review weekly: patient enrollment and engagement trends, provider adoption at deployed sites, any adverse events or patient safety concerns, pipeline status and upcoming health system evaluations, cash balance. Monthly metrics (clinical outcomes, regulatory milestones, payer decisions) should be reviewed monthly, not weekly."
+      - field: "Priorities"
+        sector_label: "This Week's Priorities"
+        sector_guidance: "Identify the single most important clinical and the single most important commercial priority. In healthtech, these may conflict — the CEO must resolve the tension explicitly, not avoid it."
+    sections_to_add:
+      - section_name: "Patient Safety Check"
+        placement: "before:Weekly Healthtech Dashboard"
+        description: "Weekly patient safety status — the first thing the CEO reviews."
+        fields:
+          - "Any adverse events or patient safety concerns this week"
+          - "Clinical governance issues requiring CEO attention"
+          - "Product reliability status (any clinical system issues)"
+    sections_to_remove: []
+    benchmark_references: ["patient-engagement-rate", "provider-adoption-rate"]
+
+  - template: "decision-journal"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech decision journals must capture the clinical dimensions of decisions, including patient safety considerations and regulatory implications."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context (Clinical & Commercial)"
+        sector_guidance: "Record: the clinical and commercial metrics that informed this decision, whether patient safety was a consideration, whether the decision has regulatory implications, and the clinical advisory board's input (if applicable). For decisions with clinical impact, note the 'patient safety criterion' — what outcome would indicate the decision harmed patients."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "annual-review-and-planning"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech annual reviews must assess clinical milestones alongside commercial milestones."
+    field_changes:
+      - field: "Year in review"
+        sector_label: "Healthtech Year in Review"
+        sector_guidance: "Assess: clinical evidence progress (studies completed, publications, regulatory milestones), patient outcomes metrics (improvement trend), health system customer growth, payer coverage expansion, financial performance (revenue, margin, burn), and team development (clinical and technical hires)."
+      - field: "Next year goals"
+        sector_label: "Next Year Clinical & Commercial Targets"
+        sector_guidance: "Set targets across all healthtech dimensions: clinical evidence targets (studies to complete, publications), regulatory targets (submissions, clearances), reimbursement targets (payer coverage, covered lives), commercial targets (revenue, patients, health systems), and operational targets (HIPAA compliance, security posture)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["clinical-validation-stage", "regulatory-approval-status", "payer-reimbursement-rate", "monthly-active-patients"]
+
+  - template: "stakeholder-map"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech stakeholder maps must include healthcare-ecosystem-specific stakeholder categories: clinical advisory board, health system CMOs and CIOs, payer medical directors, FDA contacts, key opinion leaders, and clinical society leadership."
+    field_changes:
+      - field: "Stakeholder categories"
+        sector_label: "Healthtech Stakeholder Ecosystem"
+        sector_guidance: "Include: Investors (health-focused VCs, strategic investors, angels), Clinical (clinical advisory board, key opinion leaders, clinical society contacts), Health Systems (CMIO/CIO contacts, clinical champions, procurement contacts), Payers (medical director contacts, benefits purchaser contacts), Regulatory (FDA contacts, regulatory consultants), Team (executives, clinical leadership, key ICs), and Partners (EHR vendors, pharma, data partners)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "negotiation-prep-sheet"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech negotiation prep must address the unique dynamics of health system, payer, and regulatory negotiations."
+    field_changes:
+      - field: "Negotiation type"
+        sector_label: "Healthtech Negotiation Context"
+        sector_guidance: "Classify: health system enterprise deal (contract terms, pilot structure, implementation scope), payer contract (coverage decision, reimbursement rate, evidence requirements), regulatory engagement (pre-submission meeting, clearance response), partnership (EHR integration terms, pharma collaboration), or fundraising (term sheet). Each type has distinct healthtech-specific dynamics."
+      - field: "BATNA"
+        sector_label: "BATNA and Healthtech Leverage"
+        sector_guidance: "Healthtech-specific leverage: for health system deals — clinical evidence superiority, published outcomes, reference customers, EHR integration depth. For payer negotiations — health economic data, cost avoidance evidence, clinical guideline inclusion. For fundraising — multiple term sheets, clinical milestone achievement, regulatory clearance obtained."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["contract-value-health-system", "clinical-evidence-strength"]
+
+  - template: "career-strategy-canvas"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Career strategy is personal, not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "founder-mental-health-check"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech founders face a unique stressor: the weight of patient safety responsibility. The knowledge that product decisions can affect patient health creates a burden that is qualitatively different from standard startup stress."
+    field_changes:
+      - field: "Stress indicators"
+        sector_label: "Healthtech-Specific Stress Indicators"
+        sector_guidance: "Include: patient outcome anxiety (excessive worry about adverse events), clinical perfection paralysis (inability to make decisions due to patient safety fear), regulatory timeline stress (the psychological burden of waiting for FDA decisions that determine the company's fate), moral distress (conflict between clinical ideals and commercial realities), and isolation (feeling that non-healthcare founders cannot understand the unique burden)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "leadership-reflection"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Leadership reflection is not sector-specific. The reflections naturally address healthtech-specific challenges."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "learning-plan"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech founders must develop domain-specific knowledge in healthcare regulation, clinical evidence, and reimbursement."
+    field_changes:
+      - field: "Learning areas"
+        sector_label: "Healthtech Learning Priorities"
+        sector_guidance: "Consider healthtech-specific learning areas: FDA regulatory pathways and digital health guidance, clinical study design and evidence hierarchy, healthcare reimbursement (CPT codes, CMS coverage process), health system procurement and clinical evaluation processes, HIPAA compliance and healthcare data security, clinical AI regulation (FDA AI/ML guidance), and healthcare economics and value-based care models."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "personal-board-tracker"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A healthtech founder's personal advisory network must include clinical and regulatory expertise alongside standard business expertise."
+    field_changes:
+      - field: "Advisor categories"
+        sector_label: "Healthtech Advisory Needs"
+        sector_guidance: "Map advisors to healthtech-specific needs: Clinical (physician in the target therapeutic area, preferably a KOL), Regulatory (former FDA reviewer or regulatory affairs executive), Reimbursement (payer medical director or health economics expert), Health System Sales (someone who has sold enterprise health IT to health systems), Health-Focused Investing (partner at a health-focused VC), and Clinical AI (if applicable — expert in clinical AI validation and FDA AI/ML guidance)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # CLIENT TEMPLATES (8)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-business-review"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech QBRs with health system customers must present clinical outcomes data, provider adoption metrics, and patient engagement alongside standard account health metrics. The QBR is the primary vehicle for demonstrating clinical value — which drives renewal."
+    field_changes:
+      - field: "Performance summary"
+        sector_label: "Clinical Value Delivered"
+        sector_guidance: "Lead with clinical outcomes: patient health improvements attributable to the product, comparison to pre-deployment baseline, and comparison to published benchmarks. Quantify using the customer's own quality metrics (CMS quality measures, internal KPIs). Revenue impact comes second — clinical value justifies the financial investment."
+      - field: "Account status"
+        sector_label: "Adoption & Engagement Metrics"
+        sector_guidance: "Present: provider adoption rate (active providers / licensed providers), patient enrollment and engagement, clinical workflow integration status, and usage trends. Segment by department or clinical unit within the health system."
+      - field: "Next steps"
+        sector_label: "Clinical Expansion Opportunities"
+        sector_guidance: "Identify expansion opportunities: additional clinical departments, additional patient populations, additional clinical use cases (if evidence-supported), and deeper EHR integration. Frame as clinical value expansion, not commercial upsell."
+    sections_to_add:
+      - section_name: "Clinical Outcomes Summary"
+        placement: "before:Clinical Value Delivered"
+        description: "Clinical outcomes data for the health system customer — the most important section of the QBR."
+        fields:
+          - "Primary clinical outcome metric (pre-deployment vs. current)"
+          - "Secondary outcomes and quality metrics"
+          - "Patient safety summary (adverse events, if any)"
+          - "Comparison to published clinical benchmarks"
+      - section_name: "Provider Feedback Summary"
+        placement: "after:Adoption & Engagement Metrics"
+        description: "Provider satisfaction and workflow feedback."
+        fields:
+          - "Provider NPS (current and trend)"
+          - "Top provider feedback themes (positive and constructive)"
+          - "Workflow integration improvements since last QBR"
+    sections_to_remove: []
+    benchmark_references: ["provider-adoption-rate", "patient-engagement-rate", "patient-outcomes-improvement", "provider-nps"]
+
+  - template: "onboarding-welcome-packet"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech onboarding at health systems determines provider adoption and clinical workflow integration — the most critical success factors for retention. The welcome packet must address both technical implementation and clinical change management."
+    field_changes:
+      - field: "Getting started steps"
+        sector_label: "Clinical Implementation Path"
+        sector_guidance: "Define the implementation path across both technical and clinical tracks: (1) Technical: EHR integration, data validation, security review (week 1-2). (2) Clinical: provider training, clinical workflow design, clinical champion identification (week 2-4). (3) Pilot: limited deployment with clinical champions, outcome measurement (week 4-8). (4) Expansion: broader deployment with provider peer training (week 8-12). Each step includes estimated time and a 'go/no-go' clinical criterion."
+      - field: "Resources"
+        sector_label: "Clinical & Technical Resources"
+        sector_guidance: "Include: clinical evidence summary (for clinical review committee), EHR integration documentation, provider training materials (accredited CME if available), patient enrollment resources, clinical protocol documentation, and HIPAA BAA template."
+    sections_to_add:
+      - section_name: "Clinical Champion Engagement Plan"
+        placement: "end"
+        description: "Plan for engaging and supporting clinical champions who drive adoption."
+        fields:
+          - "Clinical champion identification criteria"
+          - "Champion training and support plan"
+          - "Champion-to-peer training cascade plan"
+          - "Clinical champion recognition and engagement program"
+    sections_to_remove: []
+    benchmark_references: ["time-to-value-implementation", "provider-adoption-rate"]
+
+  - template: "proposal-outline"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech proposals to health systems must include clinical evidence, regulatory status, HIPAA compliance documentation, and clinical outcome commitments alongside standard commercial terms."
+    field_changes:
+      - field: "Solution overview"
+        sector_label: "Clinical Solution Overview"
+        sector_guidance: "Lead with the clinical problem and outcome — not the technology. Structure: clinical problem statement (with data from the health system's own metrics if available), clinical evidence supporting the solution (published studies, outcome data), and how the solution integrates into the health system's clinical workflow."
+    sections_to_add:
+      - section_name: "Clinical Evidence Summary"
+        placement: "after:Clinical Solution Overview"
+        description: "Summary of clinical evidence supporting the proposed solution."
+        fields:
+          - "Published clinical studies (citation, population, primary outcome, result)"
+          - "Regulatory clearance status"
+          - "Clinical outcome commitments (what the company will measure and report)"
+      - section_name: "Compliance & Security"
+        placement: "end"
+        description: "HIPAA and security compliance documentation."
+        fields:
+          - "HIPAA compliance certifications (HITRUST, SOC 2)"
+          - "Data security architecture overview"
+          - "BAA willingness and template"
+          - "Incident response procedures summary"
+    sections_to_remove: []
+    benchmark_references: ["clinical-evidence-strength", "hipaa-compliance-score", "regulatory-approval-status"]
+
+  - template: "case-study-template"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech case studies must lead with clinical outcomes — the primary decision criterion for health system buyers."
+    field_changes:
+      - field: "Results"
+        sector_label: "Clinical & Operational Results"
+        sector_guidance: "Present clinical outcomes first: patient health improvement metrics (with statistical significance if available), provider satisfaction metrics, and operational improvements. Commercial results (cost savings, efficiency gains) come second. Include the clinical measurement methodology to build evidence credibility."
+    sections_to_add:
+      - section_name: "Clinical Evidence Context"
+        placement: "before:Clinical & Operational Results"
+        description: "Clinical context that makes the case study credible to clinical audiences."
+        fields:
+          - "Patient population and clinical setting"
+          - "Comparison methodology (pre-post, concurrent control, or matched cohort)"
+          - "Primary clinical endpoint and measurement period"
+          - "Limitations and generalizability notes"
+    sections_to_remove: []
+    benchmark_references: ["patient-outcomes-improvement", "provider-adoption-rate"]
+
+  - template: "project-status-update"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech project status updates for health system customers must include clinical implementation progress alongside technical milestones."
+    field_changes:
+      - field: "Status summary"
+        sector_label: "Clinical & Technical Implementation Status"
+        sector_guidance: "Report progress on both tracks: Technical (EHR integration, data validation, security configuration) and Clinical (provider training, clinical workflow design, pilot deployment, outcome measurement). Health system stakeholders care more about clinical readiness than technical completion."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["time-to-value-implementation"]
+
+  - template: "partnership-memo"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech partnership memos must address clinical governance, data sharing (with HIPAA compliance), and clinical independence to maintain credibility."
+    field_changes:
+      - field: "Partnership structure"
+        sector_label: "Clinical Partnership Structure"
+        sector_guidance: "Define: clinical governance (who has authority over clinical content and recommendations), data sharing (HIPAA-compliant data use agreement terms), publication rights (who can publish clinical results and under what conditions), and clinical independence (how the partnership maintains clinical integrity, especially for pharma partnerships)."
+    sections_to_add:
+      - section_name: "Clinical Independence & Governance"
+        placement: "end"
+        description: "How clinical independence is maintained within the partnership."
+        fields:
+          - "Clinical content governance (who reviews and approves clinical recommendations)"
+          - "Data use agreement terms (HIPAA compliance)"
+          - "Publication rights and review process"
+          - "Conflict of interest management"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "service-level-agreement"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech SLAs must address clinical availability requirements, HIPAA compliance commitments, and incident response procedures that exceed standard SaaS SLA terms."
+    field_changes:
+      - field: "Service levels"
+        sector_label: "Clinical Service Level Commitments"
+        sector_guidance: "Include: system availability (health system customers may require 99.9%+ for clinical-use systems), clinical data accuracy, HIPAA compliance maintenance, incident response time (faster for clinical systems than standard SaaS), and breach notification timeline (per HIPAA requirements). Distinguish between clinical-critical availability (during clinical hours) and non-clinical availability."
+    sections_to_add:
+      - section_name: "Clinical Safety Commitments"
+        placement: "end"
+        description: "Patient safety commitments embedded in the service agreement."
+        fields:
+          - "Adverse event reporting procedures and timelines"
+          - "Product safety notification process (if safety issue discovered)"
+          - "Clinical data accuracy standards and monitoring"
+          - "HIPAA breach notification commitments (per federal and state requirements)"
+    sections_to_remove: []
+    benchmark_references: ["hipaa-compliance-score", "data-security-incident-rate"]
+
+  - template: "analysis-report"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Healthtech analysis reports for health system clients must present clinical evidence alongside operational analysis."
+    field_changes:
+      - field: "Findings"
+        sector_label: "Clinical & Operational Findings"
+        sector_guidance: "Present clinical findings (patient outcomes, clinical workflow impact, provider satisfaction) alongside operational findings (efficiency, cost, utilization). Clinical findings should follow evidence-based reporting standards: state the methodology, present results with confidence intervals, and note limitations."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["patient-outcomes-improvement", "provider-adoption-rate"]

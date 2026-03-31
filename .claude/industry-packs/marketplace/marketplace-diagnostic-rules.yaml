@@ -1,0 +1,1061 @@
+# Marketplace Industry Pack — Diagnostic Rules
+# Provides marketplace-specific rules for each of the 20 existing diagnostics,
+# plus 5 marketplace-native diagnostics that address two-sided platform
+# failure modes: chicken-and-egg failure, liquidity crisis, disintermediation
+# risk, quality degradation, and trust collapse.
+#
+# Each diagnostic rule reframes the triage through a two-sided lens:
+# is the problem on the supply side, the demand side, or the platform layer?
+# Every rule reflects genuine marketplace dynamics, not single-sided
+# business logic with marketplace vocabulary.
+
+pack: marketplace
+author: "Fatih Guner"
+type: diagnostic_rules
+version: "1.0.0"
+
+# ============================================================
+# EXISTING DIAGNOSTIC OVERLAYS (20)
+# ============================================================
+
+diagnostic_overlays:
+
+  # ──────────────────────────────────────────────
+  # 1. Revenue Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: revenue-diagnosis
+    marketplace_reframe: >
+      Revenue in a marketplace is a three-variable equation:
+      GMV x Take Rate = Net Revenue. A revenue problem can originate
+      from the supply side (insufficient or declining supply reducing
+      GMV), the demand side (insufficient or declining demand reducing
+      GMV), or the platform layer (take rate compression, payment
+      leakage, or disintermediation). Standard revenue diagnosis
+      conflates these into a single pipeline analysis. In a marketplace,
+      you must decompose first.
+
+    additional_triage_questions:
+      - question: "Is GMV declining, or is GMV stable but net revenue declining?"
+        supply_signal: "GMV declining because supply is shrinking — fewer listings, fewer available providers, fewer active sellers."
+        demand_signal: "GMV declining because demand is shrinking — fewer buyers, fewer searches, lower purchase frequency."
+        platform_signal: "GMV stable but net revenue declining — take rate compression, fee structure leakage, or increasing cost of revenue."
+      - question: "Which side of the marketplace is showing weakness first?"
+        supply_signal: "Supply metrics degrading first: rising supply churn, declining supply liquidity, fewer new listings."
+        demand_signal: "Demand metrics degrading first: declining repeat rate, rising demand churn, lower conversion from search to transaction."
+        platform_signal: "Both sides stable but contribution margin per transaction declining — variable costs rising or take rate under competitive pressure."
+      - question: "Is revenue concentrated in a small number of supply-side participants?"
+        high_concentration: "Top 10% of supply generates >50% of GMV — revenue is fragile. Loss of key suppliers produces disproportionate impact."
+        moderate_concentration: "Top 10% generates 30-50% of GMV — some concentration risk but diversified enough."
+        low_concentration: "Revenue distributed across supply base — healthier but may indicate lack of power sellers."
+      - question: "Has the take rate been stable, or has competitive pressure forced adjustments?"
+        stable: "Take rate unchanged — revenue problem is a volume problem."
+        declining: "Take rate declining under competitive pressure or supplier negotiation — margin compression."
+        increasing: "Take rate recently increased — check if supply-side response (churn, price increases, disintermediation) is causing GMV decline."
+
+    marketplace_diagnoses:
+      - name: supply-side-revenue-collapse
+        description: "Revenue declining because supply is leaving or reducing activity. The marketplace's supply-side value proposition is failing."
+        signals: ["Rising supply churn", "Declining listings or available capacity", "Supply-side NPS declining", "Competitors offering lower take rates"]
+        routes_to_skills: [porters-five-forces, business-model-canvas, net-promoter-score]
+        routes_to_templates: [unit-economics-snapshot, strategic-analysis-one-pager]
+      - name: demand-side-revenue-collapse
+        description: "Revenue declining because buyers are leaving or reducing purchase frequency. The marketplace's demand-side experience or selection is failing."
+        signals: ["Rising demand churn", "Declining repeat rate", "Demand fill rate dropping", "Competitor capturing buyer attention"]
+        routes_to_skills: [four-ps-marketing, net-promoter-score, product-life-cycle]
+        routes_to_templates: [unit-economics-snapshot, quarterly-strategic-review]
+      - name: take-rate-erosion
+        description: "GMV stable or growing but net revenue declining because take rate is compressing — due to competitive pressure, supply negotiation, or fee structure leakage."
+        signals: ["Take rate declining QoQ", "Supplier demands for lower fees", "Competitor offering lower rates", "Increasing off-platform transactions"]
+        routes_to_skills: [porters-five-forces, business-model-canvas, information-asymmetry]
+        routes_to_templates: [unit-economics-snapshot, competitive-landscape-brief]
+
+  # ──────────────────────────────────────────────
+  # 2. Growth Stall Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: growth-stall-diagnosis
+    marketplace_reframe: >
+      Growth stalls in marketplaces come in three flavours: supply-
+      constrained (demand exists but supply cannot fulfil it),
+      demand-constrained (supply exists but buyers are not coming),
+      or liquidity-constrained (both sides present but matching is
+      poor). The standard growth stall diagnosis does not distinguish
+      these — and the interventions are entirely different.
+
+    additional_triage_questions:
+      - question: "Is the stall happening on the supply side, the demand side, or both?"
+        supply_constrained: "Demand metrics healthy (searches, intent) but supply cannot fulfil — low fill rate, long wait times, limited selection."
+        demand_constrained: "Supply available and liquid but demand is not growing — low search volume, poor conversion, acquisition channels exhausted."
+        liquidity_constrained: "Both sides present but matching is poor — high abandonment, low match quality, supply and demand in wrong segments."
+      - question: "Has growth stalled in all markets/categories or only specific ones?"
+        universal_stall: "Growth stalled across all segments — likely a platform-level issue (brand, trust, product)."
+        segment_specific: "Growth stalled in mature segments but continuing in newer ones — lifecycle issue, not a crisis."
+        geographic_specific: "Growth stalled in specific geographies — local competitive dynamics or supply exhaustion."
+      - question: "Is the growth stall correlated with a specific change?"
+        take_rate_change: "Growth stalled after take rate increase — supply-side reaction."
+        quality_change: "Growth stalled after quality standards tightened — supply reduced but remaining supply may be higher quality."
+        competitive_entry: "Growth stalled after competitor launched — direct competitive displacement."
+        no_change: "No identifiable cause — likely market saturation in current segments."
+
+    marketplace_diagnoses:
+      - name: supply-constrained-growth
+        description: "Demand exceeds supply capacity. Growth is capped by the marketplace's ability to recruit and retain supply."
+        signals: ["Low fill rate", "Long wait times", "Supply liquidity >80% (supply fully utilised)", "Rising demand-side complaints about availability"]
+        routes_to_skills: [blue-ocean-strategy, four-ps-marketing, cialdini-influence]
+        routes_to_templates: [new-initiative-brief, market-opportunity-summary]
+      - name: demand-constrained-growth
+        description: "Supply available but demand is not growing. Acquisition channels exhausted or brand awareness insufficient."
+        signals: ["Supply liquidity <30%", "High supply churn (supply not earning enough)", "Demand acquisition cost rising", "Organic demand share declining"]
+        routes_to_skills: [four-ps-marketing, tipping-point, disruptive-innovation]
+        routes_to_templates: [strategic-analysis-one-pager, market-opportunity-summary]
+      - name: liquidity-failure
+        description: "Both sides present but matching is poor. The marketplace has volume without liquidity."
+        signals: ["Low fill rate despite adequate supply", "Low supply liquidity despite adequate demand", "High search abandonment", "Geographic or category mismatch between supply and demand"]
+        routes_to_skills: [systems-thinking, kaizen-bpr, balanced-scorecard]
+        routes_to_templates: [action-plan, new-initiative-brief]
+
+  # ──────────────────────────────────────────────
+  # 3. Competitive Threat Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: competitive-threat-diagnosis
+    marketplace_reframe: >
+      Competitive threats to marketplaces are asymmetric: a competitor
+      can attack the supply side, the demand side, or both — and the
+      most dangerous attacks target only one side. A competitor that
+      recruits your best supply does not need to acquire demand directly;
+      weakened supply degrades the demand experience, which drives demand
+      to the competitor organically.
+
+    additional_triage_questions:
+      - question: "Which side of your marketplace is the competitor attacking?"
+        supply_attack: "Competitor is recruiting your supply with lower take rates, guaranteed earnings, or better tools."
+        demand_attack: "Competitor is capturing your demand with lower prices, better UX, or superior selection in a niche."
+        both_sides: "Competitor is attacking both sides simultaneously — well-funded direct assault."
+        neither_directly: "Competitor is not a marketplace but a substitute (direct channel, SaaS tool for supply, aggregator for demand)."
+      - question: "What is the multi-homing rate on each side?"
+        high_supply_multihoming: "Supply lists on multiple platforms — low switching cost, commoditised supply-side experience."
+        high_demand_multihoming: "Buyers shop across platforms — low brand loyalty, price-sensitive demand."
+        low_multihoming: "Both sides primarily use your marketplace — strong defensibility."
+      - question: "Is the competitor vertical (category-specific) or horizontal (broad)?"
+        vertical: "Vertical competitor with deeper expertise in a specific category — the classic marketplace unbundling threat."
+        horizontal: "Horizontal competitor (Amazon, Google) leveraging existing user base — platform envelopment."
+        new_model: "Different marketplace model entirely (managed vs unmanaged, on-demand vs scheduled) — structural disruption."
+
+    marketplace_diagnoses:
+      - name: supply-side-poaching
+        description: "Competitor systematically recruiting your supply base through lower take rates or better value proposition."
+        signals: ["Rising supply churn among top performers", "Supply multi-homing increasing", "Supply ARPU declining as they diversify across platforms"]
+        routes_to_skills: [porters-five-forces, art-of-war, first-mover-strategy]
+        routes_to_templates: [competitive-landscape-brief, action-plan]
+      - name: vertical-unbundling
+        description: "A category-specific competitor is offering deeper expertise and better supply-demand matching in a segment that represents significant GMV for your marketplace."
+        signals: ["Category-specific GMV declining", "Best supply in that category leaving", "Demand conversion declining for that category"]
+        routes_to_skills: [disruptive-innovation, blue-ocean-strategy, product-life-cycle]
+        routes_to_templates: [competitive-landscape-brief, strategic-analysis-one-pager]
+      - name: platform-envelopment
+        description: "A larger platform is adding marketplace functionality that leverages its existing user base, bypassing the chicken-and-egg problem."
+        signals: ["Demand acquisition cost rising due to increased competition for attention", "Supply attracted to larger platform's existing demand base", "Your brand losing SEO positions to the larger platform"]
+        routes_to_skills: [porters-five-forces, scenario-planning, art-of-war]
+        routes_to_templates: [competitive-landscape-brief, risk-assessment-brief]
+
+  # ──────────────────────────────────────────────
+  # 4. Customer Churn Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: customer-churn-diagnosis
+    marketplace_reframe: >
+      Churn in a marketplace must be diagnosed separately for supply
+      and demand — and the causes are different for each. Supply churn
+      is driven by economics (not earning enough), experience (platform
+      friction), and alternatives (competitors or direct channels).
+      Demand churn is driven by quality (bad experiences), selection
+      (cannot find what they want), and trust (safety or fraud concerns).
+      The two churn types interact: supply churn causes demand churn
+      causes more supply churn.
+
+    additional_triage_questions:
+      - question: "Is churn rising on the supply side, the demand side, or both?"
+        supply_churn: "Supply leaving — proceed to supply-specific diagnosis."
+        demand_churn: "Demand leaving — proceed to demand-specific diagnosis."
+        both: "Both sides churning — likely a death spiral. Determine which side started churning first."
+      - question: "[Supply] Why are suppliers leaving?"
+        economics: "Suppliers not earning enough — low transaction volume, low AOV, high take rate."
+        experience: "Platform friction — onboarding difficulty, poor tools, slow payouts, unresponsive support."
+        alternatives: "Better options available — competitor, direct channel, changed business model."
+        quality_pressure: "Platform imposed quality requirements the supplier cannot or will not meet."
+      - question: "[Demand] Why are buyers leaving?"
+        quality: "Bad transaction experiences — supply quality inconsistent, orders unfulfilled, disputes unresolved."
+        selection: "Cannot find what they want — limited supply in their category or geography."
+        trust: "Trust broken — fraud, safety incident, or feel unprotected by platform."
+        price: "Cheaper alternatives available — competitor, direct from supplier."
+
+    marketplace_diagnoses:
+      - name: supply-economics-churn
+        description: "Supply is churning because the platform does not generate enough economic value for participants — transactions too infrequent, take rate too high, or AOV too low."
+        signals: ["Supply earnings per active period declining", "Supply liquidity declining", "Supply NPS on earnings-related questions dropping"]
+        routes_to_skills: [business-model-canvas, four-ps-marketing, balanced-scorecard]
+        routes_to_templates: [unit-economics-snapshot, action-plan]
+      - name: demand-quality-churn
+        description: "Demand is churning because supply quality is inconsistent or declining — bad experiences, unmet expectations, trust erosion."
+        signals: ["Ratings declining", "Dispute rate rising", "Demand repeat rate falling", "Demand NPS declining"]
+        routes_to_skills: [net-promoter-score, kaizen-bpr, systems-thinking]
+        routes_to_templates: [quarterly-business-review, action-plan]
+      - name: death-spiral-churn
+        description: "Supply and demand churn are reinforcing each other in a vicious cycle. Less supply causes worse demand experience causes demand churn causes supply earnings decline causes supply churn."
+        signals: ["Both sides' churn accelerating simultaneously", "Supply liquidity and demand fill rate both declining", "Organic acquisition on both sides declining"]
+        routes_to_skills: [systems-thinking, scenario-planning, kotter-change-model]
+        routes_to_templates: [risk-assessment-brief, action-plan]
+        red_flag: true
+
+  # ──────────────────────────────────────────────
+  # 5. Pricing Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: pricing-diagnosis
+    marketplace_reframe: >
+      Marketplace pricing is not a single price decision — it is a
+      three-part structure: what supply charges, what demand pays, and
+      what the platform takes in between. A pricing problem can
+      originate from any of these three layers. Supply may be
+      overpricing (demand churn), underpricing (supply churn from
+      unsustainable economics), or the take rate may be misaligned
+      with the value the platform provides.
+
+    additional_triage_questions:
+      - question: "Where does the pricing problem manifest?"
+        supply_pricing: "Suppliers pricing too high → demand conversion suffers. Or pricing too low → supply economics unsustainable."
+        demand_perception: "Demand perceives total cost (price + fees) as too high, even if supply prices are reasonable — platform fees are the issue."
+        take_rate: "Take rate too high → supply raises prices to compensate → demand experience suffers. Or take rate too low → platform cannot invest in quality."
+      - question: "Does the marketplace set prices, guide prices, or allow free pricing?"
+        platform_sets: "Platform-set pricing (Uber model) — pricing problems are platform responsibility."
+        platform_guides: "Platform provides guidance (suggested prices, dynamic pricing tools) — pricing problems are shared."
+        free_pricing: "Supply sets prices freely — pricing problems may require market design intervention (price floors, transparency tools)."
+      - question: "How does your pricing compare to off-platform alternatives?"
+        above_market: "Marketplace prices (including fees) above direct alternatives — must justify with trust, convenience, or guarantees."
+        at_market: "Marketplace prices comparable to alternatives — no pricing premium burden."
+        below_market: "Marketplace prices below alternatives — potential supply sustainability issue."
+
+    marketplace_diagnoses:
+      - name: take-rate-misalignment
+        description: "The platform's take rate does not match the value it provides. Too high relative to value-add, or structured in a way that creates perverse incentives."
+        signals: ["Increasing disintermediation", "Supply-side price inflation to offset take rate", "Supply churn concentrated among high-volume sellers"]
+        routes_to_skills: [four-ps-marketing, business-model-canvas, information-asymmetry]
+        routes_to_templates: [unit-economics-snapshot, strategic-analysis-one-pager]
+      - name: supply-pricing-dysfunction
+        description: "Supply-side pricing is creating demand problems — prices too high, too variable, or too opaque relative to alternatives."
+        signals: ["Demand conversion below category benchmarks", "High cart abandonment at price reveal", "Demand complaints about pricing"]
+        routes_to_skills: [four-ps-marketing, thinking-fast-and-slow, information-asymmetry]
+        routes_to_templates: [unit-economics-snapshot, action-plan]
+      - name: fee-structure-leakage
+        description: "The fee structure has gaps — certain transaction types, payment methods, or customer segments bypass fees, eroding effective take rate."
+        signals: ["Effective take rate below stated take rate", "Growing transaction volume through fee-exempt channels", "Supply routing transactions to minimise fees"]
+        routes_to_skills: [game-theory-fundamentals, business-model-canvas, systems-thinking]
+        routes_to_templates: [unit-economics-snapshot, decision-journal]
+
+  # ──────────────────────────────────────────────
+  # 6. Product-Market Fit Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: product-market-fit-diagnosis
+    marketplace_reframe: >
+      Product-market fit in a marketplace is actually product-market-
+      market fit: the platform must fit both the supply market and the
+      demand market simultaneously. You can have strong supply-side PMF
+      (suppliers love the platform) with weak demand-side PMF (buyers
+      do not return), or vice versa. True marketplace PMF exists when
+      both sides transact repeatedly, organically, and with satisfaction.
+
+    additional_triage_questions:
+      - question: "Which side shows stronger signs of product-market fit?"
+        supply_stronger: "Supply is engaged and retained, but demand does not convert or return — demand-side PMF missing."
+        demand_stronger: "Demand is eager but supply is insufficient, unreliable, or churning — supply-side PMF missing."
+        neither: "Neither side shows strong retention or satisfaction — fundamental marketplace thesis may be wrong."
+        both: "Both sides transacting and returning — marketplace PMF exists. The problem is scaling it."
+      - question: "In your strongest segment (geography, category), do you see organic repeat behaviour on both sides?"
+        yes_both: "Both sides returning organically in at least one segment — PMF exists in a niche. The task is expansion."
+        yes_one: "Organic repeat on one side only — half-PMF. Diagnose the weak side."
+        no: "No organic repeat on either side in any segment — PMF has not been achieved."
+
+    marketplace_diagnoses:
+      - name: supply-side-pmf-failure
+        description: "The marketplace does not deliver sufficient value to the supply side — suppliers do not earn enough, find the platform too frustrating, or have better alternatives."
+        signals: ["Low supply repeat rate (<30% at 90 days)", "Supply onboarding drop-off >50%", "Supply NPS below 20"]
+        routes_to_skills: [business-model-canvas, net-promoter-score, appreciative-inquiry]
+        routes_to_templates: [unit-economics-snapshot, action-plan]
+      - name: demand-side-pmf-failure
+        description: "The marketplace does not deliver sufficient value to the demand side — buyers cannot find what they want, do not trust the supply, or find the experience inferior to alternatives."
+        signals: ["Low demand repeat rate (<20% at 90 days)", "Low demand fill rate (<30%)", "Demand NPS below 20"]
+        routes_to_skills: [net-promoter-score, four-ps-marketing, blue-ocean-strategy]
+        routes_to_templates: [unit-economics-snapshot, action-plan]
+      - name: matching-failure
+        description: "Both sides are present and individually satisfied, but the matching mechanism is inadequate — wrong supply shown to wrong demand."
+        signals: ["Adequate supply and demand volume but low transaction rate", "High search abandonment", "Low fill rate despite available supply"]
+        routes_to_skills: [systems-thinking, kaizen-bpr, doblin-ten-types]
+        routes_to_templates: [action-plan, new-initiative-brief]
+
+  # ──────────────────────────────────────────────
+  # 7. Fundraising Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: fundraising-diagnosis
+    marketplace_reframe: >
+      Marketplace fundraising requires a different narrative from SaaS.
+      Investors evaluate: (1) evidence of network effects, not just
+      revenue growth, (2) liquidity metrics, not just user counts,
+      (3) unit economics per transaction, not per subscription,
+      (4) defensibility through supply-side lock-in and demand-side
+      habit, not through product differentiation alone.
+
+    additional_triage_questions:
+      - question: "Can you demonstrate measurable network effects?"
+        yes: "Quantified cross-side elasticity, improving organic acquisition %, declining blended CAC — strong fundraising position."
+        directional: "Anecdotal or directional evidence — sufficient for Seed/A, insufficient for later rounds."
+        no: "No measurable network effects — investors will question whether this is a marketplace or a lead-gen tool."
+      - question: "What are your marketplace-specific unit economics?"
+        strong: "Positive contribution margin per transaction, blended CAC payback <6 months, both sides' ARPU growing."
+        developing: "Contribution margin trending positive, payback improving — adequate for early-stage fundraising."
+        weak: "Negative contribution margin with unclear path to positive — requires a compelling scale narrative."
+
+    marketplace_fundraising_signals:
+      investors_want_to_see:
+        - "GMV growth rate and net revenue growth rate (both, not just GMV)"
+        - "Take rate and its trajectory (stable or expanding?)"
+        - "Supply liquidity and demand fill rate (the marketplace is working)"
+        - "Repeat rates on both sides (retention, not just acquisition)"
+        - "Organic acquisition percentage on both sides (network effects producing free growth)"
+        - "Contribution margin per transaction (unit economics work)"
+        - "Cross-side elasticity data (network effects are real, not theoretical)"
+      common_fundraising_failures:
+        - "Leading with GMV without disclosing take rate — investors will compute net revenue regardless."
+        - "Claiming network effects without quantifying them."
+        - "Presenting blended metrics (blended CAC, blended retention) that mask supply-demand divergence."
+        - "No answer for 'what prevents disintermediation at scale?'"
+
+  # ──────────────────────────────────────────────
+  # 8. Innovation Drought Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: innovation-drought-diagnosis
+    marketplace_reframe: >
+      Innovation drought in a marketplace manifests as matching
+      stagnation — the algorithm and UX stop improving, supply tools
+      stagnate, and the demand experience ossifies. The platform
+      becomes infrastructure rather than innovation. Meanwhile,
+      vertical competitors innovate on category-specific supply
+      curation and demand experience.
+
+    additional_triage_questions:
+      - question: "When did you last materially improve the matching mechanism?"
+        recent: "Within 6 months — matching innovation is active."
+        stale: "6-18 months ago — matching is at risk of falling behind."
+        old: ">18 months — matching has stagnated. Competitors with better matching will capture supply and demand."
+      - question: "Are you investing in supply-side tools and demand-side experience equally?"
+        balanced: "Investment roughly proportional to each side's needs."
+        demand_heavy: "Innovation concentrated on demand UX — supply-side tools stagnating. Common pattern that erodes supply loyalty."
+        supply_heavy: "Innovation concentrated on supply tools — demand experience stagnating. Uncommon but dangerous."
+
+    marketplace_diagnoses:
+      - name: matching-stagnation
+        description: "The marketplace's core matching mechanism has not improved materially, allowing competitors to offer better supply-demand pairing."
+        signals: ["Match quality scores declining or flat", "Search-to-transaction conversion stagnant", "Demand satisfaction with relevance declining"]
+        routes_to_skills: [kaizen-bpr, doblin-ten-types, ambidexterity]
+        routes_to_templates: [new-initiative-brief, action-plan]
+      - name: supply-side-tool-neglect
+        description: "Supply-side tools, analytics, and experience have not been innovated, while demand-side UX receives all investment."
+        signals: ["Supply NPS declining while demand NPS stable", "Supply churn rising among power users", "Competitor launching superior supply tools"]
+        routes_to_skills: [balanced-scorecard, doblin-ten-types, appreciative-inquiry]
+        routes_to_templates: [action-plan, new-initiative-brief]
+
+  # ──────────────────────────────────────────────
+  # 9. Team Dysfunction Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: team-dysfunction-diagnosis
+    marketplace_reframe: >
+      Team dysfunction in marketplace companies often stems from the
+      structural tension between supply-side and demand-side teams.
+      Supply ops wants policies that protect suppliers. Growth wants
+      policies that attract buyers. Product tries to serve both and
+      satisfies neither. Without explicit cross-side governance, this
+      tension becomes dysfunction.
+
+    additional_triage_questions:
+      - question: "Is the dysfunction between the supply-side team and the demand-side team?"
+        yes: "The core marketplace tension is unmanaged. Create formal cross-side governance."
+        no: "Dysfunction is within a team or at a leadership level — standard team diagnosis applies, but check for marketplace-specific causes."
+      - question: "Does the product/platform team have clear prioritisation rules for supply vs demand features?"
+        clear: "Prioritisation framework exists — dysfunction is elsewhere."
+        unclear: "No prioritisation framework — product team is pulled between supply and demand requests, creating frustration on both sides."
+
+    marketplace_diagnoses:
+      - name: supply-demand-team-conflict
+        description: "Supply operations and demand growth teams have conflicting priorities without resolution mechanisms, causing organisational paralysis."
+        signals: ["Supply team and demand team presenting conflicting strategies", "Product backlog dominated by one side's requests", "Cross-functional projects stalling"]
+        routes_to_skills: [thomas-kilmann-conflict, hackman-enabling-conditions, radical-candor]
+        routes_to_templates: [team-health-check, action-plan]
+
+  # ──────────────────────────────────────────────
+  # 10. Leadership Crisis Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: leadership-crisis-diagnosis
+    marketplace_reframe: >
+      Marketplace leadership crises are often triggered by founders
+      who understand one side deeply but are blind to the other.
+      A founder from a supply-side background builds great tools for
+      sellers but neglects demand experience. A demand-obsessed founder
+      builds beautiful buyer UX but treats supply as commodity input.
+      The leadership gap is always on the side the founder does not
+      naturally understand.
+
+    additional_triage_questions:
+      - question: "Does the founding team have deep expertise on both sides of the marketplace?"
+        both_sides: "Balanced founding expertise — leadership crisis likely stems from other causes."
+        supply_only: "Leadership gap on demand side — demand strategy, marketing, and buyer experience may suffer."
+        demand_only: "Leadership gap on supply side — supply operations, supplier economics, and supply retention may suffer."
+      - question: "Has the leadership team spent significant time with both supply and demand participants?"
+        yes: "Understanding exists — crisis is execution, not empathy."
+        no: "Empathy gap on one side — the leadership team is making decisions about a constituency they do not understand."
+
+    marketplace_diagnoses:
+      - name: single-side-blindness
+        description: "Leadership understands and empathises with one side but treats the other as a resource to be managed rather than a customer to be served."
+        signals: ["Investment disproportionately favours one side", "NPS diverging between sides", "One side's churn rising while the other is stable"]
+        routes_to_skills: [emotional-intelligence, johari-window, strategic-thinking-and-alignment]
+        routes_to_templates: [leadership-reflection, team-health-check]
+
+  # ──────────────────────────────────────────────
+  # 11. Hiring Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: hiring-diagnosis
+    marketplace_reframe: >
+      Marketplace hiring requires domain expertise that general startup
+      hiring does not. Supply operations, trust and safety, marketplace
+      economics, and category management are marketplace-specific roles
+      that do not exist in SaaS or traditional e-commerce. Hiring
+      general 'growth' or 'ops' people without marketplace experience
+      produces costly learning curves.
+
+    additional_triage_questions:
+      - question: "Do you have dedicated leaders for supply operations, demand growth, and trust & safety?"
+        all_three: "Core marketplace leadership in place — hiring diagnosis is standard."
+        missing_one: "Critical marketplace role missing — this is the hiring priority."
+        none: "No marketplace-specific leadership — this is the root cause of most operational issues."
+
+    marketplace_diagnoses:
+      - name: marketplace-role-gap
+        description: "Critical marketplace-specific roles are unfilled or filled by people without marketplace experience."
+        signals: ["Supply or demand metrics declining without clear owner", "T&S issues increasing without dedicated function", "Marketplace economics not tracked or optimised"]
+        routes_to_skills: [hackman-enabling-conditions, belbin-team-roles, delegation-and-empowerment]
+        routes_to_templates: [hiring-scorecard, role-description-template]
+
+  # ──────────────────────────────────────────────
+  # 12. Culture Erosion Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: culture-erosion-diagnosis
+    marketplace_reframe: >
+      Culture in a marketplace company must encompass attitudes toward
+      both sides. A culture that celebrates demand growth metrics but
+      never discusses supply-side health produces systematic neglect
+      of the supply side. The cultural question: does the company treat
+      supply-side participants as partners or as inputs?
+
+    additional_triage_questions:
+      - question: "Does internal language refer to supply-side participants as 'partners' or as resources?"
+        partners: "Cultural framing treats supply as a valued constituency."
+        resources: "Cultural framing objectifies supply — expect supply-hostile policies."
+      - question: "Are supply-side metrics celebrated internally with the same energy as demand-side metrics?"
+        equal: "Balanced cultural attention."
+        demand_dominant: "Demand metrics dominate internal attention — supply side will eventually suffer."
+
+    marketplace_diagnoses:
+      - name: supply-side-cultural-neglect
+        description: "Internal culture prioritises demand-side metrics and achievements while supply-side health is treated as operational housekeeping."
+        signals: ["All-hands focus on demand metrics", "Supply-side team seen as cost centre", "No internal celebration of supply-side wins"]
+        routes_to_skills: [organisational-culture, appreciative-inquiry, radical-candor]
+        routes_to_templates: [culture-values-document, team-health-check]
+
+  # ──────────────────────────────────────────────
+  # 13. Operational Chaos Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: operational-chaos-diagnosis
+    marketplace_reframe: >
+      Operational chaos in a marketplace typically originates in one
+      of three areas: supply onboarding (backlog, quality gaps, slow
+      verification), trust and safety (disputes escalating, fraud
+      undetected, manual review bottleneck), or payments (delayed
+      payouts, incorrect calculations, reconciliation failures). Each
+      area affects both sides through different transmission mechanisms.
+
+    additional_triage_questions:
+      - question: "Where is the operational chaos most acute?"
+        supply_onboarding: "Supply pipeline bottlenecked — new supply cannot get active, existing supply frustrated by onboarding changes."
+        trust_safety: "T&S overwhelmed — disputes unresolved, fraud incidents increasing, both sides losing trust."
+        payments: "Payment operations failing — late payouts, incorrect commissions, supply-side financial anxiety."
+        matching: "Matching operations degraded — poor relevance, slow response, wrong supply shown to demand."
+
+    marketplace_diagnoses:
+      - name: trust-safety-operational-failure
+        description: "Trust and safety operations cannot keep pace with transaction volume, producing unresolved disputes, undetected fraud, and eroding trust on both sides."
+        signals: ["Dispute resolution time increasing", "Fraud rate rising", "Both sides' NPS declining on trust-related questions", "T&S team overwhelmed"]
+        routes_to_skills: [kaizen-bpr, systems-thinking, eisenhower-matrix]
+        routes_to_templates: [incident-postmortem, action-plan]
+      - name: payment-operations-failure
+        description: "Payment operations are failing — late payouts, incorrect calculations, or reconciliation errors producing supply-side distrust."
+        signals: ["Supply support tickets about payments rising", "Late payout frequency increasing", "Supply NPS declining sharply"]
+        routes_to_skills: [kaizen-bpr, balanced-scorecard, systems-thinking]
+        routes_to_templates: [action-plan, incident-postmortem]
+
+  # ──────────────────────────────────────────────
+  # 14. Decision Paralysis Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: decision-paralysis-diagnosis
+    marketplace_reframe: >
+      Decision paralysis in marketplaces often arises from the inherent
+      tension: every major decision affects both sides, and the impact
+      on each side may be opposite. Raising take rate helps the platform
+      but hurts supply. Tightening quality standards helps demand but
+      reduces supply. The paralysis comes from the inability to make
+      a decision that benefits one side without harming the other.
+
+    additional_triage_questions:
+      - question: "Is the paralysis caused by cross-side trade-offs?"
+        yes: "The decision affects supply and demand differently, and the team cannot choose which side to favour."
+        no: "Standard decision paralysis — the marketplace context is incidental."
+
+    marketplace_diagnoses:
+      - name: cross-side-trade-off-paralysis
+        description: "Leadership cannot make decisions that involve trade-offs between supply and demand interests, resulting in policy stagnation."
+        signals: ["Major policy decisions deferred repeatedly", "Take rate unchanged despite data supporting adjustment", "Quality standards not enforced despite quality data"]
+        routes_to_skills: [decision-making-under-pressure, evaluating-and-deciding, win-win-negotiation]
+        routes_to_templates: [decision-journal, decision-rationale-memo]
+
+  # ──────────────────────────────────────────────
+  # 15. Market Entry Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: market-entry-diagnosis
+    marketplace_reframe: >
+      Market entry for a marketplace means solving the chicken-and-egg
+      problem in a new context — new geography, new category, or new
+      vertical. Each entry requires re-establishing liquidity from
+      scratch, often against an incumbent that already has it. The
+      entry strategy must specify which side to acquire first, how
+      to create initial liquidity, and what the tipping point looks
+      like for the new market.
+
+    additional_triage_questions:
+      - question: "Which side will you acquire first in the new market?"
+        supply_first: "Recruit supply, then attract demand with selection. Works when supply is the scarce side."
+        demand_first: "Aggregate demand, then attract supply with guaranteed volume. Works when demand is the scarce side."
+        simultaneously: "Acquire both sides simultaneously — requires heavy subsidisation or a 'single-player mode' that provides value before the other side arrives."
+      - question: "Does the new market have an existing incumbent?"
+        yes_strong: "Strong incumbent with liquidity — entry requires a differentiated wedge strategy (better supply curation, different category, superior trust)."
+        yes_weak: "Weak incumbent — opportunity to out-execute on liquidity, quality, or economics."
+        no: "No incumbent — classic chicken-and-egg challenge without competitive pressure."
+
+    marketplace_diagnoses:
+      - name: cold-start-failure
+        description: "Market entry failing because the chicken-and-egg problem was not solved — neither side sees enough of the other to stay."
+        signals: ["New market supply liquidity <10%", "Demand fill rate <20%", "Both sides churning within 30 days", "Time-to-first-transaction >30 days"]
+        routes_to_skills: [tipping-point, game-theory-fundamentals, first-mover-strategy]
+        routes_to_templates: [new-initiative-brief, market-opportunity-summary]
+
+  # ──────────────────────────────────────────────
+  # 16. Partnership Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: partnership-diagnosis
+    marketplace_reframe: >
+      Marketplace partnerships carry unique risks: supply-side
+      partnerships (aggregators, agencies) can concentrate supply
+      power. Demand-side partnerships (channels, affiliates) can
+      cannibalise organic growth. Infrastructure partnerships
+      (payments, logistics) can become bottlenecks or cost centres
+      that erode unit economics. Every partnership must be evaluated
+      for its side-specific impact.
+
+    additional_triage_questions:
+      - question: "Which side of the marketplace does this partnership affect?"
+        supply_side: "Supply partnership — evaluate for supply concentration risk and economic impact."
+        demand_side: "Demand partnership — evaluate for organic cannibalisation and margin impact."
+        infrastructure: "Infrastructure partnership — evaluate for cost and switching-cost lock-in."
+
+    marketplace_diagnoses:
+      - name: supply-concentration-risk
+        description: "A supply-side partner (aggregator, agency, fleet operator) controls a disproportionate share of marketplace supply, creating dependence."
+        signals: ["Single partner >20% of GMV", "Partner negotiating lower take rates using supply leverage", "Platform cannot enforce quality standards on partner supply"]
+        routes_to_skills: [porters-five-forces, coalition-and-partnership-games, scenario-planning]
+        routes_to_templates: [partnership-memo, risk-assessment-brief]
+
+  # ──────────────────────────────────────────────
+  # 17. Co-founder Conflict Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: cofounder-conflict-diagnosis
+    marketplace_reframe: >
+      Co-founder conflict in marketplaces frequently crystallises
+      around which side to prioritise. One co-founder champions supply
+      (often the one with supply-side domain expertise), the other
+      champions demand (often with marketing or product background).
+      The conflict is structural, not personal — the marketplace
+      requires balanced attention, and co-founders naturally advocate
+      for their domain.
+
+    additional_triage_questions:
+      - question: "Is the co-founder conflict about supply vs demand priorities?"
+        yes: "Structural marketplace tension — requires governance resolution, not relationship counselling."
+        no: "Standard co-founder conflict — marketplace context is incidental."
+
+    marketplace_diagnoses:
+      - name: supply-demand-founder-split
+        description: "Co-founders are in conflict because each champions a different side of the marketplace, and no governance mechanism arbitrates."
+        signals: ["Conflicting strategic priorities at board level", "Investment oscillating between sides quarterly", "Team receiving contradictory direction from co-founders"]
+        routes_to_skills: [thomas-kilmann-conflict, win-win-negotiation, hackman-enabling-conditions]
+        routes_to_templates: [decision-rationale-memo, team-health-check]
+
+  # ──────────────────────────────────────────────
+  # 18. Communication Breakdown Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: communication-breakdown-diagnosis
+    marketplace_reframe: >
+      Communication in a marketplace company must serve three audiences:
+      the internal team, the supply-side community, and the demand-side
+      user base. Communication breakdowns often occur in supply-side
+      communication — policy changes announced without context, take
+      rate increases without rationale, algorithm changes without
+      explanation. Supply-side communication failures produce immediate
+      backlash.
+
+    additional_triage_questions:
+      - question: "Is the communication breakdown internal, supply-facing, or demand-facing?"
+        internal: "Internal communication failure — standard diagnosis applies."
+        supply_facing: "Supply-side communication failure — policy changes, earnings changes, or platform updates poorly communicated."
+        demand_facing: "Demand-side communication failure — trust incidents, pricing changes, or experience changes poorly communicated."
+
+    marketplace_diagnoses:
+      - name: supply-communication-failure
+        description: "Supply-side participants feel blindsided by platform changes, unheard in their concerns, or unable to access information about their performance and earnings."
+        signals: ["Supply support tickets spiking after policy changes", "Negative social media from supply-side community", "Supply churn correlated with communication events"]
+        routes_to_skills: [kotter-change-model, radical-candor, storytelling-for-leaders]
+        routes_to_templates: [action-plan, culture-values-document]
+
+  # ──────────────────────────────────────────────
+  # 19. Negotiation Stuck Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: negotiation-stuck-diagnosis
+    marketplace_reframe: >
+      Stuck negotiations in marketplace contexts most commonly involve:
+      take rate negotiations with supply aggregators or power sellers,
+      partnership terms with demand channels, or regulatory negotiations
+      around labour classification and marketplace liability. The
+      trilateral nature of marketplace economics (supply-platform-demand)
+      means every negotiation has a third affected party.
+
+    additional_triage_questions:
+      - question: "Who is the negotiation counterparty?"
+        power_supply: "High-volume supplier or supply aggregator negotiating take rate or terms."
+        demand_channel: "Demand channel partner negotiating revenue share or exclusivity."
+        regulator: "Regulatory body negotiating compliance requirements."
+      - question: "What is the cross-side impact of the negotiation outcome?"
+        significant: "The deal terms directly affect the other side's economics or experience."
+        minimal: "The deal terms are contained to one side with limited cross-side impact."
+
+    marketplace_diagnoses:
+      - name: supply-aggregator-leverage
+        description: "A supply aggregator or power seller has accumulated enough marketplace share to negotiate from a position of strength, demanding lower take rates or better terms."
+        signals: ["Single counterparty >15% of GMV", "Counterparty threatening to leave or multi-home", "Other supply watching the negotiation outcome"]
+        routes_to_skills: [negotiation-game-theory, competitive-negotiation, coalition-and-partnership-games]
+        routes_to_templates: [negotiation-prep-sheet, decision-rationale-memo]
+
+  # ──────────────────────────────────────────────
+  # 20. Strategic Drift Diagnosis
+  # ──────────────────────────────────────────────
+  - diagnostic: strategic-drift-diagnosis
+    marketplace_reframe: >
+      Strategic drift in marketplaces manifests as the platform trying
+      to be everything to everyone on both sides — expanding into
+      adjacent categories without achieving liquidity in core ones,
+      accepting any supply to inflate listings, or chasing demand
+      segments that do not match the supply base. The marketplace
+      loses its identity and its matching quality degrades.
+
+    additional_triage_questions:
+      - question: "Has the marketplace expanded beyond its core supply-demand match?"
+        yes: "Expansion has diluted matching quality — the marketplace serves many segments poorly instead of one well."
+        no: "Strategic drift is happening in other dimensions (pricing, positioning, brand)."
+      - question: "Can you describe your ideal supply participant and your ideal demand participant in one sentence each?"
+        clear: "Clear identity — drift may be operational, not strategic."
+        vague: "Identity unclear — the marketplace has drifted from its thesis."
+
+    marketplace_diagnoses:
+      - name: liquidity-dilution
+        description: "The marketplace has expanded into too many categories or geographies without achieving liquidity in any, producing a broad but shallow platform that fails both sides."
+        signals: ["Supply liquidity <20% in most segments", "Demand fill rate declining despite growing supply", "No segment with strong repeat rates on both sides"]
+        routes_to_skills: [blue-ocean-strategy, porters-five-forces, growth-share-matrix]
+        routes_to_templates: [strategic-analysis-one-pager, quarterly-strategic-review]
+
+
+# ============================================================
+# MARKETPLACE-SPECIFIC DIAGNOSTICS (5)
+# ============================================================
+
+marketplace_diagnostics:
+
+  # ──────────────────────────────────────────────
+  # M1. Chicken-and-Egg Failure
+  # ──────────────────────────────────────────────
+  - name: chicken-and-egg-failure-diagnosis
+    description: >
+      Diagnoses why a marketplace cannot achieve initial liquidity —
+      the foundational chicken-and-egg problem that kills more
+      marketplaces than any other single cause. Supply will not come
+      without demand. Demand will not come without supply. The
+      diagnosis identifies which side is the true bottleneck and which
+      cold-start strategy is failing.
+    entry_symptoms:
+      - "We have supply but no buyers"
+      - "We have demand but no sellers"
+      - "Neither side is growing"
+      - "We launched but no one is transacting"
+      - "Our marketplace feels empty"
+    possible_diagnoses:
+      - supply-bottleneck
+      - demand-bottleneck
+      - value-prop-failure-both-sides
+      - wrong-initial-market
+      - premature-scaling
+
+    triage_questions:
+      - question: "Which side did you launch first, and why?"
+        supply_first_intentional: "Deliberate supply-first strategy — check if demand acquisition is the bottleneck."
+        demand_first_intentional: "Deliberate demand-first strategy — check if supply recruitment is the bottleneck."
+        both_simultaneously: "Launched both simultaneously — likely spreading resources too thin. Neither side reached critical mass."
+        no_strategy: "No deliberate sequencing — fundamental strategic gap."
+      - question: "In your most active segment (geography, category, use case), what is the supply liquidity?"
+        above_30: "Supply liquidity >30% — the chicken-and-egg problem may be solved in this niche. Focus on demand."
+        ten_to_thirty: "Supply liquidity 10-30% — demand exists but supply cannot fulfil it adequately."
+        below_ten: "Supply liquidity <10% — demand is not finding what it needs. The marketplace appears empty."
+      - question: "What is the time-to-first-transaction for new users on each side?"
+        fast_both: "Both sides transact quickly — the problem is not cold start but volume."
+        fast_supply_slow_demand: "Supply activates but demand takes too long — demand cannot find relevant supply."
+        fast_demand_slow_supply: "Demand searches immediately but supply takes weeks to list — supply onboarding friction."
+        slow_both: ">30 days for both sides — the marketplace is not delivering its core promise to either."
+      - question: "Do you have a 'single-player mode' — a reason for one side to use the platform even without the other?"
+        yes_supply: "Supply gets value (tools, analytics, presence) before demand arrives — strong cold-start strategy."
+        yes_demand: "Demand gets value (content, information, comparison) before supply transacts — strong cold-start strategy."
+        no: "Neither side gets value without the other — pure chicken-and-egg dependency."
+      - question: "How large is your initial target market?"
+        narrow: "Narrow, specific geography or category — correct approach for achieving initial liquidity."
+        moderate: "Mid-size market — may be achievable if resources are concentrated."
+        broad: "Broad market from launch — almost certainly spreading too thin to achieve liquidity anywhere."
+
+    diagnosis_map:
+      supply-bottleneck:
+        description: "The marketplace has demand signals but cannot recruit or retain sufficient supply to create a viable marketplace experience."
+        red_flags: ["Supply onboarding >50% drop-off", "Supply churning within 30 days", "Supply CAC unacceptable"]
+        routes_to_skills: [cialdini-influence, four-ps-marketing, first-mover-strategy]
+        routes_to_templates: [action-plan, new-initiative-brief]
+      demand-bottleneck:
+        description: "The marketplace has supply but cannot attract demand or convert demand-side visitors to transacting buyers."
+        red_flags: ["Demand conversion <5%", "Demand bounce rate >70%", "Demand repeat rate near zero"]
+        routes_to_skills: [four-ps-marketing, tipping-point, cialdini-influence]
+        routes_to_templates: [action-plan, market-opportunity-summary]
+      value-prop-failure-both-sides:
+        description: "Neither supply nor demand finds the marketplace compelling. The value proposition is unclear, unproven, or nonexistent for both sides."
+        red_flags: ["Neither side returning after first visit", "Both sides describing the platform differently from the intended positioning", "No organic growth on either side"]
+        routes_to_skills: [business-model-canvas, blue-ocean-strategy, net-promoter-score]
+        routes_to_templates: [strategic-analysis-one-pager, decision-journal]
+      wrong-initial-market:
+        description: "The marketplace may have a viable thesis, but the initial geography, category, or use case was wrong — too broad, too competitive, or insufficient latent demand."
+        red_flags: ["Adequate supply and demand in absolute terms but no matching in any specific segment", "Multiple segments attempted, none achieving liquidity"]
+        routes_to_skills: [tipping-point, scenario-planning, blue-ocean-strategy]
+        routes_to_templates: [market-opportunity-summary, decision-journal]
+      premature-scaling:
+        description: "The marketplace expanded to new markets or categories before achieving liquidity in the first, diluting resources and producing no liquidity anywhere."
+        red_flags: ["Present in 5+ markets with <20% liquidity in all", "GMV spread thin across many segments", "No segment showing network effects"]
+        routes_to_skills: [growth-share-matrix, smart-goals, systems-thinking]
+        routes_to_templates: [strategic-analysis-one-pager, action-plan]
+
+  # ──────────────────────────────────────────────
+  # M2. Liquidity Crisis
+  # ──────────────────────────────────────────────
+  - name: liquidity-crisis-diagnosis
+    description: >
+      Diagnoses an acute liquidity failure in an established marketplace —
+      not the initial chicken-and-egg problem, but a liquidity breakdown
+      after the marketplace had been functioning. Something broke the
+      flywheel: supply exodus, demand shock, quality collapse, or
+      competitive displacement.
+    entry_symptoms:
+      - "Transactions are dropping even though both sides are still on the platform"
+      - "Supply is sitting idle"
+      - "Buyers can't find what they need"
+      - "Our marketplace stopped matching"
+      - "Fill rate collapsed"
+    possible_diagnoses:
+      - supply-side-liquidity-collapse
+      - demand-side-liquidity-collapse
+      - matching-mechanism-failure
+      - segment-specific-liquidity-loss
+      - competitive-liquidity-drain
+
+    triage_questions:
+      - question: "Is the liquidity crisis marketplace-wide or segment-specific?"
+        marketplace_wide: "System-level failure — proceed to Q2 for root cause."
+        segment_specific: "Localised failure — identify the segment and check for competitive entry or supply/demand shift in that segment."
+      - question: "Which metric moved first: supply liquidity or demand fill rate?"
+        supply_first: "Supply liquidity dropped first — supply-side shock (churn, multi-homing, disintermediation)."
+        demand_first: "Demand fill rate dropped first — demand-side shift (competitor, substitute, quality concern)."
+        simultaneous: "Both dropped together — external shock (market contraction, regulatory change) or matching mechanism failure."
+      - question: "Did the liquidity crisis follow a specific event?"
+        take_rate_change: "Liquidity dropped after take rate adjustment — supply-side price shock."
+        policy_change: "Liquidity dropped after policy change — supply or demand rejecting new terms."
+        competitive_entry: "Liquidity dropped after competitor launched or expanded — competitive displacement."
+        quality_incident: "Liquidity dropped after a publicised quality or safety incident — trust shock."
+        no_event: "Gradual decline without precipitating event — structural erosion."
+
+    diagnosis_map:
+      supply-side-liquidity-collapse:
+        description: "Supply has reduced activity, delisted, or left the platform, reducing available inventory below the level needed for healthy demand matching."
+        red_flags: ["Supply liquidity dropped >20pp in one period", "Active supply declining while registered supply stable (silent churn)", "Top-tier supply leaving disproportionately"]
+        routes_to_skills: [systems-thinking, art-of-war, kotter-change-model]
+        routes_to_templates: [risk-assessment-brief, action-plan]
+      demand-side-liquidity-collapse:
+        description: "Demand is present but not converting — searches happen but transactions do not. Demand may be losing trust, finding alternatives, or experiencing poor matching."
+        red_flags: ["Search-to-transaction rate dropped >30%", "Demand bounce rate spiking", "Demand repeat rate declining sharply"]
+        routes_to_skills: [net-promoter-score, four-ps-marketing, kaizen-bpr]
+        routes_to_templates: [action-plan, quarterly-strategic-review]
+      matching-mechanism-failure:
+        description: "Both supply and demand are present, but the matching mechanism is producing poor matches — wrong supply shown to wrong demand, poor relevance, poor timing."
+        red_flags: ["Transaction rate declining while both sides' activity stable", "Search relevance scores dropping", "Increased demand-side 'no results' queries"]
+        routes_to_skills: [kaizen-bpr, systems-thinking, doblin-ten-types]
+        routes_to_templates: [incident-postmortem, action-plan]
+      segment-specific-liquidity-loss:
+        description: "Liquidity has collapsed in specific segments (geography, category, price tier) while remaining healthy elsewhere."
+        red_flags: ["Segment-level liquidity <10% where it was previously >30%", "All decline concentrated in 1-3 segments", "Competitor launched specifically in those segments"]
+        routes_to_skills: [growth-share-matrix, porters-five-forces, scenario-planning]
+        routes_to_templates: [strategic-analysis-one-pager, action-plan]
+      competitive-liquidity-drain:
+        description: "A competitor is siphoning supply, demand, or both — drawing liquidity away from the marketplace through better economics, experience, or specialisation."
+        red_flags: ["Multi-homing rate increasing on one or both sides", "Best supply/demand migrating to competitor", "Organic acquisition declining while competitor grows"]
+        routes_to_skills: [art-of-war, porters-five-forces, first-mover-strategy]
+        routes_to_templates: [competitive-landscape-brief, action-plan]
+
+  # ──────────────────────────────────────────────
+  # M3. Disintermediation Risk
+  # ──────────────────────────────────────────────
+  - name: disintermediation-risk-diagnosis
+    description: >
+      Diagnoses the severity and trajectory of disintermediation —
+      supply and demand transacting off-platform after the marketplace
+      introduced them. This is the existential threat for any
+      marketplace whose primary value is matching rather than ongoing
+      transaction management. If parties can connect once through the
+      marketplace and then bypass it forever, the platform is a
+      lead-gen tool, not a marketplace.
+    entry_symptoms:
+      - "Customers and sellers are going off-platform"
+      - "Our repeat transaction rate is suspiciously low"
+      - "Sellers share contact info with buyers"
+      - "Revenue per matched pair declining over time"
+      - "We suspect people are avoiding our fees"
+    possible_diagnoses:
+      - structural-disintermediation
+      - incentive-disintermediation
+      - trust-maturity-disintermediation
+      - competitive-disintermediation
+
+    triage_questions:
+      - question: "What type of transaction does your marketplace facilitate?"
+        one_time: "One-time purchases (product marketplaces) — disintermediation risk is low per transaction but high for repeat purchases of the same type."
+        recurring: "Recurring services (cleaning, tutoring, therapy) — highest disintermediation risk. Relationship forms after first match."
+        on_demand: "On-demand (ride-sharing, food delivery) — low disintermediation risk if platform controls dispatch and payment."
+        project_based: "Project-based (freelance, home services) — moderate risk. Increases with project size and relationship duration."
+      - question: "What value does your platform provide AFTER the initial match?"
+        payment_processing: "Payment processing only — weak retention force. Supply and demand can use Venmo."
+        trust_and_payment: "Trust (reviews, guarantees, insurance) + payment — moderate retention. Both sides lose protection off-platform."
+        managed_transaction: "End-to-end managed transaction (logistics, support, dispute resolution) — strong retention. Off-platform is significantly worse."
+        match_only: "Match only — near-zero post-match value. Disintermediation is structurally inevitable."
+      - question: "Do you see signals of off-platform communication before or after first transaction?"
+        before: "Parties attempting to communicate off-platform before transacting — actively avoiding fees from the start."
+        after_first: "First transaction on-platform, subsequent transactions off-platform — relationship-driven disintermediation."
+        no_signals: "No visible signals — either disintermediation is low or detection is inadequate."
+
+    diagnosis_map:
+      structural-disintermediation:
+        description: "The marketplace's transaction type inherently encourages off-platform relationships. Once matched, the ongoing value of the platform is insufficient to justify the take rate."
+        red_flags: ["Revenue per matched pair declines dramatically after transaction 1-2", "Category is relationship-based (services, B2B)", "Take rate >15% on a match-only platform"]
+        routes_to_skills: [business-model-canvas, doblin-ten-types, game-theory-fundamentals]
+        routes_to_templates: [strategic-analysis-one-pager, decision-journal]
+        severity: critical
+        recommended_action: "Fundamentally redesign the value proposition to include per-transaction value: payments, insurance, quality tracking, or managed delivery."
+      incentive-disintermediation:
+        description: "The take rate or fee structure incentivises off-platform transactions. The cost of transacting on-platform exceeds the perceived value of platform services."
+        red_flags: ["High take rate (>20%) combined with simple transaction type", "No platform-specific services that require on-platform payment", "Supply openly advising demand to transact directly"]
+        routes_to_skills: [four-ps-marketing, game-theory-fundamentals, information-asymmetry]
+        routes_to_templates: [unit-economics-snapshot, decision-journal]
+        severity: high
+        recommended_action: "Reduce take rate or restructure fees to align cost with per-transaction value delivered. Add value-added services that only work on-platform."
+      trust-maturity-disintermediation:
+        description: "Disintermediation increases as trust between supply and demand matures — parties no longer need the platform's trust infrastructure after repeated positive transactions."
+        red_flags: ["Disintermediation concentrated among long-term users", "Repeat transaction rate declining for mature cohorts", "High satisfaction scores but declining on-platform revenue per user"]
+        routes_to_skills: [trust-equation, product-life-cycle, cialdini-influence]
+        routes_to_templates: [strategic-analysis-one-pager, decision-journal]
+        severity: moderate
+        recommended_action: "Introduce ongoing value — loyalty programs, cumulative benefits, financing, data insights — that compounds with on-platform tenure."
+      competitive-disintermediation:
+        description: "A competing platform or tool is enabling off-platform transactions by providing the components (payment, communication, scheduling) that your platform bundles."
+        red_flags: ["Paired users migrating to a competitor or to general-purpose tools (WhatsApp, Venmo, Calendly)", "New tools specifically targeting your supply-demand pair"]
+        routes_to_skills: [porters-five-forces, art-of-war, doblin-ten-types]
+        routes_to_templates: [competitive-landscape-brief, action-plan]
+        severity: high
+        recommended_action: "Bundle value that general-purpose tools cannot replicate: marketplace-specific insurance, quality guarantees, dispute resolution, and transaction data."
+
+  # ──────────────────────────────────────────────
+  # M4. Quality Degradation
+  # ──────────────────────────────────────────────
+  - name: quality-degradation-diagnosis
+    description: >
+      Diagnoses declining marketplace quality — the erosion of supply-
+      side standards that degrades the demand experience and ultimately
+      threatens marketplace viability. Quality degradation is the most
+      insidious marketplace failure because it happens gradually: each
+      marginal reduction in quality is too small to trigger alarm, but
+      the cumulative effect is devastating. Sarah Tavel identifies
+      quality as the third and most defensible level of the marketplace
+      hierarchy — and the hardest to maintain at scale.
+    entry_symptoms:
+      - "Ratings are declining"
+      - "Customer complaints are increasing"
+      - "Our best suppliers are leaving"
+      - "Dispute rate is rising"
+      - "The marketplace feels lower quality than it used to"
+    possible_diagnoses:
+      - adverse-selection-spiral
+      - quality-standard-erosion
+      - curation-failure
+      - growth-quality-trade-off
+      - supply-tier-degradation
+
+    triage_questions:
+      - question: "Has the average quality score of new supply been declining?"
+        yes: "New supply entering the marketplace is lower quality — onboarding standards may be too low."
+        no: "New supply quality stable — the problem is existing supply degrading."
+        unknown: "No quality scoring for new supply — this gap is itself a problem."
+      - question: "Are your best suppliers (top 20% by ratings) leaving or reducing activity?"
+        leaving: "Top supply is churning — adverse selection in progress. Low-quality supply drives out high-quality supply."
+        reducing: "Top supply is reducing activity — they may be multi-homing to platforms with better demand quality."
+        stable: "Top supply stable — the quality problem is in the long tail."
+      - question: "Did quality degradation follow a growth initiative?"
+        yes: "Growth and quality traded off — supply onboarding was loosened to hit volume targets."
+        no: "Quality degradation is organic — gradual erosion of standards or enforcement."
+      - question: "What is the dispute rate trend?"
+        rising: "Disputes rising — quality problems are reaching demand and causing measurable harm."
+        stable: "Disputes stable — quality degradation may be perceived but not yet impacting transactions."
+        not_tracked: "Dispute rate not systematically tracked — build this immediately."
+
+    diagnosis_map:
+      adverse-selection-spiral:
+        description: "High-quality supply is leaving because the marketplace's average quality is declining, which attracts lower-quality supply, which further reduces average quality. The classic Akerlof lemon market problem."
+        red_flags: ["Top-tier supply churn >2x average supply churn", "Average rating declining while review volume increases", "Demand repeat rate declining for quality-sensitive segments"]
+        routes_to_skills: [information-asymmetry, systems-thinking, porters-five-forces]
+        routes_to_templates: [risk-assessment-brief, action-plan]
+        severity: critical
+        recommended_action: "Immediately invest in quality differentiation: premium tiers, verification levels, quality guarantees. Make it visibly better to be a high-quality supplier on the platform."
+      quality-standard-erosion:
+        description: "Quality standards that existed at launch have been quietly eroded — enforcement reduced, thresholds lowered, exceptions multiplied — producing a slow decline in average quality."
+        red_flags: ["Quality enforcement rate declining", "Exception grants increasing", "Original quality standards documented but no longer enforced"]
+        routes_to_skills: [organisational-culture, kaizen-bpr, balanced-scorecard]
+        routes_to_templates: [action-plan, culture-values-document]
+        severity: high
+        recommended_action: "Re-establish and enforce quality standards. Grandfather existing supply with a clear timeline for compliance. New supply must meet original or higher standards."
+      curation-failure:
+        description: "The marketplace's curation mechanism (search ranking, recommendation, featured placement) is not effectively surfacing quality supply, making quality invisible to demand."
+        red_flags: ["High-quality supply exists but has low visibility", "Search results not correlated with quality scores", "Demand complaining about quality despite quality supply being available"]
+        routes_to_skills: [kaizen-bpr, doblin-ten-types, systems-thinking]
+        routes_to_templates: [action-plan, new-initiative-brief]
+        severity: moderate
+        recommended_action: "Rebuild curation to weight quality signals (ratings, completion rate, response time) heavily in ranking and recommendation algorithms."
+      growth-quality-trade-off:
+        description: "Quality degraded as a direct result of growth initiatives — supply onboarding was loosened, quality enforcement was paused, or growth targets were prioritised over quality metrics."
+        red_flags: ["Quality decline correlated with supply growth spurt", "Onboarding requirements recently reduced", "Growth team rewarded on volume, not quality"]
+        routes_to_skills: [balanced-scorecard, smart-goals, systems-thinking]
+        routes_to_templates: [action-plan, team-health-check]
+        severity: high
+        recommended_action: "Add quality constraints to growth targets. No supply growth metric should be celebrated without a corresponding quality metric. Restructure incentives."
+      supply-tier-degradation:
+        description: "The quality problem is concentrated in a specific tier or category of supply, not marketplace-wide."
+        red_flags: ["Quality metrics diverging by supply tier", "Specific category's ratings declining while others stable", "Demand churn concentrated in the degraded category"]
+        routes_to_skills: [growth-share-matrix, balanced-scorecard, kaizen-bpr]
+        routes_to_templates: [action-plan, quarterly-strategic-review]
+        severity: moderate
+        recommended_action: "Isolate the degraded tier or category. Apply targeted quality interventions without disrupting healthy segments."
+
+  # ──────────────────────────────────────────────
+  # M5. Trust Collapse
+  # ──────────────────────────────────────────────
+  - name: trust-collapse-diagnosis
+    description: >
+      Diagnoses an acute or gradual loss of trust in the marketplace
+      by one or both sides. Trust collapse is distinct from quality
+      degradation — quality degradation erodes trust gradually, but
+      trust collapse can happen suddenly through a safety incident,
+      fraud exposure, data breach, or perceived policy unfairness.
+      Trust collapse is the marketplace equivalent of a bank run: once
+      one side loses confidence, the other follows.
+    entry_symptoms:
+      - "Suppliers don't trust us anymore"
+      - "Buyers are afraid to transact"
+      - "A safety incident went viral"
+      - "We had a fraud wave"
+      - "People think we're unfair"
+      - "Both sides are leaving after a policy change"
+    possible_diagnoses:
+      - safety-incident-trust-shock
+      - fraud-wave-trust-erosion
+      - policy-fairness-trust-break
+      - data-breach-trust-collapse
+      - algorithmic-trust-erosion
+
+    triage_questions:
+      - question: "Was the trust loss triggered by a specific incident or is it gradual?"
+        specific_incident: "Acute trust shock — identify the incident and assess whether it is contained or systemic."
+        gradual: "Gradual trust erosion — cumulative effect of many small failures. Harder to reverse."
+      - question: "Which side lost trust first?"
+        supply: "Supply lost trust — check for: unfair policy, inconsistent enforcement, payment issues, algorithmic opacity."
+        demand: "Demand lost trust — check for: safety incident, fraud, quality failure, inadequate dispute resolution."
+        both: "Both sides simultaneously — likely a publicised incident or a systemic platform failure."
+      - question: "Has the trust loss been public (media coverage, social media) or private (support tickets, churn data)?"
+        public: "Public trust crisis — requires immediate, visible, transparent response. Media management becomes critical."
+        private: "Private trust erosion — detectable in data but not yet public. Window to address before it escalates."
+      - question: "Does the marketplace have visible trust infrastructure (guarantees, insurance, verification)?"
+        strong: "Trust infrastructure exists — the failure may be in execution, not design."
+        weak: "Inadequate trust infrastructure — the marketplace was relying on good behaviour rather than structural trust."
+        none: "No formal trust infrastructure — trust was assumed, not engineered."
+
+    diagnosis_map:
+      safety-incident-trust-shock:
+        description: "A safety incident (physical harm, significant financial loss, criminal activity) on the marketplace has shattered user confidence."
+        red_flags: ["Media coverage of the incident", "Both sides' new sign-ups dropping immediately", "Existing users requesting account deletion", "Regulatory inquiry"]
+        routes_to_skills: [scenario-planning, kotter-change-model, vuca-framework]
+        routes_to_templates: [risk-assessment-brief, action-plan, incident-postmortem]
+        severity: critical
+        recommended_action: "Immediate transparent response. Accept responsibility where warranted. Announce concrete safety improvements with timeline. Consider pause-and-fix if incidents are ongoing."
+      fraud-wave-trust-erosion:
+        description: "A pattern of fraud (fake listings, payment fraud, identity fraud, review manipulation) has eroded confidence in the marketplace's integrity."
+        red_flags: ["Fraud rate spiking", "Support tickets about suspected fraud increasing", "Demand-side 'is this real?' inquiries increasing", "Review authenticity questioned"]
+        routes_to_skills: [systems-thinking, kaizen-bpr, information-asymmetry]
+        routes_to_templates: [action-plan, incident-postmortem]
+        severity: high
+        recommended_action: "Invest immediately in fraud detection and prevention. Remove fraudulent listings/accounts visibly. Communicate improvements to both sides."
+      policy-fairness-trust-break:
+        description: "A policy change (take rate increase, new terms, enforcement action) is perceived as unfair by one or both sides, breaking the social contract between platform and participants."
+        red_flags: ["Supply or demand protest (public letters, social media campaigns, strikes)", "Churn spike correlated with policy announcement", "Policy perceived as benefiting platform at participants' expense"]
+        routes_to_skills: [kotter-change-model, win-win-negotiation, radical-candor]
+        routes_to_templates: [action-plan, decision-rationale-memo]
+        severity: high
+        recommended_action: "Acknowledge the concern publicly. Provide clear rationale for the policy. Consider revision based on feedback. Rebuild through transparency and demonstrated fairness."
+      data-breach-trust-collapse:
+        description: "A data breach or privacy violation has compromised user data, producing immediate trust collapse on both sides."
+        red_flags: ["User data exposed", "Regulatory notification required", "Both sides' activity dropping immediately", "Account deletion requests spiking"]
+        routes_to_skills: [vuca-framework, scenario-planning, kotter-change-model]
+        routes_to_templates: [incident-postmortem, risk-assessment-brief, action-plan]
+        severity: critical
+        recommended_action: "Follow breach response protocol. Full transparency on scope and remediation. Invest in security infrastructure and communicate improvements."
+      algorithmic-trust-erosion:
+        description: "Supply-side trust eroded by perceived algorithmic unfairness — opaque ranking changes, unexplained visibility shifts, or suspected bias in matching."
+        red_flags: ["Supply forums discussing 'algorithm changes'", "Supply NPS declining on 'fairness' dimension", "Top supply requesting algorithm transparency", "Supply churn correlated with ranking changes"]
+        routes_to_skills: [information-asymmetry, trust-equation, radical-candor]
+        routes_to_templates: [action-plan, culture-values-document]
+        severity: moderate
+        recommended_action: "Increase algorithmic transparency. Publish ranking factors. Provide supply with performance data that explains their positioning. Create feedback channels for algorithmic concerns."

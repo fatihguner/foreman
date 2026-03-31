@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Build artifacts
+dist/
+build/
+out/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+tmp/
+temp/
+.cache/
+
+
+# Codex-generated skills directory (built from .claude/skills/)
+/skills/
+
+# OpenClaw plugin — compiled TS output (OpenClaw uses jiti for runtime TS)
+*.js
+*.js.map
+*.d.ts

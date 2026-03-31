@@ -1,0 +1,924 @@
+# D2C Consumer Industry Pack — Output Template Adaptations
+#
+# For each of the 48 Foreman output templates, this file defines how fields
+# and sections adapt for D2C consumer brands. The output agent loads these
+# rules when generating documents with the D2C industry pack active.
+#
+# BRAND NARRATIVE is woven into every adapted template. D2C investors, board
+# members, team leads, and the founder themselves must see brand health metrics
+# alongside financial metrics, community data alongside revenue data, and the
+# brand story alongside the business story. A D2C output that presents only
+# financial data is structurally incomplete — it omits the asset (the brand)
+# that generates those financial results.
+#
+# Key adaptation principles:
+#   - Brand narrative in every investor material
+#   - Community metrics alongside financial metrics
+#   - Channel mix analysis in every strategic template
+#   - Influencer ROI in marketing templates
+#   - Content calendar in operational templates
+#   - Customer love metrics (NPS, repeat rate, UGC) as primary health indicators
+#
+# Adaptation types:
+#   as-is    — The template works without modification for D2C companies.
+#   modified — The template requires field changes, additional sections, or
+#              reframing of existing sections for D2C context.
+
+pack_metadata:
+  sector: "d2c-consumer"
+  display_name: "D2C Consumer"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# TEMPLATE ADAPTATIONS
+# ═══════════════════════════════════════════════════════════════
+
+template_adaptations:
+
+  # ─────────────────────────────────────────────
+  # INVESTOR TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "unit-economics-snapshot"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C unit economics differ fundamentally from SaaS. Revenue is order-based not subscription-based, COGS includes physical product costs, and the cost stack includes fulfillment, shipping, returns, and payment processing as major variable cost lines. The template must present the full contribution margin waterfall that D2C investors evaluate."
+    field_changes:
+      - field: "Revenue per unit"
+        sector_label: "Average Order Value (AOV)"
+        sector_guidance: "Report AOV with trend (3-month, 6-month). Decompose into first-order AOV vs. repeat-order AOV — repeat orders typically have higher AOV through add-ons and bundles."
+      - field: "Cost per unit"
+        sector_label: "Fully Loaded CAC"
+        sector_guidance: "Include all acquisition costs: paid media, influencer fees, creative production, agency costs, and allocated marketing team salaries. Report blended and by top 3 channels. Distinguish new-customer CAC from blended (which is diluted by returning customers clicking ads)."
+      - field: "Margin per unit"
+        sector_label: "Contribution Margin Waterfall"
+        sector_guidance: "Present the full waterfall: Revenue - COGS = Gross Margin - Fulfillment - Shipping - Returns - Payment Processing = Contribution Margin (before marketing). This is the D2C-specific metric investors evaluate. Target: 25-40%."
+      - field: "Lifetime value"
+        sector_label: "LTV (Gross-Profit Adjusted)"
+        sector_guidance: "Calculate as AOV x Gross Margin % x Purchase Frequency x Average Customer Lifespan. Report based on observed cohort data (12-month LTV at minimum). Disclose the repeat purchase rate and frequency assumptions."
+      - field: "Acquisition cost"
+        sector_label: "CAC Payback Period"
+        sector_guidance: "Report in months or number of orders. For non-subscription D2C, express as 'first-order profitable' (payback < 1 order) or 'X orders to payback.' Include the percentage of customers who actually make X orders."
+      - field: "Unit economics ratio"
+        sector_label: "LTV:CAC Ratio"
+        sector_guidance: "Report the ratio using gross-profit-adjusted LTV and fully loaded CAC. Compare to the 3x-5x benchmark. If below 3x, show the improvement trajectory. If above 5x, address whether growth investment is sufficient."
+    sections_to_add:
+      - section_name: "D2C Metrics Dashboard"
+        placement: "before:Average Order Value (AOV)"
+        description: "Core D2C metrics in a format that consumer brand investors expect."
+        fields:
+          - "Revenue (monthly and trailing 12-month)"
+          - "Revenue growth rate (MoM and YoY)"
+          - "Orders (monthly)"
+          - "AOV (trend)"
+          - "Repeat Purchase Rate (trailing 12-month)"
+          - "Purchase Frequency"
+          - "Customer Count (total and active)"
+          - "Subscription Revenue % (if applicable)"
+      - section_name: "Channel Mix & Efficiency"
+        placement: "after:LTV:CAC Ratio"
+        description: "Revenue and acquisition efficiency by channel — essential for D2C investors."
+        fields:
+          - "Revenue by channel (DTC site, Amazon, wholesale, retail, subscription)"
+          - "Contribution margin by channel"
+          - "CAC by acquisition channel (Meta, Google, TikTok, Influencer, Organic)"
+          - "ROAS by paid channel"
+          - "Email/SMS revenue as % of total"
+          - "Organic traffic as % of total"
+      - section_name: "Brand Health Metrics"
+        placement: "end"
+        description: "Brand strength indicators that predict future financial performance."
+        fields:
+          - "NPS (overall and by cohort)"
+          - "Repeat Purchase Rate (trend)"
+          - "Community size and growth rate (email, SMS, social)"
+          - "UGC volume (monthly)"
+          - "Return Rate (overall and by category)"
+    sections_to_remove: []
+    benchmark_references: ["cac-blended", "cac-by-channel", "ltv", "ltv-cac-ratio", "payback-period", "aov", "gross-margin", "contribution-margin", "repeat-purchase-rate", "email-revenue-pct", "organic-traffic-pct", "nps"]
+
+  - template: "investor-update-email"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C investor updates should lead with brand health alongside financial performance. Investors in consumer brands want to see community growth, customer love, and brand momentum — not just revenue charts."
+    field_changes:
+      - field: "Financial highlights"
+        sector_label: "D2C Performance Summary"
+        sector_guidance: "Report: Revenue (month and trailing 12), Growth Rate (MoM and YoY), Contribution Margin %, Blended CAC, ROAS (blended), Cash Balance, Runway. Present as a compact table with current, prior, and trend."
+      - field: "Key metrics"
+        sector_label: "Brand & Customer Health"
+        sector_guidance: "Report: Repeat Purchase Rate, NPS, Email/SMS Revenue %, Organic Traffic %, Community Growth Rate. These metrics tell investors whether the brand is getting stronger or weaker independent of spend."
+      - field: "Wins"
+        sector_label: "Wins"
+        sector_guidance: "Include at least one brand win (new influencer partnership, press feature, UGC milestone, community event) alongside financial wins. Brand momentum matters to consumer investors."
+      - field: "Challenges"
+        sector_label: "Challenges"
+        sector_guidance: "Lead with challenges. Acknowledge rising CAC, creative fatigue, return rate concerns, or supply chain issues openly. D2C investors value founders who see problems clearly."
+      - field: "Asks"
+        sector_label: "Asks"
+        sector_guidance: "Be specific. 'Introduction to [buyer name] at Sephora' or 'feedback on our Amazon strategy' are actionable. 'Help with marketing' is not."
+    sections_to_add:
+      - section_name: "Brand Momentum"
+        placement: "after:Brand & Customer Health"
+        description: "Qualitative brand signals that investors want to track."
+        fields:
+          - "Notable press, influencer, or social moments this month"
+          - "Community sentiment (qualitative read from reviews, DMs, social)"
+          - "Product feedback themes (from NPS follow-ups and reviews)"
+    sections_to_remove: []
+    benchmark_references: ["contribution-margin", "cac-blended", "repeat-purchase-rate", "nps", "organic-traffic-pct"]
+
+  - template: "competitive-landscape-brief"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C competitive dynamics include not just direct brand competitors but Amazon private label, incumbent CPG brands launching DTC, and retail private label. The brief must address all four threat vectors."
+    field_changes:
+      - field: "Competitor overview"
+        sector_label: "Competitive Map"
+        sector_guidance: "Map competitors on a 2x2: X-axis = price point (value to premium), Y-axis = brand strength (commodity to cult). Include direct D2C competitors, Amazon private label, and incumbent brands with DTC channels. Estimate revenue and funding where known."
+      - field: "Competitive advantages"
+        sector_label: "Brand Moat Analysis"
+        sector_guidance: "Assess defensibility along D2C-specific dimensions: brand identity (emotional connection), community (owned audience), content engine (creative velocity), product differentiation (formulation/design), direct customer relationship (data, email, SMS), and supply chain (proprietary manufacturing)."
+      - field: "Competitive threats"
+        sector_label: "Threat Vectors"
+        sector_guidance: "Categorize: (1) Direct D2C competitors in the same category. (2) Amazon private label entering with similar product at 40% lower price. (3) Incumbent CPG brands launching DTC. (4) Retail private label (Target's Up & Up, Costco's Kirkland). (5) Content creators launching their own brands."
+    sections_to_add:
+      - section_name: "Brand Strength Comparison"
+        placement: "after:Brand Moat Analysis"
+        description: "Comparative brand metrics across competitors."
+        fields:
+          - "Social following and engagement rate by competitor"
+          - "Organic search volume (branded queries) by competitor"
+          - "Review volume and average rating by competitor"
+          - "Influencer association map (which creators promote which brands)"
+      - section_name: "Amazon Threat Assessment"
+        placement: "end"
+        description: "Specific assessment of Amazon's competitive position in the category."
+        fields:
+          - "Amazon private label presence in the category (yes/no, which products)"
+          - "Price comparison: brand DTC vs. Amazon private label"
+          - "Amazon search ranking for key category terms"
+          - "Percentage of category sales on Amazon vs. DTC"
+    sections_to_remove: []
+    benchmark_references: ["cac-by-channel", "organic-traffic-pct", "nps"]
+
+  - template: "fundraising-deck-outline"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C pitch decks must lead with the brand story — not a metrics slide. Consumer brand investors invest in brands they believe have cultural staying power. The deck must balance brand narrative with financial rigor."
+    field_changes:
+      - field: "Market opportunity"
+        sector_label: "Market Opportunity"
+        sector_guidance: "Size the market bottom-up: (target consumers in demographic) x (annual category spend per person) x (realistic market share in 5 years). Include the cultural tailwind: what shift in consumer behavior makes this brand inevitable now?"
+      - field: "Business model"
+        sector_label: "D2C Business Model"
+        sector_guidance: "Cover: channel strategy (DTC-first, Amazon, wholesale, retail roadmap), pricing model (one-time, subscription, membership), unit economics (contribution margin waterfall), and customer lifecycle (acquisition to repeat to advocate)."
+      - field: "Traction"
+        sector_label: "D2C Traction & Brand Health"
+        sector_guidance: "Two slides: Slide 1: Revenue trajectory, growth rate, customer count, AOV. Slide 2: Repeat purchase rate, NPS, organic traffic %, email/SMS revenue %, community size. The second slide proves brand strength."
+    sections_to_add:
+      - section_name: "Brand Story Slide"
+        placement: "before:Market Opportunity"
+        description: "The founding story and brand purpose — this is the emotional anchor of the D2C pitch."
+        fields:
+          - "Founder's personal connection to the problem"
+          - "The insight or breakthrough that led to the brand"
+          - "What the brand stands for (values, identity, cultural position)"
+          - "Visual: brand aesthetic, product photography, community imagery"
+      - section_name: "Community & Content Slide"
+        placement: "after:D2C Traction & Brand Health"
+        description: "Evidence of brand moat through community and content."
+        fields:
+          - "Community size and growth (email, SMS, social, loyalty)"
+          - "Engagement metrics (open rates, social engagement, UGC volume)"
+          - "Content strategy overview (organic, creator, brand)"
+          - "Influencer program summary (number of creators, ROI, sample content)"
+      - section_name: "Unit Economics Slide"
+        placement: "after:Community & Content Slide"
+        description: "The financial proof that the brand model works."
+        fields:
+          - "Contribution margin waterfall (visual)"
+          - "LTV:CAC ratio"
+          - "Payback period"
+          - "Channel-level CAC and ROAS"
+          - "Cohort repeat purchase curves"
+    sections_to_remove: []
+    benchmark_references: ["contribution-margin", "ltv-cac-ratio", "payback-period", "cac-by-channel", "repeat-purchase-rate", "nps", "organic-traffic-pct"]
+
+  - template: "strategic-analysis-one-pager"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A D2C strategic one-pager must anchor analysis in brand positioning, channel mix, and customer relationship strength — not just financial metrics."
+    field_changes:
+      - field: "Strategic position"
+        sector_label: "Brand Strategic Position"
+        sector_guidance: "Frame in D2C terms: brand positioning (what identity does the brand represent), competitive differentiation (why the brand matters beyond the product), channel strategy (DTC-first with selective expansion), and customer relationship depth (community, loyalty, advocacy)."
+      - field: "Key metrics"
+        sector_label: "D2C Health Metrics"
+        sector_guidance: "Core 6: Revenue + Growth Rate, Contribution Margin, LTV:CAC, Repeat Purchase Rate, Organic Traffic %, NPS. Compare each to D2C stage benchmarks."
+    sections_to_add:
+      - section_name: "Brand Flywheel Assessment"
+        placement: "end"
+        description: "Assessment of the brand's growth flywheel — the reinforcing loops that drive compounding growth."
+        fields:
+          - "Primary loop: brand story > content > community > organic > brand story"
+          - "Secondary loop: great product > reviews/UGC > social proof > new customers > more reviews"
+          - "Paid amplification loop: strong creative > paid distribution > new customers > UGC > better creative"
+          - "Key constraint: the bottleneck in the flywheel currently"
+    sections_to_remove: []
+    benchmark_references: ["contribution-margin", "ltv-cac-ratio", "repeat-purchase-rate", "organic-traffic-pct", "nps"]
+
+  - template: "market-opportunity-summary"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C market sizing must account for the cultural dimension: not just how many people buy in the category but how many people identify with the brand's positioning. A wellness brand's TAM is not 'the $50B supplement market' but 'the 15M consumers who build their identity around holistic health.'"
+    field_changes:
+      - field: "Total addressable market"
+        sector_label: "TAM / SAM / SOM"
+        sector_guidance: "Size bottom-up from identity group: (consumers who identify with the brand's positioning in the target demographic) x (average annual category spend per person). Cross-reference with industry category data (NRF, eMarketer, Statista). Do not use the entire category as TAM — a DTC brand will never capture the Walmart shopper."
+      - field: "Market dynamics"
+        sector_label: "Consumer Category Dynamics"
+        sector_guidance: "Address: category growth rate, DTC penetration (% of category sold online/direct), competitive density, Amazon private label presence, consumer identity trends driving category evolution, and sustainability/regulatory tailwinds."
+    sections_to_add:
+      - section_name: "Cultural Tailwind"
+        placement: "end"
+        description: "The cultural movement or consumer behavior shift that creates the opportunity."
+        fields:
+          - "What cultural or social shift makes this brand timely?"
+          - "Evidence of the shift (search trends, social media data, consumer surveys)"
+          - "How the brand captures this cultural moment"
+    sections_to_remove: []
+    benchmark_references: ["organic-traffic-pct", "brand-awareness"]
+
+  - template: "due-diligence-checklist"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C due diligence includes brand-specific investigations absent from SaaS: supply chain verification, return rate analysis, channel economics decomposition, and brand health assessment."
+    field_changes:
+      - field: "Financial review"
+        sector_label: "D2C Metrics Verification"
+        sector_guidance: "Verify: Revenue by channel (DTC, Amazon, wholesale), contribution margin waterfall calculation, COGS breakdown (product cost vs. fulfillment vs. shipping vs. returns), CAC calculation methodology (blended vs. new-customer), LTV calculation methodology (cohort-based vs. formula), and inventory valuation."
+      - field: "Operational review"
+        sector_label: "Supply Chain & Operations Review"
+        sector_guidance: "Review: supplier agreements and concentration risk, manufacturing capacity and lead times, fulfillment partner SLAs and performance, return rate by product and channel, inventory turnover and aging, and shipping cost trends."
+    sections_to_add:
+      - section_name: "Brand Health Due Diligence"
+        placement: "end"
+        description: "D2C-specific brand assessment."
+        fields:
+          - "NPS data (overall, by cohort, trend)"
+          - "Repeat purchase rate by cohort (are newer cohorts performing better or worse?)"
+          - "Organic traffic percentage and trend (brand pull demand)"
+          - "Community engagement metrics (email open rates, social engagement, UGC)"
+          - "Customer reviews and sentiment analysis"
+          - "Influencer dependency risk (concentration of revenue in few creators)"
+      - section_name: "Channel Economics Review"
+        placement: "after:Brand Health Due Diligence"
+        description: "Per-channel profitability analysis."
+        fields:
+          - "Contribution margin by channel (DTC, Amazon, wholesale)"
+          - "CAC by paid channel with trend"
+          - "Attribution methodology assessment"
+          - "Amazon dependency risk (revenue %, brand control, MAP enforcement)"
+    sections_to_remove: []
+    benchmark_references: ["contribution-margin", "cac-blended", "ltv", "repeat-purchase-rate", "return-rate", "nps", "organic-traffic-pct"]
+
+  - template: "cap-table-summary"
+    audience: "investor"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Cap table structure is not sector-specific. Standard venture capital formats apply regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "decision-rationale-memo"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C decision rationale memos should explicitly address brand impact alongside financial impact for major decisions (Amazon entry, retail expansion, pricing changes, discount strategy)."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context: Brand & Financial"
+        sector_guidance: "Frame the decision through both lenses: what is the financial impact (revenue, margin, CAC) AND what is the brand impact (positioning, customer perception, community sentiment)? A financially positive decision with negative brand impact may be net-destructive."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "exit-scenario-analysis"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C exit scenarios involve distinct acquirer categories and valuation methodologies that differ from SaaS. Consumer brands are valued on revenue multiples, brand equity, and strategic fit — not ARR multiples."
+    field_changes:
+      - field: "Valuation methodology"
+        sector_label: "D2C Valuation Framework"
+        sector_guidance: "D2C brands are valued on revenue multiples (1-4x revenue for profitable brands, higher for high-growth/high-margin brands), brand equity indicators (NPS, organic traffic, community size), and strategic premium (category leadership, cultural relevance). Comparable M&A transactions: Dollar Shave Club ($1B/Unilever), Glossier ($1.8B peak valuation), Native ($100M/P&G). Rule of thumb: profitable D2C brands exit at 1.5-3x revenue; high-growth brands at 3-6x."
+      - field: "Potential acquirers"
+        sector_label: "D2C Acquirer Landscape"
+        sector_guidance: "Categorize: (1) Strategic CPG acquirers (Unilever, P&G, L'Oreal, Nestle) seeking DTC capabilities and younger demographics. (2) Retail acquirers (Target, Walmart) seeking exclusive brands. (3) PE acquirers (L Catterton, Advent, TSG) seeking profitable consumer brands. (4) Strategic brand houses (LVMH, Estee Lauder, Church & Dwight) seeking category expansion."
+    sections_to_add:
+      - section_name: "Brand Valuation Factors"
+        placement: "after:D2C Valuation Framework"
+        description: "Brand-specific factors that affect D2C exit valuation."
+        fields:
+          - "Brand awareness in target demographic (aided and unaided)"
+          - "Community size and engagement (owned audience value)"
+          - "Organic vs. paid revenue mix (high organic = higher multiple)"
+          - "Customer data asset value (first-party data in a privacy-restricted world)"
+          - "IP and formulation ownership (vs. contract manufacturer dependency)"
+    sections_to_remove: []
+    benchmark_references: ["contribution-margin", "organic-traffic-pct", "nps", "repeat-purchase-rate"]
+
+  # ─────────────────────────────────────────────
+  # BOARD TEMPLATES (7)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-strategic-review"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C board meetings should present brand health alongside financial performance. Board members need to see whether the brand is getting stronger or weaker independent of revenue — because brand strength predicts future financial performance."
+    field_changes:
+      - field: "Financial summary"
+        sector_label: "D2C Financial Dashboard"
+        sector_guidance: "Present: Revenue (quarterly, YoY growth), Contribution Margin trend, Blended CAC trend, LTV:CAC, Channel revenue mix (DTC/Amazon/wholesale), Email/SMS revenue %, Cash balance, Runway. Compare each to plan and prior quarter."
+      - field: "Strategic priorities"
+        sector_label: "Brand & Growth Priorities"
+        sector_guidance: "Report against quarterly priorities with explicit outcomes. Include both financial outcomes (revenue, margin) and brand outcomes (NPS, organic traffic, community growth, creative performance). Flag any priority that is off-track."
+      - field: "Risks"
+        sector_label: "Risk Dashboard"
+        sector_guidance: "Categorize: Brand risks (dilution, community fatigue, negative sentiment), Acquisition risks (rising CAC, creative fatigue, channel dependency), Operational risks (supply chain, fulfillment, return rates), Financial risks (runway, contribution margin erosion), Competitive risks (Amazon, funded competitors, incumbents)."
+    sections_to_add:
+      - section_name: "Brand Health Summary"
+        placement: "before:D2C Financial Dashboard"
+        description: "One-page brand health dashboard."
+        fields:
+          - "NPS (current and trend)"
+          - "Repeat Purchase Rate (current and trend)"
+          - "Organic Traffic % (current and trend)"
+          - "Community Size and Growth Rate"
+          - "UGC Volume and Quality"
+          - "Social Engagement Rate"
+      - section_name: "Channel Performance"
+        placement: "after:D2C Financial Dashboard"
+        description: "Per-channel economics and strategic assessment."
+        fields:
+          - "Revenue and contribution margin by channel"
+          - "CAC and ROAS by paid acquisition channel"
+          - "Email/SMS revenue and engagement metrics"
+          - "Influencer program performance and ROI"
+      - section_name: "Customer Cohort Analysis"
+        placement: "after:Channel Performance"
+        description: "Cohort-level retention and revenue data."
+        fields:
+          - "Repeat purchase curves by quarterly cohort"
+          - "LTV progression by cohort"
+          - "Return rate by cohort"
+          - "Cohort quality assessment (are newer cohorts better or worse?)"
+    sections_to_remove: []
+    benchmark_references: ["contribution-margin", "cac-blended", "ltv-cac-ratio", "repeat-purchase-rate", "nps", "organic-traffic-pct", "email-revenue-pct", "return-rate"]
+
+  - template: "board-meeting-agenda"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C board agendas should allocate time to brand health discussion alongside financial review and include a standing creative/content review."
+    field_changes:
+      - field: "Agenda items"
+        sector_label: "D2C Board Agenda"
+        sector_guidance: "Standard D2C board agenda: (1) Brand Health & Financial Review — 15 min (pre-read, discussion only), (2) Strategic Deep-Dive — 30 min (rotating: channel strategy, brand positioning, product roadmap, influencer program, retail expansion), (3) Creative Review — 10 min (showcase recent content, ad creative, and community highlights), (4) Fundraising/Runway — 10 min, (5) CEO Asks — 10 min, (6) Executive Session — 15 min. Total: 90 minutes."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "risk-assessment-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C risk categories include sector-specific risks: supply chain concentration, advertising platform dependency, brand perception vulnerability, and channel conflict."
+    field_changes:
+      - field: "Risk categories"
+        sector_label: "D2C Risk Categories"
+        sector_guidance: "Include: (1) Supply chain risk — manufacturer concentration, tariff exposure, lead time vulnerability. (2) Channel risk — Meta/Google dependency, Amazon channel conflict, retail partner concentration. (3) Brand risk — reputation vulnerability, influencer controversy, brand dilution. (4) Customer risk — repeat rate declining, NPS erosion, community fatigue. (5) Operational risk — fulfillment capacity, return rate, inventory management. (6) Competitive risk — Amazon private label, funded competitor, incumbent DTC launch."
+    sections_to_add:
+      - section_name: "Advertising Platform Dependency"
+        placement: "end"
+        description: "Assessment of dependency on paid advertising platforms."
+        fields:
+          - "Revenue attributed to each paid platform (Meta, Google, TikTok)"
+          - "Percentage of total acquisition from paid channels"
+          - "Business impact scenario: what if Meta CPMs increase 50%?"
+          - "Organic and owned-channel revenue coverage (could the business survive without paid ads?)"
+    sections_to_remove: []
+    benchmark_references: ["cac-by-channel", "organic-traffic-pct", "return-rate"]
+
+  - template: "change-initiative-proposal"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C change initiatives must address brand impact explicitly. A proposed change (launching on Amazon, entering retail, restructuring pricing) should be evaluated for brand consistency alongside financial projections."
+    field_changes:
+      - field: "Proposal summary"
+        sector_label: "Initiative Summary: Brand & Business Impact"
+        sector_guidance: "Present both the financial case and the brand case. For every major initiative, answer: Does this strengthen or weaken the brand? Does this bring us closer to or further from our core customer? Does this increase or decrease brand control?"
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "compensation-review-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C compensation includes equity-heavy packages for early employees, and roles specific to D2C (creative director, performance marketing, community manager) have market-specific benchmarks."
+    field_changes:
+      - field: "Compensation benchmarks"
+        sector_label: "D2C Compensation Benchmarks"
+        sector_guidance: "Use D2C-specific comp data: Pave and Carta for general roles, Periscopeiq for e-commerce-specific roles. Key D2C roles to benchmark: Creative Director, Performance Marketing Lead, Community Manager, Influencer/Creator Partnerships Manager, Supply Chain/Operations Lead, CX Lead. D2C brands compete for talent with agencies, CPG companies, and other D2C brands — comp must reflect this market."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "regulatory-compliance-update"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C compliance centers on product safety (FDA, CPSC), advertising claims (FTC), data privacy (consumer data from DTC transactions), and increasingly on sustainability claims regulation."
+    field_changes:
+      - field: "Regulatory landscape"
+        sector_label: "D2C Compliance Landscape"
+        sector_guidance: "Cover: product safety regulations (FDA for supplements, beauty, food; CPSC for consumer goods), advertising claims compliance (FTC influencer disclosure rules, substantiation requirements for health/performance claims), data privacy (CCPA, GDPR for international customers), sustainability claims (FTC Green Guides, EU anti-greenwashing directive), and state-level sales tax compliance."
+    sections_to_add:
+      - section_name: "Influencer & Claims Compliance"
+        placement: "end"
+        description: "D2C-specific compliance areas around marketing claims and influencer disclosure."
+        fields:
+          - "FTC disclosure compliance status for influencer partnerships"
+          - "Substantiation for product claims (clinical testing, certifications)"
+          - "Sustainability claims verification"
+          - "Customer review authenticity compliance"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "ceo-succession-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C CEO succession is complicated by the founder-brand identity fusion. When the founder IS the brand's public face, succession requires a brand transition plan alongside a leadership transition plan."
+    field_changes:
+      - field: "Succession criteria"
+        sector_label: "CEO & Brand Stewardship Succession"
+        sector_guidance: "Address the dual transition: leadership succession (operational, financial, strategic) AND brand stewardship succession (who will be the brand voice, who maintains the creative vision, how to preserve brand authenticity post-founder). Include: brand guidelines documentation status, creative team independence level, and founder's role in brand-facing activities."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # TEAM TEMPLATES (13)
+  # ─────────────────────────────────────────────
+
+  - template: "action-plan"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C action plans should include brand impact metrics alongside operational metrics. Every initiative should connect to both financial KPIs and brand health indicators."
+    field_changes:
+      - field: "Success metrics"
+        sector_label: "D2C KPI Targets"
+        sector_guidance: "Define success using both financial and brand metrics: revenue impact, contribution margin change, CAC/ROAS impact, AND brand indicators (NPS change, repeat rate impact, organic traffic shift, community growth). Every action should connect to at least one brand health metric."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "new-initiative-brief"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C initiative briefs should quantify brand impact alongside financial impact and include channel implications."
+    field_changes:
+      - field: "Expected outcomes"
+        sector_label: "Expected D2C Impact"
+        sector_guidance: "Quantify: revenue contribution, contribution margin impact, CAC/ROAS effect, AND brand impact (NPS, organic traffic, community growth, UGC). Include the channel where the initiative will execute and whether it affects other channels."
+      - field: "Resource requirements"
+        sector_label: "Resource Requirements"
+        sector_guidance: "In D2C, creative capacity is the scarcest resource alongside capital. Quantify: creative hours needed (photography, video, copy, design), media budget, inventory commitment, and operational capacity. State the opportunity cost — what creative and inventory budget will not be allocated if this initiative proceeds."
+    sections_to_add:
+      - section_name: "Content & Creative Requirements"
+        placement: "after:Expected D2C Impact"
+        description: "Creative production needs for the initiative."
+        fields:
+          - "Creative assets needed (photography, video, ad creative, email, social)"
+          - "Content calendar impact"
+          - "Influencer/creator involvement (if any)"
+          - "Timeline for creative production"
+    sections_to_remove: []
+    benchmark_references: ["cac-blended", "contribution-margin", "repeat-purchase-rate"]
+
+  - template: "project-kickoff-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C project kickoffs should define success in terms of both commerce metrics and brand metrics, and include a content/creative plan alongside the operational plan."
+    field_changes:
+      - field: "Success criteria"
+        sector_label: "Success Metrics: Commerce & Brand"
+        sector_guidance: "Define 2-3 commerce metrics (revenue, conversion, AOV, CAC) AND 1-2 brand metrics (NPS, organic traffic, UGC, engagement) that this project will move. Include baseline, target, measurement method, and evaluation date."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["cac-blended", "aov", "nps"]
+
+  - template: "hiring-scorecard"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C hiring scorecards should include brand affinity assessment and D2C-specific competency requirements."
+    field_changes:
+      - field: "Required competencies"
+        sector_label: "D2C-Specific Competencies"
+        sector_guidance: "For creative roles: brand voice mastery, content production velocity, platform-native content creation. For marketing roles: paid social expertise (Meta, TikTok), email/SMS strategy, influencer management, attribution methodology understanding. For ops roles: 3PL management, inventory planning, supply chain optimization, returns management. For all roles: genuine brand affinity (does the candidate use and love the product?)."
+    sections_to_add:
+      - section_name: "Brand Fit Assessment"
+        placement: "end"
+        description: "Assessment of the candidate's connection to the brand."
+        fields:
+          - "Does the candidate genuinely use or want to use the product?"
+          - "Can the candidate articulate the brand's positioning in their own words?"
+          - "Does the candidate's personal aesthetic and values align with the brand?"
+          - "D2C experience relevance (stage, category, role type)"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "incident-postmortem"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C incident postmortems must include brand impact assessment. A fulfillment failure, product quality issue, or social media crisis has brand consequences that persist longer than the operational incident."
+    field_changes:
+      - field: "Impact assessment"
+        sector_label: "Customer, Brand & Business Impact"
+        sector_guidance: "Quantify: orders affected, customers impacted, revenue at risk, refunds/credits issued, support tickets generated, AND brand impact: social media mentions, review sentiment change, NPS impact, press coverage. Include the customer communication timeline and effectiveness."
+    sections_to_add:
+      - section_name: "Brand Recovery Plan"
+        placement: "after:Customer, Brand & Business Impact"
+        description: "Steps to recover brand trust after the incident."
+        fields:
+          - "Customer communication (what was sent, when, how received)"
+          - "Social media response and sentiment tracking"
+          - "Recovery gesture (credits, replacements, personal outreach)"
+          - "Long-term brand impact assessment (will this affect NPS, reviews, repeat rate?)"
+    sections_to_remove: []
+    benchmark_references: ["nps", "csat", "return-rate"]
+
+  - template: "retrospective-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Retrospective structure is not sector-specific. Content naturally addresses D2C challenges."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "meeting-notes-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Meeting notes structure is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "one-on-one-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "One-on-one meeting structure is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "team-health-check"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C team health should include creative-performance alignment, brand voice consistency across teams, and the emotional health of teams that carry the brand's public identity."
+    field_changes:
+      - field: "Health indicators"
+        sector_label: "D2C Team Health Indicators"
+        sector_guidance: "Include: creative team velocity (content pieces produced per week), creative-performance alignment (shared metrics, collaborative planning), customer service satisfaction (support team CSAT), brand voice consistency across channels, and creative team burnout indicators (the team that produces the brand's public face bears unique emotional load)."
+    sections_to_add:
+      - section_name: "Creative-Performance Alignment"
+        placement: "end"
+        description: "Assessment of collaboration between brand/creative and performance marketing."
+        fields:
+          - "Shared metrics dashboard (do both teams track the same KPIs?)"
+          - "Joint creative brief process (do performance insights inform creative direction?)"
+          - "Content production velocity vs. demand"
+          - "Creative team morale and burnout indicators"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "culture-values-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C culture values must be brand-aligned. Internal culture should be the brand culture — employees should embody the values the brand communicates to customers."
+    field_changes:
+      - field: "Values"
+        sector_label: "Brand-Aligned Values"
+        sector_guidance: "Ensure internal values are consistent with brand values. If the brand communicates sustainability to customers, the internal culture must practice sustainability. If the brand communicates community, the internal culture must be community-oriented. Inconsistency between internal culture and external brand promise creates inauthenticity that customers detect."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "feedback-360-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "360 feedback follows standard practices regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "offsite-planning-guide"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Offsite planning is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "role-description-template"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C role descriptions should reference D2C-specific experience requirements, brand affinity criteria, and the specific D2C metrics the role is accountable for."
+    field_changes:
+      - field: "Key responsibilities"
+        sector_label: "Key Responsibilities and Metric Ownership"
+        sector_guidance: "For each responsibility, specify the D2C metric the role owner is accountable for. Examples: Head of Growth owns blended CAC, ROAS by channel, and new customer acquisition; Head of Retention owns repeat purchase rate, email/SMS revenue %, and NPS; Creative Director owns social engagement rate, UGC volume, and ad creative performance; Operations Lead owns fulfillment cost per order, return rate, and shipping time."
+      - field: "Required experience"
+        sector_label: "D2C Experience Requirements"
+        sector_guidance: "Specify: D2C company-stage experience required, relevant product categories, specific platform expertise (Shopify, Klaviyo, Meta Ads Manager), and whether the candidate must have genuine affinity for the product category."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # SELF TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "weekly-ceo-review"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A D2C founder's weekly review should balance financial metrics, brand health, and creative output — the three pillars of a direct-to-consumer business."
+    field_changes:
+      - field: "Weekly metrics"
+        sector_label: "Weekly D2C Dashboard"
+        sector_guidance: "Review weekly: Revenue (daily and WoW), Orders, AOV, Blended ROAS, Email/SMS revenue, Support tickets, Return requests. Monthly cadence (do not review weekly): CAC, LTV, NPS, Repeat Rate, Contribution Margin. Brand pulse weekly: social engagement, UGC highlights, community sentiment, content performance."
+      - field: "Priorities"
+        sector_label: "This Week's Priorities"
+        sector_guidance: "Identify the single most important thing. In D2C, this is often: approving new creative, resolving a supply chain issue, reviewing influencer partnership, making a channel decision, or addressing a customer experience failure. One priority, not ten."
+    sections_to_add:
+      - section_name: "Brand Pulse"
+        placement: "after:Weekly D2C Dashboard"
+        description: "Weekly qualitative brand health check."
+        fields:
+          - "Best customer feedback this week (from reviews, DMs, emails)"
+          - "Worst customer feedback this week (and what is being done about it)"
+          - "Community highlights (notable UGC, social moments)"
+          - "Creative pipeline status (what is being produced this week)"
+    sections_to_remove: []
+    benchmark_references: ["aov", "roas-by-channel", "email-revenue-pct"]
+
+  - template: "decision-journal"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C decision journals should capture both the financial data and the brand instinct behind decisions, and include brand impact as a success criterion."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context: Data & Brand Instinct"
+        sector_guidance: "Record: the financial data (metrics, forecasts, costs), the brand considerations (positioning impact, community response, brand consistency), the instinct (what does your gut say?), and the decision criteria (what metric or outcome will confirm the decision was correct, including brand metrics)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "annual-review-and-planning"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C annual reviews should assess brand evolution alongside financial performance and set brand goals alongside growth targets."
+    field_changes:
+      - field: "Year in review"
+        sector_label: "D2C Year in Review"
+        sector_guidance: "Assess: revenue growth (actual vs. plan by channel), contribution margin evolution, CAC trend, LTV trend, AND brand progress: NPS change, organic traffic growth, community size, repeat rate evolution, notable brand moments, product launches, and influencer program development."
+      - field: "Next year goals"
+        sector_label: "Next Year D2C Targets"
+        sector_guidance: "Set targets across all dimensions: revenue by channel, contribution margin target, CAC target, AND brand targets: NPS goal, organic traffic % target, community growth target, content production plan, influencer program scale, and new product launches."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["contribution-margin", "cac-blended", "ltv-cac-ratio", "repeat-purchase-rate", "nps", "organic-traffic-pct"]
+
+  - template: "stakeholder-map"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C stakeholder maps should include D2C-ecosystem-specific categories: influencer partners, retail buyers, manufacturers, 3PL partners, and community leaders."
+    field_changes:
+      - field: "Stakeholder categories"
+        sector_label: "D2C Stakeholder Ecosystem"
+        sector_guidance: "Include: Investors (lead, follow-on, angels, advisors), Key Customers (top spenders, brand ambassadors, UGC creators), Influencer Partners (top performers, emerging creators, agency contacts), Supply Chain (manufacturers, 3PL, packaging suppliers), Retail Partners (buyers, category managers), Community (power users, moderators, brand evangelists), and Advisors (D2C operators, category experts, agency partners)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "negotiation-prep-sheet"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C negotiation prep should include D2C-specific contexts and leverage points for influencer, retail, supplier, and investor negotiations."
+    field_changes:
+      - field: "Negotiation type"
+        sector_label: "D2C Negotiation Context"
+        sector_guidance: "Classify: influencer/creator deal (rates, exclusivity, usage rights), retail partnership (margins, placement, MAP pricing), manufacturer (MOQs, payment terms, formulation IP), fundraising (valuation, terms), or Amazon (terms, advertising, brand protection). Each has distinct D2C-specific dynamics."
+      - field: "BATNA"
+        sector_label: "BATNA and D2C Leverage"
+        sector_guidance: "D2C-specific leverage: for influencer negotiations — alternative creators, in-house content capability, UGC program. For retail — DTC channel as alternative, other retail partners, consumer demand data. For manufacturer — alternative suppliers, ability to bring production in-house. For fundraising — profitability path, multiple term sheets, organic growth rate."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["influencer-roi", "contribution-margin"]
+
+  - template: "career-strategy-canvas"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Career strategy is personal, not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "founder-mental-health-check"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C founder mental health is affected by D2C-specific stressors: the public visibility of the brand (social media criticism feels personal), the emotional weight of being the brand's face, the relentless creative demands, and the volatility of consumer attention."
+    field_changes:
+      - field: "Stress indicators"
+        sector_label: "D2C-Specific Stress Indicators"
+        sector_guidance: "Include: identity fusion (self-worth tied to brand performance and social media metrics), creative exhaustion (the pressure to constantly produce content), public criticism sensitivity (taking negative reviews, social media comments, and press personally), comparison anxiety (obsessing over competitor brands and influencers), ROAS anxiety (checking ad dashboards multiple times daily), and isolation (not discussing brand challenges with peers because the brand image must remain positive)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "leadership-reflection"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Leadership reflection is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "learning-plan"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C founders should include D2C-specific learning areas in their development plans."
+    field_changes:
+      - field: "Learning areas"
+        sector_label: "D2C Learning Priorities"
+        sector_guidance: "Consider D2C-specific learning areas: brand building and storytelling, paid media (Meta, TikTok, Google), email/SMS strategy (Klaviyo mastery), influencer marketing, supply chain and manufacturing, financial modeling for physical products, content strategy, community building, and retail expansion."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "personal-board-tracker"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A D2C founder's advisory board should include D2C-specific expertise areas."
+    field_changes:
+      - field: "Advisor categories"
+        sector_label: "D2C Advisory Needs"
+        sector_guidance: "Map advisors to D2C-specific needs: brand building (someone who has built a consumer brand to $50M+ revenue), paid acquisition (Meta/TikTok expert who manages $1M+/month), supply chain (someone who has scaled manufacturing and fulfillment), retail expansion (someone with buyer relationships at target retailers), finance (D2C-specific P&L and fundraising expertise), creative (content strategy and production at scale), and community (someone who has built a brand community beyond a mailing list)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # CLIENT TEMPLATES (8)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-business-review"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C 'client' QBRs are typically with retail partners, wholesale accounts, or brand collaboration partners. The QBR should present brand performance data and sell-through metrics relevant to the partner relationship."
+    field_changes:
+      - field: "Performance summary"
+        sector_label: "Brand & Sell-Through Performance"
+        sector_guidance: "Present: sell-through rate (for retail/wholesale), revenue contribution, customer feedback from the partner channel, brand awareness metrics in the partner's customer base, and marketing support provided (co-op advertising, in-store displays, influencer features)."
+      - field: "Account status"
+        sector_label: "Partnership Health"
+        sector_guidance: "Present: sales velocity by SKU in the partner channel, inventory status (overstock/understock), promotional calendar alignment, and brand presentation compliance (MAP pricing, merchandising standards)."
+      - field: "Next steps"
+        sector_label: "Growth Opportunities"
+        sector_guidance: "Identify expansion: additional SKUs for the partner, exclusive products or bundles, joint marketing campaigns, seasonal promotions, and broader distribution (more stores, more shelf space)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["repeat-purchase-rate", "nps"]
+
+  - template: "onboarding-welcome-packet"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C 'client' onboarding typically means onboarding a retail partner, wholesale account, or brand collaboration partner. The packet should communicate brand standards, operational expectations, and marketing support."
+    field_changes:
+      - field: "Getting started steps"
+        sector_label: "Partnership Launch Guide"
+        sector_guidance: "Define: (1) Brand guidelines and merchandising standards — how the product must be displayed and described. (2) Ordering process and minimum quantities. (3) MAP pricing policy. (4) Marketing and promotional calendar. (5) Point of contact for brand questions, inventory issues, and marketing collaboration."
+      - field: "Resources"
+        sector_label: "Brand Assets & Resources"
+        sector_guidance: "Include: brand guideline document, product photography library, marketing materials, co-op advertising templates, and brand story summary for partner staff training."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "proposal-outline"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C proposals are typically to retail partners or brand collaboration partners. The proposal should lead with brand strength and consumer demand rather than product specifications."
+    field_changes:
+      - field: "Pricing"
+        sector_label: "Wholesale Pricing & Terms"
+        sector_guidance: "Present: wholesale pricing structure, minimum order quantities, payment terms, MAP pricing policy, and return/exchange policy. Frame the margin opportunity for the retail partner."
+      - field: "Scope"
+        sector_label: "Partnership Scope"
+        sector_guidance: "Define: initial product assortment, distribution scope (number of stores/locations), exclusivity terms (if any), marketing support commitment, and launch timeline."
+    sections_to_add:
+      - section_name: "Brand Demand Evidence"
+        placement: "before:Wholesale Pricing & Terms"
+        description: "Proof of consumer demand that the retail partner benefits from."
+        fields:
+          - "DTC revenue and growth rate (proof of consumer demand)"
+          - "Social media following and engagement (brand visibility)"
+          - "Press coverage and notable media mentions"
+          - "Customer demographics (alignment with partner's customer base)"
+    sections_to_remove: []
+    benchmark_references: ["organic-traffic-pct", "nps", "community-growth-rate"]
+
+  - template: "service-level-agreement"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C SLAs with retail/wholesale partners cover fulfillment, brand standards, and operational commitments rather than software uptime."
+    field_changes:
+      - field: "Service levels"
+        sector_label: "Brand & Operational Commitments"
+        sector_guidance: "D2C SLA components: (1) Order fulfillment timeline (typically 48-72 hours). (2) Fill rate commitment (% of ordered units shipped). (3) Product quality standards. (4) Packaging and presentation standards. (5) Marketing and promotional support commitments. (6) MAP pricing enforcement."
+      - field: "Remediation"
+        sector_label: "Remediation Terms"
+        sector_guidance: "Define: credit structure for late/incomplete shipments, product quality issue resolution process, and termination triggers for sustained SLA breaches."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "project-status-update"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C project updates are typically for retail launch projects, brand collaboration projects, or product development partnerships. The update should track progress toward launch readiness."
+    field_changes:
+      - field: "Progress summary"
+        sector_label: "Launch/Project Progress"
+        sector_guidance: "Track: product readiness (inventory produced, quality approved), marketing materials (photography, copy, merchandising), operational setup (EDI, ordering, fulfillment), and timeline compliance (on track, delayed, at risk)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "case-study-template"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C case studies for retail or wholesale partners should demonstrate brand demand, sell-through performance, and customer response — the metrics that retail buyers care about."
+    field_changes:
+      - field: "Results"
+        sector_label: "Partnership Results"
+        sector_guidance: "Present: sell-through rate, revenue per linear foot (retail) or revenue per listing (online), customer feedback and ratings at the partner, repeat purchase rate through the partner channel, and marketing campaign performance (if co-op advertising was executed)."
+    sections_to_add:
+      - section_name: "Brand Impact on Partner"
+        placement: "end"
+        description: "How the D2C brand enhanced the partner's business."
+        fields:
+          - "New customer acquisition driven by the brand"
+          - "Category growth or market share impact"
+          - "Foot traffic or site traffic driven by brand awareness"
+          - "Social media and PR coverage featuring the partnership"
+    sections_to_remove: []
+    benchmark_references: ["repeat-purchase-rate", "nps"]
+
+  - template: "partnership-memo"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C partnership memos (for retail, influencer, or brand collaborations) should frame the partnership through the brand lens — why the partnership strengthens both brands rather than just generating transactions."
+    field_changes:
+      - field: "Partnership rationale"
+        sector_label: "Brand Alignment & Strategic Rationale"
+        sector_guidance: "Articulate: why the partner's brand and our brand are complementary (shared values, overlapping audience, aesthetic alignment), what the partnership communicates to customers (brand elevation, not desperation), and how the partnership strengthens both brands' positions."
+    sections_to_add:
+      - section_name: "Community & Content Opportunity"
+        placement: "end"
+        description: "How the partnership creates content and community value."
+        fields:
+          - "Joint content opportunities (co-branded content, creator collaborations)"
+          - "Community cross-pollination (email list, social, events)"
+          - "UGC potential from the collaboration"
+          - "Press and earned media opportunity"
+    sections_to_remove: []
+    benchmark_references: ["community-growth-rate", "social-engagement-rate"]
+
+  - template: "analysis-report"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "D2C analysis reports for partners should include brand performance data and consumer insights alongside commercial metrics."
+    field_changes:
+      - field: "Analysis findings"
+        sector_label: "Brand & Commercial Analysis"
+        sector_guidance: "Include both brand metrics (awareness, NPS, social sentiment in the partner's market) and commercial metrics (sales, margin, growth rate). For retail partners, include shelf-level performance data and competitive comparisons within the category at the partner."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["nps", "brand-awareness"]

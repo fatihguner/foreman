@@ -1,0 +1,20 @@
+{
+  "name": "foreman-marketplace",
+  "interface": {
+    "displayName": "Foreman Local Marketplace"
+  },
+  "plugins": [
+    {
+      "name": "foreman",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "NONE"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

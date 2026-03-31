@@ -1,0 +1,1 @@
+../../../../.claude/skills/thinking/enemies-of-clear-thinking.md

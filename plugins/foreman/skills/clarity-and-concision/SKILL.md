@@ -1,0 +1,1 @@
+../../../../.claude/skills/writing/clarity-and-concision.md

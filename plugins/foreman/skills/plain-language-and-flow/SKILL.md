@@ -1,0 +1,1 @@
+../../../../.claude/skills/writing/plain-language-and-flow.md

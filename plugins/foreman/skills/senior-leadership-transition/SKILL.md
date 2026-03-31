@@ -1,0 +1,1 @@
+../../../../.claude/skills/leadership/senior-leadership-transition.md

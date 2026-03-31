@@ -1,0 +1,1190 @@
+# Marketplace Industry Pack — Skill Overlays
+# Provides marketplace-specific overlays for 35 skills, reframing each
+# through the two-sided lens: supply, demand, platform dynamics, network
+# effects, liquidity, take rates, and disintermediation risk.
+#
+# Each overlay does not replace the base skill — it augments it with
+# marketplace-native thinking. The two-sided nature must be visible in
+# every overlay. These are not SaaS frameworks with "marketplace" pasted
+# over "subscription."
+
+pack: marketplace
+author: "Fatih Guner"
+type: skill_overlays
+version: "1.0.0"
+
+overlays:
+
+  # ──────────────────────────────────────────────
+  # 1. Porter's Five Forces
+  # ──────────────────────────────────────────────
+  - skill: porters-five-forces
+    marketplace_reframe: >
+      In a single-sided business, Porter's Five Forces produces one
+      analysis. In a marketplace, it produces three: the five forces
+      acting on the supply side, the five forces acting on the demand
+      side, and the platform-specific forces that exist only in
+      two-sided markets. The standard framework misses the most
+      dangerous competitive dynamics marketplaces face.
+
+    two_sided_application:
+      supply_side:
+        - "Threat of new entrants: Can a new marketplace recruit your supply? How sticky is supply? What are the switching costs for a seller moving from your platform to a competitor?"
+        - "Supplier power: In a marketplace context, the 'suppliers' to the platform are its supply-side participants. Concentrated supply (few dominant sellers) gives them bargaining power over take rates and terms."
+        - "Buyer power: The demand side's ability to demand lower prices or higher quality from supply through the platform. Multi-tenanting demand reduces their dependence on your marketplace."
+        - "Substitutes: Can supply serve demand through non-marketplace channels — direct sales, social media, their own website?"
+        - "Rivalry: How many competing marketplaces compete for the same supply base?"
+      demand_side:
+        - "Threat of new entrants: Can a new marketplace attract your buyers with better selection, lower prices, or superior experience?"
+        - "Supplier power: Supply-side participants' ability to set prices, limit availability, or move to competing platforms affects the demand experience."
+        - "Buyer power: Demand concentration — a few large buyers — gives them leverage over marketplace terms."
+        - "Substitutes: Can buyers get the same products or services without using any marketplace?"
+        - "Rivalry: How many competing marketplaces compete for the same buyer base?"
+      platform_forces:
+        - "Multi-homing: The tendency of participants on either side to use multiple competing platforms simultaneously. High multi-homing = low defensibility."
+        - "Disintermediation: The risk that matched pairs bypass the platform after initial introduction, eliminating the take rate."
+        - "Network effects strength: The degree to which growth on one side improves the value proposition for the other. Weak network effects = commodity intermediation."
+        - "Regulatory capture: Platform-specific regulatory risks — labor classification, marketplace liability, data portability requirements."
+        - "Winner-take-most dynamics: Whether the market structure favours one dominant marketplace or supports multiple coexisting platforms."
+
+    key_questions:
+      - "Are your five forces more favourable on the supply side or the demand side — and which side is your strategic bottleneck?"
+      - "How high is multi-homing on each side, and what would reduce it?"
+      - "Which competitive force is most likely to kill your marketplace: a new entrant recruiting supply, demand-side substitutes, or disintermediation?"
+
+    anti_patterns:
+      - "Running a single five-forces analysis as if the marketplace were one business with one set of customers."
+      - "Ignoring multi-homing as a competitive force — it is often more dangerous than direct rivalry."
+      - "Treating supply-side participants as 'suppliers' in the traditional Porter sense rather than as customers of the platform."
+
+  # ──────────────────────────────────────────────
+  # 2. Business Model Canvas
+  # ──────────────────────────────────────────────
+  - skill: business-model-canvas
+    marketplace_reframe: >
+      A single Business Model Canvas cannot represent a marketplace. The
+      standard nine-block canvas assumes one customer segment and one
+      value proposition. A marketplace has (at minimum) two customer
+      segments — supply and demand — with distinct value propositions,
+      channels, relationships, and revenue models for each. The canvas
+      must be doubled, then linked through the platform's matching
+      mechanism.
+
+    two_sided_application:
+      supply_side_canvas:
+        customer_segments: "Supply-side participants (sellers, hosts, drivers, freelancers). Segment by volume, quality tier, category, geography."
+        value_propositions: "Access to demand, reduced marketing costs, payment processing, trust infrastructure, analytics and tools. What does the supply side get that they cannot get alone?"
+        channels: "How supply discovers and joins the marketplace — outbound sales, organic search, word-of-mouth, category-specific communities."
+        customer_relationships: "Account management for top supply, self-serve for long tail, automated quality monitoring, performance dashboards."
+        revenue_streams: "Commission on transactions, listing fees, premium placement, SaaS tools, advertising, data services."
+      demand_side_canvas:
+        customer_segments: "Buyers, guests, riders, clients. Segment by purchase frequency, AOV, category preference, geography."
+        value_propositions: "Selection, convenience, trust (reviews, guarantees), price transparency, discovery. What does the demand side get that direct-from-source cannot provide?"
+        channels: "How demand finds the marketplace — SEO, paid acquisition, app stores, brand awareness, referral programs."
+        customer_relationships: "Personalised recommendations, loyalty programs, customer support, dispute resolution."
+        revenue_streams: "Transaction fees (often invisible to demand), subscription tiers, delivery fees, premium buyer features."
+      platform_layer:
+        key_resources: "Matching algorithm, trust infrastructure, payment system, data and analytics, brand."
+        key_activities: "Supply-demand matching, quality curation, fraud prevention, dispute resolution, liquidity management."
+        key_partnerships: "Payment processors, logistics providers, insurance underwriters, identity verification services."
+        cost_structure: "Two-sided CAC (supply + demand), payment processing, T&S operations, platform infrastructure, customer support (both sides)."
+
+    key_questions:
+      - "Does each side have a clear, distinct value proposition — or are you assuming demand benefits automatically follow from supply?"
+      - "Which canvas is weaker? That is your strategic bottleneck."
+      - "How does the platform layer create value that neither side can replicate independently?"
+
+    anti_patterns:
+      - "Creating one canvas with 'users' as the customer segment without distinguishing supply and demand."
+      - "Listing 'marketplace fees' as the only revenue stream without modelling take rate, ancillary services, and SaaS tools."
+      - "Omitting the platform layer — key activities, resources, and partnerships that make the match happen."
+
+  # ──────────────────────────────────────────────
+  # 3. SWOT / PEST Analysis
+  # ──────────────────────────────────────────────
+  - skill: swot-pest-analysis
+    marketplace_reframe: >
+      SWOT and PEST analyses for marketplaces must be conducted per side
+      and for the platform itself. A strength on the supply side (deep
+      inventory) can coexist with a weakness on the demand side (low
+      repeat rate). External PEST factors hit each side differently:
+      labour regulations affect supply, consumer protection laws affect
+      demand, antitrust scrutiny affects the platform.
+
+    two_sided_application:
+      supply_side_swot:
+        - "Strengths: Supply quality, exclusivity, supply-side tools, low supply CAC."
+        - "Weaknesses: Supply churn, low liquidity, quality inconsistency, high onboarding friction."
+        - "Opportunities: Untapped supply categories, supply-side SaaS upsell, geographic expansion."
+        - "Threats: Supply multi-homing, disintermediation, competitor supply-side incentives, regulatory reclassification of supply (e.g., gig worker laws)."
+      demand_side_swot:
+        - "Strengths: Demand-side brand strength, repeat rate, organic acquisition, selection breadth."
+        - "Weaknesses: Low demand fill rate, poor first-experience conversion, high demand CAC."
+        - "Opportunities: Adjacent demand segments, cross-category expansion, loyalty programs."
+        - "Threats: Demand-side multi-homing, competitor promotions, substitute channels, trust erosion."
+      platform_pest:
+        - "Political: Labour classification laws (AB5, EU Platform Work Directive), marketplace liability regulations, trade policy affecting cross-border marketplaces."
+        - "Economic: Consumer spending trends affecting demand AOV, supply-side income alternatives, payment processing cost trends."
+        - "Social: Trust in online transactions, gig economy attitudes, generational platform preferences."
+        - "Technological: AI matching and personalisation, payment infrastructure evolution, fraud technology, logistics automation."
+
+    key_questions:
+      - "Which SWOT quadrant, for which side, poses the most existential risk right now?"
+      - "Do your PEST factors differentially affect one side — and how does that ripple to the other?"
+
+    anti_patterns:
+      - "Running one SWOT for the whole marketplace without side-specific analysis."
+      - "Listing 'network effects' as a strength without evidence they actually exist in your marketplace."
+
+  # ──────────────────────────────────────────────
+  # 4. Blue Ocean Strategy
+  # ──────────────────────────────────────────────
+  - skill: blue-ocean-strategy
+    marketplace_reframe: >
+      Blue ocean strategy in a marketplace context means creating
+      uncontested space on at least one side of the market. The most
+      successful marketplace blue oceans unlock supply that was
+      previously inaccessible (Airbnb: spare bedrooms) or serve demand
+      that was previously underserved (Etsy: handmade goods buyers).
+      The strategic canvas must be drawn twice — once for supply value
+      and once for demand value.
+
+    two_sided_application:
+      supply_side:
+        - "Eliminate-Reduce-Raise-Create grid applied to the supply-side value proposition. What do existing platforms force suppliers to do that you can eliminate?"
+        - "Unlock latent supply: identify assets, skills, or capacity that exist but are not currently monetised through any marketplace."
+        - "The supply-side blue ocean often matters more than the demand side — novel supply creates its own demand."
+      demand_side:
+        - "Eliminate-Reduce-Raise-Create grid applied to the demand-side experience. What friction do existing solutions impose on buyers?"
+        - "Serve non-consumers: identify demand that exists but is currently priced out, geographically excluded, or too inconvenient to fulfil."
+        - "The demand-side blue ocean often involves dramatically reducing the minimum viable transaction (lower AOV, smaller commitments)."
+      platform_innovation:
+        - "Blue ocean matching: create a new way of connecting supply and demand that competitors cannot replicate."
+        - "Blue ocean trust: introduce trust mechanisms (guarantees, insurance, escrow) that make transactions possible where they previously were not."
+
+    key_questions:
+      - "Are you creating a blue ocean on the supply side, the demand side, or both — and which matters more?"
+      - "Is the latent supply you are unlocking genuinely new, or are you competing for existing supply with a slightly different value prop?"
+      - "Does your blue ocean on one side automatically attract the other, or do you need separate blue ocean strategies for each?"
+
+    anti_patterns:
+      - "Claiming a blue ocean exists because no one has built this specific marketplace — without verifying demand exists for this specific supply."
+      - "Creating a demand-side blue ocean with no path to high-quality supply."
+
+  # ──────────────────────────────────────────────
+  # 5. Four Ps Marketing
+  # ──────────────────────────────────────────────
+  - skill: four-ps-marketing
+    marketplace_reframe: >
+      The Four Ps apply twice in a marketplace — once for supply
+      marketing and once for demand marketing — and the 'Price' P
+      becomes the most complex element because it is not a simple price
+      point but a take rate structure affecting both sides simultaneously.
+      Raising the price (take rate) to extract more from one side can
+      collapse the other.
+
+    two_sided_application:
+      supply_side_4ps:
+        product: "The platform itself is the product for supply: listing tools, dashboard, analytics, payment processing, demand access."
+        price: "Supply-side cost = take rate + any listing fees + payment processing absorbed by supply. The supply-side price must be lower than the value of demand access the platform provides."
+        place: "Where and how supply discovers the marketplace: industry events, category-specific channels, sales outreach, referral from existing supply."
+        promotion: "Supply-side messaging: expected earnings, success stories, tools and support, community. Supply marketing is recruitment marketing."
+      demand_side_4ps:
+        product: "The marketplace experience for buyers: search, discovery, trust signals, checkout, delivery tracking, dispute resolution."
+        price: "Demand-side cost = product/service price + any buyer fees + shipping/delivery. Often demand sees no explicit platform fee — the take rate is embedded in supply pricing."
+        place: "Demand acquisition channels: SEO, paid search, social, app stores, partnerships, content marketing."
+        promotion: "Demand-side messaging: selection, trust, convenience, price transparency, guarantees."
+      take_rate_as_price:
+        - "Take rate is not a simple pricing decision — it is a cross-side optimization problem."
+        - "Raising supply-side take rate may cause supply attrition, which degrades demand experience."
+        - "Adding explicit demand-side fees may reduce conversion, which degrades supply liquidity."
+        - "The optimal take rate is the highest rate at which both sides still prefer the marketplace over alternatives."
+
+    key_questions:
+      - "Are your marketing messages and channels differentiated between supply and demand — or are you marketing to both sides the same way?"
+      - "Is your take rate structured as supply-side, demand-side, or split — and what would happen if you shifted the burden?"
+
+    anti_patterns:
+      - "Treating take rate as a simple pricing lever without modelling cross-side effects."
+      - "Using the same marketing channels and messages for both sides."
+
+  # ──────────────────────────────────────────────
+  # 6. Net Promoter Score
+  # ──────────────────────────────────────────────
+  - skill: net-promoter-score
+    marketplace_reframe: >
+      NPS must be measured separately for supply and demand — and the gap
+      between them is as informative as either score alone. A marketplace
+      with NPS 60 on the demand side and NPS 10 on the supply side is
+      extracting value from supply to subsidise demand. That structure
+      is unsustainable.
+
+    two_sided_application:
+      supply_side:
+        - "Survey: 'How likely are you to recommend [marketplace] to a fellow [seller/host/provider]?'"
+        - "Drivers of supply NPS: earnings reliability, demand volume, platform tools, fee transparency, dispute fairness, support quality."
+        - "Low supply NPS → supply churn → less selection → demand experience degrades → doom loop."
+      demand_side:
+        - "Survey: 'How likely are you to recommend [marketplace] to a friend who needs [product/service]?'"
+        - "Drivers of demand NPS: selection quality, price fairness, trust/safety, transaction speed, support quality."
+        - "Low demand NPS → demand churn → less transaction volume → supply earnings decline → supply churn."
+      cross_side_insight:
+        - "NPS gap (demand NPS - supply NPS) > 30 points: marketplace is over-extracting from supply."
+        - "NPS gap < -20 points: marketplace is over-investing in supply at demand's expense."
+        - "Track NPS per side over time. Diverging NPS curves predict marketplace instability."
+
+    key_questions:
+      - "What is your NPS for each side, and which side's NPS trajectory concerns you more?"
+      - "Does your supply-side NPS reflect earnings satisfaction or platform experience satisfaction — and which matters more?"
+
+    anti_patterns:
+      - "Measuring a single blended NPS across both sides."
+      - "Celebrating high demand NPS while ignoring declining supply NPS."
+
+  # ──────────────────────────────────────────────
+  # 7. Disruptive Innovation
+  # ──────────────────────────────────────────────
+  - skill: disruptive-innovation
+    marketplace_reframe: >
+      Disruption in marketplaces follows a distinctive pattern: the
+      disruptor does not need to be better for all users — they need
+      to be better for the underserved tail of one side. Etsy disrupted
+      eBay not by being a better general marketplace but by serving
+      handmade sellers that eBay ignored. Uber disrupted taxis not by
+      being cheaper for all riders but by serving the 'cannot get a
+      cab' moments.
+
+    two_sided_application:
+      supply_side_disruption:
+        - "Disruptors unlock supply that incumbents reject: too small, too niche, too unprofessional, too informal."
+        - "Lowering supply-side barriers to entry (no storefront required, no minimum inventory) is the classic marketplace disruption pattern."
+        - "Watch for platforms that make it trivially easy for amateurs to compete with your professional supply."
+      demand_side_disruption:
+        - "Disruptors serve demand that incumbents overlook: too infrequent, too low-AOV, too geographically dispersed."
+        - "Reducing minimum viable transaction size opens new demand segments that incumbents cannot economically serve."
+        - "Watch for platforms that make your product/service category accessible to consumers who previously could not afford it."
+      platform_disruption:
+        - "A new platform architecture — mobile-first, AI-matched, vertically integrated — can disrupt an incumbent's matching mechanism."
+        - "Trust innovation (new verification, insurance, escrow models) can disrupt incumbents' trust infrastructure."
+        - "Disintermediation technology (direct messaging, payment outside platform) is disruption of the platform itself."
+
+    key_questions:
+      - "Which tail of your supply or demand side are you ignoring — and could a disruptor build a wedge there?"
+      - "Is your marketplace being disrupted from below (lower quality, lower price) or from above (better experience, vertical specialisation)?"
+
+    anti_patterns:
+      - "Assuming your marketplace cannot be disrupted because you have network effects — network effects protect against direct competition, not asymmetric disruption."
+      - "Focusing disruption analysis on direct marketplace competitors rather than on new platform architectures."
+
+  # ──────────────────────────────────────────────
+  # 8. Product Life Cycle
+  # ──────────────────────────────────────────────
+  - skill: product-life-cycle
+    marketplace_reframe: >
+      Marketplace life cycles are defined not by product maturity but by
+      liquidity maturity. Introduction = solving chicken-and-egg. Growth
+      = liquidity flywheel engaged. Maturity = liquidity saturated in
+      core segments. Decline = liquidity leaking to competitors or
+      substitutes. Each stage demands different supply-demand management.
+
+    two_sided_application:
+      introduction:
+        - "Chicken-and-egg phase. The marketplace has no inherent value without both sides present."
+        - "Strategy: constrain supply, subsidise one side (usually demand), manual curation, single geography or category."
+        - "Metric focus: supply liquidity and time-to-first-transaction, not GMV."
+      growth:
+        - "Liquidity flywheel activated. Growth on one side attracts the other."
+        - "Strategy: invest in the supply-constrained side, expand categories and geographies, build trust infrastructure."
+        - "Metric focus: GMV growth rate, repeat rates, cross-side elasticity, organic acquisition %."
+      maturity:
+        - "Core segments saturated. Growth comes from adjacencies, take rate optimisation, and value-added services."
+        - "Strategy: extract more revenue per transaction, launch ancillary products (SaaS, fintech, logistics), defend against verticalised competitors."
+        - "Metric focus: net revenue growth, ARPU expansion, contribution margin, take rate."
+      decline:
+        - "Liquidity leaking. Supply or demand migrating to specialists, aggregators, or direct channels."
+        - "Strategy: vertical specialisation, quality doubling, managed marketplace pivot, or strategic acquisition."
+        - "Metric focus: supply churn by tier, demand repeat rate decay, disintermediation rate."
+
+    key_questions:
+      - "Which life cycle stage is your marketplace in — and does each segment or geography occupy the same stage?"
+      - "Is your 'maturity' actually healthy saturation, or premature stalling due to quality or trust problems?"
+
+    anti_patterns:
+      - "Applying product life cycle logic to a marketplace without adapting for two-sided dynamics."
+      - "Assuming marketplace growth automatically follows product-market fit — liquidity is a separate, harder problem."
+
+  # ──────────────────────────────────────────────
+  # 9. Growth-Share Matrix (BCG)
+  # ──────────────────────────────────────────────
+  - skill: growth-share-matrix
+    marketplace_reframe: >
+      The BCG matrix for marketplaces applies to segments, categories,
+      or geographies within the marketplace — not to the marketplace
+      as a single entity. A marketplace may have star categories
+      (high growth, high liquidity), cash cows (mature with stable
+      take rate revenue), question marks (new categories with uncertain
+      liquidity), and dogs (categories where the marketplace has no
+      competitive advantage).
+
+    two_sided_application:
+      category_portfolio:
+        - "Map each marketplace category or geography on two axes: GMV growth rate and relative market share (vs. the best alternative for that category)."
+        - "Stars: high-growth categories where the marketplace is the preferred platform. Invest in supply depth and demand acquisition."
+        - "Cash cows: mature categories with strong liquidity and stable take rates. Harvest revenue, protect supply, minimise spend."
+        - "Question marks: new categories with growth potential but unproven liquidity. Test with constrained supply before broad launch."
+        - "Dogs: categories where a vertical competitor or direct channel dominates. Evaluate exit vs. restructure."
+      supply_demand_lens:
+        - "A category can be a star on the demand side (buyers love it) but a dog on the supply side (suppliers prefer direct channels). Diagnose per side."
+        - "Investment decisions must consider cross-side effects: killing a dog category may remove supply that drives demand in a star category."
+
+    key_questions:
+      - "Which categories are stars, and do they have sufficient supply depth to sustain growth?"
+      - "Are your cash cow categories generating enough revenue to fund question mark expansion?"
+      - "Are any dog categories being subsidised by star categories' cross-side effects?"
+
+    anti_patterns:
+      - "Treating the entire marketplace as one unit in the matrix rather than analysing categories independently."
+      - "Killing dog categories without evaluating their cross-side contribution to star categories."
+
+  # ──────────────────────────────────────────────
+  # 10. Balanced Scorecard
+  # ──────────────────────────────────────────────
+  - skill: balanced-scorecard
+    marketplace_reframe: >
+      The Balanced Scorecard for a marketplace requires six perspectives,
+      not four: Supply Side, Demand Side, Platform Operations, Financial,
+      Innovation, and Trust & Safety. Each perspective carries KPIs
+      specific to its role in the two-sided ecosystem.
+
+    two_sided_application:
+      supply_perspective:
+        - "KPIs: Supply liquidity, supply churn, supply NPS, ARPU (supply), organic supply %, time-to-first-transaction (supply)."
+        - "Strategic objective: Ensure supply earns enough, transacts frequently enough, and experiences enough value to remain loyal."
+      demand_perspective:
+        - "KPIs: Demand fill rate, demand churn, demand NPS, repeat rate (demand), organic demand %, AOV."
+        - "Strategic objective: Ensure demand finds what it wants, trusts the transaction, and returns habitually."
+      platform_perspective:
+        - "KPIs: Match rate, matching speed, search relevance score, platform uptime, algorithm performance."
+        - "Strategic objective: The matching engine continuously improves in speed, accuracy, and relevance."
+      financial_perspective:
+        - "KPIs: GMV, net revenue, take rate, contribution margin per transaction, blended CAC, LTV:CAC per side."
+        - "Strategic objective: Unit economics improve at each scale milestone."
+      innovation_perspective:
+        - "KPIs: New category launches, new geography launches, supply-side SaaS adoption, feature adoption rates."
+        - "Strategic objective: Expand the marketplace's total addressable market through adjacent supply and demand."
+      trust_safety_perspective:
+        - "KPIs: Dispute rate, fraud rate, T&S cost per transaction, marketplace quality score, resolution time."
+        - "Strategic objective: Trust infrastructure scales with volume without degrading quality."
+
+    key_questions:
+      - "Which of the six perspectives is your weakest — and is it dragging down the others?"
+      - "Are your supply-side and demand-side KPIs moving in the same direction, or diverging?"
+
+    anti_patterns:
+      - "Using the standard four-perspective scorecard without splitting for supply and demand."
+      - "Overweighting financial KPIs and underweighting trust and quality KPIs."
+
+  # ──────────────────────────────────────────────
+  # 11. Scenario Planning
+  # ──────────────────────────────────────────────
+  - skill: scenario-planning
+    marketplace_reframe: >
+      Marketplace scenario planning must account for the reflexive
+      dynamics unique to two-sided platforms. A shock to one side
+      cascades to the other. Scenarios must model supply-side shocks
+      (regulatory, competitor poaching, disintermediation), demand-side
+      shocks (recession, substitute emergence, trust crisis), and
+      platform-level shocks (technology disruption, data breach).
+
+    two_sided_application:
+      supply_shock_scenarios:
+        - "Scenario: A competitor offers zero-commission for 12 months. What percentage of supply multi-homes or defects? What is the demand impact?"
+        - "Scenario: Regulation reclassifies supply-side participants as employees. How does the cost structure change?"
+        - "Scenario: Top 10% of supply leaves for a vertical-specific platform. What is the GMV impact?"
+      demand_shock_scenarios:
+        - "Scenario: A recession reduces demand AOV by 30%. Does the marketplace still generate positive contribution margin per transaction?"
+        - "Scenario: A large aggregator (Amazon, Google) enters demand acquisition for your category. How does demand CAC change?"
+        - "Scenario: A trust incident (fraud, safety failure) goes viral. What is the demand churn impact?"
+      platform_scenarios:
+        - "Scenario: AI-enabled matching eliminates the need for the marketplace's discovery function. What value remains?"
+        - "Scenario: Payment infrastructure evolution makes disintermediation frictionless. How do you retain transaction flow?"
+
+    key_questions:
+      - "Which scenario — supply shock, demand shock, or platform disruption — would be most devastating, and do you have a response plan?"
+      - "How long could your marketplace survive a 50% supply-side defection before demand cascades?"
+
+    anti_patterns:
+      - "Building scenarios that treat the marketplace as a single-sided business without modelling cross-side cascade effects."
+      - "Ignoring regulatory scenarios — marketplace regulation is accelerating globally."
+
+  # ──────────────────────────────────────────────
+  # 12. Cialdini Influence
+  # ──────────────────────────────────────────────
+  - skill: cialdini-influence
+    marketplace_reframe: >
+      Cialdini's six principles of influence apply asymmetrically in
+      marketplaces: the influence levers that motivate supply are
+      different from those that motivate demand. Social proof drives
+      demand (reviews, ratings, booking counts). Scarcity drives demand
+      urgency ('3 left at this price'). Reciprocity and commitment
+      drive supply loyalty (platform investment, earned badges, tier
+      status).
+
+    two_sided_application:
+      supply_side_influence:
+        - "Commitment/Consistency: Invest supply in the platform (profile completion, portfolio, verified status) to increase switching costs."
+        - "Social Proof: Show suppliers what top performers earn and how. Success stories, leaderboards, earnings benchmarks."
+        - "Reciprocity: Provide free tools, analytics, and insights to supply before asking for exclusivity or higher take rates."
+        - "Authority: Position the marketplace as the expert channel — industry data, market reports, pricing guidance."
+      demand_side_influence:
+        - "Social Proof: Reviews, ratings, booking counts, 'X people are looking at this.' The dominant demand-side influence lever."
+        - "Scarcity: Limited availability, time-sensitive pricing, exclusive access. Drives urgency and conversion."
+        - "Liking: Personalised recommendations, curated collections, editorial content that makes the marketplace feel human."
+        - "Authority: Trust badges, guarantees, insurance, verified status. Reduces perceived risk."
+
+    key_questions:
+      - "Which influence principles are you deploying for each side — and are you using the right principles for the right side?"
+      - "Is your social proof infrastructure (reviews, ratings) building compounding trust, or is it stagnant?"
+
+    anti_patterns:
+      - "Using the same influence levers for both sides without adapting to their different motivations."
+      - "Over-using scarcity tactics on demand without genuine supply constraints — erodes trust."
+
+  # ──────────────────────────────────────────────
+  # 13. Systems Thinking
+  # ──────────────────────────────────────────────
+  - skill: systems-thinking
+    marketplace_reframe: >
+      A marketplace is inherently a complex adaptive system with
+      feedback loops between supply, demand, price, quality, and trust.
+      Systems thinking is not optional for marketplace operators — it
+      is the foundational mental model. Every intervention on one side
+      produces second- and third-order effects on the other.
+
+    two_sided_application:
+      reinforcing_loops:
+        - "Virtuous: More supply → better selection → more demand → more transactions → more supply earnings → more supply. The liquidity flywheel."
+        - "Virtuous: More reviews → more trust → more demand → more supply → more reviews. The trust flywheel."
+        - "Vicious: Supply churn → less selection → demand churn → less revenue for remaining supply → more supply churn. The death spiral."
+      balancing_loops:
+        - "Supply flooding: Too much supply → lower liquidity → lower supply earnings → supply exit → rebalance."
+        - "Quality degradation: Growth → lower quality supply enters → average quality drops → demand churn → quality floor resets."
+        - "Take rate ceiling: Higher take rate → supply cost increases → supply either raises prices or leaves → equilibrium."
+      leverage_points:
+        - "Supply quality curation: small improvements in supply quality produce outsized demand-side effects."
+        - "Matching algorithm: better matching improves liquidity, fill rate, repeat rate, and NPS simultaneously."
+        - "Trust infrastructure: trust improvements reduce T&S costs, increase demand conversion, and reduce disintermediation."
+
+    key_questions:
+      - "Can you map the three strongest feedback loops in your marketplace — and identify which are reinforcing and which are balancing?"
+      - "Where is the highest-leverage intervention point in your system right now?"
+
+    anti_patterns:
+      - "Optimising one metric in isolation without modelling the system-wide effects."
+      - "Treating supply and demand as independent variables rather than interdependent components of a feedback system."
+
+  # ──────────────────────────────────────────────
+  # 14. Tipping Point
+  # ──────────────────────────────────────────────
+  - skill: tipping-point
+    marketplace_reframe: >
+      Marketplaces have a literal tipping point: the moment when
+      liquidity becomes self-sustaining and the flywheel generates more
+      growth than paid acquisition. Before the tipping point, the
+      marketplace is pushing. After, it is pulled. Identifying and
+      reaching this inflection is the central challenge of marketplace
+      building.
+
+    two_sided_application:
+      liquidity_tipping_point:
+        - "The threshold at which supply liquidity and demand fill rate are both high enough that organic growth exceeds paid growth."
+        - "Typically occurs in a single geography or category first. Go narrow and deep rather than broad and shallow."
+        - "Measurable signals: organic acquisition >50% on both sides, repeat rates stabilising above 40%, supply churn below 5%."
+      network_effects_tipping_point:
+        - "The point at which cross-side elasticity is measurably positive: adding supply increases demand engagement."
+        - "Precedes the liquidity tipping point — network effects must be detectable before they become self-sustaining."
+      geographic_or_category_tipping:
+        - "Each new geography or category has its own tipping point. National GMV can mask the fact that no individual market has tipped."
+        - "Strategy: focus resources on tipping one market at a time rather than spreading thin across many."
+
+    key_questions:
+      - "Has your marketplace tipped in any market — and what metrics prove it?"
+      - "How many markets need to tip for the business to become self-sustaining?"
+
+    anti_patterns:
+      - "Claiming network effects exist because both sides are growing — parallel growth without cross-side causation is not a network effect."
+      - "Spreading launch resources across many markets, tipping none."
+
+  # ──────────────────────────────────────────────
+  # 15. Art of War
+  # ──────────────────────────────────────────────
+  - skill: art-of-war
+    marketplace_reframe: >
+      Marketplace warfare is fought on two fronts simultaneously: the
+      battle for supply and the battle for demand. The most effective
+      marketplace strategies attack the competitor's weaker side — if
+      a competitor's supply is loyal but demand is shaky, attack demand.
+      If their demand is strong but supply is commoditised, recruit
+      their supply.
+
+    two_sided_application:
+      offensive_strategies:
+        - "Supply poaching: Offer lower take rates, guaranteed minimum earnings, or superior tools to recruit competitors' best supply."
+        - "Demand capture: Invest in SEO, brand, or referral programs to intercept demand before it reaches the competitor."
+        - "Wedge category: Dominate a narrow category the competitor underserves, build supply-demand flywheel there, then expand."
+      defensive_strategies:
+        - "Supply lock-in: Build switching costs through accumulated reviews, analytics history, earned status, and supply-side SaaS tools."
+        - "Demand moat: Create loyalty programs, personalisation, and purchase history that make switching costly for buyers."
+        - "Quality differentiation: Curate supply quality so that the competitor's lower-friction onboarding produces a worse demand experience."
+      intelligence:
+        - "Monitor competitor take rates, supply incentive programs, and demand promotions continuously."
+        - "Track multi-homing rates — the percentage of your supply and demand that also uses competitors. This is your competitive vulnerability score."
+
+    key_questions:
+      - "Which side of your marketplace is more vulnerable to competitive attack — and are you investing enough to defend it?"
+      - "Can you identify a wedge category or geography where a competitor is weak on both sides?"
+
+    anti_patterns:
+      - "Fighting a price war on take rates without building structural advantages that justify a premium."
+      - "Defending both sides equally when one side is more at risk."
+
+  # ──────────────────────────────────────────────
+  # 16. Doblin Ten Types of Innovation
+  # ──────────────────────────────────────────────
+  - skill: doblin-ten-types
+    marketplace_reframe: >
+      Doblin's ten types of innovation map onto marketplace strategy
+      with a supply-demand twist: each type of innovation can be
+      deployed for the supply side, the demand side, or the platform
+      itself. The most defensible marketplace innovations combine
+      multiple types across multiple sides.
+
+    two_sided_application:
+      configuration_innovations:
+        - "Profit Model: Take rate structure, demand-side fees, supply SaaS tools, advertising revenue, fintech. Innovate on how value is captured from both sides."
+        - "Network: Supply-side partnerships (logistics, insurance), demand-side integrations (APIs, embedded commerce). The marketplace IS a network innovation."
+        - "Structure: Supply operations team, demand growth team, trust and safety org. Organisational design must mirror the two-sided nature."
+        - "Process: Matching algorithms, quality curation, dispute resolution, fraud detection. Platform process innovation is the competitive edge."
+      offering_innovations:
+        - "Product Performance: Supply-side tools and analytics, demand-side search and discovery, matching quality."
+        - "Product System: Bundled services (payments + logistics + insurance + marketing), cross-category expansion, ecosystem build-out."
+      experience_innovations:
+        - "Service: Supply onboarding, demand support, both-side dispute resolution. Service innovation per side."
+        - "Channel: Supply recruitment channels, demand acquisition channels — innovate separately."
+        - "Brand: Supply-side employer brand ('earn on [platform]'), demand-side consumer brand ('find it on [platform]')."
+        - "Customer Engagement: Supply dashboards and community, demand personalisation and loyalty. Engagement mechanisms per side."
+
+    key_questions:
+      - "Across Doblin's ten types, where are you innovating — and are your innovations concentrated on one side or distributed?"
+      - "Which innovation type would create the most defensibility for your marketplace?"
+
+    anti_patterns:
+      - "Innovating only on the demand-side experience while treating supply-side tools as commodity."
+      - "Focusing innovation on a single type (usually product performance) when marketplace defensibility requires multi-type innovation."
+
+  # ──────────────────────────────────────────────
+  # 17. Kaizen / BPR
+  # ──────────────────────────────────────────────
+  - skill: kaizen-bpr
+    marketplace_reframe: >
+      Continuous improvement in a marketplace operates on three process
+      chains: the supply-side experience, the demand-side experience,
+      and the matching/transaction process that connects them. Kaizen
+      applies to incremental improvements in each chain. BPR applies
+      when a chain is fundamentally broken — typically the matching
+      process or the trust infrastructure.
+
+    two_sided_application:
+      supply_side_kaizen:
+        - "Reduce friction in supply onboarding: fewer steps, faster verification, quicker time to first listing."
+        - "Improve supply tools: better analytics, pricing suggestions, demand forecasting, inventory management."
+        - "Streamline payout process: faster payment, clearer statements, fewer support tickets."
+      demand_side_kaizen:
+        - "Improve search and discovery: better relevance, filters, recommendations."
+        - "Reduce checkout friction: fewer steps, saved preferences, one-click re-order."
+        - "Accelerate dispute resolution: faster response, clearer policies, fairer outcomes."
+      platform_bpr:
+        - "When the matching algorithm produces poor matches despite adequate supply and demand — re-engineer the matching process."
+        - "When trust infrastructure cannot scale (manual review bottleneck) — re-engineer from manual to automated with human oversight."
+        - "When the take rate structure creates perverse incentives — re-engineer the revenue model."
+
+    key_questions:
+      - "Which process chain — supply, demand, or platform — has the most friction right now?"
+      - "Is the problem incremental (kaizen) or structural (BPR)?"
+
+    anti_patterns:
+      - "Applying kaizen to the demand side while the supply-side experience is fundamentally broken."
+      - "Re-engineering processes that are working adequately while ignoring the process chain that is actually failing."
+
+  # ──────────────────────────────────────────────
+  # 18. Kotter Change Model
+  # ──────────────────────────────────────────────
+  - skill: kotter-change-model
+    marketplace_reframe: >
+      Major changes in a marketplace — take rate increases, policy shifts,
+      new quality requirements, platform migrations — must be managed
+      as change programs for both sides. The supply side is typically
+      more change-resistant because their livelihood depends on the
+      platform. Failed change management on the supply side produces
+      immediate, measurable damage: supply churn.
+
+    two_sided_application:
+      supply_side_change:
+        - "Urgency: Supply must understand WHY the change benefits them long-term (better demand, higher earnings, less fraud)."
+        - "Coalition: Recruit top suppliers as early adopters and advocates. Their endorsement carries more weight than platform messaging."
+        - "Communication: Supply-side communication must be transparent about trade-offs. Never disguise a take rate increase as a 'feature.'"
+        - "Quick wins: Show early positive results (higher conversion, more demand, faster payouts) within the first 30 days."
+      demand_side_change:
+        - "Demand is generally more tolerant of platform changes IF the core value proposition (selection, trust, convenience) is preserved."
+        - "UX changes that increase friction (new checkout steps, mandatory reviews) require careful demand-side change management."
+        - "Price changes visible to demand (buyer fees, service fees) must be justified with visible value."
+
+    key_questions:
+      - "Which side will be more affected by this change — and have you designed a side-specific change management plan?"
+      - "Have you recruited advocates from the affected side before announcing the change?"
+
+    anti_patterns:
+      - "Announcing take rate increases without advance notice, rationale, or supply-side input."
+      - "Assuming demand will accept any change as long as supply quality is maintained."
+
+  # ──────────────────────────────────────────────
+  # 19. Trust Equation
+  # ──────────────────────────────────────────────
+  - skill: trust-equation
+    marketplace_reframe: >
+      Trust in a marketplace operates on three axes: buyer trust in
+      supply (does this seller deliver?), supply trust in the platform
+      (will I get paid fairly?), and buyer trust in the platform (will
+      I be protected if something goes wrong?). The trust equation
+      (Credibility + Reliability + Intimacy) / Self-Orientation applies
+      to each axis independently. A marketplace with high buyer-seller
+      trust but low platform trust will be disintermediated.
+
+    two_sided_application:
+      buyer_seller_trust:
+        - "Credibility: Verified credentials, portfolio, qualifications. The marketplace curates and validates."
+        - "Reliability: Transaction history, on-time delivery rate, consistency score. Data the marketplace uniquely can provide."
+        - "Intimacy: Communication quality, personalisation, responsiveness. The marketplace can facilitate but not force."
+        - "Self-Orientation: Does the seller prioritise the buyer's outcome? Reviews and ratings make this visible."
+      supply_platform_trust:
+        - "Credibility: Does the platform deliver on promised demand volume and earnings potential?"
+        - "Reliability: Are payouts on time? Are policies consistent? Are disputes resolved fairly?"
+        - "Intimacy: Does the platform treat supply as partners or as interchangeable units?"
+        - "Self-Orientation: Does the platform optimise for its own take rate at supply's expense?"
+      buyer_platform_trust:
+        - "Credibility: Is the platform's curation and vetting credible?"
+        - "Reliability: Are guarantees honoured? Is support responsive? Are refunds processed fairly?"
+        - "Intimacy: Does the platform remember preferences, anticipate needs, personalise?"
+        - "Self-Orientation: Does the platform push sponsored or high-margin listings over best matches?"
+
+    key_questions:
+      - "Which trust axis is weakest in your marketplace — and is it limiting growth on one side?"
+      - "If a trust incident occurs, which axis breaks first, and what is the cascade?"
+
+    anti_patterns:
+      - "Investing in buyer-seller trust signals (reviews) while neglecting supply-platform trust (payout reliability, policy fairness)."
+      - "Treating trust as a feature rather than the core infrastructure of the marketplace."
+
+  # ──────────────────────────────────────────────
+  # 20. Covey Seven Habits
+  # ──────────────────────────────────────────────
+  - skill: covey-seven-habits
+    marketplace_reframe: >
+      Habit 4 (Think Win-Win) is the operating philosophy for marketplace
+      founders. A marketplace that wins at the expense of either side
+      is a marketplace on a timer. Habit 5 (Seek First to Understand) maps
+      directly to the discipline of understanding both sides' needs
+      before designing platform policies. Habit 6 (Synergize) is the
+      network effect itself — the whole exceeds the sum of supply and demand.
+
+    two_sided_application:
+      win_win_imperative:
+        - "Every platform decision must be evaluated through three lenses: does it help supply? Does it help demand? Does it sustain the platform?"
+        - "A policy that benefits demand at supply's direct expense (take rate increase, stricter quality requirements without support) is win-lose. It will revert."
+        - "Win-win-win: supply earns more, demand gets better outcomes, platform captures fair value. This is the only sustainable equilibrium."
+      understanding_both_sides:
+        - "Marketplace founders disproportionately understand one side (usually demand). Deliberately invest in understanding the other."
+        - "Regular supply-side listening: ride-alongs, supplier advisory boards, earnings analysis, churn interviews."
+        - "Regular demand-side listening: search query analysis, failed-match analysis, support ticket themes."
+
+    key_questions:
+      - "When did you last speak directly with supply-side participants about their experience — not through data, through conversation?"
+      - "Is your latest major platform decision win-win-win, or does one side lose?"
+
+    anti_patterns:
+      - "Optimising for demand satisfaction at supply's expense, assuming supply has no alternatives."
+      - "Making policy decisions based on platform financial benefit without modelling supply and demand impact."
+
+  # ──────────────────────────────────────────────
+  # 21. Win-Win Negotiation
+  # ──────────────────────────────────────────────
+  - skill: win-win-negotiation
+    marketplace_reframe: >
+      Marketplace founders negotiate continuously — with supply (terms,
+      take rates, quality requirements), with demand (pricing, policies,
+      expectations), and between the two sides when their interests
+      conflict. The negotiation is never bilateral; it is trilateral,
+      and the platform must find the integrative solution that keeps
+      all three parties engaged.
+
+    two_sided_application:
+      supply_negotiations:
+        - "Take rate: not a price — a value equation. Negotiate by demonstrating measurable demand access, tools, and trust value."
+        - "Quality requirements: negotiate as investments, not burdens. Show data on how quality compliance increases supply earnings."
+        - "Exclusivity: the highest-stakes negotiation. What does the platform offer in return for supply not listing elsewhere?"
+      demand_negotiations:
+        - "Pricing transparency: demand pushes for lower prices. The platform must negotiate by delivering value (guarantees, convenience) that justifies fees."
+        - "Policy: refund policies, dispute resolution rules, cancellation terms. Each is a negotiation between demand expectations and supply protection."
+      cross_side_mediation:
+        - "When supply wants higher prices and demand wants lower: the platform's role is to increase the total value created, not just redistribute it."
+        - "Dispute resolution IS negotiation. The platform's fairness in disputes determines long-term trust on both sides."
+
+    key_questions:
+      - "In your most recent major negotiation with supply or demand — did you find a win-win, or did one side concede?"
+      - "How do you mediate when supply and demand interests directly conflict?"
+
+    anti_patterns:
+      - "Treating take rate as non-negotiable rather than as a value-based proposition."
+      - "Siding systematically with demand in disputes to protect demand metrics, eroding supply trust."
+
+  # ──────────────────────────────────────────────
+  # 22. First Mover Strategy
+  # ──────────────────────────────────────────────
+  - skill: first-mover-strategy
+    marketplace_reframe: >
+      First-mover advantage in marketplaces is real but narrow: it
+      accrues primarily through early liquidity in a specific segment,
+      not through brand awareness or technology. The first marketplace
+      to achieve liquidity in a category-geography combination builds
+      network effects that are genuinely hard to replicate. But first
+      movers who launch broad and fail to achieve liquidity anywhere
+      lose to focused second movers who tip a single market first.
+
+    two_sided_application:
+      first_mover_advantages:
+        - "Liquidity lock-in: the first marketplace to tip a market accumulates reviews, transaction history, and trust signals that competitors cannot instantly replicate."
+        - "Supply-side habits: suppliers who build their business around a platform develop workflow dependencies and switching costs."
+        - "SEO and brand: first mover in a category captures organic search demand and becomes the category synonym."
+      first_mover_disadvantages:
+        - "Chicken-and-egg cost: the first mover bears the entire cost of market education and initial liquidity."
+        - "Premature scaling: first movers often expand geography or categories before achieving liquidity in the first market."
+        - "Second movers learn from first-mover mistakes: better trust infrastructure, better matching, better unit economics."
+
+    key_questions:
+      - "Have you achieved genuine first-mover liquidity advantage in any market — or just first-mover presence?"
+      - "What would a well-funded second mover do differently based on your mistakes?"
+
+    anti_patterns:
+      - "Claiming first-mover advantage from being first to launch rather than first to achieve liquidity."
+      - "Expanding to new markets before the first market has tipped."
+
+  # ──────────────────────────────────────────────
+  # 23. Information Asymmetry
+  # ──────────────────────────────────────────────
+  - skill: information-asymmetry
+    marketplace_reframe: >
+      Marketplaces exist because of information asymmetry — buyers
+      do not know which suppliers are good, and suppliers do not know
+      which buyers will pay. The marketplace's core value is reducing
+      information asymmetry through ratings, reviews, verified
+      credentials, and algorithmic matching. But the platform itself
+      holds information asymmetry over both sides — and how it uses
+      that power determines trust.
+
+    two_sided_application:
+      supply_demand_asymmetry:
+        - "Adverse selection: without quality signals, low-quality supply drives out high-quality supply (Akerlof's lemons problem). Marketplace curation is the antidote."
+        - "Moral hazard: once matched, either side may shirk commitments. The platform's review and enforcement mechanisms mitigate this."
+        - "Screening: verification, portfolios, and qualification requirements reduce adverse selection on the supply side."
+        - "Signalling: reviews, ratings, badges, and certifications help quality supply signal their value credibly."
+      platform_information_power:
+        - "The platform sees all: pricing data, demand patterns, supply performance, competitive dynamics. This information advantage is powerful and dangerous."
+        - "Sharing data with supply (demand trends, pricing benchmarks, competitor analysis) builds trust and loyalty."
+        - "Withholding data or using it to extract value (surge pricing without transparency, algorithmic manipulation) erodes trust."
+
+    key_questions:
+      - "What information asymmetries does your marketplace reduce — and which does it create?"
+      - "How much data do you share with supply vs. how much you retain as a platform advantage?"
+
+    anti_patterns:
+      - "Using platform information asymmetry to manipulate supply-side pricing or behaviour without transparency."
+      - "Failing to invest in quality signals (reviews, verification) that reduce buyer-seller information asymmetry."
+
+  # ──────────────────────────────────────────────
+  # 24. Game Theory Fundamentals
+  # ──────────────────────────────────────────────
+  - skill: game-theory-fundamentals
+    marketplace_reframe: >
+      A marketplace is a multi-player game with interdependent payoffs.
+      Supply and demand are not opponents — they are complementors whose
+      combined activity generates the value the platform captures. But
+      the platform's design choices (take rate, matching algorithm,
+      policies) shape the payoff structure for all players. Poorly
+      designed incentives produce Nash equilibria that destroy the
+      marketplace.
+
+    two_sided_application:
+      coordination_game:
+        - "The chicken-and-egg problem is a coordination game. Both sides benefit from being on the platform, but neither wants to be first."
+        - "Solution strategies: subsidise one side, provide standalone value, constrain supply to create scarcity, aggregate existing demand."
+      incentive_design:
+        - "Take rate affects supplier strategy: too high → supply raises prices or leaves. Too low → platform cannot invest in quality."
+        - "Demand-side promotions create strategic behaviour: buyers time purchases for promotions, distorting demand patterns."
+        - "Supply-side incentives (minimum earnings guarantees) must be designed to avoid moral hazard."
+      competitive_game:
+        - "Multi-homing is the Nash equilibrium in a competitive marketplace landscape — both sides rationally use multiple platforms."
+        - "The platform's strategy: make single-homing the dominant strategy through switching costs, exclusive content, or superior economics."
+
+    key_questions:
+      - "What is the Nash equilibrium of your current incentive structure — and is it the equilibrium you want?"
+      - "Does your incentive design encourage single-homing or inadvertently reward multi-homing?"
+
+    anti_patterns:
+      - "Designing incentives for one side without modelling the strategic response of the other side."
+      - "Assuming supply will accept take rate increases without strategic retaliation (price increases, multi-homing, disintermediation)."
+
+  # ──────────────────────────────────────────────
+  # 25. Prisoner's Dilemma and Cooperation
+  # ──────────────────────────────────────────────
+  - skill: prisoners-dilemma-and-cooperation
+    marketplace_reframe: >
+      Supply-side participants on a marketplace face a classic prisoner's
+      dilemma: collectively, they benefit from maintaining prices and
+      quality. Individually, each is incentivised to undercut on price
+      or cut corners on quality. The marketplace's role is to design
+      mechanisms that make cooperation the dominant strategy — through
+      quality scoring, price floors, or reputation systems.
+
+    two_sided_application:
+      supply_side_dilemma:
+        - "Race to bottom on pricing: if one seller undercuts, others must follow. The marketplace loses quality and margin."
+        - "Quality shortcuts: if one provider delivers lower quality without penalty, others rationally follow. Reviews are the enforcement mechanism."
+        - "Platform design: minimum quality standards, review-weighted ranking, and price guidance can shift the equilibrium toward cooperation."
+      platform_competitor_dilemma:
+        - "Competing marketplaces face a prisoner's dilemma on supply subsidies: both would profit from stopping, but neither can unilaterally."
+        - "Take rate wars are mutually destructive — the winner is the platform that creates the most value, not the one that charges the least."
+
+    key_questions:
+      - "Is your supply side in a race to the bottom — and what mechanisms prevent it?"
+      - "Are you in a prisoner's dilemma with a competitor on supply subsidies?"
+
+    anti_patterns:
+      - "Allowing unrestricted price competition among supply without quality enforcement — produces a lemon market."
+      - "Engaging in a take rate war without calculating the break-even point."
+
+  # ──────────────────────────────────────────────
+  # 26. Coalition and Partnership Games
+  # ──────────────────────────────────────────────
+  - skill: coalition-and-partnership-games
+    marketplace_reframe: >
+      Marketplace partnerships are inherently coalition games. The
+      platform, supply aggregators, demand channels, logistics providers,
+      and payment processors each contribute to and extract value from
+      the ecosystem. The Shapley value framework — distributing value
+      in proportion to each party's marginal contribution — is a
+      useful model for structuring marketplace partnership economics.
+
+    two_sided_application:
+      supply_partnerships:
+        - "Aggregator partnerships: partnering with supply aggregators (property managers, fleet operators, agency platforms) accelerates supply acquisition but concentrates power."
+        - "Value distribution: what share of the take rate does the aggregator receive? Their Shapley value depends on whether they bring supply that would not otherwise exist on the platform."
+      demand_partnerships:
+        - "Channel partnerships: partnering with demand aggregators (travel sites, comparison engines, embedded commerce) drives volume but reduces margin."
+        - "Value distribution: CPA, revenue share, or fixed fee? The structure must reflect the incremental demand the partner delivers."
+      ecosystem_coalitions:
+        - "Payment, logistics, insurance, and trust providers form the marketplace's enabling coalition. Their costs directly impact contribution margin per transaction."
+        - "Vertical integration vs. partnership: when should the marketplace build (payments, logistics) vs. partner? Build when the partner captures too much of the value chain."
+
+    key_questions:
+      - "Who are the key coalition partners in your marketplace ecosystem — and is each capturing value proportional to their contribution?"
+      - "Would vertically integrating any partner function significantly improve unit economics?"
+
+    anti_patterns:
+      - "Giving supply aggregators disproportionate power over the platform by concentrating too much supply in partner hands."
+      - "Partnering with demand channels that cannibalise organic demand rather than creating incremental volume."
+
+  # ──────────────────────────────────────────────
+  # 27. Evolutionary Strategy
+  # ──────────────────────────────────────────────
+  - skill: evolutionary-strategy
+    marketplace_reframe: >
+      Marketplace evolution follows patterns analogous to biological
+      ecosystems: niche specialisation (vertical marketplaces), predation
+      (platform envelopment), symbiosis (complementary platforms), and
+      extinction (liquidity death). Understanding evolutionary dynamics
+      helps marketplace founders anticipate category evolution.
+
+    two_sided_application:
+      marketplace_evolution_patterns:
+        - "Horizontal to vertical: broad marketplaces (eBay, Craigslist) get disrupted by vertical specialists (StockX, Reverb, Turo) that offer category-specific trust and curation."
+        - "Aggregation to curation: early marketplaces aggregate supply. Mature marketplaces curate it. The shift from 'everything available' to 'the right thing recommended' is an evolutionary transition."
+        - "Marketplace to managed marketplace: evolution from listing-and-matching to end-to-end managed transactions (Opendoor vs Zillow)."
+      competitive_evolution:
+        - "Platform envelopment: a larger platform (Amazon, Google) adds marketplace functionality to its existing user base, bypassing the chicken-and-egg problem."
+        - "Defence against envelopment: vertical depth, supply exclusivity, and trust infrastructure that a generalist cannot replicate."
+
+    key_questions:
+      - "Where is your marketplace in its evolutionary arc — and what comes next?"
+      - "Is a larger platform likely to envelop your category, and what defence do you have?"
+
+    anti_patterns:
+      - "Assuming your marketplace's current form is its final form — marketplaces evolve or die."
+      - "Ignoring the horizontal-to-vertical evolution pattern when operating a broad marketplace."
+
+  # ──────────────────────────────────────────────
+  # 28. Negotiation Game Theory
+  # ──────────────────────────────────────────────
+  - skill: negotiation-game-theory
+    marketplace_reframe: >
+      The marketplace founder negotiates with three counterparties
+      simultaneously: supply (terms, take rate, quality), demand
+      (price, guarantees, experience), and investors (valuation,
+      milestones, governance). Each negotiation affects the others —
+      concessions to supply on take rate affect the financial case
+      for investors; concessions to demand on guarantees affect
+      supply-side economics.
+
+    two_sided_application:
+      trilateral_negotiation:
+        - "Take rate negotiation with supply constrains revenue growth for investor negotiations."
+        - "Guarantee negotiation with demand creates costs that affect supply-side economics."
+        - "Every concession on one side must be modelled for its impact on the other two stakeholders."
+      batna_per_side:
+        - "Supply BATNA: what is the supplier's best alternative to your marketplace? Direct sales, competitor marketplace, offline channels."
+        - "Demand BATNA: what is the buyer's best alternative? Direct from source, competitor marketplace, do-it-yourself."
+        - "The side with the weaker BATNA has less negotiating power. The marketplace should strengthen both sides' dependence."
+
+    key_questions:
+      - "What is each side's BATNA — and which side has more alternatives?"
+      - "When you negotiate with one side, have you modelled the cross-side impact?"
+
+    anti_patterns:
+      - "Negotiating with supply and demand independently without modelling the cross-side impact of each agreement."
+      - "Underestimating supply's BATNA — particularly in categories where direct channels are viable."
+
+  # ──────────────────────────────────────────────
+  # 29. SMART Goals
+  # ──────────────────────────────────────────────
+  - skill: smart-goals
+    marketplace_reframe: >
+      SMART goals in a marketplace must be set per side and for the
+      platform. A single revenue target obscures whether the goal
+      requires supply growth, demand growth, take rate optimisation,
+      or all three. Decompose every marketplace goal into its supply-side,
+      demand-side, and platform-level components.
+
+    two_sided_application:
+      goal_decomposition:
+        - "Revenue goal = GMV target x take rate. GMV = demand transactions x AOV. Demand transactions = active buyers x purchase frequency. Active buyers = f(demand acquisition, demand retention). Each step requires its own SMART goal."
+        - "Supply goals: X new suppliers onboarded, Y% supply liquidity maintained, Z% supply churn rate."
+        - "Demand goals: X new buyers acquired, Y% repeat rate achieved, Z average transactions per buyer."
+        - "Platform goals: matching accuracy target, T&S cost per transaction target, contribution margin target."
+      side_specific_measurability:
+        - "Ensure every goal specifies WHICH side it targets and how cross-side effects will be monitored."
+        - "A demand acquisition goal must include a supply liquidity constraint — acquiring demand without adequate supply destroys fill rate."
+
+    key_questions:
+      - "Have you decomposed your top-line goals into supply-side, demand-side, and platform components?"
+      - "Does achieving your supply goals require demand goals to also be met — and vice versa?"
+
+    anti_patterns:
+      - "Setting a GMV goal without specifying the supply and demand growth required to achieve it."
+      - "Setting goals for one side without constraint conditions for the other."
+
+  # ──────────────────────────────────────────────
+  # 30. Emotional Intelligence
+  # ──────────────────────────────────────────────
+  - skill: emotional-intelligence
+    marketplace_reframe: >
+      Marketplace leadership requires emotional intelligence across
+      two distinct constituencies with often-opposing interests. The
+      empathy required to understand supply-side frustrations (take rate
+      resentment, algorithmic opacity, income volatility) coexists with
+      empathy for demand-side expectations (quality, speed, safety).
+      The marketplace founder must hold both perspectives simultaneously
+      without defaulting to one side.
+
+    two_sided_application:
+      supply_side_eq:
+        - "Supply-side participants are emotionally invested — this is their livelihood. Policy changes that feel minor to the platform feel existential to supply."
+        - "Algorithmic decisions (ranking, visibility, matching) affect supply income directly. Transparency and fairness are emotional necessities, not features."
+        - "Supply-side community management requires genuine empathy for the stress of income dependence on a platform."
+      demand_side_eq:
+        - "Demand-side trust is emotional, not rational. A single negative experience can override dozens of positive ones."
+        - "Demand expects the platform to be their advocate in disputes — even when the supply side is objectively correct."
+        - "Demand-side disappointment (failed transactions, quality mismatches) requires rapid, emotionally intelligent resolution."
+      founder_balance:
+        - "The most common EQ failure in marketplace founders: identifying with one side (usually demand) and treating the other as a resource to be managed."
+        - "Balanced empathy across both sides is a strategic advantage — it prevents policies that optimise for one side at the other's expense."
+
+    key_questions:
+      - "Which side do you naturally empathise with more — and is that creating blind spots in your policy decisions?"
+      - "When did you last spend a day doing what your supply-side participants do?"
+
+    anti_patterns:
+      - "Making policy decisions based on demand data alone without consulting supply-side sentiment."
+      - "Treating supply as interchangeable resources rather than as customers with emotional needs."
+
+  # ──────────────────────────────────────────────
+  # 31. Thinking Fast and Slow
+  # ──────────────────────────────────────────────
+  - skill: thinking-fast-and-slow
+    marketplace_reframe: >
+      Both supply and demand make decisions using System 1 (fast,
+      intuitive) and System 2 (slow, analytical). The marketplace's
+      UX, pricing, and trust signals must be designed for the appropriate
+      system. Demand-side purchase decisions in on-demand marketplaces
+      are System 1 — design for speed and simplicity. Supply-side
+      decisions to join a platform are System 2 — design for data
+      and credibility.
+
+    two_sided_application:
+      demand_side_cognition:
+        - "On-demand and low-AOV purchases: System 1 dominant. Minimise choice, maximise trust signals, reduce friction. One-tap ordering, pre-selected defaults."
+        - "High-AOV and considered purchases: System 2 engaged. Provide comparison tools, detailed reviews, and information depth."
+        - "Anchoring: the first price a buyer sees anchors expectations. Marketplace presentation order matters."
+      supply_side_cognition:
+        - "Joining the marketplace: System 2. Supply evaluates earnings potential, terms, competition, and alternatives analytically."
+        - "Day-to-day pricing and listing: System 1. Provide smart defaults, pricing suggestions, and automated tools."
+        - "Loss aversion: supply-side participants feel losses (cancelled bookings, returned items, negative reviews) 2x more than equivalent gains."
+
+    key_questions:
+      - "Is your UX designed for the cognitive system each side uses at each decision point?"
+      - "Are you exploiting cognitive biases in ways that erode long-term trust?"
+
+    anti_patterns:
+      - "Requiring System 2 engagement (complex pricing, extensive forms) at System 1 decision points (on-demand purchases)."
+      - "Using dark patterns (hidden fees, manipulative urgency) that exploit System 1 at the expense of trust."
+
+  # ──────────────────────────────────────────────
+  # 32. Hackman Enabling Conditions
+  # ──────────────────────────────────────────────
+  - skill: hackman-enabling-conditions
+    marketplace_reframe: >
+      Hackman's five conditions for effective teams apply to the
+      internal organisation of a marketplace company, which must be
+      structured around the two-sided nature of the business. Supply
+      operations, demand growth, and platform/product are the three
+      core teams — and their enabling conditions differ.
+
+    two_sided_application:
+      supply_ops_team:
+        - "Real team: dedicated supply-side operations with clear boundaries — not a shared 'business development' team."
+        - "Compelling direction: supply-side KPIs (liquidity, supply churn, supply NPS, ARPU) as north star."
+        - "Enabling structure: direct access to supply-side data, supplier communication channels, and policy authority."
+        - "Supportive context: resources for supply onboarding, tools, community management, and T&S."
+      demand_growth_team:
+        - "Real team: dedicated demand acquisition and retention with clear boundaries from supply ops."
+        - "Compelling direction: demand-side KPIs (fill rate, demand churn, repeat rate, organic demand %)."
+        - "Enabling structure: marketing budget authority, analytics access, channel experimentation capability."
+        - "Supportive context: resources for brand, content, SEO, paid acquisition, and CRM."
+      platform_team:
+        - "Real team: matching algorithm, trust infrastructure, payments, and core marketplace platform."
+        - "Compelling direction: platform-level KPIs (match quality, transaction completion rate, T&S cost per transaction)."
+        - "Cross-team coordination: the platform team serves both supply ops and demand growth — clear prioritisation mechanisms are essential."
+
+    key_questions:
+      - "Are your supply and demand teams structurally separate with distinct KPIs — or is one team trying to serve both sides?"
+      - "Does the platform team have clear prioritisation rules for supply-side vs demand-side feature requests?"
+
+    anti_patterns:
+      - "A single 'growth' team responsible for both supply and demand acquisition — the strategies are fundamentally different."
+      - "Platform team prioritising demand features because demand data is louder, while supply-side infrastructure decays."
+
+  # ──────────────────────────────────────────────
+  # 33. Appreciative Inquiry
+  # ──────────────────────────────────────────────
+  - skill: appreciative-inquiry
+    marketplace_reframe: >
+      Appreciative Inquiry's 4-D cycle (Discover, Dream, Design, Destiny)
+      can be applied to both sides of a marketplace to understand what
+      is working and amplify it. The most valuable discovery: why do your
+      best suppliers stay, and why do your most loyal buyers return?
+      Amplifying the positive core of each side's experience is more
+      productive than fixing every complaint.
+
+    two_sided_application:
+      supply_side_inquiry:
+        - "Discover: What do your top 10% suppliers value most about the platform? Why do they stay despite alternatives?"
+        - "Dream: What would make this marketplace the only platform they need?"
+        - "Design: How can the platform amplify the positive factors for all supply, not just the top tier?"
+        - "Destiny: What supply-side investments would make the top 10%'s experience the norm?"
+      demand_side_inquiry:
+        - "Discover: What do your highest-repeat-rate buyers love about the experience?"
+        - "Dream: What would make every transaction as satisfying as their best one?"
+        - "Design: How can the platform replicate the best-experience factors across all transactions?"
+        - "Destiny: What demand-side investments would make the best experience the default?"
+
+    key_questions:
+      - "What is the positive core of your supply-side experience — and are you investing to amplify it?"
+      - "What is the positive core of your demand-side experience — and are you investing to amplify it?"
+
+    anti_patterns:
+      - "Focusing exclusively on churn reasons (deficiency-based) rather than retention reasons (strengths-based)."
+      - "Running appreciative inquiry for demand but not for supply."
+
+  # ──────────────────────────────────────────────
+  # 34. Delegation and Empowerment
+  # ──────────────────────────────────────────────
+  - skill: delegation-and-empowerment
+    marketplace_reframe: >
+      In a marketplace organisation, delegation must follow the
+      two-sided structure. Supply-side decisions (onboarding standards,
+      supplier support policies, take rate structure) require deep
+      supply-side context. Demand-side decisions (marketing spend,
+      buyer UX, promotion strategy) require demand-side expertise.
+      The founder's role is to set the supply-demand balance and
+      delegate execution per side.
+
+    two_sided_application:
+      supply_side_delegation:
+        - "Delegate supply onboarding, quality standards, and supplier communication to a supply ops lead with authority to make policy decisions."
+        - "Empower supply-side team with direct access to supplier feedback and performance data."
+        - "Retain: take rate decisions, major policy changes affecting supply economics, strategic supplier partnerships."
+      demand_side_delegation:
+        - "Delegate demand acquisition, retention campaigns, and buyer experience to a growth lead with budget authority."
+        - "Empower demand-side team with experimentation budget and channel testing freedom."
+        - "Retain: brand strategy, pricing architecture, major UX redesigns."
+      cross_side_governance:
+        - "When supply and demand team priorities conflict (supply wants higher prices, demand wants lower), the founder or CEO resolves."
+        - "Create a cross-side review cadence: weekly supply-demand balance review where both teams present metrics and flag conflicts."
+
+    key_questions:
+      - "Have you delegated enough authority to your supply and demand leaders — or are you the bottleneck on both sides?"
+      - "Is there a clear escalation path when supply and demand team priorities conflict?"
+
+    anti_patterns:
+      - "Delegating demand growth but micromanaging supply operations (or vice versa)."
+      - "No formal mechanism for resolving cross-side priority conflicts."
+
+  # ──────────────────────────────────────────────
+  # 35. Strategic Thinking and Alignment
+  # ──────────────────────────────────────────────
+  - skill: strategic-thinking-and-alignment
+    marketplace_reframe: >
+      Strategic alignment in a marketplace means ensuring that supply
+      strategy, demand strategy, and platform strategy all reinforce the
+      same marketplace thesis. Misalignment — supply ops optimising for
+      volume while demand marketing optimises for premium — produces
+      marketplace incoherence that confuses both sides.
+
+    two_sided_application:
+      strategic_coherence:
+        - "The marketplace thesis must be expressible in one sentence that describes both sides: 'We connect [specific supply] with [specific demand] by providing [unique platform value].'"
+        - "Supply strategy, demand strategy, and platform strategy should all trace back to this thesis."
+        - "Strategic misalignment example: supply team recruits professional service providers while demand marketing targets budget buyers. The mismatch destroys both sides' experience."
+      alignment_mechanisms:
+        - "Unified marketplace scorecard with supply, demand, and platform KPIs visible to all teams."
+        - "Quarterly supply-demand strategy review: are both sides' strategies reinforcing the same positioning?"
+        - "Strategic constraints: define what the marketplace will NOT do on each side. Constraints align faster than goals."
+      investment_alignment:
+        - "Growth investment should follow the binding constraint: if supply is the bottleneck, invest there; if demand is the bottleneck, invest there."
+        - "Balanced investment across both sides when neither is constrained is wasteful — one side is always the bottleneck."
+
+    key_questions:
+      - "Can you state your marketplace thesis in one sentence that describes both sides?"
+      - "Which side is currently the binding constraint — and is your investment allocation consistent with that?"
+
+    anti_patterns:
+      - "Supply and demand teams operating with independent strategies that were never reconciled."
+      - "Investing equally in both sides when one side is clearly the constraint."

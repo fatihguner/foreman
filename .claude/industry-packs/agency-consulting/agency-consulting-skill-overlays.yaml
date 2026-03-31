@@ -1,0 +1,468 @@
+# Agency/Consulting Industry Pack — Skill Overlays
+#
+# For 37 of the 158 Foreman skills, this file provides agency/consulting-specific
+# context that the skill executor agent applies as additional framing. These overlays
+# do not replace the base skill content — they add a professional services lens.
+#
+# The fundamental reality of agency/consulting businesses:
+#   - The "product" is people's time and expertise. There is no inventory except hours.
+#   - Revenue = People x Utilization x Rate. Every framework must connect to this equation.
+#   - Scaling is linear (more people = more revenue), not exponential — unless services
+#     are productized.
+#   - The moat is relationships, reputation, and specialized expertise — not technology.
+#   - The founder IS the product initially. Transitioning from doing to managing to
+#     selling is the critical growth journey.
+#
+# Selection criteria for the 35 skills:
+#   - Frameworks with direct application to people-as-product businesses
+#   - Strategy skills that reframe when the "product" is expertise
+#   - Pricing and negotiation skills (the two highest-leverage activities in agencies)
+#   - Leadership and delegation skills (critical for founder transition)
+#   - Organizational models directly applicable to agency structure
+#
+# Relevance tiers:
+#   critical — The overlay materially changes how the skill is applied in agencies.
+#              The skill executor should always surface agency context.
+#   high     — Agency context adds significant value. Surface when relevant.
+#   moderate — Useful agency framing but the base skill works well as-is.
+
+pack_metadata:
+  sector: "agency-consulting"
+  display_name: "Agency / Consulting"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# SKILL OVERLAYS
+# ═══════════════════════════════════════════════════════════════
+
+skill_overlays:
+
+  # ─────────────────────────────────────────────
+  # FRAMEWORKS (21 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "porters-five-forces"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "Porter's Five Forces reveals the structurally brutal economics of professional services. Buyer power is HIGH — clients can always find another agency, switch costs are low (especially for project-based work), and procurement departments actively commoditize services through competitive pitching. Threat of substitutes is expanding relentlessly: in-house teams, freelancer platforms (Upwork, Toptal), AI tools that automate creative and analytical tasks, and offshore delivery. Barriers to entry are NEAR ZERO — anyone with a laptop and a LinkedIn profile can start a consultancy. Supplier power is concentrated in scarce talent — specialized developers, strategists, and creatives are the 'supply' that agencies compete for. Rivalry is intense, fragmented, and often irrational (agencies undercutting to win work they cannot profitably deliver)."
+    agency_anti_patterns:
+      - "Ignoring the threat of in-house teams. The most dangerous substitute is not another agency — it is the client deciding to hire the capability internally. Agencies must deliver value that in-house teams cannot: breadth of experience, objectivity, surge capacity, and specialized expertise."
+      - "Treating low barriers to entry as irrelevant because the firm has relationships. Relationships are necessary but eroding — procurement-led selection processes increasingly neutralize relationship advantages."
+      - "Overlooking AI as a substitute force. AI tools are rapidly replacing tasks that agencies bill for: copywriting, basic design, data analysis, code generation, and media planning. Agencies that do not adapt will see their addressable work shrink."
+    agency_example: "A digital marketing agency uses Five Forces to understand why margins are compressing. The analysis reveals that buyer power has increased (clients now use agency-comparison platforms and demand competitive pitches for every project), substitutes have multiplied (AI content tools, in-house content teams, freelancer collectives), and new entrants are undercutting prices (former employees starting solo practices). The firm responds by deepening specialization in a vertical (healthcare marketing), building proprietary data assets, and offering outcome-based pricing that shifts competition from cost to results."
+    benchmark_references: ["client-retention-rate", "win-rate", "average-billable-rate"]
+
+  - skill: "blue-ocean-strategy"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "Most agencies compete in blood-red oceans — undifferentiated services, price-based competition, and a race to the bottom on rates. Blue ocean strategy is structurally essential because agency differentiation cannot come from product features (there is no product). It must come from positioning: the intersection of a specific expertise, a specific client type, and a specific delivery model that competitors cannot or will not replicate. The strategy canvas exercise maps the agency's offerings against competitors and reveals where the market over-serves (elaborate pitch processes, bloated account teams, over-designed deliverables) and under-serves (speed, transparency, outcome guarantees, embedded models)."
+    agency_anti_patterns:
+      - "Defining the blue ocean too broadly. 'Full-service agency for mid-market companies' is not a blue ocean — it is the exact red ocean every agency swims in. The blue ocean must be specific enough that a competitor would hesitate to follow."
+      - "Creating a blue ocean that eliminates the relationship advantage. Agencies that automate away the human relationship in pursuit of differentiation lose the one asset clients value most."
+      - "Abandoning the blue ocean at the first sign of success. When a niche strategy works, agencies are tempted to expand back into general services, re-entering the red ocean they escaped."
+    agency_example: "A web development agency, competing against hundreds of generalist firms on price, applies blue ocean strategy and identifies an uncontested space: fractional CTO services for non-technical founders. They eliminate traditional agency deliverables (proposals, wireframes, design comps) and instead embed a senior technologist directly in the founder's decision-making process. The pricing shifts from project-based to monthly retainer. Competitors cannot follow because they are structured around project delivery teams, not individual advisory relationships."
+    benchmark_references: ["average-billable-rate", "client-retention-rate", "revenue-per-client"]
+
+  - skill: "business-model-canvas"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "The Business Model Canvas for agencies requires fundamental reinterpretation of nearly every block. Key Resources: the firm's people, their expertise, and their relationships — there are no physical assets, patents, or technology platforms that constitute a moat. Revenue Streams: must decompose into the pricing spectrum — hourly, project-based, retainer, value-based, and productized — each with radically different economics and risk profiles. Cost Structure: dominated by salaries (typically 55-70% of revenue) with relatively thin variable costs. Customer Relationships: the relationship IS the value proposition; clients buy the person, not the firm. Channels: referrals, thought leadership, speaking, and networking — not advertising or digital marketing in most cases. The canvas is most powerful for agencies when used to map the transition from a time-selling model to a value-selling or productized model."
+    agency_anti_patterns:
+      - "Listing 'expertise' or 'talent' as the Value Proposition without specifying what outcome that expertise delivers. Clients do not buy expertise — they buy results. The value proposition must be framed as a measurable client outcome."
+      - "Omitting freelancers and subcontractors from Key Partnerships. For most agencies, the ability to scale through the Shamrock model (core staff + contractors) is a critical strategic asset."
+      - "Treating the canvas as static. Agency business models must evolve as the firm grows — from founder-does-everything to leveraged delivery to productized services."
+    agency_example: "A two-person branding consultancy uses the canvas to identify a strategic vulnerability: their Key Resource is the founder's personal reputation, their Channel is the founder's network, and their Revenue Stream is 100% project-based billing. The canvas redesign introduces a second channel (content marketing to build the firm's brand beyond the founder), a second revenue stream (a productized brand audit at a fixed price), and a Key Partnership with a stable of freelance designers who extend capacity without increasing fixed costs."
+    benchmark_references: ["revenue-per-employee", "revenue-per-client", "gross-margin", "leverage-ratio"]
+
+  - skill: "four-ps-marketing"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "The Four Ps require radical adaptation for professional services because the 'product' is intangible, produced and consumed simultaneously, and varies with every engagement. Product in agencies is the service itself — defined by methodology, expertise, and the quality of the team assigned. The agency's challenge is to make an intangible, variable service feel tangible and consistent through packaging, case studies, and proprietary frameworks. Price is the single hardest decision — hourly, project, retainer, value-based, or hybrid. Most agencies default to hourly or project pricing and leave enormous value on the table. Place means distribution: where clients find the agency — referral networks, conferences, content, directories, or partnerships. Promotion for professional services is fundamentally different from product promotion: thought leadership, speaking, publishing, and case studies replace advertising."
+    agency_anti_patterns:
+      - "Pricing based on cost-plus (hours x rate + margin) rather than value delivered. Cost-plus pricing caps revenue at the number of available hours. Value-based pricing decouples revenue from time."
+      - "Promoting capabilities instead of outcomes. Clients do not care that the agency 'does brand strategy.' They care that the agency 'helps companies increase market share through repositioning.'"
+      - "Treating 'Place' as a website. The most effective distribution channels for agencies are referral networks, partner relationships, and speaking platforms — not websites."
+    agency_example: "A management consulting firm uses the Four Ps to restructure its go-to-market. Product: they package their strategy offering into three tiers — diagnostic (2-week engagement), strategy development (6-week engagement), and implementation support (ongoing retainer). Price: they shift from day-rate billing to fixed-price engagements with value-based premiums for outcome achievement. Place: they invest in industry conference speaking and a quarterly research report that generates inbound leads. Promotion: they replace generic capability decks with vertical-specific case studies that demonstrate measurable client outcomes."
+    benchmark_references: ["average-billable-rate", "win-rate", "cost-per-lead", "average-project-value"]
+
+  - skill: "net-promoter-score"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "NPS is the single most predictive metric for agency growth because agencies grow primarily through referrals. A high NPS means clients actively recommend the firm to peers — the most efficient and highest-converting sales channel in professional services. In agencies, NPS should be measured at two critical moments: mid-engagement (to catch problems before they damage the relationship) and post-engagement (to capture the final impression). The qualitative follow-up question ('why did you give that score?') is more valuable than the score itself — it reveals whether satisfaction is driven by the quality of work, the quality of the relationship, or both. Segmenting NPS by engagement type (project vs. retainer), client size, and account manager reveals which parts of the firm drive advocacy."
+    agency_anti_patterns:
+      - "Surveying clients only after project completion. By then, a dissatisfied client has already formed opinions that may have spread through their network. Mid-project check-ins catch problems early."
+      - "Accepting high NPS without building a formal referral program. Promoters recommend when asked and given a mechanism — not spontaneously. Build the ask into the post-project process."
+      - "Treating NPS as a firm-wide number when it is really an individual-level metric. In agencies, NPS reflects the account lead, not the firm. Track by account manager to identify who drives advocacy."
+    agency_example: "A PR agency discovers that its overall NPS of 45 masks a bimodal distribution: retainer clients score 65+ while project clients score 25. Investigation reveals that retainer relationships build the trust and familiarity that drive satisfaction, while project engagements feel transactional. The agency responds by converting its best project clients to retainer relationships and redesigning the project experience to include relationship-building touchpoints (monthly calls, proactive recommendations) even during discrete engagements."
+    benchmark_references: ["nps-client", "client-retention-rate", "revenue-per-client"]
+
+  - skill: "shamrock-organisation"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "The Shamrock Organisation is perhaps the most directly applicable framework to agency economics. Its three leaves map precisely to how modern agencies operate. The first leaf (core professional staff) represents the full-time team whose expertise, client relationships, and institutional knowledge define the firm. The second leaf (the flexible labor force) includes freelancers, subcontractors, and specialist contractors who extend capacity without increasing fixed costs — this is the primary mechanism by which agencies manage the feast-or-famine revenue cycle. The third leaf (outsourced functions) covers bookkeeping, IT support, legal, and increasingly, production tasks that AI and offshore teams handle. The strategic question for every agency is: what belongs in each leaf? The answer determines the firm's cost structure, flexibility, quality consistency, and scalability."
+    agency_anti_patterns:
+      - "Over-relying on the flexible leaf (freelancers) to the point where the firm has no core identity or consistent quality. When most delivery is outsourced, the agency becomes a broker, not a firm."
+      - "Refusing to use the flexible leaf out of a belief that all work must be done by full-time staff. This creates utilization crises during slow periods and capacity crises during busy periods."
+      - "Placing client-facing roles in the flexible leaf. Client relationship management should be core — freelancers who interact directly with clients without oversight erode trust and brand consistency."
+    agency_example: "A 15-person digital agency uses the Shamrock model to redesign its staffing structure. Core (first leaf): 10 people including strategy, account management, creative direction, and project management — roles where consistency and client relationships are paramount. Flexible (second leaf): a vetted pool of 25 freelance designers, developers, and writers who scale delivery capacity from 10 to 30 people as demand fluctuates. Outsourced (third leaf): bookkeeping, payroll, QA testing, and basic production tasks handled by a virtual assistant service and an offshore QA team. This structure reduces fixed costs by 30% while maintaining quality on client-facing work."
+    benchmark_references: ["utilization-rate", "bench-time", "gross-margin", "overhead-ratio"]
+
+  - skill: "trust-equation"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "Trust is EVERYTHING in professional services. Clients buy the person before they buy the firm. The Trust Equation (Credibility + Reliability + Intimacy / Self-Orientation) is the master framework for agency business development and client retention. Credibility in agencies is built through case studies, thought leadership, credentials, and the team's experience — it is what gets the agency into the room. Reliability is demonstrated through consistent delivery, meeting deadlines, and keeping promises — it is what keeps the client. Intimacy is the willingness to have honest, sometimes uncomfortable conversations about the client's business, not just the project scope — it is what deepens the relationship. Self-Orientation is the agency's tendency to prioritize its own interests (pushing unnecessary scope, recommending more work rather than less, obscuring results to justify continued engagement). Low self-orientation — the willingness to tell a client they do not need the agency's services — paradoxically generates the most trust and the most referrals."
+    agency_anti_patterns:
+      - "Building credibility through credentials alone while neglecting reliability. A firm with impressive case studies that misses deadlines and delivers inconsistently will lose to a less credentialed firm that delivers on time, every time."
+      - "Avoiding intimacy by keeping the relationship 'professional.' Agencies that never push back on a client's bad ideas, never share uncomfortable truths, and never challenge assumptions are valued less than those with the courage to have honest conversations."
+      - "Recommending more work when less is needed. The short-term revenue gain from expanding scope is dwarfed by the long-term trust earned by telling a client when they do not need additional help."
+    agency_example: "A strategy consultancy loses a competitive pitch despite having the strongest credentials and the most impressive case studies. Post-mortem analysis through the trust equation reveals the gap: the winning firm demonstrated intimacy during the pitch process — they challenged the client's assumptions, asked probing questions about root causes rather than symptoms, and told the client that one of their three stated priorities was misguided. The losing firm presented polished credentials (credibility) but never demonstrated the willingness to engage honestly (intimacy). The lesson: clients hire agencies that tell them what they need to hear, not what they want to hear."
+    benchmark_references: ["nps-client", "client-retention-rate", "win-rate"]
+
+  - skill: "pricing-diagnosis"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "Pricing is the single most consequential strategic decision in professional services — and the one most agencies get wrong. The agency pricing spectrum runs from hourly billing (lowest value capture, easiest to sell, punishes efficiency) through project-based (moderate value capture, requires accurate scoping) through retainer (stable revenue, rewards relationship depth) to value-based (highest value capture, hardest to implement, decouples revenue from time). Most agencies default to hourly or project pricing because it is familiar and 'safe,' but this ceiling caps revenue at available hours multiplied by acceptable rates. The pricing diagnosis for agencies must evaluate: current pricing model and its limitations, the gap between value delivered and price charged (most agencies capture 15-30% of the value they create), client willingness to pay for outcomes versus inputs, and the firm's ability to estimate and manage scope (the prerequisite for fixed-price and value-based models)."
+    agency_anti_patterns:
+      - "Competing on price. Agencies that win work by being the cheapest attract the worst clients — those who value cost over quality, negotiate relentlessly, and leave when a cheaper option appears."
+      - "Discounting to fill capacity. When bench time rises, the temptation to discount rates to win any available work is strong. But discounted work sets a new price anchor, trains clients to expect lower rates, and attracts the wrong client profile."
+      - "Charging hourly for strategic work. Hourly billing for strategy engagements punishes the agency for being fast and experienced — a senior strategist who solves a problem in 2 hours earns less than a junior who takes 20 hours. Value-based pricing is the appropriate model for advisory work."
+    agency_example: "A design agency charging $150/hour for all work discovers through pricing diagnosis that their effective rate is $105/hour after scope creep, write-offs, and discounting. The diagnosis reveals three pricing failures: (1) hourly billing punishes their efficiency — a logo redesign takes the senior designer 15 hours but would take a competitor 40, yet the client pays less for the superior result; (2) project scoping is inaccurate, leading to systematic undercharging on complex projects; (3) retainer clients are billed hourly against a monthly budget that consistently goes unused, creating guilt on the client side. The fix: shift to value-based project pricing for strategic work, fixed-fee productized packages for recurring work, and outcome-linked retainers for ongoing relationships."
+    benchmark_references: ["average-billable-rate", "effective-billable-rate", "gross-margin", "revenue-per-employee"]
+
+  - skill: "balanced-scorecard"
+    category: "frameworks"
+    agency_relevance: "critical"
+    agency_context: "The Balanced Scorecard translates directly into agency operating metrics across its four perspectives, with one critical modification: people are the central asset, not technology or products. Financial perspective: revenue per employee, gross margin, EBITDA margin, utilization rate, effective billable rate. Client perspective: NPS, client retention rate, revenue per client, scope creep rate. Internal process perspective: proposal win rate, project delivery on time and on budget, bench time, AR days. Learning & Growth perspective: employee NPS, employee retention, training hours per person, senior-to-junior development pipeline. The scorecard is particularly powerful in agencies because it forces balance between financial extraction (utilization, rates) and organizational health (employee satisfaction, training) — the tension that defines agency management."
+    agency_anti_patterns:
+      - "Overweighting the financial perspective at the expense of Learning & Growth. Agencies that maximize utilization and minimize training investment earn higher short-term margins but lose talent and degrade quality over time."
+      - "Ignoring the internal process perspective. Most agencies do not track proposal efficiency, project profitability, or bench management with the same rigor they apply to revenue."
+      - "Treating the scorecard as a reporting tool rather than a management tool. The scorecard should drive weekly leadership discussions about trade-offs — is the push for higher utilization damaging employee satisfaction?"
+    agency_example: "A 30-person consulting firm implements a balanced scorecard and discovers a dangerous imbalance: financial metrics are strong (utilization at 78%, margins at 18%) but Learning & Growth metrics are deteriorating (eNPS at 12, retention at 72%, training hours at zero). The scorecard reveals that the firm has been maximizing short-term profits by running people hard with no investment in development. The corrective action: reduce utilization target to 70%, institute 'innovation Fridays' for professional development, and implement a mentoring program. Within two quarters, eNPS rises to 35 and retention improves to 88% — the financial metrics stabilize at slightly lower but sustainable levels."
+    benchmark_references: ["revenue-per-employee", "utilization-rate", "nps-client", "enps", "employee-retention-rate"]
+
+  - skill: "product-life-cycle"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "Professional services do not have traditional product lifecycles, but the concept applies powerfully to service offerings. Every agency service line passes through introduction (the firm develops a new capability), growth (demand exceeds capacity and the service is profitable), maturity (the service becomes commoditized, competition drives down pricing), and decline (clients no longer need the service or cheaper alternatives emerge). The critical agency insight: service lines must be actively managed as a portfolio. Social media management was a growth service in 2015 and is commoditized in 2026. AI strategy consulting is in the introduction phase now and will eventually mature. Agencies that ride a single service line through its full lifecycle without developing successors face existential risk."
+    agency_anti_patterns:
+      - "Clinging to a mature service line because 'it is what we are known for.' Reputation built on a commoditized service is a trap — the firm will compete on price in a declining market."
+      - "Investing equally across all service lines regardless of lifecycle position. Services in growth deserve disproportionate investment; services in decline should be harvested for margin, not invested in for growth."
+      - "Failing to sunset declining services. Agencies often maintain services nobody wants because existing staff are skilled in them. This misallocates talent."
+    agency_example: "A digital agency's SEO service line, once its primary revenue driver, has entered maturity — clients demand it but treat it as a commodity, competition from freelancers and tools drives down rates, and margins have compressed from 60% to 35%. Rather than fighting for share in a commoditizing market, the agency uses lifecycle analysis to launch two growth-phase offerings: AI-powered content strategy (leveraging their SEO data assets) and conversion rate optimization. The mature SEO practice becomes a client-acquisition funnel for higher-margin growth services."
+    benchmark_references: ["gross-margin", "average-billable-rate", "revenue"]
+
+  - skill: "disruptive-innovation"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "Professional services are being disrupted from multiple directions simultaneously. AI tools are the most visible disruptor — they perform tasks (writing, design, analysis, coding) that agencies bill for. Freelancer platforms disrupt from below with lower overhead and more flexible engagement models. Productized service firms (like Design Pickle for design or LAIRE for marketing) disrupt with standardized, subscription-based delivery that replaces custom agency work. Offshore teams disrupt on cost. The disruption framework helps agencies identify which of their services are vulnerable, which are defensible, and how to position the firm where automation and commoditization cannot follow — typically in strategy, relationship management, creative direction, and complex problem-solving."
+    agency_anti_patterns:
+      - "Dismissing AI as 'not good enough' for client work. AI tools will improve faster than most agencies expect. The correct response is to integrate AI into delivery to increase efficiency, not to ignore it."
+      - "Trying to compete with disruptors on their terms. An agency cannot out-price a freelancer collective or out-automate an AI tool. The response must be differentiation, not cost reduction."
+      - "Waiting for disruption to arrive rather than proactively repositioning. By the time a service is visibly commoditized, margins have already eroded."
+    agency_example: "A copywriting agency recognizes that AI writing tools are a disruptive threat to its core service. Rather than competing with AI on content production, the agency repositions upmarket: it becomes a content strategy consultancy that uses AI tools internally to produce more content faster, while selling strategic thinking, brand voice development, and editorial oversight that AI cannot replicate. The firm's revenue per employee increases 40% as production costs drop while strategic fees rise."
+    benchmark_references: ["average-billable-rate", "revenue-per-employee", "gross-margin"]
+
+  - skill: "growth-share-matrix"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "The BCG Growth-Share Matrix maps to agency service lines and client segments. Stars: high-growth, high-share service lines (e.g., AI consulting for an early-mover agency) that justify aggressive hiring and investment. Cash Cows: mature, dominant service lines (e.g., established web development practice) that generate reliable revenue and fund investment in Stars. Question Marks: new service lines with potential but unproven demand (e.g., a new industry vertical). Dogs: underperforming service lines with low growth and low share (e.g., print design in a digital world). The matrix is equally useful when applied to client segments — which client types generate the best margins with the least effort, and which consume disproportionate resources?"
+    agency_anti_patterns:
+      - "Killing 'Dog' service lines that serve as entry points for larger engagements. A low-margin service that consistently leads to high-margin follow-on work is strategically valuable despite its standalone economics."
+      - "Over-investing in Stars without building delivery capacity. Winning more AI strategy work than the firm can deliver damages reputation and quality."
+      - "Failing to apply the matrix to client segments. Some client types are 'Dogs' — low growth, high maintenance, poor margins — and should be actively managed out of the portfolio."
+    agency_example: "A marketing agency applies the matrix to its client portfolio and discovers that its largest client category (startups) is a Question Mark — high growth but low share (many competitors) and poor margins (startups negotiate hard and churn fast). Its mid-market B2B clients are Cash Cows — stable relationships, good margins, steady work. The agency redirects growth investment from startup acquisition to mid-market B2B deepening, using Cash Cow profits to fund a Star initiative: a productized marketing audit specifically designed for mid-market B2B companies."
+    benchmark_references: ["revenue-per-client", "gross-margin", "client-retention-rate"]
+
+  - skill: "swot-pest-analysis"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "SWOT and PEST analysis for agencies must account for the unique environmental forces shaping professional services. Political: government procurement regulations, data privacy laws that affect agency work, immigration policies that impact talent availability. Economic: corporate marketing and consulting budget cycles, recession sensitivity (agencies are often first to be cut), interest rates affecting client investment. Social: remote work enabling agencies to hire globally (and clients to hire globally too), the rise of the creator economy as a substitute for agency services, generational expectations of work-life balance. Technological: AI tools transforming every agency discipline, project management and collaboration tools reducing overhead, the collapse of barriers between agency services (design, development, marketing converging)."
+    agency_anti_patterns:
+      - "Listing 'talented team' as a Strength without acknowledging that talent is also the primary constraint. The team that is a strength today becomes a weakness when key people leave."
+      - "Ignoring the Technology PEST factor. Agencies that do not understand how AI is reshaping their disciplines will be blindsided by disruption."
+      - "Conducting SWOT as a feel-good exercise that lists more Strengths than Weaknesses. Honest SWOT requires more courage in agencies because weaknesses are often personal — the founder's limitations, key person dependency, or lack of systems."
+    agency_example: "A PR agency conducts a PEST analysis and identifies that AI-generated media monitoring and sentiment analysis (Technology) will commoditize a service that generates 30% of revenue, that a generational shift toward authenticity and transparency (Social) creates an opportunity for their crisis communications practice, and that tightening data privacy regulations (Political) will increase demand for compliance-aware communications. The SWOT reveals that their Weakness — lack of data analytics capability — prevents them from capitalizing on the Technology threat. The strategic response: partner with a data analytics firm rather than building the capability internally."
+    benchmark_references: ["revenue", "gross-margin", "average-billable-rate"]
+
+  - skill: "scenario-planning"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "Agency revenue is inherently volatile — the feast-or-famine cycle is structural, not accidental. Scenario planning must address three critical scenarios for every agency: (1) Client loss scenario — what happens if the top client (or top two) leave? (2) Talent loss scenario — what happens if a key producer departs and takes client relationships? (3) Market shift scenario — what happens if a core service line is commoditized faster than expected? Financial scenarios should model at least three cases: base (current trajectory), growth (win a major account or enter a new vertical), and contraction (lose a major client or face a recession). Each scenario needs explicit triggers and pre-committed responses."
+    agency_anti_patterns:
+      - "Planning only for growth scenarios. Agencies are optimistic by nature but vulnerable to downturns. A contraction scenario with a pre-committed cost-reduction plan preserves the firm when the inevitable downturn arrives."
+      - "Building scenarios that assume the same team is available. People are the production capacity in agencies — scenarios must account for attrition, hiring difficulty, and key-person risk."
+      - "Failing to scenario-plan cash flow separately from revenue. A $3M agency with $200K in receivables and a $100K monthly payroll can face a cash crisis even while 'growing.'"
+    agency_example: "A 20-person consultancy builds three scenarios for the next 12 months. Base: current trajectory, 10% revenue growth from existing clients plus modest new business. Growth: win a major government contract that would double headcount requirements, requiring rapid hiring and subcontractor engagement. Contraction: top client (28% of revenue) announces an in-house build, requiring immediate cost reduction and aggressive new business development. Each scenario has financial projections, talent implications, and a decision trigger that signals which scenario is materializing."
+    benchmark_references: ["client-concentration", "revenue", "bench-time", "overhead-ratio"]
+
+  - skill: "eisenhower-matrix"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "Agency founders and leaders face a relentless stream of competing demands — client emergencies, proposal deadlines, employee issues, billing disputes, and new business opportunities all compete for attention. The Eisenhower Matrix in agencies must specifically address the tension between billable work (Urgent and revenue-generating) and business-building work (Important but not Urgent — sales, thought leadership, process improvement, training). The most damaging agency pattern is the founder who is personally billable at high utilization, leaving zero time for business development, hiring, and strategic planning. This creates a ceiling on growth that is precisely equal to the founder's personal capacity."
+    agency_anti_patterns:
+      - "Treating every client request as Urgent/Important. Client requests feel urgent because the client is pressing, but most can be scheduled without damaging the relationship. Learning to say 'I can address this by Thursday' rather than 'I will drop everything now' is a survival skill."
+      - "Spending all time in billable delivery (Urgent/Important) and neglecting business development and systems-building (Not Urgent/Important). This guarantees the feast-or-famine cycle — when the current project ends, there is nothing in the pipeline."
+      - "Delegating business development because it is 'Not Urgent.' In agencies, the founder's personal involvement in business development and client relationships is often irreplaceable, at least until the firm is large enough to hire a dedicated BD lead."
+    agency_example: "An agency founder tracks time for two weeks and discovers that 75% is spent on billable client work (Urgent/Important), 15% on email and administrative tasks (Urgent/Not Important), and 10% on ad hoc emergencies. Zero time is spent on strategic work: no pipeline development, no process documentation, no staff development. The Eisenhower Matrix reveals that the founder must reduce billable utilization from 75% to 50%, delegate administrative tasks, and protect 15-20 hours per week for business development and firm-building — the Not Urgent/Important quadrant that determines whether the agency grows or stalls."
+    benchmark_references: ["utilization-rate", "pipeline-coverage-ratio", "revenue"]
+
+  - skill: "systems-thinking"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "Agency businesses contain reinforcing feedback loops that create non-obvious outcomes. The talent-quality loop: better work attracts better clients, better clients provide better case studies, better case studies attract better talent, better talent produces better work. The utilization-burnout loop: high utilization generates revenue, but sustained high utilization causes burnout, burnout causes attrition, attrition requires emergency hiring and knowledge transfer, which reduces quality and increases costs. The feast-or-famine loop: busy periods consume all capacity for business development, no business development creates pipeline gaps, pipeline gaps create bench time, bench time pressures the team to take any available work, undifferentiated work leads to price competition, price competition thins margins, thin margins prevent hiring sales capacity. Systems thinking helps agency leaders identify which loop to intervene in and where."
+    agency_anti_patterns:
+      - "Treating symptoms instead of systems. Hiring more people to address missed deadlines when the root cause is poor scoping. Running overtime to absorb scope creep when the root cause is weak contracts."
+      - "Ignoring the time delay in feedback loops. Cutting training and development today does not decrease quality tomorrow — it decreases quality in 6-12 months, making the cause invisible."
+      - "Optimizing utilization without modeling second-order effects. Pushing utilization from 68% to 78% generates short-term revenue but increases attrition, which costs far more to replace."
+    agency_example: "A growing agency notices that quality complaints are rising despite hiring experienced people. Systems analysis reveals a reinforcing loop: rapid growth requires fast hiring, fast hiring dilutes culture and methodology consistency, inconsistent methodology produces variable quality, variable quality generates client complaints, complaints consume senior staff time for firefighting, senior time spent firefighting reduces their availability for mentoring new hires, less mentoring perpetuates inconsistency. The intervention point is not quality control (a downstream symptom) but onboarding and mentoring (an upstream cause) — slowing hiring to match the firm's capacity to integrate new people."
+    benchmark_references: ["employee-retention-rate", "utilization-rate", "nps-client", "scope-creep-rate"]
+
+  - skill: "smart-goals"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "SMART goals in agencies must account for the dual nature of the business: client delivery and firm building. Agency leaders need goals in both domains — a set of delivery goals (utilization, on-time delivery, client satisfaction) and a set of business-building goals (pipeline, win rate, thought leadership, talent development). The most common failure in agencies is setting revenue goals without corresponding capacity and operational goals. Hitting a $5M revenue target requires specific utilization rates, staffing levels, average project sizes, and win rates — each of which should be an explicit SMART goal."
+    agency_anti_patterns:
+      - "Setting revenue goals without operational sub-goals. '$5M revenue this year' is incomplete without 'win 15 new projects at $100K average, maintain 90% client retention, and achieve 67% utilization.'"
+      - "Setting goals only at the firm level without cascading to individuals. Each partner, account manager, and project lead should have goals that connect to the firm-level objectives."
+      - "Ignoring the tension between utilization goals and business development goals. A 75% utilization target for a partner leaves only 25% for sales and management — often insufficient."
+    agency_example: "Instead of 'grow revenue 20%,' a consultancy sets Q2 SMART goals: (1) Win 5 new retainer clients at $8K+/month through focused outreach to the healthcare vertical (Specific, Measurable, Achievable given pipeline, Relevant to vertical strategy, Q2 Time-bound). (2) Increase billable utilization from 63% to 67% by reducing bench time through better resource planning (Specific, Measurable, achievable in 90 days, directly impacts margin). (3) Reduce average AR days from 52 to 40 by implementing automated invoicing and payment follow-up (Specific, Measurable, directly impacts cash flow, Time-bound to Q2). Each goal has a named owner and weekly measurement."
+    benchmark_references: ["revenue", "utilization-rate", "ar-days", "win-rate"]
+
+  - skill: "doblin-ten-types"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "The Ten Types of Innovation framework is revealing for agencies because most agency innovation happens in a single type — Service (improving client deliverables) — while nine other innovation types are ignored. The most powerful agency innovations often come from Profit Model (shifting from hourly to value-based or productized pricing), Network (building freelancer ecosystems and strategic partnerships), Process (developing proprietary methodologies that standardize delivery), Channel (creating content platforms or communities that generate inbound leads), and Customer Engagement (building client advisory boards, communities of practice, or educational programs). Innovation in Service alone leads to an arms race of better deliverables at similar prices."
+    agency_anti_patterns:
+      - "Defining innovation as 'better creative work' or 'more advanced technology.' These are Service innovations that every competitor also pursues. The most defensible innovations are in business model, process, and channel."
+      - "Ignoring Profit Model innovation. The shift from hourly to value-based or productized pricing is a Profit Model innovation that transforms agency economics more than any service improvement."
+      - "Dismissing Network innovation. An agency with a curated ecosystem of freelancers, technology partners, and complementary service providers can deliver more value than a larger firm with only internal resources."
+    agency_example: "A web development shop applies Doblin's framework and identifies that all of its innovation investment goes to Service (learning new technologies, improving code quality) and none to other types. Applying the framework, the agency pursues Profit Model innovation (a monthly subscription for ongoing website maintenance and optimization at a fixed fee), Channel innovation (a free website audit tool that generates qualified leads), and Process innovation (a proprietary discovery methodology that reduces project scoping from 2 weeks to 2 days). The combined innovations increase revenue per employee by 35% despite no change in the quality of the underlying development work."
+    benchmark_references: ["revenue-per-employee", "average-billable-rate", "win-rate"]
+
+  - skill: "emotional-intelligence"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "Emotional intelligence is a core professional competency in agencies — not a 'nice to have.' Agency professionals navigate three emotionally charged domains daily: client relationships (reading buyer sentiment, managing expectations, delivering bad news about budgets or timelines), team management (motivating creative professionals who are intrinsically driven, handling the stress of tight deadlines and demanding clients, retaining talent that has abundant alternatives), and business development (reading the room in pitches, building personal connections that differentiate the firm, handling rejection when proposals are declined). The emotional demands of agency work are higher than in most industries because the work is personal — a rejected design or a criticized strategy can feel like a personal attack."
+    agency_anti_patterns:
+      - "Treating client feedback on creative work as objective critique. Creative professionals often internalize criticism of their work as criticism of themselves. Leaders must translate client feedback into actionable direction without transmitting the emotional charge."
+      - "Ignoring the emotional toll of client service. Agency burnout is not primarily about hours — it is about the emotional labor of managing demanding clients, absorbing scope creep, and maintaining enthusiasm under pressure."
+      - "Promoting the best individual contributors to management roles without assessing emotional intelligence. The best designer or developer is not necessarily the best people manager."
+    agency_example: "A creative director notices that a senior designer is delivering increasingly mediocre work after a difficult client engagement where three rounds of feedback essentially reversed the original creative direction. Rather than addressing the output (a symptom), the CD applies emotional intelligence: she acknowledges the designer's frustration, validates that the client process was demoralizing, discusses how to set creative boundaries in future engagements, and temporarily assigns the designer to an internal branding project where creative freedom restores motivation. The designer's output quality recovers within two weeks."
+    benchmark_references: ["enps", "employee-retention-rate", "nps-client"]
+
+  - skill: "covey-seven-habits"
+    category: "frameworks"
+    agency_relevance: "moderate"
+    agency_context: "The Seven Habits apply with particular force to agency founders navigating the transition from practitioner to business leader. 'Begin with the End in Mind' forces the question: is the goal a lifestyle business ($500K-$2M, high personal income, minimal staff), a scale agency ($5M-$20M, institutional clients, exit potential), or something else? Every operational decision flows from this choice. 'Put First Things First' maps directly to the Not Urgent/Important quadrant where business development and strategic planning live — the work most agency leaders neglect. 'Think Win-Win' is essential for long-term client relationships and talent retention. 'Sharpen the Saw' addresses the burnout epidemic in agency leadership, where 60-hour weeks and always-on client service erode judgment."
+    agency_anti_patterns:
+      - "Running the agency without clarity on the end goal. An agency designed for lifestyle and an agency designed for scale require completely different staffing, pricing, and client strategies. Ambiguity between these goals creates strategic drift."
+      - "Neglecting 'Sharpen the Saw' because every hour not billed is seen as lost revenue. Agency leaders who never invest in their own development become the ceiling on their firm's capability."
+    agency_example: "An agency founder applies 'Begin with the End in Mind' and realizes he has been building a scale agency (hiring, pursuing large accounts, taking on debt) when his actual goal is a lifestyle consultancy (high personal income, flexibility, interesting work, no management headaches). This clarity triggers a strategic reversal: he reduces the team from 12 to 5, lets go of demanding enterprise clients, raises rates by 40%, and restructures as a boutique practice. Revenue drops from $2.5M to $1.5M, but personal income increases and work-life balance improves dramatically."
+    benchmark_references: ["ebitda-margin", "revenue-per-employee", "enps"]
+
+  # ─────────────────────────────────────────────
+  # NEGOTIATION (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "competitive-negotiation"
+    category: "negotiation"
+    agency_relevance: "critical"
+    agency_context: "Competitive negotiation in agencies occurs in three high-stakes contexts: scope negotiation (the most frequent — clients requesting additional work within existing budgets), rate negotiation (clients pushing for lower rates or requesting discounts to retain the relationship), and contract negotiation (payment terms, liability caps, IP ownership, and exclusivity clauses). Scope negotiation is the most consequential because it directly determines project profitability — the agency that cannot hold scope boundaries watches margins evaporate project by project. Rate negotiation is complicated by the personal nature of agency services — reducing the rate feels like devaluing the people doing the work. Contract terms like IP ownership and non-competes can have long-term strategic implications that exceed the financial value of the individual deal."
+    agency_anti_patterns:
+      - "Discounting rates to retain a client without obtaining anything in return. Every discount should be exchanged for something: a longer commitment, a case study, a referral, or expanded scope."
+      - "Absorbing scope expansion without documentation. Informal scope expansion ('can you also just quickly do X?') is the primary margin killer in agencies. Every addition should be documented and either billed or explicitly traded for something."
+      - "Negotiating from the assumption that the client has all the power. Agencies often underestimate their leverage — switching costs for clients include knowledge transfer, relationship rebuilding, learning curves, and project disruption."
+    agency_example: "A client requests a 15% rate reduction at contract renewal, citing competitive alternatives. The agency prepares by quantifying the value delivered (three campaigns generating $4.2M in attributable revenue against $450K in fees), documenting the switching costs (estimated 3-month productivity loss during transition), and preparing a counter-proposal: maintaining rates but adding a performance bonus tied to campaign outcomes. The client accepts the counter-proposal because it demonstrates confidence in results and aligns incentives — the negotiation shifts from cost to value."
+    benchmark_references: ["average-billable-rate", "effective-billable-rate", "client-retention-rate"]
+
+  - skill: "cooperative-negotiation"
+    category: "negotiation"
+    agency_relevance: "critical"
+    agency_context: "Cooperative negotiation is the foundation of long-term agency-client relationships. Unlike transactional sales where the negotiation ends at signature, agency engagements involve continuous negotiation — about priorities, timelines, scope, and resources — throughout the relationship. The most successful agencies frame the engagement as a partnership where both parties invest in mutual success, rather than a vendor-client transaction where the agency delivers what is ordered. Cooperative negotiation also governs the most important internal negotiation in agencies: resource allocation across competing client demands. When three clients all need the senior designer this week, the allocation decision is a negotiation — and how it is handled determines which clients receive excellent service and which feel neglected."
+    agency_anti_patterns:
+      - "Agreeing to everything the client requests to preserve the relationship. Accommodation is not cooperation. True cooperative negotiation involves honest trade-offs: 'We can add this feature, but it will push the launch by two weeks. Is that trade-off acceptable?'"
+      - "Treating retainer renewals as rubber-stamp exercises. Renewal is an opportunity to renegotiate scope, rates, and terms based on demonstrated value. Agencies that passively renew at the same terms leave value on the table."
+      - "Failing to negotiate internally with the same rigor applied to client negotiations. Resource allocation, project sequencing, and priority-setting across the firm require explicit cooperative negotiation among partners and account leads."
+    agency_example: "An agency managing a $180K annual retainer uses cooperative negotiation at the annual review. Rather than simply renewing at the same terms, they present: value delivered (documented outcomes), scope evolution (how the work has grown beyond the original brief), and a restructured proposal — the retainer increases to $220K but includes a new service (quarterly competitive analysis) and an outcome-linked bonus. The client agrees because the agency has framed the increase as expanded value, not a price increase. Both parties gain: the agency increases revenue per client and the client receives additional strategic support."
+    benchmark_references: ["revenue-per-client", "client-retention-rate", "nps-client"]
+
+  - skill: "delivering-the-deal"
+    category: "negotiation"
+    agency_relevance: "high"
+    agency_context: "Deal execution in agencies has unique characteristics: proposals compete against 2-5 other firms in a structured evaluation process; procurement departments at large clients apply standardized vendor management frameworks that strip out the personal relationship; SOW terms (liability, IP, indemnification) can stall deals for weeks; and the gap between verbal agreement and signed contract is where deals die — the client's enthusiasm cools, internal priorities shift, or a competitor makes a counter-offer. The skill of delivering the deal means: submitting proposals that are easy to approve (not elaborate documents that require committee review), having flexible SOW templates ready for rapid negotiation, maintaining momentum between verbal yes and signature, and building internal champions within the client organization who drive urgency."
+    agency_anti_patterns:
+      - "Investing weeks in elaborate proposal documents that clients do not read. The proposal should be as short as the decision process allows. A 3-page proposal closed in 2 weeks beats a 30-page proposal that takes 3 months."
+      - "Losing momentum between verbal agreement and contract signature. Follow up within 24 hours of verbal acceptance with the SOW. Every day of delay increases the probability of deal collapse."
+      - "Treating the signed contract as the finish line. In agencies, the real deal begins at kickoff — the first 30 days of delivery either confirm the client's decision or plant the seeds of regret."
+    agency_example: "An agency creates a 'deal acceleration kit' containing: a modular SOW template (core terms pre-approved by legal, with fill-in sections for scope, timeline, and pricing), a one-page proposal format for engagements under $50K, three reference clients pre-briefed and ready for calls, and a standard project kickoff plan sent with the SOW to demonstrate readiness. The kit reduces average proposal-to-signature time from 35 days to 14 days, and the kickoff plan attached to the SOW increases close rate by 18% because it makes the agency feel prepared and easy to work with."
+    benchmark_references: ["win-rate", "sales-cycle-length", "average-project-value"]
+
+  - skill: "negotiation-mindset-and-self"
+    category: "negotiation"
+    agency_relevance: "high"
+    agency_context: "Agency founders and senior consultants negotiate constantly — with clients, prospects, subcontractors, employees, and partners — often from a position of perceived weakness. The perceived weakness is structural: the client has budget authority, the talent has other job offers, and the subcontractor has other clients. The negotiation mindset skill helps agency leaders recognize that their leverage is greater than they perceive: they possess specialized expertise, deep knowledge of the client's business, existing relationships and trust, and the capacity to solve problems the other party cannot solve alone. The most common mindset failure in agencies is believing that saying 'no' to a client will end the relationship, when in practice, the ability to set boundaries increases respect and trust."
+    agency_anti_patterns:
+      - "Entering negotiations from a scarcity mindset. Agencies that believe every prospect is critical and every client is irreplaceable negotiate from desperation, which produces bad terms."
+      - "Confusing accommodation with service. Excellent client service does not mean accepting every demand. It means delivering outstanding results within clearly defined boundaries."
+      - "Avoiding negotiation by absorbing costs. Many agency founders would rather silently eat scope creep than have an uncomfortable conversation about additional fees. This is a mindset problem, not a negotiation technique problem."
+    agency_example: "A consultant has been absorbing an average of 20% additional scope on every project because she fears that raising the issue will damage client relationships. Mindset work reveals the core belief: 'If I push back on scope, the client will think I am not dedicated and will find someone else.' Reframing: 'Clients who value me will respect clear boundaries. Clients who expect unlimited free work are not clients I want.' After implementing boundary conversations on the next three projects, two clients respond positively (one even apologizes for past overreach), and one client terminates — which frees capacity for more profitable work."
+    benchmark_references: ["effective-billable-rate", "scope-creep-rate", "nps-client"]
+
+  # ─────────────────────────────────────────────
+  # LEADERSHIP (5 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "delegation-and-empowerment"
+    category: "leadership"
+    agency_relevance: "critical"
+    agency_context: "Delegation is the defining leadership challenge in professional services because the founder IS the product initially. Clients hired the founder's expertise, judgment, and personal attention. Transitioning from doing the work to managing others who do the work requires delegating without diminishing quality — and convincing clients that the junior consultant or designer is a suitable replacement for the founder's personal involvement. The delegation journey in agencies has three phases: Phase 1, the founder does everything (solo consultant). Phase 2, the founder delegates execution but retains client relationships and quality control (small agency). Phase 3, the founder delegates client relationships to account managers and quality control to creative directors (scaled agency). Most agency founders get stuck between Phase 1 and Phase 2, creating a permanent ceiling on firm size."
+    agency_anti_patterns:
+      - "Delegating tasks but not authority. Assigning junior staff to create the deliverable but then rewriting it entirely defeats the purpose and demoralizes the team."
+      - "Delegating client relationships too early. Clients hired the founder. Transitioning the relationship to an account manager requires a deliberate, gradual handoff — not an abrupt switch."
+      - "Refusing to delegate because 'no one can do it as well as I can.' This is often true in the short term but guarantees the firm cannot grow. The founder's job is to build the team's capability, not to protect their own indispensability."
+    agency_example: "A strategy consultant earning $500K annually from personal billings hits a growth ceiling — she cannot bill more than 1,800 hours per year. She begins delegating by hiring a senior associate who shadows her on three engagements, then runs a portion of the fourth engagement independently with the founder reviewing key deliverables. Within 12 months, the associate handles 60% of delivery independently. The founder's time shifts to business development and executive-level client advisory — higher-value work that generates $350K in personal billings plus $300K from the associate's work, growing firm revenue from $500K to $650K with a clear path to $1M."
+    benchmark_references: ["revenue-per-partner", "leverage-ratio", "revenue"]
+
+  - skill: "leadership-pipeline"
+    category: "frameworks"
+    agency_relevance: "high"
+    agency_context: "The Leadership Pipeline is essential for agencies because the growth trajectory follows a predictable path: from individual contributor (billable consultant) to managing others (project/account manager) to managing managers (department/practice lead) to running the business (partner/principal). Each transition requires fundamentally different skills and a different relationship with billable work. The most common pipeline failure in agencies is promoting the best consultant to a management role without any transition support — they continue doing the consulting work themselves (because they are good at it and it generates revenue) while neglecting the management work (because it is new and uncomfortable). The result: an overburdened manager who does both jobs poorly."
+    agency_anti_patterns:
+      - "Promoting based on billing performance rather than leadership potential. The highest-billing consultant may be the worst manager — they succeed through individual excellence, not through developing others."
+      - "Expecting new managers to maintain their previous utilization rate. A new project manager or account lead needs at least 25-30% of their time for management activities. Reducing their billing target is a necessary investment."
+      - "Skipping the 'managing managers' level. Going directly from individual contributors to a single firm leader creates a bottleneck where all management flows through one person."
+    agency_example: "A 25-person agency promotes three senior consultants to practice leads without adjusting their utilization targets. Within six months, all three are working 55+ hour weeks — billing 40+ hours on client work and spending evenings on management tasks. Two burn out and one leaves. The agency redesigns the leadership pipeline: practice leads bill at 50% utilization (not 70%), receive management training, and are evaluated on team performance (utilization, quality, retention) rather than personal billing. The firm's delivery capacity and quality improve because the leaders are actually leading."
+    benchmark_references: ["employee-retention-rate", "leverage-ratio", "revenue-per-partner"]
+
+  - skill: "strategic-thinking-and-alignment"
+    category: "leadership"
+    agency_relevance: "high"
+    agency_context: "Strategic alignment in agencies is challenged by a structural tension: the short-term revenue imperative (take any work that pays) versus the long-term positioning imperative (specialize, differentiate, and decline work that does not fit). Most agencies default to the short-term imperative, accepting every client and every project type, which prevents the specialization that drives premium pricing. Strategic alignment requires the agency to define what it does, for whom, and — critically — what it will NOT do. This is harder in agencies than in product companies because declining a $50K project that is 'not our thing' feels like throwing money away, when in fact it frees capacity for higher-margin work that builds the firm's reputation in its chosen specialty."
+    agency_anti_patterns:
+      - "Defining strategy as 'we do everything for everyone.' This is the absence of strategy, not a strategy. It guarantees competition on price."
+      - "Allowing individual partners to pursue their own client strategies without firm-level alignment. Autonomous partners build fiefdoms rather than a coherent firm."
+      - "Setting a strategic direction and then accepting every piece of off-strategy work because 'we need the revenue.' Strategy requires the discipline to say no — especially when saying no is financially painful."
+    agency_example: "A generalist digital agency adopts a vertical specialization strategy: healthcare marketing for mid-size hospital systems. The first year is painful — they decline $400K in non-healthcare work while healthcare revenue grows slowly to $250K. By year two, healthcare clients refer other healthcare organizations, the agency develops proprietary benchmarking data for the sector, and they can charge 30% more than generalist competitors because they understand the regulatory landscape and speak the client's language. Revenue exceeds the generalist baseline within 30 months, at significantly higher margins."
+    benchmark_references: ["average-billable-rate", "client-retention-rate", "win-rate", "revenue-per-client"]
+
+  - skill: "employee-engagement-retention"
+    category: "leadership"
+    agency_relevance: "high"
+    agency_context: "Retention in agencies is existential — when people leave, they take client relationships, institutional knowledge, and billable capacity with them. The worst outcome is when a departing employee takes clients to a new firm or starts a competing practice. Agency retention is driven by three factors that differ from product companies: (1) Quality of work — creative and strategic professionals leave when the work becomes repetitive or unchallenging. (2) Client relationships — staff who manage client relationships directly have more leverage and more reason to leave. (3) Growth trajectory — talented people leave when they see no path to partnership, ownership, or expanded responsibility."
+    agency_anti_patterns:
+      - "Treating retention as a compensation problem when it is usually a work-quality problem. Talented agency professionals will accept modest compensation for exceptional work — they will not accept exceptional compensation for mediocre work."
+      - "Waiting until someone resigns to address retention. By then, the decision is made. Proactive retention requires quarterly career conversations with every key person."
+      - "Ignoring the client-relationship risk of attrition. When a senior account manager leaves, assess which clients are at risk and proactively strengthen those relationships through leadership engagement."
+    agency_example: "A consulting firm discovers through exit interviews that the top reason for departure is 'lack of growth opportunities.' The firm responds by creating three career tracks: a client track (account management to partner), a craft track (specialist to practice expert), and a management track (team lead to operations director). Each track has defined milestones, compensation bands, and development plans. A profit-sharing program at the senior level creates financial incentives to stay. Retention improves from 78% to 91% over 18 months."
+    benchmark_references: ["employee-retention-rate", "enps", "revenue-per-employee"]
+
+  - skill: "focus-and-priority-management"
+    category: "leadership"
+    agency_relevance: "high"
+    agency_context: "Agency leaders are pulled in more directions simultaneously than leaders in most other business types. On any given day, a founder may need to: deliver on a client project, prepare a proposal for a new prospect, resolve a staffing conflict, chase an overdue invoice, conduct a performance review, and attend a networking event. The result is chronic context-switching that degrades the quality of all activities. Priority management in agencies requires explicit time blocking: designated days or half-days for client delivery, business development, management, and strategic thinking. The most impactful priority decision for agency leaders is how to split time between billable work and non-billable firm-building."
+    agency_anti_patterns:
+      - "Allowing the day to be driven by whoever is most urgent. Without explicit priorities, the loudest client and the most pressing emergency consume all available time."
+      - "Treating 'being busy' as evidence of productivity. High activity in agencies can mask low impact — billing 50 hours while the pipeline dries up is busy but not productive."
+      - "Failing to protect time for deep work. Agency deliverables — strategy documents, creative concepts, proposals — require uninterrupted focus. Constant interruptions produce mediocre output."
+    agency_example: "An agency founder implements a time-blocking system: Mondays for internal management (team meetings, pipeline review, financial review), Tuesday-Thursday for client delivery and client meetings, Fridays for business development (proposals, networking, thought leadership). The founder also establishes a 'minimum viable personal billability' target of 40% — enough to stay connected to client work without being consumed by it. Within three months, pipeline coverage improves from 1.5x to 3.5x because business development finally receives consistent attention."
+    benchmark_references: ["pipeline-coverage-ratio", "utilization-rate", "revenue"]
+
+  - skill: "mentoring-and-coaching"
+    category: "leadership"
+    agency_relevance: "high"
+    agency_context: "Mentoring and coaching are the primary mechanisms by which agencies scale expertise. The founder's knowledge must transfer to the team — not through documentation alone but through structured mentoring relationships where junior staff observe, practice, receive feedback, and gradually assume more complex responsibilities. In agencies, mentoring also serves a business purpose: mentored employees are more engaged (reducing attrition), develop client-ready capabilities faster (reducing time to full billability), and become the next generation of account leads (enabling the founder to step back from delivery). The agency mentoring challenge is time — every hour spent mentoring is an hour not billed."
+    agency_anti_patterns:
+      - "Treating mentoring as 'nice to have' rather than a core business activity. In agencies, mentoring IS the mechanism by which the firm scales. Without it, the firm is perpetually dependent on the founder's personal capacity."
+      - "Mentoring only on technical skills while ignoring client management skills. The most valuable agency skill — managing client relationships — is the hardest to teach and the most neglected in mentoring programs."
+      - "Expecting mentoring to happen organically. It does not. Structured mentoring requires explicit pairing, regular cadence, and accountability."
+    agency_example: "A design agency implements a structured mentoring program where each senior designer mentors two junior designers. The program includes: weekly 1:1 sessions (30 minutes), joint client presentations where the junior observes then gradually presents, and 'graduated responsibility' where the junior designer leads increasingly complex deliverables with decreasing oversight. After 12 months, three junior designers are independently managing client deliverables, freeing senior designers to focus on business development and creative direction. The firm's delivery capacity effectively doubles without proportional hiring."
+    benchmark_references: ["leverage-ratio", "employee-retention-rate", "revenue-per-employee"]
+
+  # ─────────────────────────────────────────────
+  # GAME THEORY (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "prisoners-dilemma-and-cooperation"
+    category: "game-theory"
+    agency_relevance: "moderate"
+    agency_context: "The Prisoner's Dilemma manifests in agency economics through pricing dynamics and competitive pitching. When multiple agencies compete for a project and each must submit pricing independently, the temptation to undercut creates a race-to-the-bottom that destroys industry margins. The cooperative solution — agencies maintaining rate integrity even when competing — is unstable because the incentive to defect (discount to win) always exists. The same dynamic appears in the freelancer-agency relationship: agencies tempted to underpay freelancers to protect margins, while freelancers are tempted to go directly to clients and cut out the agency. Repeated-game theory suggests that agencies with long-term relationships (clients, freelancers, competitors) benefit from cooperation, while one-shot interactions invite defection."
+    agency_anti_patterns:
+      - "Always defecting (discounting) in competitive pitches. This trains the market to expect low prices and erodes margins industry-wide."
+      - "Treating competing agencies as pure adversaries. In mature markets, agencies frequently collaborate — subcontracting to each other, referring work that does not fit, and maintaining relationships that benefit everyone."
+    agency_example: "Two competing PR agencies in the same city initially undercut each other's pricing on every pitch. After years of this, both realize their margins have eroded to 8%. They reach an informal understanding: neither will quote below their published rate card. Instead, they compete on quality, relationships, and specialization. Both firms' margins recover to 15%+ within two years, and they occasionally refer work to each other when a client needs capabilities outside their specialty."
+    benchmark_references: ["average-billable-rate", "gross-margin", "win-rate"]
+
+  - skill: "information-asymmetry"
+    category: "game-theory"
+    agency_relevance: "high"
+    agency_context: "Information asymmetry shapes every agency-client interaction. The agency typically knows more about the complexity of the work, the real cost of delivery, and the range of possible outcomes. The client typically knows more about their internal budget, their urgency, their alternatives, and their satisfaction with the agency's work. Agencies that exploit information asymmetry (overscoping work, padding timelines, obscuring costs) gain short-term margin at the cost of long-term trust. Agencies that proactively reduce information asymmetry (transparent time tracking, open-book pricing, honest complexity assessments) build the trust that sustains relationships and justifies premium pricing. The most powerful application: helping clients understand the true value of the agency's work by sharing relevant benchmarks and market data."
+    agency_anti_patterns:
+      - "Exploiting asymmetry by obscuring what work actually costs or how long it actually takes. Clients who discover they have been overcharged never return."
+      - "Failing to leverage legitimate asymmetry. Agencies possess genuine expertise that clients lack — sharing this knowledge (through education, frameworks, and benchmarks) positions the agency as a trusted advisor rather than a vendor."
+    agency_example: "A web development agency adopts transparent project management — the client can see the time tracker, the project budget consumption, and the remaining scope in real time. Initially, the team fears this will lead to micromanagement and scope disputes. In practice, the transparency builds trust: clients see the real complexity of the work, understand why changes have cost implications, and feel confident they are getting fair value. Client retention increases from 72% to 89%, and the agency can charge higher rates because trust reduces the 'risk premium' clients apply to opaque vendors."
+    benchmark_references: ["effective-billable-rate", "nps-client", "client-retention-rate"]
+
+  # ─────────────────────────────────────────────
+  # PEOPLE (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "connecting-with-people"
+    category: "people"
+    agency_relevance: "high"
+    agency_context: "Connection is the primary sales channel for professional services. Agencies grow through relationships — referrals from satisfied clients, connections made at industry events, relationships with former colleagues who move to potential client organizations, and bonds formed through shared experiences and mutual interests. The depth and breadth of the founder's (and the team's) professional network directly determines the firm's growth ceiling. Unlike product companies where marketing can generate demand at scale, agencies rely on one-to-one relationships that require genuine connection — not transactional networking."
+    agency_anti_patterns:
+      - "Networking with the sole intent of selling. People sense transactional intent and withdraw. The most productive agency networking is genuinely helpful — offering introductions, sharing insights, solving problems without expectation of return."
+      - "Limiting relationship-building to the founder. Every senior team member should be building relationships in their domain. The agency's network should be broader than any individual's."
+    agency_example: "An agency founder shifts from attending networking events (transactional, low conversion) to hosting a monthly dinner for 8-10 marketing leaders in her city. No pitch, no agenda — just honest conversation about challenges in the industry. Within a year, five dinner attendees have become clients, three have made referrals, and the founder has become a known connector in the local marketing community. The cost: $500/month in dinner expenses. The return: $400K in new business attributable to dinner connections."
+    benchmark_references: ["cost-per-lead", "pipeline-coverage-ratio", "win-rate"]
+
+  - skill: "inspiring-and-retaining"
+    category: "people"
+    agency_relevance: "high"
+    agency_context: "Inspiring and retaining talent in agencies requires understanding what motivates agency professionals — and it is not primarily compensation. Agency professionals are typically driven by: the quality and variety of client work, the opportunity to develop expertise, autonomy in how they approach problems, recognition for creative and strategic contributions, and a sense of belonging to a team they respect. The retention equation in agencies is further complicated by the fact that every senior departure is a potential competitive threat — departing staff can take clients, start competing practices, or join clients directly, reducing the agency's relationship base."
+    agency_anti_patterns:
+      - "Attempting to retain through compensation alone when the underlying work is unsatisfying. A 20% raise does not compensate for repetitive work, difficult clients, and lack of growth."
+      - "Failing to give meaningful credit for contributions. In agencies where senior leaders present work that junior staff created, the junior staff feel invisible — and leave."
+      - "Not having honest conversations about career trajectories. Agencies without clear paths to partnership, ownership, or expanded responsibility lose ambitious people to firms that offer these paths."
+    agency_example: "A development agency losing senior developers to tech companies at higher salaries reframes its retention strategy. Instead of trying to match tech salaries (financially impossible), the agency emphasizes unique advantages: variety of projects (tech companies offer one product; the agency offers dozens), autonomy (developers choose their tech stack and approach for each project), impact visibility (developers see their work launched and used by real clients), and profit-sharing (a percentage of project margins distributed quarterly). Attrition among senior developers drops from 35% to 12% annually."
+    benchmark_references: ["employee-retention-rate", "enps", "revenue-per-employee"]
+
+  # ─────────────────────────────────────────────
+  # STORYTELLING (1 skill)
+  # ─────────────────────────────────────────────
+
+  - skill: "story-structure-and-arc"
+    category: "storytelling"
+    agency_relevance: "high"
+    agency_context: "Storytelling is the primary sales mechanism in professional services. Agencies sell through stories: case studies that demonstrate results, origin stories that establish credibility, client transformation narratives that make intangible expertise tangible, and vision stories that help prospects imagine a better future. The pitch process itself is a story arc — situation (the client's current challenge), complication (why the challenge is harder than it appears), resolution (the agency's approach), and proof (evidence from similar situations). Agencies that master storytelling convert at significantly higher rates than those that present capabilities, methodologies, and credentials without narrative structure."
+    agency_anti_patterns:
+      - "Presenting case studies as fact sheets rather than stories. 'We redesigned the website and traffic increased 200%' is a fact. 'The client was losing market share to a digitally native competitor, and the outdated website was the most visible symptom of a deeper brand identity crisis' is the beginning of a story."
+      - "Telling only success stories. The most powerful agency narratives include honest moments of challenge, unexpected obstacles, and how the team adapted — this builds trust through vulnerability."
+    agency_example: "A consulting firm restructures its pitch process around story arc. Instead of opening with firm credentials (boring, self-oriented), they open with a story about a similar client facing the same challenge — the situation, the hidden complexity, the approach, and the measurable outcome. The credentials slide moves to the appendix. Win rate increases from 28% to 42% because prospects see themselves in the story and feel confident the agency understands their world."
+    benchmark_references: ["win-rate", "average-project-value"]
+
+  # ─────────────────────────────────────────────
+  # THINKING & DECISIONS (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "defining-and-exploring-problems"
+    category: "thinking"
+    agency_relevance: "high"
+    agency_context: "The most valuable skill an agency can offer is problem definition — helping clients understand what their real problem is before jumping to solutions. Clients come to agencies with symptoms ('our website is outdated,' 'our brand feels tired,' 'we need a new CRM'). The agency's job is to diagnose the underlying problem, which is often different from the stated symptom. An outdated website may reflect a deeper positioning problem. A tired brand may reflect a product-market fit issue. A CRM request may reflect a sales process failure that no technology will solve. Agencies that excel at problem definition become trusted advisors; agencies that simply execute the client's stated brief become order-takers."
+    agency_anti_patterns:
+      - "Jumping to solutions because the client is impatient. Clients often want to skip diagnosis and go straight to 'fix it.' The agency must advocate for proper problem definition even when the client resists."
+      - "Defining the problem in terms of the agency's capabilities. A branding agency sees every problem as a branding problem. A web agency sees every problem as a website problem. The agency must diagnose honestly, even if the solution lies outside its services."
+    agency_example: "A client approaches a digital agency requesting a complete website redesign — a $120K project. During the discovery phase, the agency applies problem-definition rigor and discovers that the website's traffic is strong but conversion is abysmal. The real problem is not the design — it is the unclear value proposition and confusing pricing page. The agency recommends a $30K conversion optimization project instead of the $120K redesign. The client is initially surprised but grateful. The optimization project delivers a 3x conversion improvement, and the client becomes the agency's most vocal advocate — generating $350K in referral revenue over the next two years."
+    benchmark_references: ["nps-client", "client-retention-rate", "revenue-per-client"]
+
+  - skill: "evaluating-and-deciding"
+    category: "thinking"
+    agency_relevance: "moderate"
+    agency_context: "Agency leaders face a distinct class of decisions shaped by the people-as-product reality. The most consequential recurring decisions: which clients to pursue (the portfolio decision), which people to hire (the capability decision), which services to offer (the positioning decision), how to price (the value-capture decision), and when to grow versus when to consolidate (the timing decision). The decision-making challenge in agencies is that most decisions have both financial and relationship dimensions — declining a project may damage a client relationship, firing a low performer may affect team morale, raising prices may lose a client. Effective agency decision-making requires weighing these dimensions simultaneously."
+    agency_anti_patterns:
+      - "Making decisions based solely on financial analysis without considering relationship impact. The most profitable decision is not always the best decision if it damages a strategically important relationship."
+      - "Delaying personnel decisions because of the personal difficulty. Keeping a low-performing employee because the conversation is uncomfortable harms the team, the clients, and ultimately the individual."
+    agency_example: "An agency must decide whether to take on a large project from a demanding client with a reputation for scope creep and late payment. Financial analysis says yes — the project would fill bench capacity and generate $200K in revenue. Relationship analysis says caution — the team that would be assigned has already expressed frustration with difficult clients, and assigning them to another one risks attrition. The agency decides to accept the project but with structural protections: a detailed SOW with explicit change-order processes, milestone-based billing, and a project manager experienced with demanding clients. The decision weighs both dimensions."
+    benchmark_references: ["utilization-rate", "employee-retention-rate", "scope-creep-rate"]

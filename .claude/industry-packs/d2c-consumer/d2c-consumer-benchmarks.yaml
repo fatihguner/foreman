@@ -1,0 +1,980 @@
+# D2C Consumer Industry Pack — Benchmarks
+#
+# 25 D2C-specific metrics with real benchmark data sourced from public studies.
+# The orchestrator surfaces these when applying quantitative skills, generating
+# output templates with financial metrics, or diagnosing acquisition, retention,
+# brand, and margin issues for direct-to-consumer brands.
+#
+# D2C is BRAND-FIRST. Every metric must be interpreted through the lens of brand
+# building, community strength, and emotional customer connection — not merely
+# as financial outputs. A healthy D2C business optimizes for brand equity and
+# customer love, which then produce healthy financial metrics. The reverse
+# (optimizing financial metrics without brand investment) is the CAC death spiral.
+#
+# Primary data sources:
+#   - Triple Whale DTC Benchmarks (2024, 2025)
+#   - Shopify Commerce Reports (2024, 2025)
+#   - Klaviyo Email & SMS Benchmarks (2024, 2025)
+#   - Meta Advertising Benchmarks (2024, 2025)
+#   - Pilothouse DTC Index (2024, 2025)
+#   - 2PM / Web Smith DTC Research (2024)
+#   - Daasity D2C Analytics Benchmarks (2024)
+#   - Recharge Subscription Commerce Report (2024)
+#   - Narvar Returns & Exchanges Report (2024)
+#   - Loop Returns Industry Data (2024)
+#   - Yotpo E-Commerce Benchmarks (2024)
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among funded or established D2C brands at the relevant stage.
+
+pack_metadata:
+  sector: "d2c-consumer"
+  display_name: "D2C Consumer"
+  version: "1.0.0"
+  description: "Benchmark data for direct-to-consumer brands spanning acquisition, retention, unit economics, marketing efficiency, brand health, and channel performance metrics."
+  applicable_stages:
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"
+  compatible_modes:
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # ACQUISITION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Customer Acquisition Cost (Blended)"
+    id: "cac-blended"
+    category: "unit-economics"
+    definition: "The fully loaded cost to acquire one new customer, averaged across all channels. Includes paid media, influencer fees, creative production, agency costs, and allocated team salaries."
+    formula: "Total Sales & Marketing Spend / Number of New Customers Acquired"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $80 (general consumer goods); > $120 (premium/luxury)"
+        signal: "Acquisition economics are unsustainable. The brand is overspending relative to first-order margin, creating a cash-flow trap that worsens with scale."
+      below_average:
+        value: "$50-$80 (general); $80-$120 (premium)"
+        signal: "Acquisition costs are elevated. Sustainable only if LTV is proportionally high and repeat purchase rate exceeds 30%."
+      average:
+        value: "$30-$50 (general); $50-$80 (premium)"
+        signal: "Inline with D2C industry medians. Viable economics if contribution margin on first order is positive or payback period is under 6 months."
+      good:
+        value: "$15-$30 (general); $30-$50 (premium)"
+        signal: "Efficient acquisition. Indicates strong brand awareness, organic demand, or well-optimized paid channels."
+      excellent:
+        value: "< $15 (general); < $30 (premium)"
+        signal: "Exceptional efficiency. Typically driven by strong organic/referral mix, viral product, or influencer-seeded brand awareness."
+    stage_notes:
+      seed: "CAC is volatile and often high. Focus on testing channels and learning which audiences convert, not on optimizing CAC below a specific threshold."
+      series_a: "Blended CAC should demonstrate a downward trend over 6+ months. Investors want to see that scale reduces CAC through brand equity, not just that spend increases."
+      series_b_plus: "Blended CAC should be stable or declining. Rising blended CAC at scale signals channel saturation and the need for brand investment to drive organic acquisition."
+    data_sources:
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+      - source: "Pilothouse DTC Index"
+        year: "2025"
+    related_metrics: ["cac-by-channel", "ltv-cac-ratio", "payback-period"]
+    related_skills: ["four-ps-marketing", "balanced-scorecard"]
+    caveats: "Blended CAC obscures channel-level economics. A low blended CAC driven by high organic volume can mask unsustainable paid channel CAC. Always decompose into channel-level CAC alongside blended."
+
+  - name: "CAC by Channel"
+    id: "cac-by-channel"
+    category: "unit-economics"
+    definition: "The cost to acquire a new customer attributed to each paid acquisition channel, enabling comparison of channel efficiency and investment allocation."
+    formula: "Channel-Specific Spend / New Customers Attributed to Channel"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "Meta > $70; Google > $60; TikTok > $50; Influencer > $100 per attributed customer"
+        signal: "Channel economics are negative on first order for most D2C brands. Either creative fatigue, audience saturation, or poor targeting is inflating costs."
+      below_average:
+        value: "Meta $45-$70; Google $40-$60; TikTok $30-$50; Influencer $60-$100"
+        signal: "Above median but potentially viable with strong repeat purchase rates. Creative refresh and audience testing are immediate priorities."
+      average:
+        value: "Meta $25-$45; Google $25-$40; TikTok $15-$30; Influencer $30-$60"
+        signal: "Inline with D2C norms post-iOS 14.5. Achievable with well-optimized campaigns and strong creative."
+      good:
+        value: "Meta $15-$25; Google $15-$25; TikTok $8-$15; Influencer $15-$30"
+        signal: "Strong channel efficiency. Product-market fit and creative resonance are working together."
+      excellent:
+        value: "Meta < $15; Google < $15; TikTok < $8; Influencer < $15"
+        signal: "Exceptional performance. Typically seen in viral products, strong brand affinity, or category-creating brands."
+    stage_notes:
+      seed: "Test 2-3 channels to find the best-performing one. Do not spread budget across all channels. Concentrate and learn."
+      series_a: "Demonstrate one primary channel at efficient CAC and one emerging channel being tested. Channel diversification is a Series A priority."
+      series_b_plus: "At least 3 paid channels at viable CAC, plus organic representing 30%+ of acquisition. Single-channel dependency is a red flag at scale."
+    data_sources:
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+      - source: "Meta Advertising Benchmarks"
+        year: "2025"
+      - source: "Pilothouse DTC Index"
+        year: "2025"
+    related_metrics: ["cac-blended", "roas-by-channel", "organic-traffic-pct"]
+    related_skills: ["four-ps-marketing", "scenario-planning"]
+    caveats: "Post-iOS 14.5, channel-level attribution is unreliable. Last-click attribution over-credits Google and under-credits Meta and TikTok. Use media mix modeling or incrementality testing for accurate channel CAC at scale."
+
+  - name: "ROAS by Channel (Return on Ad Spend)"
+    id: "roas-by-channel"
+    category: "efficiency"
+    definition: "Revenue generated per dollar spent on advertising within a specific channel, measuring the direct revenue efficiency of paid media investment."
+    formula: "Revenue Attributed to Channel / Ad Spend on Channel"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.5x"
+        signal: "Ad spend is not generating sufficient revenue to cover cost of goods and operations. The channel is cash-destructive."
+      below_average:
+        value: "1.5x-2.5x"
+        signal: "Marginal return. Viable only for brands with very high gross margins (>70%) and strong repeat purchase behavior."
+      average:
+        value: "2.5x-4.0x"
+        signal: "Inline with post-iOS D2C averages. Most D2C brands operate in this range on Meta and Google. TikTok ROAS trends lower but improving."
+      good:
+        value: "4.0x-6.0x"
+        signal: "Strong ad efficiency. Indicates resonant creative, well-targeted audiences, and a product that converts well from ad to purchase."
+      excellent:
+        value: "> 6.0x"
+        signal: "Exceptional. Often reflects strong brand awareness amplifying paid performance — customers who would have purchased organically clicking paid ads."
+    stage_notes:
+      seed: "ROAS below 2x is acceptable during testing. The goal is learning which creative, audience, and product combinations work, not immediate profitability."
+      series_a: "Demonstrate at least one channel above 3x ROAS with evidence of scalability (increasing spend without proportional ROAS decline)."
+      series_b_plus: "Blended ROAS should account for attribution gaps. Sophisticated brands use media mix modeling rather than platform-reported ROAS, which inflates by 20-40%."
+    data_sources:
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+      - source: "Pilothouse DTC Index"
+        year: "2025"
+    related_metrics: ["cac-by-channel", "contribution-margin", "organic-traffic-pct"]
+    related_skills: ["balanced-scorecard", "four-ps-marketing"]
+    caveats: "Platform-reported ROAS (Meta, Google) is consistently higher than true ROAS due to self-attribution. Triple Whale and other third-party analytics typically show ROAS 20-40% lower than platform dashboards. Always triangulate with blended CAC and contribution margin."
+
+  # ─────────────────────────────────────────────
+  # UNIT ECONOMICS
+  # ─────────────────────────────────────────────
+
+  - name: "Customer Lifetime Value (LTV)"
+    id: "ltv"
+    category: "unit-economics"
+    definition: "The total gross profit a customer generates over their entire relationship with the brand, reflecting the compounding value of retention and repeat purchasing."
+    formula: "Average Order Value x Gross Margin % x Purchase Frequency x Average Customer Lifespan (years)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $50 (general consumer); < $100 (premium)"
+        signal: "Customers are one-and-done buyers. The brand has no retention engine and is trapped on the acquisition treadmill."
+      below_average:
+        value: "$50-$120 (general); $100-$250 (premium)"
+        signal: "Low LTV relative to acquisition costs. The brand has repeat purchasers but not enough to build sustainable economics."
+      average:
+        value: "$120-$250 (general); $250-$500 (premium)"
+        signal: "Healthy LTV for D2C. Indicates meaningful repeat purchase behavior and sufficient gross margin to build a profitable customer base over time."
+      good:
+        value: "$250-$500 (general); $500-$1,000 (premium)"
+        signal: "Strong customer relationships. Repeat purchase rate and brand loyalty are working — the flywheel is spinning."
+      excellent:
+        value: "> $500 (general); > $1,000 (premium)"
+        signal: "Exceptional customer love. Typically seen in subscription models, consumable replenishment, or brands with cult-like followings."
+    stage_notes:
+      seed: "LTV is estimated, not proven. Use 12-month LTV based on early cohort data rather than projecting lifetime. Investors discount LTV projections beyond observed data."
+      series_a: "12-month LTV should be well-characterized with 2+ cohorts of data. 24-month LTV extrapolation is acceptable with strong retention curve evidence."
+      series_b_plus: "Full LTV modeling with cohort-based analysis, seasonal adjustment, and contribution margin (not revenue) basis. LTV should be increasing over time as brand strengthens."
+    data_sources:
+      - source: "Daasity D2C Analytics Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+    related_metrics: ["ltv-cac-ratio", "repeat-purchase-rate", "purchase-frequency", "aov"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "LTV must be gross-profit-adjusted, not revenue-based. A customer with $500 in revenue but 30% gross margin has $150 LTV, not $500. Revenue-based LTV is a vanity metric that misleads capital allocation decisions."
+
+  - name: "LTV:CAC Ratio"
+    id: "ltv-cac-ratio"
+    category: "unit-economics"
+    definition: "The ratio of customer lifetime value to customer acquisition cost, measuring the return on each dollar invested in acquiring a customer."
+    formula: "LTV (gross-profit-adjusted) / CAC (blended)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.5x"
+        signal: "The business destroys value with every customer acquired. Growth accelerates losses. Immediate intervention required on either LTV (retention, AOV, margin) or CAC (channel efficiency, brand investment)."
+      below_average:
+        value: "1.5x-2.5x"
+        signal: "Marginal economics. The business is not generating sufficient return on acquisition spend to fund growth and operations. Profitable only with very low overhead."
+      average:
+        value: "2.5x-3.5x"
+        signal: "Acceptable D2C economics. The business can operate profitably at current scale but has limited excess margin to fund aggressive growth."
+      good:
+        value: "3.5x-5.0x"
+        signal: "Strong unit economics. Sufficient margin to fund growth investment, team expansion, and brand building simultaneously."
+      excellent:
+        value: "> 5.0x"
+        signal: "Exceptional economics. Either the brand is under-investing in growth (spending too little on acquisition) or has built a genuinely powerful brand moat that drives organic acquisition."
+    stage_notes:
+      seed: "LTV:CAC above 2x on early cohorts is a positive signal. Below 1.5x means the business model needs fundamental restructuring before scaling."
+      series_a: "3x+ is the standard fundraising threshold. Investors want to see this ratio improving over time as brand equity reduces CAC and retention efforts increase LTV."
+      series_b_plus: "If LTV:CAC exceeds 5x at scale, investors will ask why the company is not spending more on acquisition. Extremely high ratios at scale suggest under-investment in growth."
+    data_sources:
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+      - source: "2PM / Web Smith DTC Research"
+        year: "2024"
+    related_metrics: ["ltv", "cac-blended", "payback-period"]
+    related_skills: ["business-model-canvas", "balanced-scorecard", "scenario-planning"]
+    caveats: "LTV:CAC is only meaningful if LTV is calculated on a gross-profit basis and CAC is fully loaded. A 5x ratio using revenue-based LTV and media-spend-only CAC is misleading — the true ratio may be under 2x."
+
+  - name: "Payback Period"
+    id: "payback-period"
+    category: "unit-economics"
+    definition: "The number of months required to recoup the customer acquisition cost through gross profit from that customer's purchases."
+    formula: "CAC / (Monthly Revenue per Customer x Gross Margin %)"
+    unit: "months"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 12 months"
+        signal: "Capital-intensive acquisition model. The business needs significant working capital to fund growth, and any increase in churn or CAC rapidly depletes cash reserves."
+      below_average:
+        value: "6-12 months"
+        signal: "Moderate payback. Sustainable for subscription models with strong retention but dangerous for one-time purchase brands where repeat behavior is uncertain."
+      average:
+        value: "3-6 months"
+        signal: "Healthy D2C payback. The business recovers acquisition costs within two purchase cycles for most categories."
+      good:
+        value: "1-3 months"
+        signal: "Strong payback. First or second order covers acquisition cost. The business generates free cash flow from acquisition quickly."
+      excellent:
+        value: "< 1 month (first-order profitable)"
+        signal: "First-order profitability. Every new customer generates immediate positive cash flow. Rare in D2C — typically seen in high-AOV products with strong gross margins."
+    stage_notes:
+      seed: "First-order profitability is ideal but not required. Payback under 6 months is viable at seed if retention data supports it."
+      series_a: "Payback period under 6 months is the standard investor expectation. Demonstrate that payback is improving (shortening) over time."
+      series_b_plus: "Payback should be stable or decreasing. Increasing payback at scale signals channel saturation and rising acquisition costs."
+    data_sources:
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+      - source: "Daasity D2C Analytics Benchmarks"
+        year: "2024"
+    related_metrics: ["cac-blended", "ltv", "gross-margin", "contribution-margin"]
+    related_skills: ["scenario-planning", "balanced-scorecard"]
+    caveats: "For non-subscription D2C brands, payback period depends heavily on repeat purchase assumptions. If only 25% of customers make a second purchase, the payback period for the average customer is much longer than the formula suggests for the repeat buyer."
+
+  - name: "Gross Margin"
+    id: "gross-margin"
+    category: "financial"
+    definition: "Revenue minus cost of goods sold as a percentage of revenue. In D2C, COGS includes raw materials, manufacturing, packaging, and inbound freight — but excludes fulfillment, shipping, and marketing."
+    formula: "(Revenue - COGS) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 40%"
+        signal: "Insufficient margin to fund acquisition, operations, and growth. The brand is likely competing on price in a commodity category."
+      below_average:
+        value: "40-55%"
+        signal: "Below D2C norms. Contribution margin after fulfillment, shipping, and returns will be thin, leaving minimal room for marketing investment."
+      average:
+        value: "55-65%"
+        signal: "Inline with D2C medians across most categories. Sufficient margin structure to support both paid acquisition and brand building."
+      good:
+        value: "65-75%"
+        signal: "Strong margins reflecting brand premium, efficient manufacturing, or high-value product categories (beauty, supplements, specialty food)."
+      excellent:
+        value: "> 75%"
+        signal: "Exceptional margins. Typically seen in digital-physical hybrids (low COGS products like supplements, digital courses bundled with physical goods) or genuinely premium brands."
+    stage_notes:
+      seed: "Margins are typically lower at low volume due to small-batch manufacturing and unoptimized supply chain. 50%+ is acceptable if the path to 60%+ at scale is clear."
+      series_a: "Gross margin should be 60%+ or on a clear trajectory. Investors model the business forward at scale margins, not current small-batch costs."
+      series_b_plus: "Margins should be stable or improving through manufacturing scale, supplier negotiation, and packaging optimization."
+    data_sources:
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+      - source: "2PM / Web Smith DTC Research"
+        year: "2024"
+    related_metrics: ["contribution-margin", "aov", "return-rate"]
+    related_skills: ["business-model-canvas", "porters-five-forces"]
+    caveats: "D2C gross margin definitions vary. Some brands include fulfillment in COGS (creating a lower reported margin); others exclude it. For benchmarking, standardize: COGS = product cost + packaging + inbound freight only. Fulfillment and shipping are below-the-line costs in contribution margin."
+
+  - name: "Contribution Margin"
+    id: "contribution-margin"
+    category: "financial"
+    definition: "The profit remaining after deducting all variable costs from revenue — COGS, fulfillment, shipping, returns processing, payment processing, and variable marketing costs. The true measure of per-order profitability."
+    formula: "(Revenue - COGS - Fulfillment Cost - Shipping Cost - Returns Cost - Payment Processing) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10%"
+        signal: "Per-order economics are barely viable or negative. The brand is subsidizing each order to acquire volume, which is unsustainable without external capital."
+      below_average:
+        value: "10-20%"
+        signal: "Thin margins after variable costs. Leaves minimal room for fixed overhead (team, rent, software) and no margin for error on any variable cost line."
+      average:
+        value: "20-30%"
+        signal: "Inline with D2C medians. Sufficient contribution margin to cover fixed costs and generate modest profit at scale."
+      good:
+        value: "30-40%"
+        signal: "Strong contribution margin. The brand has pricing power, efficient operations, or both. Sufficient margin to fund aggressive growth."
+      excellent:
+        value: "> 40%"
+        signal: "Exceptional. The brand commands a genuine premium, operates efficiently, and has low return rates. Typically seen in subscription models or high-AOV categories."
+    stage_notes:
+      seed: "Contribution margin below 15% demands immediate attention to product cost, pricing, or shipping strategy before scaling spend."
+      series_a: "Positive contribution margin (>15%) is a gating criterion for most D2C investors. Negative contribution margin at Series A is a red flag."
+      series_b_plus: "Contribution margin should be 25%+ and improving. This is the metric that proves the business can be profitable at scale."
+    data_sources:
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+    related_metrics: ["gross-margin", "aov", "return-rate", "shipping-cost-pct"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Contribution margin must include all variable costs, including returns. A brand reporting 30% contribution margin while excluding 15% return rates is overstating by 3-5 percentage points."
+
+  - name: "Average Order Value (AOV)"
+    id: "aov"
+    category: "unit-economics"
+    definition: "The average dollar amount spent per transaction, reflecting pricing strategy, product mix, bundling effectiveness, and upsell/cross-sell performance."
+    formula: "Total Revenue / Number of Orders"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $35"
+        signal: "Low AOV compresses contribution margin. Fulfillment and shipping costs consume a disproportionate share. Free shipping thresholds are difficult to set profitably."
+      below_average:
+        value: "$35-$55"
+        signal: "Below the threshold where per-order economics reliably work. Cross-sell, bundling, and minimum-order strategies are priorities."
+      average:
+        value: "$55-$85"
+        signal: "Inline with D2C medians. Per-order economics are viable with standard fulfillment costs."
+      good:
+        value: "$85-$140"
+        signal: "Healthy AOV supporting strong contribution margins and comfortable free-shipping thresholds."
+      excellent:
+        value: "> $140"
+        signal: "Premium AOV. Indicates brand strength, effective bundling, or high-value product categories. Comfortable per-order economics."
+    stage_notes:
+      seed: "AOV is primarily a function of product pricing and assortment. Focus on whether AOV covers COGS + fulfillment + shipping with margin remaining."
+      series_a: "AOV should be stable or increasing through bundling, upsells, and product line extension. Declining AOV signals discounting dependency."
+      series_b_plus: "AOV optimization (dynamic bundling, personalized upsells, subscription conversion) becomes a dedicated growth lever."
+    data_sources:
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+      - source: "Klaviyo E-Commerce Benchmarks"
+        year: "2024"
+    related_metrics: ["contribution-margin", "ltv", "gross-margin"]
+    related_skills: ["four-ps-marketing", "cialdini-influence"]
+    caveats: "AOV varies dramatically by category: beauty/skincare $55-$75, supplements $60-$80, apparel $80-$120, home goods $90-$150, furniture $200+. Compare within category, not across."
+
+  # ─────────────────────────────────────────────
+  # RETENTION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Repeat Purchase Rate"
+    id: "repeat-purchase-rate"
+    category: "retention"
+    definition: "The percentage of customers who make at least one additional purchase after their first order. The fundamental measure of brand loyalty and product-market fit in D2C."
+    formula: "(Customers with 2+ Orders / Total Customers) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 15%"
+        signal: "The brand is a one-purchase experience. Without repeat buying, LTV is constrained to first-order economics, making profitable acquisition nearly impossible."
+      below_average:
+        value: "15-25%"
+        signal: "Below median. The product satisfies but does not compel repurchase. Investigate post-purchase experience, product quality, and whether the category naturally supports repeat buying."
+      average:
+        value: "25-35%"
+        signal: "Inline with D2C averages. A meaningful portion of customers return. Focus on increasing frequency among repeat buyers."
+      good:
+        value: "35-50%"
+        signal: "Strong loyalty. The brand has achieved emotional connection beyond the product itself. Community, brand identity, and product quality are working together."
+      excellent:
+        value: "> 50%"
+        signal: "Exceptional retention. Typically seen in consumable categories (supplements, beauty, food) or brands with cult-like community. The business model is fundamentally healthy."
+    stage_notes:
+      seed: "Even 20% repeat purchase rate in the first 6 months is a strong PMF signal. The rate improves as the brand strengthens and product assortment expands."
+      series_a: "30%+ is the investor benchmark for D2C brands. Below 25% raises questions about LTV sustainability and acquisition dependency."
+      series_b_plus: "Repeat rate should be stable or growing. A declining repeat rate at scale signals brand dilution through over-discounting or quality inconsistency."
+    data_sources:
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+      - source: "Daasity D2C Analytics Benchmarks"
+        year: "2024"
+    related_metrics: ["purchase-frequency", "ltv", "nps"]
+    related_skills: ["net-promoter-score", "cialdini-influence"]
+    caveats: "Repeat purchase rate varies by category: consumables (beauty, food, supplements) average 35-50%; apparel 25-35%; hard goods (furniture, electronics) 10-20%. Assess within category norms."
+
+  - name: "Purchase Frequency"
+    id: "purchase-frequency"
+    category: "retention"
+    definition: "The average number of purchases a customer makes within a defined time period (typically 12 months), reflecting how often customers return to buy."
+    formula: "Total Orders / Total Unique Customers (within time period)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.3 purchases per year"
+        signal: "Nearly all customers are one-time buyers. The brand does not drive habitual purchasing."
+      below_average:
+        value: "1.3-1.6 per year"
+        signal: "Minimal repeat behavior. Some customers return but the brand has not established a purchasing cadence."
+      average:
+        value: "1.6-2.2 per year"
+        signal: "Moderate frequency. Inline with D2C averages across most non-consumable categories."
+      good:
+        value: "2.2-3.5 per year"
+        signal: "Strong frequency indicating product-market fit and effective retention marketing. Customers are building a habit."
+      excellent:
+        value: "> 3.5 per year"
+        signal: "Exceptional frequency. Typically seen in consumable categories, subscription models, or brands with broad product lines that enable frequent discovery."
+    stage_notes:
+      seed: "Frequency data is limited. Focus on time-between-orders for early repeat buyers as a leading indicator."
+      series_a: "Demonstrate increasing frequency across cohorts — newer cohorts buying more often than older cohorts indicates improving product and experience."
+      series_b_plus: "Frequency optimization through personalized recommendations, new product introductions, and subscription conversion becomes a primary growth lever."
+    data_sources:
+      - source: "Daasity D2C Analytics Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+    related_metrics: ["repeat-purchase-rate", "ltv", "aov"]
+    related_skills: ["balanced-scorecard", "net-promoter-score"]
+    caveats: "Frequency is category-dependent. A skincare brand should aim for 4-6x/year (replenishment cycle). A furniture brand at 1.5x/year may be excellent. Benchmark against natural repurchase cycles."
+
+  - name: "Subscription Conversion Rate"
+    id: "subscription-conversion-rate"
+    category: "retention"
+    definition: "The percentage of one-time purchasers who convert to a subscription model, indicating the brand's ability to create committed, recurring customer relationships."
+    formula: "(Customers Converting to Subscription / Total One-Time Purchasers) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5%"
+        signal: "The subscription offer is not compelling. Either the value proposition is unclear, the discount insufficient, or the product does not naturally support subscription."
+      below_average:
+        value: "5-10%"
+        signal: "Below median. The subscription exists but has not been optimized. Likely a pricing, positioning, or funnel problem rather than a product problem."
+      average:
+        value: "10-18%"
+        signal: "Inline with D2C subscription averages. The offer resonates with a meaningful portion of customers."
+      good:
+        value: "18-30%"
+        signal: "Strong conversion. The subscription provides clear value (convenience, savings, exclusive access) that customers recognize."
+      excellent:
+        value: "> 30%"
+        signal: "Exceptional. The subscription is the default purchasing mode, indicating that the product and cadence alignment is excellent."
+    stage_notes:
+      seed: "Subscription can be introduced from launch for consumable products. For non-consumables, membership or VIP programs serve a similar function."
+      series_a: "Subscription revenue as a percentage of total should be growing. Investors love subscription because of revenue predictability."
+      series_b_plus: "Subscription should represent 30-50%+ of revenue for consumable brands. Focus shifts to reducing subscription churn, not just driving conversion."
+    data_sources:
+      - source: "Recharge Subscription Commerce Report"
+        year: "2024"
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+    related_metrics: ["subscription-churn-rate", "ltv", "repeat-purchase-rate"]
+    related_skills: ["business-model-canvas", "cialdini-influence"]
+    caveats: "Applicable primarily to consumable or replenishable products. For non-consumable D2C brands, loyalty/membership programs are the analogous metric. Do not force subscription on products with irregular repurchase cycles."
+
+  - name: "Subscription Churn Rate"
+    id: "subscription-churn-rate"
+    category: "retention"
+    definition: "The percentage of active subscribers who cancel their subscription within a given month, measuring the sustainability of the recurring revenue base."
+    formula: "(Subscribers Who Cancelled in Month / Active Subscribers at Start of Month) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 12% monthly"
+        signal: "Unsustainable churn. The average subscriber stays fewer than 9 months. The subscription model is destroying value — acquisition costs are not recovered before cancellation."
+      below_average:
+        value: "8-12% monthly"
+        signal: "High churn eroding unit economics. Subscribers are staying 8-12 months on average. Aggressive retention interventions needed."
+      average:
+        value: "5-8% monthly"
+        signal: "Inline with D2C subscription averages. Average subscriber lifetime of 12-20 months. Healthy but with room for improvement."
+      good:
+        value: "3-5% monthly"
+        signal: "Strong retention. Subscribers are staying 20-33 months on average. The product and cadence are well-matched."
+      excellent:
+        value: "< 3% monthly"
+        signal: "Exceptional. Average subscriber lifetime exceeds 33 months. The subscription is deeply embedded in the customer's routine."
+    stage_notes:
+      seed: "Churn data is noisy with small cohorts. Track churn by month-of-tenure — the first 3 months are always highest."
+      series_a: "Demonstrate that churn decreases with subscriber tenure — a flattening churn curve is the strongest retention signal."
+      series_b_plus: "Churn segmentation by product, plan type, and acquisition channel reveals where to invest in retention."
+    data_sources:
+      - source: "Recharge Subscription Commerce Report"
+        year: "2024"
+      - source: "Daasity D2C Analytics Benchmarks"
+        year: "2024"
+    related_metrics: ["subscription-conversion-rate", "ltv", "repeat-purchase-rate"]
+    related_skills: ["net-promoter-score", "systems-thinking"]
+    caveats: "Subscription fatigue is real. Post-2021, consumer willingness to maintain multiple subscriptions has declined. Benchmark against recent data, not 2020 pandemic-era subscription growth numbers."
+
+  # ─────────────────────────────────────────────
+  # MARKETING EFFICIENCY METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Email Revenue as Percentage of Total"
+    id: "email-revenue-pct"
+    category: "efficiency"
+    definition: "The percentage of total revenue attributable to email marketing, indicating the brand's ability to drive revenue through an owned, zero-marginal-cost channel."
+    formula: "(Revenue from Email Campaigns + Email Flows) / Total Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 15%"
+        signal: "The brand is under-leveraging its most profitable channel. Email list is likely under-built, under-segmented, or under-messaged."
+      below_average:
+        value: "15-22%"
+        signal: "Below median for D2C. Basic flows exist but campaign frequency, segmentation, and content quality are limiting revenue."
+      average:
+        value: "22-30%"
+        signal: "Inline with Klaviyo D2C averages. Core flows (welcome, abandoned cart, post-purchase, browse abandonment, win-back) are active and optimized."
+      good:
+        value: "30-40%"
+        signal: "Strong email performance. Both flows and campaigns are sophisticated, segmented, and driving meaningful revenue without list fatigue."
+      excellent:
+        value: "> 40%"
+        signal: "Exceptional. Email is a primary revenue driver. The brand has a deeply engaged list with strong open rates, click rates, and conversion rates."
+    stage_notes:
+      seed: "Email revenue below 10% is common early. Build the list and set up core flows (welcome, cart abandonment, post-purchase) before investing in campaigns."
+      series_a: "25%+ is expected. Investors want to see that the brand owns its customer relationship, not just rents it through paid ads."
+      series_b_plus: "Email revenue should be 30-40% and growing as a percentage of total. This represents the brand's most capital-efficient revenue source."
+    data_sources:
+      - source: "Klaviyo Email & SMS Benchmarks"
+        year: "2024"
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+    related_metrics: ["sms-revenue-pct", "organic-traffic-pct", "cac-blended"]
+    related_skills: ["four-ps-marketing", "writing-effective-emails"]
+    caveats: "Email attribution is imperfect. Klaviyo's default attribution window (5-day click, 24-hour open) may over-count email revenue. Use a conservative attribution model (click-only) for accuracy."
+
+  - name: "SMS Revenue as Percentage of Total"
+    id: "sms-revenue-pct"
+    category: "efficiency"
+    definition: "The percentage of total revenue attributable to SMS marketing, measuring the brand's effectiveness with the highest-engagement owned channel."
+    formula: "(Revenue from SMS Campaigns + SMS Flows) / Total Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 2%"
+        signal: "SMS is either not implemented or severely under-leveraged. The brand is missing the highest-open-rate marketing channel."
+      below_average:
+        value: "2-5%"
+        signal: "SMS is active but limited. Likely only basic flows (cart abandonment) with minimal campaign activity."
+      average:
+        value: "5-10%"
+        signal: "Inline with D2C averages. SMS is an active channel with flows and campaigns contributing meaningfully."
+      good:
+        value: "10-15%"
+        signal: "Strong SMS program. Sophisticated segmentation, well-timed campaigns, and high subscriber opt-in rate."
+      excellent:
+        value: "> 15%"
+        signal: "Exceptional. SMS is a core revenue driver. Typically seen in brands with strong mobile-first audiences and high-engagement product categories."
+    stage_notes:
+      seed: "SMS can be introduced from day one alongside email. Even a basic cart abandonment SMS flow adds 2-3% revenue."
+      series_a: "5%+ SMS revenue contribution expected. Demonstrate growing SMS subscriber list alongside email list."
+      series_b_plus: "SMS becomes a sophisticated channel with personalization, segmentation, and A/B testing on par with email."
+    data_sources:
+      - source: "Klaviyo Email & SMS Benchmarks"
+        year: "2024"
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+    related_metrics: ["email-revenue-pct", "organic-traffic-pct"]
+    related_skills: ["cialdini-influence", "writing-for-response"]
+    caveats: "SMS costs are materially higher than email ($0.01-$0.03 per message). Revenue per message must be evaluated net of costs. Over-messaging drives rapid unsubscription — frequency tolerance is lower than email."
+
+  - name: "Organic Traffic Percentage"
+    id: "organic-traffic-pct"
+    category: "efficiency"
+    definition: "The percentage of total website traffic arriving through organic channels — direct, organic search, organic social, and referral — without paid acquisition spend."
+    formula: "(Direct + Organic Search + Organic Social + Referral Traffic) / Total Traffic x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20%"
+        signal: "The brand is almost entirely dependent on paid channels. Any disruption to ad platforms (cost increase, policy change, account suspension) threatens revenue immediately."
+      below_average:
+        value: "20-35%"
+        signal: "Heavy paid dependency. The brand has some organic demand but not enough to sustain operations without continuous ad spend."
+      average:
+        value: "35-50%"
+        signal: "Balanced mix. Organic traffic provides a meaningful base that paid acquisition amplifies."
+      good:
+        value: "50-65%"
+        signal: "Strong organic base indicating genuine brand awareness, search authority, and word-of-mouth. Paid acquisition is a growth accelerant, not a survival requirement."
+      excellent:
+        value: "> 65%"
+        signal: "The brand is a destination. Customers seek it out. Paid acquisition adds marginal volume to an organic-first business. This is the holy grail of D2C."
+    stage_notes:
+      seed: "Organic traffic is typically low (15-25%). Building organic takes time. Focus on seeding brand awareness through earned media, influencer relationships, and content."
+      series_a: "35%+ organic is a strong signal of brand-market fit. Investors see high organic as evidence that the brand has cultural resonance beyond its ad spend."
+      series_b_plus: "Organic should be 50%+ at scale. If organic is declining as a percentage while revenue grows, the brand is becoming more paid-dependent — a dangerous trend."
+    data_sources:
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+    related_metrics: ["cac-blended", "email-revenue-pct", "community-growth-rate"]
+    related_skills: ["blue-ocean-strategy", "tipping-point"]
+    caveats: "Direct traffic is often miscategorized. Customers who see a Meta ad, remember the brand, and later type the URL directly are attributed to 'direct' but were actually paid-influenced. Post-purchase surveys ('How did you hear about us?') help calibrate."
+
+  - name: "Social Media Engagement Rate"
+    id: "social-engagement-rate"
+    category: "brand"
+    definition: "The percentage of social media followers or impressions that result in meaningful interactions (likes, comments, shares, saves), measuring content resonance and community vitality."
+    formula: "(Total Engagements / Total Followers or Impressions) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.0% (Instagram); < 0.5% (TikTok, Facebook)"
+        signal: "Content is not resonating. Either the audience is disengaged, the content lacks relevance, or the account has accumulated low-quality followers."
+      below_average:
+        value: "1.0-2.0% (Instagram); 0.5-2.0% (TikTok)"
+        signal: "Below median. Content strategy needs recalibration toward formats and topics that drive interaction."
+      average:
+        value: "2.0-3.5% (Instagram); 2.0-5.0% (TikTok)"
+        signal: "Inline with D2C brand averages. Content resonates with the core audience."
+      good:
+        value: "3.5-6.0% (Instagram); 5.0-10.0% (TikTok)"
+        signal: "Strong engagement indicating genuine community interest. Content drives conversation, not just views."
+      excellent:
+        value: "> 6.0% (Instagram); > 10.0% (TikTok)"
+        signal: "Exceptional community engagement. The brand creates cultural conversation. This level of engagement correlates with high organic traffic and low CAC."
+    stage_notes:
+      seed: "Engagement rate matters more than follower count. 1,000 followers at 8% engagement is worth more than 50,000 followers at 0.5%."
+      series_a: "Engagement rate and follower growth together signal brand health. Investors increasingly view social engagement as a leading indicator of future organic revenue."
+      series_b_plus: "Engagement rate naturally declines as audience grows. Maintaining 3%+ engagement at 100K+ followers is strong."
+    data_sources:
+      - source: "Yotpo E-Commerce Benchmarks"
+        year: "2024"
+      - source: "Pilothouse DTC Index"
+        year: "2025"
+    related_metrics: ["organic-traffic-pct", "community-growth-rate", "ugc-volume"]
+    related_skills: ["tipping-point", "cialdini-influence"]
+    caveats: "Engagement rate calculated on followers versus impressions yields very different numbers. Standardize the denominator across time periods. Platform algorithm changes also affect engagement rates independent of content quality."
+
+  # ─────────────────────────────────────────────
+  # BRAND HEALTH METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Net Promoter Score (NPS)"
+    id: "nps"
+    category: "brand"
+    definition: "The percentage of customers who are Promoters (9-10 rating) minus the percentage who are Detractors (0-6 rating), measuring brand advocacy and likelihood of word-of-mouth recommendation."
+    formula: "% Promoters - % Detractors"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20"
+        signal: "More detractors than promoters relative to the D2C norm. The brand is not creating advocacy. Investigate product quality, shipping experience, and post-purchase communication."
+      below_average:
+        value: "20-35"
+        signal: "Below D2C median. Customers are satisfied but not enthusiastic. The brand delivers function but not delight."
+      average:
+        value: "35-50"
+        signal: "Inline with D2C averages. A healthy base of promoters. Focus on converting passives to promoters through experience improvements."
+      good:
+        value: "50-70"
+        signal: "Strong advocacy. Promoters significantly outnumber detractors. Word-of-mouth is a meaningful acquisition channel."
+      excellent:
+        value: "> 70"
+        signal: "Exceptional brand love. Customers are active evangelists. NPS at this level correlates with organic growth above 50% of total acquisition."
+    stage_notes:
+      seed: "Survey every customer. Small sample sizes are fine — qualitative feedback from the open-ended question matters more than the score."
+      series_a: "NPS of 50+ is a powerful fundraising signal. It indicates that the product and brand have achieved emotional connection."
+      series_b_plus: "Segment NPS by cohort, product, and channel. Aggregate NPS can mask degradation in specific segments."
+    data_sources:
+      - source: "Yotpo E-Commerce Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+    related_metrics: ["csat", "repeat-purchase-rate", "organic-traffic-pct"]
+    related_skills: ["net-promoter-score", "cialdini-influence"]
+    caveats: "NPS in D2C reflects the total brand experience — product, packaging, delivery, customer service — not just the product. Survey post-delivery (7-14 days after receipt), not post-purchase."
+
+  - name: "Customer Satisfaction Score (CSAT)"
+    id: "csat"
+    category: "brand"
+    definition: "The percentage of customers who rate their experience as 'Satisfied' or 'Very Satisfied' (4-5 on a 5-point scale), measuring transactional satisfaction with specific interactions."
+    formula: "(Responses of 4 or 5 / Total Responses) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 70%"
+        signal: "Significant dissatisfaction. Multiple touchpoints in the customer experience are failing — product quality, shipping, customer service, or all three."
+      below_average:
+        value: "70-78%"
+        signal: "Below D2C norms. Specific experience failures are dragging the score. Investigate by touchpoint to find the weak link."
+      average:
+        value: "78-85%"
+        signal: "Inline with averages. Most customers are satisfied, but a meaningful percentage are not. Marginal improvements drive retention."
+      good:
+        value: "85-92%"
+        signal: "Strong satisfaction across the experience. The brand delivers on its promises consistently."
+      excellent:
+        value: "> 92%"
+        signal: "Exceptional satisfaction. Nearly every customer interaction meets or exceeds expectations. Operational excellence is embedded."
+    stage_notes:
+      seed: "CSAT is an immediate, actionable metric. Every customer interaction should be measured. Fix the lowest-scoring touchpoint first."
+      series_a: "85%+ CSAT demonstrates operational reliability. Investors view high CSAT as evidence of scalability — the brand can grow without degrading experience."
+      series_b_plus: "CSAT should be measured and compared across channels (DTC site, Amazon, wholesale) and touchpoints (purchase, delivery, returns, support)."
+    data_sources:
+      - source: "Yotpo E-Commerce Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+    related_metrics: ["nps", "return-rate", "repeat-purchase-rate"]
+    related_skills: ["net-promoter-score", "kaizen-bpr"]
+    caveats: "CSAT measures satisfaction at a moment in time, not long-term loyalty. A customer can be satisfied with a return experience and still never buy again. Use alongside NPS for a complete picture."
+
+  - name: "Influencer ROI"
+    id: "influencer-roi"
+    category: "efficiency"
+    definition: "The return on investment from influencer marketing, measured as revenue generated per dollar spent on influencer partnerships including fees, product gifting costs, and management overhead."
+    formula: "Revenue Attributed to Influencer / Total Influencer Spend (fees + gifted product cost + management)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.5x"
+        signal: "Influencer spend is not generating sufficient return. Likely caused by mismatched audiences, inauthentic partnerships, or paying for reach without conversion."
+      below_average:
+        value: "1.5x-3.0x"
+        signal: "Marginal return. Influencer is driving awareness but not converting to purchases efficiently. Attribution may be the bottleneck."
+      average:
+        value: "3.0x-5.0x"
+        signal: "Inline with D2C influencer marketing averages. Revenue covers spend with healthy margin."
+      good:
+        value: "5.0x-10.0x"
+        signal: "Strong influencer economics. Well-matched partnerships with authentic advocacy driving real purchases."
+      excellent:
+        value: "> 10.0x"
+        signal: "Exceptional. Typically driven by micro-influencer programs, affiliate structures with performance incentives, or organic creator advocacy without fees."
+    stage_notes:
+      seed: "Influencer ROI is highly variable. Micro-influencers (5K-50K followers) typically deliver better ROI than macro-influencers at early stage."
+      series_a: "Demonstrate a repeatable influencer playbook with consistent ROI, not just one-off viral hits."
+      series_b_plus: "Build an always-on influencer program with tiered partnerships (gifting, paid, ambassador). Track brand lift alongside direct ROI."
+    data_sources:
+      - source: "Pilothouse DTC Index"
+        year: "2025"
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+    related_metrics: ["cac-by-channel", "organic-traffic-pct", "ugc-volume"]
+    related_skills: ["cialdini-influence", "tipping-point"]
+    caveats: "Influencer attribution is the weakest of all D2C marketing channels. Unique codes and links capture direct response but miss the halo effect on organic and paid performance. Consider incrementality testing to measure true impact."
+
+  - name: "Community Size and Growth Rate"
+    id: "community-growth-rate"
+    category: "brand"
+    definition: "The total addressable community (email list, SMS list, social followers, loyalty program members, community platform members) and its monthly growth rate, measuring the brand's owned audience scale."
+    formula: "Growth Rate: (Community Size End of Month - Community Size Start of Month) / Community Size Start of Month x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 3% monthly growth; community size < 2x customer count"
+        signal: "Community is not growing organically. The brand is not converting interest into relationship. List building and social strategy need reinvention."
+      below_average:
+        value: "3-5% monthly growth"
+        signal: "Moderate growth. Community is expanding but not at a rate that will meaningfully change acquisition economics."
+      average:
+        value: "5-10% monthly growth"
+        signal: "Healthy community expansion. New members are arriving through both paid and organic channels."
+      good:
+        value: "10-20% monthly growth"
+        signal: "Strong growth. The brand is attracting a community beyond its current customer base — future buyers are opting in before purchasing."
+      excellent:
+        value: "> 20% monthly growth"
+        signal: "Exceptional. Community growth is outpacing customer acquisition, building a large pipeline of warm prospects and brand advocates."
+    stage_notes:
+      seed: "Build the community before launching products if possible. An email list of 5,000+ at launch provides a meaningful base for initial revenue."
+      series_a: "Community size should be 3-5x customer count. The gap represents future customers and brand advocates who amplify organic reach."
+      series_b_plus: "Community engagement rate matters more than size at scale. A 100K list with 40% open rates is worth more than a 500K list with 12% open rates."
+    data_sources:
+      - source: "Klaviyo Email & SMS Benchmarks"
+        year: "2024"
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+    related_metrics: ["organic-traffic-pct", "email-revenue-pct", "social-engagement-rate"]
+    related_skills: ["tipping-point", "cialdini-influence"]
+    caveats: "Community size includes both active and dormant members. Segment by engagement level. A list of 50,000 where 40,000 have not opened an email in 90 days is a 10,000-person list with noise."
+
+  - name: "User-Generated Content Volume"
+    id: "ugc-volume"
+    category: "brand"
+    definition: "The volume of customer-created content (photos, videos, reviews, social posts, testimonials) produced organically or through structured programs, measuring brand advocacy and social proof generation."
+    formula: "Count of unique UGC pieces created per month (reviews + social posts + photos + videos)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 50 pieces/month at 10K+ customer base"
+        signal: "Customers are not motivated to share. The product or experience does not create share-worthy moments."
+      below_average:
+        value: "50-150 pieces/month"
+        signal: "Some organic content creation but insufficient for use in paid creative, product pages, and social proof at scale."
+      average:
+        value: "150-500 pieces/month"
+        signal: "Healthy UGC flow. Sufficient for rotating social proof on product pages and feeding paid creative with authentic assets."
+      good:
+        value: "500-2,000 pieces/month"
+        signal: "Strong UGC program. The brand creates share-worthy experiences (packaging, product, community) and has structured systems to collect and amplify content."
+      excellent:
+        value: "> 2,000 pieces/month"
+        signal: "Exceptional content engine. The community creates more content than the brand's internal team. UGC is a primary source of paid creative and social proof."
+    stage_notes:
+      seed: "Every early customer is a potential content creator. Send personalized requests for reviews and photos. Gifting programs seed UGC before organic volume builds."
+      series_a: "UGC should be integrated into the marketing funnel: product pages (reviews/photos), paid ads (creator content), and social media (reposts). Volume should scale with customer base."
+      series_b_plus: "Build a structured UGC program with tiers: organic (unboxing moments), incentivized (loyalty program rewards), and paid (creator partnerships)."
+    data_sources:
+      - source: "Yotpo E-Commerce Benchmarks"
+        year: "2024"
+      - source: "Pilothouse DTC Index"
+        year: "2025"
+    related_metrics: ["social-engagement-rate", "community-growth-rate", "influencer-roi"]
+    related_skills: ["cialdini-influence", "tipping-point"]
+    caveats: "Quality matters more than quantity. One authentic video review from a real customer outperforms 100 incentivized star ratings. Track UGC impact on conversion rate and paid creative performance."
+
+  # ─────────────────────────────────────────────
+  # OPERATIONAL METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Return Rate"
+    id: "return-rate"
+    category: "efficiency"
+    definition: "The percentage of orders returned by customers, representing a direct cost to contribution margin and a signal of product-expectation alignment."
+    formula: "(Number of Returned Orders / Total Orders Shipped) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 30% (apparel); > 15% (non-apparel)"
+        signal: "Return rate is destroying contribution margin. Product descriptions, photography, or sizing are fundamentally misaligned with customer expectations."
+      below_average:
+        value: "20-30% (apparel); 10-15% (non-apparel)"
+        signal: "Above median returns. Investigate top return reasons: fit issues (sizing guide problem), quality expectations (photography vs. reality), or damage (packaging problem)."
+      average:
+        value: "12-20% (apparel); 5-10% (non-apparel)"
+        signal: "Inline with D2C category averages. Returns are a manageable cost but optimization can meaningfully improve contribution margin."
+      good:
+        value: "8-12% (apparel); 3-5% (non-apparel)"
+        signal: "Low return rate indicating strong product-expectation alignment. Sizing guides, product photography, and descriptions are working."
+      excellent:
+        value: "< 8% (apparel); < 3% (non-apparel)"
+        signal: "Exceptional. The product consistently meets or exceeds expectations. This level of return performance is a meaningful competitive advantage."
+    stage_notes:
+      seed: "High return rates early often reflect product development issues (fit, quality) that should be fixed before scaling. Every return is a learning opportunity."
+      series_a: "Return rate should be trending down through product improvement, better photography, and sizing/fit technology. Returns below category median is a strong signal."
+      series_b_plus: "Returns management becomes a P&L lever. Exchange programs, store credit incentives, and returnless refunds (for low-cost items) optimize the cost of returns."
+    data_sources:
+      - source: "Narvar Returns & Exchanges Report"
+        year: "2024"
+      - source: "Loop Returns Industry Data"
+        year: "2024"
+    related_metrics: ["contribution-margin", "gross-margin", "csat"]
+    related_skills: ["kaizen-bpr", "systems-thinking"]
+    caveats: "Return rate varies dramatically by category: apparel 15-30%, footwear 18-25%, electronics 8-12%, beauty 3-8%, supplements 2-5%, food <2%. Always benchmark within category."
+
+  - name: "Brand Awareness (Aided and Unaided)"
+    id: "brand-awareness"
+    category: "brand"
+    definition: "The percentage of target market consumers who recognize (aided) or spontaneously recall (unaided) the brand name, measuring top-of-funnel brand penetration."
+    formula: "Aided: % of survey respondents who recognize brand when prompted. Unaided: % who name brand unprompted when asked about the category."
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Aided < 5%; Unaided < 1% in target demographic"
+        signal: "The brand is functionally invisible in its category. All customer acquisition must be paid because no organic demand exists."
+      below_average:
+        value: "Aided 5-15%; Unaided 1-3%"
+        signal: "Emerging awareness. A small base knows the brand but it is not yet part of the category conversation."
+      average:
+        value: "Aided 15-30%; Unaided 3-8%"
+        signal: "Meaningful awareness within the target demographic. The brand appears in consideration sets."
+      good:
+        value: "Aided 30-50%; Unaided 8-15%"
+        signal: "Strong awareness. The brand is a recognized name in the category. Organic search volume and direct traffic reflect this position."
+      excellent:
+        value: "Aided > 50%; Unaided > 15%"
+        signal: "Category-defining awareness. The brand is synonymous with the category for a meaningful portion of the target market."
+    stage_notes:
+      seed: "Formal brand awareness studies are premature. Use proxy metrics: branded search volume (Google Trends), direct traffic percentage, and 'how did you hear about us' surveys."
+      series_a: "Brand awareness should be measured within the specific target demographic, not the general population. A niche brand with 40% aided awareness in its target is strong."
+      series_b_plus: "Track awareness over time with consistent methodology. Awareness gains correlate with declining CAC and increasing organic traffic percentage."
+    data_sources:
+      - source: "2PM / Web Smith DTC Research"
+        year: "2024"
+      - source: "Pilothouse DTC Index"
+        year: "2025"
+    related_metrics: ["organic-traffic-pct", "cac-blended", "community-growth-rate"]
+    related_skills: ["blue-ocean-strategy", "tipping-point", "story-structure-and-arc"]
+    caveats: "Brand awareness surveys are expensive and methodologically tricky. For brands under $10M revenue, proxy metrics (branded search volume, direct traffic %, post-purchase surveys) are more practical than formal studies."
+
+  - name: "Shipping Cost as Percentage of Revenue"
+    id: "shipping-cost-pct"
+    category: "efficiency"
+    definition: "Total shipping and fulfillment cost (outbound shipping, fulfillment labor, packaging materials, 3PL fees) as a percentage of revenue, measuring operational efficiency."
+    formula: "(Outbound Shipping + Fulfillment Cost + Packaging) / Revenue x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 20%"
+        signal: "Shipping and fulfillment are consuming a destructive share of revenue. Low AOV, expensive products to ship, or inefficient fulfillment operations."
+      below_average:
+        value: "15-20%"
+        signal: "Above median. Investigate free-shipping thresholds, packaging optimization, carrier rate negotiation, and 3PL alternatives."
+      average:
+        value: "10-15%"
+        signal: "Inline with D2C averages for most categories. Room for optimization but not a crisis."
+      good:
+        value: "7-10%"
+        signal: "Efficient operations. Strong carrier relationships, optimized packaging, and effective free-shipping thresholds."
+      excellent:
+        value: "< 7%"
+        signal: "Exceptional fulfillment efficiency. Typically achieved at scale with multi-warehouse operations or lightweight/high-AOV products."
+    stage_notes:
+      seed: "Shipping costs are high at low volume. Negotiate rates as volume increases and consider 3PLs that aggregate volume across clients."
+      series_a: "Shipping cost below 15% of revenue demonstrates operational competence. Declining trend is expected."
+      series_b_plus: "Multi-warehouse strategy, regional fulfillment, and zone-based shipping optimization become material levers at scale."
+    data_sources:
+      - source: "Shopify Commerce Reports"
+        year: "2024"
+      - source: "Triple Whale DTC Benchmarks"
+        year: "2024"
+    related_metrics: ["contribution-margin", "aov", "return-rate"]
+    related_skills: ["kaizen-bpr", "systems-thinking"]
+    caveats: "Free shipping is a customer expectation but a margin killer for low-AOV brands. Model the contribution margin impact of free shipping versus paid shipping versus free-shipping-with-threshold for accurate decision-making."

@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/trust-equation.md

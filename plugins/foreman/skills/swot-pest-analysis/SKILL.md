@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/swot-pest-analysis.md

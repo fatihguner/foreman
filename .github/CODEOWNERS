@@ -1,0 +1,17 @@
+# =============================================================================
+# Foreman — Code Owners
+# https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+# =============================================================================
+
+# Default — project maintainer reviews everything
+* @fatihguner
+
+# Skills require maintainer review
+.claude/skills/ @fatihguner
+
+# Infrastructure changes require maintainer
+.github/ @fatihguner
+scripts/ @fatihguner
+
+# Industry packs can be community-contributed with review
+.claude/industry-packs/ @fatihguner

@@ -1,0 +1,58 @@
+{
+  "name": "foreman-sh",
+  "version": "1.0.0",
+  "description": "AI-powered strategic advisor for entrepreneurs. 158 skills, 24 diagnostics, 21 playbooks, 9 industry packs.",
+  "type": "module",
+  "bin": {
+    "foreman-sh": "./bin/cli.js"
+  },
+  "files": [
+    "bin/",
+    ".claude/",
+    "CLAUDE.md"
+  ],
+  "author": {
+    "name": "Fatih Guner",
+    "url": "https://foreman.sh"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fatihguner/foreman.git"
+  },
+  "homepage": "https://foreman.sh",
+  "bugs": {
+    "url": "https://github.com/fatihguner/foreman/issues"
+  },
+  "keywords": [
+    "ai",
+    "entrepreneurship",
+    "startup",
+    "strategy",
+    "business-frameworks",
+    "claude-code",
+    "codex-plugin",
+    "openclaw-plugin",
+    "stoicism",
+    "decision-making",
+    "leadership",
+    "solopreneur"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  },
+  "dependencies": {
+    "@sinclair/typebox": "^0.32.0"
+  },
+  "peerDependencies": {
+    "openclaw": ">=2026.3.0"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  }
+}

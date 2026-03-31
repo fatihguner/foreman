@@ -1,0 +1,1 @@
+../../../../.claude/skills/stoic/stoic-virtue-and-kindness.md

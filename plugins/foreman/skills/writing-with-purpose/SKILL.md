@@ -1,0 +1,1 @@
+../../../../.claude/skills/writing/writing-with-purpose.md

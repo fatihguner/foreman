@@ -1,0 +1,1 @@
+../../../../.claude/skills/negotiation/competitive-negotiation.md

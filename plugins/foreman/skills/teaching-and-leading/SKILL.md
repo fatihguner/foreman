@@ -1,0 +1,1 @@
+../../../../.claude/skills/people/teaching-and-leading.md

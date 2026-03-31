@@ -1,0 +1,1 @@
+../../../../.claude/skills/storytelling/storytelling-truth-and-vividness.md

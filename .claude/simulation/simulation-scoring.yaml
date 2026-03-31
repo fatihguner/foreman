@@ -1,0 +1,125 @@
+# Simulation Scoring Framework
+# Defines the five-dimension scoring system for board simulation performance
+# Each dimension scored 1-5, weighted by persona, composited to a final grade
+# Author: Fatih Guner
+
+---
+
+# =============================================================================
+# SCORING DIMENSIONS
+# =============================================================================
+
+dimensions:
+
+  clarity:
+    name: "Clarity"
+    definition: "The degree to which the presentation is structured, focused, and comprehensible. Measures whether the audience can follow the logic, identify the key points, and understand the ask without effort."
+    default_weight: 1.0
+    scores:
+      1:
+        label: "Incoherent"
+        description: "Presentation lacks structure. Key points are buried or absent. The audience cannot follow the logic or identify the central argument. Rambling, disorganized, or contradictory."
+      3:
+        label: "Adequate"
+        description: "Presentation has a recognizable structure and the main points are identifiable. Some sections lack focus or contain unnecessary complexity. The audience can follow with effort."
+      5:
+        label: "Commanding"
+        description: "Presentation is precise, well-structured, and effortlessly clear. Every section serves a purpose. The audience grasps the argument, the evidence, and the ask without ambiguity."
+    relationship: "Clarity is the foundation. Low clarity undermines all other dimensions -- strong evidence poorly communicated is functionally equivalent to no evidence."
+
+  evidence:
+    name: "Evidence"
+    definition: "The degree to which claims are supported by data, research, customer feedback, financial metrics, or credible reasoning. Measures whether assertions are backed or merely asserted."
+    default_weight: 1.0
+    scores:
+      1:
+        label: "Unsupported"
+        description: "Claims are made without evidence. Market sizes are round numbers without methodology. Projections lack underlying assumptions. Questions about data are deflected with narrative."
+      3:
+        label: "Partially Supported"
+        description: "Some claims are supported with data, but key assertions remain unsubstantiated. Evidence is present but inconsistent -- some areas strong, others absent."
+      5:
+        label: "Rigorous"
+        description: "Every material claim is supported by specific, sourced data. The founder distinguishes between measured and estimated figures. Evidence is presented proactively, not only when challenged."
+    relationship: "Evidence feeds Strategic Coherence -- a strategy built on unverified assumptions cannot be coherent. Evidence also directly enables Risk Awareness, since risks are identified through data."
+
+  strategic_coherence:
+    name: "Strategic Coherence"
+    definition: "The degree to which the strategy holds together as an integrated whole. Goals, actions, resources, timeline, and market positioning must align. Internal contradictions or disconnected elements reduce coherence."
+    default_weight: 1.0
+    scores:
+      1:
+        label: "Fragmented"
+        description: "Strategy contains internal contradictions. Goals do not connect to actions. Resource allocation mismatches priorities. Market positioning conflicts with product capabilities."
+      3:
+        label: "Mostly Aligned"
+        description: "The major strategic elements connect, but secondary elements reveal misalignment. Some resource allocation or timeline assumptions do not support the stated goals."
+      5:
+        label: "Fully Integrated"
+        description: "Every element of the strategy supports every other element. Goals, actions, resources, timeline, and positioning form a coherent whole. Trade-offs are explicit and deliberate."
+    relationship: "Strategic Coherence depends on Clarity (can the strategy be articulated?) and Evidence (are the strategic assumptions verified?). It predicts operational success more reliably than any single metric."
+
+  risk_awareness:
+    name: "Risk Awareness"
+    definition: "The degree to which risks are identified, acknowledged, quantified, and mitigated. Measures whether the founder has anticipated what can go wrong and prepared accordingly, or is hoping problems will not arise."
+    default_weight: 1.0
+    scores:
+      1:
+        label: "Risk Blind"
+        description: "No risks are acknowledged. Downside scenarios are absent. When asked about risks, the founder deflects, minimizes, or appears not to have considered them."
+      3:
+        label: "Risk Aware"
+        description: "Major risks are identified and acknowledged. Some mitigation strategies exist. However, certain risks are minimized or mitigations are vague."
+      5:
+        label: "Risk Prepared"
+        description: "Risks are proactively identified, quantified where possible, and paired with specific mitigation strategies. The founder has modelled downside scenarios and can discuss them fluently."
+    relationship: "Risk Awareness validates Strategic Coherence -- a strategy that ignores risks is not truly coherent. It also tests Evidence indirectly, since risk identification requires data about what can go wrong."
+
+  response_quality:
+    name: "Response Quality"
+    definition: "The quality of the founder's answers under direct questioning. Measures composure, intellectual honesty, adaptability, and the ability to think on one's feet when challenged."
+    default_weight: 1.0
+    scores:
+      1:
+        label: "Collapsed"
+        description: "Under questioning, the founder becomes defensive, evasive, or incoherent. Cannot answer follow-ups. Repeats prepared talking points regardless of the question asked."
+      3:
+        label: "Competent"
+        description: "Handles most questions adequately. Occasionally reverts to prepared answers that do not address the specific question. Recovers from stumbles but does not excel."
+      5:
+        label: "Masterful"
+        description: "Engages with every question directly, adapts responses to the questioner's concern, acknowledges gaps honestly, and demonstrates command of the material beyond the prepared presentation."
+    relationship: "Response Quality is the live test of all other dimensions. A founder who scores 5 on Clarity, Evidence, and Strategic Coherence but 1 on Response Quality has memorized a document but does not understand the business."
+
+# =============================================================================
+# COMPOSITE SCORING
+# =============================================================================
+
+composite:
+  method: "weighted_average"
+  description: "Each dimension score is multiplied by its weight (default 1.0, modified by persona bias), summed, and divided by total weight to produce a composite score between 1.0 and 5.0."
+  formula: "composite = sum(dimension_score * persona_weight) / sum(persona_weights)"
+
+  grade_map:
+    A: { min: 4.5, max: 5.0, label: "Exceptional", guidance: "Ready for the real meeting. Minor refinements only." }
+    B: { min: 3.5, max: 4.49, label: "Strong", guidance: "Well prepared with specific areas to strengthen. One more simulation recommended." }
+    C: { min: 2.5, max: 3.49, label: "Adequate", guidance: "Functional but with material gaps. Address weaknesses and simulate again." }
+    D: { min: 1.5, max: 2.49, label: "Underprepared", guidance: "Significant preparation needed. Review the post-simulation diagnostic and work through recommended skills before re-simulating." }
+    F: { min: 1.0, max: 1.49, label: "Not Ready", guidance: "The presentation is not ready for a live audience. Return to the underlying output template and rebuild with the diagnostic routing below." }
+
+# =============================================================================
+# IMPROVEMENT PRIORITIES
+# =============================================================================
+
+improvement_priorities:
+  description: "After scoring, the system identifies the 2-3 lowest-scoring dimensions and generates actionable improvement priorities."
+  format:
+    - dimension: "Name of weakest dimension"
+      score: "Numeric score"
+      gap_type: "content | delivery"
+      priority_action: "Specific next step to improve this dimension"
+      routes_to: "Relevant skills, research guides, or templates"
+
+  gap_classification:
+    content: "The founder did not have the data, evidence, or strategic clarity needed. This is a preparation problem solved by research, analysis, or framework application."
+    delivery: "The founder had the material but could not articulate it under pressure. This is a communication problem solved by practice, storytelling skills, or repeated simulation."

@@ -1,0 +1,1 @@
+../../../../.claude/skills/stoic/stoic-acceptance-amor-fati.md

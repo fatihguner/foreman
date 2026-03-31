@@ -1,0 +1,22 @@
+# Layer 1: Identity
+# Change frequency: ~yearly
+# Owner: Entrepreneur provides, system records
+# Purpose: Personalizes tone, complexity, and framing
+
+identity:
+  name: ""
+  role: ""                          # Founder & CEO, CTO, COO, etc.
+  background: ""                    # Technical, business, design, finance, etc.
+  leadership_style: ""              # Observed tendencies under normal and stress conditions
+  communication_preference: ""      # Direct, narrative, data-driven, visual, etc.
+  known_strengths:
+    - ""
+    - ""
+    - ""
+  known_weaknesses:
+    - ""
+    - ""
+    - ""
+  personality_notes: ""             # Behavioral observations affecting interaction style
+  created: ""                       # ISO 8601 date
+  last_updated: ""                  # ISO 8601 date

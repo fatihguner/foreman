@@ -1,0 +1,998 @@
+# SaaS Industry Pack — Benchmarks
+#
+# 25 SaaS-specific metrics with real benchmark data sourced from public studies.
+# The orchestrator surfaces these when applying quantitative skills, generating
+# output templates with financial metrics, or diagnosing growth and retention issues.
+#
+# Primary data sources:
+#   - OpenView SaaS Benchmarks (2023, 2024)
+#   - Bessemer Cloud Index / State of the Cloud (2023, 2024)
+#   - KeyBanc Capital Markets SaaS Survey (2023, 2024)
+#   - Paddle/ProfitWell SaaS Index (2023, 2024)
+#   - SaaStr Annual Reports and conference data
+#   - Iconiq Growth / Iconiq Capital (2023)
+#   - Battery Ventures Cloud Software Operating Metrics (2023)
+#   - Tomasz Tunguz / Theory Ventures analysis
+#   - Jason Lemkin / SaaStr public benchmarks
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among funded SaaS companies at the relevant stage.
+
+pack_metadata:
+  sector: "saas"
+  display_name: "SaaS"
+  version: "1.0.0"
+  description: "Benchmark data for Software-as-a-Service companies spanning growth, retention, unit economics, efficiency, and sales metrics."
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # GROWTH METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Monthly Recurring Revenue (MRR)"
+    id: "mrr"
+    category: "growth"
+    definition: "The predictable, normalized monthly revenue from all active subscriptions, excluding one-time fees and variable usage overages."
+    formula: "Sum of (monthly subscription price x active subscribers) for each plan tier"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $10K MRR at 12 months post-launch"
+        signal: "Insufficient product-market fit or distribution to sustain the business. Runway consumption outpaces revenue generation."
+      below_average:
+        value: "$10K-$50K MRR at 12 months"
+        signal: "Early traction but not yet at a level that demonstrates scalable demand."
+      average:
+        value: "$50K-$150K MRR at 12 months"
+        signal: "Solid initial traction. Enough signal to raise a seed or Series A if growth rate is strong."
+      good:
+        value: "$150K-$500K MRR at 12 months"
+        signal: "Strong product-market fit. Revenue supports hiring a small team and investing in growth."
+      excellent:
+        value: "> $500K MRR at 12 months"
+        signal: "Exceptional traction. Rare at this stage — indicates viral adoption or enterprise deal velocity."
+    stage_notes:
+      seed: "Absolute MRR matters less than trajectory. Investors look for $10K-$50K MRR with 15%+ MoM growth."
+      series_a: "Typical Series A threshold has risen to $1M-$2M ARR ($83K-$167K MRR). The bar is higher in 2024-2026 than in 2021."
+      series_b_plus: "Series B companies typically show $5M-$15M ARR. MRR is less discussed — ARR becomes the standard unit."
+    data_sources:
+      - source: "OpenView SaaS Benchmarks"
+        year: "2024"
+      - source: "SaaStr Series A Benchmarks"
+        year: "2024"
+    related_metrics: ["arr", "mom-growth-rate"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "MRR must exclude implementation fees, professional services, and one-time charges. Blending these inflates the metric and misleads investors."
+
+  - name: "Annual Recurring Revenue (ARR)"
+    id: "arr"
+    category: "growth"
+    definition: "The annualized value of all active recurring subscription contracts, representing the run-rate revenue the business would generate over twelve months at its current scale."
+    formula: "MRR x 12 (or sum of annualized contract values for annual/multi-year deals)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $500K ARR at Series A"
+        signal: "Below the threshold most institutional investors require. The company may be pre-product-market-fit."
+      below_average:
+        value: "$500K-$1M ARR at Series A"
+        signal: "Borderline for fundraising. Acceptable only with exceptional growth rate (3x+ YoY) and strong retention."
+      average:
+        value: "$1M-$3M ARR at Series A"
+        signal: "The current median range for Series A SaaS companies. Sufficient if paired with 2x+ YoY growth."
+      good:
+        value: "$3M-$10M ARR at Series A"
+        signal: "Strong position. Multiple investor options. Demonstrates repeatable sales motion."
+      excellent:
+        value: "> $10M ARR at Series A"
+        signal: "Rare and powerful. Often indicates a capital-efficient business that delayed fundraising or a breakout product."
+    stage_notes:
+      seed: "ARR is often premature at seed. Investors focus on MRR trajectory and qualitative PMF signals."
+      series_a: "Median Series A ARR has increased from ~$1M (2020) to ~$1.5M-$2.5M (2024-2025) as markets tightened."
+      series_b_plus: "Series B typically requires $5M-$20M ARR. Series C: $20M-$50M+. Growth rate expectations decrease as ARR scales."
+    data_sources:
+      - source: "Bessemer State of the Cloud"
+        year: "2024"
+      - source: "Iconiq Growth"
+        year: "2023"
+    related_metrics: ["mrr", "mom-growth-rate"]
+    related_skills: ["balanced-scorecard", "scenario-planning"]
+    caveats: "ARR is a forward-looking metric, not GAAP revenue. Companies with high churn may report ARR that significantly exceeds actual realized revenue."
+
+  - name: "Month-over-Month Growth Rate"
+    id: "mom-growth-rate"
+    category: "growth"
+    definition: "The percentage increase in MRR from one month to the next, measuring the velocity of recurring revenue acquisition."
+    formula: "(MRR_current - MRR_previous) / MRR_previous x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5% MoM"
+        signal: "Growth is stalling or the business is approaching a plateau. At early stage, this rate is too slow to reach meaningful scale."
+      below_average:
+        value: "5-10% MoM"
+        signal: "Moderate growth. Sustainable but unlikely to attract venture investment at seed or Series A."
+      average:
+        value: "10-15% MoM"
+        signal: "Healthy early-stage growth. At 15% MoM, MRR doubles every ~5 months."
+      good:
+        value: "15-25% MoM"
+        signal: "Strong traction. At 20% MoM, a $10K MRR company reaches $100K MRR in roughly 12 months."
+      excellent:
+        value: "> 25% MoM"
+        signal: "Exceptional, typically unsustainable beyond a few months. Often coincides with viral adoption or a major enterprise win."
+    stage_notes:
+      seed: "15-25% MoM expected from small base. The compounding effect matters more than the percentage once base grows."
+      series_a: "MoM growth naturally decelerates. 8-15% MoM at $1M+ ARR is strong. The absolute dollar growth matters more."
+      series_b_plus: "MoM becomes less meaningful. YoY growth rate (2x-3x) is the standard measure at scale."
+    data_sources:
+      - source: "OpenView SaaS Benchmarks"
+        year: "2023"
+      - source: "Y Combinator Startup School benchmarks"
+        year: "2024"
+    related_metrics: ["mrr", "arr"]
+    related_skills: ["growth-share-matrix", "product-life-cycle"]
+    caveats: "MoM rates are noisy at low MRR. A single enterprise deal can create a misleading spike. Use 3-month rolling average for stability."
+
+  # ─────────────────────────────────────────────
+  # RETENTION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Net Revenue Retention (NRR)"
+    id: "nrr"
+    category: "retention"
+    definition: "The percentage of recurring revenue retained from existing customers after accounting for expansion, contraction, and churn — the single most important SaaS health metric."
+    formula: "(Starting MRR + Expansion MRR - Contraction MRR - Churned MRR) / Starting MRR x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 90%"
+        signal: "The business is shrinking from its existing customer base. New sales merely replace lost revenue — a leaky bucket with no leverage."
+      below_average:
+        value: "90-100%"
+        signal: "Slight net contraction or break-even on existing customers. Expansion revenue is insufficient to offset churn."
+      average:
+        value: "100-110%"
+        signal: "Modest net expansion. The existing customer base is growing slowly without additional sales effort."
+      good:
+        value: "110-130%"
+        signal: "Strong expansion dynamics. Each cohort grows over time. This is the range most public SaaS companies achieve."
+      excellent:
+        value: "> 130%"
+        signal: "Exceptional. Companies like Snowflake, Datadog, and Twilio at their peaks. Indicates strong usage-based or land-and-expand motion."
+    stage_notes:
+      seed: "NRR is often unmeasurable with few customers. Focus on qualitative retention signals: do customers actively use the product and request more?"
+      series_a: "NRR above 100% is a strong Series A signal. Above 120% is exceptional and demonstrates expansion revenue motion."
+      series_b_plus: "Public market investors heavily weight NRR. Best-in-class public SaaS companies cluster at 120-140%."
+    data_sources:
+      - source: "KeyBanc SaaS Survey"
+        year: "2024"
+      - source: "Bessemer Cloud Index"
+        year: "2024"
+    related_metrics: ["grr", "ndr", "revenue-churn", "expansion-revenue-pct"]
+    related_skills: ["net-promoter-score", "balanced-scorecard"]
+    caveats: "NRR can mask underlying problems. A company with 40% logo churn and 50% expansion from survivors still shows >100% NRR but has a fundamentally unhealthy business."
+
+  - name: "Gross Revenue Retention (GRR)"
+    id: "grr"
+    category: "retention"
+    definition: "The percentage of recurring revenue retained from existing customers excluding any expansion — measuring pure retention before upsell compensates for losses."
+    formula: "(Starting MRR - Contraction MRR - Churned MRR) / Starting MRR x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 80%"
+        signal: "Losing more than 20% of cohort revenue annually. The product is failing to deliver sustained value, or pricing is misaligned."
+      below_average:
+        value: "80-85%"
+        signal: "Meaningful revenue erosion. Acceptable only at very early stages with rapid iteration and small cohorts."
+      average:
+        value: "85-90%"
+        signal: "Typical for SMB-focused SaaS. Small businesses churn at higher rates due to failure, budget cuts, and switching costs."
+      good:
+        value: "90-95%"
+        signal: "Strong retention. Indicates sticky product with real workflow integration and switching costs."
+      excellent:
+        value: "> 95%"
+        signal: "Enterprise-grade retention. Common in mission-critical infrastructure software. Very difficult to achieve in SMB."
+    stage_notes:
+      seed: "GRR data is sparse. Even 80% GRR with rapid learning and iteration is acceptable."
+      series_a: "Investors increasingly scrutinize GRR alongside NRR. GRR below 85% raises questions about product-market fit durability."
+      series_b_plus: "Public SaaS median GRR is ~90%. Best-in-class enterprise companies (ServiceNow, Workday) exceed 95%."
+    data_sources:
+      - source: "KeyBanc SaaS Survey"
+        year: "2024"
+      - source: "Paddle/ProfitWell SaaS Benchmarks"
+        year: "2023"
+    related_metrics: ["nrr", "logo-churn", "revenue-churn"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "GRR is capped at 100%. It cannot exceed 100% because it excludes expansion. This is by design — it isolates the pure retention question."
+
+  - name: "Logo Churn"
+    id: "logo-churn"
+    category: "retention"
+    definition: "The percentage of customers (logos) lost in a given period, regardless of their revenue contribution."
+    formula: "Customers lost in period / Customers at start of period x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 7% monthly (> 58% annual)"
+        signal: "More than half the customer base turns over each year. The product is either not delivering value or targeting the wrong segment."
+      below_average:
+        value: "4-7% monthly (38-58% annual)"
+        signal: "High churn typical of freemium-to-paid conversion or very low-ACV products without strong retention hooks."
+      average:
+        value: "2-4% monthly (22-38% annual)"
+        signal: "Common for SMB SaaS. Each customer requires low touch, but the base requires constant replenishment."
+      good:
+        value: "1-2% monthly (11-22% annual)"
+        signal: "Healthy retention. Product has meaningful switching costs and delivers ongoing value."
+      excellent:
+        value: "< 1% monthly (< 11% annual)"
+        signal: "Best-in-class. Typically enterprise or mission-critical products with deep integration and multi-year contracts."
+    stage_notes:
+      seed: "Logo churn is often high and erratic with a small customer base. A single departure can move the rate dramatically."
+      series_a: "Investors expect monthly logo churn under 3-5% for SMB, under 1-2% for mid-market, under 0.5% for enterprise."
+      series_b_plus: "Annual logo churn above 15% at scale is a red flag regardless of NRR performance."
+    data_sources:
+      - source: "Paddle/ProfitWell Churn Benchmarks"
+        year: "2024"
+      - source: "Recurly Research / Subscription Economy Index"
+        year: "2023"
+    related_metrics: ["revenue-churn", "grr", "nrr"]
+    related_skills: ["net-promoter-score", "customer-churn-diagnosis"]
+    caveats: "Logo churn should be segmented by customer size. Losing 100 $50/month customers is different from losing 1 $60K/year customer. Revenue churn provides the complementary view."
+
+  - name: "Revenue Churn"
+    id: "revenue-churn"
+    category: "retention"
+    definition: "The percentage of MRR lost from existing customers due to cancellations and downgrades in a given period."
+    formula: "(Churned MRR + Contraction MRR) / Starting MRR x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 5% monthly gross revenue churn"
+        signal: "Losing more than half of starting MRR annually through the existing base. Unsustainable without extraordinary new sales."
+      below_average:
+        value: "3-5% monthly"
+        signal: "High revenue erosion. Growth requires aggressive new customer acquisition just to stay flat."
+      average:
+        value: "1.5-3% monthly"
+        signal: "Common for SMB SaaS. Manageable but requires healthy sales pipeline to grow."
+      good:
+        value: "0.5-1.5% monthly"
+        signal: "Solid retention floor. The business can grow efficiently because the base is stable."
+      excellent:
+        value: "< 0.5% monthly"
+        signal: "Near-zero revenue loss. Enterprise-grade stickiness. The base becomes a compounding asset."
+    stage_notes:
+      seed: "Revenue churn is lumpy at small scale. Track it but do not over-optimize — focus on understanding why customers leave."
+      series_a: "Investors expect gross monthly revenue churn under 2% for healthy businesses. Below 1% is exceptional."
+      series_b_plus: "At scale, even small revenue churn percentages represent large absolute dollars. Net revenue churn (including expansion) matters more."
+    data_sources:
+      - source: "Paddle/ProfitWell SaaS Index"
+        year: "2024"
+      - source: "Baremetrics Open Benchmarks"
+        year: "2023"
+    related_metrics: ["logo-churn", "grr", "nrr"]
+    related_skills: ["net-promoter-score", "balanced-scorecard"]
+    caveats: "Revenue churn can be negative when expansion exceeds losses. Negative net revenue churn is the gold standard but should be reported as NRR, not as a negative churn rate, to avoid confusion."
+
+  # ─────────────────────────────────────────────
+  # UNIT ECONOMICS METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Customer Acquisition Cost (CAC)"
+    id: "cac"
+    category: "unit-economics"
+    definition: "The fully loaded cost to acquire one new customer, including all sales and marketing expense."
+    formula: "Total Sales & Marketing Spend in period / New Customers Acquired in period"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "CAC > 18 months of revenue from that customer (i.e., CAC Payback > 18 months)"
+        signal: "Acquisition economics are unsustainable. The business burns cash on every new customer and depends on very long retention to break even."
+      below_average:
+        value: "CAC Payback 12-18 months"
+        signal: "Expensive acquisition. Viable for enterprise SaaS with high retention but dangerous for SMB products."
+      average:
+        value: "CAC Payback 6-12 months"
+        signal: "Typical for B2B SaaS. Requires at least 3+ years of customer lifetime to generate healthy returns."
+      good:
+        value: "CAC Payback 3-6 months"
+        signal: "Efficient acquisition. The business can reinvest in growth aggressively because customers pay for themselves quickly."
+      excellent:
+        value: "CAC Payback < 3 months"
+        signal: "Exceptional efficiency. Often indicates strong word-of-mouth, viral loops, or product-led growth motion."
+    stage_notes:
+      seed: "CAC is often distorted — founders do the selling, and their time may not be fully costed. Be honest about true CAC."
+      series_a: "Blended CAC should be calculable. Investors want to see CAC by channel and understand which channels are scalable."
+      series_b_plus: "CAC should be measured by segment (SMB vs. mid-market vs. enterprise), by channel, and by cohort vintage."
+    data_sources:
+      - source: "OpenView SaaS Benchmarks"
+        year: "2024"
+      - source: "KeyBanc SaaS Survey"
+        year: "2024"
+    related_metrics: ["ltv", "ltv-cac-ratio", "cac-payback-period"]
+    related_skills: ["four-ps-marketing", "business-model-canvas"]
+    caveats: "CAC must be fully loaded: salaries, commissions, marketing spend, tooling, content production, events. Under-counting CAC is the most common SaaS accounting mistake."
+
+  - name: "Customer Lifetime Value (LTV)"
+    id: "ltv"
+    category: "unit-economics"
+    definition: "The total gross profit a customer generates over their entire relationship with the company."
+    formula: "ARPU x Gross Margin % / Monthly Revenue Churn Rate (or ARPU x Gross Margin % x Average Customer Lifetime in months)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "LTV < 1x CAC"
+        signal: "The business loses money on every customer it acquires. Without fundamental unit economics improvement, growth accelerates losses."
+      below_average:
+        value: "LTV 1-2x CAC"
+        signal: "Marginal economics. Barely profitable per customer after acquisition costs. Leaves no room for operational overhead."
+      average:
+        value: "LTV 2-3x CAC"
+        signal: "Approaching viability. Sufficient if growth is modest, but tight margins constrain investment in product and expansion."
+      good:
+        value: "LTV 3-5x CAC"
+        signal: "Healthy unit economics. The standard target for venture-backed SaaS. Enough margin to fund growth and R&D."
+      excellent:
+        value: "LTV > 5x CAC"
+        signal: "Exceptional economics. The business can afford aggressive growth spending or generate significant free cash flow."
+    stage_notes:
+      seed: "LTV is largely theoretical at seed — insufficient data for reliable lifetime estimates. Use conservative assumptions (24-month lifetime max)."
+      series_a: "LTV calculations become credible with 12-18 months of cohort data. Investors scrutinize the assumptions behind the number."
+      series_b_plus: "LTV should be segmented by customer tier and acquisition cohort. Blended LTV masks segment-level problems."
+    data_sources:
+      - source: "Bessemer Cloud Index"
+        year: "2024"
+      - source: "Tomasz Tunguz / Theory Ventures analysis"
+        year: "2023"
+    related_metrics: ["cac", "ltv-cac-ratio", "arpu", "revenue-churn"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "LTV estimates based on low churn assumptions can be wildly optimistic. A 1% monthly churn implies 100-month lifetime — most SaaS products do not retain customers that long."
+
+  - name: "LTV:CAC Ratio"
+    id: "ltv-cac-ratio"
+    category: "unit-economics"
+    definition: "The ratio of customer lifetime value to customer acquisition cost, measuring the return on each dollar invested in acquisition."
+    formula: "LTV / CAC"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.0x"
+        signal: "Value destruction. Every customer acquired costs more than they will ever generate. The business model is broken."
+      below_average:
+        value: "1.0-2.0x"
+        signal: "Marginal. Customers barely cover their acquisition costs. No margin for error or overhead."
+      average:
+        value: "2.0-3.0x"
+        signal: "Below the standard target. Viable only with very low operational overhead or if LTV is underestimated due to early-stage data limitations."
+      good:
+        value: "3.0-5.0x"
+        signal: "The accepted SaaS benchmark. Demonstrates a sustainable business where customer value significantly exceeds acquisition investment."
+      excellent:
+        value: "> 5.0x"
+        signal: "Outstanding efficiency. Either the product sells itself (low CAC) or customers generate exceptional lifetime revenue (high LTV). May also indicate under-investment in growth."
+    stage_notes:
+      seed: "At seed, LTV:CAC is an estimate. Investors look for directional signal, not precision."
+      series_a: "3x+ LTV:CAC is a standard Series A expectation. Below 3x requires a compelling narrative about improvement trajectory."
+      series_b_plus: "A ratio above 5x at scale may indicate the company is under-investing in growth and leaving market share on the table."
+    data_sources:
+      - source: "Bessemer Cloud Index"
+        year: "2024"
+      - source: "SaaStr Benchmarks"
+        year: "2024"
+    related_metrics: ["ltv", "cac", "cac-payback-period"]
+    related_skills: ["business-model-canvas", "scenario-planning"]
+    caveats: "LTV:CAC above 5x is not always good — it can signal under-investment. The optimal range for growth-stage companies is 3x-5x."
+
+  - name: "CAC Payback Period"
+    id: "cac-payback-period"
+    category: "unit-economics"
+    definition: "The number of months required for a customer's gross profit to repay the cost of acquiring them."
+    formula: "CAC / (ARPU x Gross Margin %)"
+    unit: "months"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 24 months"
+        signal: "Capital-intensive growth model. The business must fund more than two years of customer revenue before breaking even on acquisition."
+      below_average:
+        value: "18-24 months"
+        signal: "Long payback. Acceptable for enterprise SaaS with >95% GRR. Dangerous for SMB with higher churn."
+      average:
+        value: "12-18 months"
+        signal: "Typical for B2B SaaS. Requires solid retention to generate meaningful lifetime profit."
+      good:
+        value: "6-12 months"
+        signal: "Efficient. Most investors consider sub-12-month payback a strong signal. Allows faster reinvestment cycles."
+      excellent:
+        value: "< 6 months"
+        signal: "Exceptional capital efficiency. The business self-funds its growth rapidly. Often seen in PLG or viral-coefficient products."
+    stage_notes:
+      seed: "Payback period under 12 months is a powerful signal at seed. Over 18 months is a concern."
+      series_a: "Median payback for Series A companies is roughly 15-18 months. Top quartile is under 12 months."
+      series_b_plus: "Payback should be measured by segment. Enterprise may have longer payback but higher LTV; SMB should pay back in under 12 months."
+    data_sources:
+      - source: "OpenView SaaS Benchmarks"
+        year: "2024"
+      - source: "KeyBanc SaaS Survey"
+        year: "2024"
+    related_metrics: ["cac", "ltv", "ltv-cac-ratio", "arpu", "gross-margin"]
+    related_skills: ["balanced-scorecard", "business-model-canvas"]
+    caveats: "Payback period is often quoted using revenue, not gross profit. The gross-margin-adjusted version is the correct calculation and typically 20-30% longer."
+
+  - name: "Gross Margin"
+    id: "gross-margin"
+    category: "unit-economics"
+    definition: "Revenue minus cost of goods sold as a percentage of revenue, measuring how much of each dollar of revenue is available to fund operations, growth, and profit."
+    formula: "(Revenue - COGS) / Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 60%"
+        signal: "Heavy services component or infrastructure costs eroding the software economics. This is a services business with a software wrapper, not true SaaS."
+      below_average:
+        value: "60-70%"
+        signal: "Below SaaS norms. Common in companies with significant human-in-the-loop delivery, high hosting costs, or bundled implementation."
+      average:
+        value: "70-75%"
+        signal: "Acceptable for SaaS, though on the lower end. Infrastructure-heavy products (data, AI/ML) often land here."
+      good:
+        value: "75-80%"
+        signal: "Healthy SaaS margin. Demonstrates leverage in the delivery model."
+      excellent:
+        value: "> 80%"
+        signal: "Best-in-class software economics. The marginal cost of serving an additional customer is negligible. Public SaaS median is ~75%."
+    stage_notes:
+      seed: "Gross margins may be artificially low (manual processes) or high (no support costs yet). Neither is representative."
+      series_a: "Investors expect a path to 70%+ gross margin even if current levels are lower due to early-stage inefficiency."
+      series_b_plus: "Gross margin should stabilize at 75-85%. Declining gross margins at scale are a serious concern."
+    data_sources:
+      - source: "Bessemer Cloud Index"
+        year: "2024"
+      - source: "KeyBanc SaaS Survey"
+        year: "2024"
+    related_metrics: ["cac-payback-period", "ltv", "burn-multiple"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "COGS for SaaS includes hosting/infrastructure, customer support, customer success (debated), and third-party data/API costs. Do not confuse gross margin with contribution margin."
+
+  # ─────────────────────────────────────────────
+  # EFFICIENCY METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Burn Multiple"
+    id: "burn-multiple"
+    category: "efficiency"
+    definition: "The ratio of net cash burned to net new ARR generated, measuring how efficiently the company converts capital into recurring revenue growth."
+    formula: "Net Burn / Net New ARR"
+    unit: "multiple"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 3.0x"
+        signal: "Burning more than $3 for every $1 of net new ARR. Capital-intensive growth that most investors will not fund in a disciplined market."
+      below_average:
+        value: "2.0-3.0x"
+        signal: "Inefficient but potentially acceptable at very early stages with high growth rates."
+      average:
+        value: "1.5-2.0x"
+        signal: "Typical for growth-stage SaaS. The company is investing aggressively but within a defensible range."
+      good:
+        value: "1.0-1.5x"
+        signal: "Efficient growth. Each dollar burned produces a meaningful return in recurring revenue."
+      excellent:
+        value: "< 1.0x"
+        signal: "Exceptional capital efficiency. The company generates more net new ARR than it burns. Rare and highly valued by investors."
+    stage_notes:
+      seed: "Burn multiple is very high at seed by definition — the company is investing ahead of revenue. Track it but do not optimize for it."
+      series_a: "Investors increasingly use burn multiple as a primary efficiency screen. Sub-2x is the expectation."
+      series_b_plus: "Bessemer coined this metric to replace 'efficiency score.' Sub-1.5x is the target. Cash-flow-positive companies have a 0x burn multiple."
+    data_sources:
+      - source: "Bessemer Venture Partners (David Sacks)"
+        year: "2024"
+      - source: "Battery Ventures Cloud Operating Metrics"
+        year: "2023"
+    related_metrics: ["rule-of-40", "arr", "gross-margin"]
+    related_skills: ["balanced-scorecard", "scenario-planning"]
+    caveats: "Burn multiple is undefined or misleading for companies with flat or declining ARR. Use it only for growing companies."
+
+  - name: "Rule of 40"
+    id: "rule-of-40"
+    category: "efficiency"
+    definition: "The sum of revenue growth rate and profit margin, measuring the tradeoff between growth and profitability — a combined health score for SaaS businesses."
+    formula: "YoY Revenue Growth % + Free Cash Flow Margin % (or EBITDA Margin %)"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20%"
+        signal: "Neither growing fast nor profitable. The company is stuck in an unproductive middle — too slow to be a growth story, too unprofitable to be a value story."
+      below_average:
+        value: "20-30%"
+        signal: "Below the threshold. Acceptable only during a strategic transition (e.g., shifting from growth to profitability)."
+      average:
+        value: "30-40%"
+        signal: "Approaching but not meeting the bar. Many private SaaS companies land here."
+      good:
+        value: "40-60%"
+        signal: "Meeting the Rule of 40. The standard for a well-run SaaS business. Balances growth and efficiency effectively."
+      excellent:
+        value: "> 60%"
+        signal: "Elite performance. Companies like CrowdStrike and Datadog at their peaks. Either hyper-growth, highly profitable, or both."
+    stage_notes:
+      seed: "Rule of 40 is not applicable at seed. Growth rate alone is the relevant metric."
+      series_a: "Begins to apply loosely. A company growing 100% YoY with -60% margins technically hits 40% but the composition matters."
+      series_b_plus: "Becomes a primary valuation driver. Public market investors use Rule of 40 as a screening criterion for premium multiples."
+    data_sources:
+      - source: "Bessemer Cloud Index"
+        year: "2024"
+      - source: "Battery Ventures State of Cloud"
+        year: "2023"
+    related_metrics: ["burn-multiple", "gross-margin", "arr"]
+    related_skills: ["balanced-scorecard", "scenario-planning"]
+    caveats: "The Rule of 40 treats growth and profitability as interchangeable. They are not. A company growing 5% with 35% margins is fundamentally different from one growing 40% with 0% margins."
+
+  - name: "Magic Number"
+    id: "magic-number"
+    category: "efficiency"
+    definition: "The ratio of net new ARR to prior-quarter sales and marketing spend, measuring the return on the most recent quarter's go-to-market investment."
+    formula: "Net New ARR in quarter / Sales & Marketing Spend in prior quarter"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 0.5"
+        signal: "Sales and marketing spend is not converting to revenue efficiently. The go-to-market motion may be broken or the market is not responding."
+      below_average:
+        value: "0.5-0.75"
+        signal: "Below efficient threshold. Growth requires disproportionate spending. Consider fixing conversion or targeting before increasing budget."
+      average:
+        value: "0.75-1.0"
+        signal: "Approaching efficiency. The business is generating reasonable returns on GTM investment."
+      good:
+        value: "1.0-1.5"
+        signal: "Efficient growth. Each dollar of GTM spend produces $1-$1.50 of annualized recurring revenue. Signal to increase investment."
+      excellent:
+        value: "> 1.5"
+        signal: "Exceptional GTM efficiency. Strong product-market fit or viral dynamics reducing the cost of customer acquisition."
+    stage_notes:
+      seed: "Magic number is unreliable with small numbers. A single deal can produce a misleading result."
+      series_a: "A magic number above 0.75 justifies increasing GTM spend. Below 0.5 suggests the GTM motion needs restructuring."
+      series_b_plus: "Public SaaS companies target 1.0+. The magic number helps determine whether to invest in or restructure the sales organization."
+    data_sources:
+      - source: "Bessemer Cloud Index"
+        year: "2024"
+      - source: "SaaStr Benchmarks"
+        year: "2024"
+    related_metrics: ["cac", "cac-payback-period", "burn-multiple"]
+    related_skills: ["balanced-scorecard", "four-ps-marketing"]
+    caveats: "The magic number uses prior quarter spend against current quarter revenue gain, assuming a one-quarter lag. This assumption breaks for products with long sales cycles."
+
+  - name: "SaaS Quick Ratio"
+    id: "saas-quick-ratio"
+    category: "efficiency"
+    definition: "The ratio of revenue inflows to revenue outflows, measuring whether the company adds revenue faster than it loses it."
+    formula: "(New MRR + Expansion MRR) / (Churned MRR + Contraction MRR)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1.0"
+        signal: "The business is shrinking. Revenue losses exceed gains. Urgent intervention required."
+      below_average:
+        value: "1.0-2.0"
+        signal: "Growing but fragile. A small increase in churn could tip the business into contraction."
+      average:
+        value: "2.0-4.0"
+        signal: "Healthy growth dynamics. Adding revenue at 2-4x the rate of loss."
+      good:
+        value: "4.0-6.0"
+        signal: "Strong growth quality. Revenue additions far outpace losses. The business has momentum."
+      excellent:
+        value: "> 6.0"
+        signal: "Exceptional. Very low churn relative to new revenue additions. Common in early-stage companies with low absolute churn."
+    stage_notes:
+      seed: "Quick Ratio tends to be high at seed because absolute churn is low. A few churned customers will crater it."
+      series_a: "A Quick Ratio above 4 is strong at Series A. It demonstrates that growth is not masking a retention problem."
+      series_b_plus: "Quick Ratio naturally declines at scale as the churned base grows in absolute terms. 2-4x is healthy at scale."
+    data_sources:
+      - source: "Mamoon Hamid / Social Capital framework"
+        year: "2023"
+      - source: "Paddle/ProfitWell analysis"
+        year: "2024"
+    related_metrics: ["nrr", "revenue-churn", "mom-growth-rate"]
+    related_skills: ["balanced-scorecard", "growth-share-matrix"]
+    caveats: "Quick Ratio rewards low churn and high new revenue equally. A company with terrible retention but massive top-of-funnel can still score well. Pair with GRR."
+
+  # ─────────────────────────────────────────────
+  # SALES METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Average Contract Value (ACV)"
+    id: "acv"
+    category: "sales"
+    definition: "The average annualized revenue per customer contract, indicating the company's market positioning and deal size."
+    formula: "Total new ARR from new contracts / Number of new contracts"
+    unit: "currency"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "Misaligned ACV for the go-to-market model (e.g., $500 ACV with an enterprise sales team, or $200K ACV with self-serve only)"
+        signal: "The GTM model does not match the deal size. This creates structural inefficiency — either over-investing in sales or under-investing in it."
+      below_average:
+        value: "ACV < $1K with any direct sales involvement"
+        signal: "Deal size too small to support human-touch sales. Must be product-led growth or self-serve to be viable."
+      average:
+        value: "$5K-$25K ACV with inside sales; $25K-$100K with field sales"
+        signal: "Typical SaaS range. The GTM model is appropriately matched to the deal size."
+      good:
+        value: "$50K-$200K ACV with field sales and customer success"
+        signal: "Strong mid-market to enterprise positioning. Supports a high-touch model and strategic customer relationships."
+      excellent:
+        value: "> $200K ACV with strategic/enterprise sales"
+        signal: "Enterprise-grade deals. Long sales cycles but high retention and expansion potential. Concentrated customer risk."
+    stage_notes:
+      seed: "ACV often starts low and grows as the product matures and moves upmarket. Seed-stage ACV below $5K is common."
+      series_a: "ACV trajectory matters more than absolute level. Increasing ACV over time signals product maturation and market pull."
+      series_b_plus: "ACV expansion within existing accounts is as important as new-logo ACV. Track both separately."
+    data_sources:
+      - source: "KeyBanc SaaS Survey"
+        year: "2024"
+      - source: "OpenView SaaS Benchmarks"
+        year: "2023"
+    related_metrics: ["arpu", "ltv", "sales-cycle-length"]
+    related_skills: ["pricing-diagnosis", "four-ps-marketing"]
+    caveats: "ACV can be distorted by a single large deal. Report median ACV alongside mean ACV for accuracy."
+
+  - name: "Average Revenue Per User (ARPU)"
+    id: "arpu"
+    category: "sales"
+    definition: "The average monthly revenue generated per active user or account, measuring monetization intensity."
+    formula: "MRR / Total active accounts (or users, depending on pricing model)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $10/month per account (B2B); < $2/month per user (B2C)"
+        signal: "Very low monetization. Requires massive scale to build a significant business. Difficult to support any direct sales motion."
+      below_average:
+        value: "$10-$50/month (B2B); $2-$10/month (B2C)"
+        signal: "Low ARPU. Viable with self-serve PLG and low support costs. Challenging to fund a traditional sales team."
+      average:
+        value: "$50-$500/month (B2B)"
+        signal: "The range where inside sales, content marketing, and moderate customer success become sustainable."
+      good:
+        value: "$500-$5,000/month (B2B)"
+        signal: "Strong monetization. Supports field sales, dedicated CSMs, and significant retention investment."
+      excellent:
+        value: "> $5,000/month (B2B)"
+        signal: "Enterprise pricing. High-value customers who justify strategic account management and custom solutions."
+    stage_notes:
+      seed: "ARPU at seed reflects initial pricing — often underpriced. Tracking ARPU growth over time is more informative."
+      series_a: "ARPU should be increasing or stable. Declining ARPU (from moving downmarket to chase volume) is a warning sign."
+      series_b_plus: "Segment ARPU by cohort and customer tier. Blended ARPU obscures whether you are attracting larger or smaller customers over time."
+    data_sources:
+      - source: "Paddle/ProfitWell Price Benchmarks"
+        year: "2024"
+      - source: "OpenView PLG Index"
+        year: "2023"
+    related_metrics: ["acv", "mrr", "ltv"]
+    related_skills: ["pricing-diagnosis", "business-model-canvas"]
+    caveats: "ARPU varies enormously by segment. A company selling to SMBs at $50/month and enterprises at $5,000/month has a blended ARPU that describes neither customer well."
+
+  - name: "Expansion Revenue Percentage"
+    id: "expansion-revenue-pct"
+    category: "sales"
+    definition: "The percentage of new MRR that comes from existing customers (upsells, cross-sells, seat expansion) rather than new logos."
+    formula: "Expansion MRR / Total New MRR x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10%"
+        signal: "Nearly all growth comes from new customers. The existing base is not expanding, indicating limited upsell paths or low product stickiness."
+      below_average:
+        value: "10-20%"
+        signal: "Minimal expansion. The product may lack tiers, add-ons, or usage-based pricing that drive natural expansion."
+      average:
+        value: "20-30%"
+        signal: "Moderate expansion revenue. Common for companies with seat-based pricing and steady customer growth."
+      good:
+        value: "30-50%"
+        signal: "Strong expansion engine. Existing customers are a significant growth driver. Indicates land-and-expand is working."
+      excellent:
+        value: "> 50%"
+        signal: "Expansion-dominated growth. The existing base grows faster than new customer acquisition. Characteristic of usage-based models (Snowflake, Twilio)."
+    stage_notes:
+      seed: "Expansion revenue is negligible at seed — the focus is new customer acquisition and retention."
+      series_a: "Expansion signals begin to matter. Any expansion revenue at Series A is positive. Building the expansion motion is a key Series A initiative."
+      series_b_plus: "At scale, 30-50% of new MRR from expansion is the target. Companies relying solely on new logos face increasing CAC pressure."
+    data_sources:
+      - source: "KeyBanc SaaS Survey"
+        year: "2024"
+      - source: "OpenView Expansion Revenue Report"
+        year: "2023"
+    related_metrics: ["nrr", "ndr", "arpu"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "Expansion revenue percentage can be inflated by usage-based pricing with volatile consumption. Distinguish between durable expansion (more seats, higher tiers) and variable expansion (usage spikes)."
+
+  - name: "Net Dollar Retention (NDR)"
+    id: "ndr"
+    category: "retention"
+    definition: "Functionally identical to NRR — the percentage of revenue retained from a cohort of customers after a defined period, including expansion and contraction."
+    formula: "(Starting ARR of cohort + Expansion - Contraction - Churn) / Starting ARR of cohort x 100 (typically measured at 12-month intervals)"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 90%"
+        signal: "Cohort revenue declines materially. The business cannot grow its existing base — all growth must come from new logos."
+      below_average:
+        value: "90-100%"
+        signal: "Cohort revenue is roughly flat. No net expansion from existing customers."
+      average:
+        value: "100-110%"
+        signal: "Modest net expansion. Cohorts grow slightly over time."
+      good:
+        value: "110-130%"
+        signal: "Strong expansion. Typical of best-in-class private SaaS companies. Each cohort becomes more valuable over time."
+      excellent:
+        value: "> 130%"
+        signal: "Exceptional. Usage-based or deeply embedded products where customer spend compounds naturally."
+    stage_notes:
+      seed: "NDR requires at least 12 months of cohort data to be meaningful. Not applicable at seed."
+      series_a: "NDR is one of the most scrutinized metrics at Series A. Above 110% is a strong signal."
+      series_b_plus: "NDR above 120% is a key driver of premium valuations in public markets. Bessemer, Iconiq, and other benchmarks weight it heavily."
+    data_sources:
+      - source: "Bessemer Cloud Index"
+        year: "2024"
+      - source: "Iconiq Growth"
+        year: "2023"
+    related_metrics: ["nrr", "grr", "expansion-revenue-pct"]
+    related_skills: ["net-promoter-score", "balanced-scorecard"]
+    caveats: "NDR and NRR are used interchangeably in the industry, though NDR typically implies annual cohort measurement while NRR may be monthly. Clarify the time window when reporting."
+
+  - name: "Pipeline Coverage Ratio"
+    id: "pipeline-coverage-ratio"
+    category: "sales"
+    definition: "The ratio of total pipeline value to quota or revenue target for a given period, measuring whether the sales team has sufficient opportunity volume."
+    formula: "Total pipeline value for period / Revenue target (quota) for period"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 2.0x"
+        signal: "Insufficient pipeline. The sales team has less than twice quota in pipeline, making target attainment unlikely given typical win rates."
+      below_average:
+        value: "2.0-2.5x"
+        signal: "Thin pipeline. Requires above-average win rates to hit target. Any deal slippage will cause a miss."
+      average:
+        value: "2.5-3.5x"
+        signal: "Standard coverage. Assuming 25-35% win rates, this provides a reasonable probability of hitting target."
+      good:
+        value: "3.5-5.0x"
+        signal: "Healthy coverage. Provides buffer for deal slippage, lost deals, and sales cycle extensions."
+      excellent:
+        value: "> 5.0x"
+        signal: "Strong coverage, though may indicate pipeline quality issues — too many unqualified opportunities inflating the number."
+    stage_notes:
+      seed: "Pipeline coverage is not a meaningful metric without a sales team. Founders selling directly should track opportunity list, not formal pipeline."
+      series_a: "As the first sales hires come on, pipeline coverage becomes a leading indicator. 3x coverage is the minimum target."
+      series_b_plus: "Pipeline coverage should be measured by stage (early, mid, late), by segment, and by rep. Aggregate coverage masks individual performance."
+    data_sources:
+      - source: "Gartner Sales Benchmarks"
+        year: "2024"
+      - source: "Forrester B2B Sales Report"
+        year: "2023"
+    related_metrics: ["win-rate", "sales-cycle-length", "acv"]
+    related_skills: ["scenario-planning", "balanced-scorecard"]
+    caveats: "Pipeline coverage is only meaningful if pipeline hygiene is strong. Inflated pipelines with stale or unqualified deals produce misleadingly high coverage ratios."
+
+  - name: "Win Rate"
+    id: "win-rate"
+    category: "sales"
+    definition: "The percentage of sales opportunities that convert to closed-won deals, measuring sales effectiveness."
+    formula: "Closed-won opportunities / (Closed-won + Closed-lost opportunities) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 15%"
+        signal: "Very low conversion. Possible causes: poor qualification, weak product fit, uncompetitive offering, or ineffective sales process."
+      below_average:
+        value: "15-20%"
+        signal: "Below average. The pipeline includes too many unqualified or poorly matched opportunities."
+      average:
+        value: "20-30%"
+        signal: "Typical for B2B SaaS. Roughly one in four qualified opportunities converts."
+      good:
+        value: "30-40%"
+        signal: "Strong conversion. Indicates good qualification, competitive product, and effective sales execution."
+      excellent:
+        value: "> 40%"
+        signal: "Exceptional. Either the product has overwhelming competitive advantage or the company qualifies pipeline very aggressively (which may limit volume)."
+    stage_notes:
+      seed: "Founders typically close at higher rates than hired reps — they know the product deeply and prospects respond to founder energy. Do not use founder win rates to project team performance."
+      series_a: "Win rates should be tracked by source (inbound vs. outbound), deal size, and sales rep. Aggregate win rate is a starting point."
+      series_b_plus: "Win rate analysis should include competitive win/loss data. Track not just whether you win but whom you beat and whom you lose to."
+    data_sources:
+      - source: "Gartner Sales Research"
+        year: "2024"
+      - source: "HubSpot Sales Benchmarks"
+        year: "2023"
+    related_metrics: ["pipeline-coverage-ratio", "sales-cycle-length", "acv"]
+    related_skills: ["competitive-negotiation", "porters-five-forces"]
+    caveats: "Win rate is sensitive to how 'opportunity' is defined. If only highly qualified prospects enter the pipeline, win rate appears high. Standardize opportunity stage definitions."
+
+  - name: "Sales Cycle Length"
+    id: "sales-cycle-length"
+    category: "sales"
+    definition: "The average number of days from first meaningful sales engagement to closed-won deal."
+    formula: "Sum of (close date - opportunity creation date) for all won deals / Number of won deals"
+    unit: "days"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 180 days for mid-market; > 365 days for enterprise"
+        signal: "Extremely long cycles. Common causes: unclear value proposition, too many stakeholders, weak champion, or product not addressing an urgent problem."
+      below_average:
+        value: "90-180 days for mid-market; 180-365 days for enterprise"
+        signal: "Long but not unusual for complex sales. Requires strong pipeline management and forecasting discipline."
+      average:
+        value: "30-90 days for SMB/mid-market; 90-180 days for enterprise"
+        signal: "Standard B2B SaaS range. Varies significantly by ACV — higher ACV naturally correlates with longer cycles."
+      good:
+        value: "14-30 days for SMB; 45-90 days for mid-market"
+        signal: "Efficient cycle. Strong urgency, clear value, and streamlined buying process."
+      excellent:
+        value: "< 14 days for SMB; < 45 days for mid-market"
+        signal: "Very fast conversion. Often indicates product-led growth, free trial conversion, or a burning platform problem."
+    stage_notes:
+      seed: "Sales cycles at seed are often artificially short (early adopters with low friction) or artificially long (unrefined sales process). Neither predicts scale behavior."
+      series_a: "Tracking average sales cycle by deal size establishes the basis for forecasting and hiring models."
+      series_b_plus: "Sales cycle compression is a key efficiency lever at scale. Reducing cycle length by 20% has the same effect as hiring 20% more reps."
+    data_sources:
+      - source: "Gartner B2B Buying Study"
+        year: "2024"
+      - source: "HubSpot Sales Benchmarks"
+        year: "2023"
+    related_metrics: ["win-rate", "acv", "pipeline-coverage-ratio"]
+    related_skills: ["delivering-the-deal", "competitive-negotiation"]
+    caveats: "Sales cycle length should exclude outlier deals (both extremely fast and extremely slow). Use median rather than mean for more representative data."
+
+  # ─────────────────────────────────────────────
+  # PRODUCT METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Time to Value"
+    id: "time-to-value"
+    category: "product"
+    definition: "The elapsed time from customer sign-up to the moment they experience the core value proposition of the product."
+    formula: "Median time from account creation to activation milestone (product-specific definition)"
+    unit: "days"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 30 days"
+        signal: "Customers wait a month before experiencing value. High abandonment risk, especially for self-serve products."
+      below_average:
+        value: "14-30 days"
+        signal: "Slow value delivery. Typical of products requiring significant setup, integration, or data migration."
+      average:
+        value: "3-14 days"
+        signal: "Reasonable for B2B products with moderate complexity. Acceptable for products with guided onboarding."
+      good:
+        value: "1-3 days"
+        signal: "Fast value delivery. Strong onboarding flow and clear first-use experience."
+      excellent:
+        value: "< 1 day (ideally < 1 hour)"
+        signal: "Immediate value. Characteristic of PLG products with strong 'aha moments' (Slack, Loom, Canva). Drives viral adoption."
+    stage_notes:
+      seed: "Time to value is often long at seed — manual onboarding, incomplete product. Reducing it is a top priority for product-market fit."
+      series_a: "Time to value directly predicts conversion rates. Companies that compress TTV from weeks to days see step-function improvements in activation."
+      series_b_plus: "At scale, time to value should be measured by segment and onboarding path (self-serve vs. assisted vs. enterprise implementation)."
+    data_sources:
+      - source: "OpenView PLG Index"
+        year: "2024"
+      - source: "Pendo Product Benchmarks"
+        year: "2023"
+    related_metrics: ["activation-rate", "logo-churn"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "Time to value requires a precise definition of the 'value moment.' Without this, the metric is meaningless. Define the activation event before measuring TTV."
+
+  - name: "Activation Rate"
+    id: "activation-rate"
+    category: "product"
+    definition: "The percentage of new sign-ups or customers who complete the key actions that predict long-term retention and value realization."
+    formula: "Users who complete activation milestone / Total new sign-ups x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 15%"
+        signal: "The vast majority of sign-ups never experience the product's value. The onboarding experience is failing or the product does not deliver on its promise."
+      below_average:
+        value: "15-25%"
+        signal: "Low activation. Common for products with complex setup requirements or weak onboarding flows."
+      average:
+        value: "25-40%"
+        signal: "Standard for B2B SaaS with free trials or freemium models. Significant room for improvement."
+      good:
+        value: "40-60%"
+        signal: "Strong activation. The product's onboarding effectively guides users to value. Good PLG companies achieve this range."
+      excellent:
+        value: "> 60%"
+        signal: "Exceptional. The product is intuitive and delivers value with minimal friction. Elite PLG products (Dropbox, Calendly) at their peaks."
+    stage_notes:
+      seed: "Activation rate is the most important product metric at seed. It directly indicates whether the product delivers on its promise."
+      series_a: "Improving activation rate is often the highest-ROI investment at Series A — it improves every downstream metric (retention, expansion, referral)."
+      series_b_plus: "Activation rate should be segmented by source, persona, and onboarding path. Different segments require different activation strategies."
+    data_sources:
+      - source: "OpenView PLG Index"
+        year: "2024"
+      - source: "Mixpanel Product Benchmarks"
+        year: "2023"
+    related_metrics: ["time-to-value", "logo-churn", "nrr"]
+    related_skills: ["net-promoter-score", "product-life-cycle", "disruptive-innovation"]
+    caveats: "Activation rate depends entirely on how the activation milestone is defined. Choose a milestone that correlates with retention (validated empirically), not an arbitrary product action."
+
+  # ─────────────────────────────────────────────
+  # PRODUCT METRICS (continued)
+  # ─────────────────────────────────────────────
+
+  - name: "Net Promoter Score (NPS)"
+    id: "nps-saas"
+    category: "product"
+    definition: "A measure of customer loyalty and satisfaction based on the likelihood of recommending the product, widely used as a leading indicator of retention in SaaS."
+    formula: "% Promoters (score 9-10) - % Detractors (score 0-6)"
+    unit: "score"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 0"
+        signal: "More detractors than promoters. The product is actively generating negative word-of-mouth. Churn risk is severe."
+      below_average:
+        value: "0-20"
+        signal: "Net positive but weak. Customers are indifferent rather than enthusiastic. Vulnerable to competitive displacement."
+      average:
+        value: "20-40"
+        signal: "Decent satisfaction. Typical for B2B SaaS products that solve real problems without delighting users."
+      good:
+        value: "40-60"
+        signal: "Strong loyalty. Customers actively recommend the product. Correlates with low churn and organic growth."
+      excellent:
+        value: "> 60"
+        signal: "Exceptional loyalty. Companies like Slack (early), Notion, and Zoom in their growth phases. Drives powerful viral loops."
+    stage_notes:
+      seed: "NPS surveys require a minimum sample size (~30 responses) to be statistically meaningful. At seed, qualitative feedback matters more."
+      series_a: "NPS above 40 is a strong signal for investors. Below 20 at Series A raises concerns about product-market fit depth."
+      series_b_plus: "NPS should be tracked quarterly, segmented by cohort and customer tier. Declining NPS at scale is an early warning of market saturation or product stagnation."
+    data_sources:
+      - source: "Bain & Company NPS Benchmarks"
+        year: "2024"
+      - source: "Retently B2B SaaS NPS Benchmarks"
+        year: "2024"
+    related_metrics: ["logo-churn", "nrr", "activation-rate"]
+    related_skills: ["net-promoter-score"]
+    caveats: "NPS is a lagging and blunt instrument. A high NPS does not guarantee retention (customers may love the product but switch due to price), and a low NPS does not guarantee churn (customers may dislike the product but have high switching costs)."

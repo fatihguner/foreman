@@ -1,0 +1,1 @@
+../../../../.claude/skills/game-theory/first-mover-strategy.md

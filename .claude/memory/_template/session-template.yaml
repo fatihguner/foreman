@@ -1,0 +1,31 @@
+# Layer 5: Session
+# Change frequency: per message (ephemeral)
+# Owner: System creates at conversation start, destroys at conversation end
+# Purpose: Maintains conversation context, accumulates data for persistence
+# Lifecycle: Important data migrates to History/Active at session end, rest is discarded
+
+session:
+  started: ""                       # ISO 8601 datetime
+  topic: ""                         # Primary topic from first message
+  hooks_triggered: []               # Which hooks matched
+  current_context: []               # Running notes on discussion
+  messages_exchanged: 0
+  skills_invoked: []                # Skills applied this session
+  diagnostics_run: []               # Diagnostics executed this session
+  temp_notes: []                    # Observations to evaluate for persistence
+  # temp_note format:
+  # - note: "Founder mentioned losing key customer last week"
+  #   persist_candidate: true
+  #   target_layer: "company"       # identity | company | history | active
+
+# END-OF-SESSION PROTOCOL (executed by memory-agent):
+#
+# 1. For each skill in skills_invoked → append to history.skills_applied
+# 2. For each diagnostic in diagnostics_run → append to history.diagnostics_run
+# 3. For each temp_note where persist_candidate = true:
+#    - target_layer = "history" → append to appropriate history section
+#    - target_layer = "company" → update company field
+#    - target_layer = "identity" → update identity field
+#    - target_layer = "active" → add to active.follow_ups or pending_decisions
+# 4. If playbook progressed → update active.current_playbook
+# 5. Delete session.yaml

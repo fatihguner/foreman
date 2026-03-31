@@ -1,0 +1,36 @@
+# Only ship bin/, .claude/, and CLAUDE.md (defined in package.json "files")
+# This file excludes everything else from the npm package
+
+# Development
+scripts/
+docs/
+examples/
+assets/
+openclaw-templates/
+
+# Platform-specific (not needed for npm install)
+.codex-plugin/
+.claude-plugin/
+.agents/
+/skills/
+openclaw.plugin.json
+index.ts
+
+# Project files
+.github/
+.editorconfig
+.gitignore
+.gitattributes
+CONTRIBUTING.md
+CODE_OF_CONDUCT.md
+SECURITY.md
+CHANGELOG.md
+VISION.md
+README.md
+LICENSE
+
+# OS and IDE
+.DS_Store
+*.swp
+.vscode/
+.idea/

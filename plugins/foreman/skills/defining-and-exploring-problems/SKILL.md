@@ -1,0 +1,1 @@
+../../../../.claude/skills/thinking/defining-and-exploring-problems.md

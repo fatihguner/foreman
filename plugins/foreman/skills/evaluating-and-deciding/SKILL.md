@@ -1,0 +1,1 @@
+../../../../.claude/skills/thinking/evaluating-and-deciding.md

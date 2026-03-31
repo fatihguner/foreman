@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/systems-thinking.md

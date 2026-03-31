@@ -1,0 +1,1 @@
+../../../../.claude/skills/people/connecting-with-people.md

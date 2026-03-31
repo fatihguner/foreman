@@ -1,0 +1,131 @@
+# =============================================================================
+# Foreman — GitHub Labels
+# Compatible with EndBug/label-sync and actions/labeler
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# Type Labels
+# ---------------------------------------------------------------------------
+- name: bug
+  color: "d73a4a"
+  description: Something is broken or not working as expected
+
+- name: enhancement
+  color: "0075ca"
+  description: New feature or improvement to existing functionality
+
+- name: skill-proposal
+  color: "7057ff"
+  description: Proposal for a new skill or skill category
+
+- name: documentation
+  color: "0e8a16"
+  description: Documentation improvements or additions
+
+- name: question
+  color: "d876e3"
+  description: Request for clarification or information
+
+# ---------------------------------------------------------------------------
+# Component Labels
+# ---------------------------------------------------------------------------
+- name: skills
+  color: "bfd4f2"
+  description: "Related to .claude/skills/ — framework and method files"
+
+- name: templates
+  color: "c2e0c6"
+  description: "Related to .claude/output-templates/ — document templates"
+
+- name: diagnostics
+  color: "f9a825"
+  description: "Related to .claude/diagnostics/ — triage systems"
+
+- name: playbooks
+  color: "006b75"
+  description: "Related to .claude/playbooks/ — multi-step recipes"
+
+- name: hooks
+  color: "ff69b4"
+  description: "Related to .claude/hooks/ — trigger definitions"
+
+- name: agents
+  color: "795548"
+  description: "Related to .claude/agents/ — AI agent definitions"
+
+- name: commands
+  color: "9e9e9e"
+  description: "Related to .claude/commands/ — structured input commands"
+
+- name: industry-packs
+  color: "003366"
+  description: "Related to .claude/industry-packs/ — sector-specific overlays"
+
+- name: research
+  color: "808000"
+  description: "Related to .claude/research/ — structured research guides"
+
+- name: simulation
+  color: "ff7043"
+  description: "Related to .claude/simulation/ — board simulation system"
+
+- name: org-politics
+  color: "3f51b5"
+  description: "Related to .claude/org-politics/ — stakeholder dynamics"
+
+- name: implementation
+  color: "e91e90"
+  description: "Related to .claude/implementation/ — execution tracking"
+
+# ---------------------------------------------------------------------------
+# Priority Labels
+# ---------------------------------------------------------------------------
+- name: "priority: critical"
+  color: "b60205"
+  description: Requires immediate attention — system is broken or blocked
+
+- name: "priority: high"
+  color: "d93f0b"
+  description: Important and should be addressed soon
+
+- name: "priority: medium"
+  color: "f9a825"
+  description: Should be addressed in the normal course of work
+
+- name: "priority: low"
+  color: "fef2c0"
+  description: Nice to have — address when convenient
+
+# ---------------------------------------------------------------------------
+# Status Labels
+# ---------------------------------------------------------------------------
+- name: "status: ready"
+  color: "0e8a16"
+  description: Ready to be picked up and worked on
+
+- name: "status: in-progress"
+  color: "fbca04"
+  description: Currently being worked on
+
+- name: "status: needs-review"
+  color: "0075ca"
+  description: Work is complete and awaiting review
+
+- name: "status: blocked"
+  color: "d73a4a"
+  description: Blocked by a dependency or external factor
+
+# ---------------------------------------------------------------------------
+# Mode Labels
+# ---------------------------------------------------------------------------
+- name: solo-mode
+  color: "7057ff"
+  description: "Related to solo mode — solopreneur adaptation layer"
+
+- name: stoic-mode
+  color: "4a148c"
+  description: "Related to stoic mode — philosophical depth layer"
+
+- name: language-mode
+  color: "006b75"
+  description: "Related to language mode — output language switching"

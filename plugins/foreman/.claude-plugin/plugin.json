@@ -1,0 +1,11 @@
+{
+  "name": "foreman",
+  "version": "1.0.0",
+  "description": "AI-powered strategic advisor for entrepreneurs. 158 business framework skills across 12 categories, with diagnostics, playbooks, output templates, and industry-specific packs.",
+  "author": {
+    "name": "Fatih Guner"
+  },
+  "homepage": "https://foreman.sh",
+  "repository": "https://github.com/fatihguner/foreman",
+  "license": "MIT"
+}

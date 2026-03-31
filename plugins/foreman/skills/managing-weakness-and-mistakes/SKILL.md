@@ -1,0 +1,1 @@
+../../../../.claude/skills/thinking/managing-weakness-and-mistakes.md

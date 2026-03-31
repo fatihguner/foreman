@@ -1,0 +1,968 @@
+# Fintech Industry Pack — Benchmarks
+#
+# 24 fintech-specific metrics with real benchmark data sourced from public studies.
+# The orchestrator surfaces these when applying quantitative skills, generating
+# output templates with financial metrics, or diagnosing growth, compliance,
+# and unit economics issues in payments, lending, neobanking, insurtech,
+# wealthtech, crypto/blockchain, embedded finance, and regtech companies.
+#
+# Primary data sources:
+#   - a16z Fintech Reports (2023, 2024)
+#   - CB Insights State of Fintech (2023, 2024)
+#   - McKinsey Global Payments Report (2023, 2024)
+#   - Stripe S-1 / Financial Reports (2023, 2024)
+#   - Nubank S-1 Filing / Annual Reports (2021, 2023)
+#   - SoFi S-1 Filing / Annual Reports (2021, 2023)
+#   - Plaid Developer Reports (2023, 2024)
+#   - FDIC Quarterly Banking Profile (2023, 2024)
+#   - Basel Committee on Banking Supervision (2023)
+#   - Nilson Report — Card Fraud Worldwide (2023, 2024)
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among funded fintech companies at the relevant stage.
+#
+# REGULATORY NOTE: Many fintech metrics are subject to regulatory reporting
+# requirements. Definitions must align with applicable regulatory standards
+# (BSA/AML, PSD2, Basel III) to ensure consistency between internal tracking
+# and compliance reporting.
+
+pack_metadata:
+  sector: "fintech"
+  display_name: "Fintech"
+  version: "1.0.0"
+  description: "Benchmark data for fintech companies spanning payments, lending, neobanking, insurtech, wealthtech, crypto, embedded finance, and regtech — with regulatory compliance as a first-class dimension."
+  applicable_stages:
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"
+  compatible_modes:
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # PAYMENTS & VOLUME METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Total Payment Volume (TPV)"
+    id: "tpv"
+    category: "growth"
+    definition: "The aggregate dollar value of all transactions processed through the platform in a given period. TPV is the top-line measure of scale for payments businesses — it represents the economic activity intermediated, not the revenue retained."
+    formula: "SUM(transaction_value) over period"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $1M monthly TPV at 12 months post-launch"
+        signal: "Insufficient transaction velocity to sustain the business. Processing costs eat margins at low volume."
+      below_average:
+        value: "$1M-$10M monthly TPV at 12 months"
+        signal: "Early traction but not yet at the scale where unit economics improve. Interchange and processing cost negotiations remain unfavorable."
+      average:
+        value: "$10M-$100M monthly TPV at 12 months"
+        signal: "Meaningful scale. Enough volume to negotiate improved interchange rates and demonstrate product-market fit to investors."
+      good:
+        value: "$100M-$1B monthly TPV at 12 months"
+        signal: "Strong volume. Unit economics improve materially at this scale through volume-based pricing tiers with card networks and processors."
+      excellent:
+        value: "> $1B monthly TPV at 12 months"
+        signal: "Exceptional scale. Rare at this stage — indicates viral adoption in a high-volume vertical or a major enterprise client onboarded."
+    stage_notes:
+      seed: "TPV trajectory matters more than absolute level. Investors look for consistent week-over-week growth in transaction volume, not static snapshots."
+      series_a: "Series A payments companies typically process $50M-$500M annual TPV. The conversion from TPV to net revenue (take rate) is scrutinized heavily."
+      series_b_plus: "At Series B+, TPV growth rate must exceed 50% YoY. Investors shift focus from TPV to net revenue growth and margin expansion."
+    data_sources:
+      - source: "McKinsey Global Payments Report"
+        url: "https://www.mckinsey.com/industries/financial-services/our-insights/the-2023-mckinsey-global-payments-report"
+        year: "2023"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["take-rate", "transaction-volume", "revenue-per-transaction"]
+    related_skills: ["balanced-scorecard", "business-model-canvas"]
+    caveats: "TPV can be inflated by pass-through transactions that generate minimal revenue. Always pair TPV with take rate to understand actual economics. High-TPV businesses with sub-10bps take rates face margin compression risk."
+
+  - name: "Take Rate / Interchange Revenue"
+    id: "take-rate"
+    category: "unit-economics"
+    definition: "The percentage of total payment volume retained as net revenue after interchange, assessments, and processor costs. This is the fintech equivalent of gross margin on transactions — it measures the platform's pricing power and value-add per dollar processed."
+    formula: "Net Revenue / TPV x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 0.1% (10 bps)"
+        signal: "Commodity processing with no value-add. The business is a payment pass-through — vulnerable to disintermediation by Stripe, Adyen, or direct bank connections."
+      below_average:
+        value: "0.1-0.3% (10-30 bps)"
+        signal: "Low-margin payment facilitation. Sustainable only at extreme volume. Durbin Amendment caps debit interchange at ~22 cents + 5bps for large issuers."
+      average:
+        value: "0.3-1.0% (30-100 bps)"
+        signal: "Standard payment facilitation with some value-add services (fraud prevention, underwriting, analytics). Stripe retains approximately 50-70bps after interchange."
+      good:
+        value: "1.0-2.5% (100-250 bps)"
+        signal: "Significant value-add justifying premium pricing. Includes embedded services (lending, insurance, identity) bundled with payments."
+      excellent:
+        value: "> 2.5% (250+ bps)"
+        signal: "Platform economics with deep vertical integration. Possible through managed services, lending-on-volume, or regulated services where compliance creates pricing power."
+    stage_notes:
+      seed: "Take rate is a hypothesis at seed. Regulatory constraints (interchange caps under Durbin Amendment in US, IFR in EU) set hard ceilings on certain revenue lines."
+      series_a: "Take rate compression is the primary risk. Demonstrate the path to increasing take rate through value-add services, not just volume growth."
+      series_b_plus: "At scale, even 5bps of take rate improvement is material. Investors model take rate trajectory alongside TPV growth."
+    data_sources:
+      - source: "Stripe Financial Reports"
+        year: "2024"
+      - source: "McKinsey Global Payments Report"
+        year: "2023"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["tpv", "revenue-per-transaction", "gross-margin"]
+    related_skills: ["pricing-diagnosis", "porters-five-forces"]
+    caveats: "Take rate varies dramatically by vertical and payment method. Card-present transactions yield different interchange than card-not-present. Cross-border transactions carry higher interchange but also higher fraud risk. Regulatory caps (PSD2 IFR in Europe, Durbin in US) constrain take rates on regulated interchange."
+
+  - name: "Transaction Volume"
+    id: "transaction-volume"
+    category: "growth"
+    definition: "The total number of discrete transactions processed in a given period, independent of dollar value. Transaction volume measures platform utilization and is the primary driver of variable costs (processing fees per transaction)."
+    formula: "COUNT(transactions) over period"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10K monthly transactions at 12 months"
+        signal: "Insufficient scale for meaningful unit economics. Fixed infrastructure costs dominate variable transaction costs."
+      below_average:
+        value: "10K-100K monthly transactions"
+        signal: "Early traction. Enough transactions to detect fraud patterns and optimize processing routes."
+      average:
+        value: "100K-1M monthly transactions"
+        signal: "Operational scale. Justifies investment in proprietary fraud detection, transaction monitoring, and compliance automation."
+      good:
+        value: "1M-10M monthly transactions"
+        signal: "Strong scale. Volume-based pricing from networks and processors materially improves unit economics."
+      excellent:
+        value: "> 10M monthly transactions"
+        signal: "Massive scale. Enables sophisticated data-driven products (credit scoring, personalization, predictive analytics) built on transaction data."
+    stage_notes:
+      seed: "Transaction count matters for demonstrating usage patterns. Quality of transactions (repeat users, consistent amounts) signals more than volume alone."
+      series_a: "Transaction growth rate and transactions per user are more meaningful than raw count. BSA/AML transaction monitoring requirements scale with volume."
+      series_b_plus: "At scale, transaction cost per unit should decline through volume discounts and processing optimization. Regulatory reporting obligations (CTR, SAR) increase with volume."
+    data_sources:
+      - source: "Stripe Financial Reports"
+        year: "2024"
+      - source: "Plaid Developer Reports"
+        year: "2024"
+    related_metrics: ["tpv", "revenue-per-transaction", "cost-per-transaction", "transactions-per-user"]
+    related_skills: ["balanced-scorecard", "systems-thinking"]
+    caveats: "Transaction volume without revenue context is a vanity metric. A million transactions at zero margin is worse than 100K transactions at healthy margin. Always pair with revenue per transaction and cost per transaction."
+
+  - name: "Revenue per Transaction"
+    id: "revenue-per-transaction"
+    category: "unit-economics"
+    definition: "The average net revenue captured per individual transaction after interchange, assessments, and direct processing costs. This metric measures the economic value of each transaction to the platform."
+    formula: "Net Revenue / Transaction Count"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $0.05 per transaction"
+        signal: "Micro-transaction economics that require extreme volume to sustain the business. Common in peer-to-peer payments and low-value card transactions."
+      below_average:
+        value: "$0.05-$0.25 per transaction"
+        signal: "Low per-unit economics. Business viability depends on high frequency and volume. Cross-sell opportunities needed to increase lifetime value."
+      average:
+        value: "$0.25-$1.00 per transaction"
+        signal: "Sustainable per-transaction economics for payment facilitators. Enough margin per transaction to fund fraud prevention and customer support."
+      good:
+        value: "$1.00-$5.00 per transaction"
+        signal: "Strong unit economics per transaction. Indicates value-add services or higher-value transaction types (B2B payments, cross-border, lending)."
+      excellent:
+        value: "> $5.00 per transaction"
+        signal: "Premium transaction economics. Typical of embedded lending, cross-border B2B payments, or regulated financial services where compliance creates pricing power."
+    stage_notes:
+      seed: "Revenue per transaction is a function of average transaction size and take rate. Model both variables independently."
+      series_a: "Demonstrate revenue per transaction stability or improvement over time. Declining revenue per transaction signals take rate compression or mix shift."
+      series_b_plus: "Revenue per transaction should increase as value-add services (fraud tools, analytics, lending) are layered on top of core payment processing."
+    data_sources:
+      - source: "Stripe Financial Reports"
+        year: "2024"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["take-rate", "cost-per-transaction", "transaction-volume"]
+    related_skills: ["pricing-diagnosis", "four-ps-marketing"]
+    caveats: "Average revenue per transaction can be misleading when the transaction mix is bimodal — a platform processing both $5 consumer payments and $50K B2B invoices will show a meaningless average."
+
+  - name: "Cost per Transaction"
+    id: "cost-per-transaction"
+    category: "unit-economics"
+    definition: "The total variable cost incurred to process a single transaction, including interchange fees, processor costs, fraud prevention, compliance screening (KYC/AML), and customer support allocation."
+    formula: "(Interchange + Assessment Fees + Processor Fees + Fraud Costs + Compliance Costs + Support Allocation) / Transaction Count"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $1.50 per transaction"
+        signal: "High per-transaction cost indicating inefficient processing, excessive manual compliance review, or high fraud losses."
+      below_average:
+        value: "$0.75-$1.50 per transaction"
+        signal: "Above-average costs, often driven by manual compliance processes or premium fraud prevention services."
+      average:
+        value: "$0.25-$0.75 per transaction"
+        signal: "Standard processing costs for card-based payment facilitation. Interchange is the dominant component."
+      good:
+        value: "$0.10-$0.25 per transaction"
+        signal: "Efficient processing with automated compliance and fraud systems. Volume-based interchange discounts contributing."
+      excellent:
+        value: "< $0.10 per transaction"
+        signal: "Highly efficient processing — typically ACH-based or direct bank transfer models that bypass card interchange entirely."
+    stage_notes:
+      seed: "Cost per transaction is high at low volume because fixed compliance and infrastructure costs are spread across few transactions."
+      series_a: "Demonstrate clear path to cost per transaction reduction through volume, automation, and processing route optimization."
+      series_b_plus: "Cost per transaction optimization is a primary margin lever. Every cent saved per transaction at high volume is material to EBITDA."
+    data_sources:
+      - source: "McKinsey Global Payments Report"
+        year: "2023"
+      - source: "Nilson Report"
+        year: "2024"
+    related_metrics: ["revenue-per-transaction", "gross-margin", "fraud-loss-rate"]
+    related_skills: ["balanced-scorecard", "systems-thinking"]
+    caveats: "Cost per transaction must include compliance costs — many fintechs exclude KYC/AML screening costs from transaction COGS, understating true unit costs. Regulators expect full cost transparency."
+
+  # ─────────────────────────────────────────────
+  # CUSTOMER ACQUISITION & LIFECYCLE
+  # ─────────────────────────────────────────────
+
+  - name: "Customer Acquisition Cost"
+    id: "cac"
+    category: "unit-economics"
+    definition: "The fully loaded cost to acquire one new active customer, including marketing, sales, referral incentives, sign-up bonuses, and the cost of KYC/identity verification during onboarding. In fintech, CAC must include compliance-driven onboarding costs that do not exist in non-regulated businesses."
+    formula: "(Total Sales & Marketing Spend + KYC/Onboarding Costs + Sign-Up Incentives) / New Active Customers"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $200 (consumer) / > $2,000 (SMB) / > $25,000 (enterprise)"
+        signal: "Acquisition cost exceeds first-year revenue for many customers. Growth is uneconomic without significant cross-sell or long customer lifetimes."
+      below_average:
+        value: "$100-$200 (consumer) / $1,000-$2,000 (SMB) / $10,000-$25,000 (enterprise)"
+        signal: "High CAC driven by competitive acquisition environment, expensive KYC processes, or low organic adoption."
+      average:
+        value: "$30-$100 (consumer) / $500-$1,000 (SMB) / $5,000-$10,000 (enterprise)"
+        signal: "Standard acquisition costs for regulated financial services. KYC typically accounts for $5-$15 of consumer CAC."
+      good:
+        value: "$10-$30 (consumer) / $200-$500 (SMB) / $2,000-$5,000 (enterprise)"
+        signal: "Efficient acquisition through product-led growth, referrals, or embedded distribution. KYC automation reducing onboarding friction."
+      excellent:
+        value: "< $10 (consumer) / < $200 (SMB) / < $2,000 (enterprise)"
+        signal: "Viral or embedded acquisition. Common in neobanks with referral programs (Nubank achieved <$5 CAC in Brazil) or embedded finance with distribution partnerships."
+    stage_notes:
+      seed: "CAC is high and unstable at seed. Manual KYC processes inflate early costs. Focus on learning which channels yield compliant, active customers."
+      series_a: "CAC should be declining as KYC automation scales and channel efficiency improves. Segment CAC by channel and by customer quality (active vs. dormant)."
+      series_b_plus: "CAC efficiency is a primary value driver. Nubank's sub-$5 CAC was central to its IPO narrative. Demonstrate the relationship between CAC and LTV by cohort."
+    data_sources:
+      - source: "Nubank S-1 Filing"
+        year: "2021"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+      - source: "CB Insights State of Fintech"
+        year: "2024"
+    related_metrics: ["ltv", "kyc-conversion-rate", "kyc-cost-per-customer"]
+    related_skills: ["four-ps-marketing", "blue-ocean-strategy"]
+    caveats: "Fintech CAC must include KYC/identity verification costs — these are non-optional regulatory requirements that do not exist in unregulated businesses. Excluding them understates true acquisition cost and misleads unit economics calculations."
+
+  - name: "Customer Lifetime Value"
+    id: "ltv"
+    category: "unit-economics"
+    definition: "The total net revenue expected from a customer over the entire duration of their relationship with the platform, adjusted for gross margin and the cost of regulatory compliance associated with maintaining the account."
+    formula: "ARPU x Gross Margin % / Monthly Revenue Churn Rate (or ARPU x Gross Margin % x Average Customer Lifetime in months)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "LTV:CAC ratio < 1.5x"
+        signal: "Customer economics are underwater. The business is destroying value with each new customer. Common when regulatory compliance costs are underestimated in the LTV calculation."
+      below_average:
+        value: "LTV:CAC ratio 1.5-3x"
+        signal: "Marginal economics. Insufficient margin of safety against regulatory cost increases, credit losses, or competitive fee compression."
+      average:
+        value: "LTV:CAC ratio 3-5x"
+        signal: "Healthy unit economics. Standard range for venture-backed fintechs with established product-market fit."
+      good:
+        value: "LTV:CAC ratio 5-8x"
+        signal: "Strong economics driven by high retention, effective cross-sell, and efficient acquisition. Nubank reported LTV:CAC above 5x at IPO."
+      excellent:
+        value: "LTV:CAC ratio > 8x"
+        signal: "Exceptional economics. May indicate under-investment in growth — verify that the company is deploying capital aggressively enough."
+    stage_notes:
+      seed: "LTV is largely theoretical at seed. Base it on comparable fintech cohort data and conservative assumptions about retention and cross-sell."
+      series_a: "LTV should be derived from at least 12 months of cohort data. Separate LTV by customer segment — consumer, SMB, and enterprise have radically different lifetimes."
+      series_b_plus: "Mature LTV models incorporate multiple revenue streams (payments, lending, deposits, insurance) and regulatory cost assumptions. SoFi's cross-sell from lending to banking demonstrated LTV uplift through product expansion."
+    data_sources:
+      - source: "Nubank S-1 Filing"
+        year: "2021"
+      - source: "SoFi Annual Reports"
+        year: "2023"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["cac", "net-revenue-retention", "monthly-active-users"]
+    related_skills: ["balanced-scorecard", "net-promoter-score"]
+    caveats: "Fintech LTV calculations must account for regulatory compliance costs that compound over the customer lifetime — ongoing KYC refresh, transaction monitoring, and SAR filing costs. Omitting these overstates LTV by 10-20% in lending and payments."
+
+  # ─────────────────────────────────────────────
+  # CREDIT & RISK METRICS (Lending-Specific)
+  # ─────────────────────────────────────────────
+
+  - name: "Net Interest Margin"
+    id: "net-interest-margin"
+    category: "financial"
+    definition: "The difference between interest income earned on loans and the interest paid on deposits or borrowed funds, expressed as a percentage of average earning assets. NIM is the core profitability metric for lending and neobanking fintechs — it measures the spread the institution captures between its cost of funds and its lending yield."
+    formula: "(Interest Income - Interest Expense) / Average Earning Assets x 100"
+    unit: "percentage"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "< 2.0%"
+        signal: "Margin too thin to cover operating costs and credit losses. The institution is pricing loans too competitively or paying too much for deposits/funding."
+      below_average:
+        value: "2.0-3.0%"
+        signal: "Narrow margin that leaves little room for credit losses or operating expenses. Typical of fintechs relying on warehouse lending facilities with high cost of capital."
+      average:
+        value: "3.0-5.0%"
+        signal: "Standard range for digital lenders. FDIC-insured average NIM was approximately 3.3% in 2023. Fintech lenders without bank charters typically operate at higher NIM due to higher-risk lending."
+      good:
+        value: "5.0-8.0%"
+        signal: "Strong NIM indicating either low cost of funds (bank charter, deposit funding) or higher-yield lending (subprime, small-dollar, BNPL). Must be evaluated against credit losses."
+      excellent:
+        value: "> 8.0%"
+        signal: "Very high NIM — typically indicative of high-risk lending (personal loans, payday alternative) where credit losses may consume the margin advantage. Requires careful risk-adjusted analysis."
+    stage_notes:
+      seed: "NIM is largely theoretical pre-launch. Model it based on target lending products, expected cost of capital, and regulatory capital requirements."
+      series_a: "Early NIM data from initial loan portfolio. Watch for NIM compression as the portfolio diversifies from early, hand-picked borrowers to broader origination."
+      series_b_plus: "Stable NIM demonstrates funding advantage and pricing discipline. A bank charter can transform NIM by replacing warehouse lending with deposit funding (Varo, SoFi). Capital adequacy requirements constrain leveraged NIM expansion."
+    data_sources:
+      - source: "FDIC Quarterly Banking Profile"
+        year: "2023"
+      - source: "SoFi Annual Reports"
+        year: "2023"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["default-rate", "loan-origination-volume", "capital-adequacy-ratio"]
+    related_skills: ["scenario-planning", "balanced-scorecard"]
+    caveats: "NIM in isolation is dangerous. A high NIM paired with high default rates produces negative risk-adjusted returns. Always evaluate NIM net of expected credit losses. Regulatory scrutiny increases when NIM significantly exceeds industry averages — regulators may view it as a signal of predatory pricing."
+
+  - name: "Default Rate / Non-Performing Loans"
+    id: "default-rate"
+    category: "financial"
+    definition: "The percentage of the loan portfolio that has defaulted or is classified as non-performing (typically 90+ days past due). This is the primary credit risk metric for lending fintechs and directly determines whether net interest margin translates to actual profit."
+    formula: "Non-Performing Loans / Total Outstanding Loan Portfolio x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 10%"
+        signal: "Credit underwriting is failing. At this default rate, most lending models are unprofitable regardless of NIM. Regulators will scrutinize underwriting standards."
+      below_average:
+        value: "5-10%"
+        signal: "Elevated credit losses consuming most of the interest margin. Common in subprime or thin-file lending. Requires exceptional NIM to remain viable."
+      average:
+        value: "2-5%"
+        signal: "Standard range for fintech lenders. FDIC average non-performing loan ratio was approximately 0.7% for banks in 2023 — fintech lenders serving underbanked populations typically run higher."
+      good:
+        value: "1-2%"
+        signal: "Strong credit quality. Indicates effective underwriting models, appropriate risk pricing, and disciplined portfolio management."
+      excellent:
+        value: "< 1%"
+        signal: "Exceptional credit quality. Typical of prime lending, secured lending, or highly selective origination. Verify that the portfolio is not too conservative — under-lending limits growth."
+    stage_notes:
+      seed: "Default rate is unknown pre-origination. Model based on FICO score distribution, loan type, and comparable fintech portfolios. Regulators require capital reserves against expected losses."
+      series_a: "Early vintage data emerges. Beware of vintage bias — default rates are artificially low in young portfolios because defaults take 6-18 months to materialize."
+      series_b_plus: "Mature vintage analysis across multiple economic conditions. Stress-test the portfolio against recession scenarios. Rating agencies and investors scrutinize default trends when evaluating securitization or warehouse facility renewal."
+    data_sources:
+      - source: "FDIC Quarterly Banking Profile"
+        year: "2023"
+      - source: "CB Insights State of Fintech"
+        year: "2024"
+    related_metrics: ["net-interest-margin", "loan-origination-volume", "capital-adequacy-ratio"]
+    related_skills: ["scenario-planning", "black-swans"]
+    caveats: "Default rates are lagging indicators — they reflect underwriting decisions made 6-18 months ago. Rising default rates in the current portfolio reflect past decisions that cannot be corrected. Early detection through delinquency tracking (30-day, 60-day) is essential. Regulatory agencies examine default rates as part of fair lending and UDAP/UDAAP enforcement."
+
+  - name: "Loan Origination Volume"
+    id: "loan-origination-volume"
+    category: "growth"
+    definition: "The total dollar value of new loans originated in a given period. Measures the lending engine's throughput and growth velocity."
+    formula: "SUM(new_loan_principal) over period"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $1M monthly originations at 12 months"
+        signal: "Insufficient volume to build statistically meaningful credit models or achieve economies of scale in servicing."
+      below_average:
+        value: "$1M-$10M monthly originations"
+        signal: "Early-stage lending volume. Credit models are still learning. Warehouse facility utilization is low, increasing cost of capital."
+      average:
+        value: "$10M-$50M monthly originations"
+        signal: "Meaningful scale. Portfolio data supports credit model refinement. Warehouse facility economics improve."
+      good:
+        value: "$50M-$250M monthly originations"
+        signal: "Strong origination velocity. Sufficient volume for securitization. Multiple lending products may contribute."
+      excellent:
+        value: "> $250M monthly originations"
+        signal: "Institutional scale. SoFi originated $4.4B in personal loans in Q4 2023 alone. At this scale, capital markets access and cost of funds become the primary competitive advantages."
+    stage_notes:
+      seed: "Origination volume is minimal and manual. Regulatory licensing (state lending licenses, NMLS registration) must be in place before origination begins."
+      series_a: "Origination growth should exceed 100% YoY. Watch origination quality alongside quantity — loosening underwriting to grow volume is a path to credit losses."
+      series_b_plus: "Capital markets strategy (securitization, forward flow agreements, bank partnerships) becomes central to scaling origination. Regulatory capital requirements constrain balance-sheet lending."
+    data_sources:
+      - source: "SoFi Annual Reports"
+        year: "2023"
+      - source: "CB Insights State of Fintech"
+        year: "2024"
+    related_metrics: ["net-interest-margin", "default-rate", "capital-adequacy-ratio"]
+    related_skills: ["growth-share-matrix", "scenario-planning"]
+    caveats: "Origination volume can be vanity if credit quality is deteriorating. Rapid origination growth paired with loosening underwriting standards is the classic pattern preceding credit crises. Regulators scrutinize rapid portfolio growth as a leading indicator of risk."
+
+  # ─────────────────────────────────────────────
+  # FRAUD & SECURITY
+  # ─────────────────────────────────────────────
+
+  - name: "Fraud Rate"
+    id: "fraud-rate"
+    category: "efficiency"
+    definition: "The percentage of total transactions identified as fraudulent, whether caught before processing (attempted fraud) or resulting in actual losses (realized fraud). The combined metric measures the overall fraud exposure of the platform."
+    formula: "(Fraudulent Transactions / Total Transactions) x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 1.0% of transactions"
+        signal: "Fraud exposure is dangerously high. Card network thresholds (Visa, Mastercard) for excessive fraud typically trigger fines or program termination at rates above 1%."
+      below_average:
+        value: "0.5-1.0%"
+        signal: "Elevated fraud requiring immediate investment in detection and prevention. Approaching card network monitoring thresholds."
+      average:
+        value: "0.1-0.5%"
+        signal: "Standard fraud exposure for card-not-present transactions. Industry average for e-commerce is approximately 0.1% of transactions (Nilson Report 2023)."
+      good:
+        value: "0.05-0.1%"
+        signal: "Below-average fraud rate indicating effective detection systems and robust identity verification."
+      excellent:
+        value: "< 0.05%"
+        signal: "Best-in-class fraud prevention. Typically requires ML-based real-time detection, multi-factor authentication, and sophisticated device fingerprinting."
+    stage_notes:
+      seed: "Fraud rate data is limited. Implement basic fraud rules and 3D Secure. Budget for fraud losses as a cost of learning."
+      series_a: "Fraud detection must be semi-automated. Manual review at scale is uneconomic. Card networks impose monitoring programs above specific thresholds."
+      series_b_plus: "Proprietary fraud models trained on transaction data become a competitive moat. Low fraud rate enables lower interchange and better network relationships. PCI-DSS compliance is mandatory."
+    data_sources:
+      - source: "Nilson Report — Card Fraud Worldwide"
+        year: "2023"
+      - source: "Stripe Radar benchmarks"
+        year: "2024"
+    related_metrics: ["fraud-loss-rate", "cost-per-transaction"]
+    related_skills: ["systems-thinking", "scenario-planning"]
+    caveats: "Fraud rate can be artificially lowered by rejecting legitimate transactions (false positives). An aggressive fraud filter that blocks 5% of legitimate transactions to achieve a low fraud rate destroys more revenue than the fraud it prevents. Track false positive rate alongside fraud rate."
+
+  - name: "Fraud Loss Rate"
+    id: "fraud-loss-rate"
+    category: "financial"
+    definition: "The actual dollar losses from fraud as a percentage of total payment volume. Unlike fraud rate (which counts incidents), fraud loss rate measures the financial impact — the money that could not be recovered after fraudulent transactions were processed."
+    formula: "(Gross Fraud Losses - Recoveries) / TPV x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 0.5% of TPV"
+        signal: "Fraud losses are consuming a significant portion of gross revenue. At a 1% take rate, 0.5% fraud losses represent half of all revenue."
+      below_average:
+        value: "0.1-0.5% of TPV"
+        signal: "Elevated losses that materially impact profitability. Common in high-risk verticals (gambling, crypto, cross-border) without sophisticated detection."
+      average:
+        value: "0.05-0.1% of TPV"
+        signal: "Standard fraud losses for card-not-present payment processors. Global card fraud losses averaged approximately 6.8 cents per $100 (6.8bps) in 2022."
+      good:
+        value: "0.02-0.05% of TPV"
+        signal: "Below-average fraud losses indicating effective prevention, rapid detection, and strong recovery processes."
+      excellent:
+        value: "< 0.02% of TPV"
+        signal: "Minimal fraud losses. Requires sophisticated ML-based detection, strong identity verification, and effective chargeback management."
+    stage_notes:
+      seed: "Budget 20-50bps of TPV for fraud losses in early operations. Fraud patterns are unpredictable before the platform has enough data to train models."
+      series_a: "Fraud loss trajectory matters more than current level. Demonstrate declining fraud losses per dollar processed as detection improves."
+      series_b_plus: "Fraud loss rate is a key due diligence item for investors and banking partners. Card networks and regulators impose program requirements when losses exceed thresholds."
+    data_sources:
+      - source: "Nilson Report — Card Fraud Worldwide"
+        year: "2023"
+      - source: "McKinsey Global Payments Report"
+        year: "2023"
+    related_metrics: ["fraud-rate", "take-rate", "gross-margin"]
+    related_skills: ["balanced-scorecard", "black-swans"]
+    caveats: "Fraud losses are often under-reported because they are netted against reserves or absorbed into general COGS. Transparent fraud loss reporting is a regulatory requirement under BSA/AML and is increasingly expected by banking partners and card networks."
+
+  # ─────────────────────────────────────────────
+  # KYC & COMPLIANCE
+  # ─────────────────────────────────────────────
+
+  - name: "KYC/Onboarding Conversion Rate"
+    id: "kyc-conversion-rate"
+    category: "efficiency"
+    definition: "The percentage of customers who begin the onboarding/identity verification process and successfully complete it to become active users. This metric measures the friction that regulatory-mandated KYC imposes on customer acquisition — a cost unique to regulated financial services."
+    formula: "(Customers who completed KYC / Customers who initiated KYC) x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 50%"
+        signal: "Half of prospective customers abandon onboarding. The KYC process is too lengthy, too confusing, or rejects too many legitimate applicants. Each abandoned application represents wasted CAC."
+      below_average:
+        value: "50-65%"
+        signal: "Significant drop-off driven by excessive documentation requirements, slow verification, or poor mobile UX during identity capture."
+      average:
+        value: "65-80%"
+        signal: "Standard conversion for regulated fintech onboarding. Industry average for digital-first onboarding with identity verification is approximately 70% (Plaid, 2023)."
+      good:
+        value: "80-90%"
+        signal: "Strong onboarding conversion. Indicates streamlined KYC with real-time verification, OCR document capture, and progressive disclosure of requirements."
+      excellent:
+        value: "> 90%"
+        signal: "Exceptional conversion. Possible with instant verification (Plaid Identity, Jumio), simplified CDD for low-risk products, or embedded onboarding within an existing trusted platform."
+    stage_notes:
+      seed: "KYC conversion is often manually managed and low. Every point of conversion improvement directly reduces effective CAC."
+      series_a: "Automated KYC (OCR, database verification, liveness detection) should bring conversion above 70%. Track drop-off by step to identify specific friction points."
+      series_b_plus: "KYC conversion optimization is a continuous process. Regulatory requirements evolve — CDD requirements under BSA/AML and EU AMLD6 may add new verification steps that re-introduce friction."
+    data_sources:
+      - source: "Plaid Developer Reports"
+        year: "2023"
+      - source: "CB Insights State of Fintech"
+        year: "2024"
+    related_metrics: ["cac", "kyc-cost-per-customer", "monthly-active-users"]
+    related_skills: ["systems-thinking", "product-life-cycle"]
+    caveats: "KYC conversion cannot be optimized at the expense of compliance. Regulators expect risk-based customer due diligence — simplifying KYC for high-risk customer segments violates BSA/AML requirements. The optimization challenge is to maintain compliance while minimizing friction for legitimate customers."
+
+  - name: "KYC Cost per Customer"
+    id: "kyc-cost-per-customer"
+    category: "unit-economics"
+    definition: "The average cost to complete identity verification and customer due diligence for one new customer, including identity provider APIs, document verification services, sanctions screening, PEP checks, and manual review time for flagged applications."
+    formula: "(Identity Verification Costs + Sanctions/PEP Screening + Manual Review Labor + CDD Technology Costs) / Customers Verified"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $15 per customer (consumer) / > $150 (business)"
+        signal: "KYC costs are a material drag on unit economics. Manual review rates are likely above 20%, indicating poor automation or high-risk customer mix."
+      below_average:
+        value: "$8-$15 (consumer) / $75-$150 (business)"
+        signal: "Above-average KYC costs. Common when using premium identity providers without volume discounts, or when regulatory requirements mandate enhanced due diligence for most customers."
+      average:
+        value: "$3-$8 (consumer) / $30-$75 (business)"
+        signal: "Standard KYC costs for digital fintech onboarding. Reflects automated identity verification with database matching and selective manual review."
+      good:
+        value: "$1-$3 (consumer) / $15-$30 (business)"
+        signal: "Efficient KYC powered by automated verification, low manual review rates (<5%), and volume-based pricing with identity providers."
+      excellent:
+        value: "< $1 (consumer) / < $15 (business)"
+        signal: "Highly efficient KYC. Possible with proprietary verification systems, pre-verified customer pools (embedded finance), or tiered KYC that applies minimal verification for low-risk activities."
+    stage_notes:
+      seed: "KYC costs are high per customer at low volume. No volume discounts from identity providers. Manual review rates are high as processes are established."
+      series_a: "Negotiate volume-based pricing with identity providers (Jumio, Onfido, Plaid Identity). Target <10% manual review rate."
+      series_b_plus: "KYC cost optimization through proprietary models, consortium data sharing, and risk-based tiering. Regulatory requirements for periodic KYC refresh (CDD updates) add ongoing per-customer costs."
+    data_sources:
+      - source: "CB Insights State of Fintech"
+        year: "2024"
+      - source: "Plaid Developer Reports"
+        year: "2023"
+    related_metrics: ["cac", "kyc-conversion-rate", "regulatory-compliance-cost"]
+    related_skills: ["systems-thinking", "kaizen-bpr"]
+    caveats: "KYC costs are not a one-time expense. Regulatory requirements mandate periodic customer refresh (enhanced CDD for higher-risk customers, sanctions list rescreening, address verification updates). The ongoing KYC cost per customer per year may exceed the initial verification cost."
+
+  - name: "Regulatory Compliance Cost (% of Revenue)"
+    id: "regulatory-compliance-cost"
+    category: "efficiency"
+    definition: "Total regulatory compliance expenditure as a percentage of net revenue, encompassing KYC/AML operations, regulatory technology, compliance staff, legal counsel, audit costs, license maintenance, and regulatory reporting. This metric is unique to regulated industries and represents the 'tax' that regulation imposes on the business model."
+    formula: "(Compliance Staff Costs + RegTech Spend + Legal & Audit + License Fees + Regulatory Reporting Costs) / Net Revenue x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 25% of revenue"
+        signal: "Compliance costs are consuming a quarter of revenue. Typical of early-stage fintechs building compliance infrastructure from scratch, or companies facing regulatory enforcement actions."
+      below_average:
+        value: "15-25%"
+        signal: "High compliance cost burden. Common during initial license acquisition, SOX compliance buildout, or in jurisdictions with complex multi-regulator environments."
+      average:
+        value: "8-15%"
+        signal: "Standard compliance cost for established fintech companies. Banks average approximately 10-15% of operating costs on compliance (McKinsey 2023). Fintechs typically run at the higher end due to scale disadvantages."
+      good:
+        value: "4-8%"
+        signal: "Efficient compliance through automation, regtech tools, and mature compliance processes. Scale advantages reduce per-customer compliance cost."
+      excellent:
+        value: "< 4%"
+        signal: "Highly efficient compliance — typically achieved by large-scale fintechs with proprietary regtech, automated regulatory reporting, and mature compliance programs. Stripe and Plaid operate in this range at scale."
+    stage_notes:
+      seed: "Compliance costs as a percentage of revenue will be extremely high (30-50%+) because the infrastructure must be built before revenue scales. This is expected and investors should be educated accordingly."
+      series_a: "Compliance cost percentage should decline as revenue scales faster than compliance infrastructure costs. Target 15-20% and demonstrate the trajectory toward 10%."
+      series_b_plus: "At scale, compliance costs should approach 5-10% of revenue. Investment in regtech automation is the primary lever. Regulatory changes (new reporting requirements, expanded licensing) can cause step-function cost increases."
+    data_sources:
+      - source: "McKinsey Global Payments Report"
+        year: "2023"
+      - source: "CB Insights State of Fintech"
+        year: "2024"
+    related_metrics: ["kyc-cost-per-customer", "gross-margin", "cost-to-income-ratio"]
+    related_skills: ["balanced-scorecard", "kaizen-bpr"]
+    caveats: "Under-spending on compliance is more dangerous than over-spending. A fintech with compliance costs at 2% of revenue may be under-investing — the savings today become enforcement actions, fines, and license revocations tomorrow. The 2023 consent orders against neobanks (Chime, Dave) demonstrate the cost of compliance under-investment."
+
+  - name: "Capital Adequacy Ratio"
+    id: "capital-adequacy-ratio"
+    category: "financial"
+    definition: "The ratio of regulatory capital to risk-weighted assets, measuring the institution's capacity to absorb losses while protecting depositors and the financial system. Applicable to fintechs with bank charters, lending operations, or custody of customer funds."
+    formula: "(Tier 1 Capital + Tier 2 Capital) / Risk-Weighted Assets x 100"
+    unit: "percentage"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "< 8% (below Basel III minimum)"
+        signal: "Below regulatory minimum. The institution faces immediate supervisory action, restrictions on lending, and potential license revocation."
+      below_average:
+        value: "8-10%"
+        signal: "At or near minimum requirements. No buffer for unexpected losses. Regulators will impose heightened surveillance and may restrict growth."
+      average:
+        value: "10-13%"
+        signal: "Standard capitalization. Meets requirements with moderate buffer. Most U.S. banks maintain ratios in this range."
+      good:
+        value: "13-18%"
+        signal: "Well-capitalized with significant buffer. Provides flexibility for portfolio growth, acquisitions, or absorption of credit cycle downturns."
+      excellent:
+        value: "> 18%"
+        signal: "Very well-capitalized. Common in fintech banks pre-growth phase when capital has been raised but not yet deployed into earning assets. Over-capitalization at mature scale may indicate under-deployment of capital."
+    stage_notes:
+      seed: "Capital adequacy is relevant only for charter holders. For non-bank fintechs, the equivalent is cash reserves relative to customer funds held and contingent liabilities."
+      series_a: "If pursuing a bank charter, demonstrate a clear capital plan. Regulators evaluate the institution's ability to maintain capital adequacy under stress scenarios."
+      series_b_plus: "Capital planning becomes a board-level topic. Basel III requirements, CECL accounting standards, and stress testing (DFAST for larger institutions) govern capital management."
+    data_sources:
+      - source: "Basel Committee on Banking Supervision"
+        year: "2023"
+      - source: "FDIC Quarterly Banking Profile"
+        year: "2023"
+    related_metrics: ["net-interest-margin", "default-rate", "loan-origination-volume"]
+    related_skills: ["scenario-planning", "balanced-scorecard"]
+    caveats: "Capital adequacy requirements differ by charter type and jurisdiction. De novo bank charters typically face higher capital requirements for the first 3-7 years. ILC charters, fintech charters, and international charters each carry different capital standards. Non-bank fintechs with bank partnerships must understand their partner bank's capital constraints."
+
+  # ─────────────────────────────────────────────
+  # FINANCIAL PERFORMANCE
+  # ─────────────────────────────────────────────
+
+  - name: "Gross Margin"
+    id: "gross-margin"
+    category: "financial"
+    definition: "Net revenue minus cost of revenue (interchange, processing fees, fraud losses, hosting, compliance-driven transaction costs) as a percentage of net revenue. Gross margin in fintech varies dramatically by business model — payments businesses operate at lower gross margins than software-like revenue streams."
+    formula: "(Net Revenue - Cost of Revenue) / Net Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 30%"
+        signal: "Thin margins indicating the business is primarily a payment pass-through with minimal value-add. Vulnerable to interchange changes and processor price increases."
+      below_average:
+        value: "30-45%"
+        signal: "Low-margin financial services. Common in pure-play payment processing where interchange is the dominant COGS component."
+      average:
+        value: "45-60%"
+        signal: "Standard range for diversified fintech companies with a mix of transaction-based and subscription/fee-based revenue. Nubank's gross margin approached 50% at IPO."
+      good:
+        value: "60-75%"
+        signal: "Strong margins driven by SaaS-like revenue components (subscription fees, platform fees, data products) layered on top of transaction processing."
+      excellent:
+        value: "> 75%"
+        signal: "Software-like margins. Typical of regtech, B2B fintech infrastructure, or platforms where the payment processing is a distribution channel for higher-margin products."
+    stage_notes:
+      seed: "Gross margin is often negative at seed due to fixed compliance and infrastructure costs spread over minimal revenue."
+      series_a: "Gross margin trajectory matters more than current level. Demonstrate the path to 50%+ through scale and product mix evolution."
+      series_b_plus: "Investors evaluate gross margin by revenue line. Separate transaction-based revenue (lower margin) from platform/subscription revenue (higher margin). The ratio determines valuation multiples — SaaS-like margins command SaaS-like multiples."
+    data_sources:
+      - source: "Nubank S-1 Filing"
+        year: "2021"
+      - source: "Stripe Financial Reports"
+        year: "2024"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["take-rate", "cost-per-transaction", "regulatory-compliance-cost"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Gross margin definitions vary across fintech sub-sectors. Lending fintechs may classify credit losses as COGS or below the gross margin line. Payment processors differ on whether fraud losses are COGS or operating expenses. Normalize definitions when benchmarking against peers."
+
+  - name: "Net Revenue Retention"
+    id: "net-revenue-retention"
+    category: "retention"
+    definition: "The percentage of revenue retained from existing customers after accounting for expansion (new products, increased usage), contraction (downgrade, reduced volume), and churn. In fintech, NRR measures the platform's ability to deepen customer relationships through cross-sell and increased transaction volume."
+    formula: "(Starting Revenue + Expansion - Contraction - Churn) / Starting Revenue x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 90%"
+        signal: "Significant revenue erosion from existing customers. In payments, this may reflect merchant attrition or transaction volume decline. In lending, it may indicate borrowers refinancing elsewhere."
+      below_average:
+        value: "90-100%"
+        signal: "Flat to slightly declining revenue from existing customers. The platform is not successfully cross-selling or the core product faces competitive displacement."
+      average:
+        value: "100-115%"
+        signal: "Modest net expansion from existing customers. Standard for fintech platforms where transaction volume grows naturally with customer business growth."
+      good:
+        value: "115-130%"
+        signal: "Strong expansion driven by effective cross-sell (adding lending to payments, insurance to banking) or organic transaction volume growth. Nubank achieved 120%+ NRR through product expansion."
+      excellent:
+        value: "> 130%"
+        signal: "Exceptional expansion. Indicates a platform where customers adopt multiple products over time — the fintech superapp model (SoFi, Nubank, Revolut)."
+    stage_notes:
+      seed: "NRR is unmeasurable with few customers. Track qualitative signals: are existing customers requesting additional products or processing more volume?"
+      series_a: "NRR above 100% is a strong signal. In fintech, cross-sell into adjacent products (payments -> lending -> deposits) is the primary NRR driver."
+      series_b_plus: "NRR above 120% signals platform economics. Investors value fintech platforms with strong NRR at higher multiples because cross-sell reduces blended CAC."
+    data_sources:
+      - source: "Nubank S-1 Filing"
+        year: "2021"
+      - source: "SoFi Annual Reports"
+        year: "2023"
+    related_metrics: ["ltv", "monthly-active-users", "transactions-per-user"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "Fintech NRR can be inflated by macroeconomic tailwinds — rising transaction volumes in a growing economy lift NRR without any action by the platform. Stress-test NRR against recession scenarios where transaction volumes decline."
+
+  # ─────────────────────────────────────────────
+  # ENGAGEMENT & GROWTH
+  # ─────────────────────────────────────────────
+
+  - name: "Monthly Active Users"
+    id: "monthly-active-users"
+    category: "product"
+    definition: "The number of unique users who perform at least one qualifying financial activity (transaction, login with balance check, transfer, loan payment) within a calendar month. In fintech, MAU should exclude passive account holders who have not engaged — the definition must reflect genuine financial activity."
+    formula: "COUNT(DISTINCT users with qualifying_activity) over calendar month"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 20% of registered users are monthly active"
+        signal: "The product is not embedded in customers' financial lives. High dormancy indicates the product is used occasionally rather than habitually."
+      below_average:
+        value: "20-40% of registered users active"
+        signal: "Moderate engagement. Common for single-product fintechs where usage is periodic (lending, insurance) rather than daily."
+      average:
+        value: "40-60% of registered users active"
+        signal: "Solid engagement. Standard for neobanks and payment apps where regular transactions drive recurring usage."
+      good:
+        value: "60-80% of registered users active"
+        signal: "Strong engagement indicating the product is a primary financial tool. Nubank reported 80%+ MAU/total customer ratio."
+      excellent:
+        value: "> 80% of registered users active"
+        signal: "Exceptional engagement. The product is the customer's primary financial account. High MAU/registered ratio correlates with strong NRR and low churn."
+    stage_notes:
+      seed: "MAU is small in absolute terms. Focus on engagement depth (transactions per active user) rather than breadth."
+      series_a: "MAU growth rate and MAU/registered ratio are the key metrics. Declining ratio as acquisition scales suggests the new cohorts are less engaged than early adopters."
+      series_b_plus: "DAU/MAU ratio becomes important — daily engagement indicates the product is a financial utility. Nubank and Revolut target DAU/MAU above 30%."
+    data_sources:
+      - source: "Nubank Annual Reports"
+        year: "2023"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["transactions-per-user", "net-revenue-retention", "cac"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "MAU definitions vary across fintechs and can be gamed. A 'login' should not count as an active user event if no financial activity occurred. Define MAU consistently and disclose the definition to investors. Regulators may also require active account reporting for dormant account regulations."
+
+  - name: "Transactions per User per Month"
+    id: "transactions-per-user"
+    category: "product"
+    definition: "The average number of transactions each active user conducts per month. Measures engagement depth and the degree to which the product is embedded in the customer's daily financial life."
+    formula: "Total Monthly Transactions / Monthly Active Users"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 2 transactions/user/month"
+        signal: "Low engagement. The product is not habitual — customers use it for occasional, specific needs rather than as a daily financial tool."
+      below_average:
+        value: "2-5 transactions/user/month"
+        signal: "Moderate engagement. Typical of single-use-case products (bill pay, remittance, specific investment activity)."
+      average:
+        value: "5-10 transactions/user/month"
+        signal: "Solid engagement. Standard for neobanks where a debit card and direct deposit drive regular transaction activity."
+      good:
+        value: "10-20 transactions/user/month"
+        signal: "Strong engagement indicating the product serves multiple financial needs. Cross-sell into payments, savings, and investments drives transaction frequency."
+      excellent:
+        value: "> 20 transactions/user/month"
+        signal: "Exceptional engagement. The product is the customer's primary financial account. High transaction frequency drives data advantage and cross-sell opportunity."
+    stage_notes:
+      seed: "Transaction frequency data is limited. Track whether early users increase their transaction frequency over time — a strong product-market fit signal."
+      series_a: "Transactions per user should increase as the product adds use cases. A declining trend despite product additions signals a product problem."
+      series_b_plus: "High transactions per user drives revenue per user and creates data moats for credit underwriting, personalization, and fraud detection."
+    data_sources:
+      - source: "Nubank Annual Reports"
+        year: "2023"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["monthly-active-users", "revenue-per-transaction", "net-revenue-retention"]
+    related_skills: ["net-promoter-score", "systems-thinking"]
+    caveats: "Average transactions per user masks bimodal distribution. Power users may transact 50+ times per month while dormant users transact once. Segment this metric by cohort and user type to expose the actual engagement distribution."
+
+  - name: "Deposit Growth Rate"
+    id: "deposit-growth-rate"
+    category: "growth"
+    definition: "The month-over-month or year-over-year growth rate of customer deposits held on the platform. For neobanks and deposit-taking fintechs, deposit growth is both a customer engagement metric and a funding cost metric — deposits are the cheapest source of lending capital."
+    formula: "(Deposits_current - Deposits_prior) / Deposits_prior x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5% QoQ deposit growth"
+        signal: "Deposit growth stalling. Customers are not deepening their relationship with the platform or are moving deposits to competitors offering higher yields."
+      below_average:
+        value: "5-15% QoQ"
+        signal: "Moderate growth. Deposits are accumulating but not at the rate needed to fund significant lending operations."
+      average:
+        value: "15-30% QoQ"
+        signal: "Healthy deposit growth. Sufficient to fund lending expansion and demonstrate to regulators that the deposit base is stable."
+      good:
+        value: "30-50% QoQ"
+        signal: "Strong growth. Chime, Varo, and SoFi achieved 40%+ QoQ deposit growth during high-growth phases. Indicates direct deposit adoption."
+      excellent:
+        value: "> 50% QoQ"
+        signal: "Exceptional growth. Typically accompanied by a catalytic event — product launch, rate promotion, or viral moment. Verify that deposits are 'sticky' (direct deposit) not 'hot money' (rate-chasing)."
+    stage_notes:
+      seed: "Deposits are minimal if the product is pre-launch. For neobanks, the first milestone is direct deposit adoption — this signals primary banking relationship."
+      series_a: "Deposit growth rate and average deposit balance per customer are the key metrics. Regulators monitor deposit stability for charter applications."
+      series_b_plus: "Deposit growth enables the lending engine. The cost of deposit funding (interest paid) versus wholesale funding (warehouse lines) is the primary margin differentiator for neobanks."
+    data_sources:
+      - source: "SoFi Annual Reports"
+        year: "2023"
+      - source: "FDIC Quarterly Banking Profile"
+        year: "2023"
+    related_metrics: ["net-interest-margin", "monthly-active-users", "net-revenue-retention"]
+    related_skills: ["growth-share-matrix", "product-life-cycle"]
+    caveats: "Deposit growth driven by high interest rate promotions produces 'hot money' — deposits that leave when rates normalize. Measure the percentage of deposits that arrive via direct deposit (sticky) versus manual transfer (potentially rate-sensitive). Regulators evaluate deposit stability as part of safety and soundness examinations."
+
+  # ─────────────────────────────────────────────
+  # WEALTHTECH METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Assets Under Management"
+    id: "aum"
+    category: "growth"
+    definition: "The total market value of financial assets managed on behalf of customers. AUM is the top-line scale metric for wealthtech, robo-advisors, and investment platforms. Revenue is typically a percentage of AUM (management fee), making AUM growth the primary revenue driver."
+    formula: "SUM(customer_portfolio_market_value)"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $10M AUM at 12 months"
+        signal: "Insufficient scale to cover operating costs. At a 25bps management fee, $10M AUM generates only $25K annual revenue."
+      below_average:
+        value: "$10M-$100M AUM"
+        signal: "Early traction but economics are challenging. A 50bps fee on $50M AUM generates $250K annual revenue."
+      average:
+        value: "$100M-$1B AUM"
+        signal: "Meaningful scale. Betterment and Wealthfront surpassed $1B AUM within 3 years. Sufficient to attract institutional partnerships."
+      good:
+        value: "$1B-$10B AUM"
+        signal: "Strong scale with improving unit economics. Management fee revenue supports meaningful team and technology investment."
+      excellent:
+        value: "> $10B AUM"
+        signal: "Institutional scale. Betterment manages approximately $35B; Wealthfront approximately $50B. At this scale, even 1bps of fee optimization is material."
+    stage_notes:
+      seed: "AUM is minimal. Focus on demonstrating investment methodology and regulatory compliance (RIA registration with SEC or state regulators)."
+      series_a: "AUM growth rate and average account balance are the key metrics. SEC registration required at $100M+ AUM. Compliance costs step up with registration."
+      series_b_plus: "AUM growth must be decomposed into net flows (customer deposits minus withdrawals) and market appreciation. Investors scrutinize net flows because market appreciation is not attributable to the platform's efforts."
+    data_sources:
+      - source: "a16z Fintech Reports"
+        year: "2024"
+      - source: "CB Insights State of Fintech"
+        year: "2024"
+    related_metrics: ["monthly-active-users", "net-revenue-retention", "cac"]
+    related_skills: ["balanced-scorecard", "scenario-planning"]
+    caveats: "AUM is heavily influenced by market movements. A wealthtech platform can report 30% AUM growth with zero net customer deposits if the market rises 30%. Always decompose AUM changes into net flows and market appreciation. SEC and FINRA regulations govern AUM calculation and disclosure methodology."
+
+  # ─────────────────────────────────────────────
+  # OPERATIONAL EFFICIENCY
+  # ─────────────────────────────────────────────
+
+  - name: "Cost to Income Ratio"
+    id: "cost-to-income-ratio"
+    category: "efficiency"
+    definition: "Total operating expenses divided by total operating income, measuring the operational efficiency of the financial institution. This is the banking industry's core efficiency metric, and fintech companies targeting bank economics must track it. Lower ratios indicate more efficient operations."
+    formula: "Operating Expenses / Operating Income x 100"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 100% (operating at a loss)"
+        signal: "Expenses exceed income. Expected at early stage but unsustainable. Investor capital is funding operations, not just growth."
+      below_average:
+        value: "80-100%"
+        signal: "Near break-even operations. The institution is not yet generating meaningful operating profit."
+      average:
+        value: "50-80%"
+        signal: "Standard range for fintech companies approaching maturity. Traditional banks average 55-65%. Digital-first fintechs should target the lower end."
+      good:
+        value: "35-50%"
+        signal: "Efficient operations. Nubank achieved a cost-to-income ratio below 40% — demonstrating the structural efficiency advantage of digital-first financial services."
+      excellent:
+        value: "< 35%"
+        signal: "Exceptional efficiency. Significantly better than traditional banking. Achieved through digital-only operations, automated processes, and minimal branch infrastructure."
+    stage_notes:
+      seed: "Cost-to-income ratio is extremely high (200%+) and irrelevant at seed. Focus on building the infrastructure that will drive efficiency at scale."
+      series_a: "Ratio should improve quarterly. Demonstrate operating leverage — revenue growing faster than operating costs."
+      series_b_plus: "Target sub-50% and declining. Nubank's path from >100% to <40% was central to its equity story. Regulators evaluate this ratio for safety and soundness — excessively low ratios may indicate under-investment in compliance or risk management."
+    data_sources:
+      - source: "Nubank Annual Reports"
+        year: "2023"
+      - source: "FDIC Quarterly Banking Profile"
+        year: "2023"
+      - source: "McKinsey Global Payments Report"
+        year: "2023"
+    related_metrics: ["gross-margin", "regulatory-compliance-cost", "net-interest-margin"]
+    related_skills: ["kaizen-bpr", "balanced-scorecard"]
+    caveats: "Cost-to-income ratio comparisons between fintechs and traditional banks are misleading without adjusting for business mix. A bank with branches, lending operations, and wealth management has fundamentally different cost structure than a digital-only payment processor. Compare within peer group."
+
+  - name: "ARPU — Average Revenue per User"
+    id: "arpu"
+    category: "unit-economics"
+    definition: "The average monthly or annual net revenue generated per active user across all revenue streams (transaction fees, interchange, interest income, subscription fees, premium services). ARPU measures the monetization intensity of the user base."
+    formula: "Total Net Revenue / Average Monthly Active Users"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $2/month per user (consumer)"
+        signal: "Low monetization. The product has not found a revenue model that matches engagement. Common in free neobanks relying solely on interchange from debit transactions."
+      below_average:
+        value: "$2-$5/month (consumer)"
+        signal: "Below-average monetization. Typical of single-revenue-line fintech products (interchange only, or low-frequency lending only)."
+      average:
+        value: "$5-$15/month (consumer)"
+        signal: "Standard monetization. Nubank reported approximately $8 monthly ARPU at IPO. Sufficient to fund operations if retention is strong."
+      good:
+        value: "$15-$40/month (consumer)"
+        signal: "Strong monetization through multiple revenue streams. Cross-sell into lending, insurance, and premium services lifts ARPU above single-product levels."
+      excellent:
+        value: "> $40/month (consumer)"
+        signal: "Exceptional ARPU. SoFi achieved $50+ monthly ARPU through multi-product adoption (lending + investing + banking). Indicates deep platform engagement."
+    stage_notes:
+      seed: "ARPU is low and unstable. Focus on identifying which revenue streams will drive future ARPU growth."
+      series_a: "ARPU growth trajectory matters. Demonstrate the ARPU uplift as customers adopt additional products — the multi-product ARPU story is central to fintech platform narratives."
+      series_b_plus: "ARPU by product vintage and product adoption tier should be the reporting standard. Show that customers who adopt 3+ products generate 5-8x the ARPU of single-product customers."
+    data_sources:
+      - source: "Nubank S-1 Filing"
+        year: "2021"
+      - source: "SoFi Annual Reports"
+        year: "2023"
+      - source: "a16z Fintech Reports"
+        year: "2024"
+    related_metrics: ["monthly-active-users", "net-revenue-retention", "ltv"]
+    related_skills: ["pricing-diagnosis", "business-model-canvas"]
+    caveats: "ARPU that relies heavily on interchange is vulnerable to regulatory caps (Durbin, PSD2 IFR). Separate ARPU by revenue type to understand regulatory exposure. Lending-driven ARPU is subject to credit cycle risk — high ARPU from interest income in benign credit conditions may vanish in a downturn."

@@ -1,0 +1,1 @@
+../../../../.claude/skills/storytelling/story-beginnings-and-endings.md

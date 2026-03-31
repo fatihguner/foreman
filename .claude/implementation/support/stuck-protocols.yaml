@@ -1,0 +1,808 @@
+# Implementation Support: Stuck Protocols
+# Targeted interventions organized by skill category
+# When an entrepreneur stalls on a specific type of implementation task,
+# this file provides the concrete resolution path — not generic advice,
+# but the specific next action for the specific failure mode.
+# Author: Fatih Guner
+
+---
+
+stuck_protocols:
+
+  # ===========================================================================
+  # 1. FRAMEWORKS (50 skills)
+  # ===========================================================================
+  frameworks:
+    general: >
+      Framework implementation stalls most often at two points: the analysis-to-action
+      transition (the framework is complete but the entrepreneur does not know what to
+      DO with the output) and the data-gathering phase (the framework requires inputs
+      the entrepreneur cannot easily obtain). A completed framework that produces no
+      decision is wasted effort.
+    skill_specific:
+      porters-five-forces:
+        common_sticking_points:
+          - point: "Cannot get competitive data to populate the analysis"
+            resolution: >
+              Use free-tier competitive intelligence tools (SimilarWeb, SEMrush free,
+              Crunchbase). Ask three recent customers what alternatives they evaluated
+              before choosing you. Do a mystery shop of two competitors. Check job
+              postings of competitors for strategic signals (hiring = investing in that
+              area). 80% accuracy is sufficient — do not wait for perfection.
+            route_to: "scenario-planning"
+          - point: "Analysis is complete but does not translate into clear action"
+            resolution: >
+              Force-rank the five forces by impact severity. Pick the single force
+              exerting the most pressure. Define one defensive action and one offensive
+              action for that force alone. Ignore the other four until the first is
+              addressed.
+            route_to: "evaluating-and-deciding"
+          - point: "Supplier or buyer power analysis feels irrelevant to a digital business"
+            resolution: >
+              Reframe suppliers as any upstream dependency (cloud infrastructure, API
+              providers, talent pool, content creators). Reframe buyers as any customer
+              segment with switching options. The force names are industrial-era labels;
+              the underlying dynamics are universal.
+            route_to: "business-model-canvas"
+        if_stuck_checklist:
+          - "Have you identified ALL five forces, or just the ones that feel most threatening?"
+          - "Are you confusing 'hard to measure' with 'not important'?"
+          - "Does your analysis include at least one data point per force, however imperfect?"
+          - "Have you translated findings into specific strategic actions, not just observations?"
+
+      business-model-canvas:
+        common_sticking_points:
+          - point: "Cannot define the value proposition clearly"
+            resolution: >
+              Interview five customers with one question: 'What would you use if we
+              did not exist?' Their answers reveal your actual value proposition — which
+              may differ from what you believe it is. If you have no customers yet,
+              articulate the top three pains of your target segment and map each to a
+              specific feature.
+            route_to: "defining-and-exploring-problems"
+          - point: "Revenue streams section feels speculative"
+            resolution: >
+              List every way a customer could pay you (subscription, transaction fee,
+              licensing, advertising, freemium conversion). Eliminate any model that
+              conflicts with your value proposition. Test the top candidate with a
+              pricing page or a direct ask to three prospects: 'Would you pay $X for
+              this?' Speculation ends when you ask real people.
+            route_to: "four-ps-marketing"
+          - point: "Canvas is complete but feels static — unclear what to do next"
+            resolution: >
+              Identify the single weakest block on the canvas. That block is your
+              strategic bottleneck. Design one experiment to strengthen it within 14
+              days. A canvas is a diagnostic tool, not a deliverable.
+            route_to: "evaluating-and-deciding"
+        if_stuck_checklist:
+          - "Does every block contain specific facts, or are some filled with aspirations?"
+          - "Have you validated at least the value proposition and customer segments with real data?"
+          - "Can you identify the weakest block without hesitation?"
+          - "Does your cost structure actually support your revenue model at current volume?"
+
+      swot-pest-analysis:
+        common_sticking_points:
+          - point: "Everything ends up in the 'Opportunities' quadrant — analysis lacks rigour"
+            resolution: >
+              Apply a brutality filter: for every item in Strengths and Opportunities,
+              ask 'Would a competitor agree this is our advantage?' If not, move it to
+              Weaknesses or Threats. Have a trusted advisor review the SWOT independently
+              and compare — divergence reveals blind spots.
+            route_to: "enemies-of-clear-thinking"
+          - point: "PEST factors feel too macro to act on"
+            resolution: >
+              For each PEST factor, write one sentence starting with 'Therefore, we
+              should...' If you cannot complete the sentence, the factor is background
+              noise, not a strategic input. Keep only factors that produce a 'therefore.'
+            route_to: "scenario-planning"
+        if_stuck_checklist:
+          - "Is your Weaknesses quadrant uncomfortably honest, or suspiciously brief?"
+          - "Have you included at least one threat you genuinely fear?"
+          - "Does every SWOT item link to a specific action or decision?"
+
+      eisenhower-matrix:
+        common_sticking_points:
+          - point: "Everything feels urgent AND important"
+            resolution: >
+              Apply a 72-hour test: if you did nothing about this item for 72 hours,
+              what would actually happen? If the answer is 'nothing irreversible,' it is
+              not urgent. Strip urgency from items whose consequences are merely
+              uncomfortable, not catastrophic.
+            route_to: "focus-and-priority-management"
+          - point: "The 'delegate' quadrant is empty because there is no one to delegate to"
+            resolution: >
+              Reframe 'delegate' as 'automate, outsource, or eliminate.' Can the task
+              be automated with a tool? Can a freelancer handle it for a one-time fee?
+              Can it be eliminated entirely without meaningful consequence? Delegation
+              does not require employees.
+            route_to: "delegation-and-empowerment"
+        if_stuck_checklist:
+          - "Have you applied the 72-hour test to every 'urgent' item?"
+          - "Are you confusing other people's urgency with your own?"
+          - "Is the 'not urgent, not important' quadrant empty? If so, you are not being honest."
+          - "When did you last move an item from Q1 to Q3 or Q4?"
+
+      scenario-planning:
+        common_sticking_points:
+          - point: "Cannot generate meaningfully different scenarios — they all look similar"
+            resolution: >
+              Use the 2x2 matrix method: identify two critical uncertainties (variables
+              you cannot predict), place them on axes, and generate four scenarios from
+              the quadrants. Force at least one scenario to be uncomfortably optimistic
+              and one to be uncomfortably pessimistic.
+            route_to: "defining-and-exploring-problems"
+          - point: "Scenarios are vivid but do not produce different strategic responses"
+            resolution: >
+              For each scenario, identify the earliest observable signal that it is
+              materialising. Define one action you would take only if that signal appears.
+              This converts scenarios from fiction into a monitoring-and-response system.
+            route_to: "evaluating-and-deciding"
+        if_stuck_checklist:
+          - "Do your scenarios span genuinely different futures, or are they optimistic/pessimistic variations of the same future?"
+          - "Have you identified trigger signals for each scenario?"
+          - "Does each scenario produce at least one unique strategic action?"
+
+  # ===========================================================================
+  # 2. LEADERSHIP (28 skills)
+  # ===========================================================================
+  leadership:
+    general: >
+      Leadership skill implementation stalls because the change is behavioural, not
+      analytical. You cannot delegate a leadership shift or automate a difficult
+      conversation. The most common blockers are avoidance of interpersonal discomfort,
+      difficulty sustaining new behaviours under stress, and the gap between
+      understanding a concept and embodying it.
+    skill_specific:
+      delegation-and-empowerment:
+        common_sticking_points:
+          - point: "Know I should delegate but keep taking tasks back"
+            resolution: >
+              Implement a 48-hour rule: after delegating, you may not touch the task
+              for 48 hours regardless of perceived urgency. Define 'done' criteria
+              before delegating so you have an objective standard instead of a subjective
+              feeling. If the result is 80% of what you would produce, it is good enough.
+            route_to: "stoic-pragmatism"
+          - point: "No one on the team can do this as well as I can"
+            resolution: >
+              This is almost certainly true — and irrelevant. The question is not 'Can
+              they do it as well?' but 'Can they do it well enough while I focus on
+              something only I can do?' Document the process, hand it off with the
+              documentation, and accept the 20% quality dip as the cost of scaling
+              yourself.
+            route_to: "focus-and-priority-management"
+          - point: "Delegation leads to more work because I have to fix everything"
+            resolution: >
+              You are delegating tasks, not outcomes. Shift to delegating outcomes:
+              specify the end state, the constraints, and the deadline — not the method.
+              Review results at checkpoints, not continuously. If correction is needed
+              more than twice, the issue is role fit, not delegation technique.
+            route_to: "hackman-enabling-conditions"
+        if_stuck_checklist:
+          - "Have you defined what 'done' looks like before handing off the task?"
+          - "Are you delegating the method or the outcome?"
+          - "Have you waited at least 48 hours before intervening?"
+          - "Is the person you are delegating to clear on the authority you have granted them?"
+
+      emotional-courage:
+        common_sticking_points:
+          - point: "Know the difficult conversation needs to happen but keep delaying it"
+            resolution: >
+              Schedule the conversation within 72 hours and tell someone you trust that
+              you have scheduled it. External accountability closes the escape route.
+              Write the opening sentence in advance — the hardest part is the first ten
+              seconds. Lead with observation, not judgment: 'I have noticed X' not 'You
+              always do Y.'
+            route_to: "radical-candor"
+          - point: "Had the conversation but pulled punches — did not say the real thing"
+            resolution: >
+              Write what you actually needed to say. Read it aloud to yourself. Then
+              schedule a follow-up: 'I want to revisit our conversation because I do
+              not think I was fully honest.' Delivered with respect, directness earns
+              more trust than diplomatic evasion.
+            route_to: "giving-feedback"
+        if_stuck_checklist:
+          - "Have you written down exactly what you need to say?"
+          - "Is your opening sentence factual and non-accusatory?"
+          - "Have you set a deadline for the conversation and told someone about it?"
+          - "Are you avoiding the conversation because of their likely reaction, or your own discomfort?"
+
+      focus-and-priority-management:
+        common_sticking_points:
+          - point: "Priorities are clear but daily firefighting consumes all available time"
+            resolution: >
+              Block 90 minutes each morning for priority work before opening email or
+              Slack. Treat the block as a meeting with your most important investor —
+              because it is. Track for one week how many of the five blocks you protect.
+              Below three out of five, the problem is boundary enforcement, not
+              prioritisation.
+            route_to: "eisenhower-matrix"
+          - point: "Everything is a priority because the CEO said so"
+            resolution: >
+              Present the full list to the CEO with time estimates and ask: 'Which
+              three of these twelve should be done first?' Forcing a sequencing
+              conversation is more productive than debating whether things are priorities.
+              Everything can be important; not everything can be first.
+            route_to: "managing-up"
+        if_stuck_checklist:
+          - "Do you have a protected daily block for your highest-priority work?"
+          - "Can you state your top three priorities for this week without checking a list?"
+          - "Did you say 'no' to anything this week? If not, you are not prioritising."
+
+  # ===========================================================================
+  # 3. WRITING (13 skills)
+  # ===========================================================================
+  writing:
+    general: >
+      Writing tasks stall because they feel unbounded — a blank page offers infinite
+      possibilities and therefore infinite procrastination. The most common blockers
+      are perfectionism (editing while drafting), unclear audience (writing for everyone
+      and therefore no one), and the misconception that writing requires inspiration
+      rather than structure.
+    skill_specific:
+      writing-with-purpose:
+        common_sticking_points:
+          - point: "Cannot start because unsure of the right angle or framing"
+            resolution: >
+              Write the last sentence first — what do you want the reader to think, feel,
+              or do after reading? Work backwards from that sentence. The angle reveals
+              itself when you know the destination.
+            route_to: "reader-psychology"
+          - point: "Draft is complete but feels unfocused — says too many things"
+            resolution: >
+              Apply the 'one idea per piece' rule. Identify the single most important
+              point. Delete or move to a separate document every paragraph that does not
+              support that point. Breadth is the enemy of impact.
+            route_to: "revising-and-editing"
+        if_stuck_checklist:
+          - "Can you state the purpose of this document in one sentence?"
+          - "Do you know exactly who will read it and what they need from it?"
+          - "Have you separated drafting from editing — or are you doing both simultaneously?"
+
+      clarity-and-concision:
+        common_sticking_points:
+          - point: "Feedback says the writing is 'unclear' but cannot identify why"
+            resolution: >
+              Read every sentence aloud. If you stumble or run out of breath, the
+              sentence is too long or too complex. Split it. Then check: does each
+              paragraph begin with the point, followed by evidence? If evidence comes
+              first, reverse the order.
+            route_to: "plain-language-and-flow"
+          - point: "The document is too long but everything feels essential"
+            resolution: >
+              Apply the 50% challenge: cut the document to half its current length.
+              This is not a target — it is a forcing function. When you must cut half,
+              you discover what is truly essential versus what merely feels important.
+              Restore only what the reader genuinely needs.
+            route_to: "revising-and-editing"
+        if_stuck_checklist:
+          - "Is any sentence longer than 25 words? If so, can it be split?"
+          - "Does every paragraph earn its place, or are some there because they were hard to write?"
+          - "Have you read the document from the reader's perspective, not the writer's?"
+
+  # ===========================================================================
+  # 4. AI LEADERSHIP (9 skills)
+  # ===========================================================================
+  ai-leadership:
+    general: >
+      AI implementation stalls because the technology moves faster than organisational
+      readiness. Common blockers are analysis paralysis on tool selection (the landscape
+      changes monthly), resistance from team members who perceive AI as a threat, and
+      the gap between pilot success and production deployment.
+    skill_specific:
+      ai-vision-and-strategy:
+        common_sticking_points:
+          - point: "Cannot define an AI strategy because the technology keeps changing"
+            resolution: >
+              Stop trying to predict the technology. Define your strategy around business
+              problems worth solving, not tools to adopt. List your three most expensive
+              or time-consuming processes. For each, ask: 'Could AI reduce cost or time
+              by 30%+?' Start there. The strategy is problem-first, tool-second.
+            route_to: "defining-and-exploring-problems"
+          - point: "Strategy exists on paper but no one is executing it"
+            resolution: >
+              Assign one AI initiative to one person with a 30-day deliverable. A
+              strategy without a named owner and a deadline is a wish. Make the first
+              project small enough to succeed and visible enough to build momentum.
+            route_to: "delegation-and-empowerment"
+        if_stuck_checklist:
+          - "Is your strategy defined around business problems or around technology capabilities?"
+          - "Does every AI initiative have a named owner and a deadline?"
+          - "Have you started with a pilot small enough to complete in 30 days?"
+
+      ai-augmentation-not-automation:
+        common_sticking_points:
+          - point: "Team resists AI tools because they fear job replacement"
+            resolution: >
+              Reframe from 'AI will do your job' to 'AI will handle the parts of your
+              job you dislike.' Have each team member list their three most tedious
+              recurring tasks. Pilot AI automation on those tasks specifically. When
+              people experience AI as removing drudgery rather than removing them,
+              resistance drops.
+            route_to: "ai-communication-culture"
+          - point: "AI pilot succeeded but scaling to production fails"
+            resolution: >
+              Pilots succeed because they have a champion. Production fails because it
+              needs a process. Document the pilot workflow, identify every manual step
+              that the champion currently performs, and either automate or assign each.
+              The scaling gap is almost always an operations gap, not a technology gap.
+            route_to: "ai-human-centered-approach"
+        if_stuck_checklist:
+          - "Have you separated tasks AI should augment from tasks AI should automate?"
+          - "Does the team understand how AI changes their role versus replaces it?"
+          - "Is there a documented process for moving from pilot to production?"
+
+  # ===========================================================================
+  # 5. GAME THEORY (7 skills)
+  # ===========================================================================
+  game-theory:
+    general: >
+      Game theory implementation stalls because the models feel academic. Entrepreneurs
+      understand the concept of Nash equilibria or prisoner's dilemmas intellectually
+      but struggle to map them onto real competitive or negotiation situations. The
+      bridge from theory to practice requires identifying the specific game being played,
+      the actual payoff structure, and the other players' likely strategies.
+    skill_specific:
+      prisoners-dilemma-and-cooperation:
+        common_sticking_points:
+          - point: "Cannot determine whether a business situation is actually a prisoner's dilemma"
+            resolution: >
+              Ask two questions: (1) Would both parties benefit from cooperation? (2) Can
+              either party benefit more by defecting while the other cooperates? If both
+              answers are yes, you are in a prisoner's dilemma. Common examples: pricing
+              wars, exclusive partnership commitments, information sharing with potential
+              acquirers.
+            route_to: "negotiation-game-theory"
+          - point: "Identified the dilemma but cannot determine the right strategy"
+            resolution: >
+              In repeated interactions (ongoing business relationships), tit-for-tat
+              with forgiveness outperforms all other strategies. Start cooperative.
+              Mirror the other party's last move. Occasionally forgive a defection to
+              prevent death spirals. In one-shot interactions, protect your downside
+              first.
+            route_to: "cooperative-negotiation"
+        if_stuck_checklist:
+          - "Have you mapped the actual payoffs for cooperation and defection for both parties?"
+          - "Is this a one-shot game or a repeated game? The optimal strategy differs fundamentally."
+          - "Can you signal your cooperative intent credibly before the other party must decide?"
+
+      information-asymmetry:
+        common_sticking_points:
+          - point: "Suspect the other party has information I lack but cannot identify what"
+            resolution: >
+              List every assumption underlying your position. For each, ask: 'Does the
+              other party know whether this assumption is true?' Any assumption where
+              they know and you do not is an information asymmetry. Then ask: 'What
+              questions would I need answered to eliminate this gap?' Those questions
+              are your preparation agenda.
+            route_to: "negotiation-mindset-and-self"
+          - point: "Have superior information but unsure whether to reveal it"
+            resolution: >
+              Revealing information builds trust in repeated games and is cheap when
+              the information will become public eventually. Conceal information only
+              when (1) the interaction is one-shot, (2) the information provides a
+              durable advantage, and (3) the ethical cost of concealment is acceptable.
+            route_to: "competitive-negotiation"
+        if_stuck_checklist:
+          - "Have you identified which party holds the information advantage in this situation?"
+          - "Can you reduce the asymmetry through direct questions rather than inference?"
+          - "Is the other party's behaviour consistent with them knowing something you do not?"
+
+  # ===========================================================================
+  # 6. STOIC (12 skills)
+  # ===========================================================================
+  stoic:
+    general: >
+      Stoic skill implementation stalls because intellectual agreement is far easier than
+      behavioural change. An entrepreneur can understand the dichotomy of control
+      perfectly and still lose sleep over a competitor's funding round. The gap between
+      knowing and living Stoic principles is the entire challenge.
+    skill_specific:
+      stoic-control-and-clarity:
+        common_sticking_points:
+          - point: "Intellectually accept what is outside my control but emotionally cannot let go"
+            resolution: >
+              Write three columns on paper: 'Within my control,' 'Within my influence,'
+              'Outside my control.' Place the specific concern in the correct column.
+              Then write one concrete action for each item in the first two columns and
+              draw a line through every item in the third. The physical act of crossing
+              out externalises the release.
+            route_to: "stoic-emotional-mastery"
+          - point: "Cannot distinguish between influence and control"
+            resolution: >
+              Control means the outcome depends entirely on your action. Influence means
+              your action changes the probability but not the certainty. Test: 'If I
+              do X perfectly, is the outcome guaranteed?' Yes = control. No = influence.
+              Direct energy proportionally — full effort on control, calibrated effort
+              on influence, zero effort on the uncontrollable.
+            route_to: "stoic-self-awareness"
+        if_stuck_checklist:
+          - "Have you done the three-column exercise on paper, not just in your head?"
+          - "Are you spending energy on items in the 'outside my control' column?"
+          - "Have you identified at least one action for every item you CAN control?"
+
+      stoic-pragmatism:
+        common_sticking_points:
+          - point: "Perfectionism persists despite understanding that 'good enough' is rational"
+            resolution: >
+              Set a timer for the task. When the timer ends, ship what exists. Perfection
+              is not a quality standard — it is a delay mechanism disguised as diligence.
+              Ask: 'What is the cost of shipping this at 80% versus the cost of the
+              additional time to reach 95%?' The answer is almost always that the
+              marginal improvement is not worth the marginal delay.
+            route_to: "choosing-and-executing"
+          - point: "Stoic pragmatism feels like lowering standards"
+            resolution: >
+              Pragmatism is not about lowering the bar. It is about recognising that
+              speed of iteration beats quality of first attempt. Ship, measure, improve.
+              The entrepreneur who ships ten 80%-quality iterations learns more than the
+              one who ships one 99%-quality version.
+            route_to: "creative-completion-and-renewal"
+        if_stuck_checklist:
+          - "Are you conflating perfectionism with high standards?"
+          - "Have you defined a 'minimum viable' version of the deliverable?"
+          - "What specifically would happen if you shipped the current version today?"
+
+  # ===========================================================================
+  # 7. STORYTELLING (8 skills)
+  # ===========================================================================
+  storytelling:
+    general: >
+      Storytelling implementation stalls because entrepreneurs conflate storytelling with
+      public speaking and freeze. The blocker is rarely technique — it is vulnerability.
+      Effective stories require personal truth, and personal truth requires the courage
+      to be seen. Alternatively, the entrepreneur has stories but cannot identify which
+      ones are strategically useful.
+    skill_specific:
+      finding-your-stories:
+        common_sticking_points:
+          - point: "Believe 'nothing interesting has happened to me'"
+            resolution: >
+              Interesting stories do not require extraordinary events. List five moments
+              in the last year when you changed your mind about something. Each change
+              of mind is a story: what you believed before, what happened, what you
+              believe now. Transformation, not spectacle, drives narrative power.
+            route_to: "story-structure-and-arc"
+          - point: "Have stories but they feel irrelevant to business contexts"
+            resolution: >
+              Every personal story maps to a business theme if you identify the
+              principle. A story about learning to cook under pressure becomes a story
+              about resourcefulness. A story about a family disagreement becomes a story
+              about navigating conflict. Extract the principle first, then select the
+              story that illustrates it.
+            route_to: "building-story-stakes"
+        if_stuck_checklist:
+          - "Have you listed at least five moments where you changed your mind about something?"
+          - "For each story, can you state the business principle it illustrates?"
+          - "Are you avoiding stories because they feel too personal, or because they genuinely lack relevance?"
+
+      story-performance-and-delivery:
+        common_sticking_points:
+          - point: "Write good stories but freeze when delivering them aloud"
+            resolution: >
+              Record yourself telling the story to a phone, alone, three times. Listen
+              to each recording. By the third attempt, the freeze reflex weakens because
+              the story becomes familiar in your mouth, not just your head. Perform for
+              one trusted person before any public delivery.
+            route_to: "leadership-voice-and-presence"
+        if_stuck_checklist:
+          - "Have you practised the story aloud at least three times?"
+          - "Have you delivered it to one person before attempting a group?"
+          - "Are you trying to recite memorised text, or telling the story from memory of the experience?"
+
+  # ===========================================================================
+  # 8. NEGOTIATION (4 skills)
+  # ===========================================================================
+  negotiation:
+    general: >
+      Negotiation implementation stalls because preparation is where the work lives, and
+      most entrepreneurs skip it. They walk into negotiations with a desired outcome but
+      no BATNA, no understanding of the other party's constraints, and no prepared
+      concession strategy. When they stall on implementing negotiation frameworks, the
+      blocker is almost always insufficient preparation or conflict avoidance.
+    skill_specific:
+      cooperative-negotiation:
+        common_sticking_points:
+          - point: "Want to negotiate cooperatively but the other party is aggressive"
+            resolution: >
+              Cooperative negotiation does not require both parties to be cooperative.
+              Name the dynamic: 'I notice we are approaching this differently. I would
+              like to find something that works for both of us.' Then ask interest-based
+              questions: 'What would a good outcome look like from your perspective?'
+              If they remain aggressive, protect your BATNA and do not concede under
+              pressure.
+            route_to: "competitive-negotiation"
+          - point: "Cannot identify shared interests — the negotiation feels purely distributive"
+            resolution: >
+              Expand the pie before dividing it. Ask: 'Are there items I value highly
+              that cost the other party little to give?' and vice versa. Payment terms,
+              exclusivity windows, referral commitments, and timeline flexibility are
+              common non-monetary currencies that create mutual value.
+            route_to: "delivering-the-deal"
+        if_stuck_checklist:
+          - "Have you prepared your BATNA before entering the negotiation?"
+          - "Can you articulate the other party's interests, not just your own?"
+          - "Have you identified at least two non-monetary items you could trade?"
+          - "Do you know your walk-away point?"
+
+      negotiation-mindset-and-self:
+        common_sticking_points:
+          - point: "Anxiety prevents thinking clearly during the negotiation"
+            resolution: >
+              Prepare a written negotiation plan with three scenarios: best case, likely
+              case, and walk-away. Having the plan on paper means your anxious brain
+              does not need to hold the structure. Take the paper into the negotiation.
+              Pause before responding to any significant offer — 'Let me consider that'
+              is always acceptable.
+            route_to: "stoic-emotional-mastery"
+          - point: "Concede too quickly because discomfort with silence or tension"
+            resolution: >
+              Practise sitting in silence for ten seconds after making a proposal. Count
+              in your head. The other party's discomfort with your silence is your
+              leverage. Concessions made to relieve your own tension are gifts, not
+              negotiations.
+            route_to: "emotional-courage"
+        if_stuck_checklist:
+          - "Do you have a written plan with three scenarios before entering any negotiation?"
+          - "Have you practised your opening position aloud?"
+          - "Can you sit in silence for ten seconds without speaking?"
+
+  # ===========================================================================
+  # 9. PEOPLE (8 skills)
+  # ===========================================================================
+  people:
+    general: >
+      People skill implementation stalls because interpersonal change is slow and
+      feedback is ambiguous. Unlike a financial model, you cannot test a relationship
+      improvement in a spreadsheet. The most common blocker is trying to change others
+      rather than changing your own behaviour first — the only variable you actually
+      control.
+    skill_specific:
+      connecting-with-people:
+        common_sticking_points:
+          - point: "Understand networking concepts but cannot initiate conversations naturally"
+            resolution: >
+              Prepare three open-ended questions that work in any context: 'What are you
+              working on that excites you?', 'What brought you here today?', 'What is
+              the most interesting problem you are solving right now?' Use one. Listen to
+              the answer. Ask a follow-up based on what they said, not on your prepared
+              list. Connection starts with curiosity, not charisma.
+            route_to: "reading-people"
+          - point: "Make initial connections but fail to maintain them"
+            resolution: >
+              Implement a 48-hour follow-up rule: within 48 hours of meeting someone
+              worth knowing, send a specific message referencing something from your
+              conversation. Set a quarterly calendar reminder to reach out to your top
+              20 contacts with a relevant article, introduction, or genuine question.
+              Relationships decay without maintenance.
+            route_to: "meeting-the-right-people"
+        if_stuck_checklist:
+          - "Do you have three ready-to-use conversation starters that you have practised?"
+          - "Did you follow up within 48 hours of your last meaningful new connection?"
+          - "Are you trying to 'network' or trying to genuinely learn about someone?"
+
+      resolving-people-conflict:
+        common_sticking_points:
+          - point: "Avoid the conflict entirely and hope it resolves itself"
+            resolution: >
+              Unaddressed conflict never resolves — it metastasises. Set a 7-day rule:
+              if a conflict persists for 7 days without improvement, you must initiate
+              a conversation. Use the format: 'I have noticed [specific behaviour]. The
+              impact is [concrete effect]. I would like to find a way forward. Can we
+              talk?' Naming the conflict reduces it.
+            route_to: "emotional-courage"
+          - point: "Addressed the conflict but the other party became defensive"
+            resolution: >
+              Defensive reactions are normal in the first five minutes. Do not match
+              defensiveness with escalation. Acknowledge their perspective: 'I hear
+              that you see it differently.' Then restate the impact on you without
+              blaming: 'From my side, the effect has been X.' Give them 24 hours
+              to process before expecting resolution.
+            route_to: "thomas-kilmann-conflict"
+        if_stuck_checklist:
+          - "Have you separated the person from the behaviour in your own mind?"
+          - "Can you state the conflict in terms of impact rather than blame?"
+          - "Are you avoiding the conversation because resolution is impossible, or because it is uncomfortable?"
+
+  # ===========================================================================
+  # 10. CREATIVE (8 skills)
+  # ===========================================================================
+  creative:
+    general: >
+      Creative skill implementation stalls at two predictable points: starting (the blank
+      page) and finishing (the final 10% where judgment replaces exploration). The
+      blocker for starting is almost always a disguised fear of producing something bad.
+      The blocker for finishing is almost always perfectionism or loss of novelty — the
+      work stops being exciting and starts being labour.
+    skill_specific:
+      creative-completion-and-renewal:
+        common_sticking_points:
+          - point: "Projects reach 80% and then stall — cannot push through the final stretch"
+            resolution: >
+              The last 20% is not creative work — it is editorial work. Accept this
+              transition explicitly. Set a completion deadline and define 'done' as a
+              specific deliverable state, not a quality threshold. Ship at 90% and
+              iterate rather than polishing to 100% in isolation.
+            route_to: "stoic-pragmatism"
+          - point: "Start many projects but finish few"
+            resolution: >
+              Implement a one-in, one-out rule: you may not start a new project until
+              you complete, abandon, or formally defer one existing project. Track your
+              completion rate. If it is below 50%, the problem is not the projects — it
+              is the pattern.
+            route_to: "focus-and-priority-management"
+        if_stuck_checklist:
+          - "Have you defined what 'done' looks like for this specific project?"
+          - "Is the remaining work creative or editorial? Do you need inspiration or discipline?"
+          - "Would someone other than you consider this project complete?"
+
+      creative-obstacles:
+        common_sticking_points:
+          - point: "Creative block — cannot generate ideas"
+            resolution: >
+              Stop trying to generate good ideas. Generate 20 bad ideas in 15 minutes.
+              Write them down without judgment. Quantity produces quality because it
+              bypasses the inner critic. Review the list after a break — typically two
+              or three of the 'bad' ideas contain a usable kernel.
+            route_to: "creative-flow-and-inspiration"
+          - point: "Generating ideas but they all feel derivative"
+            resolution: >
+              Combine two unrelated inputs: a constraint from your industry and an idea
+              from a completely different field. Derivative ideas come from looking where
+              everyone else looks. Novel ideas come from importing solutions across
+              domain boundaries.
+            route_to: "creative-perception-and-awareness"
+        if_stuck_checklist:
+          - "Have you produced at least 20 ideas without filtering?"
+          - "Are you judging ideas while generating them, or separating the two phases?"
+          - "Have you sought input from someone outside your industry?"
+
+  # ===========================================================================
+  # 11. THINKING (6 skills)
+  # ===========================================================================
+  thinking:
+    general: >
+      Thinking skill implementation stalls because the skills are meta-cognitive —
+      thinking about thinking. The entrepreneur understands the biases, the frameworks,
+      the traps, yet falls into them anyway under pressure. Implementation requires
+      building triggers: specific moments where you pause and apply the framework before
+      your default thinking takes over.
+    skill_specific:
+      enemies-of-clear-thinking:
+        common_sticking_points:
+          - point: "Can identify biases in others but not in yourself"
+            resolution: >
+              Create a personal bias inventory: review your last five significant
+              decisions and identify which default (emotion, ego, social, inertia) most
+              influenced each. The pattern that emerges is your dominant bias. Build a
+              pre-decision checklist that specifically addresses that bias. External
+              review from a trusted advisor accelerates this — they see what you cannot.
+            route_to: "stoic-self-awareness"
+          - point: "Know the bias but cannot override it in the moment"
+            resolution: >
+              You cannot override a bias in real time through willpower. You override it
+              through structure: a written checklist consulted before every significant
+              decision, a mandatory 24-hour delay on decisions above a certain
+              threshold, or a designated devil's advocate who is authorised to challenge.
+            route_to: "decision-traps-and-roles"
+        if_stuck_checklist:
+          - "Have you identified your personal dominant bias from past decisions?"
+          - "Do you have a structural check (not a mental note) to catch it?"
+          - "When was the last time you changed your mind about something important?"
+
+      defining-and-exploring-problems:
+        common_sticking_points:
+          - point: "Keep solving the wrong problem — solutions do not address the root cause"
+            resolution: >
+              Apply the five-whys technique. State the problem, then ask 'Why?' five
+              times, each time going deeper. Most entrepreneurs stop at the second why.
+              The root cause typically lives at why number four or five. Write each level
+              down — the discipline of writing prevents premature convergence.
+            route_to: "evaluating-and-deciding"
+          - point: "Problem definition keeps shifting — cannot stabilise what we are solving"
+            resolution: >
+              Write the problem statement in one sentence, present tense, using this
+              format: '[Specific group] cannot [specific action] because [specific
+              barrier].' If you cannot complete this sentence, you do not yet understand
+              the problem well enough to solve it. Circulate the statement to three
+              stakeholders and refine based on disagreement.
+            route_to: "generating-solutions"
+        if_stuck_checklist:
+          - "Can you state the problem in one sentence?"
+          - "Have you applied the five-whys to reach the root cause?"
+          - "Would three different stakeholders agree on your problem definition?"
+
+  # ===========================================================================
+  # 12. DECISIONS (5 skills)
+  # ===========================================================================
+  decisions:
+    general: >
+      Decision skill implementation stalls because making better decisions requires
+      slowing down at the moment when urgency screams to speed up. The most common
+      blocker is the false belief that faster decisions are better decisions. The second
+      most common blocker is never revisiting past decisions to calibrate judgment.
+    skill_specific:
+      evaluating-options:
+        common_sticking_points:
+          - point: "Have too many options and cannot narrow the field"
+            resolution: >
+              Apply elimination criteria before evaluation criteria. Define three
+              non-negotiable requirements. Eliminate every option that fails any one of
+              them. This typically reduces the field by 60-80%. Only then apply weighted
+              scoring to the survivors.
+            route_to: "evaluating-and-deciding"
+          - point: "Weighted scoring produces a winner but it does not feel right"
+            resolution: >
+              The feeling is data. Ask: 'What does my gut know that my spreadsheet does
+              not?' Often the discomfort points to a criterion you weighted too low or
+              omitted entirely. Add the missing criterion, re-score, and check whether
+              the feeling resolves. If it persists, examine whether fear — not analysis
+              — is the true obstacle.
+            route_to: "enemies-of-clear-thinking"
+        if_stuck_checklist:
+          - "Have you defined elimination criteria before evaluation criteria?"
+          - "Does your scoring include all the factors that actually matter to you?"
+          - "If your gut disagrees with the analysis, have you investigated why?"
+
+      tough-decision-situations:
+        common_sticking_points:
+          - point: "The decision has been pending for over a month"
+            resolution: >
+              Calculate the cost of delay: revenue lost, opportunities missed, team
+              morale eroded, personal energy consumed by the unresolved decision. This
+              cost is real and cumulative. If the cost of delay exceeds the risk
+              differential between the best and second-best option, decide now. A
+              good decision made today outperforms a perfect decision made in six weeks.
+            route_to: "choosing-and-executing"
+          - point: "Multiple stakeholders disagree and expect consensus"
+            resolution: >
+              Consensus is not always achievable or desirable. Clarify decision rights:
+              who decides, who is consulted, who is informed. Use the RAPID framework
+              (Recommend, Agree, Perform, Input, Decide) to assign roles explicitly.
+              The person with the 'D' makes the call after hearing all inputs.
+            route_to: "decision-traps-and-roles"
+        if_stuck_checklist:
+          - "Have you calculated the concrete cost of continued delay?"
+          - "Are decision rights clear — does everyone know who makes the final call?"
+          - "Is the delay driven by missing information or by conflict avoidance?"
+          - "Have you set a decision deadline and communicated it to all parties?"
+
+  # ===========================================================================
+  # 13. CROSS-CATEGORY: STOIC MODE INTEGRATION
+  # ===========================================================================
+  stoic_mode_overlay:
+    description: >
+      When Stoic mode is active, every stuck protocol gains an additional reflection
+      layer. These questions supplement the category-specific checklists.
+    universal_stoic_questions:
+      - "Is this blocker within your control, within your influence, or outside both? Are you directing energy proportionally?"
+      - "What would you advise a friend facing this exact blocker? Apply that advice to yourself."
+      - "Which Stoic virtue is this situation testing — wisdom, courage, temperance, or justice?"
+      - "If this blocker persists for six months, will it matter? If not, act now. If so, plan carefully."
+      - "Are you choosing comfort over progress? Name the comfort you are protecting."
+
+  # ===========================================================================
+  # 14. CROSS-CATEGORY: SOLO MODE INTEGRATION
+  # ===========================================================================
+  solo_mode_overlay:
+    description: >
+      When Solo mode is active, stuck protocols adapt for the solopreneur's unique
+      constraints: no team to delegate to, no colleagues to brainstorm with, and the
+      compounding effect of being blocked on every front simultaneously.
+    universal_solo_additions:
+      - question: "Are you stuck because this task requires a skill you do not have and cannot delegate?"
+        resolution: >
+          Solopreneurs cannot be experts in everything. For tasks outside your core
+          competency, the decision is: learn (if recurring), outsource (if one-time),
+          or eliminate (if the value does not justify the effort). Make this decision
+          explicitly rather than stalling indefinitely.
+      - question: "Are you stuck because you have no one to think through this problem with?"
+        resolution: >
+          Isolation amplifies every blocker. Options: find a peer mastermind group
+          (free), hire a coach for one session (focused spend), post in a relevant
+          online community with a specific question (free), or use Foreman's diagnostic
+          system as a structured thinking partner.
+      - question: "Are you stuck on everything at once?"
+        resolution: >
+          When all items stall simultaneously, the problem is not the items — it is
+          your capacity. Reduce active items to three. Complete one before adding
+          another. Momentum on a single item breaks the paralysis across all of them.

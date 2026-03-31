@@ -1,0 +1,1 @@
+../../../../.claude/skills/frameworks/blue-ocean-strategy.md

@@ -1,0 +1,1 @@
+../../../../.claude/skills/storytelling/what-is-a-story.md

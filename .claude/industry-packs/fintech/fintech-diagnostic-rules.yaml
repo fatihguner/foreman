@@ -1,0 +1,692 @@
+# Fintech Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift in a fintech context.
+# The diagnostic agent loads these rules when the fintech industry pack is active.
+#
+# REGULATORY PRINCIPLE: Every diagnostic adaptation addresses how regulation
+# shapes the diagnosis. In fintech, regulatory compliance failure is always
+# a potential root cause — and always a potential consequence of other failures.
+# Diagnostics must surface regulatory dimensions even when the presenting
+# symptom appears purely commercial.
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for fintech companies.
+#   enhanced — The diagnostic is relevant but benefits from additional fintech-specific
+#              triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for fintech.
+
+pack_metadata:
+  sector: "fintech"
+  display_name: "Fintech"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Fintech churn has a dimension absent from other industries: compliance-driven involuntary churn. Account closures triggered by KYC failures, AML risk reviews, and fraud suspicion create churn that is not product-driven and cannot be solved by product improvements. Separating compliance-driven churn from product/market churn is essential for accurate diagnosis."
+    additional_triage_questions:
+      - question: "What percentage of customer departures are compliance-driven (account closures from KYC failures, risk reviews, fraud flags) versus voluntary (customer chose to leave)?"
+        purpose: "Compliance-driven churn is a regulatory cost, not a product problem. High compliance-driven churn may indicate overly aggressive risk models or poor KYC UX, but the solution lies in compliance process optimization, not product features."
+        routing_impact: "High compliance-driven churn (>15% of total) routes to KYC/AML process optimization and false positive rate analysis. Voluntary churn routes to standard product-market-fit and competitive analysis."
+      - question: "Is churn concentrated among customers who never completed full onboarding (abandoned KYC), customers in the first 90 days (activation failure), or established customers (value decay or competitive switch)?"
+        purpose: "Fintech onboarding has unique friction from KYC/identity verification. Early churn driven by KYC abandonment is a different problem than churn among established users."
+        routing_impact: "KYC abandonment churn routes to onboarding conversion optimization. Post-activation churn routes to product value and engagement analysis. Established customer churn routes to competitive and pricing analysis."
+      - question: "Has a banking partner policy change, regulatory update, or compliance process change coincided with the churn increase?"
+        purpose: "Fintech churn can spike after regulatory changes — new KYC requirements, tighter fraud rules, or banking partner risk appetite changes that restrict product availability."
+        routing_impact: "Regulatory-coincident churn routes to compliance impact assessment and process adaptation. Non-regulatory churn routes to standard churn diagnosis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Compliance friction driving early-lifecycle churn"
+          reason: "KYC requirements, identity verification failures, and compliance-mandated account restrictions create friction that does not exist in unregulated products. This is the most common and most under-diagnosed fintech churn driver."
+        - diagnosis: "Trust breach accelerating departure"
+          reason: "Financial services are trust-dependent. A single incident — unauthorized charge, account freeze, data concern — drives churn faster in fintech than in other industries because money is involved."
+      less_likely:
+        - diagnosis: "Feature gap driving churn"
+          reason: "Fintech customers rarely leave because of missing features — they leave because of broken trust, better rates, regulatory friction, or competitive switching incentives. Feature gaps are over-diagnosed as churn drivers."
+    fintech_specific_diagnoses:
+      - name: "Compliance-driven involuntary churn"
+        description: "Customer accounts are being closed or restricted at rates that exceed industry norms due to overly aggressive fraud detection, unnecessarily broad risk review criteria, or banking partner risk appetite restrictions. The company is losing legitimate customers to compliance processes designed to catch bad actors."
+        symptoms:
+          - "Account closure rate exceeds 3% monthly, with majority classified as compliance-driven"
+          - "False positive rate on fraud detection exceeds 90% (legitimate transactions flagged as suspicious)"
+          - "Customer complaints about account freezes, transaction declines, or identity verification failures are the #1 support category"
+          - "Banking partner has recently tightened risk criteria or expanded restricted categories"
+        routes_to_skills: ["systems-thinking", "kaizen-bpr", "trust-equation"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+      - name: "Trust-driven voluntary churn cascade"
+        description: "A trust-damaging event (security incident, publicized regulatory action, data breach, widespread account freezes) has triggered an accelerating wave of voluntary departures. In fintech, trust erosion spreads virally — customers see others leaving and conclude they should leave too."
+        symptoms:
+          - "Churn rate doubles or triples within 30 days of a specific event"
+          - "Social media and app store reviews reference a specific trust-breaking incident"
+          - "Direct deposit migrations away from the platform accelerating (the strongest signal of primary banking relationship abandonment)"
+          - "New customer acquisition simultaneously declining as negative word-of-mouth spreads"
+        routes_to_skills: ["trust-equation", "black-swans", "emotional-intelligence"]
+        routes_to_templates: ["incident-postmortem", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Account closures exceeding new account openings for any sustained period — the business is shrinking at the customer level."
+      - "Direct deposit migration rate increasing — customers moving their primary banking relationship is the most consequential churn signal in neobanking."
+      - "Churn coinciding with a regulatory examination or enforcement action — indicates the event has become public knowledge and is affecting customer confidence."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Fintech growth stalls have regulatory dimensions that other industries do not. Growth can stall because of licensing constraints (cannot enter new states without new licenses), banking partner capacity limits (partner bank's own regulatory capital constrains volume), or regulatory enforcement (consent order restricting new customer acquisition). The growth stall diagnostic must separate market-driven stalls from regulation-driven stalls."
+    additional_triage_questions:
+      - question: "Is the growth stall geographically constrained — are you growing in states where you hold licenses but stalling in states where you lack them?"
+        purpose: "State-by-state licensing requirements create geographic growth ceilings that are regulatory, not market-driven. This is the most common fintech growth constraint that is misdiagnosed as a marketing problem."
+        routing_impact: "Geographic constraint routes to licensing strategy and regulatory expansion planning. Uniform stall across licensed states routes to product/market analysis."
+      - question: "Has your banking partner imposed new volume limits, customer type restrictions, or compliance requirements that constrain onboarding capacity?"
+        purpose: "Banking partner constraints are a unique fintech growth ceiling. Partners facing their own regulatory pressure may restrict the fintech's ability to onboard new customers."
+        routing_impact: "Partner-constrained growth routes to partnership diversification and charter strategy. Non-partner-constrained growth routes to standard growth diagnosis."
+      - question: "Are you approaching a regulatory threshold (number of customers, transaction volume, assets) that triggers enhanced regulatory requirements?"
+        purpose: "Certain regulatory thresholds trigger step-function compliance cost increases — e.g., BSA/AML requirements intensify at specific transaction volume thresholds; SEC RIA registration is required above $100M AUM."
+        routing_impact: "Threshold proximity routes to compliance infrastructure planning and scenario-planning for cost step-ups. Non-threshold-related stall routes to standard market analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory ceiling constraining growth"
+          reason: "Fintech growth stalls frequently have regulatory root causes — licensing limitations, banking partner capacity, compliance infrastructure bottlenecks, or impending regulatory thresholds."
+        - diagnosis: "Banking partner dependency bottleneck"
+          reason: "Fintechs that depend on a single banking partner are constrained by that partner's risk appetite, regulatory capital, and compliance capacity. The partner becomes the growth bottleneck."
+      less_likely:
+        - diagnosis: "Macro-economic demand decline"
+          reason: "Fintech demand is generally robust — the shift from traditional to digital financial services is a multi-decade secular trend. Growth stalls attributed to 'the market' are usually regulatory, competitive, or execution problems."
+    fintech_specific_diagnoses:
+      - name: "Banking partner dependency bottleneck"
+        description: "Growth is constrained by the banking partner's capacity, risk appetite, or regulatory standing. The fintech has market demand and product-market fit but cannot onboard customers or process volume because the banking partner has imposed restrictions."
+        symptoms:
+          - "Marketing generates qualified leads that cannot be converted because onboarding is paused or throttled"
+          - "Banking partner has communicated volume caps, customer type restrictions, or enhanced compliance requirements"
+          - "Banking partner has received a regulatory order, consent agreement, or MRA that affects its fintech programs"
+          - "Competitor fintechs using different banking partners are growing while you are stalling"
+        routes_to_skills: ["scenario-planning", "prisoners-dilemma-and-cooperation", "coalition-and-partnership-games"]
+        routes_to_templates: ["risk-assessment-brief", "strategic-analysis-one-pager"]
+      - name: "License gap constraining addressable market"
+        description: "The company has product-market fit in licensed states but cannot expand because it lacks licenses in target states. The growth ceiling is regulatory, not commercial — demand exists in unlicensed states but cannot be served."
+        symptoms:
+          - "Strong growth metrics in existing markets with no sign of saturation"
+          - "Inbound customer interest from states where the company is not licensed"
+          - "Competitors with broader licensing are gaining market share in the unlicensed states"
+          - "License applications are pending but regulatory approval timelines extend 6-18 months"
+        routes_to_skills: ["first-mover-strategy", "scenario-planning"]
+        routes_to_templates: ["market-opportunity-summary", "action-plan"]
+    sector_red_flags:
+      - "Banking partner requesting 60-day review of the fintech relationship — often a precursor to termination or significant restriction."
+      - "Multiple state regulators simultaneously requesting information about the company's operations — signals coordinated regulatory scrutiny."
+      - "Growth rate declining despite increasing marketing spend — suggests a structural constraint (regulatory, partner, or infrastructure) rather than a demand problem."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Product-market fit in fintech must be evaluated separately from regulatory fit. A product can have strong market demand but fail because the regulatory framework is hostile (as many crypto products discovered in 2022-2024). Conversely, a product with modest market demand can succeed because regulatory barriers protect it from competition. PMF diagnosis must assess both market demand and regulatory viability."
+    additional_triage_questions:
+      - question: "Does the product's regulatory status allow it to operate in its current form long-term, or is there regulatory risk that the product structure may be challenged or prohibited?"
+        purpose: "Some fintech products achieve apparent PMF while operating in regulatory gray zones. If the regulatory framework is likely to change, apparent PMF is illusory — the market signal is from a product that may not legally exist in its current form."
+        routing_impact: "Regulatory-uncertain PMF routes to regulatory risk assessment and product restructuring analysis. Regulatory-secure PMF routes to standard scaling playbooks."
+      - question: "Is customer retention driven by genuine product value or by switching costs created by regulatory friction (KYC requirements at new provider, data portability barriers)?"
+        purpose: "Fintech retention can be artificially inflated by the KYC burden of switching. If customers stay because switching requires another identity verification process rather than because the product is superior, PMF is weaker than retention metrics suggest."
+        routing_impact: "Switching-cost-driven retention routes to competitive vulnerability analysis — open banking mandates will eliminate this retention mechanism. Value-driven retention routes to growth investment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "PMF exists but regulatory environment is uncertain"
+          reason: "Many fintech products demonstrate market demand in regulatory gray zones. BNPL, certain crypto products, and earned wage access all showed strong PMF signals while facing evolving regulatory scrutiny."
+        - diagnosis: "PMF exists for a niche but compliance costs prevent profitable scaling"
+          reason: "The per-customer compliance cost (KYC, ongoing monitoring) creates a minimum viable customer value that excludes low-value segments. PMF may be real but the unit economics are broken by compliance costs."
+      less_likely:
+        - diagnosis: "Product quality failure"
+          reason: "In fintech, product quality failures (bugs, crashes) are dangerous but rarely the primary PMF issue. The question is usually whether the financial product design is correct, not whether the software works."
+    fintech_specific_diagnoses:
+      - name: "Regulatory-dependent PMF"
+        description: "The product has achieved strong market traction but its regulatory status is uncertain or evolving. If the regulatory framework changes unfavorably, the product may need fundamental restructuring or may become illegal."
+        symptoms:
+          - "Strong user growth and engagement metrics in the context of ambiguous or evolving regulation"
+          - "Regulatory bodies have issued guidance, proposed rules, or enforcement actions affecting similar products"
+          - "Legal counsel advises that the product's regulatory classification is uncertain"
+          - "Investors raise regulatory risk as a primary concern despite strong commercial metrics"
+        routes_to_skills: ["scenario-planning", "swot-pest-analysis", "game-theory-fundamentals"]
+        routes_to_templates: ["risk-assessment-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Product achieves PMF in jurisdictions with light regulation but fails in jurisdictions with strict regulation — suggests the product works only in the absence of regulatory constraints."
+      - "Customer acquisition is strong but direct deposit adoption (primary banking relationship indicator) is weak — suggests the product is a secondary tool, not a primary financial relationship."
+      - "NPS is high but only among customers who have not yet experienced a compliance friction event (fraud flag, account review, transaction decline)."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Pricing in fintech is fundamentally different from other industries because regulators set maximum prices for many revenue lines. Interchange is capped, interest rates face usury limits, and fees must comply with UDAP/UDAAP. Pricing diagnosis must begin with regulatory ceiling analysis, then assess competitive positioning within those constraints. The diagnosis must also evaluate whether the current pricing structure is sustainable under anticipated regulatory changes."
+    additional_triage_questions:
+      - question: "What percentage of your revenue comes from regulated revenue lines (interchange, interest income subject to rate caps, fees subject to UDAP scrutiny) versus unregulated lines (subscription fees, data products, analytics)?"
+        purpose: "Revenue concentration in regulated lines creates pricing risk — regulatory changes can compress revenue without any commercial recourse. The diagnosis must assess pricing power in the context of regulatory constraints."
+        routing_impact: "High regulated-revenue concentration (>70%) routes to revenue diversification strategy and regulatory risk assessment. Diversified revenue routes to standard pricing optimization."
+      - question: "Have any of your fees been identified as potential 'junk fees' under current CFPB guidance, or has any regulatory body questioned the transparency or fairness of your pricing?"
+        purpose: "CFPB junk fee enforcement is targeting late fees, overdraft fees, and non-sufficient fund fees across the industry. Pricing structures that rely on these revenue lines face regulatory compression."
+        routing_impact: "Regulatory fee risk routes to immediate pricing restructure with compliance review. No regulatory concern routes to standard pricing optimization."
+      - question: "How does your pricing compare to the regulatory maximum in each jurisdiction? Are you priced near the ceiling, at midpoint, or well below?"
+        purpose: "Pricing near regulatory ceilings leaves no room for competitive response and may attract regulatory attention. Pricing well below ceilings may indicate under-pricing or may reflect the appropriate competitive positioning."
+        routing_impact: "Near-ceiling pricing routes to competitive analysis and regulatory risk review. Below-ceiling pricing routes to standard willingness-to-pay and value-capture analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Interchange compression from regulatory or network changes"
+          reason: "Interchange revenue faces structural compression from Durbin Amendment expansion, PSD2 IFR tightening, and card network rate adjustments. This is the most common pricing pressure in payments fintech."
+        - diagnosis: "Fee structure under regulatory scrutiny"
+          reason: "CFPB junk fee initiative, state attorney general enforcement, and class-action litigation are actively targeting fee structures across fintech. Pricing that was standard three years ago may be non-compliant today."
+      less_likely:
+        - diagnosis: "Over-pricing relative to competition"
+          reason: "Fintech markets are generally competitive on price. Under-pricing (leaving money on the table through flat-rate models or excessive discounting) is more common than over-pricing."
+    fintech_specific_diagnoses:
+      - name: "Regulated revenue concentration risk"
+        description: "The majority of revenue comes from revenue lines subject to regulatory caps or requirements. A regulatory change — interchange cap reduction, interest rate ceiling, fee prohibition — could eliminate a significant portion of revenue without any market-driven alternative."
+        symptoms:
+          - "More than 70% of revenue from interchange, net interest income, or regulated fees"
+          - "Pending or proposed regulation that would affect the primary revenue line"
+          - "Revenue per customer declining despite stable or growing customer engagement (regulatory compression, not market compression)"
+          - "Inability to raise prices because the current price is at or near regulatory maximums"
+        routes_to_skills: ["pricing-diagnosis", "scenario-planning", "business-model-canvas"]
+        routes_to_templates: ["unit-economics-snapshot", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Revenue per transaction declining without a corresponding increase in transaction volume — signals take rate compression from regulatory or competitive forces."
+      - "CFPB, state AG, or card network inquiry specifically about fee structures — the revenue line is under active regulatory review."
+      - "Banking partner renegotiating revenue share terms — may indicate the partner is absorbing regulatory costs and passing them through."
+
+  # ─────────────────────────────────────────────
+  # 5. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Fintech fundraising is uniquely affected by regulatory status. Investors evaluate regulatory risk as a primary investment criterion — the company's license status, compliance infrastructure, banking partner stability, and regulatory history directly affect valuation and investability. A fintech with strong metrics but weak regulatory standing will struggle to raise; a fintech with moderate metrics but a bank charter will command a premium."
+    additional_triage_questions:
+      - question: "What is your current regulatory status — what licenses do you hold, what applications are pending, and have you received any regulatory orders, MRAs, or enforcement actions?"
+        purpose: "Regulatory status is a gating criterion for fintech investment. Most institutional investors will not invest in a fintech with unresolved enforcement actions or pending license revocations."
+        routing_impact: "Clean regulatory status routes to standard fundraising preparation. Regulatory issues route to remediation planning before fundraising — raising with regulatory problems on the record depresses valuation and limits investor pool."
+      - question: "Can you articulate your regulatory moat — how does your compliance infrastructure, licensing, or charter create durable competitive advantage?"
+        purpose: "Sophisticated fintech investors view regulatory compliance as a competitive advantage, not just a cost. The ability to articulate regulatory moat demonstrates strategic maturity."
+        routing_impact: "Strong regulatory narrative routes to fundraising execution. Weak regulatory narrative routes to regulatory strategy development before fundraising."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory risk deterring investors"
+          reason: "Post-2022, fintech investors are heavily weighting regulatory risk. The wave of consent orders and the Synapse BaaS collapse made regulatory due diligence the primary filter for many fintech-focused VCs."
+        - diagnosis: "Banking partner instability creating investability concerns"
+          reason: "Investors now evaluate banking partner risk as company risk. A fintech dependent on a single BaaS provider that is facing its own regulatory issues will struggle to raise regardless of its commercial metrics."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "Financial services markets are enormous. The 'market too small' objection in fintech usually means the investor does not believe the company can achieve sufficient market share, not that the market is too small."
+    fintech_specific_diagnoses:
+      - name: "Regulatory risk premium depressing valuation"
+        description: "The company's commercial metrics warrant a higher valuation, but investors are applying a regulatory risk discount due to uncertain licensing, pending regulatory changes, or banking partner instability."
+        symptoms:
+          - "Investor feedback consistently cites 'regulatory risk' as a primary concern despite strong commercial metrics"
+          - "Valuation offers are 30-50% below comparable non-regulated technology companies with similar metrics"
+          - "Investors request extensive regulatory due diligence that extends the fundraising timeline"
+          - "Term sheets include regulatory-triggered provisions (accelerated repayment, valuation adjustments, additional board seats if enforcement actions occur)"
+        routes_to_skills: ["scenario-planning", "competitive-negotiation", "trust-equation"]
+        routes_to_templates: ["fundraising-deck-outline", "due-diligence-checklist"]
+    sector_red_flags:
+      - "Unable to provide a clean regulatory history to investors — any past enforcement actions or consent orders must be disclosed and remediated before fundraising."
+      - "Banking partner relationship is on a 90-day or shorter contract — investors view this as existential risk."
+      - "Fundraising during a period of active regulatory examination — examiners' findings could materially change the company's risk profile mid-raise."
+
+  # ─────────────────────────────────────────────
+  # 6. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Revenue in fintech decomposes into regulated and unregulated streams with fundamentally different risk profiles and growth dynamics. Interchange revenue is subject to regulatory caps and network rate changes. Interest income is subject to credit cycle risk and rate caps. Fee revenue is subject to UDAP/UDAAP enforcement. Subscription/SaaS-like revenue is largely unregulated. The revenue diagnostic must separately evaluate each stream's health, regulatory risk, and growth potential."
+    additional_triage_questions:
+      - question: "Decompose your revenue by type: interchange/processing fees, net interest income, transaction fees, subscription/platform fees, and other. Which types are growing and which are compressing?"
+        purpose: "Each fintech revenue type has different regulatory exposure, competitive dynamics, and growth characteristics. A single 'revenue' metric masks critical composition changes."
+        routing_impact: "Interchange compression routes to diversification strategy. NII decline routes to credit and funding cost analysis. Fee compression routes to UDAP/UDAAP risk review. Subscription growth routes to product expansion strategy."
+      - question: "Have any recent regulatory changes, card network rate adjustments, or banking partner term changes affected your revenue per transaction?"
+        purpose: "Fintech revenue can decline due to external regulatory or partner actions rather than market dynamics. Distinguishing externally-imposed revenue compression from market-driven compression changes the response strategy."
+        routing_impact: "Externally-imposed compression routes to regulatory adaptation and revenue diversification. Market-driven compression routes to competitive analysis and pricing optimization."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Interchange/regulatory compression eroding transaction revenue"
+          reason: "Structural interchange compression from Durbin Amendment expansion proposals, PSD2 IFR, and card network rate adjustments is the most common revenue challenge in payments fintech."
+        - diagnosis: "Credit cycle deterioration compressing net interest income"
+          reason: "Rising default rates consume NIM. Lending fintechs that originate during benign credit conditions face revenue compression when the cycle turns."
+      less_likely:
+        - diagnosis: "Pricing too low"
+          reason: "Fintech pricing is often at or near regulatory ceilings. Under-pricing is less common than in SaaS because regulatory frameworks often define the pricing landscape."
+    fintech_specific_diagnoses:
+      - name: "Credit cycle revenue compression"
+        description: "Rising default rates are consuming the net interest margin, compressing lending revenue even as origination volume grows. The revenue problem is a credit quality problem, not a pricing or volume problem."
+        symptoms:
+          - "Loan origination volume growing but net lending revenue declining or flat"
+          - "Default rate increasing across recent vintages"
+          - "Provision for credit losses increasing as percentage of revenue"
+          - "Warehouse lender or securitization counterparty requesting enhanced credit data or tightening advance rates"
+        routes_to_skills: ["scenario-planning", "black-swans", "balanced-scorecard"]
+        routes_to_templates: ["unit-economics-snapshot", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Revenue per transaction declining for three consecutive quarters — signals structural take rate compression."
+      - "Net interest margin declining while origination volume grows — classic credit deterioration pattern."
+      - "Revenue concentration in a single stream above 80% — existential risk from regulatory change affecting that stream."
+
+  # ─────────────────────────────────────────────
+  # 7. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Competitive threats in fintech include a category absent from other industries: regulatory-enabled competition. Open banking mandates (PSD2, Section 1033) allow competitors to access customer data, demolishing data moats. New charter types (fintech charter proposals, ILC charters) allow competitors to access banking capabilities. Big tech companies (Apple, Google, Amazon) can enter financial services by leveraging existing trust, distribution, and regulatory relationships. Regulatory changes do not just affect the company — they reshape the competitive landscape."
+    additional_triage_questions:
+      - question: "Is the competitive threat from a peer fintech, a traditional bank launching digital products, big tech entering your space (Apple Pay, Google Wallet, Amazon Lending), or a regulatory change enabling new types of competitors?"
+        purpose: "Each threat type requires a different response and has different dynamics. Peer fintech competition is familiar; big tech entry is existential; regulatory-enabled competition is structural."
+        routing_impact: "Peer fintech routes to differentiation strategy. Traditional bank digital entry routes to speed-and-UX advantage analysis. Big tech entry routes to niche defensibility and regulatory advantage analysis. Regulatory-enabled competition routes to strategic repositioning."
+      - question: "Has a regulatory change (open banking mandate, new license type, fee cap change) directly enabled or empowered a competitor?"
+        purpose: "Regulatory changes can overnight transform the competitive landscape. PSD2 open banking enabled a wave of new payment initiation services in Europe. Similar dynamics are emerging in the US."
+        routing_impact: "Regulatory-enabled threat routes to regulatory strategy and differentiation beyond data access. Non-regulatory threat routes to standard competitive analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Big tech entry into financial services"
+          reason: "Apple (Apple Card, Apple Savings, Apple Pay Later), Google (Google Wallet, Plex banking), and Amazon (Amazon Lending, Amazon Pay) are actively expanding in fintech. Their distribution and trust advantages are existential threats to standalone fintechs."
+        - diagnosis: "Regulatory change enabling new competition"
+          reason: "Open banking mandates (PSD2, Section 1033) are structurally increasing competition by requiring data portability. Fintechs that relied on data lock-in for retention face new competitive dynamics."
+      less_likely:
+        - diagnosis: "Price-based competitive displacement"
+          reason: "In fintech, competition rarely occurs on price alone because regulatory costs create a floor. The competitive threat is typically about distribution, trust, UX, and product breadth rather than price."
+    fintech_specific_diagnoses:
+      - name: "Big tech financial services entry"
+        description: "A major technology platform (Apple, Google, Amazon, Meta) has launched or announced a financial product that directly competes with the company's core offering. The platform's existing user base, brand trust, and distribution advantages create a competitive threat that cannot be addressed through product features alone."
+        symptoms:
+          - "Major tech platform launches a competing financial product (Apple Savings, Google Wallet expansion, Amazon Pay expansion)"
+          - "Customer acquisition costs increasing as the platform's free or subsidized offering attracts price-sensitive customers"
+          - "Win rate declining in customer segments that overlap with the platform's user base"
+          - "Media coverage shifting from 'fintech vs. banks' to 'fintech vs. big tech'"
+        routes_to_skills: ["porters-five-forces", "blue-ocean-strategy", "disruptive-innovation"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+      - name: "Open banking regulatory disruption"
+        description: "Open banking mandates (PSD2 in EU, Section 1033 in US) are enabling competitors to access customer financial data that was previously proprietary. Data-based moats are being demolished by regulation, requiring new sources of competitive advantage."
+        symptoms:
+          - "New competitors emerging that leverage open banking APIs to offer aggregation, comparison, or switching services"
+          - "Customer data portability reducing switching costs that previously protected retention"
+          - "API compliance costs increasing as open banking mandates require the company to share data with authorized third parties"
+          - "Competitive analysis reveals competitors using the company's own data feeds as inputs to competing products"
+        routes_to_skills: ["porters-five-forces", "first-mover-strategy", "scenario-planning"]
+        routes_to_templates: ["competitive-landscape-brief", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Apple, Google, or Amazon announces a product that directly overlaps with the company's core offering — this is the highest-severity competitive event in fintech."
+      - "Regulatory body announces open banking implementation timeline — the company has a limited window to transition from data-lock-in to value-based retention."
+      - "Traditional bank launches a digital-only subsidiary targeting the same customer segment with lower fees and FDIC insurance — combining digital UX with banking trust."
+
+  # ─────────────────────────────────────────────
+  # 8. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Strategic drift in fintech often manifests as mission-compliance divergence — the company's strategic direction pulls away from its compliance infrastructure. Chasing new product lines without obtaining required licenses, entering new markets without regulatory preparation, or pivoting the business model without assessing regulatory implications are fintech-specific forms of strategic drift."
+    additional_triage_questions:
+      - question: "Is the company's product strategy outpacing its compliance infrastructure — are you launching or planning products that require regulatory capabilities you have not yet built?"
+        purpose: "The most dangerous form of strategic drift in fintech is when product ambition exceeds compliance capacity. Launching a lending product without proper licensing or a custody product without adequate security infrastructure is not strategic ambition — it is regulatory drift."
+        routing_impact: "Compliance gap routes to compliance infrastructure assessment and licensing strategy before further product expansion. Aligned infrastructure routes to standard strategic analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Strategy outpacing compliance infrastructure"
+          reason: "Growth-stage fintechs frequently build products faster than they build compliance capabilities. The 'move fast' instinct that serves well in technology companies creates regulatory risk in financial services."
+      less_likely:
+        - diagnosis: "Industry disruption causing drift"
+          reason: "Fintech strategic drift is usually self-inflicted — chasing multiple revenue lines, entering new geographies prematurely, or following competitor moves without strategic rationale."
+    fintech_specific_diagnoses:
+      - name: "Mission-compliance divergence"
+        description: "The company's strategy is evolving in directions that strain or exceed its regulatory licenses, compliance infrastructure, or banking partner agreements. Product development is outpacing regulatory preparation, creating growing risk that a product will be launched or scaled without adequate compliance foundation."
+        symptoms:
+          - "Product roadmap includes features or products that require licenses the company does not hold"
+          - "Compliance team flagging concerns about planned launches that are being overridden by commercial leadership"
+          - "Banking partner pushing back on new product proposals as outside the scope of the partnership agreement"
+          - "Legal counsel identifying gaps between current regulatory permissions and planned activities"
+        routes_to_skills: ["strategic-thinking-and-alignment", "balanced-scorecard", "scenario-planning"]
+        routes_to_templates: ["quarterly-strategic-review", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Compliance team reporting to commercial leadership rather than directly to CEO/board — creates structural pressure to subordinate compliance to commercial goals."
+      - "Product launches occurring without formal compliance sign-off — indicates compliance has been marginalized in the product development process."
+
+  # ─────────────────────────────────────────────
+  # 9. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "The most common and consequential team dysfunction in fintech is the growth-compliance tension. Product and growth teams view compliance as an obstacle; compliance teams view growth teams as reckless. This tension is productive when managed (compliance constraints force creative solutions) and destructive when unmanaged (compliance is bypassed or growth is paralyzed). Second-order dysfunction arises from the emotional burden of handling customer financial distress — compliance and support teams experience burnout at higher rates."
+    additional_triage_questions:
+      - question: "Is there active tension between the growth/product team and the compliance/legal team? How are disagreements about regulatory risk resolved?"
+        purpose: "Growth-compliance tension is the defining team dynamic in fintech. The resolution mechanism — who wins when growth wants to launch a product that compliance flags as risky — reveals the company's true risk culture."
+        routing_impact: "Unresolved growth-compliance tension routes to organizational design and decision rights framework. Healthy tension with clear resolution mechanism routes to standard team optimization."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Growth-compliance cultural divide"
+          reason: "Fintech companies that hire separately from tech (for growth roles) and banking (for compliance roles) create cultural divides. The two groups operate with different risk tolerances, vocabularies, and success metrics."
+      less_likely:
+        - diagnosis: "Individual performance issues"
+          reason: "Apparent individual underperformance in fintech compliance or operations roles is often a system-level problem — inadequate tooling, unclear authority, or conflicting priorities."
+    fintech_specific_diagnoses:
+      - name: "Compliance team burnout and attrition"
+        description: "The compliance, risk, and BSA/AML team is experiencing high turnover due to workload, inadequate tooling, organizational marginalization, or the emotional toll of financial crimes investigation. Compliance team instability creates regulatory risk that cascades through the organization."
+        symptoms:
+          - "Compliance team turnover exceeding 25% annually"
+          - "BSA officer or CCO departure — the most consequential single-person risk in fintech"
+          - "Regulatory reporting delays or quality degradation as experienced staff depart"
+          - "Compliance team members expressing frustration that their concerns are not heard by leadership"
+        routes_to_skills: ["trust-equation", "emotional-intelligence", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["team-health-check", "action-plan"]
+    sector_red_flags:
+      - "BSA officer or Chief Compliance Officer resignation — regulators view this as a red flag that triggers enhanced examination."
+      - "Compliance team being asked to 'find a way to approve' products or customers that fail standard risk criteria."
+      - "Growth team referring to compliance as 'the Department of No' — indicates a cultural divide that creates regulatory risk."
+
+  # ─────────────────────────────────────────────
+  # 10. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Co-founder conflict in fintech often centers on risk appetite — one founder wants aggressive growth while the other prioritizes compliance conservatism. This is a structurally different conflict than technical-vs-commercial disagreements because the downside of getting it wrong includes personal legal liability (BSA officers and compliance officers can face individual criminal charges for willful compliance failures)."
+    additional_triage_questions:
+      - question: "Does the conflict center on risk tolerance — specifically, does one founder want to move faster than the other believes is safe from a regulatory perspective?"
+        purpose: "Risk appetite disagreements in fintech carry legal weight. The co-founder advocating caution may be protecting the company from enforcement actions; the co-founder advocating speed may be protecting the company from running out of runway."
+        routing_impact: "Risk appetite conflict routes to regulatory risk framework development and explicit risk tolerance documentation. Non-regulatory conflict routes to standard co-founder mediation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Risk appetite divergence amplified by personal legal exposure"
+          reason: "In fintech, the co-founder who holds compliance responsibilities (BSA officer, CCO role) faces personal legal liability for compliance failures. This asymmetric risk exposure amplifies normal disagreements into existential conflicts."
+      less_likely:
+        - diagnosis: "Equity/compensation dispute"
+          reason: "Co-founder conflicts in fintech more commonly stem from strategic disagreements about regulatory approach than from compensation disputes."
+    fintech_specific_diagnoses: []
+    sector_red_flags:
+      - "Co-founder who serves as BSA officer or CCO expressing concern about personal liability exposure — this person has a legal obligation to escalate compliance concerns and may resign to protect themselves."
+
+  # ─────────────────────────────────────────────
+  # 11. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Market entry in fintech is fundamentally a regulatory question before it is a commercial question. Every new market (geographic, product, customer segment) requires regulatory analysis: what licenses are needed, what compliance infrastructure must be built, what is the regulatory approval timeline, and what are the ongoing compliance costs? A fintech that evaluates market entry on commercial attractiveness alone will fail — the regulatory pathway determines feasibility, timeline, and economics."
+    additional_triage_questions:
+      - question: "What regulatory licenses, approvals, or registrations are required to enter this market, and what is the realistic timeline and cost to obtain them?"
+        purpose: "Regulatory licensing timelines range from 30 days (some state money transmitter licenses) to 3+ years (bank charter). This is the single most important input to market entry planning in fintech."
+        routing_impact: "Short licensing timeline (<6 months) routes to standard market entry planning. Long licensing timeline (>12 months) routes to regulatory-first market entry strategy with interim alternatives (partnerships with licensed entities)."
+      - question: "Are there existing licensed entities (banks, BaaS providers, broker-dealers) through which you could enter the market via partnership rather than obtaining your own license?"
+        purpose: "Partnership-based market entry is faster but creates dependency. Direct licensing is slower but creates a moat. The choice between these approaches is the fundamental market entry decision in fintech."
+        routing_impact: "Partnership entry routes to coalition-and-partnership-games and banking partner evaluation. Direct licensing routes to regulatory strategy and capital planning."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory barrier as primary entry challenge"
+          reason: "In fintech, the regulatory barrier IS the market entry challenge. Product-market fit, competitive dynamics, and go-to-market strategy are secondary to the fundamental question: can we legally operate in this market?"
+      less_likely:
+        - diagnosis: "Product readiness as primary barrier"
+          reason: "Product readiness matters but is solvable with engineering. Regulatory readiness is harder, slower, and more uncertain."
+    fintech_specific_diagnoses:
+      - name: "Regulatory pathway as market entry gating factor"
+        description: "The target market is commercially attractive but the regulatory pathway is unclear, lengthy, or expensive. The market entry decision depends primarily on regulatory feasibility rather than commercial attractiveness."
+        symptoms:
+          - "Market opportunity analysis is compelling but regulatory counsel cannot confirm a clear licensing pathway"
+          - "Required licenses involve multi-year application processes and multi-million-dollar capital requirements"
+          - "Competitors have entered the market through regulatory approaches that may not be replicable (grandfathered licenses, special purpose charters)"
+          - "Regulatory environment in the target market is actively changing, creating uncertainty about which requirements will apply"
+        routes_to_skills: ["scenario-planning", "first-mover-strategy", "game-theory-fundamentals"]
+        routes_to_templates: ["market-opportunity-summary", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Planning market entry without regulatory counsel assessment — the most common and most dangerous mistake in fintech expansion."
+      - "Entering a market based on a regulatory interpretation that has not been tested or confirmed with the relevant regulator."
+
+  # ─────────────────────────────────────────────
+  # 12. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Partnerships in fintech are regulated relationships. Banking partnerships are subject to OCC, FDIC, and Federal Reserve third-party risk management guidance. Card network partnerships are governed by network rules and PCI-DSS requirements. Technology partnerships that handle financial data are subject to GLBA service provider requirements. Partnership diagnosis in fintech must evaluate regulatory compliance of the partnership structure, regulatory risk shared between partners, and the impact of partner regulatory actions on the company."
+    additional_triage_questions:
+      - question: "Is your banking partner currently under any regulatory order, MRA, consent agreement, or enhanced supervision that could affect your operations?"
+        purpose: "A banking partner's regulatory standing directly determines the fintech's operational stability. Partner regulatory issues become the fintech's issues."
+        routing_impact: "Partner under regulatory action routes to immediate contingency planning and secondary partner evaluation. Clean partner regulatory status routes to standard partnership optimization."
+      - question: "Is the regulatory responsibility allocation between you and your partner clearly documented, and has it been reviewed by both parties' regulatory counsel?"
+        purpose: "Ambiguous compliance responsibility in fintech partnerships is the source of most partnership breakdowns. When a regulatory issue arises, both parties must know who is responsible."
+        routing_impact: "Ambiguous allocation routes to immediate partnership agreement review and compliance responsibility matrix development. Clear allocation routes to standard partnership health assessment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Banking partner regulatory stress creating operational risk"
+          reason: "The 2023-2024 wave of regulatory actions against BaaS providers and partner banks demonstrated that partner regulatory risk is the most consequential partnership risk in fintech."
+      less_likely:
+        - diagnosis: "Partnership value misalignment"
+          reason: "Fintech partnerships are typically structured around regulatory enablement — the value proposition (licensed entity enables unlicensed activities) is usually clear, even when commercial terms are suboptimal."
+    fintech_specific_diagnoses:
+      - name: "Banking partner regulatory contagion"
+        description: "The banking partner is experiencing regulatory pressure that is flowing through to the fintech — operational restrictions, enhanced compliance requirements, volume limitations, or potential relationship termination driven by the bank's regulatory situation rather than the fintech's performance."
+        symptoms:
+          - "Banking partner imposing new compliance requirements not present in the original partnership agreement"
+          - "Account opening or transaction processing delays attributable to partner-side compliance reviews"
+          - "Industry news reporting regulatory actions against the partner bank's fintech programs"
+          - "Partner bank requesting audit access or compliance data beyond previous requirements"
+        routes_to_skills: ["prisoners-dilemma-and-cooperation", "scenario-planning", "coalition-and-partnership-games"]
+        routes_to_templates: ["risk-assessment-brief", "partnership-memo"]
+    sector_red_flags:
+      - "Banking partner's OCC or FDIC examination results in MRA (Matter Requiring Attention) or MRIA (Matter Requiring Immediate Attention) related to fintech oversight."
+      - "Banking partner communicating through legal counsel rather than business contacts — indicates the relationship is being managed as a risk rather than a partnership."
+      - "Multiple fintechs simultaneously receiving restrictive communications from the same banking partner — indicates a systemic regulatory response affecting the partner's entire fintech program."
+
+  # ─────────────────────────────────────────────
+  # 13. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Leadership crises in fintech carry regulatory consequences. The departure of a BSA officer, CCO, or any individual with regulatory obligations triggers reporting requirements and regulatory scrutiny. A leadership crisis during a regulatory examination compounds the stress. Leaders who hold personal regulatory designations cannot be replaced as casually as other roles — regulators must approve certain leadership changes."
+    additional_triage_questions:
+      - question: "Does the leadership crisis involve individuals who hold regulatory designations (BSA officer, CCO, CISO, designated compliance personnel) whose departure triggers regulatory notification requirements?"
+        purpose: "Regulatory-designated leadership changes require notification to regulators and may trigger enhanced supervision. These are not ordinary personnel changes."
+        routing_impact: "Regulatory-designated leader departure routes to immediate regulatory notification planning and interim designation of qualified personnel. Non-regulatory leadership routes to standard succession planning."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory-designated leader departure creating compliance vacuum"
+          reason: "The loss of a BSA officer, CCO, or other regulatory-designated individual creates immediate compliance risk and requires regulatory notification."
+      less_likely:
+        - diagnosis: "General leadership style mismatch"
+          reason: "Leadership crises in fintech are more often about regulatory stress, compliance disagreements, or personal liability concerns than about leadership style."
+    fintech_specific_diagnoses: []
+    sector_red_flags:
+      - "BSA officer or CCO departure without a pre-identified successor — creates a compliance gap that regulators view as a critical deficiency."
+      - "Multiple compliance-designated personnel departing within a short period — signals systemic cultural or risk issues."
+
+  # ─────────────────────────────────────────────
+  # 14. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Operational chaos in fintech carries regulatory consequences that do not exist in other industries. Missed regulatory reporting deadlines, SAR filing backlogs, KYC refresh failures, and transaction monitoring outages are not just operational problems — they are compliance violations that can trigger enforcement actions. The operational chaos diagnostic must prioritize regulatory-deadline operations over discretionary operations."
+    additional_triage_questions:
+      - question: "Are any regulatory-deadline operations (SAR filing, CTR filing, state regulatory reporting, audit submissions) currently behind schedule or at risk of missing deadlines?"
+        purpose: "Regulatory deadlines are non-negotiable. A SAR must be filed within 30 days of detection. CTRs must be filed within 15 days. Missing these deadlines is a compliance violation, not an operational inconvenience."
+        routing_impact: "Regulatory deadline risk routes to immediate triage and resource reallocation to compliance operations. No deadline risk routes to standard operational improvement."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Compliance operations drowning growth operations"
+          reason: "Rapid growth in fintech generates proportional growth in compliance workload (more transactions to monitor, more SARs to file, more KYC to process). When compliance operations cannot scale with growth, both compliance and growth suffer."
+      less_likely:
+        - diagnosis: "Technology infrastructure failure"
+          reason: "Pure technology failures are usually addressable. Operational chaos in fintech more often stems from the collision of fast-growing transaction volumes and linear-scaling compliance processes."
+    fintech_specific_diagnoses:
+      - name: "Compliance operations overwhelm"
+        description: "Transaction volume growth has outpaced the compliance team's capacity to process AML alerts, file SARs, complete KYC reviews, and generate regulatory reports. The compliance backlog creates regulatory risk that threatens the business."
+        symptoms:
+          - "SAR filing backlog exceeding 30 days from alert disposition"
+          - "AML alert queue growing faster than the team can review"
+          - "KYC refresh reviews past due for more than 10% of customer base"
+          - "Regulatory reporting submitted late or with known errors"
+        routes_to_skills: ["kaizen-bpr", "systems-thinking", "eisenhower-matrix"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+    sector_red_flags:
+      - "SAR filing deadline missed — this is a BSA violation that must be remediated immediately and may require self-reporting to FinCEN."
+      - "Transaction monitoring system outage lasting more than 24 hours — creates a compliance gap that regulators will examine."
+
+  # ─────────────────────────────────────────────
+  # 15. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Decision paralysis in fintech is amplified by the irreversibility of regulatory decisions and the personal liability that attaches to financial services decisions. Leaders who face personal legal exposure for compliance failures may become paralyzed by risk aversion. The diagnosis must distinguish between healthy caution (warranted by regulatory risk) and excessive paralysis (preventing necessary business decisions)."
+    additional_triage_questions:
+      - question: "Is the paralysis driven by uncertainty about regulatory requirements — specifically, the team cannot decide because they do not know what the rules are?"
+        purpose: "Regulatory ambiguity is a common source of fintech decision paralysis. When the rules are unclear, conservative leaders wait for clarity while aggressive leaders proceed at risk. Neither is optimal without explicit risk framework."
+        routing_impact: "Regulatory uncertainty routes to regulatory engagement strategy (proactive outreach to regulators, no-action letter requests, sandbox applications). Non-regulatory paralysis routes to standard decision framework."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory uncertainty freezing strategic decisions"
+          reason: "Fintech operates in a regulatory environment that changes frequently. Pending regulations, ambiguous guidance, and enforcement pattern shifts create uncertainty that paralyzes strategic planning."
+      less_likely:
+        - diagnosis: "Insufficient data for decision"
+          reason: "Fintech companies typically have abundant data (transaction data, customer behavior, financial metrics). Paralysis is rarely about missing data — it is about regulatory uncertainty or risk aversion."
+    fintech_specific_diagnoses: []
+    sector_red_flags:
+      - "Major strategic decisions delayed more than 6 months citing 'regulatory uncertainty' — may indicate leadership using regulation as an excuse for inaction."
+      - "No new products launched in 12+ months because compliance review is perpetually incomplete."
+
+  # ─────────────────────────────────────────────
+  # 16. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Fintech hiring must address a talent pool that spans two traditionally separate industries — technology and financial services/compliance. The compliance talent market is constrained: experienced BSA officers, CCOs, and regulatory counsel are scarce and expensive. Hiring the wrong compliance leadership has regulatory consequences — regulators evaluate the qualifications of designated compliance personnel."
+    additional_triage_questions:
+      - question: "Are you struggling to hire for compliance, risk, and regulatory roles specifically — BSA officer, CCO, CISO, regulatory counsel?"
+        purpose: "Compliance talent scarcity is the most common and most consequential hiring challenge in fintech. The talent pool is small, compensation expectations are high, and regulators evaluate the qualifications of designated personnel."
+        routing_impact: "Compliance hiring difficulty routes to compensation benchmarking against banking (not tech) standards and recruitment strategy for regulated industry talent."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Compliance talent scarcity constraining growth"
+          reason: "Experienced BSA officers, CCOs, and financial services regulatory counsel are in high demand across both traditional banking and fintech. Competition for this talent is intense."
+      less_likely:
+        - diagnosis: "Employer brand weakness"
+          reason: "Fintech companies generally attract strong talent from both tech and financial services. Hiring challenges are more often about specific skill sets (compliance, regulatory) than general attractiveness."
+    fintech_specific_diagnoses: []
+    sector_red_flags:
+      - "BSA officer or CCO position vacant for more than 30 days — regulators view this as a critical gap."
+      - "Compliance staff being hired at below-market compensation (banking market, not tech market) — creates retention risk in the highest-consequence function."
+
+  # ─────────────────────────────────────────────
+  # 17. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Innovation in fintech is constrained by compliance review processes that can slow product development. The diagnostic must distinguish between genuine innovation drought (no creative ideas) and compliance-bottlenecked innovation (ideas exist but cannot clear regulatory review). The former requires creativity; the latter requires process improvement."
+    additional_triage_questions:
+      - question: "Is the innovation drought caused by a lack of ideas, or by a compliance review process that prevents ideas from reaching market?"
+        purpose: "Many fintech companies have innovative ideas that die in compliance review — not because they are non-compliant, but because the review process is slow, under-resourced, or excessively conservative."
+        routing_impact: "Compliance bottleneck routes to compliance process redesign and 'compliance-in-the-room' product development practice. Genuine idea drought routes to standard innovation frameworks."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Compliance review bottleneck suppressing innovation velocity"
+          reason: "The most common innovation barrier in fintech is not a lack of creativity but a slow, under-resourced, or overly conservative compliance review process that prevents ideas from reaching market."
+      less_likely:
+        - diagnosis: "Organizational complacency"
+          reason: "Fintech companies rarely suffer from complacency — the pace of regulatory and competitive change prevents it. Innovation drought is more often structural (compliance bottleneck) than cultural."
+    fintech_specific_diagnoses: []
+    sector_red_flags:
+      - "Average time from product concept to compliance approval exceeding 6 months — indicates compliance is a bottleneck, not a partner."
+      - "Compliance team rejecting ideas without suggesting compliant alternatives — indicates a 'Department of No' culture."
+
+  # ─────────────────────────────────────────────
+  # 18. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Culture erosion in fintech manifests as a divergence between stated values (customer-first, transparency, financial inclusion) and actual behavior (hidden fees, aggressive collections, predatory lending terms). This is not just a culture problem — it is a regulatory risk. UDAP/UDAAP enforcement targets practices that are unfair, deceptive, or abusive, which are often the downstream manifestation of culture erosion."
+    additional_triage_questions:
+      - question: "Are there practices in the company that leadership would not be comfortable disclosing to a regulator during an examination?"
+        purpose: "This question cuts directly to culture-compliance alignment. If the answer is yes, the company has a culture problem that is also a regulatory risk."
+        routing_impact: "Affirmative answer routes to immediate compliance assessment and ethical review. Negative answer routes to standard culture diagnosis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Revenue pressure eroding ethical standards"
+          reason: "Fintech companies under growth pressure may adopt practices that extract revenue from customers at the expense of transparency — hidden fees, aggressive upselling, misleading marketing. These are simultaneously culture failures and regulatory violations."
+      less_likely:
+        - diagnosis: "Remote work eroding culture"
+          reason: "Remote work culture challenges exist in fintech but are not the primary culture erosion driver. Revenue pressure and growth-compliance tension are more consequential."
+    fintech_specific_diagnoses:
+      - name: "Financial inclusion rhetoric vs. predatory practice"
+        description: "The company publicly positions itself as promoting financial inclusion but its actual product terms, fee structures, or lending practices disproportionately burden the underbanked populations it claims to serve. The gap between narrative and reality creates both ethical liability and regulatory risk under UDAP/UDAAP and fair lending laws."
+        symptoms:
+          - "APRs or effective fee rates exceeding 36% for products marketed to underbanked consumers"
+          - "Internal metrics tracking revenue extraction per customer rather than financial wellbeing outcomes"
+          - "Marketing emphasizes 'financial inclusion' while product design maximizes fee revenue from financially vulnerable customers"
+          - "Fair lending analysis identifies disparate impact across protected demographic groups"
+        routes_to_skills: ["trust-equation", "tough-decision-situations", "defining-and-exploring-problems"]
+        routes_to_templates: ["risk-assessment-brief", "culture-values-document"]
+    sector_red_flags:
+      - "Customer complaint rate to CFPB or state regulators increasing — regulatory complaints are both a culture signal and a regulatory risk indicator."
+      - "Internal compliance concerns being documented in writing and escalated through formal channels — indicates the compliance team believes informal escalation is insufficient, a serious warning sign."
+
+  # ─────────────────────────────────────────────
+  # 19. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Communication breakdowns in fintech carry regulatory weight because certain communications are legally required. Adverse action notices for credit denials, fee disclosures, privacy notices under GLBA, and breach notification under state laws have specific content, timing, and delivery requirements. Internal communication breakdowns between the compliance team and other functions can lead to regulatory violations."
+    additional_triage_questions:
+      - question: "Is the communication breakdown affecting customer-facing regulatory disclosures (fee disclosures, adverse action notices, privacy notices) or internal compliance escalation channels?"
+        purpose: "Customer-facing disclosure failures are regulatory violations. Internal escalation failures lead to regulatory issues going unaddressed until they become enforcement actions."
+        routing_impact: "Customer disclosure failures route to immediate compliance remediation and disclosure process redesign. Internal escalation failures route to compliance governance and reporting line restructuring."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Compliance-operations communication gap"
+          reason: "The most consequential communication breakdown in fintech occurs between the compliance function and operational teams. When compliance concerns do not reach the right decision-makers, regulatory violations result."
+      less_likely:
+        - diagnosis: "Meeting culture problems"
+          reason: "Meeting format issues exist but are not the primary communication concern in fintech. The critical communication challenge is ensuring regulatory information flows to decision-makers."
+    fintech_specific_diagnoses: []
+    sector_red_flags:
+      - "Compliance team unable to reach C-suite leadership with urgent regulatory concerns — creates personal liability risk for compliance personnel who have legal obligations to escalate."
+      - "Customer-facing communications going live without compliance review — any customer-facing communication about a financial product should be reviewed for regulatory compliance."
+
+  # ─────────────────────────────────────────────
+  # 20. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Stuck negotiations in fintech most commonly involve banking partner terms, regulatory consent orders, and enterprise client compliance requirements. These negotiations are fundamentally different from commercial negotiations because they involve regulatory constraints that limit the negotiation space — neither party can agree to terms that violate regulatory requirements."
+    additional_triage_questions:
+      - question: "Is the negotiation stuck because of a regulatory constraint that limits what either party can agree to — e.g., the banking partner cannot agree to terms that violate third-party risk management guidance?"
+        purpose: "Regulatory constraints narrow the zone of possible agreement in fintech negotiations. Understanding which constraints are binding helps identify whether the negotiation is stuck because of interests or because of regulations."
+        routing_impact: "Regulatory-constrained negotiation routes to regulatory-informed alternative generation — finding terms that satisfy both commercial interests and regulatory requirements. Interest-based stall routes to standard negotiation frameworks."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Regulatory constraint as hidden negotiation barrier"
+          reason: "In fintech, negotiations often stall because one party cannot explain that a regulatory requirement prevents agreement. Banking partners, in particular, may resist terms without disclosing the specific regulatory guidance driving their position."
+      less_likely:
+        - diagnosis: "Personality-driven stalemate"
+          reason: "Fintech negotiations are typically between sophisticated parties who understand the regulatory landscape. Stalemates are more often structural (regulatory constraints) than personal."
+    fintech_specific_diagnoses: []
+    sector_red_flags:
+      - "Banking partner negotiation stalled for more than 90 days — may indicate the partner is conducting an internal regulatory review of the entire fintech program."
+      - "Regulatory settlement negotiation — requires specialized counsel and should not be handled by the general business team."
