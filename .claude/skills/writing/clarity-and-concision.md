@@ -29,33 +29,31 @@ author: "Fatih Guner"
 
 # Clarity and Concision
 
-Consider a mid-sized company where 200 professionals each write an average of 10 internal messages per day, each message averaging 150 words. That is 300,000 words produced daily -- roughly three novels. Now suppose that 30% of those words are unnecessary. The organisation is generating 90,000 wasted words every working day. At an average reading speed of 250 words per minute, that is 360 person-hours per day spent reading words that should never have been written. Six full-time employees, year-round, doing nothing but reading padding. The financial cost of corporate verbosity is not metaphorical. It is measurable, and it is staggering.
+A 500-word email sent to 200 people that could have been 250 words wastes two hours of collective reading time. Corporate verbosity is not a style problem. It is a cost centre.
 
-Clarity and concision are not aesthetic preferences. They are economic imperatives.
+---
+
+## Workflow
+
+Follow this sequence when editing any document for clarity and concision:
+
+1. **Structure review** -- Verify the document's macro structure is sound. Cutting words from a structurally flawed document produces a shorter structurally flawed document. Confirm the three main points are identifiable on a single read-through.
+
+2. **Clarity stress test** -- Read the draft as someone with no context. Can you identify the main points and the requested action after one pass? Flag every ambiguous passage, abstract assertion, and moment of re-reading. (Use Prompt 2 below.)
+
+3. **Word economy audit** -- Apply the three surgical techniques: delete prepositions, replace -ion nouns with verbs, replace be-verbs with stronger alternatives. Identify and eliminate all padding phrases. (Use Prompt 1 below.)
+
+4. **Subtraction edit** -- Delete words, sentences, and entire paragraphs. Do not add, rephrase, or restructure -- only cut. Produce the shortest version that preserves every essential idea and action request. (Use Prompt 5 below.)
+
+5. **Metrics check** -- Calculate final word count, average sentence length (target: 20 or fewer), and percentage reduction. Confirm the Flesch Reading Ease score meets the target (50+). If metrics miss targets, repeat steps 3-4.
 
 ---
 
 ## The Framework
 
-### Clarity as Courage
-
-Clarity is a double-edged sword. When a writer takes a position or recommends a course of action, the writing is clear -- and the writer is exposed. People who do not want to commit make their writing muddy on purpose. They leave room to claim credit for good outcomes and deny responsibility for bad ones. Readers, however, perceive this not as strategic ambiguity but as spinelessness. Clear writing requires taking a stand.
-
-The test for clarity is simple: show the draft to a colleague who has no context and ask them to identify the three main points. If they cannot do so accurately after one read-through, the writing is not clear enough.
-
-### The Research Case for Less
-
-The intuition that shorter is better has been validated experimentally, at scale. *Writing for Busy Readers* reports a field experiment in which two versions of an email were sent to 7,002 school board members across the United States requesting completion of a short online survey. One email contained 127 words; the other contained 49 words. The 49-word version produced nearly double the response rate -- 4.8% versus 2.7%. The survey itself was identical in both conditions. Some recipients likely looked at the longer email and declined to engage at all. Others read partway through and never reached the request. Still others used the email's length as a proxy for how long the survey would take: 29% of those who saw the concise version estimated the survey at under five minutes, compared with just 15% of those who saw the longer version.
-
-The average American adult reads nonfiction at approximately 240 words per minute -- four words per second. At that rate, every unnecessary sentence costs measurable time, compounded across every recipient. The arithmetic is unforgiving: a 500-word email sent to 200 people that could have been written in 250 words wastes over two hours of collective reading time. Scale that to a year of weekly all-hands updates and the cost becomes a line item no one budgets for but everyone pays.
-
-Perhaps the most revealing finding is how poorly writers self-correct. Gabrielle Adams and colleagues at the University of Virginia asked participants to summarise a short article and then edit their summaries to improve them. Eighty-three percent of participants *added* words during the editing pass rather than removing them. The same pattern held across topics from travel itineraries to patents. The instinct to accrete rather than subtract appears to be a cognitive default -- one that writers must consciously override.
-
-Blaise Pascal captured the asymmetry centuries ago: "I would have written a shorter letter if I'd had more time." The line has been attributed to Twain, Locke, and a dozen others, which only confirms how universally writers recognise the problem -- and how rarely they solve it.
-
 ### The 20-Word Rule
 
-Research has confirmed repeatedly that the optimal average for readable sentences is no more than 20 words. This does not mean every sentence should be exactly 20 words -- variety in sentence length creates rhythm and holds interest. Some sentences should be very short. Others can be longer and more complex, building layered arguments. But the average, across a document, should hover around 20.
+The optimal average for readable sentences is no more than 20 words. This does not mean every sentence should be exactly 20 words -- variety in sentence length creates rhythm and holds interest. Some sentences should be very short. Others can be longer, building layered arguments. But the average, across a document, should hover around 20.
 
 **NOT THIS:**
 > Efficiency measures that have been implemented by the company with strong involvement of senior management have generated cost savings while at the very same time assisting in the building of a culture that is centered around the value of efficiency. [40 words]
@@ -78,7 +76,7 @@ The vague versions are opinions. The specific versions are evidence that leads r
 
 ### Word Economy: Three Surgical Techniques
 
-Wordiness operates on multiple levels, from bloated sentences to verbose phrases to unnecessary padding. Three techniques eliminate the majority of excess:
+Three techniques eliminate the majority of excess:
 
 **Technique 1: Delete prepositions (especially "of").**
 - *April of 2013* becomes *April 2013*
@@ -95,7 +93,7 @@ Wordiness operates on multiple levels, from bloated sentences to verbose phrases
 - *is indicative of* becomes *indicates*
 - *are in agreement* becomes *agree*
 
-These three rules, applied mechanically, typically reduce word count by 20-40%.
+Applied mechanically, these three rules typically reduce word count by 20-40%.
 
 ### Before/After: The Compound Effect
 
@@ -119,7 +117,7 @@ Certain phrases contribute nothing but the illusion of seriousness:
 - *it is worthwhile to note that* -- delete entirely
 - *it should be pointed out that* -- delete entirely
 
-These phrases are throat-clearing. They signal to the reader that the writer is about to say something -- rather than simply saying it.
+These phrases are throat-clearing. They signal that the writer is about to say something -- rather than simply saying it.
 
 ---
 
@@ -142,33 +140,39 @@ These phrases are throat-clearing. They signal to the reader that the writer is 
 
 ---
 
-## Use Cases
+<details>
+<summary>Use Cases</summary>
 
 **Idea-Stage Founder Rewriting a Landing Page**
 
-A founder's landing page opens with: "We aspire to be a partner primarily concerned with providing our clients the maximal acquisition of future profits and assets and focus mainly on clients with complex and multi-product needs, large and midsized corporate entities, individual or multiple entrepreneurial agents, and profit-maximising institutional clients." After applying the clarity and concision framework: "We're a client-focused firm dedicated to making sure you get the most out of our services. Our client base includes individual entrepreneurs, midsized companies, and large corporations." The original was 46 words of impenetrable corporate fog. The revision is 30 words that a customer can actually understand -- and that a search engine can parse.
+A founder's landing page opens with 46 words of impenetrable corporate fog: "We aspire to be a partner primarily concerned with providing our clients the maximal acquisition of future profits..." After applying word economy techniques, the revision drops to 30 words a customer can actually understand -- and that a search engine can parse.
 
 **Growth-Stage Company Tightening Investor Updates**
 
-A SaaS company's monthly investor update runs 2,500 words. Most investors skim it in under two minutes. Applying word economy techniques across three consecutive updates: Update 1 drops from 2,500 to 1,800 words (28% reduction). Update 2 drops to 1,400 words as the writer internalises the preposition and be-verb rules. Update 3 reaches 1,100 words -- the same information in 56% less space. Investor engagement (measured by reply rate) increases by 40%, because the update now respects the audience's time.
+A SaaS company's monthly investor update runs 2,500 words. Applying word economy techniques across three consecutive updates: Update 1 drops to 1,800 words (28% reduction), Update 2 to 1,400, Update 3 to 1,100 -- 56% less space, same information. Investor reply rates increase 40%.
 
 **Early-Traction Nonprofit Doubling Newsletter Engagement**
 
-A nonprofit sends a weekly newsletter to 50,000 subscribers linking to six curated resources. The editorial team, composed of professional writers, drafts a 566-word newsletter with context, supporting quotes, and background detail for each link. Applying the subtraction edit -- cutting supporting detail that is relevant but not essential, removing author quotes, and eliminating scene-setting paragraphs -- the team produces a 275-word version preserving all six resource links. The concise version generates twice as many link clicks as the original. The lost detail represented the kind of supplementary material that writers value and readers skip. As one researcher in the *Writing for Busy Readers* study observed: readers who received the shorter version did not report feeling less informed -- they simply engaged more.
+A nonprofit's 566-word newsletter links to six curated resources with extensive context and background detail. The subtraction edit produces a 275-word version preserving all six links. The concise version generates twice as many link clicks. The lost detail represented supplementary material that writers value and readers skip.
+
+</details>
 
 ---
 
-## Anti-Patterns
+<details>
+<summary>Anti-Patterns</summary>
 
-1. **Confusing Brevity with Concision.** Brevity means being short. Concision means being short without losing substance. A one-sentence summary that omits critical context is brief but not concise. The goal is to include everything necessary and nothing else.
+1. **Confusing Brevity with Concision.** Brevity means being short. Concision means being short without losing substance. Include everything necessary and nothing else.
 
-2. **Using Complexity as a Status Signal.** Some writers equate long sentences and Latinate vocabulary with intelligence. Readers equate it with obscurity. A 136-word sentence scoring 8.2 on the Flesch Reading Ease scale does not signal sophistication -- it signals that the writer is either hiding something or has not thought clearly about the subject.
+2. **Using Complexity as a Status Signal.** Long sentences and Latinate vocabulary do not signal sophistication -- they signal that the writer is either hiding something or has not thought clearly.
 
-3. **Cutting Too Aggressively.** Concision taken to the extreme produces telegraphic prose that sounds curt and loses the writer's voice. The goal is to remain "faithful to the sounds and rhythms of normal, down-to-earth English" while eliminating waste.
+3. **Cutting Too Aggressively.** Concision taken to the extreme produces telegraphic prose that sounds curt and loses the writer's voice.
 
-4. **Editing for Concision Before Revising for Structure.** Cutting 30% of the words from a structurally flawed document produces a shorter structurally flawed document. Always revise the macro structure first, then edit for concision.
+4. **Editing for Concision Before Revising for Structure.** Cutting 30% of the words from a structurally flawed document produces a shorter structurally flawed document. Revise macro structure first.
 
-5. **Telling Instead of Showing.** Asserting that "the company performed poorly" is brief, but it is not persuasive. The concrete version -- "The CEO acquired five unrelated subsidiaries and couldn't service the $26 million in debt" -- is longer but incomparably more effective. Concision serves clarity; it does not replace evidence.
+5. **Telling Instead of Showing.** "The company performed poorly" is brief but not persuasive. "The CEO acquired five unrelated subsidiaries and couldn't service the $26 million in debt" is longer but incomparably more effective. Concision serves clarity; it does not replace evidence.
+
+</details>
 
 ---
 
