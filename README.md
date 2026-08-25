@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="./assets/logo-foreman-dark.svg">
@@ -257,7 +259,7 @@ foreman/
 │   ├── solo-mode/               # Solopreneur adaptations
 │   ├── stoic-mode/              # Stoic philosophical lens
 │   └── language-mode/           # Multilingual output
-├── scripts/                     # 24 utility scripts
+├── scripts/                     # 21 utility scripts
 ├── docs/                        # Architecture, guides, style guide
 ├── examples/                    # 8 end-to-end walkthroughs
 ├── openclaw-templates/          # OpenClaw workspace templates
