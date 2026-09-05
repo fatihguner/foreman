@@ -14,6 +14,9 @@ for (const file of ['.claude-plugin/plugin.json', '.codex-plugin/plugin.json', '
   assert.equal(json(file).version, pkg.version, `Version mismatch: ${file}`);
 }
 assert.equal(json('package-lock.json').packages[''].version, pkg.version);
+for (const file of ['.claude/catalog.json', 'plugins/foreman/content/catalog.json']) {
+  assert.equal(json(file).release.version, pkg.version, `Installed version metadata mismatch: ${file}`);
+}
 const marketplace = json('.claude-plugin/marketplace.json');
 assert.equal(marketplace.metadata.version, pkg.version);
 assert.equal(marketplace.plugins.find(p => p.name === 'foreman').version, pkg.version);
