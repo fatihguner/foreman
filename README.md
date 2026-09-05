@@ -138,7 +138,7 @@ Single source of truth: `.claude/`. Every other platform derives from it.
 
 ### Install the stable release
 
-**1.1.0** includes the new installer, shared state runtime and complete plugin bundles. See the [release notes](docs/releases/v1.1.0.md) for verification and limitations. Requires Node 22.19 or later.
+**1.1.1** is a maintenance release of the installer, shared state runtime and complete plugin bundles. See the [release notes](docs/releases/v1.1.1.md) for changes, upgrade steps and limitations. Requires Node 22.19 or later.
 
 ```bash
 npx foreman-sh init
@@ -146,13 +146,13 @@ npx foreman-sh init
 
 Add `--platform codex` for Codex, or `--platform all` for both Claude and Codex. Foreman is MIT-licensed and free to install; your AI host account and model usage are separate.
 
-Use `npx foreman-sh@1.1.0 init` to pin this version. You can also install the same tarball directly from GitHub:
+Use `npx foreman-sh@1.1.1 init` to pin this version. You can also install the same tarball directly from GitHub:
 
 ```bash
-npx --yes --package=https://github.com/fatihguner/foreman/releases/download/v1.1.0/foreman-sh-1.1.0.tgz foreman-sh init
+npx --yes --package=https://github.com/fatihguner/foreman/releases/download/v1.1.1/foreman-sh-1.1.1.tgz foreman-sh init
 ```
 
-The new installer adds `.claude/` and `CLAUDE.md` to your current directory and preserves existing files. Repeated initialization only fills missing files; when upgrading, back up and review existing generated files before replacing them. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
+The installer adds `.claude/` and a project `CLAUDE.md` to your current directory, preserves existing files, prints the next steps and names the one line to add when a `CLAUDE.md` already exists. `npx foreman-sh --version` reports the installed version. Repeated initialization only fills missing files; when upgrading from 1.1.0, delete the thirteen command guide files that the old installer placed in `.claude/commands/`, which the installer lists, and review other generated files before replacing them. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
 
 > "My SaaS churn rate is 5.2% and I'm preparing for Series A. What should I focus on?"
 
@@ -165,24 +165,24 @@ The new installer adds `.claude/` and `CLAUDE.md` to your current directory and 
 
 ### Clone from GitHub
 
+The CLI runs from a clone without a build step:
+
 ```bash
 git clone https://github.com/fatihguner/foreman.git
 cd foreman
 npm ci --ignore-scripts
-npm run build
-npm run build:plugins
+node bin/cli.js init --workspace /path/to/your/project
 ```
+
+`npm run build` compiles the OpenClaw adapter, and `npm run build:plugins` regenerates the catalog, command wrappers and plugin bundles after content changes. See [development and verification](docs/development.md).
 
 ### Codex
 
 ```bash
-git clone https://github.com/fatihguner/foreman.git
-cd foreman
-npm ci --ignore-scripts
-npm run build
-npm run build:plugins
-node bin/cli.js init --platform codex --workspace /path/to/your/project
+npx foreman-sh init --platform codex --workspace /path/to/your/project
 ```
+
+This installs the `foreman` router skill and 158 framework skills under `.agents/skills/` with their content under `.agents/content/`.
 
 ### OpenClaw
 
@@ -197,9 +197,9 @@ npm ci --ignore-scripts
 
 ## Key Commands
 
-These are Claude project commands. Claude plugin commands use `/foreman:apply`, `/foreman:solo`, and the same namespace for other commands. Host conflicts use prefixes such as `/foreman-run`, `/foreman-skill`, `/foreman-resume`, `/foreman-context` and `/foreman-help`. In Codex, use `$foreman` followed by the operation. The generated command map is in `.claude/catalog.json`.
+These are Claude project commands, generated into `.claude/commands/` from the specifications in `.claude/command-guides/`. Claude plugin commands use `/foreman:apply`, `/foreman:solo`, and the same namespace for other commands. Host conflicts use prefixes such as `/foreman-run`, `/foreman-skill`, `/foreman-resume`, `/foreman-context` and `/foreman-help`. In Codex, use `$foreman` followed by the operation. The generated command map is in `.claude/catalog.json`.
 
-Preferences and implementation tasks persist under `.foreman/<founder-id>/state.json` through the bundled runtime. Keep that directory out of version control. See [runtime behavior](.claude/RUNTIME.md) and [development and verification](docs/development.md).
+Preferences and implementation tasks persist under `.foreman/<founder-id>/state.json` through the bundled runtime. The store writes its own `.gitignore`, so founder records stay out of version control. See [runtime behavior](.claude/RUNTIME.md) and [development and verification](docs/development.md).
 
 | Command | What It Does |
 |---|---|
@@ -269,7 +269,8 @@ foreman/
 │   ├── hooks/                   # 17 natural language triggers
 │   ├── agents/                  # 6 orchestration agents
 │   ├── memory/                  # 5-layer persistence system
-│   ├── commands/                # 13 guides + 46 generated commands
+│   ├── command-guides/          # 13 command specifications
+│   ├── commands/                # 46 generated command wrappers
 │   ├── industry-packs/          # 9 sector-specific overlay packs
 │   ├── research/                # 18 data collection guides
 │   ├── implementation/          # Tracking + support system
@@ -278,7 +279,9 @@ foreman/
 │   ├── solo-mode/               # Solopreneur adaptations
 │   ├── stoic-mode/              # Stoic philosophical lens
 │   └── language-mode/           # Multilingual output
-├── scripts/                     # 24 utility scripts
+├── lib/                         # Content, distribution and state runtime modules
+├── scripts/                     # 24 shell entry points + Node tooling
+├── templates/                   # CLAUDE.md installed into founder projects
 ├── docs/                        # Architecture, guides, style guide
 ├── examples/                    # 8 end-to-end walkthroughs
 ├── openclaw-templates/          # OpenClaw workspace templates

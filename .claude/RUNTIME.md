@@ -10,7 +10,7 @@ Use exact catalog identifiers first, then `aliases`, then a unique normalized na
 
 ## Persistence
 
-All hosts use schema version 1 at `<workspace>/.foreman/<founder-id>/state.json`. Keep this file private and outside version control. The default founder ID for the local CLI is `default`. For multiple founders, pass an explicit ID on every call; never infer another founder's records. OpenClaw scopes data by its trusted agent and sender context. To share an existing agent-only store with the CLI, pass that agent ID as `--founder`.
+All hosts use schema version 1 at `<workspace>/.foreman/<founder-id>/state.json`. Keep this file private; the runtime writes `.foreman/.gitignore` so the store stays outside version control. The default founder ID for the local CLI is `default`. For multiple founders, pass an explicit ID on every call; never infer another founder's records. OpenClaw scopes data by its trusted agent and sender context. To share an existing agent-only store with the CLI, pass that agent ID as `--founder`.
 
 Run `node "<content-root>/runtime/run.mjs" <command> --workspace "<project-root>" --founder default ...`. Substitute real absolute paths and shell-quote each argument. User text is data; never interpolate it as executable shell syntax. This runtime needs Node 22.19 or later, and no package install or network connection. Check its exit status and returned JSON. Do not edit `state.json` directly.
 
@@ -20,7 +20,7 @@ Honor the scope requested by the user. A mode or language requested only for thi
 
 Read tasks: `track --filter all` (also `active`, `overdue`, `stalled`, or any of the six statuses). Add a confirmed task: `task --id impl-001 --description "Interview five customers" --deadline 2026-10-01`. Update `/progress impl-001 40 note`: `task --id impl-001 --progress 40 --note "note"`. Status changes use `--status not-started|in-progress|blocked|completed|abandoned|deferred`. A completed task has progress 100. Use `--revision N` when editing a previously read revision; a conflict requires rereading, not overwriting.
 
-After a confirmed playbook step, save the next step: `resume --playbook pivot-playbook --step 2`. Read `resume` to continue from that checkpoint; verify the playbook and step against the catalog before writing. The exposed Claude command is `/foreman-resume`, because `/resume` is a host command. Never mark a step complete based merely on a generated recommendation.
+After a confirmed playbook step, save the next step: `resume --playbook pivot-playbook --step 2`. Read `resume` to continue from that checkpoint. The runtime rejects a playbook that is not in the catalog and a step beyond the playbook's length; confirm the step with the user before writing. The exposed Claude command is `/foreman-resume`, because `/resume` is a host command. Never mark a step complete based merely on a generated recommendation.
 
 If the runtime or workspace is unavailable, explain that persistence is unavailable and keep the session usable. Do not fabricate saved tasks. Do not run a package installer automatically to enable persistence.
 
@@ -32,4 +32,4 @@ Legacy YAML memory remains readable source material. To migrate, read the user's
 
 ## Host commands
 
-Claude project commands are the files in `commands/`; names that conflict with built-ins use the `foreman-` prefix. Use `/foreman-run` for playbooks and `/foreman-skill` for skill previews. The latter also avoids a `skill.md` / `SKILL.md` filesystem collision that hides sibling commands. Plugin commands use `/foreman:NAME`. Consult `catalog.json` for the exact map. In Codex, invoke `$foreman` with the requested operation or use an individual framework skill. Do not advertise Claude slash commands as Codex commands.
+Claude project commands are the generated wrappers in `commands/`; each one points to its specification in `command-guides/`. Names that conflict with built-ins use the `foreman-` prefix. Use `/foreman-run` for playbooks and `/foreman-skill` for skill previews. The latter also avoids a `skill.md` / `SKILL.md` filesystem collision that hides sibling commands. Plugin commands use `/foreman:NAME`. Consult `catalog.json` for the exact map. In Codex, invoke `$foreman` with the requested operation or use an individual framework skill. Do not advertise Claude slash commands as Codex commands.

@@ -50,7 +50,7 @@ Only an authorized npm package maintainer can save this configuration. Follow th
 After configuring the publisher and creating the GitHub release, dispatch against the release tag:
 
 ```sh
-gh workflow run publish-npm.yml --ref v1.1.0 --repo fatihguner/foreman
+gh workflow run publish-npm.yml --ref v1.1.1 --repo fatihguner/foreman
 ```
 
-Check the completed workflow and `npm view foreman-sh@1.1.0 version dist.integrity` before advertising `npx foreman-sh init`. Use the corresponding prerelease version and `next` for release candidates. A workflow file alone does not mean a package was published. Do not move the stable `latest` tag to a release candidate.
+Check the completed workflow and `npm view foreman-sh@1.1.1 version dist.integrity` before advertising `npx foreman-sh init`. Use the corresponding prerelease version and `next` for release candidates. A workflow file alone does not mean a package was published. Do not move the stable `latest` tag to a release candidate.

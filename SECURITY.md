@@ -4,7 +4,8 @@
 
 | Version | Supported |
 |---------|-----------|
-| 1.0.x   | Yes       |
+| 1.1.x   | Yes       |
+| 1.0.x   | No        |
 
 Only the latest release receives security updates.
 
@@ -23,7 +24,9 @@ Include the following in your report:
 
 ## What Constitutes a Security Issue
 
-Foreman is a content project (Markdown and YAML files consumed by an AI agent), not a running application. Security concerns differ from typical software projects. Relevant threats include:
+Foreman is primarily a content project (Markdown and YAML files consumed by an AI agent). It also ships a small installer CLI and a dependency-free state runtime that writes founder records to `.foreman/` inside a project. Relevant threats include:
+
+- **Runtime and installer defects**: Path handling in `bin/cli.js` or `lib/` that could write outside the chosen workspace, follow symbolic links, expose one founder's records to another, or ship host-private files in a package
 
 - **Malicious content injection**: Skill files, diagnostics, playbooks, or templates containing prompt injection attacks, hidden instructions, or adversarial content designed to manipulate AI agent behavior
 - **Compromised scripts**: Modifications to any file in `scripts/` that introduce destructive commands, data exfiltration, or unauthorized system access

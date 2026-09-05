@@ -6,7 +6,7 @@ argument-hint: "[arguments]"
 
 # Foreman /export
 
-Read ${CLAUDE_PLUGIN_ROOT}/.claude/RUNTIME.md and ${CLAUDE_PLUGIN_ROOT}/.claude/policies/advisory.md first. Then read ${CLAUDE_PLUGIN_ROOT}/.claude/commands/output-commands.md and execute only /export with the user's arguments: $ARGUMENTS.
+Read ${CLAUDE_PLUGIN_ROOT}/.claude/RUNTIME.md and ${CLAUDE_PLUGIN_ROOT}/.claude/policies/advisory.md first. Then read ${CLAUDE_PLUGIN_ROOT}/.claude/command-guides/output-commands.md and execute only /export with the user's arguments: $ARGUMENTS.
 
 Use ${CLAUDE_PLUGIN_ROOT}/.claude/catalog.json to resolve exact content names before aliases or unique matches. Load all required supporting files from ${CLAUDE_PLUGIN_ROOT}/.claude. All paths in the source instructions are relative to this content directory. Persist confirmed changes through the runtime described in RUNTIME.md; never claim a write succeeded without reading its result.
 

@@ -41,11 +41,11 @@ Entrepreneur Input
 5. **Hooks** (`.claude/hooks/`) — 17 trigger definitions (8 high-priority, 8 medium/low, 1 research) that classify natural-language input and route to diagnostics, skills, or playbooks.
 6. **Agents** (`.claude/agents/`) — 6 AI agent definitions: orchestrator (central brain), diagnostic (triage), skill-executor (framework application), playbook-runner (multi-step conductor), output (formatting), memory (context persistence).
 7. **Memory** (`.claude/memory/`) — 5-layer persistence system: identity (yearly), company (monthly), history (append-only), active (weekly), session (ephemeral). Schema + YAML templates.
-8. **Commands** (`.claude/commands/`) — 46 registered commands generated from 13 guides; exact names are recorded in `.claude/catalog.json`.
+8. **Commands** (`.claude/command-guides/` → `.claude/commands/`) — 13 command guides from which the build generates 46 host-safe wrappers; exact names are recorded in `.claude/catalog.json`. Only generated wrappers may live in `commands/`, because Claude Code exposes every file there as a slash command.
 
 ### Tooling & Modes
 
-9. **Scripts** (`scripts/`) — 24 portable shell entry points backed by shared Node modules.
+9. **Scripts** (`scripts/`, `lib/`) — 24 portable shell entry points backed by shared Node modules. `bin/cli.js` is the npm installer; `templates/CLAUDE.md` is the instruction file installed into a founder's project, while this file describes the repository for development.
 10. **Solo Mode** (`.claude/solo-mode/`) — Complete solopreneur adaptation layer: SOLO.md (master instruction), skill relevance scoring (158 skills), audience remapping (48 templates), diagnostic/playbook/hook adaptations (56 items). Activated via `/solo`.
 11. **Stoic Mode** (`.claude/stoic-mode/`) — Philosophical depth layer that frames all system responses through Stoic principles (dichotomy of control, cardinal virtues, premeditatio malorum, amor fati). Does not change WHAT is delivered — changes HOW it is framed. Activated via `/stoic on`. Can combine with Solo Mode.
 12. **Language Mode** (`.claude/language-mode/`) — Complete output language switch. All responses delivered in the specified language while internal processing remains English. Supports any language the model speaks fluently. Activated via `/language [code]`. Persists across sessions. Combines with Solo and Stoic modes.
@@ -132,7 +132,7 @@ When generating multiple skills, apply deliberate variation across these dimensi
 5-layer system in `memory/`. Layers: identity (yearly), company (monthly), history (append-only), active (weekly), session (ephemeral). Schema: `.claude/memory/_schema/memory-schema.md`. Templates: `.claude/memory/_template/*.yaml`.
 
 ### Commands
-46 registered commands generated from 13 command guides in `.claude/commands/`. The exact host-safe command map is in `.claude/catalog.json`. Schema: `.claude/_schema/commands/command-template.md`.
+46 registered commands generated from 13 command guides in `.claude/command-guides/` into `.claude/commands/`. The exact host-safe command map is in `.claude/catalog.json`. Schema: `.claude/_schema/commands/command-template.md`.
 
 ### Scripts
 24 portable shell entry points in `scripts/`, backed by shared Node modules. Each supports `--help`.
@@ -216,8 +216,7 @@ foreman/
 │   ├── memory/                         # 5-layer persistence system
 │   │   ├── _schema/memory-schema.md
 │   │   └── _template/*.yaml (5 layers)
-│   ├── commands/                       # 33 commands in 6 groups
-│   │   ├── _schema/command-template.md
+│   ├── command-guides/                 # 13 command guides (46 commands)
 │   │   ├── navigation-commands.md
 │   │   ├── execution-commands.md
 │   │   ├── memory-commands.md
@@ -231,6 +230,12 @@ foreman/
 │   │   ├── research-commands.md
 │   │   ├── simulation-commands.md
 │   │   └── org-politics-commands.md
+│   ├── commands/                       # 46 generated wrappers (build output)
+│   ├── plugin-commands/                # Generated wrappers for the plugin manifest
+│   ├── runtime/                        # Bundled state runtime (build output)
+│   ├── policies/advisory.md
+│   ├── catalog.json                    # Generated content index
+│   ├── RUNTIME.md
 │   ├── solo-mode/                      # Solopreneur adaptation layer
 │   │   ├── SOLO.md
 │   │   ├── solo-skill-relevance.yaml
@@ -282,6 +287,9 @@ foreman/
 │   │   ├── organizational-alignment-playbook.md
 │   │   └── templates/ (6 templates + schema)
 │   └── settings.local.json
+├── lib/                                # Content, distribution, maintenance and state modules
+├── bin/cli.js                          # npm installer and state CLI
+├── templates/CLAUDE.md                 # Workspace instructions installed by init
 ├── scripts/                            # 24 shell entry points (dev tooling)
 │   ├── validate-*.sh (7)
 │   ├── new-*.sh (5)
@@ -374,8 +382,8 @@ foreman/
 - **Hooks:** 17 (8 high + 8 medium/low + 1 research)
 - **Agents:** 6
 - **Memory Layers:** 5 (identity, company, history, active, session)
-- **Commands:** 13 command files (~45 individual commands)
-- **Scripts:** 21
+- **Commands:** 13 command guides, 46 generated commands
+- **Scripts:** 24 shell entry points
 - **Solo Mode:** 4 config files
 - **Stoic Mode:** 2 config files
 - **Language Mode:** 1 config file

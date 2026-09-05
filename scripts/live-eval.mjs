@@ -3,6 +3,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
+import { initWorkspace } from '../lib/distribution.js';
 const root=path.resolve(import.meta.dirname,'..');
 try {
  const args=process.argv.slice(2),opts={};
@@ -25,8 +26,8 @@ try {
  for(const scenario of cases) {
   if(spent+caseCap+reserve>cap)throw new Error('Aggregate budget reserve reached; remaining scenarios were not started');
   const workspace=path.join(output,'workspaces',scenario.id);fs.mkdirSync(workspace,{recursive:true});
-  fs.cpSync(path.join(root,'.claude'),path.join(workspace,'.claude'),{recursive:true});
-  fs.copyFileSync(path.join(root,'CLAUDE.md'),path.join(workspace,'CLAUDE.md'));
+  // The scenario sees exactly what a founder's project receives from the installer.
+  initWorkspace(root,workspace,'claude');
   const prompt='Bu kurgusal Foreman testinde yalnızca bu çalışma alanındaki Foreman içeriklerini kullan. Web, dış dosya, iletişim veya dosya yazma yok. En çok 180 kelime Türkçe yanıt ver; bilinmeyen veri veya yanıt uydurma. Sonda gerçekten kullandığın Foreman dosyalarını belirt. Kurucu: '+scenario.prompt;
   fs.writeFileSync(path.join(output,scenario.id+'.prompt.txt'),prompt);
   const cli=['--print','--no-session-persistence','--output-format','stream-json','--verbose','--setting-sources','project,local','--settings',settings,'--strict-mcp-config','--mcp-config','{"mcpServers":{}}','--no-chrome','--tools','Read,Glob,Grep,Skill','--allowedTools','Read,Glob,Grep,Skill','--permission-mode','dontAsk','--max-budget-usd',String(caseCap)];

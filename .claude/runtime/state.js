@@ -51,6 +51,11 @@ export function validateState(s) {
   return s;
 }
 
+// Founder records never belong in version control, so the store ignores itself.
+function ignoreStore(dir) {
+  try { fs.writeFileSync(path.join(dir,'.gitignore'),'*\n',{flag:'wx',mode:0o600}); }
+  catch(e) { if (e.code !== 'EEXIST') throw e; }
+}
 function statePath(workspace, founder, create = false) {
   if (!workspace || !path.isAbsolute(workspace)) throw new Error('An absolute workspace directory is required for persistent state');
   identifier(founder);
@@ -58,7 +63,10 @@ function statePath(workspace, founder, create = false) {
   for (const part of ['.foreman',founder]) {
     dir = path.join(dir,part);
     if (fs.existsSync(dir) && fs.lstatSync(dir).isSymbolicLink()) throw new Error(`Linked state directory is not supported: ${dir}`);
-    if (create) fs.mkdirSync(dir,{recursive:true,mode:0o700});
+    if (create) {
+      fs.mkdirSync(dir,{recursive:true,mode:0o700});
+      if (part === '.foreman') ignoreStore(dir);
+    }
   }
   const file = path.join(dir,'state.json');
   try { if (fs.lstatSync(file).isSymbolicLink()) throw new Error('Linked state file is not supported'); }

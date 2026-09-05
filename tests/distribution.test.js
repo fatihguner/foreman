@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { initWorkspace, commandMap } from '../lib/distribution.js';
+import { initWorkspace, commandMap, distributable, LEGACY_GUIDES } from '../lib/distribution.js';
 import { markdownLinks, walk } from '../lib/content.js';
 const root=path.resolve(import.meta.dirname,'..');
 test('every packaged relative Markdown link resolves within its distribution',()=>{
@@ -54,4 +54,24 @@ test('compiled entry uses the actual installed OpenClaw SDK and registers execut
   assert.equal(JSON.parse(list.content[0].text).entries.length,158);
   const bad=await tools.find(t=>t.name==='foreman_apply_skill').execute('test',{skill:''});assert.equal(bad.isError,true);
   const profile=await tools.find(t=>t.name==='foreman_profile').execute('test',{mode:'solo'});assert.equal(profile.details.ok,true);
+});
+test('command guides stay outside host discovery and host-private files never ship',t=>{
+  for (const spec of commandMap(root).values()) assert.ok(spec.source.startsWith('command-guides/'),spec.source);
+  for (const file of fs.readdirSync(path.join(root,'.claude/commands'))) assert.match(fs.readFileSync(path.join(root,'.claude/commands',file),'utf8'),/generated: true/,`${file} would appear as an extra slash command`);
+  for (const name of LEGACY_GUIDES) assert.ok(fs.existsSync(path.join(root,'.claude/command-guides',`${name}.md`)),name);
+  for (const rel of ['settings.local.json','memory/.DS_Store','plugin-commands/apply.md']) assert.equal(distributable(rel),false,rel);
+  for (const rel of ['RUNTIME.md','commands/apply.md','skills/frameworks/smart-goals.md','_schema/agents/agent-template.md']) assert.equal(distributable(rel),true,rel);
+  for (const rel of ['settings.local.json','.DS_Store','plugin-commands']) assert.equal(fs.existsSync(path.join(root,'plugins/foreman/content',rel)),false,`bundle contains ${rel}`);
+  assert.ok(JSON.parse(fs.readFileSync(path.join(root,'.claude/catalog.json'),'utf8')).entries.every(e=>e.kind!=='playbook' || Number.isInteger(e.steps)),'playbook entries publish their step count');
+  // A source tree carrying host-private files installs without them and reports guides left by an earlier version.
+  const source=fs.mkdtempSync(path.join(os.tmpdir(),'foreman-source-'));t.after(()=>fs.rmSync(source,{recursive:true,force:true}));
+  fs.mkdirSync(path.join(source,'.claude/commands'),{recursive:true});fs.mkdirSync(path.join(source,'templates'));
+  fs.writeFileSync(path.join(source,'.claude/RUNTIME.md'),'# Runtime');fs.writeFileSync(path.join(source,'.claude/settings.local.json'),'{}');fs.writeFileSync(path.join(source,'.claude/.DS_Store'),'');
+  fs.writeFileSync(path.join(source,'.claude/commands/apply.md'),'---\ngenerated: true\n---\n');fs.writeFileSync(path.join(source,'templates/CLAUDE.md'),'# Workspace');
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'foreman-private-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));
+  fs.mkdirSync(path.join(dir,'.claude/commands'),{recursive:true});fs.writeFileSync(path.join(dir,'.claude/commands/solo-command.md'),'# Solo Command');
+  const result=initWorkspace(source,dir,'claude');
+  assert.deepEqual(result.copied.sort(),['.claude/RUNTIME.md','.claude/commands/apply.md','CLAUDE.md']);
+  assert.ok(result.notes.some(n=>n.includes('.claude/commands/solo-command.md')));
+  assert.equal(fs.readFileSync(path.join(dir,'CLAUDE.md'),'utf8'),'# Workspace');
 });

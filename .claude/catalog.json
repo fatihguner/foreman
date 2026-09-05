@@ -1,6 +1,6 @@
 {
   "release": {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "license": "MIT",
     "repository": "git+https://github.com/fatihguner/foreman.git",
     "homepage": "https://foreman.sh"
@@ -39,55 +39,55 @@
     {
       "id": "execution-commands",
       "kind": "command",
-      "path": "commands/execution-commands.md",
+      "path": "command-guides/execution-commands.md",
       "category": "execution"
     },
     {
       "id": "implementation-commands",
       "kind": "command",
-      "path": "commands/implementation-commands.md",
+      "path": "command-guides/implementation-commands.md",
       "category": "implementation"
     },
     {
       "id": "language-mode-commands",
       "kind": "command",
-      "path": "commands/language-command.md",
+      "path": "command-guides/language-command.md",
       "category": "meta"
     },
     {
       "id": "memory-commands",
       "kind": "command",
-      "path": "commands/memory-commands.md",
+      "path": "command-guides/memory-commands.md",
       "category": "memory"
     },
     {
       "id": "navigation-commands",
       "kind": "command",
-      "path": "commands/navigation-commands.md",
+      "path": "command-guides/navigation-commands.md",
       "category": "navigation"
     },
     {
       "id": "org-politics-commands",
       "kind": "command",
-      "path": "commands/org-politics-commands.md",
+      "path": "command-guides/org-politics-commands.md",
       "category": "org-politics"
     },
     {
       "id": "research-commands",
       "kind": "command",
-      "path": "commands/research-commands.md",
+      "path": "command-guides/research-commands.md",
       "category": "research"
     },
     {
       "id": "simulation-commands",
       "kind": "command",
-      "path": "commands/simulation-commands.md",
+      "path": "command-guides/simulation-commands.md",
       "category": "simulation"
     },
     {
       "id": "stoic-mode-commands",
       "kind": "command",
-      "path": "commands/stoic-command.md",
+      "path": "command-guides/stoic-command.md",
       "category": "meta"
     },
     {
@@ -309,7 +309,8 @@
       "id": "organizational-alignment-playbook",
       "kind": "playbook",
       "path": "org-politics/organizational-alignment-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "power-dynamics-diagnosis",
@@ -594,114 +595,134 @@
     {
       "id": "acquisition-evaluation-playbook",
       "kind": "playbook",
-      "path": "playbooks/acquisition-evaluation-playbook.md"
+      "path": "playbooks/acquisition-evaluation-playbook.md",
+      "steps": 6
     },
     {
       "id": "board-formation-playbook",
       "kind": "playbook",
-      "path": "playbooks/board-formation-playbook.md"
+      "path": "playbooks/board-formation-playbook.md",
+      "steps": 5
     },
     {
       "id": "competitive-response-playbook",
       "kind": "playbook",
       "path": "playbooks/competitive-response-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 5
     },
     {
       "id": "crisis-playbook",
       "kind": "playbook",
-      "path": "playbooks/crisis-playbook.md"
+      "path": "playbooks/crisis-playbook.md",
+      "steps": 5
     },
     {
       "id": "first-100-customers-playbook",
       "kind": "playbook",
-      "path": "playbooks/first-100-customers-playbook.md"
+      "path": "playbooks/first-100-customers-playbook.md",
+      "steps": 6
     },
     {
       "id": "founder-transition-playbook",
       "kind": "playbook",
       "path": "playbooks/founder-transition-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "fundraising-playbook",
       "kind": "playbook",
-      "path": "playbooks/fundraising-playbook.md"
+      "path": "playbooks/fundraising-playbook.md",
+      "steps": 7
     },
     {
       "id": "innovation-sprint-playbook",
       "kind": "playbook",
       "path": "playbooks/innovation-sprint-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 5
     },
     {
       "id": "international-expansion-playbook",
       "kind": "playbook",
       "path": "playbooks/international-expansion-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "launch-playbook",
       "kind": "playbook",
-      "path": "playbooks/launch-playbook.md"
+      "path": "playbooks/launch-playbook.md",
+      "steps": 6
     },
     {
       "id": "negotiation-playbook",
       "kind": "playbook",
       "path": "playbooks/negotiation-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "partnership-playbook",
       "kind": "playbook",
       "path": "playbooks/partnership-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 5
     },
     {
       "id": "personal-brand-playbook",
       "kind": "playbook",
       "path": "playbooks/personal-brand-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "pivot-playbook",
       "kind": "playbook",
-      "path": "playbooks/pivot-playbook.md"
+      "path": "playbooks/pivot-playbook.md",
+      "steps": 6
     },
     {
       "id": "pricing-strategy-playbook",
       "kind": "playbook",
-      "path": "playbooks/pricing-strategy-playbook.md"
+      "path": "playbooks/pricing-strategy-playbook.md",
+      "steps": 6
     },
     {
       "id": "product-market-fit-playbook",
       "kind": "playbook",
       "path": "playbooks/product-market-fit-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "remote-team-playbook",
       "kind": "playbook",
       "path": "playbooks/remote-team-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "scaling-playbook",
       "kind": "playbook",
       "path": "playbooks/scaling-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 7
     },
     {
       "id": "strategy-reset-playbook",
       "kind": "playbook",
       "path": "playbooks/strategy-reset-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 7
     },
     {
       "id": "team-rebuild-playbook",
       "kind": "playbook",
       "path": "playbooks/team-rebuild-playbook.md",
-      "category": "playbooks"
+      "category": "playbooks",
+      "steps": 6
     },
     {
       "id": "brand-perception-research",
