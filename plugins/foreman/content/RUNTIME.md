@@ -16,6 +16,8 @@ Run `node "<content-root>/runtime/run.mjs" <command> --workspace "<project-root>
 
 Read profile: `profile`. Set `/solo`: `profile --mode solo`; `/solo off`: `profile --mode standard`. Set `/stoic`: `profile --stoic on`; off uses `off`. Set `/language tr`: `profile --language tr`; default uses `en`; status only reads. `/sector saas` uses `profile --sector saas`. Always read persisted settings at the start of a new session.
 
+Honor the scope requested by the user. A mode or language requested only for this conversation is a session override: apply it without changing the saved profile. Explicitly requested persistent settings use the profile runtime. A current user instruction takes precedence over a saved preference for the current response.
+
 Read tasks: `track --filter all` (also `active`, `overdue`, `stalled`, or any of the six statuses). Add a confirmed task: `task --id impl-001 --description "Interview five customers" --deadline 2026-10-01`. Update `/progress impl-001 40 note`: `task --id impl-001 --progress 40 --note "note"`. Status changes use `--status not-started|in-progress|blocked|completed|abandoned|deferred`. A completed task has progress 100. Use `--revision N` when editing a previously read revision; a conflict requires rereading, not overwriting.
 
 After a confirmed playbook step, save the next step: `resume --playbook pivot-playbook --step 2`. Read `resume` to continue from that checkpoint; verify the playbook and step against the catalog before writing. The exposed Claude command is `/foreman-resume`, because `/resume` is a host command. Never mark a step complete based merely on a generated recommendation.

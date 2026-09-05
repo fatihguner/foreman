@@ -2,6 +2,17 @@
 
 Release candidates use an explicit SemVer prerelease and npm's `next` channel. Promote to a stable version only after the live advisory rubric in `tests/advisory-scenarios.json` has been reviewed and accepted. Automated tests validate delivery and persistence; they do not certify model answer quality.
 
+## Live acceptance
+
+Live checks are opt-in and never run in CI. Use a new output directory for every run and include all previous model usage in the total budget. The advisory runner defaults to eight fictional scenarios, each in a fresh Claude workspace; `--scenario ID` selects a targeted recheck. The state runner starts four separate host processes against one isolated workspace to verify persisted profile, task history and playbook checkpoints.
+
+```sh
+node scripts/live-eval.mjs --help
+node scripts/live-state-eval.mjs --help
+```
+
+Review the saved responses against `tests/advisory-scenarios.json`; a successful process exit does not establish advisory quality. Incomplete responses and uncertain usage stop the runner. Claude records its reported usage valuation. Codex uses the existing ChatGPT login and records an API-equivalent estimate from token usage, not an invoice charge. Keep raw evaluation logs outside the repository and publish a reviewed summary with the host/model and test scope.
+
 ## Prepare a release
 
 1. Update the version in `package.json`, both root plugin manifests, the nested Claude plugin manifest, `openclaw.plugin.json`, and both version fields in `.claude-plugin/marketplace.json`. Update the lockfile root versions. Use `publishConfig.tag: next` for prereleases or `latest` for stable versions.

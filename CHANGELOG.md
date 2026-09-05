@@ -8,6 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 No unreleased changes.
 
+## [1.1.0] - 2026-09-05
+
+Stable release preparation. Final live acceptance is pending; this entry will be finalized before publication.
+
+### Changed
+- Prepare the cross-platform installer, persistent state runtime and complete plugin bundles for the stable npm channel.
+- Keep session-only mode and language overrides separate from saved profile preferences.
+- Stop live advisory evaluation on incomplete model responses, and add isolated host-session checks for profile, task and playbook persistence.
+
 ## [1.1.0-rc.1] - 2026-09-05
 
 Public release candidate for the cross-platform runtime and packaging update.

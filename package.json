@@ -1,6 +1,6 @@
 {
   "name": "foreman-sh",
-  "version": "1.1.0-rc.1",
+  "version": "1.1.0",
   "description": "AI-powered strategic advisor for entrepreneurs. 158 skills, 24 diagnostics, 21 playbooks, 9 industry packs.",
   "type": "module",
   "bin": {
@@ -28,7 +28,7 @@
   "license": "MIT",
   "publishConfig": {
     "access": "public",
-    "tag": "next"
+    "tag": "latest"
   },
   "repository": {
     "type": "git",

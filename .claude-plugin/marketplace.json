@@ -6,13 +6,13 @@
   },
   "metadata": {
     "description": "AI-powered strategic advisor for entrepreneurs. 158 skills, 24 diagnostics, 21 playbooks, 9 industry packs.",
-    "version": "1.1.0-rc.1"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "foreman",
       "description": "AI-powered strategic advisor for entrepreneurs. 158 business framework skills, 24 diagnostic triage systems, 21 multi-step playbooks, 48 output templates, 9 industry packs, board simulation, implementation tracking, research guides, and organizational politics navigation. Supports solo mode, Stoic philosophical mode, and multilingual output.",
-      "version": "1.1.0-rc.1",
+      "version": "1.1.0",
       "author": {
         "name": "Fatih Guner"
       },
