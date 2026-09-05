@@ -78,7 +78,8 @@
       "Combine Turkish, solo capacity and Stoic perspective with evidence gathering"
     ],
     "must_not": [
-      "Unconditionally freeze product work"
+      "Unconditionally freeze product work or all feature decisions",
+      "Require a research quota before checking capacity or require research to find a particular pattern"
     ]
   },
   {
