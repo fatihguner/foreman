@@ -13,7 +13,7 @@ feeds_into_skills:
 feeds_into_templates:
   - market-opportunity-summary
   - new-initiative-brief
-estimated_time: "10-20 hours"
+estimated_time: "Depends on scope, recruitment and available capacity"
 data_sources:
   - Direct interviews
   - User testing sessions
@@ -27,6 +27,8 @@ related_content:
 ---
 
 # Customer Interview Guide
+
+Scope this research to the founder's actual available time and the decision at hand. If capacity is unknown, review an existing customer interaction first and ask what time is available before assigning any new interview quota. Keep current commitments and urgent work running. The goal is to record what the evidence shows; no recurring pattern or insufficient evidence is a valid outcome.
 
 Every failed startup is a monument to assumptions that were never tested. The Business Model Canvas has nine boxes, and at least six of them contain guesses until a founder has sat across from a real customer and listened — truly listened, without pitching, without leading, without defending. Customer interviews are the highest-leverage research activity available to an early-stage company. They cost nothing but time and ego. Yet most founders skip them, or worse, conduct them so poorly that the resulting data confirms whatever they already believed.
 
@@ -58,7 +60,7 @@ The difference between useful and useless interviews is not the questions asked 
 
 ## Recruiting Participants
 
-**How many:** 5-8 interviews per customer segment for pattern detection. After 5 interviews within a segment, you will hear the same themes repeating. After 8, you have statistical confidence in qualitative patterns.
+**How many:** Agree on a small initial round after checking available capacity, participant access and the decision being investigated. Reassess after that round: diversity of responses or missing perspectives may require more work, while limited capacity may require narrowing the question. No fixed number guarantees recurring themes, saturation or statistical confidence. Qualitative interviews inform hypotheses; do not present their count alone as population-level proof.
 
 **Where to find them:**
 - LinkedIn outreach (direct, honest, brief — "I'm researching [problem area], not selling")
@@ -79,6 +81,8 @@ The difference between useful and useless interviews is not the questions asked 
 ---
 
 ## Interview Protocol
+
+The time boxes below are illustrative planning aids, not measured requirements. Shorten or split the session around the research question and the participant's availability.
 
 **Phase 1 — Context Setting (5 minutes)**
 Thank them. Explain you are researching, not selling. Ask permission to take notes. Establish that honesty is more valuable than politeness. State there are no wrong answers.
@@ -173,16 +177,16 @@ Complete one form per interview. Fill in during or immediately after — memory 
 
 ## Synthesis Template
 
-After completing 5+ interviews within a segment, fill in this cross-interview pattern matrix.
+Record evidence as interviews become available. The five columns below are placeholders: resize them and use the actual sample size as the denominator. Do not wait for a quota or require the matrix to reveal a pattern.
 
 ### Pain Point Frequency
 
 | Pain Point | Interview 1 | Interview 2 | Interview 3 | Interview 4 | Interview 5 | Mentions |
 |-----------|-------------|-------------|-------------|-------------|-------------|----------|
-| [Pain point A] | | | | | | /5 |
-| [Pain point B] | | | | | | /5 |
-| [Pain point C] | | | | | | /5 |
-| [Pain point D] | | | | | | /5 |
+| [Pain point A] | | | | | | /N |
+| [Pain point B] | | | | | | /N |
+| [Pain point C] | | | | | | /N |
+| [Pain point D] | | | | | | /N |
 
 Mark: S = strong signal, M = mentioned, X = not mentioned
 
@@ -208,13 +212,13 @@ Mark: S = strong signal, M = mentioned, X = not mentioned
 
 ## Interpretation Guide
 
-**Pattern threshold:** A pain point mentioned by 4 out of 5 interviewees is a pattern. Mentioned by 2 out of 5 is an observation. Mentioned by 1 is an anecdote. Build on patterns, investigate observations, and set aside anecdotes.
+**Interpreting recurrence:** Report observed mentions alongside the actual sample size, participant selection and contradictory cases. Repetition in a small selected sample can suggest a hypothesis to investigate; it is not a universal threshold or proof of market prevalence. Keep important outliers visible. Report no clear pattern or insufficient evidence when that is what the interviews show.
 
-**Behavior over opinion:** "I would definitely use that" is an opinion. "I spent three hours last Tuesday building a spreadsheet to do this" is a behavior. Weight behaviors over opinions by a factor of ten.
+**Behavior over opinion:** "I would definitely use that" is an opinion. "I spent three hours last Tuesday building a spreadsheet to do this" describes a specific behavior. Prefer concrete recent examples to hypothetical enthusiasm, while checking context and corroboration. Do not assign an invented numerical weight.
 
 **Enthusiasm calibration:** Polite interest ("That's interesting") is not a buying signal. Genuine engagement looks like: asking when it will be ready, requesting to be a beta tester, introducing you to colleagues who have the same problem, or asking about pricing unprompted.
 
-**Negative data is the most valuable data.** If five interviews reveal that nobody has the problem you assumed, you have just saved six months of building the wrong thing. Treat disconfirmation as the prize, not the disappointment.
+**Keep disconfirming evidence.** If participants do not report the assumed problem, revisit the hypothesis and participant selection. That observation can inform the next decision, but it does not establish that the problem is absent everywhere or guarantee a particular amount of saved development time.
 
 **Segment divergence:** If interviewees in different segments give contradictory answers, your segments are real and distinct. This is useful information — it means you need to choose which segment to serve first.
 

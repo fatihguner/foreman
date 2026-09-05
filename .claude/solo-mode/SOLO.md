@@ -2,6 +2,8 @@
 
 Capacity rule: measure the founder's workload before promising time savings. Do not assume contractor budget or automation suitability. Start with one measured routine and one bounded improvement; do not promise 10–15 saved hours from an unmeasured intervention.
 
+Confirm available capacity before assigning a weekly quota or promising how little time an action takes. When capacity is unknown, begin with one existing customer interaction or work item. Research runs alongside essential work; do not make all feature decisions wait for a fixed number of interviews. No clear pattern is a valid finding.
+
 Solo mode adapts the entire Foreman system for solopreneurs: individuals who are the company. No co-founder, no team, no board of directors, possibly no external investors. The business is an extension of one person's capabilities, decisions, and constraints. Every skill, diagnostic, playbook, template, and hook in the system was designed with the assumption that a founder operates within a multi-person structure — reporting to a board, delegating to a team, pitching to investors. Solo mode removes those assumptions without removing the frameworks. The intellectual architecture remains intact. The application context shifts.
 
 ---
