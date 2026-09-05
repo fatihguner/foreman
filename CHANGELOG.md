@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+No unreleased changes.
+
+## [1.1.1] - 2026-09-05
+
+Maintenance release for the installer, plugin bundles and state runtime. Skills, diagnostics, playbooks, templates and advisory rules are unchanged from 1.1.0.
+
 ### Fixed
 - Command guides moved from `.claude/commands/` to `.claude/command-guides/`. Claude Code exposes every file in the command directory as a slash command, so a 1.1.0 installation showed thirteen guide files such as `/execution-commands` beside the real commands. The build now refuses non-generated files there, and the installer names leftover guides in an upgraded workspace.
 - Local `npm pack` shipped the maintainer's `.claude/settings.local.json` and copied it, together with `.DS_Store` files and plugin-only wrappers, into the plugin bundle and initialized workspaces. Bundles, installs and the npm `files` allowlist now exclude host-private files, and the package smoke test checks both locations.
@@ -20,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 ### Changed
 - OpenClaw development dependency updated to 2026.9.1; `npm audit` reports no vulnerabilities in any dependency.
 - Getting-started, security policy, architecture and contribution documentation aligned with the shipped commands, script counts and installation flow.
+- The opt-in live advisory runner sets up each scenario workspace through the installer, so evaluations see the founder-facing `CLAUDE.md` and none of the host-private files.
 
 ## [1.1.0] - 2026-09-05
 

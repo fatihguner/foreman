@@ -1,6 +1,6 @@
 {
   "release": {
-    "version": "1.1.0",
+    "version": "1.1.1",
     "license": "MIT",
     "repository": "git+https://github.com/fatihguner/foreman.git",
     "homepage": "https://foreman.sh"

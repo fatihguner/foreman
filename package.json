@@ -1,6 +1,6 @@
 {
   "name": "foreman-sh",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "AI-powered strategic advisor for entrepreneurs. 158 skills, 24 diagnostics, 21 playbooks, 9 industry packs.",
   "type": "module",
   "bin": {

@@ -138,7 +138,7 @@ Single source of truth: `.claude/`. Every other platform derives from it.
 
 ### Install the stable release
 
-**1.1.0** includes the new installer, shared state runtime and complete plugin bundles. See the [release notes](docs/releases/v1.1.0.md) for verification and limitations. Requires Node 22.19 or later.
+**1.1.1** is a maintenance release of the installer, shared state runtime and complete plugin bundles. See the [release notes](docs/releases/v1.1.1.md) for changes, upgrade steps and limitations. Requires Node 22.19 or later.
 
 ```bash
 npx foreman-sh init
@@ -146,13 +146,13 @@ npx foreman-sh init
 
 Add `--platform codex` for Codex, or `--platform all` for both Claude and Codex. Foreman is MIT-licensed and free to install; your AI host account and model usage are separate.
 
-Use `npx foreman-sh@1.1.0 init` to pin this version. You can also install the same tarball directly from GitHub:
+Use `npx foreman-sh@1.1.1 init` to pin this version. You can also install the same tarball directly from GitHub:
 
 ```bash
-npx --yes --package=https://github.com/fatihguner/foreman/releases/download/v1.1.0/foreman-sh-1.1.0.tgz foreman-sh init
+npx --yes --package=https://github.com/fatihguner/foreman/releases/download/v1.1.1/foreman-sh-1.1.1.tgz foreman-sh init
 ```
 
-The installer adds `.claude/` and a project `CLAUDE.md` to your current directory and preserves existing files. From 1.1.1 it also prints the next steps, names the one line to add when a `CLAUDE.md` already exists, and answers `npx foreman-sh --version`. Repeated initialization only fills missing files; when upgrading from 1.1.0, delete the thirteen command guide files that the old installer placed in `.claude/commands/` (the installer lists them) and review other generated files before replacing them. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
+The installer adds `.claude/` and a project `CLAUDE.md` to your current directory, preserves existing files, prints the next steps and names the one line to add when a `CLAUDE.md` already exists. `npx foreman-sh --version` reports the installed version. Repeated initialization only fills missing files; when upgrading from 1.1.0, delete the thirteen command guide files that the old installer placed in `.claude/commands/`, which the installer lists, and review other generated files before replacing them. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
 
 > "My SaaS churn rate is 5.2% and I'm preparing for Series A. What should I focus on?"
 
