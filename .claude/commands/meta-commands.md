@@ -45,7 +45,7 @@ Foreman — AI-Powered Strategic Advisor for Entrepreneurs
 Open-source, framework-driven guidance via skills, agents, hooks, and memory.
 Input --> Diagnostics --> Hooks --> Agent --> Skills --> Template --> Memory
 Adapts to stage (idea through scale). Context accumulates across sessions.
-foreman.sh | github.com/anthropics/foreman | License: TBD
+foreman.sh | github.com/fatihguner/foreman | License: MIT
 > /about --verbose
 Unknown flag: "--verbose". /about takes no parameters.
 ```
@@ -57,14 +57,16 @@ Unknown flag: "--verbose". /about takes no parameters.
 
 Show system version and component counts.
 
+Read the installed `catalog.json`: use `release.version` for the version, `release.license` for the license, and count `entries` by kind. Do not copy the illustrative values below or infer the installed version from an online release. If release metadata is missing, report that the installed version is unknown.
+
 **Syntax:** `/version` | **Parameters:** None.
 
 **Examples:**
 ```
 > /version
-Foreman v0.1.0
-Skills: 158  Templates: 48  Diagnostics: 20  Playbooks: 20
-Hooks: 16  Agents: 6  Memory layers: 5
+Foreman v<installed release.version>
+Skills: 158  Templates: 58 (48 core + 10 support)  Diagnostics: 24  Playbooks: 21
+Hooks: 17  Agents: 6
 > /version skills
 Unknown argument: "skills". /version takes no parameters. Try /help skill.
 ```
