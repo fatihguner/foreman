@@ -1,0 +1,31 @@
+# Layer 2: Company
+# Change frequency: monthly/quarterly
+# Owner: Entrepreneur provides, system prompts for refresh
+# Purpose: Stage filtering, metric-informed diagnosis, contextual application
+# Staleness rule: prompt for refresh if not updated in 90 days
+
+company:
+  name: ""
+  stage: ""                         # idea | validation | early-traction | growth | scale
+  sector: ""                        # Industry and sub-sector
+  team_size: 0
+  funding:
+    raised: ""                      # Total raised to date
+    runway_months: 0
+    next_round: ""                  # Planned round and target timing
+  metrics:
+    mrr: ""                         # Monthly recurring revenue
+    arr: ""                         # Annual recurring revenue
+    growth_rate: ""                 # Month-over-month growth percentage
+    churn: ""                       # Monthly churn rate
+    nps: 0                          # Net Promoter Score (-100 to 100)
+    cac: ""                         # Customer acquisition cost
+    ltv: ""                         # Customer lifetime value
+  business_model: ""                # Subscription, marketplace, transactional, etc.
+  key_challenges:
+    - ""
+    - ""
+    - ""
+  competitive_landscape: ""         # Brief competitive context
+  created: ""                       # ISO 8601 date
+  last_updated: ""                  # ISO 8601 date

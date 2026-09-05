@@ -1,0 +1,623 @@
+# E-Commerce Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift in an e-commerce context.
+# The diagnostic agent loads these rules when the e-commerce industry pack
+# is active.
+#
+# E-commerce diagnostic reframing reflects the physical product reality:
+# revenue is a function of traffic x conversion x AOV x repeat rate.
+# Growth stalls may be channel saturation, seasonal dependency, or inventory-
+# driven. Churn means customers who never buy again — not subscription
+# cancellation. Margins are compressed by COGS, fulfillment, shipping, and
+# returns. Every diagnosis must address these physical product dynamics.
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for e-commerce.
+#   enhanced — The diagnostic is relevant but benefits from additional
+#              e-commerce-specific triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for
+#              e-commerce.
+
+pack_metadata:
+  sector: "e-commerce"
+  display_name: "E-Commerce"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "E-commerce revenue is the product of four levers — traffic, conversion rate, AOV, and repeat purchase rate. Each lever has distinct root causes and interventions. The base diagnostic treats revenue as a single pipeline; e-commerce must decompose first. Additionally, returns reverse revenue and must be factored into any diagnosis."
+    additional_triage_questions:
+      - question: "Decompose the revenue decline: is it driven by declining traffic, declining conversion rate, declining AOV, or declining repeat purchase rate?"
+        purpose: "Identifies which of the four revenue levers is failing. Each lever has entirely different root causes and solutions."
+        routing_impact: "Traffic decline routes to channel diagnosis (ad fatigue, SEO erosion, algorithm change). Conversion decline routes to site experience and pricing diagnosis. AOV decline routes to assortment and pricing diagnosis. Repeat rate decline routes to product quality and retention diagnosis."
+      - question: "Has the revenue decline occurred across all channels or only specific ones (DTC site, Amazon, wholesale, retail)?"
+        purpose: "Channel-specific decline indicates a channel problem. Cross-channel decline indicates a product, brand, or market problem."
+        routing_impact: "Single-channel decline routes to channel-specific diagnosis. Cross-channel decline routes to product-market-fit-diagnosis or competitive-threat-diagnosis."
+      - question: "What is the return rate trend? Is net revenue (after returns) declining faster than gross revenue?"
+        purpose: "Rising returns reverse revenue and signal product quality, sizing, or expectation issues. Net revenue declining faster than gross revenue means the problem is partly returns-driven."
+        routing_impact: "Rising return rate routes to product quality audit and customer expectation analysis. Stable return rate indicates the problem is demand-side, not product-side."
+      - question: "Is the decline seasonal or structural? How does this period compare to the same period last year?"
+        purpose: "Seasonal decline is expected and manageable. Structural decline (worse than same period YoY) indicates a fundamental problem."
+        routing_impact: "Seasonal decline routes to seasonal planning and cash management. Structural decline routes to deeper diagnosis of the four revenue levers."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Paid channel fatigue"
+          reason: "E-commerce brands heavily dependent on Meta or Google Ads frequently experience revenue declines when ad creative fatigues, audiences saturate, or platform costs increase."
+        - diagnosis: "Return rate crisis destroying net revenue"
+          reason: "Gross revenue may be stable while net revenue declines because return rates are increasing — a uniquely physical-product failure mode."
+      less_likely:
+        - diagnosis: "Market demand decline"
+          reason: "True market demand decline is rare in e-commerce except in fad categories. Revenue decline is almost always a company-specific problem: channel, conversion, or product."
+    ecommerce_specific_diagnoses:
+      - name: "Channel dependency revenue collapse"
+        description: "Revenue declining because the dominant acquisition channel is degrading — ad costs rising, platform algorithm changed, or channel-specific conversion declining. The business lacks diversification to absorb the shock."
+        symptoms:
+          - "70%+ of revenue from a single paid channel (typically Meta or Google)"
+          - "ROAS declining for 3+ consecutive months on the primary channel"
+          - "No meaningful organic traffic or email revenue to offset paid channel decline"
+          - "Revenue tracks paid spend linearly — stop spending, stop revenue"
+        routes_to_skills: ["four-ps-marketing", "scenario-planning", "blue-ocean-strategy"]
+        routes_to_templates: ["strategic-analysis-one-pager", "action-plan"]
+      - name: "Margin compression disguised as revenue problem"
+        description: "Revenue may be stable or growing but the business feels revenue-constrained because rising COGS, fulfillment, shipping, and return costs have compressed contribution margin. Less cash is available to reinvest in growth."
+        symptoms:
+          - "Revenue stable but cash position declining"
+          - "Contribution margin declining QoQ"
+          - "COGS increasing due to supplier price increases, tariffs, or raw material costs"
+          - "Free shipping threshold not covering true shipping costs"
+        routes_to_skills: ["business-model-canvas", "balanced-scorecard", "kaizen-bpr"]
+        routes_to_templates: ["unit-economics-snapshot", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Net revenue declining while gross revenue grows — return rate is destroying economics."
+      - "Revenue from repeat customers declining as a percentage of total — the brand is running on a treadmill of ever-more-expensive new customer acquisition."
+      - "Revenue concentrated in a single product (hero SKU dependency) — a supply disruption or competitive entry on that product threatens the entire business."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "E-commerce growth stalls have characteristic patterns distinct from SaaS or marketplace businesses. Physical product growth is constrained by inventory capital, channel economics, product assortment exhaustion, and seasonal dependency. The stall may be demand-side (cannot acquire more customers efficiently) or supply-side (cannot produce, stock, or fulfill more orders)."
+    additional_triage_questions:
+      - question: "Is the growth stall occurring in new customer acquisition, repeat purchase rate, or both?"
+        purpose: "New customer stall indicates channel saturation or competitive displacement. Repeat stall indicates product or experience failure. Both stalling simultaneously is a more serious signal."
+        routing_impact: "New customer stall routes to channel analysis and competitive diagnosis. Repeat stall routes to product quality, post-purchase experience, and retention diagnosis."
+      - question: "Has the product assortment changed recently? Are you introducing new products at a rate that sustains discovery and repeat visits?"
+        purpose: "E-commerce brands that stop introducing new products often experience growth stalls because existing customers have purchased everything they want and new customers see a static offering."
+        routing_impact: "Stagnant assortment routes to product-life-cycle analysis and product development strategy. Active assortment with slowing growth routes to marketing and distribution diagnosis."
+      - question: "What percentage of annual revenue concentrates in Q4 (holiday season)?"
+        purpose: "Brands with 40%+ Q4 concentration may experience apparent growth stalls in Q1-Q3 that are structural rather than problematic. Alternatively, failure to grow outside of peak season is a genuine strategic weakness."
+        routing_impact: "High seasonal concentration routes to seasonality reduction strategy and year-round demand generation. Low concentration rules out seasonality as a factor."
+      - question: "Are you experiencing stockouts on your best-selling products?"
+        purpose: "Growth stalls can be supply-constrained — the brand cannot sell what it cannot stock. Stockouts on hero products cap revenue directly."
+        routing_impact: "Frequent stockouts route to inventory planning and supply chain diagnosis. No stockout issues route to demand-side diagnosis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Channel saturation"
+          reason: "E-commerce brands typically master 1-2 acquisition channels and plateau when those channels saturate. Adding new channels is operationally complex and requires different skills."
+        - diagnosis: "Product assortment ceiling"
+          reason: "A brand with 20 SKUs that has captured its addressable market faces a growth ceiling that only new products or new markets can break."
+        - diagnosis: "Seasonal over-reliance"
+          reason: "Brands with 40%+ Q4 revenue concentration appear to stall in other quarters because the business model depends on holiday demand."
+      less_likely:
+        - diagnosis: "Total market saturation"
+          reason: "True market saturation in e-commerce is rare — most categories have billions in addressable demand. Apparent saturation usually means the brand has saturated its current channels or segments, not the market."
+    ecommerce_specific_diagnoses:
+      - name: "Inventory death spiral"
+        description: "Growth has stalled because capital is trapped in slow-moving inventory, leaving insufficient funds for marketing and new product development. The brand orders inventory, it sells slowly, cash is tied up, marketing is cut, sales decline further, more inventory becomes slow-moving — a self-reinforcing downward spiral."
+        symptoms:
+          - "Days of inventory rising above 120 for multiple SKUs"
+          - "Marketing budget declining because cash is locked in inventory"
+          - "Increasing markdown frequency to move slow inventory"
+          - "New product launches delayed due to insufficient capital"
+        routes_to_skills: ["systems-thinking", "scenario-planning", "balanced-scorecard"]
+        routes_to_templates: ["action-plan", "unit-economics-snapshot"]
+      - name: "The Amazon trap"
+        description: "Growth stalled on the brand's own channels because Amazon captures an increasing share of the brand's demand. Customers who would have purchased on the DTC site instead purchase on Amazon (where the brand earns lower margin and owns no customer data). Amazon's share grows while the brand's DTC share shrinks, and total growth stalls because Amazon growth cannibalizes DTC rather than expanding the addressable market."
+        symptoms:
+          - "DTC revenue flat or declining while Amazon revenue grows"
+          - "Branded search volume shifting from brand.com to Amazon"
+          - "DTC email list growth slowing (Amazon customers do not join the list)"
+          - "Total revenue growth below combined DTC + Amazon channel growth (cannibalization)"
+        routes_to_skills: ["business-model-canvas", "porters-five-forces", "game-theory-fundamentals"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+    sector_red_flags:
+      - "CAC rising for 3+ consecutive months while conversion rate holds — indicates channel saturation, not funnel problems."
+      - "Hero product (>40% of revenue) growth flattening — the single-product growth engine is exhausting its market."
+      - "New product launch frequency declining — the pipeline is drying up, which guarantees future growth stalls."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Product-market fit in e-commerce has distinct quantitative indicators that differ from SaaS: repeat purchase rate is the primary PMF signal (not retention rate), organic traffic percentage indicates unprompted demand, and return rate signals whether the product meets expectations set during the purchase journey."
+    additional_triage_questions:
+      - question: "What is the repeat purchase rate for your first 6-month cohort?"
+        purpose: "Repeat purchase rate is the e-commerce equivalent of SaaS retention. A cohort repeat rate above 25% at 6 months is a strong PMF signal. Below 15% suggests the product is not compelling enough to buy again."
+        routing_impact: "Repeat rate below 15% routes to fundamental PMF exploration — the product may need reformulation, repositioning, or discontinuation. Above 25% routes to growth and distribution strategy."
+      - question: "What is the return rate, and what are the top three return reasons?"
+        purpose: "High return rates (>20%) suggest the product does not match customer expectations — a PMF signal. Return reason analysis distinguishes between product quality issues and expectation-setting issues."
+        routing_impact: "High returns with 'not as expected' reason routes to product page and photography improvement. High returns with 'quality' reason routes to product quality intervention."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "PMF exists for a niche but the brand is targeting too broadly"
+          reason: "E-commerce brands frequently have strong PMF with a specific demographic but dilute it by targeting mass market through broad paid media."
+        - diagnosis: "Product expectation gap"
+          reason: "The product may be good but the purchase experience (photography, descriptions, reviews) creates expectations the product cannot meet — a uniquely e-commerce PMF issue."
+      less_likely:
+        - diagnosis: "Market does not exist"
+          reason: "If competitors sell similar products successfully, the market exists. E-commerce PMF failure is usually about the specific product, price, or brand — not the category."
+    ecommerce_specific_diagnoses:
+      - name: "Return-rate-driven PMF failure"
+        description: "The product sells well initially (acquisition works) but return rates above 20% indicate the product does not meet customer expectations. PMF appears strong from sales data but is undermined by the post-purchase reality."
+        symptoms:
+          - "Conversion rate above category average but return rate also above average"
+          - "Customer reviews cite 'not as described' or 'quality issues'"
+          - "First-purchase customers do not return for second purchase"
+          - "Gross revenue strong but net revenue (after returns) weak"
+        routes_to_skills: ["net-promoter-score", "defining-and-exploring-problems", "kaizen-bpr"]
+        routes_to_templates: ["action-plan", "new-initiative-brief"]
+    sector_red_flags:
+      - "Repeat purchase rate below 15% after 6 months — customers are not compelled to buy again."
+      - "Return rate above 25% — the product materially disappoints a quarter of buyers."
+      - "NPS below 20 — customers are not advocates and will not generate organic demand."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "E-commerce pricing is fundamentally margin-driven. Unlike SaaS (where marginal cost of serving another customer is near zero), every e-commerce sale carries COGS, fulfillment, shipping, and returns costs. Pricing below the contribution margin floor is unsustainable regardless of volume. Additionally, e-commerce prices are transparently comparable — customers can compare across retailers, Amazon, and competitors in seconds."
+    additional_triage_questions:
+      - question: "What is your contribution margin per order at current pricing (after COGS, fulfillment, shipping, payment processing, and estimated return cost)?"
+        purpose: "If contribution margin is negative or below 15%, the business loses money on every order before marketing. This is a pricing crisis, not a pricing question."
+        routing_impact: "Negative contribution margin routes to emergency pricing intervention and cost structure analysis. Positive contribution margin above 20% indicates pricing has room for optimization."
+      - question: "How do your prices compare to direct competitors and Amazon alternatives?"
+        purpose: "E-commerce pricing transparency means customers always know the alternatives. Pricing significantly above comparable alternatives requires a clear brand premium justification."
+        routing_impact: "Priced above alternatives with strong repeat purchase rate — premium is justified. Priced above with low repeat — premium is not supported by perceived value."
+      - question: "What percentage of revenue comes from discounted purchases (sales, promotions, coupon codes)?"
+        purpose: "Discount dependency erodes brand value and trains customers to wait for sales. Above 30% of revenue at discount indicates a structural pricing and promotional problem."
+        routing_impact: "High discount dependency routes to promotional strategy redesign and brand value analysis. Low discount dependency indicates pricing is likely appropriate."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Under-pricing relative to brand value"
+          reason: "DTC brands frequently under-price because founders benchmark against mass-market alternatives rather than calculating what premium their brand, story, and experience justify."
+        - diagnosis: "Discount addiction"
+          reason: "Once customers learn a brand runs frequent sales, full-price purchasing declines. The brand enters a cycle of discounting to maintain volume, which compresses margins permanently."
+      less_likely:
+        - diagnosis: "Over-pricing"
+          reason: "Genuine over-pricing in e-commerce results in zero sales, not slow sales. If the product sells at all, the price is within the acceptable range. The question is usually whether the price should be higher, not lower."
+    ecommerce_specific_diagnoses:
+      - name: "Free shipping margin trap"
+        description: "The brand offers free shipping at a threshold that does not cover actual shipping costs, or offers universal free shipping without building the cost into product pricing. Shipping costs consume margin on every order while customers perceive shipping as 'free.'"
+        symptoms:
+          - "Contribution margin significantly lower than gross margin due to shipping cost absorption"
+          - "AOV clusters just above the free shipping threshold (customers add low-margin items to qualify)"
+          - "Shipping cost as percentage of revenue exceeds 12%"
+          - "Competitor analysis reveals competitors build shipping cost into product price rather than offering 'free' shipping"
+        routes_to_skills: ["four-ps-marketing", "business-model-canvas", "systems-thinking"]
+        routes_to_templates: ["unit-economics-snapshot", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Contribution margin below 15% — pricing does not sustain the business at any volume."
+      - "More than 40% of revenue sold at discount — the brand is training customers to never pay full price."
+      - "Price positioned below competitors despite superior product quality — value is being left on the table."
+
+  # ─────────────────────────────────────────────
+  # 5. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Churn in e-commerce is fundamentally different from SaaS churn. E-commerce customers do not cancel a subscription — they simply stop buying. There is no explicit churn event, only the absence of repurchase. Diagnosing churn requires cohort analysis of repeat purchase behavior, not cancellation reason analysis. The question is not 'why did they leave?' but 'why did they not come back?'"
+    additional_triage_questions:
+      - question: "At what point in the customer lifecycle does the majority of 'churn' (non-repurchase) occur — after the first purchase, after the second, or distributed throughout?"
+        purpose: "First-to-second purchase is the critical transition. If 80% of customers never buy again, the product or post-purchase experience is failing. If customers churn after 3-4 purchases, product fatigue or competitive displacement is more likely."
+        routing_impact: "First-to-second purchase failure routes to post-purchase experience, email/SMS flows, and product quality analysis. Later-lifecycle churn routes to assortment expansion and loyalty program design."
+      - question: "Is the non-repeat behavior consistent across product categories, or do specific categories retain better?"
+        purpose: "Category-level retention analysis reveals whether churn is a brand-wide problem or a product-specific one."
+        routing_impact: "Universal low repeat rate routes to brand and experience diagnosis. Category-specific retention routes to product quality and assortment analysis within the weak category."
+      - question: "Do customers who interact with post-purchase touchpoints (email, SMS, loyalty program) repeat at higher rates than those who do not?"
+        purpose: "If engaged customers repeat at 2-3x the rate of unengaged customers, the churn problem is a communication problem — not a product problem."
+        routing_impact: "High engaged/unengaged gap routes to email and SMS program optimization. Low gap indicates the problem is product or brand, not communication."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Post-purchase experience failure"
+          reason: "The product may be excellent but the post-purchase experience — slow shipping, poor packaging, no follow-up communication, difficult returns — kills the relationship before a second purchase."
+        - diagnosis: "Product consumption cycle mismatch"
+          reason: "If the product lasts 6 months but the brand sends a repurchase reminder at 30 days, timing is misaligned. Understanding the natural consumption or usage cycle is critical."
+      less_likely:
+        - diagnosis: "Price sensitivity causing churn"
+          reason: "If the customer purchased once at the current price, price is not the barrier to repurchase. The product met the price-value test at acquisition."
+    ecommerce_specific_diagnoses:
+      - name: "One-and-done product problem"
+        description: "The product is good enough to purchase once but does not create ongoing need. The category is inherently low-frequency (furniture, mattresses) or the product fully solves the customer's problem in one purchase. This is not a failure — it requires a different business model (broader assortment, adjacent products, referral programs)."
+        symptoms:
+          - "Repeat purchase rate below 15% regardless of post-purchase marketing effort"
+          - "NPS is strong (40+) but customers do not return"
+          - "Customer feedback positive: 'love the product, don't need another one'"
+          - "Category benchmarks confirm low repeat rates across all competitors"
+        routes_to_skills: ["product-life-cycle", "business-model-canvas", "doblin-ten-types"]
+        routes_to_templates: ["strategic-analysis-one-pager", "new-initiative-brief"]
+      - name: "Return experience driving permanent churn"
+        description: "Customers who go through the returns process are permanently lost — not because of the product issue that caused the return, but because the return process itself was so frustrating that the customer will never buy again."
+        symptoms:
+          - "Customers who have processed a return have a near-zero repeat purchase rate"
+          - "Post-return NPS dramatically lower than post-delivery NPS"
+          - "Customer service complaints concentrated around return process (slow refunds, confusing instructions, return shipping cost)"
+          - "Competitors offering significantly easier return experiences"
+        routes_to_skills: ["kaizen-bpr", "net-promoter-score", "systems-thinking"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+    sector_red_flags:
+      - "First-to-second purchase rate below 20% — the majority of customers are one-and-done."
+      - "Repeat purchase rate declining across successive cohorts — the problem is getting worse, not better."
+      - "Post-return customers never repurchasing — the return experience is a permanent relationship-ender."
+
+  # ─────────────────────────────────────────────
+  # 6. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce competitive threats come from three distinct vectors: direct competitors (similar products, similar channels), channel competitors (Amazon Basics, retailer private labels), and category disruptors (new brands with different business models — subscription replacing one-time purchase, DTC replacing retail). Each vector requires different defensive responses."
+    additional_triage_questions:
+      - question: "Is the competitive threat from a direct product competitor, from Amazon/private label, or from a different business model in the same category?"
+        purpose: "Direct competition is fought with brand, experience, and product differentiation. Amazon/private label competition is fought with brand loyalty and DTC channel strength. Business model disruption (e.g., subscription entrant in a one-time purchase category) requires strategic repositioning."
+        routing_impact: "Direct competition routes to blue-ocean-strategy and competitive differentiation. Amazon competition routes to DTC channel investment and brand building. Business model disruption routes to business-model-canvas and disruptive-innovation analysis."
+      - question: "Has the competitor's entry affected your conversion rate, your repeat purchase rate, or both?"
+        purpose: "Conversion rate impact means the competitor is winning at the point of purchase (better pricing, reviews, or positioning). Repeat rate impact means customers are switching after trying both — a more serious signal."
+        routing_impact: "Conversion impact routes to pricing and positioning analysis. Repeat impact routes to product quality and experience comparison."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Amazon private label entry"
+          reason: "Amazon launches private label products in categories where it has demand data showing high volume and margin. If a brand sells well on Amazon, Amazon private label entry is a near-certainty."
+        - diagnosis: "Category commoditization"
+          reason: "E-commerce categories naturally commoditize as more brands enter with similar products at similar prices. The differentiating factor shifts from product to brand, experience, and customer relationship."
+      less_likely:
+        - diagnosis: "Technology disruption"
+          reason: "Physical product categories are rarely disrupted by technology alone. The disruption in e-commerce is usually distribution (DTC vs. retail), business model (subscription vs. one-time), or brand positioning — not product technology."
+    ecommerce_specific_diagnoses:
+      - name: "Amazon Basics commoditization"
+        description: "Amazon has launched a private label product in the brand's core category, priced 30-50% lower, positioned directly in search results, and leveraging Amazon's review and fulfillment infrastructure. The brand's Amazon sales are declining while DTC is unaffected — but the category pricing anchor has shifted downward."
+        symptoms:
+          - "Amazon sales declining while DTC sales remain stable"
+          - "Amazon search rank declining for core category keywords"
+          - "Competitor Amazon listings appearing with 'Amazon's Choice' or 'Best Seller' badges"
+          - "Category average price declining on Amazon"
+        routes_to_skills: ["porters-five-forces", "blue-ocean-strategy", "disruptive-innovation"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Branded search volume declining — customers are searching for the category rather than the brand, indicating weakening brand moat."
+      - "Review velocity of competitor exceeding yours on Amazon — review accumulation is a compounding competitive advantage."
+      - "Customer acquisition cost rising without market-level CPM increases — competitor ad bidding is driving up costs."
+
+  # ─────────────────────────────────────────────
+  # 7. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce fundraising has distinct investor expectations that differ from SaaS. Investors scrutinize gross margin (must be >50% for DTC), contribution margin (must be positive), repeat purchase rates (must prove the product earns loyalty), and inventory efficiency (capital tied up in unsold goods is a red flag). The GMV vs. revenue distinction is critical — investors want net revenue and contribution margin, not vanity GMV."
+    additional_triage_questions:
+      - question: "What are your gross margin, contribution margin (per order), and repeat purchase rate?"
+        purpose: "These three metrics are the primary inputs to e-commerce fundraising readiness. Gross margin below 50%, negative contribution margin, or repeat rate below 20% are near-disqualifying for institutional investment."
+        routing_impact: "Metrics below thresholds route to business model improvement before fundraising. Metrics above thresholds route to fundraising execution."
+      - question: "How much capital is currently tied up in inventory, and what is your inventory turnover rate?"
+        purpose: "E-commerce investors evaluate capital efficiency through inventory. High inventory relative to revenue signals demand forecasting problems or product-market fit issues."
+        routing_impact: "High inventory (>120 days) routes to inventory optimization before fundraising. Lean inventory (<60 days) is a positive signal for investors."
+      - question: "Can you present cohort-level repeat purchase data and LTV curves by acquisition channel?"
+        purpose: "Sophisticated e-commerce investors want cohort analysis, not aggregate metrics. The ability to present cohort data demonstrates operational maturity."
+        routing_impact: "No cohort data routes to analytics infrastructure before fundraising. Cohort data available routes to fundraising-deck-outline."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Unit economics not yet proven"
+          reason: "Many e-commerce brands raise while contribution margin is negative, hoping scale will fix economics. Investors increasingly require proven per-order profitability before investing."
+        - diagnosis: "Inventory risk concerns"
+          reason: "Investors are wary of businesses that require large inventory commitments. High inventory risk is a primary reason VCs historically under-invested in e-commerce relative to SaaS."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "E-commerce categories are generally large. The issue is rarely market size but rather the brand's ability to capture share profitably."
+    ecommerce_specific_diagnoses:
+      - name: "GMV-revenue confusion undermining investor confidence"
+        description: "The founder presents GMV as the headline metric, obscuring the fact that net revenue (after returns, discounts, and marketplace fees) is significantly lower. Investors see through this immediately and question the founder's financial literacy."
+        symptoms:
+          - "Pitch materials lead with GMV without prominently showing net revenue"
+          - "Investor meetings stall when asked about net revenue and contribution margin"
+          - "Fundraising deck does not include a per-order unit economics waterfall"
+          - "Return rate and discount rate not disclosed upfront"
+        routes_to_skills: ["balanced-scorecard", "business-model-canvas"]
+        routes_to_templates: ["unit-economics-snapshot", "fundraising-deck-outline"]
+    sector_red_flags:
+      - "Raising with negative contribution margin and no clear path to positive per-order economics."
+      - "Inventory exceeding 6 months of sales — signals demand forecasting failure or product-market fit issues."
+      - "LTV:CAC below 2:1 — the business does not yet generate enough lifetime value to justify acquisition costs."
+
+  # ─────────────────────────────────────────────
+  # 8. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Operational chaos in e-commerce has uniquely tangible manifestations: wrong items shipped, fulfillment delays, stockouts on key products, returns processing backlogs, customer service overwhelm, and inventory data discrepancies. Unlike knowledge-work operational issues, e-commerce operational failures are immediately visible to customers and directly measurable in returns, reviews, and repeat purchase rates."
+    additional_triage_questions:
+      - question: "What is your order accuracy rate (percentage of orders shipped correctly with the right items, right quantities, right addresses)?"
+        purpose: "Order accuracy below 98% indicates systemic fulfillment process failure. Each error generates a return, a replacement shipment, and a dissatisfied customer."
+        routing_impact: "Below 98% accuracy routes to fulfillment process audit and Kaizen-BPR intervention. Above 98% indicates the chaos is elsewhere."
+      - question: "How often do you experience stockouts on your top 20% of SKUs?"
+        purpose: "Stockouts on best-sellers directly limit revenue and damage customer trust. Frequency of stockouts indicates demand forecasting and inventory planning maturity."
+        routing_impact: "Frequent stockouts routes to demand forecasting, safety stock optimization, and supplier lead time analysis."
+      - question: "Is inventory data accurate? Does the system count match physical count within 2%?"
+        purpose: "Inventory data discrepancies cascade through the entire operation: overselling, stockouts despite 'available' inventory, and fulfillment errors."
+        routing_impact: "Inaccurate inventory data routes to inventory management system audit and cycle counting implementation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Growth outpacing operational capacity"
+          reason: "E-commerce operational chaos most commonly occurs when order volume exceeds the capacity of manual or semi-manual processes. The systems that worked at 50 orders/day collapse at 300."
+        - diagnosis: "3PL transition failure"
+          reason: "Moving from self-fulfillment to a 3PL (or changing 3PLs) is a high-risk operational transition. Poorly managed transitions produce weeks of shipping errors and delays."
+      less_likely:
+        - diagnosis: "Strategic confusion causing chaos"
+          reason: "E-commerce operational chaos is usually a systems and process problem, not a strategy problem. The founder knows what to do — the operation cannot execute fast enough."
+    ecommerce_specific_diagnoses:
+      - name: "Peak season operational collapse"
+        description: "The operation functions adequately at normal volumes but collapses during peak periods (Black Friday, holiday season, viral demand spikes). Shipping delays extend to 7+ days, fulfillment errors spike, customer service queues grow to 48+ hour response times, and the brand's reputation takes lasting damage during its highest-visibility period."
+        symptoms:
+          - "Fulfillment SLA breaches concentrated in Q4 or during promotional events"
+          - "Customer service ticket volume exceeding team capacity by 3x+ during peaks"
+          - "Negative reviews spiking during peak periods citing shipping delays"
+          - "Return rate increasing during peaks due to fulfillment errors"
+        routes_to_skills: ["scenario-planning", "kaizen-bpr", "systems-thinking"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+    sector_red_flags:
+      - "Order accuracy below 95% — one in twenty customers receives the wrong order."
+      - "Average fulfillment time exceeding 3 business days — customers expect 1-2 day processing."
+      - "Inventory accuracy below 90% — the business does not know what it actually has in stock."
+
+  # ─────────────────────────────────────────────
+  # 9. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce market entry involves decisions unique to physical product businesses: geographic market entry (requiring local fulfillment, regulatory compliance, and localized marketing), channel market entry (launching on Amazon, entering wholesale, or opening retail), and category expansion (adding adjacent product categories). Each entry type has different capital requirements, operational complexity, and risk profiles."
+    additional_triage_questions:
+      - question: "Is the market entry geographic (new country/region), channel-based (new sales channel), or category-based (new product category)?"
+        purpose: "Each entry type has entirely different requirements and risk profiles. Geographic requires logistics and compliance. Channel requires operational adaptation. Category requires product development and brand extension."
+        routing_impact: "Geographic routes to international expansion analysis. Channel routes to channel economics analysis. Category routes to brand extension and product-market fit assessment."
+      - question: "For geographic expansion: can the existing supply chain serve the new market, or does it require new fulfillment infrastructure?"
+        purpose: "International e-commerce requires local fulfillment to meet delivery expectations. Cross-border shipping is expensive and slow."
+        routing_impact: "Existing infrastructure can serve routes to marketing-first entry strategy. New infrastructure required routes to capital planning and phased entry."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Channel expansion mistaken for market entry"
+          reason: "Adding Amazon or wholesale is often treated as market entry when it is actually channel expansion within the same market. The strategic implications are different."
+      less_likely:
+        - diagnosis: "First mover advantage urgency"
+          reason: "First mover advantage in e-commerce is weak. Entering a market 6 months later with better preparation typically outperforms rushing in first."
+    sector_red_flags:
+      - "Entering Amazon without dedicated Amazon operations expertise — the channel has unique requirements."
+      - "International expansion without local fulfillment — cross-border shipping will not meet customer expectations."
+      - "Category expansion without product-market fit validation — assuming brand equity transfers automatically to new categories."
+
+  # ─────────────────────────────────────────────
+  # 10. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce leadership crises often originate from the founder's inability to transition from operator (doing everything) to leader (building systems and teams). The operational intensity of physical product businesses means founders become indispensable to daily operations, and the leadership crisis manifests as burnout, bottleneck creation, and inability to scale."
+    additional_triage_questions:
+      - question: "If the founder were unavailable for two weeks, which operational functions would stop?"
+        purpose: "Identifies single-point-of-failure dependencies. In e-commerce, common dependencies: only the founder approves inventory orders, manages the primary ad account, or handles key supplier relationships."
+        routing_impact: "Multiple critical functions dependent on founder routes to delegation-and-empowerment and systems design. Minimal founder dependency indicates the crisis is strategic, not operational."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Founder bottleneck from operator-to-leader transition"
+          reason: "The most common e-commerce leadership crisis. The founder who packed the first 10,000 orders cannot let go of operational control at 100,000 orders."
+      less_likely:
+        - diagnosis: "Strategic vision crisis"
+          reason: "Most e-commerce founders know what they want to build. The crisis is usually about execution capacity, not direction."
+    sector_red_flags:
+      - "Founder personally managing fulfillment or customer service above 200 orders/day."
+      - "Key supplier relationships managed only by the founder with no documentation."
+      - "Founder working 70+ hour weeks with no path to reducing operational involvement."
+
+  # ─────────────────────────────────────────────
+  # 11. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce team dysfunction frequently manifests as creative-operational tension: the brand/marketing team makes decisions (packaging changes, promotional launches, new product introductions) without coordinating with operations, or operations constrains marketing ambitions without understanding commercial impact."
+    additional_triage_questions:
+      - question: "Do the marketing and operations teams share common metrics, or do they optimize independently?"
+        purpose: "When marketing optimizes for revenue and operations optimizes for cost, they inevitably conflict. Shared metrics (contribution margin per order) align incentives."
+        routing_impact: "Misaligned metrics routes to balanced-scorecard implementation with shared KPIs."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Cross-functional misalignment between brand/marketing and operations"
+          reason: "The most characteristic e-commerce team dysfunction. Creative and operational functions have different cultures, priorities, and success metrics."
+      less_likely:
+        - diagnosis: "Interpersonal conflict"
+          reason: "What appears as interpersonal conflict in e-commerce teams is usually structural: misaligned incentives, unclear decision rights, or lack of shared planning processes."
+    sector_red_flags:
+      - "Marketing launches promotions without informing fulfillment — leading to capacity crises."
+      - "Operations vetoes marketing initiatives without quantifying the commercial impact of delay."
+
+  # ─────────────────────────────────────────────
+  # 12. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Cofounder conflict dynamics are largely sector-agnostic. The base diagnostic applies without significant e-commerce adaptation."
+
+  # ─────────────────────────────────────────────
+  # 13. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce hiring requires specific roles that differ from SaaS or service businesses: supply chain manager, inventory planner, fulfillment operations lead, marketplace specialist (Amazon), and performance marketing manager with e-commerce experience. The sequencing of hires matters — operational roles must be filled before or simultaneously with growth roles to prevent growth from outpacing operational capacity."
+    additional_triage_questions:
+      - question: "What is the current ratio of growth-focused roles (marketing, product, brand) to operations-focused roles (fulfillment, supply chain, customer service)?"
+        purpose: "An imbalanced team — too many growth roles without operational support — is a common e-commerce hiring pattern that leads to operational chaos during scaling."
+        routing_impact: "Imbalanced toward growth routes to operational hiring prioritization. Imbalanced toward operations routes to growth hiring."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Operational hiring lag"
+          reason: "E-commerce founders tend to hire marketing and product roles first because they are more exciting. Warehouse, supply chain, and customer service roles are hired later — often too late."
+      less_likely:
+        - diagnosis: "Over-hiring"
+          reason: "E-commerce businesses generally under-hire for operations rather than over-hire."
+    sector_red_flags:
+      - "No dedicated operations hire above 300 orders/day — the founder is a bottleneck."
+      - "Marketing team twice the size of operations team while fulfillment quality degrades."
+
+  # ─────────────────────────────────────────────
+  # 14. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce partnerships are uniquely operational: manufacturing partnerships (contract manufacturers, white-label producers), distribution partnerships (3PL providers, carriers, wholesale retailers), and marketing partnerships (influencers, brand collaborations, affiliate networks). Each partnership type carries operational risk that is absent in SaaS partnerships."
+    additional_triage_questions:
+      - question: "Is the partnership under consideration an operational partnership (supplier, 3PL, carrier) or a commercial partnership (retail distribution, brand collaboration, influencer)?"
+        purpose: "Operational partnerships affect fulfillment quality and are difficult to change quickly. Commercial partnerships affect revenue and can be tested and adjusted more easily."
+        routing_impact: "Operational partnership routes to due diligence with emphasis on operational capability, redundancy, and exit provisions. Commercial partnership routes to standard commercial terms analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Over-dependence on a single operational partner"
+          reason: "Sole-source suppliers and single-3PL setups are common in e-commerce and create fragility that founders underestimate."
+      less_likely:
+        - diagnosis: "Partnership is premature"
+          reason: "E-commerce businesses need operational partners (manufacturers, fulfillment) from day one. The question is quality, not timing."
+    sector_red_flags:
+      - "Single-source supplier for the core product — any disruption halts the business entirely."
+      - "3PL contract with no SLA penalties — no recourse for fulfillment failures."
+
+  # ─────────────────────────────────────────────
+  # 15. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Innovation drought in e-commerce manifests as product assortment stagnation. The brand stops introducing new products, product pages become stale, and the catalog feels static. Unlike SaaS (where the product evolves with deploys), e-commerce requires deliberate new product development cycles with manufacturing lead times."
+    additional_triage_questions:
+      - question: "How many new products have been launched in the last 12 months, and what percentage of revenue do they represent?"
+        purpose: "New product vitality index measures whether the brand is refreshing its offering. Below 10% of revenue from products launched in the last 12 months signals stagnation."
+        routing_impact: "Low new product vitality routes to product development pipeline and lifecycle analysis. Healthy vitality indicates innovation drought is elsewhere (experience, channel, or brand)."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Product development pipeline dried up"
+          reason: "E-commerce brands that scale through a hero product often neglect the product development pipeline. When the hero product matures, there is nothing to replace it."
+      less_likely:
+        - diagnosis: "Innovation culture problem"
+          reason: "Small e-commerce teams rarely have cultural barriers to innovation. The problem is usually resource constraints and manufacturing complexity, not cultural resistance."
+    sector_red_flags:
+      - "Zero new product launches in 12 months — the assortment is stale."
+      - "Hero product representing 50%+ of revenue with no successor in development."
+
+  # ─────────────────────────────────────────────
+  # 16. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce strategic drift typically manifests as channel proliferation without coherent strategy — the brand sells on its own site, Amazon, Etsy, Walmart, wholesale, and social commerce, but each channel was added opportunistically. The result is operational complexity, margin erosion, and a diluted brand experience."
+    additional_triage_questions:
+      - question: "How many sales channels does the brand operate, and can you articulate the strategic purpose of each?"
+        purpose: "Channel proliferation without strategic rationale is the most common form of e-commerce strategic drift."
+        routing_impact: "Cannot articulate channel strategy routes to channel portfolio rationalization and strategic-thinking-and-alignment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Channel sprawl driving complexity without proportional value"
+          reason: "Each new channel adds operational complexity (different platforms, packaging requirements, customer service channels) that founders underestimate."
+      less_likely:
+        - diagnosis: "Mission drift"
+          reason: "E-commerce strategic drift is usually channel and product-line drift, not mission drift. The brand still knows what it stands for — it just sells through too many channels with too many products."
+    sector_red_flags:
+      - "Operating on 5+ sales channels with no channel contributing more than 30% of contribution margin — effort is spread too thin."
+      - "Product line expanded into unrelated categories that dilute the brand identity."
+
+  # ─────────────────────────────────────────────
+  # 17. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Communication breakdown dynamics are largely sector-agnostic. The base diagnostic applies without significant e-commerce adaptation, though the most common communication failure in e-commerce — marketing and operations not coordinating on promotions and launches — is addressed in the team-dysfunction-diagnosis overlay."
+
+  # ─────────────────────────────────────────────
+  # 18. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce decision paralysis has distinctive triggers: the high irreversibility of inventory commitments, the complexity of channel strategy (should we sell on Amazon?), and the tension between growth and profitability. Physical product decisions have longer time horizons than software decisions, which amplifies the cost of delay."
+    additional_triage_questions:
+      - question: "Is the paralysis centered on an inventory/product decision, a channel decision, or a financial/pricing decision?"
+        purpose: "Each decision type has different risk profiles and appropriate decision frameworks."
+        routing_impact: "Inventory decisions route to scenario-planning with downside modeling. Channel decisions route to contribution margin analysis by channel. Pricing decisions route to pricing-diagnosis."
+      - question: "What is the cost of delay? Is there a seasonal deadline, a supply chain commitment window, or a competitive entry that makes inaction costly?"
+        purpose: "In e-commerce, delay has concrete costs: missing a seasonal window, losing a manufacturing slot, or allowing a competitor to establish position."
+        routing_impact: "High cost of delay routes to rapid decision frameworks with explicit time boundaries. Low cost routes to more deliberate analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Analysis paralysis on irreversible inventory commitments"
+          reason: "The fear of committing $50K-$500K to inventory that might not sell is the single most common decision paralysis trigger in e-commerce."
+      less_likely:
+        - diagnosis: "Lack of data"
+          reason: "E-commerce generates abundant data. Paralysis is usually about risk tolerance, not information deficiency."
+    sector_red_flags:
+      - "Seasonal inventory commitment deadline passing without decision — the window is now closed."
+      - "New product launch delayed 6+ months by founder indecision while competitors enter."
+
+  # ─────────────────────────────────────────────
+  # 19. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Culture erosion dynamics are largely sector-agnostic. The base diagnostic applies without significant e-commerce adaptation."
+
+  # ─────────────────────────────────────────────
+  # 20. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "E-commerce negotiation stalls most commonly involve supplier/manufacturer negotiations (pricing, MOQs, payment terms), carrier/3PL negotiations (rates, SLAs, volume commitments), and retail buyer negotiations (wholesale pricing, co-op spend, placement). Each has specific power dynamics and resolution patterns."
+    additional_triage_questions:
+      - question: "Is the negotiation with a supplier, a channel/distribution partner, or a service provider (3PL, carrier, agency)?"
+        purpose: "Each negotiation type has different power dynamics and leverage points."
+        routing_impact: "Supplier negotiation routes to cooperative-negotiation (long-term relationship) and BATNA development. Channel negotiation routes to game-theory analysis of power dynamics. Service provider negotiation routes to competitive bidding framework."
+      - question: "What is your BATNA (Best Alternative to Negotiated Agreement)? Do you have a viable alternative if this negotiation fails?"
+        purpose: "In e-commerce, sole-source supplier or single-3PL situations mean no BATNA, which fundamentally weakens negotiating position."
+        routing_impact: "No BATNA routes to alternative development before resuming negotiation. Strong BATNA routes to competitive-negotiation tactics."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Weak BATNA due to supplier concentration"
+          reason: "The most common reason e-commerce negotiations stall: the brand has no credible alternative, and the counterparty knows it."
+      less_likely:
+        - diagnosis: "Personality clash"
+          reason: "E-commerce negotiations are typically commercial, not personal. Stalls are driven by economics and power dynamics, not interpersonal issues."
+    sector_red_flags:
+      - "Sole-source supplier negotiation stalled — the brand has no alternative and is operating from a position of structural weakness."
+      - "Carrier contract expiring without renewal or alternative — shipping operations are at risk."

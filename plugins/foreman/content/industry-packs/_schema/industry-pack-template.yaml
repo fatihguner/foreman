@@ -1,0 +1,197 @@
+# Industry Pack Schema — Template for All Sector Packs
+#
+# An industry pack is an OVERLAY that adds sector-specific depth to Foreman's
+# existing skills, diagnostics, playbooks, and output templates. It does not
+# modify the base content. The orchestrator reads memory.company.sector, loads
+# the matching pack, and applies it as a contextual lens.
+#
+# Directory structure:
+#   .claude/industry-packs/
+#     _schema/
+#       industry-pack-template.yaml    <-- This file
+#     {sector}/
+#       {sector}-benchmarks.yaml       <-- Sector-specific metrics and benchmarks
+#       {sector}-skill-overlays.yaml   <-- Contextual overlays for relevant skills
+#       {sector}-diagnostic-rules.yaml <-- Adapted diagnostic triage for the sector
+#       {sector}-templates.yaml        <-- Output template field adaptations
+#
+# Activation:
+#   The pack activates when memory.company.sector matches the directory name.
+#   Multiple packs can coexist; only the matching one is loaded per session.
+#   Packs compose with Solo Mode, Stoic Mode, and Language Mode — they occupy
+#   a separate axis (what industry) vs. those modes (what audience, what lens,
+#   what language).
+#
+# Design principles:
+#   1. Overlay, not override — packs ADD sector context; they never replace
+#      the base skill, diagnostic, or template content.
+#   2. Real data — benchmarks must cite public sources and reflect actual
+#      industry performance ranges, not invented numbers.
+#   3. Stage-aware — sector advice differs by company stage. Every benchmark
+#      and overlay should address stage variation where material.
+#   4. Anti-pattern rich — each sector has characteristic mistakes. Surface them.
+#   5. Comprehensive but honest — mark items "as-is" when the base content
+#      needs no sector adaptation. Do not force changes for the sake of volume.
+
+# ═══════════════════════════════════════════════════════════════
+# PACK METADATA
+# ═══════════════════════════════════════════════════════════════
+
+pack_metadata:
+  sector: ""                    # Kebab-case sector identifier (e.g., "saas", "marketplace", "fintech")
+  display_name: ""              # Human-readable name (e.g., "SaaS", "Marketplace", "Fintech")
+  version: "1.0.0"             # Semantic version of the pack
+  description: ""              # One-sentence description of what this pack covers
+  applicable_stages:           # Which company stages this pack primarily serves
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"   # The memory field that triggers this pack
+  compatible_modes:            # Modes this pack composes with
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: ""             # ISO 8601 date
+
+# ═══════════════════════════════════════════════════════════════
+# FILE 1: {sector}-benchmarks.yaml
+# ═══════════════════════════════════════════════════════════════
+#
+# Contains sector-specific metrics with real benchmark data.
+# The orchestrator uses these when applying quantitative skills
+# (unit economics, balanced scorecard, growth analysis) and when
+# generating output templates that include financial metrics.
+
+benchmarks_schema:
+  - name: ""                   # Metric name, title case (e.g., "Net Revenue Retention")
+    id: ""                     # Kebab-case unique identifier (e.g., "net-revenue-retention")
+    category: ""               # Grouping: "growth" | "retention" | "unit-economics" | "efficiency" | "sales" | "product" | "financial"
+    definition: ""             # One sentence: what this metric measures
+    formula: ""                # How to calculate, using standard notation
+    unit: ""                   # "percentage" | "currency" | "ratio" | "months" | "days" | "multiple"
+    direction: ""              # "higher-is-better" | "lower-is-better" | "target-range"
+    benchmarks:
+      poor:
+        value: ""              # Threshold value (e.g., "< 80%", "> 24 months")
+        signal: ""             # What this level indicates about the business
+      below_average:
+        value: ""
+        signal: ""
+      average:
+        value: ""
+        signal: ""
+      good:
+        value: ""
+        signal: ""
+      excellent:
+        value: ""
+        signal: ""
+    stage_notes:               # How the benchmark shifts by stage
+      seed: ""
+      series_a: ""
+      series_b_plus: ""
+    data_sources:              # Public sources for this benchmark data
+      - source: ""             # Publication or organization name
+        url: ""                # URL if available
+        year: ""               # Year of data
+    related_metrics: []        # Other metrics in this file that are closely related
+    related_skills: []         # Foreman skills that use or reference this metric
+    caveats: ""                # Important context or limitations of this metric
+
+# ═══════════════════════════════════════════════════════════════
+# FILE 2: {sector}-skill-overlays.yaml
+# ═══════════════════════════════════════════════════════════════
+#
+# For each relevant skill, provides sector-specific context that
+# the skill executor agent applies as additional framing when
+# delivering the skill's content.
+
+skill_overlays_schema:
+  - skill: ""                  # Exact skill file name without .md (e.g., "porters-five-forces")
+    category: ""               # Skill category directory (e.g., "frameworks")
+    saas_relevance: ""         # "critical" | "high" | "moderate" | "low"
+    sector_context: ""         # 2-3 sentences: how this framework applies specifically in the sector
+    sector_anti_patterns:      # Sector-specific mistakes when applying this framework
+      - ""
+      - ""
+    sector_example: ""         # One concrete sector use case (2-3 sentences)
+    sector_modifications: ""   # Optional: any structural changes to how the skill is delivered
+    benchmark_references: []   # IDs from the benchmarks file that are relevant to this skill
+
+# ═══════════════════════════════════════════════════════════════
+# FILE 3: {sector}-diagnostic-rules.yaml
+# ═══════════════════════════════════════════════════════════════
+#
+# For each of the 20 diagnostics, defines how triage, diagnosis,
+# and routing shift in a sector context. The diagnostic agent
+# loads these rules when the sector pack is active.
+
+diagnostic_rules_schema:
+  - diagnostic: ""             # Diagnostic file name without .md (e.g., "customer-churn-diagnosis")
+    sector_adaptation: ""      # "as-is" | "enhanced" | "reframed"
+    adaptation_rationale: ""   # Why this diagnostic needs (or does not need) sector adaptation
+    additional_triage_questions:  # Sector-specific questions to ADD to the diagnostic's triage
+      - question: ""
+        purpose: ""            # What this question disambiguates
+        routing_impact: ""     # How the answer changes diagnosis/routing
+    diagnosis_weight_shifts:   # Existing diagnoses that become more or less likely
+      more_likely:
+        - diagnosis: ""
+          reason: ""
+      less_likely:
+        - diagnosis: ""
+          reason: ""
+    sector_specific_diagnoses: # New diagnoses that only exist in this sector
+      - name: ""
+        description: ""
+        symptoms: []
+        routes_to_skills: []
+        routes_to_templates: []
+    sector_red_flags: []       # Sector-specific red flags to add to the diagnostic
+
+# ═══════════════════════════════════════════════════════════════
+# FILE 4: {sector}-templates.yaml
+# ═══════════════════════════════════════════════════════════════
+#
+# For each of the 48 output templates, defines how fields and
+# sections adapt for the sector. The output agent loads these
+# rules when generating documents with a sector pack active.
+
+template_adaptations_schema:
+  - template: ""               # Template file name without .md (e.g., "unit-economics-snapshot")
+    audience: ""               # Template audience directory: "investor" | "board" | "team" | "self" | "client"
+    sector_adaptation: ""      # "as-is" | "modified"
+    adaptation_rationale: ""   # Why this template needs (or does not need) sector adaptation
+    field_changes:             # Existing fields that change in sector context
+      - field: ""              # Original field name
+        sector_label: ""       # New label in sector context (or same if unchanged)
+        sector_guidance: ""    # How to fill this field differently for the sector
+    sections_to_add:           # Net-new sections for the sector version
+      - section_name: ""
+        placement: ""          # "before:{existing_section}" | "after:{existing_section}" | "end"
+        description: ""        # What this section contains
+        fields: []             # Field names within the section
+    sections_to_remove: []     # Sections irrelevant in this sector (rare — prefer adaptation over removal)
+    benchmark_references: []   # IDs from the benchmarks file to surface in this template
+
+# ═══════════════════════════════════════════════════════════════
+# RESEARCH SOURCES (optional section in {sector}-benchmarks.yaml)
+# ═══════════════════════════════════════════════════════════════
+#
+# Each pack may include a `research_sources` section in its benchmarks
+# file listing sector-specific data sources that supplement the generic
+# sources in `.claude/research/` guides. When a research guide is invoked
+# with an active industry pack, these sources are appended to the guide's
+# default source list, giving the entrepreneur sector-relevant databases,
+# reports, and tools alongside the universal recommendations.
+
+research_sources_schema:
+  - guide: ""                  # Research guide file name without .md (e.g., "market-sizing-worksheet")
+    sector_sources:
+      - name: ""               # Source name (e.g., "OpenView SaaS Benchmarks Report")
+        url: ""                # URL if available
+        description: ""        # One sentence: what data this source provides
+        access: ""             # "free" | "freemium" | "paid" | "gated"

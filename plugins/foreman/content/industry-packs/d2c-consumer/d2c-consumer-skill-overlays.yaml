@@ -1,0 +1,447 @@
+# D2C Consumer Industry Pack — Skill Overlays
+#
+# For 35 of the 158 Foreman skills, this file provides D2C-specific context
+# that the skill executor agent applies as additional framing. These overlays
+# do not replace the base skill content — they add a brand-first, direct-to-
+# consumer lens.
+#
+# BRAND AS MOAT is the organizing principle. D2C is not a technology business
+# disguised as a commerce business — it is a BRAND business disguised as a
+# commerce business. Every overlay must surface how the framework applies
+# through the lens of brand affinity, community, storytelling, and identity
+# signaling. A D2C brand's competitive advantage is not its product features
+# (easily copied), its supply chain (commoditized), or its technology (Shopify
+# levels the field). The moat is the emotional connection between the brand
+# and the customer — the reason someone pays more to buy from you when an
+# identical product exists on Amazon for less.
+#
+# Key D2C dynamics reflected in every overlay:
+#   - Buyer power is extreme: infinite alternatives one click away
+#   - Barriers to entry are near zero: Shopify + Meta ads = instant competitor
+#   - The product IS the experience: packaging, unboxing, storytelling, identity
+#   - Promotion = content + community + influencer (not traditional advertising)
+#   - Price = perceived value and identity signal, not cost-plus margin
+#   - Place = own site vs Amazon vs retail, each with different brand implications
+#   - iOS privacy changes have fundamentally altered attribution and targeting
+#   - Community is the most durable competitive advantage in D2C
+#
+# Selection criteria for the 35 skills:
+#   - Frameworks with direct D2C application (brand strategy, marketing, pricing)
+#   - Storytelling and creative skills (CRITICAL — D2C brands live or die by narrative)
+#   - People and influence skills (community building, customer connection)
+#   - Decision and thinking skills (applied to channel, pricing, and brand decisions)
+#   - Game theory skills applicable to competitive and channel dynamics
+#
+# Relevance tiers:
+#   critical — The D2C overlay materially changes how the skill is applied.
+#              The skill executor should always surface D2C context.
+#   high     — D2C context adds significant value. Surface when relevant.
+#   moderate — Useful D2C framing but the base skill works well as-is.
+
+pack_metadata:
+  sector: "d2c-consumer"
+  display_name: "D2C Consumer"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# SKILL OVERLAYS
+# ═══════════════════════════════════════════════════════════════
+
+skill_overlays:
+
+  # ─────────────────────────────────────────────
+  # FRAMEWORKS (18 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "porters-five-forces"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "Porter's Five Forces in D2C reveals a structurally hostile competitive environment. Buyer power is extreme — customers face zero switching costs, infinite alternatives, and price transparency through Amazon, Google Shopping, and social commerce. Barriers to entry are near zero: Shopify, Alibaba-sourced products, and Meta ads enable anyone to launch a competing brand in weeks. Supplier power is concentrated in contract manufacturers who serve dozens of brands with identical formulations or materials. Substitutes include not just direct competitors but Amazon private label, retailer private label, and the option of simply not buying. The only force a D2C brand can structurally control is rivalry intensity — through brand differentiation so powerful that customers perceive no substitute."
+    d2c_anti_patterns:
+      - "Analyzing Five Forces as though the product is the competitive unit. In D2C, the brand is the competitive unit. Two identical moisturizers from two brands are not substitutes if one brand has built identity-level loyalty."
+      - "Ignoring Amazon as a force in every analysis. Amazon sets price expectations, delivery speed standards, and return policy norms for every consumer category — even for brands that refuse to sell on Amazon."
+      - "Underestimating the threat of new entrants because 'our product is better.' Product quality is necessary but insufficient. A well-funded competitor with strong brand storytelling and a $5M Meta ad budget can match your product and surpass your brand in 12 months."
+    d2c_example: "A DTC supplement brand uses Five Forces to discover that its true competitive threat is not other supplement startups but Amazon's private label (Solimo) entering the category at 40% lower price points. The analysis reveals that the brand's only defensible position is the emotional trust and community it has built with health-conscious consumers — a moat that Amazon cannot replicate. This reframes strategy from product differentiation (more ingredients, better sourcing) to community deepening (expert-led content, member-only events, personalized wellness plans)."
+    benchmark_references: ["cac-blended", "gross-margin", "organic-traffic-pct"]
+
+  - skill: "blue-ocean-strategy"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "Blue ocean strategy is existential for D2C because every consumer category is a red ocean of price competition, feature creep, and paid acquisition wars. The strategy canvas in D2C maps factors that traditional product companies ignore: brand narrative, community belonging, unboxing experience, identity signaling, sustainability story, and founder authenticity. Blue oceans in D2C emerge when brands eliminate traditional retail factors (broadest selection, lowest price, fastest delivery) and create entirely new value dimensions that Amazon and mass retailers cannot replicate. Glossier found blue ocean by making beauty about skin-first minimalism and community. Patagonia created blue ocean by making environmentalism the product. Liquid Death made water into an identity statement. None of these brands won on product superiority — they won by redefining the value curve."
+    d2c_anti_patterns:
+      - "Pursuing blue ocean through product innovation alone. A better formulation, a cleaner ingredient list, or a novel material is red ocean innovation disguised as differentiation. The blue ocean is in the brand experience, not the product spec sheet."
+      - "Assuming premium pricing creates blue ocean automatically. Price is a signal, not a strategy. Premium price without a differentiated brand story positions the brand in the crowded 'premium commodity' segment."
+      - "Defining the blue ocean without testing whether real customers will swim in it. Validate that the underserved dimension you have identified (community, sustainability, identity) actually drives purchasing behavior, not just survey approval."
+    d2c_example: "Liquid Death launched into the most commoditized consumer category — water — and created blue ocean not through product innovation (it is canned water) but through radical brand identity. The strategy canvas eliminated everything traditional water brands compete on (purity claims, mountain imagery, health messaging) and created new dimensions: punk rock aesthetic, entertainment-first content, environmental activism through aluminum cans, and a brand personality that consumers tattoo on their bodies. The blue ocean was not a better water; it was an identity you could wear."
+    benchmark_references: ["organic-traffic-pct", "nps", "community-growth-rate"]
+
+  - skill: "business-model-canvas"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "The Business Model Canvas for D2C requires brand-first interpretation of every block. Value Proposition is not the product — it is the identity, community, and emotional experience the brand delivers. Customer Segments must distinguish between identity-driven buyers (loyal, high-LTV, organic) and deal-driven buyers (one-time, low-LTV, paid acquisition). Revenue Streams must decompose into DTC site, subscription, Amazon, wholesale, and retail — each with fundamentally different margins, customer ownership, and brand implications. Key Resources include the brand itself, the community, the content library, and the email/SMS list — not just inventory and supply chain. Cost Structure must confront the D2C tax: CAC (the largest variable cost), fulfillment, shipping, returns, and payment processing consume 40-60% of revenue before fixed costs."
+    d2c_anti_patterns:
+      - "Listing the product in Value Proposition without articulating the brand's emotional promise. Hundreds of brands sell organic cotton t-shirts. The value proposition is what the brand means — sustainability, community, identity — not the material specification."
+      - "Ignoring the channel cannibalization between DTC and Amazon. Adding Amazon as a revenue stream changes every other canvas block: margins decrease, customer relationship shifts from owned to rented, and brand positioning faces downward price pressure."
+      - "Treating Customer Relationships as a single mode. D2C has distinct relationship tiers: transactional buyers (discount-driven, one-time), community members (engaged, repeat), brand advocates (ambassadors, UGC creators), and subscribers (committed, recurring). Each requires different investment and delivers different economics."
+    d2c_example: "A DTC skincare founder uses the canvas to evaluate her current model and discovers a fundamental misalignment: the Value Proposition emphasizes 'clean ingredients' (a commodity claim shared by 500+ brands), the primary Revenue Stream is one-time purchases with only 8% subscription conversion, and Customer Relationships are transactional (no community, no loyalty program, no post-purchase engagement beyond email promotions). The canvas redesign reframes the Value Proposition around 'personalized skin wellness' (identity-level promise), adds a membership model (committed relationship), and builds community as a Key Activity (brand moat)."
+    benchmark_references: ["contribution-margin", "ltv", "cac-blended", "subscription-conversion-rate"]
+
+  - skill: "four-ps-marketing"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "The Four Ps in D2C must be reinterpreted through the brand lens. Product is not a SKU — it is the complete experience from first ad impression through unboxing, use, and re-ordering. Product includes packaging design, insert cards, scent, texture, the ritual of use, and how the product looks on a bathroom shelf for Instagram. Price in D2C is a brand signal: charging more than Amazon signals premium positioning and enables brand-building investment; charging less signals commodity positioning and traps the brand in an acquisition cost spiral. Perceived value, not cost-plus, determines price. Place means channel strategy with profound brand implications: DTC (100% brand control, highest margin), Amazon (discovery but surrendered customer relationship), retail (credibility and reach but slim margins and loss of data). Promotion in D2C is content, community, and creator culture — not traditional advertising. The most effective D2C promotion does not look like promotion: organic TikTok, founder stories on Instagram, UGC reviews, and influencer partnerships that feel like genuine recommendations."
+    d2c_anti_patterns:
+      - "Setting Price based on competitor benchmarking or cost-plus margins. In D2C, price signals identity. Customers buy Aesop hand soap at $40 and Method hand soap at $4 — the price is the brand statement, not a rational economic calculation."
+      - "Treating Amazon as 'just a Place.' Amazon changes the other three Ps: Product perception shifts to commodity, Price faces constant downward pressure, and Promotion becomes Amazon's ad platform instead of your brand story."
+      - "Running Promotion through paid ads without investing in organic content. A D2C brand spending 80%+ of marketing budget on Meta and Google ads with no content strategy is renting attention, not building a brand."
+    d2c_example: "Aesop applies the Four Ps with brand-first discipline. Product: minimalist packaging that signals sophistication — the product is designed to be displayed, not hidden. Price: unapologetically premium, reinforcing the brand as an identity marker. Place: own retail stores designed as gallery experiences, DTC site with editorial content, selective wholesale (no Amazon, no mass retail). Promotion: zero paid social advertising — instead, architectural store design generates organic media coverage and customer photography. Every P reinforces the brand rather than commoditizing it."
+    benchmark_references: ["aov", "cac-blended", "contribution-margin", "organic-traffic-pct"]
+
+  - skill: "net-promoter-score"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "NPS in D2C measures brand love, not product satisfaction. The total experience shapes the score: Was the unboxing special? Did the product match the brand's visual identity? Did the shipping feel premium or was it a brown box? Did post-purchase emails feel personal or automated? NPS should be triggered 7-14 days post-delivery (after the customer has used the product and experienced the full brand arc). The qualitative follow-up question is gold in D2C — it reveals whether customers love the brand (promoters who cite community, values, identity) or merely like the product (passives who cite quality and price). D2C brands should segment NPS by acquisition channel: customers acquired through community/organic channels consistently score 15-25 points higher than those acquired through paid ads or discount promotions."
+    d2c_anti_patterns:
+      - "Surveying at checkout instead of post-delivery. The customer has not experienced the brand yet — they have experienced a website."
+      - "Treating NPS as a product metric. In D2C, NPS reflects the entire brand relationship. A product with a 70 NPS sold through a terrible experience (slow shipping, ugly packaging, spammy follow-up) will register as a 35."
+      - "Ignoring the correlation between acquisition channel and NPS. Customers acquired through deep discounts and aggressive retargeting consistently show lower NPS and lower LTV than those acquired through organic or community channels."
+    d2c_example: "A DTC candle brand segments NPS by acquisition channel and discovers a 30-point gap: customers who discovered the brand through Instagram content and community give NPS of 72; customers acquired through Facebook discount ads give NPS of 42. The root cause is not product quality (identical candles) but expectation alignment. Community-acquired customers understand and value the brand's story, ritual, and aesthetic. Ad-acquired customers were drawn by a 25%-off offer and judge the product purely on scent and burn time — dimensions where competition is fierce. This insight triggers a strategic shift: reduce discount acquisition, increase community and content investment."
+    benchmark_references: ["nps", "repeat-purchase-rate", "organic-traffic-pct"]
+
+  - skill: "product-life-cycle"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "Product lifecycle in D2C applies at three levels simultaneously: the individual SKU, the product line, and the brand itself. SKU lifecycle follows seasonal trends, social virality, and trend cycles — a TikTok-viral product can compress the entire introduction-growth-maturity-decline cycle into 6 months. Product line lifecycle involves assortment management: introducing new SKUs while harvesting mature ones and discontinuing declining ones, all while maintaining brand coherence. Brand lifecycle is the existential concern: D2C brands follow a predictable arc from insurgent challenger (introduction) to cultural darling (growth) to mainstream saturation (maturity) to nostalgia play (decline). The brands that escape this cycle do so by continuously reinventing their cultural relevance — refreshing storytelling, entering new categories, and deepening community — while the product portfolio evolves underneath."
+    d2c_anti_patterns:
+      - "Launching new products faster than the brand can storytell them into existence. Every new SKU needs a narrative, photography, content, and community context. Launching 20 SKUs without marketing investment for each dilutes the brand."
+      - "Mistaking product maturity for brand maturity. A specific product may mature (sales plateau, competitors copy it) while the brand itself remains in growth if it continues to evolve culturally."
+      - "Ignoring trend cycle compression. A product driven by a TikTok trend has a 3-6 month lifecycle peak, not a 2-3 year traditional lifecycle. Inventory planning must account for this acceleration."
+    d2c_example: "Glossier's brand lifecycle illustrates the full arc. Introduction (2014-2016): insurgent beauty brand challenging the industry with 'skin first, makeup second' and community-driven development. Growth (2016-2019): cultural darling, organic-first growth, cult products like Boy Brow. Maturity (2019-2022): growth slowed, launched Glossier Play (failed line extension), retail expansion struggled. Renewal (2022-present): new leadership, refocused brand narrative, selective retail partnerships. The lifecycle framework reveals that Glossier's challenges were not product failures but brand lifecycle management failures — they stopped evolving the story."
+    benchmark_references: ["repeat-purchase-rate", "organic-traffic-pct", "nps"]
+
+  - skill: "growth-share-matrix"
+    category: "frameworks"
+    d2c_relevance: "high"
+    d2c_context: "The BCG Growth-Share Matrix maps directly to D2C product portfolio and channel management. Stars are hero products or product lines with strong growth and market position — they drive brand awareness and acquisition. Cash Cows are mature, everyday products with stable demand and strong margins — they fund brand building and new product development. Question Marks are new launches, trend-driven experiments, or emerging channels. Dogs are underperforming SKUs consuming inventory capital, warehouse space, and marketing attention. In D2C, the matrix also applies to channels: the DTC site might be a Star (growing, high margin), Amazon a Cash Cow (stable revenue, known economics), and TikTok Shop a Question Mark (potential but unproven)."
+    d2c_anti_patterns:
+      - "Spreading marketing budget equally across all SKUs regardless of their matrix position. Hero products (Stars) should receive disproportionate creative and media investment because they are the brand's front door."
+      - "Killing Dogs without considering their role in the assortment story. A low-selling SKU that completes a 'bundle' or represents the brand's origin story may earn its shelf space through narrative value, not revenue."
+      - "Treating Amazon as a Star when it is structurally a Cash Cow (or Dog). Amazon's economics rarely improve — if the channel is not profitable today, investing more will not change the structural margin pressure."
+    d2c_example: "A DTC beauty brand maps its portfolio: a viral serum (Star — 40% YoY growth, highest-margin product), everyday moisturizer (Cash Cow — stable sales, core replenishment), new body care line (Question Mark — growing category but unproven brand position), and a legacy lip product (Dog — declining sales, crowded category). The matrix clarifies investment: double creative spend on the serum, use moisturizer margins to fund body care testing, and discontinue the lip product to free inventory capital and creative resources."
+    benchmark_references: ["gross-margin", "contribution-margin", "repeat-purchase-rate"]
+
+  - skill: "disruptive-innovation"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "D2C brands are the textbook vehicle for disruption of incumbent consumer brands and traditional retail distribution. The pattern repeats: an incumbent serves the market through retail distribution with high markups and broad but generic product lines. A D2C startup enters with a simpler proposition — fewer SKUs, direct distribution, a compelling brand story, and a price point that eliminates the retail margin. The incumbent ignores the DTC entrant because the initial market (young, online-native consumers) looks small and unprofitable. Over time, the D2C brand builds community, expands the product line, and eventually enters retail from a position of brand strength. This is exactly how Warby Parker disrupted Luxottica, how Dollar Shave Club disrupted Gillette, and how Harry's disrupted Schick. Understanding position in the disruption cycle determines whether to double down on DTC purity or expand into retail."
+    d2c_anti_patterns:
+      - "Assuming DTC channel innovation constitutes disruption. Selling the same product through a different channel at a similar price is arbitrage, not disruption. True D2C disruption combines brand innovation (story, community, identity) with distribution innovation (direct relationship)."
+      - "Moving into retail prematurely before establishing brand demand. Retail partnerships should be pull-based (retailers wanting you because customers ask for it) not push-based (you seeking retail because DTC growth is slowing)."
+      - "Ignoring the incumbent response. When DTC brands prove a category, incumbents respond with their own DTC offerings, acquisitions, or retail exclusives. Gillette launched its own subscription after Dollar Shave Club proved the model."
+    d2c_example: "Warby Parker disrupted the eyewear industry not with better lenses or frames but with a radical rebundling: direct-to-consumer distribution eliminated the Luxottica-owned retail markup, home try-on eliminated the purchase risk, and a brand story built on accessible design and social impact (buy a pair, give a pair) created identity-level loyalty. Luxottica initially ignored Warby Parker because the online-only glasses market looked small. By the time Luxottica responded, Warby Parker had built sufficient brand loyalty to open its own retail stores — completing the disruption by entering the incumbent's channel from a position of brand strength."
+    benchmark_references: ["cac-blended", "organic-traffic-pct", "repeat-purchase-rate"]
+
+  - skill: "balanced-scorecard"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "The Balanced Scorecard for D2C must include brand health metrics alongside financial, customer, and operational ones. Financial: Revenue, Contribution Margin, LTV:CAC, Blended CAC, Payback Period. Customer: NPS, Repeat Purchase Rate, Return Rate, CSAT, Community Growth Rate. Internal Process: Fulfillment Cost per Order, Shipping Time, Return Processing Cost, Content Production Velocity, Creative Refresh Rate. Learning & Growth: Brand Awareness, UGC Volume, Influencer Program Scale, New Product Development Cycle, Team Cross-Training. The scorecard is powerful in D2C because most brands over-index on financial and acquisition metrics while neglecting brand health and community metrics — the leading indicators that predict future financial performance."
+    d2c_anti_patterns:
+      - "Tracking only financial and acquisition metrics (ROAS, CAC, revenue) without brand health indicators (NPS, organic traffic %, community engagement). Financial metrics are lagging indicators in D2C. By the time ROAS declines, the brand problem is already 6-12 months old."
+      - "Treating the scorecard as a reporting dashboard rather than a decision tool. Each metric should trigger a specific action when it crosses a threshold."
+      - "Excluding creative and content metrics from the scorecard. In D2C, creative is the primary driver of paid media performance. Creative fatigue is a leading indicator of rising CAC."
+    d2c_example: "A DTC supplement brand implements a balanced scorecard and discovers a dangerous pattern: Financial metrics are strong (30% contribution margin, 3.5x LTV:CAC), but Customer metrics are deteriorating (NPS declining from 62 to 48 over two quarters, repeat purchase rate dropping from 38% to 31%), while Learning & Growth is stalled (no new products in 9 months, UGC volume flat). The scorecard reveals that the brand is extracting value from existing customer relationships without reinvesting in the brand, product innovation, and community that created those relationships. The financial metrics are lagging — they will decline in 2-3 quarters if brand investment does not increase now."
+    benchmark_references: ["contribution-margin", "ltv-cac-ratio", "nps", "repeat-purchase-rate", "organic-traffic-pct", "community-growth-rate"]
+
+  - skill: "swot-pest-analysis"
+    category: "frameworks"
+    d2c_relevance: "high"
+    d2c_context: "SWOT and PEST in D2C must address the unique environmental forces shaping direct-to-consumer brands. Political: tariffs on imported goods (most D2C products are manufactured overseas), product safety regulations (FDA for supplements/beauty, CPSC for consumer goods), and emerging data privacy regulation affecting ad targeting. Economic: consumer discretionary spending sensitivity, shipping cost inflation, iOS privacy changes destroying ad targeting economics. Social: identity-driven purchasing (consumers buy what they stand for), sustainability expectations, influencer culture, subscription fatigue, and generational shifts in brand loyalty. Technological: AI-driven personalization, social commerce evolution (TikTok Shop, Instagram Checkout), attribution platform obsolescence, and 3PL technology."
+    d2c_anti_patterns:
+      - "Listing 'strong brand' as a SWOT strength without evidence. Brand strength in D2C is quantified by organic traffic percentage, NPS, repeat purchase rate, and UGC volume — not by the founder's Instagram following."
+      - "Ignoring iOS privacy changes in the PEST analysis. Apple's ATT framework fundamentally altered D2C acquisition economics. Any PEST analysis that does not address attribution and targeting degradation is incomplete."
+      - "Treating 'sustainability' as a strength when it is table stakes. Consumers expect sustainability from D2C brands. It is a weakness to lack it, not a strength to have it — unless the sustainability story is genuinely differentiated."
+    d2c_example: "A DTC activewear brand sources 90% of materials from China. PEST analysis identifies tariff escalation (25%+ Section 301 tariffs) as a political risk and social media platform dependency (80% of acquisition from Meta) as a technological risk. SWOT reveals a critical strength: a 50,000-member community with 42% engagement rate and NPS of 68 — but a weakness in channel concentration and a threat from Amazon private label entering activewear with an identical fabric blend. The analysis triggers a dual strategy: diversify manufacturing to Vietnam (mitigate PEST risk) while deepening the community moat through exclusive member events and co-designed collections (convert SWOT strength into defensibility)."
+    benchmark_references: ["gross-margin", "cac-by-channel", "organic-traffic-pct"]
+
+  - skill: "scenario-planning"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "Scenario planning in D2C must account for the extreme volatility of consumer brands: social media virality (a single TikTok can generate 10x normal demand overnight), seasonal demand concentration (Q4 can represent 30-50% of annual revenue), supply chain lead times (12-16 week production cycles for most physical products), and advertising platform instability (Meta CPM can spike 50-100% during Q4 or after algorithm changes). D2C scenarios must model three intersecting dimensions: demand volatility (viral upside, base case, demand collapse), channel economics (stable ad costs, rising CPMs, platform disruption), and supply chain reliability (on-time delivery, delayed, severely disrupted). The planning horizon must align with manufacturing lead times — brands with 16-week production must plan scenarios 5-6 months ahead."
+    d2c_anti_patterns:
+      - "Planning for a single demand forecast. D2C demand is inherently volatile. Scenario planning must model demand upside (stockout risk if a product goes viral) alongside demand downside (excess inventory if a trend fades)."
+      - "Assuming stable advertising costs across scenarios. Meta and Google CPMs increase 30-100% during Q4 and spike unpredictably after algorithm changes. Channel cost must be a scenario variable."
+      - "Ignoring the scenario where your primary ad platform changes policy. Meta has changed targeting, attribution, and ad format rules multiple times. 'What if Meta becomes 50% less efficient overnight?' is a legitimate scenario."
+    d2c_example: "A DTC food brand planning for Q4 builds three scenarios: (1) Base case: demand inline with last year +25%, Meta CPMs up 40% for Q4, supply chain on schedule. (2) Upside: a creator partnership drives a viral TikTok moment — demand spikes 3x in November. Can inventory support it? Can fulfillment ship within 3 days at triple volume? (3) Downside: Meta CPMs spike 80% (they did in Q4 2023), making paid acquisition unprofitable during peak season. The brand must survive on email, SMS, and organic revenue for 6 weeks. The scenario analysis triggers pre-Q4 actions: increase safety stock on hero products, negotiate surge capacity with 3PL, and build an email/SMS campaign calendar that can carry revenue independent of paid ads."
+    benchmark_references: ["cac-by-channel", "contribution-margin", "shipping-cost-pct"]
+
+  - skill: "cialdini-influence"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "Cialdini's six principles of influence are the operating system of D2C conversion and brand building. Social Proof is the most powerful: customer reviews, UGC photos, 'X people bought this today' counters, influencer endorsements, and press logos reduce buying anxiety. In D2C, social proof must feel authentic — fabricated reviews destroy trust instantly. Scarcity drives urgency through limited drops, seasonal collections, and genuine low-stock alerts (not fake countdown timers). Authority comes from expert endorsements (dermatologists for skincare, nutritionists for supplements), media features, and certifications. Reciprocity operates through generous return policies, surprise gifts in orders, and free samples that create goodwill and repeat purchasing. Liking is the brand personality itself: the founder's story, the brand's values, the aesthetic identity that customers want to be associated with. Commitment & Consistency operates through quizzes, loyalty programs, and subscriptions that create behavioral momentum."
+    d2c_anti_patterns:
+      - "Over-using scarcity with fake urgency. Customers quickly learn that 'only 5 left' is permanent and 'sale ends tonight' resets at midnight. Fake scarcity destroys the trust that D2C brands depend on. Reserve scarcity for genuinely limited items."
+      - "Relying on paid reviews instead of organic social proof. Incentivized reviews with disclaimers, fake UGC, and purchased testimonials are identifiable by sophisticated consumers and corrosive to brand trust."
+      - "Applying influence principles only at the point of purchase. In D2C, the most powerful influence moments are post-purchase: the unboxing experience (reciprocity), the follow-up email from the founder (liking), the community invitation (commitment). These moments create the repeat buyer."
+    d2c_example: "Drunk Elephant applies all six principles systematically. Social Proof: extensive UGC on product pages, 'Drunk Break' stories from real users. Scarcity: limited-edition kits and holiday sets with genuine quantity limits. Authority: dermatologist endorsement, 'clean-compatible' ingredient philosophy. Reciprocity: generous sample program with purchase, free skincare consultations. Liking: founder Tiffany Masterson's personal story woven into every touchpoint. Commitment: 'The Drunk Elephant Smoothie' — a multi-step routine that commits customers to the ecosystem rather than individual products."
+    benchmark_references: ["conversion-rate", "repeat-purchase-rate", "aov", "ugc-volume"]
+
+  - skill: "systems-thinking"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "D2C businesses are complex systems with feedback loops that produce counterintuitive outcomes. The core system dynamics include: the discount-addiction loop (discounting trains customers to wait for sales, reducing full-price demand, creating pressure for more discounting); the CAC-brand spiral (rising paid CAC pressures margins, reducing brand investment budget, further increasing CAC as organic declines); the quality-growth tension (scaling production to meet demand degrades quality, increasing returns and reducing NPS, which kills repeat purchases and increases acquisition dependency); and the community-monetization tension (aggressive monetization of community through constant promotion degrades engagement, weakening the brand's most valuable asset). Systems thinking reveals that every D2C decision — pricing, channel mix, product launch, discount strategy — cascades through the system with delayed, nonlinear effects."
+    d2c_anti_patterns:
+      - "Treating marketing and operations as independent systems. A marketing campaign that drives a 3x order spike will fail if fulfillment cannot scale, creating delivery delays that generate negative reviews and social media complaints that persist long after the campaign ends."
+      - "Optimizing individual metrics without modeling system effects. Reducing CAC through aggressive discounting improves the acquisition metric while degrading LTV, training discount-seeking behavior, and inflating return rates."
+      - "Ignoring time delays. Brand investment today produces organic traffic and community growth 6-12 months later. Cutting brand spend to hit this quarter's ROAS target creates a revenue decline two quarters out."
+    d2c_example: "A DTC apparel brand runs a 40%-off Black Friday sale. Systems thinking maps the cascading effects: the discount attracts deal-seeking buyers (high return rate, 35% vs. normal 18%), the volume spike overwhelms fulfillment (3-day shipping becomes 10-day), the fulfillment failure generates negative reviews ('slow shipping, poor packaging'), the reviews suppress conversion rate for weeks after the sale, and the 40% discount becomes the mental reference price for customers who now wait for the next sale. Net effect: GMV increased 180% during the sale period but contribution margin decreased 60%, return rate doubled, NPS dropped 15 points, and full-price conversion rate declined for two months afterward."
+    benchmark_references: ["contribution-margin", "return-rate", "repeat-purchase-rate", "cac-blended"]
+
+  - skill: "tipping-point"
+    category: "frameworks"
+    d2c_relevance: "critical"
+    d2c_context: "The Tipping Point framework is structurally essential for D2C because consumer brands grow through social contagion, not just paid acquisition. The three agents of change map directly to D2C growth mechanics. Connectors are influencers and community members who bridge different social groups — the micro-influencer who introduces your skincare brand to her running community. Mavens are product experts and review creators whose detailed analysis drives purchase confidence — the YouTube reviewer who does a 20-minute ingredient deep-dive. Salesmen are charismatic advocates who generate emotional resonance — the founder whose authentic storytelling on social media makes customers feel part of a movement. The Stickiness Factor in D2C is the brand experience: memorable packaging, a product ritual, a brand aesthetic that customers want to display. Context is the cultural moment the brand rides: sustainability, wellness, identity politics, nostalgia."
+    d2c_anti_patterns:
+      - "Treating influencer seeding as a one-time campaign instead of a systematic strategy. Reaching the tipping point requires sustained, strategically targeted seeding across Connectors, Mavens, and Salesmen — not a single blast of gifted products."
+      - "Investing in reach (macro-influencers, celebrity endorsements) without stickiness. A million impressions from a celebrity post that does not stick (no memorable hook, no trial mechanism, no community invitation) wastes budget without moving toward the tipping point."
+      - "Ignoring the Context dimension. Brands tip when the cultural moment aligns. A sustainability-focused brand launching during a cultural sustainability backlash, or a luxury brand launching during a recession, faces contextual headwinds that no amount of influencer seeding can overcome."
+    d2c_example: "Glossier reached its tipping point through systematic deployment of all three agents. Connectors: Emily Weiss built relationships with beauty editors and influencers through her blog Into The Gloss before launching the brand. Mavens: beauty enthusiasts created detailed review content because the products were genuinely different (minimal ingredients, dewy aesthetic). Salesmen: Glossier turned customers into evangelists through a rep program where anyone could share their personal Glossier page. Stickiness: the pink bubble-wrap pouch and the Glossier aesthetic became instantly recognizable and Instagram-worthy. Context: the 'no-makeup makeup' cultural moment. Each element reinforced the others until Glossier became the defining beauty brand of its generation."
+    benchmark_references: ["organic-traffic-pct", "community-growth-rate", "ugc-volume", "influencer-roi"]
+
+  - skill: "kaizen-bpr"
+    category: "frameworks"
+    d2c_relevance: "high"
+    d2c_context: "Kaizen (continuous improvement) and BPR (business process reengineering) apply to the physical operations that determine D2C contribution margin: fulfillment workflows, returns processing, packaging efficiency, customer service processes, and the product page-to-checkout conversion funnel. In D2C, small operational improvements compound dramatically: reducing packaging cost by $0.50 per order saves $50,000 at 100,000 annual orders — enough to fund a content production team. Kaizen is particularly relevant to the customer experience chain: every touchpoint from ad impression through post-delivery follow-up is a process that can be measured, benchmarked, and incrementally improved."
+    d2c_anti_patterns:
+      - "Applying Kaizen only to warehouse operations while ignoring the creative production pipeline. In D2C, the rate-limiting process is often creative: how fast the team can produce ads, content, and product photography determines how fast the brand can grow."
+      - "Pursuing BPR (radical redesign) when Kaizen (incremental improvement) suffices. Replacing your 3PL during peak season is BPR risk; optimizing pick-pack processes at the current 3PL is Kaizen common sense."
+      - "Measuring process improvement without linking to contribution margin per order. Every operational improvement should be expressed in its impact on the unit economics stack."
+    d2c_example: "A DTC beauty brand applies Kaizen to its returns process. Current state: returns take 10 days to process, refunds are manual, 30% of returned products are discarded as unsellable. Kaizen improvements: standardized return inspection criteria, automated refund triggers upon carrier scan, and a 'like-new' recapture program that repackages gently used products for resale at 20% discount. Results: return processing time drops to 3 days, customer satisfaction with returns increases 25 points, and 40% of previously discarded inventory is recovered as sellable — adding $120,000 annually to revenue."
+    benchmark_references: ["contribution-margin", "return-rate", "shipping-cost-pct"]
+
+  - skill: "doblin-ten-types"
+    category: "frameworks"
+    d2c_relevance: "high"
+    d2c_context: "Doblin's Ten Types of Innovation reveals that successful D2C brands innovate far beyond the product itself. Product Performance innovation is the least defensible dimension in D2C — competitors can replicate formulations, materials, and designs. The most powerful D2C innovations occur in: Brand (identity innovation — Liquid Death reframed water as punk culture), Customer Engagement (community innovation — Glossier turned customers into product co-creators), Channel (distribution innovation — Warby Parker's home try-on), and Service (experience innovation — the unboxing experience, post-purchase follow-up, personalization). Brands that innovate across 3+ types simultaneously create defensibility that product innovation alone cannot."
+    d2c_anti_patterns:
+      - "Obsessing over product innovation while neglecting experience, brand, and channel innovation. A better product sold through the same channel with the same brand story is a marginal improvement, not a defensible position."
+      - "Treating brand innovation as a marketing exercise rather than a strategic one. Brand innovation in D2C means fundamentally redefining what the category represents to customers — not a new logo or tagline."
+    d2c_example: "Dollar Shave Club innovated across five of the ten types simultaneously: Profit Model (subscription replacing one-time purchase), Network (direct-to-consumer eliminating retail), Channel (bathroom delivery replacing store visits), Brand (humor and irreverence replacing masculine aspiration), and Customer Engagement (community of members, not customers). Gillette could match any single innovation but could not replicate all five simultaneously — the combination was the moat."
+    benchmark_references: ["nps", "organic-traffic-pct", "repeat-purchase-rate"]
+
+  - skill: "eisenhower-matrix"
+    category: "frameworks"
+    d2c_relevance: "high"
+    d2c_context: "The Eisenhower Matrix is essential for D2C founders because the operational demands of a physical product business create constant urgency that crowds out strategic brand work. Urgent-and-Important: fulfillment issues, stockouts, customer escalations, ad account problems. Important-but-Not-Urgent: brand storytelling, community building, new product development, content strategy, influencer relationship development. Urgent-but-Not-Important: responding to every social media comment, daily ROAS optimization, minor supplier communications. Neither: vanity metric monitoring, competitive obsession, trend-chasing without strategic intent. Most D2C founders spend 80% of time in Quadrant 1 (operational fires) and Quadrant 3 (performative urgency), leaving no time for Quadrant 2 (brand building) — the only quadrant that builds a durable business."
+    d2c_anti_patterns:
+      - "Treating daily ROAS fluctuations as urgent. Paid media metrics are noisy day-to-day. Checking ROAS three times daily and adjusting budgets is Quadrant 3 activity disguised as Quadrant 1."
+      - "Deprioritizing brand content and community engagement because it is not 'urgent.' The brand is the business. Neglecting Quadrant 2 brand work guarantees a future where Quadrant 1 is dominated by rising CAC, declining NPS, and community atrophy."
+    d2c_example: "A DTC founder realizes that 90% of her week is consumed by Quadrant 1 (fulfillment issues, ad account management) and Quadrant 3 (responding to every DM, monitoring competitor launches). She uses the Eisenhower Matrix to reclaim 8 hours per week for Quadrant 2: 3 hours on brand content creation, 2 hours on community engagement, 2 hours on new product development, and 1 hour on influencer relationship building. Within 6 months, organic traffic increases from 22% to 38% of total — a direct result of sustained Quadrant 2 investment."
+    benchmark_references: ["organic-traffic-pct", "community-growth-rate"]
+
+  - skill: "organisational-culture"
+    category: "frameworks"
+    d2c_relevance: "high"
+    d2c_context: "Organisational culture in D2C must be brand-aligned — the internal culture must be the brand culture. Employees who do not embody the brand's values produce inauthentic marketing, inconsistent customer experiences, and brand-diluting decisions. A wellness brand staffed by people who do not care about wellness will produce transactional customer interactions. A sustainability brand with a disposable-culture workplace will leak inauthenticity. D2C culture also faces unique challenges: small teams wearing many hats, the emotional intensity of building a consumer brand, the founder's personal identity often being fused with the brand identity, and the challenge of maintaining creative energy in a business that demands operational rigor."
+    d2c_anti_patterns:
+      - "Building a culture around metrics and growth without anchoring it in the brand's purpose. D2C teams that optimize only for revenue and ROAS produce work that feels transactional to customers."
+      - "Allowing the founder's identity to become the culture. The culture must be transferable and scalable — it cannot depend on one person being in every room."
+    d2c_example: "Patagonia's internal culture IS its brand: employees are outdoor enthusiasts, the office closes for good surf, environmental activism is a job requirement not a perk. This alignment ensures that every decision — product development, marketing, partnerships, supply chain — passes through the brand's values naturally. When Patagonia's founder donated the company to an environmental trust, employees celebrated rather than panicked — because the culture and the brand were always the same thing."
+    benchmark_references: ["nps", "organic-traffic-pct"]
+
+  # ─────────────────────────────────────────────
+  # STORYTELLING (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "story-structure-and-arc"
+    category: "storytelling"
+    d2c_relevance: "critical"
+    d2c_context: "Story structure is the single most important skill for D2C brand building. Every successful D2C brand is built on a founding story with a clear arc: the founder experienced a problem (status quo), was frustrated by existing solutions (rising action), had an insight or breakthrough (turning point), and created something better (resolution). This story is not marketing — it is the brand's soul. It appears in the 'About Us' page, in investor pitches, in influencer briefs, in customer emails, and in every piece of content. The story arc also applies to the customer's journey: they discover the brand (inciting incident), try the product (rising action), experience the transformation (climax), and become part of the community (resolution). D2C brands that cannot articulate a compelling story arc are functionally invisible in a market where attention is the scarcest resource."
+    d2c_anti_patterns:
+      - "Telling a generic founding story that could belong to any brand. 'We were frustrated with existing options and decided to create something better' is not a story — it is a template. The story must be specific, personal, and emotionally resonant."
+      - "Burying the story on the About page and not embedding it in every touchpoint. The founding story should be visible in packaging, product descriptions, email sequences, social media, and paid creative."
+      - "Updating the story to match marketing trends. The founding story is authentic and permanent. Revising it to sound more 'sustainable' or 'inclusive' because those themes are trending destroys the authenticity that makes the story powerful."
+    d2c_example: "Bombas' founding story follows a perfect arc: the founders learned that socks are the most requested clothing item at homeless shelters (inciting incident), were shocked that no sock company addressed this (rising action), designed a superior everyday sock with a one-for-one donation model (turning point), and built a community of people who feel good about buying socks (resolution). This story is not just marketing — it is the reason a customer chooses Bombas at $15/pair when identical socks exist for $3. The story converts a commodity into an identity purchase."
+    benchmark_references: ["organic-traffic-pct", "nps", "community-growth-rate"]
+
+  - skill: "finding-your-stories"
+    category: "storytelling"
+    d2c_relevance: "critical"
+    d2c_context: "Finding stories in D2C means identifying the narratives that live within the brand, the customers, and the community — not manufacturing stories in a marketing brainstorm. The most powerful D2C stories come from four sources: the founder's personal experience with the problem (origin story), customer transformation stories (before/after with the product), behind-the-scenes narratives (how the product is made, who makes it, why design decisions were made), and community stories (how the brand connects people). D2C brands sit on a goldmine of stories and rarely mine it systematically. Every customer review, every DM, every influencer unboxing video contains a story that can be elevated into brand content."
+    d2c_anti_patterns:
+      - "Fabricating aspirational stories instead of finding authentic ones. Consumers, particularly Gen Z and millennials, have a finely calibrated authenticity detector. Manufactured stories feel manufactured."
+      - "Telling only the founder's story without amplifying customer stories. The brand's narrative should evolve from 'the founder's story' to 'our community's story' as it grows."
+    d2c_example: "Away luggage systematically mines stories from customers. Their content strategy centers on 'stories from the road' — real customer travel experiences with Away products. The stories are not about the luggage (hard-shell, spinner wheels — commodity features); they are about the destinations, the moments, and the identity of being a traveler. By finding and amplifying customer stories, Away shifted its brand from 'a luggage company' to 'a travel company' — a far more emotionally expansive positioning."
+    benchmark_references: ["ugc-volume", "social-engagement-rate", "nps"]
+
+  - skill: "emotional-impact-in-stories"
+    category: "storytelling"
+    d2c_relevance: "critical"
+    d2c_context: "Emotional impact is the mechanism through which D2C brands convert attention into purchases and purchases into loyalty. D2C buying is fundamentally emotional — consumers buy what they identify with, not what is objectively best. The emotional arc of D2C storytelling follows a specific pattern: create empathy (the customer sees themselves in the story), build tension (the problem or aspiration is articulated), deliver resolution (the brand/product is the answer), and inspire action (the purchase is an expression of identity, not a transaction). Every touchpoint is an opportunity for emotional impact: the ad that makes someone stop scrolling, the product page that makes someone feel understood, the unboxing that makes someone reach for their phone to share, and the follow-up email that makes someone feel part of something larger."
+    d2c_anti_patterns:
+      - "Confusing emotional impact with sentimentality. Effective D2C emotional storytelling can be funny (Liquid Death), provocative (Patagonia's 'Don't Buy This Jacket'), nostalgic (Rowing Blazers), or earnest (Bombas). It does not have to be sentimental."
+      - "Pursuing emotional impact in advertising while delivering transactional post-purchase communication. The emotional arc must continue after the purchase — confirmation emails, shipping updates, and follow-ups should maintain the brand voice and emotional connection."
+    d2c_example: "Dove's 'Real Beauty' campaign created category-defining emotional impact not by talking about soap but by challenging beauty standards. The emotional mechanism: empathy (women who feel inadequate seeing other women like themselves), tension (the gap between real beauty and advertising beauty), resolution (Dove validates real beauty), and identity action (buying Dove means rejecting unrealistic standards). The campaign transformed a commodity product into an identity statement — the purest form of D2C emotional impact."
+    benchmark_references: ["social-engagement-rate", "organic-traffic-pct", "nps"]
+
+  - skill: "storytelling-for-leaders"
+    category: "leadership"
+    d2c_relevance: "critical"
+    d2c_context: "In D2C, the founder IS the brand storyteller — often the brand's face on social media, in press interviews, and in investor meetings. Storytelling for leaders in D2C goes beyond internal communication; it is a public-facing, revenue-driving skill. The founder's ability to tell the brand story authentically, compellingly, and consistently across channels (Instagram, podcasts, investor meetings, team all-hands) directly correlates with organic growth, fundraising success, and team engagement. The founder's story becomes the brand's story: why they started, what they believe, what they are building, and why it matters."
+    d2c_anti_patterns:
+      - "Delegating brand storytelling entirely to a marketing team. The founder's authentic voice is irreplaceable. Marketing can amplify, format, and distribute — but the story must originate from genuine conviction."
+      - "Telling different stories to different audiences. Investors, customers, and employees should hear the same core story with audience-appropriate framing. Inconsistency destroys trust."
+    d2c_example: "Emily Weiss built Glossier's brand through personal storytelling on Into The Gloss, Instagram, and in investor meetings. Her story — a beauty editor who believed the industry talked at women instead of listening to them — was authentic, specific, and emotionally resonant. She told the same story everywhere, creating a coherent brand narrative that attracted customers, talent, and investors simultaneously. When she stepped back as CEO, the brand struggled precisely because the storytelling voice was so personally tied to her leadership."
+    benchmark_references: ["organic-traffic-pct", "community-growth-rate"]
+
+  # ─────────────────────────────────────────────
+  # CREATIVE (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "creative-identity-and-purpose"
+    category: "creative"
+    d2c_relevance: "critical"
+    d2c_context: "Creative identity is the brand itself. In D2C, the brand's creative identity — its visual language, tone of voice, aesthetic sensibility, and artistic point of view — IS the product's primary differentiator. Two identical moisturizers with different creative identities (minimalist clinical vs. colorful playful) attract different customers, command different prices, and build different communities. Creative purpose in D2C answers: Why does this brand exist beyond making money? What does it believe? What aesthetic or cultural vision does it champion? Brands with clear creative purpose (Patagonia: environmental activism; Glossier: accessible beauty; Liquid Death: anti-establishment fun) attract loyalty. Brands without creative purpose are interchangeable."
+    d2c_anti_patterns:
+      - "Defining creative identity through a mood board without connecting it to brand purpose. Aesthetic without meaning is decoration. The creative identity must express what the brand believes and who it exists for."
+      - "Allowing creative identity to drift through inconsistent execution across channels. The brand should look, sound, and feel identical whether a customer encounters it on TikTok, the website, in a package, or in a retail store."
+    d2c_example: "Aesop's creative identity is inseparable from its brand purpose: a belief that personal care should be an intellectual and sensory experience, not a commodity transaction. Every touchpoint expresses this: apothecary-style packaging with dense product descriptions, retail stores designed by architects with site-specific art installations, a literary recommendation program that pairs books with products. The creative identity commands a $40 price for hand soap in a market where the functional equivalent costs $3."
+    benchmark_references: ["nps", "organic-traffic-pct", "aov"]
+
+  - skill: "creative-practice-and-habit"
+    category: "creative"
+    d2c_relevance: "high"
+    d2c_context: "D2C is a creative business that requires industrial creative output. A typical D2C brand produces hundreds of ad creatives, social media posts, email campaigns, product photographs, and content pieces annually. Creative practice and habit — the discipline of consistent, high-quality creative production — determines whether this output is brand-building or noise. D2C founders must build creative systems (not just creative moments): repeatable workflows for ad creative production, content calendars that sustain brand narrative, and feedback loops that connect creative output to performance data."
+    d2c_anti_patterns:
+      - "Treating creative as a project-based function instead of a continuous practice. D2C brands need new creative weekly, not quarterly. Creative fatigue on paid platforms (Meta, TikTok) means that even excellent ads decay in 2-4 weeks."
+      - "Outsourcing all creative to agencies without building internal creative capability. Agencies produce polished work but lack the brand intimacy and speed that D2C demands."
+    d2c_example: "Gymshark built its brand through relentless creative output: daily social media content, weekly new ad creative concepts, monthly influencer collaborations, and quarterly campaign refreshes. The creative practice is systematized: a content team produces 50+ pieces weekly, performance data feeds back to creative direction within 48 hours, and winning formats are iterated while losing formats are killed. This creative velocity — not a superior product — is what built a $1.3B brand in a commodity category."
+    benchmark_references: ["social-engagement-rate", "roas-by-channel", "ugc-volume"]
+
+  - skill: "creative-collaboration-and-context"
+    category: "creative"
+    d2c_relevance: "high"
+    d2c_context: "Creative collaboration in D2C extends beyond the internal team to include the community, influencers, and customers as co-creators. The most effective D2C creative comes from collaboration between the brand's creative vision and the community's authentic voice. Influencer partnerships are creative collaborations, not media buys — the creator must have genuine creative freedom to produce content that resonates with their audience. UGC programs turn customers into creative collaborators. Product development benefits from community input (Glossier's community-driven product development). The creative context for D2C is the social media platform itself: content must be native to the platform (TikTok requires different creative than Instagram, which requires different creative than email)."
+    d2c_anti_patterns:
+      - "Over-scripting influencer content. Creators know their audience better than you do. Providing a brief and letting them create within it produces better results than providing a script."
+      - "Creating one piece of creative and adapting it across all platforms. Platform-native creative outperforms adapted creative by 2-5x. TikTok content shot on iPhone outperforms studio content repurposed from Instagram."
+    d2c_example: "Glossier's Into The Gloss blog was a creative collaboration engine before the product ever existed. Emily Weiss asked her community what they wanted, co-created products based on the response, and then invited the community to share their experiences — turning customers into the creative team. This collaborative model produced more authentic, resonant content than any internal team or agency could create, and it built a community that felt ownership over the brand."
+    benchmark_references: ["ugc-volume", "influencer-roi", "community-growth-rate"]
+
+  # ─────────────────────────────────────────────
+  # PEOPLE & INFLUENCE (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "influencing-and-persuading"
+    category: "people"
+    d2c_relevance: "high"
+    d2c_context: "Influencing and persuading in D2C operates through the brand, not through direct salesmanship. D2C brands do not hard-sell — they create desire through identity alignment, social proof, and community belonging. The persuasion stack in D2C follows a specific hierarchy: identity alignment ('this brand is for people like me'), social validation ('people I respect use this brand'), trust establishment ('the reviews, UGC, and expert endorsements confirm quality'), and value justification ('the price is fair for what this represents'). Each layer must be addressed in sequence. D2C brands that jump to value justification without building identity and trust face resistance."
+    d2c_anti_patterns:
+      - "Using traditional sales persuasion tactics (urgency, pressure, limited-time offers) as the primary conversion mechanism. These tactics work once but destroy the emotional connection that drives repeat purchasing."
+      - "Persuading through features and benefits rather than identity and belonging. 'Our serum contains 15% vitamin C' is a feature claim. 'Join 200,000 women who believe skincare should be simple, effective, and joyful' is an identity invitation."
+    d2c_example: "Nike's 'Just Do It' is the most powerful brand persuasion in history — not because it describes a product but because it articulates an identity. The persuasion hierarchy: identity alignment ('I am someone who acts, not just talks'), social validation ('athletes I admire wear Nike'), trust ('decades of product quality'), value justification ('I invest in my athletic identity'). Nike does not persuade you to buy shoes. Nike persuades you that you are the kind of person who wears Nike."
+    benchmark_references: ["nps", "repeat-purchase-rate", "organic-traffic-pct"]
+
+  - skill: "connecting-with-people"
+    category: "people"
+    d2c_relevance: "high"
+    d2c_context: "Connecting with people in D2C means building genuine human relationships with customers, community members, influencers, and retail partners. D2C is uniquely positioned to create direct, personal connections because the brand owns the customer relationship (unlike wholesale or marketplace models). The most effective D2C brands treat every customer interaction — a support ticket, a social media comment, a review response — as a relationship moment, not a transaction. Founder accessibility (replying to DMs, writing personal emails to loyal customers, appearing in community spaces) builds a connection that no amount of advertising can replicate."
+    d2c_anti_patterns:
+      - "Automating all customer communication for efficiency. Efficiency matters, but D2C brands that feel like machines lose the personal connection that justifies their premium over commodity alternatives."
+      - "Building community as a marketing channel rather than a genuine human connection. Customers detect instrumentalized community instantly. Community must create real value for members beyond being marketed to."
+    d2c_example: "Chewy sends hand-written condolence cards to customers whose pets pass away — including a portrait of the pet painted by an employee. This is not scalable marketing; it is genuine human connection. The emotional impact creates brand loyalty that no discount, no product innovation, and no competitor can break. Chewy's repeat purchase rate and NPS reflect this: customers do not just buy pet food; they have a relationship with the brand."
+    benchmark_references: ["nps", "csat", "repeat-purchase-rate"]
+
+  - skill: "reading-people"
+    category: "people"
+    d2c_relevance: "moderate"
+    d2c_context: "Reading people in D2C means understanding customers through their behavior, feedback, and community participation — not through demographic assumptions. D2C brands have unprecedented access to behavioral data: what customers browse, what they buy, what they return, what they review, what they share, and what they say in community forums. The skill of reading people translates to reading customer intent signals: a customer who views a product three times but does not buy has a different intent than one who adds to cart and abandons. A customer who posts UGC without incentive is a different person than one who leaves a review only after a discount prompt. Reading these signals accurately enables personalization that feels like understanding, not surveillance."
+    d2c_anti_patterns:
+      - "Relying on demographic personas instead of behavioral signals. 'Female, 28-35, urban, interested in wellness' describes millions of people. Behavioral segments (high-intent browsers, discount-sensitive buyers, loyal advocates) are more actionable."
+      - "Treating all customer data as equivalent. Behavioral data (what people do) is more reliable than stated preference data (what people say they want)."
+    d2c_example: "Stitch Fix built its entire business model on reading people through data: style preferences expressed through quizzes, purchase and return behavior, and feedback on each item. This behavioral reading enabled personalization at scale — each 'Fix' is curated based on what the customer does, not just what they say. The result was a subscription model with lower return rates and higher satisfaction than traditional e-commerce."
+    benchmark_references: ["repeat-purchase-rate", "return-rate", "csat"]
+
+  # ─────────────────────────────────────────────
+  # WRITING (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "writing-effective-emails"
+    category: "writing"
+    d2c_relevance: "critical"
+    d2c_context: "Email is the highest-ROI channel in D2C, and email writing quality directly determines revenue. D2C email must be brand-voiced, not template-generic. The welcome sequence is the brand's first private conversation with a new customer — it should tell the brand story, not blast discounts. Abandoned cart emails should remind the customer why they wanted the product (emotional restatement), not just that they forgot it. Post-purchase emails should deepen the relationship through content, community invitation, and gratitude — not immediately upsell. Win-back emails should acknowledge the absence and offer value, not just a discount code. Every email from a D2C brand is either building or eroding the brand relationship. Writing quality — tone, personality, relevance, and restraint — determines which."
+    d2c_anti_patterns:
+      - "Sending emails that could be from any brand. 'Hey {first_name}, don't forget your cart!' is invisible. Brand-voiced emails that sound like the brand's personality stand out in an inbox of 50 daily retail emails."
+      - "Over-emailing with promotional content. The optimal D2C email mix is roughly 60% value/content, 30% product/brand, 10% promotional. Brands that send 90% promotional emails train customers to ignore them or unsubscribe."
+      - "Sending the same email to all subscribers. Segmentation by purchase history, engagement level, and lifecycle stage is table stakes. A first-time buyer and a 10x repeat customer should receive fundamentally different messages."
+    d2c_example: "Chubbies built a cult email following by treating every email as entertainment first, brand storytelling second, and commerce third. Their emails are long, funny, personality-driven newsletters that people actually want to read — forward rates of 3-5% (vs. industry average of 0.5%). The result: email drives 35%+ of revenue, open rates consistently exceed 40%, and unsubscribe rates are among the lowest in D2C."
+    benchmark_references: ["email-revenue-pct", "repeat-purchase-rate", "ltv"]
+
+  - skill: "writing-for-response"
+    category: "writing"
+    d2c_relevance: "high"
+    d2c_context: "Writing for response in D2C spans every piece of copy that must generate action: ad copy, product descriptions, SMS messages, landing pages, email subject lines, social captions, and calls-to-action. D2C response writing must balance brand voice with conversion mechanics. The response mechanism in D2C is emotional, not rational: customers do not buy because the product page presents the best argument but because the copy makes them feel something — understood, aspirational, part of a community, or simply delighted. The best D2C response writing uses the brand's unique voice to create desire rather than overcome objections."
+    d2c_anti_patterns:
+      - "Writing product descriptions that read like ingredient lists or spec sheets. D2C product descriptions should tell a micro-story: who this product is for, what experience it creates, and why it matters."
+      - "Using generic conversion copy ('Shop now,' 'Limited time offer') without brand voice. Every call-to-action should sound like the brand speaking."
+    d2c_example: "Outdoor Voices writes product descriptions that read like invitations to a lifestyle rather than merchandise listings. A pair of leggings is not '4-way stretch, moisture-wicking, high-rise waist' — it is 'for the run that starts as a walk and ends at brunch.' The response mechanism is identity aspiration, not feature comparison. This writing approach converts browsers into buyers because the customer is purchasing an identity, not a garment."
+    benchmark_references: ["conversion-rate", "aov", "email-revenue-pct"]
+
+  # ─────────────────────────────────────────────
+  # GAME THEORY (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "prisoners-dilemma-and-cooperation"
+    category: "game-theory"
+    d2c_relevance: "high"
+    d2c_context: "The prisoner's dilemma surfaces in D2C through discount wars, channel conflict, and competitive dynamics. Discount wars: if one brand discounts, competitors feel pressure to match, and the entire category trains consumers to expect discounts — destroying margin for everyone. Channel conflict: selling on Amazon increases reach but undermines DTC margins and trains customers to buy through Amazon; every D2C brand faces this individually, but the collective result of all brands joining Amazon strengthens Amazon's dominance. Influencer economics: if brands cooperate to maintain reasonable influencer rates, the ecosystem is sustainable; if brands individually bid up rates, influencer costs spiral beyond ROI for everyone."
+    d2c_anti_patterns:
+      - "Initiating discount wars by running frequent deep promotions. The short-term revenue gain triggers competitive matching and trains your own customers to wait for sales."
+      - "Making Amazon decisions based only on your own channel economics without considering the collective effect. Every DTC brand that joins Amazon strengthens the platform that threatens all DTC brands."
+    d2c_example: "The mattress industry illustrates the prisoner's dilemma perfectly. Casper, Purple, Tuft & Needle, and Leesa each independently decided to invest heavily in paid Meta advertising. Individually rational — more spend, more customers. Collectively destructive — mattress CAC on Meta increased from $50 in 2016 to $300+ by 2020, making the entire DTC mattress category unprofitable. The brands were locked in a spending arms race where the only winner was Meta. Brands that recognized the dilemma first (Tuft & Needle pivoting to Amazon, Purple pivoting to retail) escaped the trap."
+    benchmark_references: ["cac-by-channel", "contribution-margin"]
+
+  - skill: "first-mover-strategy"
+    category: "game-theory"
+    d2c_relevance: "high"
+    d2c_context: "First-mover advantage in D2C is primarily about brand positioning, not product innovation. Being first to claim a brand position ('the sustainable t-shirt brand,' 'the razor subscription,' 'the clean beauty brand') creates a category association that late entrants must either challenge or circumvent. First-mover advantages in D2C: brand awareness and category ownership (Allbirds owns 'sustainable sneakers'), community head start (early community members become brand evangelists), influencer relationships (early partnerships at lower rates), and organic search authority (SEO advantages compound over time). First-mover disadvantages: market education cost (Dollar Shave Club educated the market that Gillette then competed in), premature scaling risk, and the burden of defining a category without knowing its optimal boundaries."
+    d2c_anti_patterns:
+      - "Assuming product-level first-mover advantage is sustainable. Being the first DTC [product category] brand matters for 12-18 months. After that, the brand position (not the product priority) determines defensibility."
+      - "Moving fast without building the brand infrastructure to sustain the position. A first mover that captures attention without building community, content, and retention will be overtaken by a better-branded second mover."
+    d2c_example: "Allbirds was first to own the 'sustainable sneaker' position. The first-mover advantage was not the wool material (replicable) but the brand association: 'Allbirds = sustainable comfort footwear.' When Nike, Adidas, and dozens of startups entered sustainable footwear, Allbirds already owned the category perception. However, Allbirds illustrates the first-mover risk: the brand expanded too quickly into apparel and accessories before establishing dominance in footwear, diluting the very position that made it first."
+    benchmark_references: ["brand-awareness", "organic-traffic-pct", "cac-blended"]
+
+  - skill: "information-asymmetry"
+    category: "game-theory"
+    d2c_relevance: "moderate"
+    d2c_context: "Information asymmetry in D2C exists between brands and consumers, brands and suppliers, and brands and advertising platforms. Brand-consumer asymmetry has collapsed: customers have access to reviews, ingredient lists, price comparisons, and Reddit threads that expose any inflated claim. The D2C brands that thrive in this transparent environment are those that embrace radical honesty — sharing manufacturing details, margin transparency, and honest product limitations. Brand-supplier asymmetry often favors the supplier: contract manufacturers know the true cost of production, the minimum viable quality, and which other brands they supply (your 'proprietary' product may be a white-label sold to 20 competitors). Brand-platform asymmetry favors Meta and Google: they know your campaign performance, your competitors' bids, and the true cost of reaching your audience — and they use this information to extract maximum ad spend."
+    d2c_anti_patterns:
+      - "Assuming consumers do not know the true cost of your product. Cost-of-goods breakdowns go viral regularly. Brands that claim 'premium quality' while using commodity ingredients or materials face trust destruction when the asymmetry collapses."
+      - "Ignoring that Meta and Google have perfect information about your advertising while you have imperfect information about theirs. The platform always wins the information game."
+    d2c_example: "Everlane built its brand on collapsing the brand-consumer information asymmetry. 'Radical Transparency' — showing factory photos, cost breakdowns, and markups — turned information that competitors hid into a brand asset. When other brands claimed premium quality, Everlane showed the math. This radical honesty created trust that conventional marketing could not match, and it attracted customers who valued the transparency itself as a brand attribute."
+    benchmark_references: ["nps", "organic-traffic-pct", "gross-margin"]
+
+  # ─────────────────────────────────────────────
+  # THINKING & DECISIONS (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "evaluating-and-deciding"
+    category: "thinking"
+    d2c_relevance: "high"
+    d2c_context: "D2C founders face a relentless stream of consequential decisions: Which channel to invest in? When to raise prices? Whether to launch on Amazon? When to enter retail? Whether to take the influencer deal at a premium rate? Which products to discontinue? Whether to offer free shipping? These decisions must be evaluated through the D2C-specific lens of brand impact alongside financial impact. A financially optimal decision (sell on Amazon to increase revenue) may be brand-destructive (lose customer relationship and face downward price pressure). The evaluation framework for D2C decisions should weight brand-building effect alongside ROI — because in D2C, the brand is the asset that compounds over time."
+    d2c_anti_patterns:
+      - "Evaluating decisions solely on financial metrics. The decision to run a 40%-off sale is financially attractive in the quarter but brand-destructive over the year. Both dimensions must be evaluated."
+      - "Delaying reversible decisions. Most D2C operational decisions (pricing, ad creative, product bundles) are reversible. The cost of delay often exceeds the cost of a wrong decision that generates learning."
+    d2c_example: "Glossier's decision to enter Sephora retail was evaluated on both financial and brand dimensions. Financially: access to millions of beauty buyers, incremental revenue, and reduced CAC through in-store discovery. Brand-wise: risk of diluting the DTC-first, community-driven identity; risk of being displayed alongside competitors; risk of losing the direct customer relationship for in-store buyers. Glossier delayed this decision for years — weighing the financial upside against the brand risk — and ultimately entered Sephora only when the brand was strong enough to maintain its identity within a retail environment."
+    benchmark_references: ["cac-blended", "contribution-margin", "nps"]
+
+  - skill: "defining-and-exploring-problems"
+    category: "thinking"
+    d2c_relevance: "high"
+    d2c_context: "The most dangerous D2C problems are misdiagnosed. 'CAC is too high' is rarely a media buying problem — it is often a brand awareness problem, a creative problem, or a product-market fit problem. 'Repeat rate is low' may not be a retention problem but a product assortment problem (nothing to come back for) or an experience problem (the first purchase was disappointing). 'Revenue is flat' may not be a growth problem but a channel saturation problem or a pricing problem. Defining and exploring problems in D2C requires disciplining the tendency to jump to the obvious diagnosis (usually 'spend more on ads' or 'run a promotion') and instead exploring the root cause through the system of brand, product, experience, and distribution."
+    d2c_anti_patterns:
+      - "Diagnosing rising CAC as a media buying problem when it is a brand awareness problem. If organic traffic is declining while paid CAC rises, the root cause is that the brand is not generating enough demand on its own — no amount of ad optimization will fix that."
+      - "Diagnosing low repeat rate as a retention marketing problem when it is a product problem. If the product does not create genuine desire for repurchase, no amount of email sequences and loyalty points will fix it."
+    d2c_example: "A DTC skincare brand diagnoses its problem as 'CAC is too high — Meta ads are expensive.' Deeper exploration reveals the real problem: the brand has no differentiated story, its product page looks identical to 50 competitors, and it has zero organic traffic (meaning no one is seeking the brand out). The CAC problem is a symptom. The root cause is a brand problem — the company has built a product but not a brand. The solution is not better ad targeting; it is brand building through storytelling, community, and content."
+    benchmark_references: ["cac-blended", "organic-traffic-pct", "repeat-purchase-rate"]

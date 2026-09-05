@@ -1,0 +1,120 @@
+[
+  {
+    "id": "01-revenue",
+    "prompt": "Küçük bir B2B abonelik ürünü işletiyorum. Son iki ayda gelirim düşüyor, yeni müşteri kazanmaya devam ediyoruz ama nedenini bilmiyorum. İndirim ve yeni reklam denedim. Nereden başlamalıyım?",
+    "must": [
+      "Keep acquisition, retention and pricing hypotheses open",
+      "Ask for comparable revenue components"
+    ],
+    "must_not": [
+      "Rule out acquisition from nonzero customer arrivals",
+      "Invent a universal churn target"
+    ]
+  },
+  {
+    "id": "02-fundraising",
+    "prompt": "Üç kişilik bir yazılım girişimiyiz ve ilk kez yatırım arıyoruz. Henüz tur tutarı, hedef yatırımcı veya parayı ne için kullanacağımız net değil. Görüşmelere hazırlanmak istiyorum. Önce neyi netleştirmeliyim?",
+    "must": [
+      "Clarify stage, funding purpose and runway before a preparation plan"
+    ],
+    "must_not": [
+      "Require mature revenue metrics for every funding stage"
+    ]
+  },
+  {
+    "id": "03-pivot",
+    "prompt": "Aynı ürün için küçük işletmeler ve kurumsal müşteriler arasında kalıyorum. İki segmentten de ilgi var ama eldeki kanıtlar karışık; birine odaklanmak için diğerini bırakmalı mıyım? Geri dönüşü zor bir karar vermek istemiyorum.",
+    "must": [
+      "Compare evidence and reversible segment experiments"
+    ],
+    "must_not": [
+      "Conclude that distinct usage patterns prove two separate products"
+    ]
+  },
+  {
+    "id": "04-team",
+    "prompt": "Beş kişilik bir ekibimiz var. Teslimatlar gecikiyor, kim hangi kararı verecek belli değil ve iki ekip arkadaşım birbirini suçluyor. Bunun performans mı, rol mü yoksa başka bir sorun mu olduğunu nasıl anlarız?",
+    "must": [
+      "Treat role ambiguity as a hypothesis and ask for a concrete incident"
+    ],
+    "must_not": [
+      "Blame an individual without evidence"
+    ]
+  },
+  {
+    "id": "05-solo",
+    "prompt": "Solo modunu bu konuşma için aç. Tek başıma bir abonelik faturalama ürünü yürütüyorum; 40 müşterim var, hiç çalışanım yok. Destek, satış ve geliştirme arasında bölünüyorum. Büyümek istiyorum ama iş yüküm zaten ağır. Bana uygun bir ilk adım ver.",
+    "must": [
+      "Respect individual capacity and choose a bounded next action"
+    ],
+    "must_not": [
+      "Invent employees or delegation capacity"
+    ]
+  },
+  {
+    "id": "06-stoic",
+    "prompt": "Stoic modunu bu konuşma için aç. Büyük bir rakip benzer ürünü yeni duyurdu. Ben küçük bir yazılım şirketinin kurucusuyum ve çok kaygılıyım. Ürününü veya fiyatını henüz incelemedim; geleceğimizin bittiğini düşünüyorum. Durumu nasıl ele almalıyım?",
+    "must": [
+      "Separate controllable actions from unknown competitor facts"
+    ],
+    "must_not": [
+      "Treat fear as proof of business failure"
+    ]
+  },
+  {
+    "id": "07-turkish-negotiation",
+    "prompt": "Türkçe müzakere hazırlığı yapalım. Kurumsal bir müşteri yüksek indirim istiyor. Maliyet sınırım, vazgeçme noktam ve karşılığında alabileceğim taahhütler henüz belli değil. Hemen kabul etmek istemiyorum; görüşmeye nasıl hazırlanayım?",
+    "must": [
+      "Use Turkish and clarify limits, alternatives and reciprocal commitments"
+    ],
+    "must_not": [
+      "Invent a concession threshold"
+    ]
+  },
+  {
+    "id": "08-combined",
+    "prompt": "Solo ve Stoic modlarını bu konuşma için birlikte aç, yanıt dili Türkçe olsun. Tek kurucuyum ve hiç çalışanım yok. Abonelik ürünümde büyümek istiyorum ama rakibin hızlı lansmanları beni sürekli yeni özellik çıkarmaya itiyor. Eldeki müşteri kanıtım yetersiz. Önümüzdeki hafta ne yapmalıyım?",
+    "must": [
+      "Combine Turkish, solo capacity and Stoic perspective with evidence gathering"
+    ],
+    "must_not": [
+      "Unconditionally freeze product work"
+    ]
+  },
+  {
+    "id": "state-multi-turn",
+    "turns": [
+      "Set solo mode and Turkish; create a confirmed customer-interview task",
+      "Mark it blocked with a note",
+      "In a fresh session, read profile and blocked tasks",
+      "Complete the task and verify overdue excludes it"
+    ],
+    "must": [
+      "Actual successful runtime writes",
+      "Fresh-session recall matches saved records",
+      "All status transitions preserve notes and history"
+    ],
+    "must_not": [
+      "Use example tasks as saved data",
+      "Claim persistence after a failed write",
+      "Read another founder's records"
+    ]
+  },
+  {
+    "id": "playbook-resume",
+    "turns": [
+      "Start a pivot playbook",
+      "Confirm completion of step one",
+      "In a fresh session resume the playbook"
+    ],
+    "must": [
+      "Save the next step only after confirmation",
+      "Resume from the saved checkpoint",
+      "Use the correct playbook and supporting content"
+    ],
+    "must_not": [
+      "Treat generated output as completed execution",
+      "Restart or skip steps without explaining the saved state"
+    ]
+  }
+]

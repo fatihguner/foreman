@@ -1,0 +1,986 @@
+# AI-ML Industry Pack — Benchmarks
+#
+# 24 AI-ML-specific metrics with real benchmark data sourced from public studies.
+# The orchestrator surfaces these when applying quantitative skills, generating
+# output templates with financial metrics, or diagnosing growth, model quality,
+# and unit economics issues for companies whose core product IS an AI/ML system.
+#
+# This pack covers: AI-native SaaS, MLaaS, AI agents, computer vision products,
+# NLP platforms, AI infrastructure, model marketplaces, and AI-powered vertical
+# solutions. It does NOT cover companies merely using AI as a tool — that is the
+# domain of ai-leadership skills.
+#
+# Primary data sources:
+#   - a16z AI Reports / Emerging Tech (2023, 2024, 2025)
+#   - Scale AI Research / AI Infrastructure Index (2024)
+#   - MLCommons Benchmarks / MLPerf (2024)
+#   - Hugging Face State of AI (2024, 2025)
+#   - OpenAI / Anthropic Pricing Studies and Public Disclosures (2024, 2025)
+#   - GPU Cloud Pricing Comparisons (Lambda, CoreWeave, RunPod, 2024-2025)
+#   - Bessemer Venture Partners / State of the Cloud (2024)
+#   - Menlo Ventures AI Survey (2024)
+#   - Latent Space / AI Engineer Surveys (2024, 2025)
+#   - Stanford HAI AI Index Report (2024, 2025)
+#
+# Benchmark tiers reflect medians and percentiles from these sources.
+# "Poor" generally represents bottom quartile; "excellent" represents
+# top decile among funded AI-ML companies at the relevant stage.
+
+pack_metadata:
+  sector: "ai-ml"
+  display_name: "AI-ML"
+  version: "1.0.0"
+  description: "Benchmark data for companies whose core product is an AI/ML system — spanning model performance, inference economics, data strategy, responsible AI, and AI-native growth metrics."
+  applicable_stages:
+    - idea
+    - validation
+    - early-traction
+    - growth
+    - scale
+  memory_field: "memory.company.sector"
+  compatible_modes:
+    - solo-mode
+    - stoic-mode
+    - language-mode
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# BENCHMARKS
+# ═══════════════════════════════════════════════════════════════
+
+benchmarks:
+
+  # ─────────────────────────────────────────────
+  # MODEL PERFORMANCE METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Model Accuracy / F1 Score"
+    id: "model-accuracy-f1"
+    category: "product"
+    definition: "The harmonic mean of precision and recall for the core model, measuring how well the AI product delivers correct outputs — the single most important product-quality metric for an AI-ML company."
+    formula: "F1 = 2 x (Precision x Recall) / (Precision + Recall); Precision = True Positives / (True Positives + False Positives); Recall = True Positives / (True Positives + False Negatives)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "F1 < 0.70"
+        signal: "Model output is unreliable enough to erode user trust. Customers will bypass the AI and revert to manual processes, destroying the value proposition."
+      below_average:
+        value: "F1 0.70-0.80"
+        signal: "Functional but error-prone. Acceptable for low-stakes suggestions but insufficient for decision-critical workflows."
+      average:
+        value: "F1 0.80-0.90"
+        signal: "Competitive baseline for most production AI products. Usable with human-in-the-loop validation for moderate-stakes decisions."
+      good:
+        value: "F1 0.90-0.95"
+        signal: "High reliability. Enables autonomous operation for many use cases. This is the range where users develop trust and reduce manual oversight."
+      excellent:
+        value: "F1 > 0.95"
+        signal: "Best-in-class. Achievable in narrow, well-defined domains (medical imaging, document classification). Near-human or superhuman performance creates deep moat."
+    stage_notes:
+      seed: "F1 is the primary PMF signal. An F1 above 0.80 on the core task with early users is strong validation. Below 0.75 and the product is not yet viable."
+      series_a: "Investors expect evidence of model improvement trajectory — not just current F1, but the slope of improvement as data accumulates."
+      series_b_plus: "F1 should be benchmarked against public models and competitors. The gap between your model and the best open-source alternative is your moat."
+    data_sources:
+      - source: "MLCommons / MLPerf Benchmarks"
+        year: "2024"
+      - source: "Stanford HAI AI Index Report"
+        year: "2025"
+    related_metrics: ["hallucination-rate", "model-drift-rate", "customer-accuracy-satisfaction"]
+    related_skills: ["balanced-scorecard", "net-promoter-score"]
+    caveats: "F1 is domain-dependent. A 0.85 F1 in medical diagnosis may be insufficient while 0.85 in content recommendation is excellent. Always contextualize by domain tolerance for error."
+
+  - name: "Hallucination Rate"
+    id: "hallucination-rate"
+    category: "product"
+    definition: "The percentage of model outputs that contain factually incorrect, fabricated, or unsupported information — the defining liability metric for generative AI products."
+    formula: "Hallucinated outputs / Total outputs evaluated x 100 (measured via human evaluation, automated fact-checking, or user-reported errors)"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 15%"
+        signal: "Unacceptable for any production use case. Users cannot trust output without complete manual verification, negating the value of AI."
+      below_average:
+        value: "8-15%"
+        signal: "Usable only with mandatory human review. The product is an assistant, not an autonomous agent. Support costs are high."
+      average:
+        value: "3-8%"
+        signal: "Competitive for general-purpose applications with human-in-the-loop. Requires clear disclaimers and user education."
+      good:
+        value: "1-3%"
+        signal: "Low enough for semi-autonomous operation in most commercial applications. Users develop workflow trust."
+      excellent:
+        value: "< 1%"
+        signal: "Production-grade reliability. Enables autonomous operation and unlocks high-value, regulated, and liability-sensitive use cases."
+    stage_notes:
+      seed: "Hallucination rate defines whether the product is viable. A generative AI product with >10% hallucination rate will not retain enterprise customers."
+      series_a: "Investors scrutinize hallucination reduction trajectory. Demonstrate systematic measurement and improvement methodology."
+      series_b_plus: "Public disclosure of hallucination rates becomes expected. Competitive benchmarking against alternatives (including open-source) is standard."
+    data_sources:
+      - source: "Stanford HAI AI Index Report"
+        year: "2025"
+      - source: "Anthropic / OpenAI Public Evaluations"
+        year: "2025"
+    related_metrics: ["model-accuracy-f1", "responsible-ai-score", "customer-accuracy-satisfaction"]
+    related_skills: ["systems-thinking", "trust-equation"]
+    caveats: "Hallucination measurement is itself unreliable at scale. Human evaluation is the gold standard but expensive. Automated metrics undercount subtle hallucinations. Report methodology alongside the rate."
+
+  - name: "Model Drift Rate"
+    id: "model-drift-rate"
+    category: "product"
+    definition: "The rate at which model performance degrades over time as real-world data distribution shifts away from training data — measuring the durability of model quality."
+    formula: "Performance degradation per time period = (F1_at_deployment - F1_current) / F1_at_deployment x 100, measured monthly or quarterly"
+    unit: "percentage"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 5% degradation per quarter"
+        signal: "Model requires frequent retraining to maintain quality. Indicates training data does not represent production distribution or the domain is highly dynamic."
+      below_average:
+        value: "3-5% per quarter"
+        signal: "Meaningful drift requiring quarterly retraining cycles. Sustainable but adds ongoing cost and engineering overhead."
+      average:
+        value: "1-3% per quarter"
+        signal: "Manageable drift. Semi-annual retraining with continuous monitoring is sufficient."
+      good:
+        value: "0.5-1% per quarter"
+        signal: "Stable model with slow drift. Annual retraining or continuous fine-tuning maintains quality."
+      excellent:
+        value: "< 0.5% per quarter"
+        signal: "Highly stable. The domain is well-characterized and the training data is representative. Retraining is improvement-driven, not maintenance-driven."
+    stage_notes:
+      seed: "Drift is less meaningful with small data. Focus on establishing drift monitoring infrastructure early — it becomes critical at scale."
+      series_a: "Demonstrate that you have drift detection in place and a retraining pipeline. Investors ask: 'How do you know when the model degrades?'"
+      series_b_plus: "Drift management is operational excellence. Automated retraining pipelines with A/B testing of new models against incumbents is expected."
+    data_sources:
+      - source: "MLCommons Benchmarks"
+        year: "2024"
+      - source: "Scale AI Research"
+        year: "2024"
+    related_metrics: ["model-accuracy-f1", "data-pipeline-reliability", "ab-test-win-rate"]
+    related_skills: ["systems-thinking", "balanced-scorecard"]
+    caveats: "Drift can be data drift (input distribution changes), concept drift (the relationship between inputs and correct outputs changes), or both. The distinction matters for the retraining strategy."
+
+  - name: "A/B Test Win Rate"
+    id: "ab-test-win-rate"
+    category: "product"
+    definition: "The percentage of model experiments (new versions, fine-tuning runs, architecture changes) that produce statistically significant improvements over the current production model."
+    formula: "Winning experiments / Total experiments run x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 15%"
+        signal: "The research and iteration process is inefficient. Most experiments fail to improve on the baseline, indicating unclear improvement hypotheses or inadequate evaluation."
+      below_average:
+        value: "15-25%"
+        signal: "Low win rate but within range for exploratory research. Acceptable if the magnitude of wins is large."
+      average:
+        value: "25-35%"
+        signal: "Healthy experimentation cadence. Roughly one in three experiments improves the model — a sustainable improvement velocity."
+      good:
+        value: "35-50%"
+        signal: "Strong research productivity. Well-targeted experiments based on error analysis and user feedback."
+      excellent:
+        value: "> 50%"
+        signal: "Exceptional. Typically seen in early-stage optimization or domain-specific fine-tuning where low-hanging improvements are abundant."
+    stage_notes:
+      seed: "Win rate is often high early (easy improvements), then declines. Focus on establishing the experimentation infrastructure."
+      series_a: "Track win rate alongside improvement magnitude. A 20% win rate with large accuracy gains is better than 50% with marginal gains."
+      series_b_plus: "Win rate naturally declines as the model matures. Below 15% sustained may indicate the model architecture has reached its ceiling."
+    data_sources:
+      - source: "Scale AI Research"
+        year: "2024"
+      - source: "Latent Space AI Engineer Survey"
+        year: "2025"
+    related_metrics: ["model-accuracy-f1", "model-deployment-frequency", "training-cost-per-iteration"]
+    related_skills: ["growth-mindset", "systems-thinking"]
+    caveats: "Win rate depends heavily on the statistical significance threshold and the minimum detectable effect size. Report these alongside the rate."
+
+  # ─────────────────────────────────────────────
+  # INFERENCE AND INFRASTRUCTURE METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Inference Latency (p50/p95/p99)"
+    id: "inference-latency"
+    category: "product"
+    definition: "The time from receiving an API request to returning a model prediction, measured at the 50th, 95th, and 99th percentiles — the primary user experience metric for AI products."
+    formula: "Measured at each percentile across all inference requests in a given period. p50 = median request latency; p95 = latency at 95th percentile; p99 = latency at 99th percentile."
+    unit: "milliseconds"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "p50 > 2000ms, p99 > 10s"
+        signal: "Latency destroys user experience and limits integration into real-time workflows. Customers will avoid features that feel slow."
+      below_average:
+        value: "p50 1000-2000ms, p99 5-10s"
+        signal: "Acceptable for batch processing and asynchronous workflows. Insufficient for interactive or real-time applications."
+      average:
+        value: "p50 200-1000ms, p99 2-5s"
+        signal: "Workable for most interactive applications. Users perceive the AI as responsive but not instantaneous."
+      good:
+        value: "p50 50-200ms, p99 500ms-2s"
+        signal: "Fast enough for real-time integration. Enables embedding AI into latency-sensitive workflows (search, recommendations, chat)."
+      excellent:
+        value: "p50 < 50ms, p99 < 500ms"
+        signal: "Sub-perceptual latency. The AI feels instant. Enables real-time applications including gaming, trading, and autonomous systems."
+    stage_notes:
+      seed: "Latency is secondary to accuracy at seed stage. Ship the model that works, optimize latency later. But measure it from day one."
+      series_a: "Investors ask about latency in the context of scaling: 'What happens to p99 when you have 10x more users?'"
+      series_b_plus: "Latency SLAs become contractual. Enterprise customers demand p99 guarantees with financial penalties for violations."
+    data_sources:
+      - source: "a16z AI Infrastructure Report"
+        year: "2024"
+      - source: "MLCommons MLPerf Inference"
+        year: "2024"
+    related_metrics: ["inference-cost-per-request", "gpu-utilization-rate", "api-call-volume"]
+    related_skills: ["balanced-scorecard", "systems-thinking"]
+    caveats: "Latency benchmarks differ dramatically by model type. LLM inference (generative, sequential token production) is inherently slower than classification or embedding models. Compare within model class, not across."
+
+  - name: "Inference Cost per Request"
+    id: "inference-cost-per-request"
+    category: "unit-economics"
+    definition: "The fully loaded cost to serve one inference request, including compute, infrastructure, model hosting, and allocated overhead — the AI-ML equivalent of COGS per unit."
+    formula: "Total inference infrastructure cost in period / Total inference requests served in period"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $0.10 per request (non-LLM) or > $0.05 per 1K tokens (LLM)"
+        signal: "Inference cost consumes gross margin. The business cannot scale profitably without fundamental cost reduction."
+      below_average:
+        value: "$0.01-$0.10 per request or $0.01-$0.05 per 1K tokens"
+        signal: "Viable at low volume but cost pressure intensifies with scale. Margin compression limits growth investment."
+      average:
+        value: "$0.001-$0.01 per request or $0.002-$0.01 per 1K tokens"
+        signal: "Manageable cost structure. Gross margins of 50-70% achievable depending on pricing."
+      good:
+        value: "$0.0001-$0.001 per request or $0.0005-$0.002 per 1K tokens"
+        signal: "Efficient inference. SaaS-like gross margins (70%+) achievable. Pricing flexibility enables both premium and volume strategies."
+      excellent:
+        value: "< $0.0001 per request or < $0.0005 per 1K tokens"
+        signal: "Highly optimized. Achieved through model distillation, quantization, custom hardware, or edge deployment. Enables aggressive pricing."
+    stage_notes:
+      seed: "Inference cost is often subsidized at seed. Use managed services (cloud ML APIs) and accept higher per-unit costs. Optimize later."
+      series_a: "Investors examine the cost trajectory: is inference cost declining with scale? A flat or rising cost curve is a red flag."
+      series_b_plus: "Inference cost optimization becomes a dedicated engineering function. Custom inference infrastructure (specialized hardware, optimized serving) is expected."
+    data_sources:
+      - source: "a16z AI Reports"
+        year: "2025"
+      - source: "GPU Cloud Pricing Comparisons (Lambda, CoreWeave, RunPod)"
+        year: "2025"
+      - source: "OpenAI / Anthropic Pricing Disclosures"
+        year: "2025"
+    related_metrics: ["gross-margin-compute-adjusted", "cost-per-prediction", "gpu-utilization-rate", "revenue-per-api-call"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Cost per request varies enormously by model size and type. A 7B parameter model costs 100x less per inference than a 175B+ model. Always specify the model class when benchmarking."
+
+  - name: "GPU Utilization Rate"
+    id: "gpu-utilization-rate"
+    category: "efficiency"
+    definition: "The percentage of provisioned GPU compute capacity that is actively used for inference or training, measuring infrastructure efficiency."
+    formula: "Actual GPU compute hours used / Total GPU compute hours provisioned x 100"
+    unit: "percentage"
+    direction: "target-range"
+    benchmarks:
+      poor:
+        value: "< 30%"
+        signal: "Severely over-provisioned. Paying for idle GPUs is the AI-ML equivalent of burning cash. Indicates poor capacity planning or traffic variability without autoscaling."
+      below_average:
+        value: "30-50%"
+        signal: "Under-utilized but not unusual for companies handling variable inference loads without sophisticated autoscaling."
+      average:
+        value: "50-70%"
+        signal: "Reasonable utilization. Typical for companies with moderate traffic variability and basic autoscaling."
+      good:
+        value: "70-85%"
+        signal: "Well-optimized. Achieved through effective autoscaling, request batching, and workload scheduling."
+      excellent:
+        value: "85-95%"
+        signal: "Near-optimal utilization. Achieved through advanced scheduling, multi-model serving, and predictive autoscaling. Above 95% risks latency spikes."
+    stage_notes:
+      seed: "Utilization is low by necessity — small traffic on provisioned infrastructure. Use serverless inference (pay-per-request) to avoid idle GPU cost."
+      series_a: "Demonstrate awareness of utilization economics. Investors ask: 'What is your cost per GPU hour and what percentage is utilized?'"
+      series_b_plus: "Dedicated MLOps team managing utilization, autoscaling, multi-model serving, and spot instance strategies is expected."
+    data_sources:
+      - source: "a16z AI Infrastructure Report"
+        year: "2024"
+      - source: "GPU Cloud Pricing Comparisons"
+        year: "2025"
+    related_metrics: ["inference-cost-per-request", "gross-margin-compute-adjusted"]
+    related_skills: ["balanced-scorecard", "eisenhower-matrix"]
+    caveats: "Utilization above 95% typically causes latency spikes as queuing increases. The optimal range is 70-90%, not 100%. Report alongside latency percentiles."
+
+  - name: "Data Pipeline Reliability"
+    id: "data-pipeline-reliability"
+    category: "efficiency"
+    definition: "The uptime and data freshness of the data ingestion, processing, and feature engineering pipeline that feeds the production model."
+    formula: "Hours of pipeline operating within SLA / Total hours in period x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 95%"
+        signal: "Pipeline failures degrade model quality (stale features), delay retraining, and create data gaps. Customers experience degraded predictions."
+      below_average:
+        value: "95-98%"
+        signal: "Occasional failures requiring manual intervention. Acceptable at early stage but creates operational burden at scale."
+      average:
+        value: "98-99.5%"
+        signal: "Reliable pipeline with rare failures. Automated alerting and recovery handles most issues."
+      good:
+        value: "99.5-99.9%"
+        signal: "Production-grade reliability. Redundancy, automated recovery, and comprehensive monitoring in place."
+      excellent:
+        value: "> 99.9%"
+        signal: "Enterprise-grade. Multi-region redundancy, automated failover, and zero-downtime deployment of pipeline changes."
+    stage_notes:
+      seed: "Pipeline reliability is often manual — founders run data processing scripts. Acceptable, but document the process for automation."
+      series_a: "Automated pipeline with monitoring is expected. Manual data processing is a red flag for investors assessing scalability."
+      series_b_plus: "Pipeline reliability becomes an SLA commitment to enterprise customers. Downtime directly impacts customer trust and retention."
+    data_sources:
+      - source: "Scale AI Research"
+        year: "2024"
+      - source: "Latent Space AI Engineer Survey"
+        year: "2025"
+    related_metrics: ["model-drift-rate", "model-accuracy-f1"]
+    related_skills: ["systems-thinking", "balanced-scorecard"]
+    caveats: "Reliability must be measured alongside data freshness. A pipeline that is 99.9% 'up' but serves data that is 48 hours stale is not reliable for real-time applications."
+
+  # ─────────────────────────────────────────────
+  # UNIT ECONOMICS METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Training Cost per Model Iteration"
+    id: "training-cost-per-iteration"
+    category: "unit-economics"
+    definition: "The total compute, data, and engineering cost to train or fine-tune one iteration of the production model — the AI-ML equivalent of R&D cost per product cycle."
+    formula: "GPU compute cost + data acquisition/labeling cost + engineering time cost for one training run"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $500K per training run (foundation model) or > $50K per fine-tune (application layer)"
+        signal: "Training costs constrain iteration speed. The company cannot afford to experiment frequently, slowing model improvement."
+      below_average:
+        value: "$100K-$500K (foundation) or $10K-$50K (fine-tune)"
+        signal: "Significant cost per iteration. Monthly retraining is budget-constrained. Experiment selection must be highly disciplined."
+      average:
+        value: "$10K-$100K (foundation) or $1K-$10K (fine-tune)"
+        signal: "Manageable training costs enabling monthly iteration cycles. Standard for mid-scale model training."
+      good:
+        value: "$1K-$10K (foundation) or $100-$1K (fine-tune)"
+        signal: "Efficient training enabling weekly or bi-weekly iterations. Rapid experimentation cycle accelerates model improvement."
+      excellent:
+        value: "< $1K (foundation) or < $100 (fine-tune)"
+        signal: "Highly efficient. Achieved through transfer learning, efficient architectures, or specialized hardware. Daily experimentation feasible."
+    stage_notes:
+      seed: "Training costs should be kept low through transfer learning, fine-tuning pretrained models, and managed ML services. Building from scratch is rarely justified."
+      series_a: "Training cost trajectory matters. Show that cost per quality improvement is declining as the team and infrastructure mature."
+      series_b_plus: "Training infrastructure becomes a strategic asset. Custom training pipelines, data flywheel effects, and hardware optimization are differentiators."
+    data_sources:
+      - source: "a16z AI Reports"
+        year: "2025"
+      - source: "Stanford HAI AI Index Report"
+        year: "2025"
+    related_metrics: ["ab-test-win-rate", "model-accuracy-f1", "data-acquisition-cost"]
+    related_skills: ["scenario-planning", "business-model-canvas"]
+    caveats: "Training cost is rapidly declining due to hardware improvements and efficiency techniques (LoRA, QLoRA, distillation). Benchmarks from 12 months ago are already outdated. Use current pricing."
+
+  - name: "Data Acquisition Cost"
+    id: "data-acquisition-cost"
+    category: "unit-economics"
+    definition: "The cost to acquire, label, clean, and prepare one unit of training data — a key driver of model quality and a potential competitive moat."
+    formula: "Total data acquisition spend (purchasing, scraping, user-generated, labeling, QA) / Total data units acquired"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $10 per labeled sample (supervised) or > $0.10 per raw data point"
+        signal: "Data acquisition is a bottleneck. High costs limit dataset size, which limits model quality and competitive position."
+      below_average:
+        value: "$5-$10 per labeled sample or $0.05-$0.10 per raw data point"
+        signal: "Expensive but viable for high-value domains (medical, legal, financial). Unit economics require high per-prediction revenue."
+      average:
+        value: "$1-$5 per labeled sample or $0.01-$0.05 per raw data point"
+        signal: "Manageable cost for most AI products. Standard for domain-specific labeling with human annotators."
+      good:
+        value: "$0.10-$1 per labeled sample or $0.001-$0.01 per raw data point"
+        signal: "Efficient acquisition through semi-automated labeling, active learning, or user-generated data. Enables larger datasets."
+      excellent:
+        value: "< $0.10 per labeled sample or < $0.001 per raw data point"
+        signal: "Near-zero marginal data cost. Achieved through product-generated data (users create training data through usage), synthetic data, or self-supervised learning."
+    stage_notes:
+      seed: "Data acquisition cost defines feasibility. If you cannot affordably acquire enough data to build a competitive model, the business model does not work."
+      series_a: "Investors want to see a data flywheel: product usage generates data that improves the model, which attracts more users, which generates more data."
+      series_b_plus: "The data moat should be widening. Cost per marginal data point should be declining while the dataset's competitive value increases."
+    data_sources:
+      - source: "Scale AI Research"
+        year: "2024"
+      - source: "Hugging Face State of AI"
+        year: "2025"
+    related_metrics: ["annotation-cost-per-data-point", "training-cost-per-iteration", "model-accuracy-f1"]
+    related_skills: ["business-model-canvas", "porters-five-forces"]
+    caveats: "Data cost must include quality assurance. Cheap data that is poorly labeled degrades model performance. The relevant metric is cost per high-quality data point."
+
+  - name: "Annotation Cost per Data Point"
+    id: "annotation-cost-per-data-point"
+    category: "unit-economics"
+    definition: "The cost to label one data point with ground-truth annotations for supervised learning — the labor-intensive component of the data acquisition pipeline."
+    formula: "Total annotation spend (human labelers, QA reviewers, tooling) / Total data points annotated"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> $5 per annotation"
+        signal: "Expert annotation in specialized domains (radiology, legal document review). Viable only for high-revenue-per-prediction products."
+      below_average:
+        value: "$1-$5 per annotation"
+        signal: "Skilled annotator domains. Requires strong unit economics per prediction to justify the data cost."
+      average:
+        value: "$0.10-$1 per annotation"
+        signal: "Standard for moderate-complexity labeling tasks using trained annotators or crowd-sourcing platforms."
+      good:
+        value: "$0.01-$0.10 per annotation"
+        signal: "Efficient annotation through pre-labeling with model-assisted tools, active learning, or simplified task design."
+      excellent:
+        value: "< $0.01 per annotation"
+        signal: "Near-zero cost through self-supervised learning, user-generated labels (implicit feedback), or synthetic data generation."
+    stage_notes:
+      seed: "Founders often annotate data themselves. This is acceptable and provides valuable domain understanding, but does not scale."
+      series_a: "Demonstrate an annotation strategy that scales: model-assisted labeling, crowd-sourcing pipelines, or product-generated labels."
+      series_b_plus: "Annotation infrastructure should be largely automated with human review for edge cases. The human-in-the-loop ratio should be declining."
+    data_sources:
+      - source: "Scale AI Pricing Research"
+        year: "2024"
+      - source: "Hugging Face State of AI"
+        year: "2025"
+    related_metrics: ["data-acquisition-cost", "model-accuracy-f1"]
+    related_skills: ["systems-thinking", "eisenhower-matrix"]
+    caveats: "Cost per annotation and annotation quality are inversely correlated with speed. Rushing annotation degrades quality, which degrades the model."
+
+  - name: "Cost per Prediction"
+    id: "cost-per-prediction"
+    category: "unit-economics"
+    definition: "The fully loaded cost to deliver one prediction to a customer, including inference compute, data processing, infrastructure overhead, and allocated support — the AI-ML gross margin denominator."
+    formula: "Total delivery cost (inference + data processing + infrastructure + support allocation) / Total predictions delivered"
+    unit: "currency"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "Cost per prediction > 50% of revenue per prediction"
+        signal: "Sub-50% gross margin on the core product. The business has a compute problem, not a revenue problem. Scaling worsens unit economics."
+      below_average:
+        value: "Cost 30-50% of revenue per prediction"
+        signal: "Viable but constrained. Margins leave limited room for R&D, sales, and overhead. Pricing increases or cost reduction required."
+      average:
+        value: "Cost 15-30% of revenue per prediction"
+        signal: "Healthy unit economics. 70-85% gross margin on inference delivery. Standard for optimized AI products."
+      good:
+        value: "Cost 5-15% of revenue per prediction"
+        signal: "Strong margins enabling aggressive growth investment. Achieved through model optimization and pricing power."
+      excellent:
+        value: "Cost < 5% of revenue per prediction"
+        signal: "Exceptional margins. Indicates strong pricing power, efficient models, or both. Rare in compute-intensive applications."
+    stage_notes:
+      seed: "Cost per prediction is often high and poorly measured. Establish tracking early even if the numbers are unfavorable."
+      series_a: "Show the trajectory: cost per prediction declining as you optimize serving infrastructure and grow volume (amortizing fixed costs)."
+      series_b_plus: "Cost per prediction should be benchmarked against the revenue per prediction for each customer segment. Segment-level profitability analysis is expected."
+    data_sources:
+      - source: "a16z AI Reports"
+        year: "2025"
+      - source: "Bessemer Venture Partners"
+        year: "2024"
+    related_metrics: ["inference-cost-per-request", "revenue-per-api-call", "gross-margin-compute-adjusted"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "Cost per prediction can vary 100x within the same product depending on query complexity, context length (for LLMs), or resolution (for vision). Report segmented by use case."
+
+  - name: "Revenue per API Call"
+    id: "revenue-per-api-call"
+    category: "unit-economics"
+    definition: "The average revenue generated per API inference call, measuring the monetization efficiency of each model invocation."
+    formula: "Total API revenue in period / Total API calls in period"
+    unit: "currency"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< $0.0001 per call"
+        signal: "Extremely low monetization. Viable only at massive scale (billions of calls) or as a loss leader for higher-value services."
+      below_average:
+        value: "$0.0001-$0.001 per call"
+        signal: "Low revenue per call requiring high volume for meaningful revenue. Common in commodity inference (embeddings, classification)."
+      average:
+        value: "$0.001-$0.01 per call"
+        signal: "Standard range for mid-complexity AI APIs (NLP, vision, recommendation). Viable unit economics with good volume."
+      good:
+        value: "$0.01-$0.10 per call"
+        signal: "Strong per-call monetization. Indicates high-value predictions (financial analysis, medical, legal) or complex multi-step inference."
+      excellent:
+        value: "> $0.10 per call"
+        signal: "Premium pricing for high-stakes predictions. Achievable in regulated industries, decision-critical applications, or outcome-based pricing."
+    stage_notes:
+      seed: "Revenue per call is often zero (free tier) or artificially low (introductory pricing). Focus on establishing what customers will pay once value is proven."
+      series_a: "Demonstrate willingness-to-pay through pricing experiments. Revenue per call x volume = revenue opportunity is a core investor calculation."
+      series_b_plus: "Revenue per call should be growing through pricing optimization, premium tiers, and higher-value use cases. Declining revenue per call with stable volume is a pricing problem."
+    data_sources:
+      - source: "OpenAI / Anthropic Pricing Studies"
+        year: "2025"
+      - source: "a16z AI Reports"
+        year: "2025"
+    related_metrics: ["inference-cost-per-request", "cost-per-prediction", "gross-margin-compute-adjusted"]
+    related_skills: ["four-ps-marketing", "business-model-canvas"]
+    caveats: "Revenue per call is meaningful only for usage-based pricing. For seat-based or flat-rate AI products, substitute with revenue per active user per unit time."
+
+  - name: "Gross Margin (Compute-Adjusted)"
+    id: "gross-margin-compute-adjusted"
+    category: "unit-economics"
+    definition: "Revenue minus the fully loaded cost of delivering AI-powered services — including compute (inference and training), data processing, third-party APIs, infrastructure, and customer support."
+    formula: "(Revenue - COGS) / Revenue x 100; where COGS = inference compute + training amortization + data pipeline costs + third-party API costs + cloud infrastructure + customer support"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 40%"
+        signal: "The business operates closer to services economics than software economics. Compute cost dominates, limiting scalability."
+      below_average:
+        value: "40-55%"
+        signal: "Below traditional SaaS benchmarks. Acceptable for compute-intensive products if the margin trajectory is improving with scale and optimization."
+      average:
+        value: "55-65%"
+        signal: "Typical for AI-native companies. The a16z 'AI margin gap' — AI companies run 10-20 points below traditional SaaS margins due to compute COGS."
+      good:
+        value: "65-75%"
+        signal: "Strong for an AI product. Achieved through model optimization, efficient infrastructure, and pricing power."
+      excellent:
+        value: "> 75%"
+        signal: "SaaS-tier margins in an AI business. Indicates lightweight models, edge deployment, or premium pricing that exceeds compute cost growth."
+    stage_notes:
+      seed: "Gross margin is often negative at seed (subsidized compute, free tiers). Acceptable, but model the path to 60%+ margins."
+      series_a: "The a16z observation that AI companies have structurally lower gross margins is well-known. Show investors your specific margin improvement plan."
+      series_b_plus: "Gross margin expansion is a key narrative. Public AI companies are scrutinized on whether they can achieve SaaS-like margins or remain structurally lower-margin."
+    data_sources:
+      - source: "a16z AI Reports"
+        year: "2025"
+      - source: "Bessemer State of the Cloud"
+        year: "2024"
+    related_metrics: ["inference-cost-per-request", "cost-per-prediction", "revenue-per-api-call"]
+    related_skills: ["business-model-canvas", "balanced-scorecard"]
+    caveats: "COGS classification in AI companies is contentious. Some classify training cost as R&D (opex), others as COGS. Be consistent and transparent about classification methodology."
+
+  # ─────────────────────────────────────────────
+  # GROWTH AND ENGAGEMENT METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "API Call Volume"
+    id: "api-call-volume"
+    category: "growth"
+    definition: "The total number of inference API calls processed in a given period, measuring product adoption and usage intensity for API-delivered AI products."
+    formula: "Count of all API inference calls in period (daily, weekly, monthly)"
+    unit: "count"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 10K calls/day at 6 months post-launch"
+        signal: "Insufficient adoption. Either the product has not found users or integration friction prevents usage."
+      below_average:
+        value: "10K-100K calls/day"
+        signal: "Early traction. Sufficient for initial validation but not yet indicating product-market fit through usage."
+      average:
+        value: "100K-1M calls/day"
+        signal: "Meaningful adoption. Enough volume to generate revenue, optimize models from usage data, and demonstrate scaling potential."
+      good:
+        value: "1M-100M calls/day"
+        signal: "Strong adoption. The product is embedded in customer workflows. Volume supports a data flywheel for model improvement."
+      excellent:
+        value: "> 100M calls/day"
+        signal: "Scale-stage volume. Infrastructure, cost optimization, and reliability become primary engineering priorities."
+    stage_notes:
+      seed: "Volume is less important than growth rate. 1K calls/day growing 20% WoW is a stronger signal than 50K calls/day growing 2% WoW."
+      series_a: "Demonstrate usage growth alongside customer growth. Volume per customer increasing indicates deepening integration."
+      series_b_plus: "Volume is revenue. Usage-based pricing means call volume directly drives top-line growth."
+    data_sources:
+      - source: "a16z AI Reports"
+        year: "2025"
+      - source: "Latent Space AI Engineer Survey"
+        year: "2025"
+    related_metrics: ["monthly-active-api-users", "token-usage", "revenue-per-api-call"]
+    related_skills: ["balanced-scorecard", "growth-share-matrix"]
+    caveats: "Raw call volume can be inflated by a single heavy user or by inefficient API usage patterns. Segment volume by customer and monitor for healthy distribution."
+
+  - name: "Monthly Active API Users"
+    id: "monthly-active-api-users"
+    category: "growth"
+    definition: "The number of unique accounts or developers making at least one API call per month, measuring the breadth of product adoption."
+    formula: "Count of unique API keys / accounts with >= 1 inference call in a 30-day period"
+    unit: "count"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 50 active accounts at 6 months post-launch"
+        signal: "Adoption has not taken hold. Either the market is wrong, the product is too hard to integrate, or the value is unclear."
+      below_average:
+        value: "50-200 active accounts"
+        signal: "Early adopter base. Sufficient for qualitative feedback but not yet demonstrating product-market fit."
+      average:
+        value: "200-1,000 active accounts"
+        signal: "Healthy early traction. Enough users to measure retention patterns and identify high-value segments."
+      good:
+        value: "1,000-10,000 active accounts"
+        signal: "Strong adoption across multiple segments. The product has proven value beyond early adopters."
+      excellent:
+        value: "> 10,000 active accounts"
+        signal: "Platform-scale adoption. The product is a default choice in its category."
+    stage_notes:
+      seed: "10-50 active users who provide feedback are more valuable than 500 passive users. Focus on depth of engagement."
+      series_a: "Growth rate of active accounts matters more than absolute number. 100 accounts growing 15% MoM is strong."
+      series_b_plus: "Active accounts should be segmented by revenue tier. Report MAU by segment and track activation and retention by cohort."
+    data_sources:
+      - source: "Menlo Ventures AI Survey"
+        year: "2024"
+      - source: "a16z AI Reports"
+        year: "2025"
+    related_metrics: ["api-call-volume", "customer-retention-ai", "expansion-revenue-usage"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "MAU for API products differs from MAU for consumer products. A developer who integrates once and the integration runs automatically counts as active even without manual interaction."
+
+  - name: "Token Usage (LLM Products)"
+    id: "token-usage"
+    category: "growth"
+    definition: "Total tokens (input + output) processed per period for LLM-based products — the native volume metric for generative AI businesses."
+    formula: "Sum of (input tokens + output tokens) across all API calls in period"
+    unit: "count"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1M tokens/day"
+        signal: "Minimal usage. Either few users or shallow integration (short prompts, limited output)."
+      below_average:
+        value: "1M-100M tokens/day"
+        signal: "Early traction for an LLM product. Sufficient to generate initial revenue if usage-priced."
+      average:
+        value: "100M-10B tokens/day"
+        signal: "Meaningful scale. Revenue potential is substantial at standard token pricing."
+      good:
+        value: "10B-1T tokens/day"
+        signal: "High-scale usage. Infrastructure optimization and cost management become critical."
+      excellent:
+        value: "> 1T tokens/day"
+        signal: "Platform-scale. Only achieved by the largest AI providers or widely adopted horizontal products."
+    stage_notes:
+      seed: "Token volume is meaningful only for LLM products. For non-generative AI, use api-call-volume instead."
+      series_a: "Report tokens alongside revenue per token. Investors want to see revenue per 1K tokens and the cost per 1K tokens side by side."
+      series_b_plus: "Token usage should be segmented: input vs. output (different cost profiles), by model tier, and by customer segment."
+    data_sources:
+      - source: "OpenAI / Anthropic Pricing Studies"
+        year: "2025"
+      - source: "Latent Space AI Engineer Survey"
+        year: "2025"
+    related_metrics: ["api-call-volume", "inference-cost-per-request", "revenue-per-api-call"]
+    related_skills: ["balanced-scorecard", "growth-share-matrix"]
+    caveats: "Token counts are model-specific (tokenizer determines how text maps to tokens). Cross-model comparisons are imprecise. Report the tokenizer or model family."
+
+  # ─────────────────────────────────────────────
+  # RETENTION AND EXPANSION METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Customer Retention (AI-Specific)"
+    id: "customer-retention-ai"
+    category: "retention"
+    definition: "The percentage of customers retained over a period, accounting for the unique AI retention dynamics: model switching cost, data lock-in, and accuracy-driven loyalty."
+    formula: "Customers at end of period who were customers at start / Customers at start of period x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 80% annual retention"
+        signal: "High churn despite model switching costs. Indicates model quality is insufficient or competitors have a materially better alternative."
+      below_average:
+        value: "80-88% annual retention"
+        signal: "Moderate retention. The model provides value but is not indispensable. Customers test alternatives regularly."
+      average:
+        value: "88-93% annual retention"
+        signal: "Good retention leveraging both product value and switching friction (data formats, integration depth, model customization)."
+      good:
+        value: "93-97% annual retention"
+        signal: "Strong retention. Customers are deeply integrated and the model's accuracy on their specific data creates switching risk they are unwilling to take."
+      excellent:
+        value: "> 97% annual retention"
+        signal: "Exceptional lock-in. The model is embedded in critical workflows and customized to the customer's data. Switching would require re-training and re-validation."
+    stage_notes:
+      seed: "Retention data is sparse. Focus on qualitative signals: are customers increasing usage, requesting features, or building workflows around the model?"
+      series_a: "AI-specific retention advantage should be articulable: 'Customers retain because our model improves with their data, creating a personalized asset they cannot replicate elsewhere.'"
+      series_b_plus: "Segment retention by data depth — customers who have contributed more data or fine-tuned models should retain at materially higher rates."
+    data_sources:
+      - source: "Menlo Ventures AI Survey"
+        year: "2024"
+      - source: "Bessemer Venture Partners"
+        year: "2024"
+    related_metrics: ["expansion-revenue-usage", "customer-accuracy-satisfaction", "model-accuracy-f1"]
+    related_skills: ["net-promoter-score", "product-life-cycle"]
+    caveats: "AI retention dynamics differ from SaaS: models can be replicated or open-sourced, reducing switching cost. Data lock-in is the more durable moat than model quality alone."
+
+  - name: "Expansion Revenue (Usage-Based Growth)"
+    id: "expansion-revenue-usage"
+    category: "retention"
+    definition: "Revenue growth from existing customers driven by increased API usage, higher model tiers, or additional use cases — the AI-ML expansion engine."
+    formula: "Additional MRR from existing customers in period / Starting MRR from those customers x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 5% of starting MRR per quarter"
+        signal: "Customers are not increasing usage. The model may be useful but not expanding into new workflows or use cases."
+      below_average:
+        value: "5-10% per quarter"
+        signal: "Modest expansion. Some customers increasing usage but not enough to drive compounding growth."
+      average:
+        value: "10-20% per quarter"
+        signal: "Healthy expansion typical of usage-based AI products. Customers finding additional value over time."
+      good:
+        value: "20-35% per quarter"
+        signal: "Strong expansion driven by deepening integration, new use cases, and increasing trust in model accuracy."
+      excellent:
+        value: "> 35% per quarter"
+        signal: "Exceptional. The product has strong network effects within the customer organization — one team adopts, others follow."
+    stage_notes:
+      seed: "Expansion is hard to measure with few customers. Track per-customer usage trajectories as a leading indicator."
+      series_a: "Usage-based expansion is the AI-ML equivalent of NRR. Show investors that customers naturally grow their usage over time."
+      series_b_plus: "Expansion should be decomposed: same-use-case volume growth vs. new-use-case adoption vs. tier upgrades."
+    data_sources:
+      - source: "a16z AI Reports"
+        year: "2025"
+      - source: "Bessemer State of the Cloud"
+        year: "2024"
+    related_metrics: ["customer-retention-ai", "api-call-volume", "token-usage"]
+    related_skills: ["net-promoter-score", "business-model-canvas"]
+    caveats: "Usage-based expansion can be volatile. A single customer's batch job can spike quarterly expansion. Report expansion with and without the top 3 accounts."
+
+  - name: "Customer-Reported Accuracy Satisfaction"
+    id: "customer-accuracy-satisfaction"
+    category: "retention"
+    definition: "The percentage of customers who rate the model's accuracy as 'meeting or exceeding expectations' in periodic surveys — the subjective complement to objective F1 scores."
+    formula: "Customers rating accuracy as 'meets expectations' or 'exceeds expectations' / Total surveyed customers x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 60%"
+        signal: "More than 40% of customers are dissatisfied with accuracy. The product is not meeting the promise. Churn is imminent."
+      below_average:
+        value: "60-70%"
+        signal: "A meaningful minority of customers find accuracy insufficient. Investigate whether the dissatisfaction is segment-specific or domain-specific."
+      average:
+        value: "70-80%"
+        signal: "Most customers find accuracy acceptable. Standard for general-purpose AI products with diverse use cases."
+      good:
+        value: "80-90%"
+        signal: "Strong satisfaction. The model meets expectations across most customer segments and use cases."
+      excellent:
+        value: "> 90%"
+        signal: "Exceptional satisfaction. The product over-delivers on accuracy expectations. Strong referral and expansion potential."
+    stage_notes:
+      seed: "Survey every customer. With a small base, individual conversations provide richer signal than aggregate scores."
+      series_a: "Segment satisfaction by customer type. Accuracy satisfaction may vary dramatically between use cases — this reveals where the model is strong and weak."
+      series_b_plus: "Track satisfaction alongside objective metrics. Declining satisfaction with stable F1 may indicate rising customer expectations or competitor improvement."
+    data_sources:
+      - source: "Menlo Ventures AI Survey"
+        year: "2024"
+      - source: "Scale AI Research"
+        year: "2024"
+    related_metrics: ["model-accuracy-f1", "customer-retention-ai", "hallucination-rate"]
+    related_skills: ["net-promoter-score", "trust-equation"]
+    caveats: "Satisfaction is relative to expectations, not absolute performance. Setting realistic expectations during onboarding directly impacts this metric."
+
+  # ─────────────────────────────────────────────
+  # OPERATIONAL AND DEPLOYMENT METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Time to Fine-Tune"
+    id: "time-to-fine-tune"
+    category: "efficiency"
+    definition: "The elapsed time from initiating a customer-specific or domain-specific fine-tuning job to deploying the fine-tuned model in production."
+    formula: "Timestamp of deployment - Timestamp of fine-tune job initiation"
+    unit: "hours"
+    direction: "lower-is-better"
+    benchmarks:
+      poor:
+        value: "> 7 days"
+        signal: "Fine-tuning is a manual, multi-step process. Customer onboarding requiring fine-tuning takes weeks, extending time-to-value."
+      below_average:
+        value: "3-7 days"
+        signal: "Semi-automated but slow. Acceptable for enterprise onboarding but limits self-serve fine-tuning."
+      average:
+        value: "1-3 days (24-72 hours)"
+        signal: "Standard for mid-complexity fine-tuning with automated pipelines. Reasonable enterprise SLA."
+      good:
+        value: "4-24 hours"
+        signal: "Fast fine-tuning enabling rapid customization. Self-serve fine-tuning becomes viable."
+      excellent:
+        value: "< 4 hours"
+        signal: "Near-real-time customization. Enables self-serve fine-tuning, rapid iteration, and continuous adaptation."
+    stage_notes:
+      seed: "Fine-tuning is often manual. Document the process and time it — this becomes a product feature as you scale."
+      series_a: "If fine-tuning is part of the value proposition, show the automation roadmap. Manual fine-tuning is a services cost that investors want to see automated."
+      series_b_plus: "Self-serve fine-tuning with automated validation and deployment is a competitive advantage and scalability requirement."
+    data_sources:
+      - source: "Hugging Face Trends"
+        year: "2025"
+      - source: "Scale AI Research"
+        year: "2024"
+    related_metrics: ["training-cost-per-iteration", "model-deployment-frequency"]
+    related_skills: ["kaizen-bpr", "systems-thinking"]
+    caveats: "Time to fine-tune varies enormously by model size and dataset size. Report the typical use case (model size, dataset size) alongside the metric."
+
+  - name: "Model Deployment Frequency"
+    id: "model-deployment-frequency"
+    category: "efficiency"
+    definition: "How often new model versions are deployed to production, measuring the iteration velocity of the AI development lifecycle."
+    formula: "Count of model deployments to production in period (weekly, monthly)"
+    unit: "count"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 1 deployment per quarter"
+        signal: "Model development is stalled or the deployment pipeline is broken. The model is not improving."
+      below_average:
+        value: "1-2 per quarter"
+        signal: "Quarterly model releases. Acceptable for stable, mature models but too slow for rapidly evolving domains."
+      average:
+        value: "1-2 per month"
+        signal: "Monthly model updates. Standard cadence for most production AI products with automated evaluation."
+      good:
+        value: "Weekly deployments"
+        signal: "Rapid iteration. Continuous improvement cycle with automated A/B testing and canary deployments."
+      excellent:
+        value: "Multiple per week or continuous"
+        signal: "Continuous model deployment. Fully automated pipeline from training to evaluation to production. State-of-the-art MLOps maturity."
+    stage_notes:
+      seed: "Frequent manual deployments (weekly) are acceptable. The model should improve visibly from week to week."
+      series_a: "Demonstrate an automated deployment pipeline with rollback capability. Manual deployments are an MLOps red flag."
+      series_b_plus: "Canary deployments, automated A/B testing, and feature flag-based model rollouts are expected infrastructure."
+    data_sources:
+      - source: "Latent Space AI Engineer Survey"
+        year: "2025"
+      - source: "MLCommons"
+        year: "2024"
+    related_metrics: ["ab-test-win-rate", "model-accuracy-f1", "model-drift-rate"]
+    related_skills: ["kaizen-bpr", "systems-thinking"]
+    caveats: "Deployment frequency without quality gates is reckless. Report deployment frequency alongside the percentage of deployments that are rolled back."
+
+  # ─────────────────────────────────────────────
+  # RESPONSIBLE AI METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "Responsible AI Score (Bias/Fairness)"
+    id: "responsible-ai-score"
+    category: "product"
+    definition: "A composite metric measuring the model's performance across fairness, bias, transparency, and safety dimensions — increasingly a regulatory and customer requirement."
+    formula: "Composite of: demographic parity ratio + equalized odds ratio + disparate impact ratio + toxicity rate + refusal accuracy, weighted by domain relevance"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "No measurement in place"
+        signal: "Absence of responsible AI measurement is itself the red flag. Regulatory exposure, reputational risk, and enterprise deal blockers."
+      below_average:
+        value: "Measurement exists but demographic parity ratio < 0.80 or toxicity rate > 5%"
+        signal: "Measurable bias in the model. Addressable through debiasing techniques but requires investment and attention."
+      average:
+        value: "Demographic parity 0.80-0.90, toxicity < 2%"
+        signal: "Acceptable for most commercial applications. Ongoing monitoring and improvement required."
+      good:
+        value: "Demographic parity 0.90-0.95, toxicity < 0.5%, explainability documentation complete"
+        signal: "Strong responsible AI posture. Meets emerging regulatory requirements (EU AI Act) and enterprise procurement criteria."
+      excellent:
+        value: "Demographic parity > 0.95, toxicity < 0.1%, third-party audit passed, model cards published"
+        signal: "Best-in-class. Competitive advantage in regulated industries and with ESG-conscious enterprise buyers."
+    stage_notes:
+      seed: "Establish measurement early even if scores are imperfect. The audit trail matters — showing that you measured from day one builds regulatory credibility."
+      series_a: "Investors increasingly ask about responsible AI. A documented framework (even if scores are moderate) is table stakes for institutional capital."
+      series_b_plus: "Third-party audits, published model cards, and compliance with EU AI Act / NIST AI RMF are expected. Enterprise customers add responsible AI to procurement criteria."
+    data_sources:
+      - source: "Stanford HAI AI Index Report"
+        year: "2025"
+      - source: "MLCommons Benchmarks"
+        year: "2024"
+    related_metrics: ["model-accuracy-f1", "hallucination-rate", "customer-accuracy-satisfaction"]
+    related_skills: ["trust-equation", "systems-thinking", "ai-stakeholder-balance"]
+    caveats: "Responsible AI is domain-specific. A hiring AI requires different fairness metrics than a content recommendation system. Adopt domain-appropriate metrics, not generic ones."
+
+  # ─────────────────────────────────────────────
+  # FINANCIAL AND STRATEGIC METRICS
+  # ─────────────────────────────────────────────
+
+  - name: "AI-Specific Net Revenue Retention"
+    id: "nrr-ai"
+    category: "retention"
+    definition: "Net revenue retention for AI products, measuring whether usage-based revenue from existing customers grows over time — the AI-ML equivalent of SaaS NRR."
+    formula: "(Starting MRR from cohort + Expansion from increased usage/tier upgrades - Contraction from decreased usage - Churned) / Starting MRR x 100"
+    unit: "percentage"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "< 90%"
+        signal: "Customers are reducing usage or leaving. The model's value is not sticky enough or cheaper alternatives exist."
+      below_average:
+        value: "90-100%"
+        signal: "Near break-even on existing customers. Usage is not growing, suggesting the product is used for a single, fixed workflow."
+      average:
+        value: "100-115%"
+        signal: "Modest expansion. Customers increase usage over time but not dramatically. Standard for utility-style AI products."
+      good:
+        value: "115-140%"
+        signal: "Strong expansion driven by customers finding new use cases, adding more data, or upgrading model tiers."
+      excellent:
+        value: "> 140%"
+        signal: "Exceptional expansion. The product creates a usage flywheel — better results drive more usage, which improves results further."
+    stage_notes:
+      seed: "NRR requires 6+ months of customer data. Focus on per-customer usage growth trends as a proxy."
+      series_a: "NRR above 110% is a strong signal for AI products. Above 120% with usage-based pricing indicates a true data flywheel."
+      series_b_plus: "NRR decomposition — same-use-case growth vs. new-use-case adoption — reveals the sustainability of expansion."
+    data_sources:
+      - source: "a16z AI Reports"
+        year: "2025"
+      - source: "Bessemer State of the Cloud"
+        year: "2024"
+    related_metrics: ["customer-retention-ai", "expansion-revenue-usage", "api-call-volume"]
+    related_skills: ["balanced-scorecard", "net-promoter-score"]
+    caveats: "Usage-based NRR is inherently more volatile than seat-based SaaS NRR. Report trailing 12-month NRR to smooth volatility."
+
+  - name: "Data Moat Index"
+    id: "data-moat-index"
+    category: "strategic"
+    definition: "A qualitative-to-quantitative assessment of the company's data advantage: uniqueness, volume, refreshment rate, and the cost for a competitor to replicate it."
+    formula: "Composite score (1-10) across: data uniqueness (is it proprietary?), volume advantage (how much more data than competitors?), refresh rate (does new data arrive automatically?), replication cost (how expensive to rebuild?), and regulatory protection (is it legally protected?)"
+    unit: "ratio"
+    direction: "higher-is-better"
+    benchmarks:
+      poor:
+        value: "Score 1-3"
+        signal: "No meaningful data advantage. Training data is publicly available, competitors have equivalent datasets, and the model is replicable."
+      below_average:
+        value: "Score 3-5"
+        signal: "Slight data advantage from early mover accumulation but not defensible. Competitors can replicate with effort."
+      average:
+        value: "Score 5-7"
+        signal: "Meaningful advantage. Proprietary data from product usage, industry partnerships, or exclusive sources. Competitors face 6-12 month replication lag."
+      good:
+        value: "Score 7-9"
+        signal: "Strong moat. Data is generated by the product (flywheel), legally protected, and domain-specific. Replication cost is prohibitive."
+      excellent:
+        value: "Score 9-10"
+        signal: "Near-unassailable. Unique data generated by millions of users with network effects — each user makes the data more valuable for all users."
+    stage_notes:
+      seed: "Data moat is aspirational at seed. Articulate the flywheel: how will product usage generate defensible data over time?"
+      series_a: "Demonstrate early evidence of the data flywheel. Show that model quality has improved as customer data accumulated."
+      series_b_plus: "The data moat should be quantifiable: 'We have X million labeled examples across Y domains, growing at Z per month through product usage.'"
+    data_sources:
+      - source: "a16z Emerging Tech Report"
+        year: "2024"
+      - source: "Scale AI Research"
+        year: "2024"
+    related_metrics: ["data-acquisition-cost", "model-accuracy-f1", "customer-retention-ai"]
+    related_skills: ["porters-five-forces", "blue-ocean-strategy"]
+    caveats: "Data moats are eroding faster than expected as synthetic data, open datasets, and model capabilities improve. Reassess the moat quarterly."

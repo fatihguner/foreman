@@ -1,5 +1,7 @@
 # Foreman — Project Context
 
+Before advising or running any Foreman command, read `.claude/RUNTIME.md` and `.claude/policies/advisory.md`. Resolve content through `.claude/catalog.json`. These files define the current storage, routing and advisory contract; older examples below describe the conceptual architecture. Persist confirmed preferences, tasks and checkpoints through the bundled runtime and report only successful writes.
+
 Foreman is an open-source, AI-powered strategic advisor for entrepreneurs. It uses a layered architecture of Skills, Agents, Hooks, Memory, Diagnostics, Playbooks, Commands, and Output Templates to deliver contextual, framework-driven guidance. The project lives at foreman.sh and ships as a public GitHub repository.
 
 ## Architecture Overview
@@ -39,11 +41,11 @@ Entrepreneur Input
 5. **Hooks** (`.claude/hooks/`) — 17 trigger definitions (8 high-priority, 8 medium/low, 1 research) that classify natural-language input and route to diagnostics, skills, or playbooks.
 6. **Agents** (`.claude/agents/`) — 6 AI agent definitions: orchestrator (central brain), diagnostic (triage), skill-executor (framework application), playbook-runner (multi-step conductor), output (formatting), memory (context persistence).
 7. **Memory** (`.claude/memory/`) — 5-layer persistence system: identity (yearly), company (monthly), history (append-only), active (weekly), session (ephemeral). Schema + YAML templates.
-8. **Commands** (`.claude/commands/`) — ~45 commands across 13 command files: navigation (7), execution (5), memory (8), playbook (5), output (3), meta (5).
+8. **Commands** (`.claude/commands/`) — 46 registered commands generated from 13 guides; exact names are recorded in `.claude/catalog.json`.
 
 ### Tooling & Modes
 
-9. **Scripts** (`scripts/`) — 21 utility scripts: validation (7), content creation (5), analysis (3), maintenance (4), community (2).
+9. **Scripts** (`scripts/`) — 24 portable shell entry points backed by shared Node modules.
 10. **Solo Mode** (`.claude/solo-mode/`) — Complete solopreneur adaptation layer: SOLO.md (master instruction), skill relevance scoring (158 skills), audience remapping (48 templates), diagnostic/playbook/hook adaptations (56 items). Activated via `/solo`.
 11. **Stoic Mode** (`.claude/stoic-mode/`) — Philosophical depth layer that frames all system responses through Stoic principles (dichotomy of control, cardinal virtues, premeditatio malorum, amor fati). Does not change WHAT is delivered — changes HOW it is framed. Activated via `/stoic on`. Can combine with Solo Mode.
 12. **Language Mode** (`.claude/language-mode/`) — Complete output language switch. All responses delivered in the specified language while internal processing remains English. Supports any language the model speaks fluently. Activated via `/language [code]`. Persists across sessions. Combines with Solo and Stoic modes.
@@ -52,9 +54,9 @@ Entrepreneur Input
 15. **Custom Research Prompts** (`.claude/research/`) — 18 structured research guides teaching entrepreneurs HOW to gather data needed for frameworks: market-sizing-worksheet, competitor-research-template, customer-interview-guide, data-collection-plan, pricing-research-guide, due-diligence-research, user-testing-protocol, industry-mapping-guide. Each guide: what to collect, where to find it, how to interpret it, which skills it feeds into. Accessible via `/research` command.
 16. **Board Simulation** (`.claude/simulation/`) — Adversarial role-play system for practicing board presentations, investor pitches, and due diligence sessions. 5 board personas, 5-dimension scoring framework, post-simulation diagnostic, memory persistence. Activated via `/simulate` command.
 17. **Organizational Politics Navigation** (`.claude/org-politics/`) — Stakeholder dynamics management system. Maps power structures, diagnoses resistance, builds coalitions, designs influence strategies. Includes 2 diagnostics (stakeholder-resistance, power-dynamics), 1 playbook (organizational-alignment), 3 templates (influence-map, resistance-plan, coalition-plan), and 4 commands (`/stakeholders`, `/power-map`, `/resistance`, `/coalition`). Integrates with simulation for adversarial practice.
-18. **Claude Code Plugin Marketplace** (`.claude-plugin/marketplace.json` + `plugins/foreman/`) — Plugin marketplace for Claude Code. Users install via `/plugin marketplace add fatihguner/foreman` → `/plugin install foreman@foreman-marketplace`. 158 skills exposed as symlinks to `.claude/skills/`.
-19. **Codex Plugin** (`.codex-plugin/`) — OpenAI Codex plugin manifest and build system. `plugin.json` manifest defines the plugin identity and component paths. `scripts/build-codex.sh` transforms `.claude/skills/` into Codex-compatible `skills/skill-name/SKILL.md` format. Generated `skills/` directory is gitignored. Marketplace config at `.agents/plugins/marketplace.json`.
-19. **OpenClaw Plugin** — Native OpenClaw plugin (`openclaw.plugin.json` + `package.json` + `index.ts`). Registers 7 agent tools (apply_skill, diagnose, run_playbook, list_skills, research, simulate, track) that read from `.claude/` at runtime. Claude bundle fallback at `.claude-plugin/plugin.json`.
+18. **Claude Code Plugin Marketplace** (`.claude-plugin/marketplace.json` + `plugins/foreman/`) — Plugin marketplace for Claude Code. Users install via `/plugin marketplace add fatihguner/foreman` → `/plugin install foreman@foreman-marketplace`. 158 framework skills and one router skill are generated as ordinary files with a complete bundled content tree.
+19. **Codex Plugin** (`.codex-plugin/`) — OpenAI Codex plugin manifest and build system. `plugin.json` manifest defines the plugin identity and component paths. `scripts/build-codex.sh` generates the shared `plugins/foreman/skills/<name>/SKILL.md` bundle and its content resources. Marketplace config at `.agents/plugins/marketplace.json`.
+19. **OpenClaw Plugin** — Native OpenClaw plugin (`openclaw.plugin.json` + `package.json` + compiled `dist/index.js`). Registers 10 agent tools (apply_skill, diagnose, run_playbook, list_skills, research, simulate, track, profile, update_task, resume) that read from `.claude/` at runtime. Claude bundle fallback at `.claude-plugin/plugin.json`.
 20. **OpenClaw Templates** (`openclaw-templates/`) — 6 workspace templates (SOUL, IDENTITY, AGENTS, BOOT, BOOTSTRAP, HEARTBEAT) that define Foreman's personality and behavior when running as an OpenClaw agent. Users copy to workspace root. CLI scripts: `openclaw-setup.sh` (installation), `openclaw-build.sh` (validation).
 21. **Schemas** — Template files across `_schema/` directories defining the structure for skills, diagnostics, playbooks, hooks, output templates, agents, commands, memory, industry packs, and research guides.
 
@@ -118,25 +120,25 @@ When generating multiple skills, apply deliberate variation across these dimensi
 20 multi-step recipes in `playbooks/`. Each has: trigger diagnostics, 4-7 steps (each with skill, purpose, output, checkpoint), decision points, final deliverables, common pitfalls, adaptation notes. Schema: `.claude/playbooks/_schema/playbook-template.md`.
 
 ### Hooks
-16 trigger definitions in `hooks/`. Each has: 10-15 trigger patterns (natural language), intent classification, routing logic (decision tree), disambiguation rules, example conversations. Schema: `.claude/hooks/_schema/hook-template.md`.
+17 trigger definitions in `.claude/hooks/`. Each has: 10-15 trigger patterns (natural language), intent classification, routing logic (decision tree), disambiguation rules, example conversations. Schema: `.claude/hooks/_schema/hook-template.md`.
 
 ### Output Templates
 48 fill-in-the-blank templates in `output-templates/`. Organized by audience: investor (10), board (7), team (13), self (10), client (8). Each has: name, description, audience, applicable_skills, format, fill-in placeholders. Schema: `.claude/output-templates/_schema/output-template.md`.
 
 ### Agents
-6 agent definitions in `agents/`. Roles: orchestrator, diagnostic, skill-executor, playbook-runner, output, memory. Each has: role, responsibilities, activation conditions, workflow (pseudocode), interactions, decision rules, error handling, example flows. Schema: `.claude/agents/_schema/agent-template.md`.
+6 agent definitions in `agents/`. Roles: orchestrator, diagnostic, skill-executor, playbook-runner, output, memory. Each has: role, responsibilities, activation conditions, workflow (pseudocode), interactions, decision rules, error handling, example flows. Schema: `.claude/_schema/agents/agent-template.md`.
 
 ### Memory
 5-layer system in `memory/`. Layers: identity (yearly), company (monthly), history (append-only), active (weekly), session (ephemeral). Schema: `.claude/memory/_schema/memory-schema.md`. Templates: `.claude/memory/_template/*.yaml`.
 
 ### Commands
-33 commands in 6 groups in `commands/`. Groups: navigation (7), execution (5), memory (8), playbook (5), output (3), meta (5). Schema: `.claude/commands/_schema/command-template.md`.
+46 registered commands generated from 13 command guides in `.claude/commands/`. The exact host-safe command map is in `.claude/catalog.json`. Schema: `.claude/_schema/commands/command-template.md`.
 
 ### Scripts
-21 bash scripts in `scripts/`. Categories: validation (7), content creation (5), analysis (3), maintenance (4), community (2). All executable, with --help flags.
+24 portable shell entry points in `scripts/`, backed by shared Node modules. Each supports `--help`.
 
 ### Solo Mode
-5 files in `solo/`. Activates via `/solo` command. Adapts all layers for solopreneurs: skill relevance scoring, audience remapping, diagnostic/playbook/hook adaptations. Config-driven — no content duplication.
+4 files in `.claude/solo-mode/`. Activates via `/solo` command. Adapts all layers for solopreneurs: skill relevance scoring, audience remapping, diagnostic/playbook/hook adaptations. Config-driven — no content duplication.
 
 ## Writing Style Guide
 
@@ -207,7 +209,7 @@ foreman/
 │   │   └── _schema/diagnostic-template.md
 │   ├── playbooks/                      # 20 multi-step recipes
 │   │   └── _schema/playbook-template.md
-│   ├── hooks/                          # 16 trigger definitions
+│   ├── hooks/                          # 17 trigger definitions
 │   │   └── _schema/hook-template.md
 │   ├── agents/                         # 6 agent definitions
 │   │   └── _schema/agent-template.md
@@ -280,7 +282,7 @@ foreman/
 │   │   ├── organizational-alignment-playbook.md
 │   │   └── templates/ (6 templates + schema)
 │   └── settings.local.json
-├── scripts/                            # 21 utility scripts (dev tooling)
+├── scripts/                            # 24 shell entry points (dev tooling)
 │   ├── validate-*.sh (7)
 │   ├── new-*.sh (5)
 │   ├── stats.sh, orphan-check.sh, coverage-report.sh
@@ -319,7 +321,7 @@ foreman/
 
 ### Adding a New Source
 1. Read the source material and identify discrete, actionable frameworks/methods
-2. Create a new category directory under `skills/` with a kebab-case slug
+2. Create a new category directory under `.claude/skills/` with a kebab-case slug
 3. Register the source in the project documentation
 4. Generate skills following the schema and differentiation strategy
 5. Anonymize all author references before committing
@@ -385,3 +387,7 @@ foreman/
 - **Schemas:** 12
 - **Examples:** 8 end-to-end walkthroughs
 - **Total Files:** 443+
+
+<!-- foreman-counts:start -->
+Current catalog: 6 agent entries; 9 command entries; 24 diagnostic entries; 17 hook entries; 1 implementation entries; 58 template entries; 21 playbook entries; 18 research entries; 10 persona entries; 158 skill entries.
+<!-- foreman-counts:end -->

@@ -1,6 +1,6 @@
 {
   "name": "foreman-sh",
-  "version": "1.0.0",
+  "version": "1.1.0-rc.1",
   "description": "AI-powered strategic advisor for entrepreneurs. 158 skills, 24 diagnostics, 21 playbooks, 9 industry packs.",
   "type": "module",
   "bin": {
@@ -8,14 +8,28 @@
   },
   "files": [
     "bin/",
+    "dist/",
     ".claude/",
-    "CLAUDE.md"
+    "CLAUDE.md",
+    "openclaw.plugin.json",
+    "openclaw-templates/",
+    "plugins/foreman/",
+    ".codex-plugin/",
+    ".claude-plugin/plugin.json",
+    "docs/",
+    "assets/",
+    "CONTRIBUTING.md",
+    "VISION.md"
   ],
   "author": {
     "name": "Fatih Guner",
     "url": "https://foreman.sh"
   },
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "tag": "next"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/fatihguner/foreman.git"
@@ -39,20 +53,39 @@
     "solopreneur"
   ],
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=22.19.0"
   },
   "openclaw": {
-    "extensions": ["./index.ts"]
+    "extensions": [
+      "./dist/index.js"
+    ]
   },
   "dependencies": {
-    "@sinclair/typebox": "^0.32.0"
+    "@sinclair/typebox": "^0.32.0",
+    "yaml": "^2.8.1"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.3.0"
+    "openclaw": ">=2026.6.1"
   },
   "peerDependenciesMeta": {
     "openclaw": {
       "optional": true
     }
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "validate": "node scripts/validate.mjs",
+    "check": "npm run validate && npm test && npm run typecheck",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "build:plugins": "node scripts/build-plugins.mjs",
+    "check:release": "node scripts/check-release.mjs",
+    "test:package": "node scripts/package-smoke.mjs",
+    "prepack": "npm run build && npm run build:plugins"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "~5.9.3",
+    "openclaw": "2026.6.1"
   }
 }

@@ -1,0 +1,448 @@
+# AI-ML Industry Pack — Skill Overlays
+#
+# For 35 of the 158 Foreman skills, this file provides AI-ML-specific context
+# that the skill executor agent applies as additional framing. These overlays
+# do not replace the base skill content — they add an AI-ML lens for companies
+# whose core product IS an AI/ML system.
+#
+# Selection criteria for the 35 skills:
+#   - Frameworks with direct AI-ML application (strategy, model economics, competitive dynamics)
+#   - AI-leadership skills (highly relevant — bridge from leading with AI to building AI products)
+#   - Decision and thinking skills (applied to model vs. product vs. data investment decisions)
+#   - Negotiation skills (fundraising with AI narrative, compute contracts, data partnerships)
+#   - Game theory skills (open-source vs. proprietary, compute supplier dynamics)
+#
+# The MODEL-CENTRIC lens applies throughout:
+#   - Data is the moat
+#   - Accuracy is the product
+#   - Inference cost is COGS
+#   - Compute providers are suppliers (Porter's)
+#   - Open-source models are substitutes
+#   - The value proposition IS the model
+#
+# Relevance tiers:
+#   critical — The AI-ML overlay materially changes how the skill is applied.
+#              The skill executor should always surface AI-ML context.
+#   high     — AI-ML context adds significant value. Surface when relevant.
+#   moderate — Useful AI-ML framing but the base skill works well as-is.
+
+pack_metadata:
+  sector: "ai-ml"
+  display_name: "AI-ML"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# SKILL OVERLAYS
+# ═══════════════════════════════════════════════════════════════
+
+skill_overlays:
+
+  # ─────────────────────────────────────────────
+  # FRAMEWORKS (18 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "porters-five-forces"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "Porter's Five Forces maps to AI-ML with structural differences from any other industry. Supplier power is extreme and concentrated — NVIDIA controls 80%+ of training-grade GPUs, and cloud compute providers (AWS, GCP, Azure) dictate infrastructure costs. Buyer power varies: enterprise buyers demand customization and audit rights, while developers choose on accuracy and latency. Threat of substitutes is existential — open-source models (Llama, Mistral, Stable Diffusion) can replicate proprietary model capabilities at zero license cost. Barriers to entry are bifurcated: high for foundation model training (compute cost), low for fine-tuned applications (transfer learning). Rivalry is intense and accelerating as well-funded competitors and open-source communities iterate weekly."
+    sector_anti_patterns:
+      - "Ignoring open-source as a substitute force. Open-source models are not inferior competitors — they are free alternatives that constantly narrow the accuracy gap. Any AI product moat based solely on model quality is temporary."
+      - "Underestimating supplier power of compute providers. NVIDIA's pricing, allocation decisions, and roadmap directly impact your cost structure and competitive position. GPU availability constraints are a real supply bottleneck."
+      - "Assuming data moats are permanent. Synthetic data generation, data augmentation, and self-supervised learning are eroding traditional data advantages. Reassess the moat continuously."
+    sector_example: "A computer vision startup analyzing Porter's Five Forces discovers that its primary competitive threat is not rival startups but the open-source model ecosystem. Hugging Face hosts a model nearly matching their accuracy — for free. Supplier power is concentrated in NVIDIA A100/H100 GPU availability. The analysis shifts strategy from 'build the best model' to 'build the best data pipeline and domain-specific fine-tuning infrastructure' — because the model alone is not defensible, but the proprietary data and the customer-specific customization workflow are."
+    benchmark_references: ["model-accuracy-f1", "inference-cost-per-request", "data-moat-index"]
+
+  - skill: "blue-ocean-strategy"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "Blue ocean strategy is structurally essential for AI-ML companies because the general-purpose model space is a blood-red ocean — OpenAI, Anthropic, Google, and Meta compete on massive scale, and open-source alternatives proliferate weekly. Blue oceans in AI exist in vertical specialization (medical, legal, manufacturing AI), in workflow integration (AI embedded in specific business processes rather than exposed as a standalone API), in data moats (proprietary data that general-purpose models cannot access), and in delivery model innovation (on-premise deployment for regulated industries, edge AI for latency-sensitive applications). The strategy canvas should compare against both proprietary competitors AND open-source alternatives."
+    sector_anti_patterns:
+      - "Building a 'better GPT' without differentiation. Competing on general model quality against companies spending billions on training is a red ocean strategy regardless of your approach."
+      - "Confusing a thin wrapper on a foundation model API with a blue ocean product. If the value proposition disappears when the foundation model provider ships the same feature, the ocean is not blue — it is borrowed."
+      - "Pursuing a vertical AI market without validating that domain-specific accuracy requirements exceed what general-purpose models deliver. The blue ocean must require specialization that horizontal players cannot easily achieve."
+    sector_example: "Harvey AI carved a blue ocean in legal AI by recognizing that general-purpose LLMs cannot reliably handle legal reasoning, citation accuracy, and jurisdictional specificity. Rather than competing with ChatGPT for general writing tasks, Harvey built domain-specific fine-tuning on legal corpora, integrated with legal workflow tools, and achieved accuracy levels on legal tasks that general models could not match. The blue ocean was not 'AI for lawyers' — it was 'AI that passes the bar exam and handles real case law.'"
+    benchmark_references: ["model-accuracy-f1", "customer-accuracy-satisfaction", "data-moat-index"]
+
+  - skill: "business-model-canvas"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "The Business Model Canvas for AI-ML companies requires fundamental reinterpretation of nearly every block. Value Proposition IS the model — accuracy, speed, and reliability on the customer's specific task. Key Resources are data (proprietary training data and the flywheel that generates more), compute infrastructure, and research talent. Key Activities are model training, data pipeline maintenance, and inference serving. Cost Structure is dominated by compute (training and inference) which behaves like COGS, not like traditional software development costs. Revenue Streams decompose into usage-based (per API call, per token), subscription (access tiers), and outcome-based (per successful prediction). Customer Relationships must address model trust, accuracy transparency, and responsible AI commitments. Channels include API distribution, model marketplaces, and embedded integrations."
+    sector_anti_patterns:
+      - "Treating compute as a fixed cost. AI-ML compute cost scales with usage — it is variable COGS, not a one-time development expense. The canvas must reflect this."
+      - "Omitting the data flywheel from Key Activities. If product usage generates data that improves the model, this is the most important activity in the business — and it should be explicit on the canvas."
+      - "Listing 'AI model' as the Value Proposition without specifying the outcome. The model is the mechanism, not the value. Value is: 'reduces legal document review from 4 hours to 15 minutes with 95% accuracy.'"
+    sector_example: "An AI company providing automated medical image analysis uses the BMC to clarify its business model. Value Proposition: 'Detect pathologies in radiology images with >93% sensitivity, reducing radiologist reading time by 60%.' Key Resources: proprietary dataset of 10M+ labeled medical images (data moat), relationships with 200+ hospital partners (data pipeline), and FDA-cleared model (regulatory moat). Cost Structure: 60% compute (inference serving at scale), 25% data acquisition and labeling, 15% engineering. Revenue: per-scan pricing ($2-8/scan) creating natural usage-based expansion. The canvas reveals that gross margin depends entirely on inference cost optimization — the primary engineering priority."
+    benchmark_references: ["gross-margin-compute-adjusted", "inference-cost-per-request", "data-moat-index", "cost-per-prediction"]
+
+  - skill: "four-ps-marketing"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "The Four Ps require AI-ML-specific adaptation. Product is a living model that changes with every training iteration — customers buy access to a capability that improves over time, not a static deliverable. Price in AI-ML has unique structures: per-API-call, per-token, per-prediction, per-outcome, tiered by model size/speed, or bundled as platform access. The pricing challenge is that inference cost scales with usage (variable COGS) while traditional software has near-zero marginal cost. Place (distribution) includes API marketplaces (Replicate, Hugging Face Inference Endpoints), cloud provider marketplaces (AWS Marketplace, Azure Marketplace), embedded integrations (SDK/plugin), and the open-source community as a distribution channel (freemium with open-source, paid for enterprise). Promotion for AI products emphasizes benchmark results, demo experiences, technical content, and developer community building over traditional B2B marketing."
+    sector_anti_patterns:
+      - "Pricing per API call when the value delivered varies 100x between calls. A legal AI that saves $10,000 on one query and $10 on another should not charge the same per call. Consider outcome-based or complexity-tiered pricing."
+      - "Marketing AI capabilities in abstract terms ('powered by AI') rather than concrete outcomes ('reduces claim processing from 3 days to 3 minutes with 97% accuracy'). Customers buy outcomes, not algorithms."
+      - "Ignoring the developer community as a distribution channel. For API products, developer adoption drives enterprise sales. Invest in documentation, tutorials, and developer relations."
+    sector_example: "An NLP company repositions using the Four Ps. Product: they separate the core extraction model from domain-specific fine-tuning as distinct product tiers. Price: they shift from flat-rate to per-document processing with a free tier of 100 documents/month (PLG) and enterprise tiers with volume discounts and priority inference. Place: they launch on AWS Marketplace and Hugging Face alongside their direct API, tripling distribution reach. Promotion: they publish benchmark results on standard NLP datasets and run a 'build with us' hackathon series, generating 500 new developer accounts per quarter."
+    benchmark_references: ["revenue-per-api-call", "inference-cost-per-request", "monthly-active-api-users"]
+
+  - skill: "disruptive-innovation"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "Disruptive innovation in AI-ML follows two distinct patterns. First, open-source models disrupt proprietary models — Llama and Mistral offer 80-90% of GPT-4's quality at zero license cost, following the classic disruption pattern of 'good enough and free' displacing 'best and expensive.' Second, smaller specialized models disrupt larger general models — a 7B parameter model fine-tuned on medical data outperforms a 175B general model on medical tasks at 1/100th the inference cost. Both patterns threaten AI companies that rely on model scale as their primary advantage. The framework also applies to AI disrupting non-AI incumbents — AI-powered products entering traditional software categories (AI-native CRM, AI-native legal research, AI-native design tools)."
+    sector_anti_patterns:
+      - "Dismissing open-source models as inferior. Open-source is the disruptor in AI — it is 'worse' on benchmarks today but improves rapidly and costs nothing. This is textbook disruption."
+      - "Pursuing ever-larger models when the market is shifting toward efficient, specialized models. Foundation model scaling may have diminishing returns while fine-tuned small models capture specific use cases."
+      - "Building a thin AI wrapper on a foundation model API and treating it as a durable business. When the foundation model provider ships the same capability natively, the wrapper is disrupted overnight."
+    sector_example: "Stability AI disrupted proprietary image generation by open-sourcing Stable Diffusion — a model that was 'good enough' for most use cases and free. Midjourney and DALL-E had superior quality initially, but the open-source community rapidly closed the gap through fine-tuning, LoRA adapters, and community-generated training data. This forced proprietary providers to compete on quality at the frontier while losing the mid-market to open-source. The lesson: in AI, the open-source disruption cycle is measured in months, not years."
+    benchmark_references: ["model-accuracy-f1", "inference-cost-per-request", "data-moat-index"]
+
+  - skill: "product-life-cycle"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "The product lifecycle in AI-ML compresses and fragments differently from traditional software. Introduction corresponds to research/prototype phase — the model proves feasibility but may lack production reliability. Growth corresponds to early customer adoption where the data flywheel begins — more usage improves the model, attracting more users. Maturity arrives when model accuracy plateaus and competitors reach parity — the commodity phase where differentiation shifts from model quality to data, integration, and pricing. Decline occurs when a new architecture or training paradigm renders the current model obsolete (e.g., transformers displacing RNNs, LLMs displacing purpose-built NLP models). Critically, individual model architectures have lifecycles within the product — a company may need to replace its model architecture while maintaining the product."
+    sector_anti_patterns:
+      - "Assuming model quality advantages are permanent. In AI, the lifecycle from innovation to commodity is 12-24 months, not 5-10 years. The accuracy advantage of today becomes the baseline of tomorrow."
+      - "Failing to distinguish product lifecycle from model lifecycle. The product (the customer-facing solution) can outlive multiple model generations — but only if the company invests in infrastructure that enables model swaps without customer disruption."
+      - "Ignoring the 'second model problem' — the assumption that the first model architecture will serve forever. Plan for model succession from the start."
+    sector_example: "OpenAI has navigated multiple model lifecycle transitions within a single product: GPT-2 (introduction), GPT-3 (growth), GPT-3.5 (early maturity, commoditized by open-source), GPT-4 (new growth cycle on a new architecture). Each model generation had its own lifecycle, but the product (ChatGPT, the API) provided continuity. Companies that built solely on GPT-3's capabilities without architecture-agnostic infrastructure were left behind when the paradigm shifted."
+    benchmark_references: ["model-accuracy-f1", "model-drift-rate", "model-deployment-frequency"]
+
+  - skill: "balanced-scorecard"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "The Balanced Scorecard translates into AI-ML operating metrics across its four perspectives with distinctive differences from traditional SaaS. Financial: revenue per API call, gross margin (compute-adjusted), inference cost per request, burn rate. Customer: accuracy satisfaction, hallucination rate, latency SLAs, customer retention (AI-specific). Internal Process: model deployment frequency, A/B test win rate, data pipeline reliability, GPU utilization rate, time to fine-tune. Learning & Growth: research publication velocity, model architecture innovation, team ML skill depth, responsible AI maturity. The scorecard is particularly powerful for AI companies because it forces balance between model research (exciting) and operational excellence (necessary)."
+    sector_anti_patterns:
+      - "Measuring only model metrics (accuracy, F1) while ignoring business metrics (revenue, margin, retention). Many AI companies build excellent models that fail as businesses."
+      - "Ignoring the Learning & Growth perspective. AI companies that under-invest in research talent, architectural experimentation, and responsible AI maturity accumulate 'model debt' — technical debt specific to AI systems."
+      - "Tracking inference cost without connecting it to gross margin. Cost per prediction is meaningful only relative to revenue per prediction."
+    sector_example: "A Series A AI company implements a balanced scorecard with four KPIs per perspective: Financial (monthly revenue, gross margin, burn rate, NRR), Customer (accuracy satisfaction, hallucination rate, p95 latency, customer retention), Internal (deployment frequency, A/B test win rate, pipeline reliability, GPU utilization), Learning (research experiments per month, open-source contributions, responsible AI audit score, team ML certification rate). The scorecard reveals that the Customer perspective is strong (high accuracy, low latency) but the Financial perspective is weak (low gross margin due to unoptimized inference) — focusing engineering on inference cost reduction, not model quality."
+    benchmark_references: ["gross-margin-compute-adjusted", "model-accuracy-f1", "inference-cost-per-request", "model-deployment-frequency", "hallucination-rate"]
+
+  - skill: "net-promoter-score"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "NPS for AI products must account for the unique relationship between model accuracy and customer satisfaction. Unlike traditional software where UX and features drive NPS, AI product NPS is dominated by one question: 'Does the model produce correct, reliable output for my use case?' This means NPS should be segmented by use case and by accuracy experience — a customer using the AI for low-stakes content generation may rate 9/10 while a customer using it for compliance review rates 3/10, even though they use the same product. NPS surveys should be triggered after accuracy-critical interactions, not on arbitrary schedules."
+    sector_anti_patterns:
+      - "Surveying NPS without tracking the customer's accuracy experience. A high NPS from users who only use simple features masks dissatisfaction from power users encountering edge cases."
+      - "Treating NPS promoters as undifferentiated. An AI product promoter who uses it for critical decisions is worth 10x in referral value compared to a casual user. Segment and prioritize."
+      - "Ignoring the trust dimension. AI product NPS declines sharply after a hallucination event, even if the model is 95%+ accurate. A single bad experience can override months of good ones."
+    sector_example: "An AI coding assistant segments NPS by programming language and finds dramatic variance: NPS 65 for Python users (where the training data is abundant) but NPS 15 for Rust users (where the model frequently generates incorrect syntax). This insight drives a targeted fine-tuning investment in Rust, improving NPS from 15 to 48 within one quarter. The unsegmented NPS of 50 never would have revealed the opportunity."
+    benchmark_references: ["customer-accuracy-satisfaction", "hallucination-rate", "customer-retention-ai"]
+
+  - skill: "growth-share-matrix"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "The BCG Growth-Share Matrix maps to AI-ML product portfolios, where 'products' are often distinct model capabilities or vertical applications of the same underlying model. Stars are high-growth, high-share AI capabilities — the use cases where the model excels and demand is growing. Cash Cows are mature, well-monetized applications where the model is established. Question Marks are new capabilities or verticals where the model shows promise but market position is unproven. Dogs are model capabilities that consume compute and engineering without generating revenue — and in AI, these are especially expensive because inference cost is real. The matrix helps AI companies allocate compute and research resources across their model portfolio."
+    sector_anti_patterns:
+      - "Maintaining inference endpoints for 'Dog' model capabilities out of completeness rather than demand. In AI, unused model endpoints still cost money (GPU allocation) unlike unused software features."
+      - "Over-investing in Stars (high-growth capabilities) without building the MLOps infrastructure to sustain them at scale."
+      - "Ignoring the compute allocation dimension. Each model capability consumes GPU resources. The matrix should incorporate compute cost, not just revenue."
+    sector_example: "An NLP company maps its API capabilities: Sentiment Analysis (Cash Cow — mature, high revenue, well-optimized), Document Summarization (Star — rapidly growing, strong accuracy), Named Entity Recognition (Dog — commoditized, low revenue, open-source alternatives match quality), and Multi-language Translation (Question Mark — promising but unproven market position). The matrix drives a decision to deprecate the NER endpoint (saving GPU cost), invest in summarization (the Star), and pilot-test translation with select customers before committing compute."
+    benchmark_references: ["api-call-volume", "revenue-per-api-call", "inference-cost-per-request"]
+
+  - skill: "swot-pest-analysis"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "SWOT and PEST analysis for AI-ML must address the unique environmental forces shaping the sector. Political: AI regulation is accelerating globally (EU AI Act, US executive orders, China's generative AI regulations). Economic: GPU supply constraints, compute cost volatility, and AI-specific investment cycles (the 2023-2024 AI funding surge). Social: public sentiment on AI (trust, fear, job displacement), developer community dynamics, and the open-source movement's philosophical influence on AI. Technological: architecture breakthroughs (transformers, diffusion models, mixture of experts), hardware evolution (NVIDIA roadmap, custom silicon), and the open-source model release cadence. SWOT must address the unique AI strengths (data moat, model quality, research team) and weaknesses (compute dependency, model opacity, hallucination risk)."
+    sector_anti_patterns:
+      - "Listing 'AI capabilities' as a strength without specificity. Every AI company has AI capabilities. The question is what specific model quality, data asset, or technical approach creates defensible advantage."
+      - "Ignoring regulatory risk in PEST. AI regulation is moving faster than most founders expect. The EU AI Act imposes real compliance costs on high-risk AI applications."
+      - "Underestimating the open-source threat in SWOT. Open-source models are both a threat (free substitutes) and an opportunity (build on top of open foundations)."
+    sector_example: "An AI company providing HR screening tools uses PEST to identify that the EU AI Act classifies employment-related AI as 'high risk,' requiring conformity assessments, transparency obligations, and human oversight mechanisms. The SWOT reveals that while they have strong accuracy (Strength), they lack explainability capabilities (Weakness) required by the regulation. The regulatory Threat is also an Opportunity — compliant AI solutions will have a competitive advantage as non-compliant alternatives are forced out of the EU market."
+    benchmark_references: ["responsible-ai-score", "model-accuracy-f1", "data-moat-index"]
+
+  - skill: "scenario-planning"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "Scenario planning for AI-ML companies must account for uniquely high variance along three critical dimensions: model capability breakthroughs (a new architecture could make current models obsolete within months), compute availability (GPU supply constraints and pricing shifts), and regulatory intervention (AI regulation could reshape or eliminate markets). AI companies should maintain scenarios for: (1) Open-source catches up — a Llama-quality model matches your performance for free, (2) Compute crisis — GPU prices double or supply is constrained, (3) Regulatory shock — your AI use case is classified as high-risk with mandatory compliance costs. The planning horizon is shorter than traditional industries — 12-18 months is the practical limit given the pace of AI advancement."
+    sector_anti_patterns:
+      - "Ignoring the 'open-source replication' scenario. If a capable open-source model can replicate your core capability within 12 months, what is your response? Most AI companies cannot answer this question."
+      - "Treating compute cost as static. GPU pricing and availability are volatile. A scenario where inference costs double (or halve) should be in every AI company's planning."
+      - "Failing to plan for regulatory disruption. The EU AI Act, US executive orders, and sector-specific regulations are creating new compliance requirements that can render business models non-viable."
+    sector_example: "A generative AI startup builds three scenarios: (1) Base: current growth continues, open-source narrows the gap slowly, compute costs decline 20% annually. (2) Upside: a proprietary data partnership creates an insurmountable moat, enterprise adoption accelerates, and regulatory requirements favor established players. (3) Downside: Meta releases an open-source model that matches their quality, GPU costs spike due to supply constraints, and the EU AI Act requires costly compliance. For each scenario, they pre-commit strategic responses: in the downside, pivot to vertical specialization and on-premise deployment for regulated industries."
+    benchmark_references: ["data-moat-index", "inference-cost-per-request", "model-accuracy-f1"]
+
+  - skill: "doblin-ten-types"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "AI-ML companies over-index on Product Performance innovation (better model accuracy) while ignoring the other nine types. The most powerful AI innovations often come from: Profit Model (usage-based pricing, outcome-based pricing, free-tier-to-enterprise), Network (model marketplace ecosystems, plugin architectures, data-sharing consortiums), Process (automated MLOps, continuous training pipelines), Channel (API-first distribution, open-source community, developer relations), and Service (fine-tuning-as-a-service, model customization, managed inference). The ten types framework reveals that model quality alone is insufficient — distribution, pricing, and service innovation determine commercial success."
+    sector_anti_patterns:
+      - "Believing that a better model is sufficient for commercial success. The AI graveyard is filled with superior models that lost to inferior models with better distribution, pricing, or developer experience."
+      - "Ignoring Profit Model innovation. The shift from flat-rate to usage-based to outcome-based pricing is a profit model innovation that can be more impactful than a 5% accuracy improvement."
+      - "Neglecting the Network type. AI products that connect to ecosystems (plugins, integrations, data pipelines) build switching costs that model quality alone cannot create."
+    sector_example: "Hugging Face's success maps across multiple innovation types beyond Product Performance. Profit Model: freemium for open-source hosting, paid for private models and inference. Network: the model hub creates network effects — more models attract more users, who contribute more models. Channel: developer community as distribution. Service: managed inference endpoints and enterprise deployment support. Customer Engagement: the Hugging Face community is a retention moat. Competitors with technically equivalent hosting infrastructure cannot replicate the community flywheel."
+    benchmark_references: ["monthly-active-api-users", "api-call-volume", "customer-retention-ai"]
+
+  - skill: "trust-equation"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "Trust is the existential currency for AI-ML companies because customers grant models access to sensitive data and critical decisions. The Trust Equation (Credibility + Reliability + Intimacy / Self-Orientation) maps to AI as: Credibility = published benchmark results, third-party audits, responsible AI certifications, peer-reviewed research. Reliability = consistent model accuracy, uptime SLAs, predictable inference latency, low hallucination rate. Intimacy = understanding the customer's domain deeply enough to fine-tune for their specific needs, transparency about model limitations. Self-Orientation = avoiding overhyped accuracy claims, being transparent about failure modes, publishing model cards, and not locking customers into proprietary formats. The trust equation explains why enterprise AI adoption is slow despite impressive demos — organizations need all four components before deploying AI in critical workflows."
+    sector_anti_patterns:
+      - "Overhyping model capabilities (high Self-Orientation) to win initial adoption, then facing trust collapse when the model underperforms in production. Underpromise and overdeliver on accuracy."
+      - "Investing in Credibility (benchmark scores, logos, certifications) while neglecting Reliability (consistent performance, low hallucination, uptime). A model that scores well on benchmarks but halluccinates in production destroys trust."
+      - "Ignoring Intimacy — treating all customers as generic API consumers. AI products that understand and adapt to the customer's domain-specific needs build trust that general-purpose alternatives cannot match."
+    sector_example: "Anthropic built trust through a deliberate strategy across all four dimensions. Credibility: published research on Constitutional AI and responsible scaling. Reliability: consistent model behavior with strong safety properties. Intimacy: deep engagement with enterprise customers on domain-specific deployment. Low Self-Orientation: publicly acknowledging model limitations, publishing system cards, and avoiding capability overpromises. This trust profile enables adoption in regulated industries where competitors with higher benchmark scores but lower trust are rejected."
+    benchmark_references: ["hallucination-rate", "responsible-ai-score", "customer-accuracy-satisfaction"]
+
+  - skill: "systems-thinking"
+    category: "frameworks"
+    ai_ml_relevance: "critical"
+    sector_context: "AI-ML businesses are complex adaptive systems with feedback loops that create non-obvious outcomes. The most important loops: (1) The data flywheel: more users generate more data, which improves the model, which attracts more users. This is the most powerful positive feedback loop in AI. (2) The accuracy-trust spiral: higher accuracy builds trust, which increases usage in critical workflows, which generates higher-quality data, which improves accuracy further. (3) The compute death spiral: growing usage increases inference cost, which pressures margins, which limits investment in optimization, which keeps costs high. (4) The open-source erosion loop: open-source models improve, which reduces willingness-to-pay, which pressures revenue, which limits R&D investment, which allows open-source to close the gap further. Systems thinking helps AI operators identify which loops are reinforcing and which are threatening."
+    sector_anti_patterns:
+      - "Optimizing model accuracy without modeling the cost implications. A 2% accuracy improvement that doubles inference cost may worsen unit economics more than it improves customer satisfaction."
+      - "Ignoring time delays in the data flywheel. The model does not improve immediately when new data arrives — there is a lag through labeling, training, evaluation, and deployment. Customers experience a delay between providing data and seeing improvement."
+      - "Treating the compute cost problem as an engineering problem alone. It is a systems problem: compute cost depends on model architecture, traffic patterns, pricing model, and customer mix. Changing one variable affects all others."
+    sector_example: "An AI company notices declining gross margins despite growing revenue. Systems analysis reveals a reinforcing loop: the product team ships larger models (more parameters) to improve accuracy benchmarks, which increases inference cost per request, which reduces margins, which creates pressure to grow revenue faster, which drives the sales team to acquire high-volume/low-value customers, which increases infrastructure load without proportional revenue, worsening margins further. The intervention point is not sales or engineering — it is the product team's model size decisions."
+    benchmark_references: ["gross-margin-compute-adjusted", "inference-cost-per-request", "data-moat-index", "model-accuracy-f1"]
+
+  - skill: "smart-goals"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "SMART goals for AI-ML companies must balance research ambition (improve F1 score) with business discipline (reduce inference cost). The most common failure is setting model quality goals without cost or timeline constraints, or setting revenue goals without model quality prerequisites. Goals should span both dimensions: 'Achieve F1 > 0.92 on task X within 3 months while keeping inference cost below $0.005 per request' is a complete AI goal. 'Improve accuracy' is not. The Time-bound element is especially critical in AI — model research can expand indefinitely without a deadline."
+    sector_anti_patterns:
+      - "Setting accuracy goals without a business metric attached. 'Improve F1 from 0.88 to 0.92' is incomplete. 'Improve F1 from 0.88 to 0.92 to reduce customer-reported errors by 30% and decrease support ticket volume by 25%' connects model quality to business impact."
+      - "Setting goals that are Measurable but not Achievable — committing to accuracy levels that are not possible given available data and architecture."
+      - "Confusing model improvement goals with product goals. The customer does not care about F1 — they care about whether the product solves their problem. Frame goals in outcome terms."
+    sector_example: "An AI company sets Q2 goals: (1) Model: Reduce hallucination rate from 5% to 3% by expanding the factual grounding dataset by 2M examples and implementing retrieval-augmented generation. Measurement: automated hallucination detection on a 10K-sample evaluation set. (2) Business: Increase revenue per API call from $0.003 to $0.005 by launching a premium model tier with lower latency and higher accuracy. (3) Efficiency: Reduce inference cost from $0.002 to $0.0015 per request through model quantization and batching optimization. Each goal is specific, measurable, connected to a responsible team, and time-bound."
+    benchmark_references: ["hallucination-rate", "revenue-per-api-call", "inference-cost-per-request"]
+
+  - skill: "cialdini-influence"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "Cialdini's six principles map distinctively to AI product adoption. Reciprocity: free API tiers and open-source model releases create obligation and community goodwill. Social Proof: benchmark leaderboard positions, published research citations, and enterprise logo walls. Commitment & Consistency: developers who integrate the API and build on top of it face escalating commitment — migration cost increases with usage. Authority: peer-reviewed research publications, partnerships with prestigious institutions, and contributions to open-source standards. Liking: developer community, responsive support, and a brand that signals competence without arrogance. Scarcity: early access to new models, limited compute allocation for priority customers, and waitlists that create demand signals."
+    sector_anti_patterns:
+      - "Relying on benchmark leaderboard positions (Authority) when developers evaluate on practical performance. Benchmarks are necessary but not sufficient — real-world accuracy on the customer's data is the deciding factor."
+      - "Using artificial Scarcity for API access as a long-term strategy. Waitlists create initial buzz but frustrate developers who switch to available alternatives."
+      - "Neglecting the Commitment dynamic in negative ways. Making it intentionally hard to migrate away (proprietary prompt formats, vendor-locked fine-tuned models) increases short-term retention but damages trust and brand."
+    sector_example: "OpenAI's developer adoption leveraged multiple principles: Reciprocity (free credits for startups), Social Proof (ChatGPT's viral adoption, enterprise logos), Commitment (developers built applications on the API, creating escalating switching costs), Authority (GPT-4's benchmark dominance, partnership with Microsoft), and Scarcity (GPT-4 waitlist, rate limits creating perceived exclusivity). The combination created a developer ecosystem that competitors struggle to replicate despite sometimes offering competitive model quality."
+    benchmark_references: ["monthly-active-api-users", "customer-retention-ai", "api-call-volume"]
+
+  - skill: "eisenhower-matrix"
+    category: "frameworks"
+    ai_ml_relevance: "high"
+    sector_context: "AI-ML founders face extreme prioritization challenges because research, product, infrastructure, and business demands compete for attention. The Eisenhower Matrix must classify AI-specific priorities: accuracy improvements on known failure modes (Important but rarely Urgent), inference cost optimization (Important but deferred until margins compress), responsible AI compliance (Important and increasingly Urgent as regulation approaches), GPU procurement and capacity planning (Urgent and Important during supply constraints), and responding to competitive model releases (feels Urgent but is usually Not Important — reacting to every competitor release is a trap). The Not Urgent/Important quadrant — where data flywheel strategy, architecture research, and responsible AI framework development live — determines long-term competitive position."
+    sector_anti_patterns:
+      - "Treating every competitive model release as Urgent/Important. A competitor's announcement should rarely change your quarterly priorities. Build conviction in your own roadmap."
+      - "Perpetually deferring inference cost optimization. Compute cost is Not Urgent until it is a crisis — by which time gross margins have eroded significantly."
+      - "Classifying responsible AI work as Not Important because there is no immediate regulatory enforcement. The enforcement timeline is shorter than the compliance implementation timeline."
+    sector_example: "An AI company CEO uses the Eisenhower Matrix to discover that the research team's time is consumed by Urgent/Not Important demands: custom model fine-tuning for individual customers (should be automated), reproducing competitor benchmark results (should be delegated to a benchmarking pipeline), and ad-hoc data labeling quality reviews (should be systematized). Freeing the research team's capacity for Not Urgent/Important work — next-generation architecture research and systematic data quality improvement — accelerates the product roadmap by 40%."
+    benchmark_references: ["model-deployment-frequency", "inference-cost-per-request", "responsible-ai-score"]
+
+  - skill: "vuca-framework"
+    category: "frameworks"
+    ai_ml_relevance: "moderate"
+    sector_context: "AI-ML operates in a permanently elevated VUCA state. Volatility: a single model release (GPT-4, Llama 3, Claude) can reshape the competitive landscape overnight. Uncertainty: no one knows which architecture will dominate in 3 years, whether regulation will fragment the market, or when compute costs will stabilize. Complexity: AI product decisions involve multi-variable trade-offs between accuracy, cost, latency, safety, and explainability. Ambiguity: strong benchmark results may not translate to production performance; 'AI product-market fit' is harder to define than traditional PMF. The VUCA framework clarifies which response is appropriate: Vision for Volatility (maintain strategic conviction through competitive noise), Understanding for Uncertainty (invest in understanding regulatory trajectories), Clarity for Complexity (simplify the accuracy-cost-latency trade-off into prioritized metrics), Agility for Ambiguity (iterate rapidly when the right answer is unknowable in advance)."
+    sector_anti_patterns:
+      - "Reacting to every competitive model release with strategic pivots. This mistakes Volatility for Ambiguity and responds with Agility when Vision is needed."
+      - "Using Ambiguity as a reason to defer responsible AI investment. 'We do not know what regulators will require' is not a valid reason for inaction — the broad strokes of regulation are predictable."
+    sector_example: "When Meta released Llama 2 as open-source, the VUCA framework clarified the response for a proprietary AI company. This was Volatility (sudden competitive shift) and Ambiguity (unclear how much enterprise market would shift to open-source). The response combined Vision (articulating why enterprise customers need managed, audited, SLA-backed models rather than raw open-source) with Agility (rapidly launching a Llama fine-tuning service to capture the open-source demand rather than fight it)."
+    benchmark_references: ["model-accuracy-f1", "data-moat-index"]
+
+  # ─────────────────────────────────────────────
+  # AI-LEADERSHIP (6 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "ai-vision-and-strategy"
+    category: "ai-leadership"
+    ai_ml_relevance: "critical"
+    sector_context: "For companies that build AI products, the ai-vision-and-strategy skill bridges from organizational AI adoption to AI product strategy. The vision must articulate not just 'how we use AI internally' but 'how our AI creates unique value for customers that alternatives (including open-source) cannot replicate.' The strategic framework must address: model differentiation (why is our model better for this task?), data strategy (how do we build and defend the data moat?), compute strategy (how do we manage the GPU supply chain and optimize inference cost?), and responsible AI strategy (how do we meet regulatory requirements while maintaining competitive speed?). For AI-ML companies, AI strategy IS business strategy — they are the same thing."
+    sector_anti_patterns:
+      - "Articulating AI vision in generic terms ('we are building the future of AI') rather than specific competitive terms ('our model outperforms alternatives on X task because of Y data advantage and Z architectural innovation')."
+      - "Separating AI strategy from business strategy. For AI-ML companies, model decisions ARE business decisions. The CTO's architecture choices directly determine unit economics."
+      - "Ignoring the responsible AI dimension of vision. Enterprise customers and regulators increasingly reject AI products without clear ethical guardrails, transparency mechanisms, and bias mitigation."
+    sector_example: "An AI company refines its vision from 'AI-powered document understanding' to 'the only document AI that achieves 97% extraction accuracy on regulatory filings because of our proprietary dataset of 50M annotated financial documents — a dataset that took 4 years to build and that competitors cannot replicate because the source institutions now have exclusive data partnerships with us.' This specificity transforms fundraising conversations, sales pitches, and team morale."
+    benchmark_references: ["data-moat-index", "model-accuracy-f1", "responsible-ai-score"]
+
+  - skill: "ai-augmentation-not-automation"
+    category: "ai-leadership"
+    ai_ml_relevance: "critical"
+    sector_context: "For AI product companies, the augmentation-vs-automation design decision directly determines market size, pricing, liability, and regulatory burden. Fully automated AI (no human in the loop) faces higher accuracy requirements, stricter regulatory scrutiny, and greater liability exposure. Augmentation products (AI assists a human decision-maker) have lower accuracy thresholds, clearer liability models, and often achieve better outcomes through human-AI collaboration. The strategic question is not 'can the model automate this?' but 'should it?' Markets where human judgment is legally required (medical diagnosis, legal advice, financial underwriting) often yield better economics for augmentation products."
+    sector_anti_patterns:
+      - "Defaulting to full automation because it is technically impressive. The market for AI augmentation is often larger, more defensible, and higher-margin than the market for full automation."
+      - "Designing the product as fully automated and adding 'human-in-the-loop' as an afterthought for compliance. The augmentation experience must be designed from the beginning — not bolted on."
+      - "Ignoring the liability implications. A fully automated AI that makes a wrong decision faces product liability claims. An augmentation product that informs a human decision-maker has clearer liability boundaries."
+    sector_example: "Grammarly positioned as augmentation (suggesting corrections for human writers to accept or reject) rather than automation (rewriting text autonomously). This design choice enabled broader adoption (less threatening to users), lower accuracy requirements (suggestions are reviewed), and premium pricing (professional writers pay for a tool that enhances their work). Competitors offering fully automated content generation compete on price in a commodity race while Grammarly retains pricing power through the augmentation model."
+    benchmark_references: ["customer-accuracy-satisfaction", "hallucination-rate", "customer-retention-ai"]
+
+  - skill: "ai-stakeholder-balance"
+    category: "ai-leadership"
+    ai_ml_relevance: "critical"
+    sector_context: "AI-ML companies face uniquely complex stakeholder balancing because the product's impact extends beyond customers to affected populations. Stakeholders include: customers (who buy and integrate the AI), end users (who interact with AI outputs, often different from the buyer), affected populations (people about whom the AI makes decisions — job applicants, loan recipients, content subjects), regulators (who set compliance frameworks), the research community (who evaluate and critique the model), investors (who fund development), and the open-source community (who may replicate or extend the model). Balancing these stakeholders requires explicit trade-off frameworks — optimizing for customer satisfaction may conflict with affected-population fairness."
+    sector_anti_patterns:
+      - "Prioritizing customer demands (accuracy on their data) while ignoring affected-population fairness (bias in the model's decisions about people). This creates regulatory and reputational liability."
+      - "Dismissing research community criticism as irrelevant. Academic scrutiny of AI model bias, safety, and limitations often predicts regulatory action by 12-24 months."
+      - "Treating responsible AI as a constraint rather than a feature. Enterprise customers increasingly require responsible AI compliance — it is a selling point, not just a cost."
+    sector_example: "An AI hiring platform must balance multiple stakeholders. Customers (employers) want the model to predict job performance accurately. Affected populations (job applicants) need fair treatment regardless of demographics. Regulators require explainability and non-discrimination. The research community scrutinizes for bias. By implementing demographic parity constraints and publishing model cards, the company loses marginal predictive accuracy but gains regulatory compliance, brand trust, and access to large enterprise customers whose procurement requires responsible AI certification."
+    benchmark_references: ["responsible-ai-score", "customer-accuracy-satisfaction", "data-moat-index"]
+
+  - skill: "ai-learning-for-leaders"
+    category: "ai-leadership"
+    ai_ml_relevance: "high"
+    sector_context: "For AI-ML company leaders, this skill extends beyond 'learning about AI' to 'maintaining technical depth while managing a growing organization.' AI-ML CEOs face a unique challenge: they must remain fluent in model architecture decisions, understand inference optimization trade-offs, evaluate research proposals, and communicate with investors in business terms — simultaneously. The learning plan must include staying current with the research frontier (weekly paper review), understanding competitive model capabilities (regular benchmarking), and developing judgment about the accuracy-cost-speed trade-off triangle that governs every AI product decision."
+    sector_anti_patterns:
+      - "Delegating all technical judgment to the CTO. In AI-ML companies, the CEO must maintain enough technical fluency to evaluate strategic model decisions — architecture choices, build-vs-buy for foundation models, and the accuracy-cost trade-off."
+      - "Learning about AI from general media rather than from the research and engineering communities. General media coverage of AI is frequently inaccurate and overhyped."
+      - "Assuming that domain expertise (e.g., healthcare, legal) is sufficient without AI-native technical literacy. AI product leadership requires understanding both the domain AND the technology."
+    sector_example: "The CEO of a medical AI company establishes a learning protocol: weekly 30-minute review of new papers in medical imaging AI (maintaining technical edge), monthly deep-dive with the research team on model performance and architecture decisions, quarterly benchmarking against competitors and open-source alternatives, and bi-annual attendance at ML conferences (NeurIPS, ICML, or domain-specific events). This investment enables the CEO to articulate the technical moat credibly to investors, evaluate acquisition targets, and make informed build-vs-buy decisions."
+    benchmark_references: ["model-accuracy-f1", "ab-test-win-rate"]
+
+  - skill: "ai-human-centered-approach"
+    category: "ai-leadership"
+    ai_ml_relevance: "high"
+    sector_context: "Human-centered AI design for AI product companies means designing the model's interaction with users to maximize trust, comprehension, and appropriate reliance. This includes: explainability (why did the model produce this output?), confidence calibration (how certain is the model, and does it communicate that accurately?), graceful failure modes (what happens when the model is wrong?), and user control (can the user override, correct, or train the model?). Human-centered design in AI is not a UX layer on top of the model — it must be designed into the model itself through calibrated confidence scores, interpretable features, and user feedback loops."
+    sector_anti_patterns:
+      - "Treating the model as a black box that users must accept or reject wholesale. Users need to understand why the model made a recommendation to trust it for important decisions."
+      - "Over-reporting model confidence. A model that says it is 95% confident on every prediction, even when it is wrong, destroys trust faster than one that appropriately expresses uncertainty."
+      - "Designing error correction as an afterthought. Users will encounter model errors. The question is whether they can correct the error, whether the correction improves future predictions, and whether the correction experience is frustrating or empowering."
+    sector_example: "A legal AI product implements human-centered design by showing confidence scores alongside each contract clause analysis, highlighting the specific text that drove each assessment, and providing a one-click correction mechanism when lawyers disagree. The corrections feed back into the fine-tuning pipeline — the more lawyers use and correct the tool, the better it becomes for their specific contract types. This design creates a virtuous cycle: human-centered interaction generates the training data that improves the model."
+    benchmark_references: ["customer-accuracy-satisfaction", "hallucination-rate", "customer-retention-ai"]
+
+  - skill: "ai-communication-culture"
+    category: "ai-leadership"
+    ai_ml_relevance: "high"
+    sector_context: "Communication culture in AI-ML companies must bridge the language gap between research (which speaks in loss functions, architectures, and benchmark scores) and business (which speaks in revenue, margin, and customer outcomes). The most common communication failure in AI companies is a research team that cannot articulate business impact and a business team that cannot evaluate research proposals. Building a shared vocabulary — where 'F1 improved by 3%' is immediately translated to 'customer-reported accuracy complaints will decrease by approximately 20%' — is a leadership priority. External communication adds another layer: explaining AI capabilities honestly without overpromising or using inaccessible jargon."
+    sector_anti_patterns:
+      - "Allowing the research team to communicate solely in technical metrics that the rest of the organization cannot interpret. Model improvement must be translated into business impact."
+      - "External communications that overhype model capabilities. 'Our AI is superintelligent' creates expectations the product cannot meet, leading to trust collapse."
+      - "Failing to communicate model limitations to customers. Honest limitation disclosure builds trust and prevents misuse that damages both the customer and the brand."
+    sector_example: "An AI company establishes a communication protocol: every model improvement report includes three sections — Technical (architecture change, benchmark delta), Business (expected impact on customer accuracy satisfaction, support ticket volume, and retention), and Risk (new failure modes introduced, edge cases degraded, responsible AI implications). This structure ensures that every stakeholder understands research outcomes in their own terms. External model release announcements follow the same structure: capability, limitation, recommended use case."
+    benchmark_references: ["customer-accuracy-satisfaction", "model-accuracy-f1"]
+
+  # ─────────────────────────────────────────────
+  # NEGOTIATION (4 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "competitive-negotiation"
+    category: "negotiation"
+    ai_ml_relevance: "high"
+    sector_context: "Competitive negotiation for AI-ML companies occurs across three primary contexts: enterprise sales (negotiating model deployment terms, data handling agreements, accuracy SLAs, and liability frameworks), fundraising (negotiating valuation in the context of AI hype cycles, technical differentiation, and data moat strength), and compute procurement (negotiating GPU allocation, cloud contracts, and hardware supply agreements with providers who hold enormous leverage). The AI-specific wrinkle in enterprise sales is that customers demand accuracy guarantees that the model may not consistently deliver — navigating between competitive pressure to promise high accuracy and the risk of contractual liability for model errors."
+    sector_anti_patterns:
+      - "Guaranteeing specific accuracy levels in contracts without robust measurement methodology and appropriate caveats. A contractual promise of '99% accuracy' on a vaguely defined task is a lawsuit waiting to happen."
+      - "Negotiating compute contracts on spot pricing alone. Reserved instances, committed use discounts, and multi-cloud strategies provide leverage against single-provider dependency."
+      - "In fundraising, anchoring on AI company valuations from the 2023-2024 hype peak rather than demonstrating sustainable unit economics."
+    sector_example: "An AI company negotiating a $500K enterprise deployment faces the customer's demand for a '99% accuracy SLA.' Rather than accepting or rejecting, the sales team reframes: the contract specifies accuracy on a jointly-defined evaluation set (avoiding ambiguity), includes a 90-day pilot with measured accuracy (reducing customer risk), ties pricing to measured performance (aligning incentives), and excludes edge cases that both parties agree are out-of-scope (preventing unreasonable expectations). This approach closes the deal at higher ACV than a blanket guarantee because it demonstrates confidence and professionalism."
+    benchmark_references: ["model-accuracy-f1", "customer-accuracy-satisfaction", "inference-cost-per-request"]
+
+  - skill: "cooperative-negotiation"
+    category: "negotiation"
+    ai_ml_relevance: "high"
+    sector_context: "Cooperative negotiation is the foundation of AI-ML data partnerships, model integration agreements, and the compute supply chain relationships that define the business. AI-specific cooperative negotiations include: data partnerships (accessing proprietary training data from domain experts — hospitals, law firms, financial institutions), model integration partnerships (embedding your model into another company's product), compute partnerships (negotiating favorable GPU access with cloud providers or hardware manufacturers), and academic collaborations (accessing research talent and pre-publication model improvements). The cooperative dimension is especially important because AI products often require resources (data, compute, research talent) that cannot be obtained through purely commercial transactions."
+    sector_anti_patterns:
+      - "Treating data partnerships as simple procurement. Data providers (hospitals, financial institutions) need to understand how their data will be used, protected, and how they benefit from model improvements. This is a trust-building exercise, not a purchasing transaction."
+      - "Entering compute partnerships without multi-cloud optionality. Dependency on a single compute provider is a strategic vulnerability that cooperative negotiation should address, not create."
+      - "Neglecting the cooperative dimension of open-source relationships. Contributing to open-source communities generates goodwill, recruitment advantages, and ecosystem influence that purely proprietary strategies cannot replicate."
+    sector_example: "An AI company negotiating a data partnership with a hospital network uses cooperative framing: the hospital provides de-identified imaging data; in return, the AI company provides the hospital with free access to the trained model, co-authorship on publications, and a revenue share on commercial deployments. The cooperative structure aligns incentives — the hospital actively improves data quality because it benefits from model accuracy. A purely transactional 'pay for data' approach would have yielded lower-quality data and a shorter-term relationship."
+    benchmark_references: ["data-acquisition-cost", "data-moat-index", "model-accuracy-f1"]
+
+  - skill: "delivering-the-deal"
+    category: "negotiation"
+    ai_ml_relevance: "high"
+    sector_context: "Deal execution in AI-ML has unique complexities: enterprise procurement now includes AI-specific due diligence (model auditing, bias testing, data handling reviews), security review extends to model security (adversarial robustness, data extraction prevention), and legal review covers novel territory (AI liability, IP ownership of model outputs, data processing agreements for training data). The 'deal acceleration kit' for AI companies must include: model cards (standardized documentation of capabilities and limitations), responsible AI documentation (bias reports, fairness metrics, safety evaluations), data processing agreements (how customer data is used for inference, whether it is used for training), and SLA frameworks (accuracy, latency, uptime with clear measurement methodology)."
+    sector_anti_patterns:
+      - "Treating AI-specific due diligence as an obstacle rather than a competitive advantage. Companies with pre-prepared model documentation close enterprise deals faster than those who scramble to answer each question ad hoc."
+      - "Allowing the accuracy SLA discussion to block the deal. Offer pilot periods with measured accuracy rather than pre-deployment guarantees."
+      - "Ignoring the data processing question. Enterprise customers will ask: 'Does our data train your model?' The answer must be clear, contractual, and honest. Ambiguity kills deals."
+    sector_example: "An AI company creates an 'AI deal acceleration kit': published model cards for each product, a responsible AI white paper (bias audit results, fairness metrics, safety evaluations), a pre-approved DPA that addresses both inference data handling and training data policies, and a standardized SLA framework with accuracy, latency, and uptime tiers. This kit reduces average enterprise sales cycle from 120 to 65 days by eliminating the three most common stall points: 'How does your model work?' (model card), 'Is it biased?' (responsible AI documentation), and 'What happens to our data?' (DPA)."
+    benchmark_references: ["responsible-ai-score", "model-accuracy-f1", "customer-retention-ai"]
+
+  - skill: "negotiation-mindset-and-self"
+    category: "negotiation"
+    ai_ml_relevance: "moderate"
+    sector_context: "AI-ML founders negotiate from a uniquely complex psychological position: the AI hype cycle amplifies both overconfidence (inflated valuations, overpromised capabilities) and insecurity (open-source catching up, competitors with bigger compute budgets). The negotiation mindset must manage these dynamics. In fundraising, founders must navigate the AI premium in valuations without anchoring on hype-cycle multiples that may not persist. In enterprise sales, founders must balance technical honesty about model limitations with commercial confidence in the product's value. In compute procurement, founders negotiate with suppliers (NVIDIA, cloud providers) who hold enormous leverage during GPU shortages."
+    sector_anti_patterns:
+      - "Allowing AI hype to inflate fundraising expectations. A 100x ARR valuation justified by 'AI premium' is a liability when the premium normalizes."
+      - "Internalizing the compute provider's leverage as permanent. GPU supply constraints are cyclical. Negotiate with the long-term view, not current scarcity."
+      - "Feeling inferior when negotiating with well-funded competitors. If your model serves a customer's need better, funding level is irrelevant."
+    sector_example: "An AI founder entering Series A negotiations recognizes the psychological dynamic: the VC alternates between expressing excitement about AI's potential (creating euphoria) and grilling on unit economics (creating anxiety). By preparing for this pattern, the founder maintains composure through both phases. When the VC questions compute-adjusted gross margins, the founder responds with data rather than defensiveness — showing the margin improvement trajectory from 45% to 65% over 12 months as inference optimization compounds. The calm response to the hardest question becomes the strongest fundraising signal."
+    benchmark_references: ["gross-margin-compute-adjusted", "data-moat-index"]
+
+  # ─────────────────────────────────────────────
+  # GAME THEORY (3 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "game-theory-fundamentals"
+    category: "game-theory"
+    ai_ml_relevance: "high"
+    sector_context: "Game theory is deeply relevant to AI-ML competitive dynamics because the industry features multiple interacting strategic games. The open-source vs. proprietary game: Meta's decision to open-source Llama reshaped the industry by commoditizing the model layer, forcing proprietary competitors to differentiate on data, fine-tuning, and enterprise services rather than model quality alone. The compute allocation game: GPU-scarce environments create allocation games where cloud providers choose which customers get access, and AI companies compete for hardware allocation. The pricing game: AI API pricing creates Bertrand-style price competition where marginal cost of inference sets the floor and the open-source alternative sets the ceiling."
+    sector_anti_patterns:
+      - "Ignoring the open-source game. Whether or not you participate in open-source, your strategy must account for the possibility that competitors will open-source models equivalent to yours."
+      - "Treating compute procurement as a simple market transaction. GPU allocation involves strategic behavior — cloud providers favor certain customers, and multi-year commitments create lock-in games."
+      - "Engaging in price wars with commodity inference providers. If your model is not differentiated, a pricing game converges on marginal inference cost — a game no startup can win against cloud providers."
+    sector_example: "Meta's decision to open-source Llama is a classic game-theoretic move: by commoditizing the model layer (making it free), Meta undermined the business model of competitors who sell model access (OpenAI, Anthropic), shifted the value to compute infrastructure (where Meta has advantages in custom hardware), and created an ecosystem of developers building on Llama (increasing Meta's influence). Understanding this game helps AI companies respond: differentiate on the non-commoditized layers (data, fine-tuning, enterprise trust) rather than fighting on the commoditized layer (base model quality)."
+    benchmark_references: ["data-moat-index", "model-accuracy-f1", "inference-cost-per-request"]
+
+  - skill: "prisoners-dilemma-and-cooperation"
+    category: "game-theory"
+    ai_ml_relevance: "high"
+    sector_context: "The Prisoner's Dilemma framework applies directly to AI-ML industry dynamics. AI safety cooperation: individual companies benefit from cutting safety corners (faster to market) but collective defection creates regulatory backlash that harms everyone — a classic multi-player Prisoner's Dilemma. Data sharing: companies in a vertical (e.g., healthcare AI) would all benefit from pooling anonymized data (larger dataset, better models), but each fears sharing proprietary advantage — another Prisoner's Dilemma. Open-source contribution: contributing models and tools benefits the ecosystem but potentially helps competitors. Platform dependency: building on a cloud provider's AI platform cooperates with the provider but risks the provider later competing directly."
+    sector_anti_patterns:
+      - "Framing every competitive interaction as zero-sum. Many AI industry dynamics are positive-sum — data consortiums, safety collaborations, and standard-setting benefit all participants."
+      - "Defecting on AI safety (cutting corners on responsible AI) for short-term competitive advantage. The collective consequence of industry-wide safety defection is regulatory intervention that constrains everyone."
+      - "Refusing to engage with open-source because it helps competitors. Selective open-source contribution builds ecosystem influence, attracts talent, and can strategically commoditize layers where competitors have advantages."
+    sector_example: "The AI safety cooperation game is a textbook multi-player Prisoner's Dilemma. Each AI company faces a choice: invest in safety research and responsible AI (cooperate) or skip safety to ship faster (defect). If all cooperate, the industry maintains public trust and light regulation. If one defects, it gains a short-term speed advantage. If all defect, a major AI failure triggers heavy regulation that constrains the entire industry. Anthropic, Google DeepMind, and OpenAI have partially addressed this through the Frontier Model Forum — a cooperation mechanism that aligns incentives, though enforcement remains weak."
+    benchmark_references: ["responsible-ai-score", "data-moat-index"]
+
+  - skill: "first-mover-strategy"
+    category: "game-theory"
+    ai_ml_relevance: "high"
+    sector_context: "First-mover dynamics in AI-ML are distinctive because the traditional first-mover advantage (brand, network effects, learning curve) is complicated by rapid model improvement that can leapfrog incumbents. The data flywheel creates a first-mover advantage: early movers accumulate more data, which improves their model, which attracts more users, which generates more data. But this advantage is fragile if a competitor achieves a model architecture breakthrough or if open-source narrows the gap. First-mover advantage in AI is strongest in: data accumulation (the flywheel), customer relationships and trust (enterprise switching costs), regulatory compliance (first-to-comply in regulated verticals), and developer ecosystem (network effects from API adoption). It is weakest in: model quality (rapidly commoditized) and brand (less durable in technical markets)."
+    sector_anti_patterns:
+      - "Assuming that being first to market with an AI model creates a permanent advantage. Model quality advantages erode in 6-12 months as competitors train on equivalent data and architecture."
+      - "Spending on brand-building rather than data moat-building in the first-mover period. The window for accumulating proprietary data is limited — once competitors establish competing data pipelines, the first-mover data advantage narrows."
+      - "Ignoring fast-follower dynamics in AI. OpenAI was first-to-market with a consumer-facing LLM, but Anthropic, Google, and Meta followed within months with competitive products."
+    sector_example: "OpenAI's first-mover advantage with ChatGPT illustrates the pattern: the data advantage (user interactions for RLHF) and developer ecosystem (API integrations) created durable advantages, while the model quality advantage (GPT-4's lead) was transient — competitors narrowed the gap within 12 months. The lesson for AI companies: invest the first-mover window in building the flywheel (data, ecosystem, trust) rather than resting on the model quality lead."
+    benchmark_references: ["data-moat-index", "monthly-active-api-users", "customer-retention-ai"]
+
+  # ─────────────────────────────────────────────
+  # THINKING (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "enemies-of-clear-thinking"
+    category: "thinking"
+    ai_ml_relevance: "critical"
+    sector_context: "AI-ML operators face specific cognitive traps amplified by the hype-laden, technically complex, and rapidly evolving nature of the industry. Survivorship bias: benchmarking against OpenAI and Anthropic while ignoring the hundreds of AI companies that failed. The AI hype effect: confirmation bias where every customer conversation is interpreted as validation because 'AI is the future.' Anchoring on benchmarks: fixating on leaderboard scores rather than production performance on actual customer data. Sunk cost fallacy: continuing to invest in a model architecture or dataset because of past expenditure rather than future potential. Authority bias: deferring to the research team's technical preferences when business requirements should drive architecture decisions. Availability bias: over-weighting the most recent AI breakthrough announcement."
+    sector_anti_patterns:
+      - "Using benchmark scores as the primary success metric when customers evaluate on real-world accuracy. A model that ranks #1 on a benchmark but fails on production edge cases is a liability, not an asset."
+      - "Anchoring on the AI valuation premium. Investors fund AI companies at high multiples during hype cycles — anchoring on these multiples creates unrealistic expectations for fundraising and exit."
+      - "Confusing model improvement with product improvement. The fact that F1 improved by 2% does not mean customers noticed. Clear thinking demands connecting model metrics to customer outcomes."
+    sector_example: "An AI company CEO reviews metrics and concludes the business is strong: accuracy is above 0.90 F1, API call volume is growing 15% MoM, and enterprise pipeline is $2M. An advisor trained in clear thinking spots hidden issues: F1 is measured on the original evaluation set (not updated to reflect current production distribution), volume growth is driven by a single customer's batch job, and the $2M pipeline includes $1.5M from a single prospect that has been 'evaluating' for 6 months. Each metric tells a flattering story that clear examination reveals to be misleading."
+    benchmark_references: ["model-accuracy-f1", "api-call-volume", "customer-accuracy-satisfaction"]
+
+  - skill: "defining-and-exploring-problems"
+    category: "thinking"
+    ai_ml_relevance: "high"
+    sector_context: "AI-ML companies face a unique problem-definition challenge: the technology is so powerful that it can be applied to thousands of problems, but the business can only serve a few well. The most common failure mode is solving a technically interesting problem that customers do not value, or solving a problem that AI solves well but that customers were not bothered by in the first place. Problem definition must answer: (1) Is this a problem that justifies AI (accuracy requirements, data availability, scale of decisions)? (2) Is the customer's pain significant enough to pay for AI (not just better, but dramatically better than alternatives)? (3) Can AI solve this problem reliably enough to deploy (not just demos, but production accuracy on edge cases)?"
+    sector_anti_patterns:
+      - "Starting with 'we have a great model' and searching for a problem to apply it to. The model is a solution — the problem must come first."
+      - "Defining the problem as 'automation' when the real problem is 'better decisions.' Framing determines whether the product is an augmentation tool (higher value, lower risk) or an automation system (lower value, higher liability)."
+      - "Confusing a demo-able problem with a deployable problem. Many AI applications work impressively in demos but fail on production edge cases. The problem definition must include production accuracy requirements."
+    sector_example: "An AI team builds a model that can summarize legal documents with 85% accuracy on standard benchmarks. Before building the product, they apply rigorous problem definition: Is 85% accuracy sufficient? (No — lawyers need 99%+ for material terms.) Is the pain real? (Yes — junior lawyers spend 40% of their time on document review.) Can the accuracy gap be closed? (Yes, with domain-specific fine-tuning and human-in-the-loop validation for high-risk clauses.) This analysis reframes the product from 'automated legal summary' to 'AI-assisted legal review with human validation on critical clauses' — a fundamentally different and more viable product."
+    benchmark_references: ["model-accuracy-f1", "customer-accuracy-satisfaction"]
+
+  # ─────────────────────────────────────────────
+  # LEADERSHIP (2 skills)
+  # ─────────────────────────────────────────────
+
+  - skill: "strategic-thinking-and-alignment"
+    category: "leadership"
+    ai_ml_relevance: "high"
+    sector_context: "Strategic alignment in AI-ML companies is structurally harder than in traditional software because the research team, product team, and business team often have fundamentally different optimization objectives. Research optimizes for model quality (accuracy, novel architecture). Product optimizes for user experience (latency, reliability, features). Business optimizes for revenue and margins (pricing, cost reduction, enterprise requirements). Misalignment manifests as: the research team builds a beautiful model that is too expensive to serve, the product team ships features that the model cannot reliably support, or the business team commits to SLAs that engineering cannot meet. Strategic alignment requires a shared framework that connects model quality to business outcomes."
+    sector_anti_patterns:
+      - "Allowing the research team to optimize accuracy without a cost constraint. 'Build the best model' without 'within this inference cost budget' leads to impressive benchmarks and negative gross margins."
+      - "Letting the business team commit to accuracy SLAs without input from the research team. Promising what the model cannot deliver creates a trust deficit that compounds."
+      - "Running separate planning processes for research, product, and business. In AI companies, these must be integrated — a model architecture decision is simultaneously a product decision and a business decision."
+    sector_example: "An AI company implements 'model-aware OKRs' — every quarterly objective must specify three dimensions: the business outcome (e.g., reduce customer-reported errors by 20%), the model metric (e.g., improve F1 from 0.88 to 0.91 on the error-prone task subset), and the cost constraint (e.g., within the current inference cost budget of $0.003/request). This triple-constraint framework forces research, product, and business alignment at the goal-setting stage rather than discovering misalignment at the end of the quarter."
+    benchmark_references: ["model-accuracy-f1", "gross-margin-compute-adjusted", "customer-accuracy-satisfaction"]
+
+  - skill: "leading-through-change"
+    category: "leadership"
+    ai_ml_relevance: "high"
+    sector_context: "AI-ML companies undergo change at a pace unmatched in other technology sectors. Model architecture transitions (replacing the core model), pivot from research to product (commercializing research capabilities), open-source response (adapting strategy when a competitor open-sources a comparable model), regulatory compliance (implementing responsible AI frameworks), and compute migration (switching cloud providers or hardware) all represent change events that require leadership. The unique challenge is that AI change often involves replacing the core intellectual property — the model itself — while maintaining customer trust and team morale. Leading through a model transition requires communicating that the old work was not wasted while building conviction in the new direction."
+    sector_anti_patterns:
+      - "Announcing a model architecture change without communicating the business rationale. The team needs to understand why the old model is being replaced and how the new architecture serves the business strategy."
+      - "Treating regulatory compliance as an external imposition rather than a strategic opportunity. Leading through AI regulation change means framing compliance as a competitive advantage."
+      - "Managing open-source disruption by dismissing the threat. If a credible open-source alternative appears, the team needs honest assessment and a clear response strategy."
+    sector_example: "When a competing AI company open-sourced a model matching 90% of their proprietary model's accuracy, the CEO led through the change by: (1) acknowledging the threat honestly in an all-hands meeting, (2) reframing the competitive advantage around the 10% accuracy gap in specific enterprise use cases, the proprietary data flywheel, and the enterprise trust infrastructure (compliance, SLAs, support), and (3) launching a 90-day initiative to build features that open-source cannot replicate (customer-specific fine-tuning, managed deployment, regulatory compliance). The honest, action-oriented response prevented panic and focused the team on defensible differentiation."
+    benchmark_references: ["data-moat-index", "model-accuracy-f1", "customer-retention-ai"]

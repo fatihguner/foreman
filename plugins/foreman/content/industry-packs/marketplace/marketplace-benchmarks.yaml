@@ -1,0 +1,620 @@
+# Marketplace Industry Pack — Benchmarks
+# Defines 24 marketplace-specific metrics with formulas, benchmark ranges,
+# stage notes, and data sources drawn from a16z Marketplace 100, NFX,
+# Lenny Rachitsky's marketplace research, Bill Gurley's writings,
+# and Sarah Tavel's hierarchy of marketplaces.
+#
+# These metrics are purpose-built for two-sided platforms. They do not
+# translate from SaaS definitions — they originate in marketplace dynamics:
+# liquidity, network effects, take rates, and cross-side dependencies.
+
+pack: marketplace
+author: "Fatih Guner"
+type: benchmarks
+version: "1.0.0"
+
+metrics:
+
+  # ──────────────────────────────────────────────
+  # 1. GMV — Gross Merchandise Volume
+  # ──────────────────────────────────────────────
+  - name: gmv
+    display_name: "Gross Merchandise Volume (GMV)"
+    definition: >
+      Total dollar value of transactions processed through the marketplace
+      in a given period, before the platform takes its cut. GMV is the
+      top-line measure of marketplace scale — the economic activity the
+      platform intermediates. Not revenue. Not bookings. The full transaction
+      value flowing through both sides.
+    formula: "SUM(transaction_value) over period"
+    benchmarks:
+      poor: "GMV growth <20% YoY after reaching $1M annual GMV"
+      average: "GMV growth 20-50% YoY"
+      good: "GMV growth 50-100% YoY"
+      excellent: "GMV growth >100% YoY (a16z Marketplace 100 median at scale: ~80% YoY)"
+    stage_notes:
+      idea: "GMV is meaningless — focus on whether transactions happen at all."
+      validation: "First $10K monthly GMV. Quality matters more than volume."
+      early_traction: "$50K-$500K monthly GMV. Watch GMV per cohort, not aggregate."
+      growth: "$500K-$10M monthly GMV. GMV growth rate is the headline metric."
+      scale: ">$10M monthly GMV. GMV growth decelerates; shift focus to net revenue and take rate."
+    data_source: "a16z Marketplace 100 (2023-2024); internal transaction ledger"
+
+  # ──────────────────────────────────────────────
+  # 2. Take Rate
+  # ──────────────────────────────────────────────
+  - name: take_rate
+    display_name: "Take Rate"
+    definition: >
+      The percentage of GMV that the marketplace retains as revenue.
+      This is the platform's price — the tax it levies for matching
+      supply and demand. Take rate reflects the marketplace's
+      perceived value-add: managed marketplaces with trust, payments,
+      insurance, and dispute resolution command higher take rates.
+      Commodity matching commands less.
+    formula: "Net Revenue / GMV x 100"
+    benchmarks:
+      poor: "<5% (commodity listing, no value-add, vulnerable to disintermediation)"
+      average: "5-15% (standard for product marketplaces; Etsy ~18%, eBay ~13%)"
+      good: "15-25% (managed services marketplaces; Airbnb ~14% host + ~14% guest)"
+      excellent: ">25% (deep value-add, regulated industries; Uber historically ~25-30%)"
+    stage_notes:
+      idea: "Target take rate is a hypothesis. Test willingness-to-pay on both sides."
+      validation: "Start with a take rate the supply side accepts. Do not optimise yet."
+      early_traction: "Experiment cautiously. Raising take rate 2 points may kill supply growth."
+      growth: "Introduce tiered take rates — higher for premium services, lower for volume sellers."
+      scale: "Take rate expansion is the primary margin lever. Every 1pp = material revenue at scale GMV."
+    data_source: "Bill Gurley 'A Rake Too Far' (2013); a16z marketplace data"
+
+  # ──────────────────────────────────────────────
+  # 3. Supply-Side CAC
+  # ──────────────────────────────────────────────
+  - name: supply_side_cac
+    display_name: "Supply-Side CAC"
+    definition: >
+      Cost to acquire one new active supplier (seller, driver, host, service
+      provider). Includes all marketing, sales, onboarding, and incentive
+      costs directed at the supply side. Critical because supply acquisition
+      is often the harder, more expensive side in early-stage marketplaces.
+    formula: "Total Supply-Side Acquisition Spend / New Active Suppliers (same period)"
+    benchmarks:
+      poor: "Supply CAC > 6 months of supply-side revenue contribution"
+      average: "Supply CAC = 3-6 months of supply-side revenue contribution"
+      good: "Supply CAC = 1-3 months of supply-side revenue contribution"
+      excellent: "Supply CAC < 1 month OR organic supply acquisition >60%"
+    stage_notes:
+      idea: "Manual, unscalable supply acquisition is expected. Track cost anyway."
+      validation: "High CAC acceptable if supply quality is high and retention strong."
+      early_traction: "Supply CAC must be declining as word-of-mouth and network effects emerge."
+      growth: "Organic supply should exceed 50%. Paid supply CAC must show clear ROI."
+      scale: "Supply-side virality should dominate. Paid acquisition reserved for new verticals or geos."
+    data_source: "NFX marketplace research; Lenny Rachitsky supply-side benchmarks"
+
+  # ──────────────────────────────────────────────
+  # 4. Demand-Side CAC
+  # ──────────────────────────────────────────────
+  - name: demand_side_cac
+    display_name: "Demand-Side CAC"
+    definition: >
+      Cost to acquire one new active buyer (customer, rider, guest,
+      client). Includes all marketing, promotions, referral credits,
+      and demand-side incentive costs. In most mature marketplaces,
+      demand-side CAC is lower than supply-side CAC because demand
+      follows supply quality.
+    formula: "Total Demand-Side Acquisition Spend / New Active Buyers (same period)"
+    benchmarks:
+      poor: "Demand CAC > first-transaction contribution margin"
+      average: "Demand CAC = 50-100% of first-transaction contribution margin"
+      good: "Demand CAC < 50% of first-transaction contribution margin"
+      excellent: "Demand CAC < 25% of first-transaction contribution margin OR >70% organic demand"
+    stage_notes:
+      idea: "Demand CAC is speculative. Estimate from analogous marketplaces."
+      validation: "High demand CAC is tolerable if repeat rates are strong."
+      early_traction: "Demand-side virality should be emerging. Track organic share weekly."
+      growth: "Blended demand CAC must decline QoQ. Watch for channel saturation."
+      scale: "Brand and network effects should make demand acquisition near-zero marginal cost."
+    data_source: "a16z Marketplace 100; Lenny Rachitsky demand acquisition data"
+
+  # ──────────────────────────────────────────────
+  # 5. Blended CAC
+  # ──────────────────────────────────────────────
+  - name: blended_cac
+    display_name: "Blended CAC"
+    definition: >
+      Combined cost to bring one incremental matched transaction to
+      the marketplace, accounting for both supply and demand acquisition.
+      This is the true cost of creating marketplace liquidity — the cost
+      of producing a match, not just a user on one side.
+    formula: "(Total Supply Acquisition Spend + Total Demand Acquisition Spend) / New Matched Transactions"
+    benchmarks:
+      poor: "Blended CAC > contribution margin per transaction"
+      average: "Blended CAC = 50-100% of contribution margin per transaction"
+      good: "Blended CAC = 20-50% of contribution margin per transaction"
+      excellent: "Blended CAC < 20% of contribution margin per transaction"
+    stage_notes:
+      idea: "Blended CAC is unknowable. Focus on whether matches happen."
+      validation: "Compute blended CAC even on tiny volumes. The ratio matters, not the absolute number."
+      early_traction: "Blended CAC payback should approach 1 transaction for low-AOV marketplaces."
+      growth: "Blended CAC should decline as cross-side network effects compound."
+      scale: "Blended CAC approaching zero indicates mature network effects."
+    data_source: "NFX marketplace economics framework"
+
+  # ──────────────────────────────────────────────
+  # 6. Supply Liquidity
+  # ──────────────────────────────────────────────
+  - name: supply_liquidity
+    display_name: "Supply Liquidity"
+    definition: >
+      The percentage of active listings or available supply units that
+      result in a completed transaction within a defined period. This
+      is Sarah Tavel's 'Level 1' — the marketplace's ability to deliver
+      its core promise to the supply side: 'list here and you will sell.'
+      Low supply liquidity kills marketplaces because disappointed
+      suppliers leave, triggering a death spiral.
+    formula: "Transacting Supply Units / Total Active Supply Units x 100"
+    benchmarks:
+      poor: "<20% (most supply idle; marketplace is a graveyard of unsold listings)"
+      average: "20-40% (functional but supply-side value prop is weak)"
+      good: "40-60% (healthy; supply sees marketplace as a reliable channel)"
+      excellent: ">60% (strong demand pull; supply retention driven by consistent income)"
+    stage_notes:
+      idea: "Constrain supply deliberately. A marketplace with 1,000 listings and 10 buyers is dead."
+      validation: "Supply liquidity is the single most important early metric. Optimise ruthlessly."
+      early_traction: "Maintain liquidity as you grow supply. Adding supply without proportional demand destroys this metric."
+      growth: "Segment liquidity by category, geography, and price tier. Aggregates hide rot."
+      scale: "Liquidity should be >50% in every active segment. Expand only into segments where demand exists."
+    data_source: "Sarah Tavel 'Hierarchy of Marketplaces' (2016); Greylock marketplace research"
+
+  # ──────────────────────────────────────────────
+  # 7. Demand Fill Rate
+  # ──────────────────────────────────────────────
+  - name: demand_fill_rate
+    display_name: "Demand Fill Rate"
+    definition: >
+      The percentage of demand-side searches, requests, or purchase
+      intents that result in a completed transaction. The demand-side
+      counterpart to supply liquidity. If a buyer searches and finds
+      nothing suitable, the marketplace failed. High fill rate = the
+      marketplace reliably delivers what demand wants.
+    formula: "Completed Transactions / Demand-Side Search or Request Sessions x 100"
+    benchmarks:
+      poor: "<30% (buyers leave empty-handed; marketplace lacks relevant supply)"
+      average: "30-50% (adequate for considered purchases; poor for commodities)"
+      good: "50-70% (strong match quality; buyers trust the marketplace)"
+      excellent: ">70% (exceptional; near-certain fulfillment — Uber-like on-demand reliability)"
+    stage_notes:
+      idea: "Curate initial supply to maximise fill rate for the narrow use case you launch with."
+      validation: "Demand fill rate above 50% suggests viable supply-demand match quality."
+      early_traction: "Track fill rate by demand segment. Some segments may be oversupplied, others starved."
+      growth: "Fill rate compression during rapid scaling signals supply quality degradation."
+      scale: "Fill rate should be stable or improving. Declining fill rate at scale is a trust problem."
+    data_source: "a16z marketplace operational metrics; Uber/Lyft S-1 disclosures"
+
+  # ──────────────────────────────────────────────
+  # 8. Supply Repeat Rate
+  # ──────────────────────────────────────────────
+  - name: supply_repeat_rate
+    display_name: "Supply Repeat Rate"
+    definition: >
+      Percentage of suppliers who transact again within a defined period
+      after their first transaction. Measures whether the marketplace
+      delivers enough value for supply to stay engaged. Sarah Tavel's
+      'Level 2' — building supply-side habit.
+    formula: "Suppliers With 2+ Transactions in Period / Suppliers With 1+ Transactions in Period x 100"
+    benchmarks:
+      poor: "<30% (supply treats marketplace as one-time experiment)"
+      average: "30-50% (functional retention but supply has alternatives)"
+      good: "50-70% (marketplace is an important revenue channel for supply)"
+      excellent: ">70% (marketplace is the primary income source for supply)"
+    stage_notes:
+      idea: "Repeat rate is unmeasurable. Focus on whether first transactions satisfy supply."
+      validation: "Track 30-day and 90-day repeat rate from first transaction."
+      early_traction: ">40% 90-day repeat rate indicates product-market fit on the supply side."
+      growth: "Supply repeat rate should improve as marketplace adds value-added services."
+      scale: "Declining repeat rate at scale signals disintermediation or competitor poaching."
+    data_source: "Sarah Tavel 'Hierarchy of Marketplaces'; Lenny Rachitsky retention benchmarks"
+
+  # ──────────────────────────────────────────────
+  # 9. Demand Repeat Rate
+  # ──────────────────────────────────────────────
+  - name: demand_repeat_rate
+    display_name: "Demand Repeat Rate"
+    definition: >
+      Percentage of buyers who make a repeat purchase within a defined
+      period. The demand-side counterpart to supply repeat rate. High
+      demand repeat rate is the strongest signal of marketplace
+      product-market fit — buyers got what they wanted and came back.
+    formula: "Buyers With 2+ Transactions in Period / Buyers With 1+ Transactions in Period x 100"
+    benchmarks:
+      poor: "<20% (marketplace failed to deliver a compelling first experience)"
+      average: "20-40% (adequate for high-AOV, infrequent-purchase categories)"
+      good: "40-60% (strong for most marketplace categories)"
+      excellent: ">60% (exceptional; buyers prefer marketplace over alternatives)"
+    stage_notes:
+      idea: "N/A — no repeat data exists."
+      validation: "Any repeat purchase in the first 90 days is a strong signal."
+      early_traction: "Cohort-based repeat rate is more important than aggregate. Track monthly cohorts."
+      growth: "Demand repeat rate should be stable or improving as supply quality and selection grow."
+      scale: "Declining repeat rate at scale is a red flag — supply quality or trust may be degrading."
+    data_source: "a16z Marketplace 100; Lenny Rachitsky marketplace retention curves"
+
+  # ──────────────────────────────────────────────
+  # 10. Supply-Demand Ratio
+  # ──────────────────────────────────────────────
+  - name: supply_demand_ratio
+    display_name: "Supply-Demand Ratio"
+    definition: >
+      The ratio of active supply units to active demand sessions or
+      buyers in a given period. This is the marketplace's balance
+      indicator. Too much supply = poor supplier economics and churn.
+      Too much demand = poor buyer experience and churn. The optimal
+      ratio varies by marketplace type but must be actively managed.
+    formula: "Active Supply Units / Active Demand Units (or sessions, requests)"
+    benchmarks:
+      poor: ">10:1 or <1:5 (severe imbalance in either direction)"
+      average: "5:1 to 1:3 (manageable imbalance with intervention)"
+      good: "3:1 to 1:1 (balanced; both sides experience reasonable matching)"
+      excellent: "Dynamically managed ratio with <10% variance from target across segments"
+    stage_notes:
+      idea: "Consciously constrain the oversupplied side. Launch supply-constrained if uncertain."
+      validation: "The ratio that produces >50% supply liquidity and >50% demand fill rate is your target."
+      early_traction: "Monitor ratio by geography and category. Aggregates mask local imbalances."
+      growth: "Build automated supply/demand throttling. Manual balancing does not scale."
+      scale: "Ratio management becomes a core competency. Pricing, incentives, and algorithmic matching all serve balance."
+    data_source: "NFX marketplace dynamics research; Uber surge pricing documentation"
+
+  # ──────────────────────────────────────────────
+  # 11. Time to First Transaction
+  # ──────────────────────────────────────────────
+  - name: time_to_first_transaction
+    display_name: "Time to First Transaction"
+    definition: >
+      Elapsed time from a new user's registration (supply or demand
+      side) to their first completed transaction. Measures onboarding
+      friction and marketplace readiness. Long time-to-first-transaction
+      kills activation rates, and dead signups are the silent killer
+      of marketplace growth.
+    formula: "MEDIAN(first_transaction_timestamp - registration_timestamp) per cohort"
+    benchmarks:
+      poor: ">30 days (most users will never transact)"
+      average: "7-30 days (acceptable for high-consideration purchases)"
+      good: "1-7 days (strong activation; marketplace delivers value quickly)"
+      excellent: "<24 hours (on-demand or impulse marketplace with immediate gratification)"
+    stage_notes:
+      idea: "Hand-hold first users to first transaction. Concierge the match."
+      validation: "Measure separately for supply and demand. If supply activates in days but demand takes weeks, the problem is demand-side."
+      early_traction: "Reduce time-to-first-transaction by pre-curating supply for new buyers."
+      growth: "Automate activation flows. Every day of delay costs ~10% of potential activation."
+      scale: "Time-to-first-transaction should be near-instant in commodified categories."
+    data_source: "NFX activation benchmarks; Lenny Rachitsky onboarding data"
+
+  # ──────────────────────────────────────────────
+  # 12. Average Order Value (AOV)
+  # ──────────────────────────────────────────────
+  - name: average_order_value
+    display_name: "Average Order Value (AOV)"
+    definition: >
+      Mean transaction value across all completed orders. AOV determines
+      the absolute contribution margin per transaction and shapes
+      viable take rates — a 15% take rate on a $20 AOV generates $3;
+      the same rate on a $2,000 AOV generates $300. AOV drives
+      marketplace unit economics more than almost any other variable.
+    formula: "Total GMV / Total Completed Transactions"
+    benchmarks:
+      poor: "AOV declining QoQ without strategic intent (discounting or mix shift)"
+      average: "AOV stable but below category median"
+      good: "AOV at or above category median with stable or improving trend"
+      excellent: "AOV growing through mix shift toward higher-value transactions"
+    stage_notes:
+      idea: "AOV is a hypothesis. Validate by studying existing transaction patterns in the category."
+      validation: "Track AOV distribution, not just mean. A bimodal AOV distribution signals two different use cases."
+      early_traction: "AOV x Take Rate x Transactions = Revenue. Optimise the combination, not any single variable."
+      growth: "Introduce upsell, bundling, or premium tiers to lift AOV without adding transaction count."
+      scale: "AOV is largely a function of category mix. Expanding into lower-AOV categories dilutes blended AOV — offset with volume."
+    data_source: "a16z Marketplace 100; Etsy, Fiverr, Upwork public filings"
+
+  # ──────────────────────────────────────────────
+  # 13. Contribution Margin per Transaction
+  # ──────────────────────────────────────────────
+  - name: contribution_margin_per_transaction
+    display_name: "Contribution Margin per Transaction"
+    definition: >
+      Revenue retained by the marketplace on a single transaction minus
+      all variable costs directly attributable to that transaction:
+      payment processing, trust and safety costs, customer support,
+      insurance, fraud losses, and supply-side incentives. This is the
+      marketplace's true per-unit economics — the building block that
+      must be positive for the model to work.
+    formula: "(AOV x Take Rate) - Payment Processing - T&S Cost - Support Cost - Insurance - Fraud Loss - Supply Incentive"
+    benchmarks:
+      poor: "Negative (marketplace subsidises each transaction; only viable with clear path to positive)"
+      average: "$0.50-$2.00 for low-AOV (<$50); $5-$20 for mid-AOV ($50-$500)"
+      good: "$2-$5 for low-AOV; $20-$50 for mid-AOV"
+      excellent: ">$5 for low-AOV; >$50 for mid-AOV; consistent across segments"
+    stage_notes:
+      idea: "Model contribution margin with realistic variable cost assumptions. Do not assume payment processing away."
+      validation: "Negative contribution margin is acceptable if the path to positive is a function of volume, not hope."
+      early_traction: "Contribution margin must be positive or trending positive. Negative at this stage with no plan is fatal."
+      growth: "Contribution margin expansion comes from take rate increases, payment cost negotiation, and fraud reduction."
+      scale: "Contribution margin should improve at scale through operational leverage on variable costs."
+    data_source: "Bill Gurley 'All Revenue is Not Created Equal' (2011); marketplace S-1 filings"
+
+  # ──────────────────────────────────────────────
+  # 14. Network Effects Score
+  # ──────────────────────────────────────────────
+  - name: network_effects_score
+    display_name: "Network Effects Score"
+    definition: >
+      A composite indicator measuring the strength of cross-side network
+      effects: does adding one more supplier make the marketplace more
+      valuable to buyers, and vice versa? Calculated by measuring the
+      marginal impact of supply/demand growth on key engagement and
+      conversion metrics for the opposite side. Strong network effects
+      are the only durable moat in a marketplace business.
+    formula: "Composite of: (1) demand conversion lift per 10% supply growth, (2) supply retention lift per 10% demand growth, (3) organic acquisition rate trend"
+    benchmarks:
+      poor: "No measurable improvement in opposite-side metrics when one side grows"
+      average: "Weak but detectable cross-side lift (1-3% improvement per 10% growth)"
+      good: "Clear cross-side lift (3-7% improvement per 10% growth) with improving organic share"
+      excellent: ">7% cross-side lift per 10% growth; >60% organic acquisition on both sides"
+    stage_notes:
+      idea: "Network effects are theorised, not measured. Articulate the mechanism."
+      validation: "Look for any signal: does adding more supply improve demand conversion, even anecdotally?"
+      early_traction: "Quantify network effects in at least one geography or category. This data is essential for fundraising."
+      growth: "Network effects should be measurably accelerating growth and reducing CAC."
+      scale: "Network effects are the moat. If they are not compounding, the marketplace is a commodity intermediary."
+    data_source: "NFX network effects taxonomy; a16z marketplace defensibility framework"
+
+  # ──────────────────────────────────────────────
+  # 15. Cross-Side Elasticity
+  # ──────────────────────────────────────────────
+  - name: cross_side_elasticity
+    display_name: "Cross-Side Elasticity"
+    definition: >
+      The percentage change in engagement or transaction volume on one
+      side of the marketplace in response to a percentage change in the
+      other side. Positive cross-side elasticity = virtuous cycle.
+      Negative = supply flooding or demand overwhelming supply capacity.
+      The sign and magnitude of this elasticity determine whether
+      growth investments on one side pay off on the other.
+    formula: "% Change in Demand Transactions / % Change in Active Supply (and inverse)"
+    benchmarks:
+      poor: "Negative elasticity (more supply = worse demand outcomes; market is flooded)"
+      average: "0-0.3 (weak linkage; sides grow somewhat independently)"
+      good: "0.3-0.7 (meaningful cross-side amplification)"
+      excellent: ">0.7 (strong virtuous cycle; each side's growth accelerates the other)"
+    stage_notes:
+      idea: "Elasticity is theoretical. Map the causal chain: how does more supply help demand, specifically?"
+      validation: "Measure in the narrow launch segment. Global cross-side elasticity is noise."
+      early_traction: "Positive elasticity in core segments confirms the marketplace thesis."
+      growth: "Use cross-side elasticity to allocate growth spend: invest in the side with higher marginal impact."
+      scale: "Monitor for elasticity decay — the point at which adding more supply yields diminishing demand returns."
+    data_source: "NFX marketplace research; academic literature on two-sided markets (Rochet & Tirole)"
+
+  # ──────────────────────────────────────────────
+  # 16. Disintermediation Rate
+  # ──────────────────────────────────────────────
+  - name: disintermediation_rate
+    display_name: "Disintermediation Rate"
+    definition: >
+      The estimated percentage of matched supply-demand pairs that
+      subsequently transact outside the marketplace, bypassing the
+      platform's payment and take rate. Disintermediation — going
+      around the platform — is the existential threat for any
+      marketplace that connects parties without providing ongoing,
+      per-transaction value.
+    formula: "Estimated Off-Platform Transactions / (On-Platform + Estimated Off-Platform) x 100"
+    benchmarks:
+      poor: ">20% (platform is a lead-gen tool, not a marketplace)"
+      average: "10-20% (some leakage, manageable with value-add services)"
+      good: "5-10% (low leakage; platform provides sufficient ongoing value)"
+      excellent: "<5% (platform is essential to the transaction — payments, trust, insurance, dispute resolution)"
+    stage_notes:
+      idea: "Design the transaction flow to make on-platform completion frictionless and off-platform completion risky."
+      validation: "Monitor for early disintermediation signals: messaging exchanges, phone number sharing."
+      early_traction: "Introduce value-added services that make staying on-platform the rational choice."
+      growth: "Build payments, reviews, insurance, and guarantees that only work on-platform."
+      scale: "Disintermediation rate should be <5%. If higher, the platform's value-add is insufficient."
+    data_source: "Bill Gurley marketplace economics writing; Airbnb, Upwork disintermediation countermeasures"
+
+  # ──────────────────────────────────────────────
+  # 17. Supply Churn
+  # ──────────────────────────────────────────────
+  - name: supply_churn
+    display_name: "Supply Churn"
+    definition: >
+      Percentage of active suppliers who become inactive (no transactions
+      or listings) within a defined period. Supply churn is more damaging
+      than demand churn in most marketplaces because replacing quality
+      supply is harder and more expensive than acquiring new demand.
+      Supply churn triggers a doom loop: less supply -> worse demand
+      experience -> less demand -> even less supply.
+    formula: "Suppliers Active in Prior Period but Inactive in Current Period / Suppliers Active in Prior Period x 100"
+    benchmarks:
+      poor: ">10% monthly (supply base is a revolving door)"
+      average: "5-10% monthly (significant churn requiring constant replacement)"
+      good: "2-5% monthly (manageable; net supply growth positive)"
+      excellent: "<2% monthly (sticky supply base; marketplace is the primary channel)"
+    stage_notes:
+      idea: "N/A."
+      validation: "Track from the first cohort. Early supply churn reveals whether the value proposition works."
+      early_traction: "Supply churn >5% monthly demands immediate investigation. Are suppliers earning enough?"
+      growth: "Segment churn by supplier tier. Losing top sellers is catastrophic; losing low-quality supply can be healthy."
+      scale: "Supply churn should decline as marketplace becomes the dominant channel and switching costs increase."
+    data_source: "Lenny Rachitsky marketplace retention data; Etsy, Fiverr S-1 disclosures"
+
+  # ──────────────────────────────────────────────
+  # 18. Demand Churn
+  # ──────────────────────────────────────────────
+  - name: demand_churn
+    display_name: "Demand Churn"
+    definition: >
+      Percentage of active buyers who become inactive within a defined
+      period. While demand churn is generally easier to address than
+      supply churn (more channels, lower CAC), sustained demand churn
+      erodes marketplace liquidity and signals either poor supply
+      quality, insufficient selection, or competitive displacement.
+    formula: "Buyers Active in Prior Period but Inactive in Current Period / Buyers Active in Prior Period x 100"
+    benchmarks:
+      poor: ">15% monthly (buyers do not return; marketplace is transactional, not habitual)"
+      average: "8-15% monthly (moderate; typical for low-frequency purchase categories)"
+      good: "3-8% monthly (healthy for most marketplace categories)"
+      excellent: "<3% monthly (exceptional buyer loyalty; strong brand and habit)"
+    stage_notes:
+      idea: "N/A."
+      validation: "Demand churn in the first 90 days of a cohort is the activation failure rate."
+      early_traction: "Separate activation churn (never completed second transaction) from mature churn (stopped after multiple transactions)."
+      growth: "Demand churn should decrease as selection improves and cross-side network effects strengthen."
+      scale: "Demand churn is primarily driven by supply quality and competitive alternatives at scale."
+    data_source: "a16z Marketplace 100; Lenny Rachitsky marketplace retention curves"
+
+  # ──────────────────────────────────────────────
+  # 19. Organic vs Paid Supply %
+  # ──────────────────────────────────────────────
+  - name: organic_supply_pct
+    display_name: "Organic vs Paid Supply %"
+    definition: >
+      The share of new supply-side sign-ups or activations that arrive
+      without paid acquisition spend — through word-of-mouth, direct
+      traffic, organic search, or supply-side referrals. High organic
+      supply percentage is the clearest evidence that the marketplace
+      delivers real value to its supply side.
+    formula: "Organic New Suppliers / Total New Suppliers x 100"
+    benchmarks:
+      poor: "<20% organic (marketplace is buying supply; unsustainable without capital)"
+      average: "20-40% organic (mixed; paid is still dominant)"
+      good: "40-60% organic (healthy; word-of-mouth is building)"
+      excellent: ">60% organic (supply-side flywheel active; marketplace is the destination)"
+    stage_notes:
+      idea: "100% of early supply is hand-recruited. That is normal."
+      validation: "Any organic supply arrival is a meaningful signal of product-market fit."
+      early_traction: "Organic supply should be emerging. If still 100% paid, the supply value prop may be broken."
+      growth: "Target >50% organic. Every percentage point of organic supply improves unit economics."
+      scale: ">60% organic is table stakes for healthy marketplace economics at scale."
+    data_source: "NFX organic growth benchmarks; marketplace operator surveys"
+
+  # ──────────────────────────────────────────────
+  # 20. Organic vs Paid Demand %
+  # ──────────────────────────────────────────────
+  - name: organic_demand_pct
+    display_name: "Organic vs Paid Demand %"
+    definition: >
+      The share of new demand-side users that arrive organically — via
+      word-of-mouth, direct traffic, SEO, or buyer referrals. A
+      marketplace's brand strength and demand-side network effects are
+      reflected in this metric. High organic demand % compresses
+      blended CAC and improves contribution margins.
+    formula: "Organic New Buyers / Total New Buyers x 100"
+    benchmarks:
+      poor: "<25% organic (demand generation entirely dependent on paid channels)"
+      average: "25-45% organic (mixed acquisition; some brand recognition)"
+      good: "45-65% organic (strong brand; demand-side word-of-mouth active)"
+      excellent: ">65% organic (marketplace is a verb — 'Uber it', 'Airbnb that')"
+    stage_notes:
+      idea: "Demand is manually recruited or channel-hacked. Normal."
+      validation: "Organic demand arriving for the first time indicates buyer pull, not founder push."
+      early_traction: "Organic demand should be climbing steadily. SEO and word-of-mouth should be measurable."
+      growth: "Brand investment pays compound returns. Organic >50% is the inflection to profitable growth."
+      scale: "Organic demand >65% is the sign of a marketplace with a durable brand moat."
+    data_source: "a16z marketplace data; Airbnb, DoorDash S-1 acquisition mix disclosures"
+
+  # ──────────────────────────────────────────────
+  # 21. ARPU — Supply Side
+  # ──────────────────────────────────────────────
+  - name: arpu_supply
+    display_name: "Average Revenue Per User — Supply Side"
+    definition: >
+      Average net revenue the marketplace earns from each active
+      supplier over a period. This is not the supplier's gross earnings —
+      it is the platform's take from each supplier's activity. ARPU
+      (supply) determines whether the marketplace can afford its
+      supply-side CAC and whether the supply-side unit economics work.
+    formula: "Total Net Revenue from Supply-Side Activity / Active Suppliers"
+    benchmarks:
+      poor: "ARPU (supply) < supply-side CAC / 6 (>6-month payback)"
+      average: "ARPU (supply) = supply-side CAC / 3-6 (3-6 month payback)"
+      good: "ARPU (supply) = supply-side CAC / 1-3 (1-3 month payback)"
+      excellent: "ARPU (supply) > supply-side CAC (payback in first period)"
+    stage_notes:
+      idea: "Model ARPU from assumed transaction frequency x AOV x take rate."
+      validation: "Actual ARPU data from first cohorts. Compare to supply CAC immediately."
+      early_traction: "ARPU should be growing as suppliers transact more frequently and at higher AOV."
+      growth: "Introduce premium supply tiers, advertising, or SaaS tools to lift ARPU beyond take rate alone."
+      scale: "Supply-side ARPU should grow through value-added services, not take rate increases alone."
+    data_source: "Etsy, Fiverr, Upwork, Airbnb public filings; a16z marketplace ARPU analysis"
+
+  # ──────────────────────────────────────────────
+  # 22. ARPU — Demand Side
+  # ──────────────────────────────────────────────
+  - name: arpu_demand
+    display_name: "Average Revenue Per User — Demand Side"
+    definition: >
+      Average net revenue the marketplace earns from each active buyer
+      over a period. Typically a function of purchase frequency, AOV,
+      and take rate. ARPU (demand) rising over time signals increasing
+      buyer engagement and expanding share of wallet.
+    formula: "Total Net Revenue from Demand-Side Activity / Active Buyers"
+    benchmarks:
+      poor: "ARPU (demand) < demand-side CAC / 6"
+      average: "ARPU (demand) = demand-side CAC / 3-6"
+      good: "ARPU (demand) = demand-side CAC / 1-3"
+      excellent: "ARPU (demand) > demand-side CAC (first-period payback)"
+    stage_notes:
+      idea: "Estimate from category purchase frequency x AOV x take rate."
+      validation: "Early ARPU data. Even small numbers are informative if the cohort is defined."
+      early_traction: "ARPU should be growing as buyers increase purchase frequency."
+      growth: "Cross-sell into adjacent categories to lift ARPU. Single-category ARPU has a ceiling."
+      scale: "ARPU (demand) growth at scale comes from category expansion and loyalty programs."
+    data_source: "a16z Marketplace 100; DoorDash, Instacart S-1 disclosures"
+
+  # ──────────────────────────────────────────────
+  # 23. Marketplace Quality Score
+  # ──────────────────────────────────────────────
+  - name: marketplace_quality_score
+    display_name: "Marketplace Quality Score"
+    definition: >
+      A composite quality metric derived from ratings, reviews,
+      dispute rates, and completion rates. Measures whether the
+      marketplace maintains the trust that makes it preferable to
+      direct transactions. Quality is the invisible infrastructure
+      of marketplace defensibility — when quality degrades, both
+      sides abandon the platform, often irreversibly.
+    formula: "Weighted composite: (Avg Rating x 0.3) + (Review Coverage % x 0.2) + ((1 - Dispute Rate) x 0.25) + (Completion Rate x 0.25)"
+    benchmarks:
+      poor: "Score <60 (frequent disputes, low review coverage, inconsistent quality)"
+      average: "Score 60-75 (adequate but quality is not a differentiator)"
+      good: "Score 75-85 (quality is visible and trusted by both sides)"
+      excellent: "Score >85 (quality is a moat; buyers trust marketplace curation)"
+    stage_notes:
+      idea: "Quality standards should be defined before launch. Curate aggressively."
+      validation: "Demand quality reviews on every transaction. Build the review habit early."
+      early_traction: "Remove or suspend supply that falls below quality thresholds. Short-term pain, long-term survival."
+      growth: "Quality at scale requires automated quality scoring, not just user reviews."
+      scale: "Quality degradation at scale is the most common cause of marketplace decline. Invest in quality operations proportionally."
+    data_source: "Sarah Tavel 'Hierarchy of Marketplaces' Level 3 (quality); Airbnb Superhost program data"
+
+  # ──────────────────────────────────────────────
+  # 24. Trust & Safety Cost per Transaction
+  # ──────────────────────────────────────────────
+  - name: trust_safety_cost_per_transaction
+    display_name: "Trust & Safety Cost per Transaction"
+    definition: >
+      All costs associated with maintaining marketplace trust and safety
+      on a per-transaction basis: fraud detection and prevention,
+      identity verification, content moderation, dispute resolution,
+      insurance or guarantee payouts, and customer support for trust-
+      related issues. This cost is the price of being an intermediary
+      rather than a direct provider — and it never reaches zero.
+    formula: "(Fraud Prevention + ID Verification + Moderation + Dispute Resolution + Insurance Payouts + T&S Support) / Total Transactions"
+    benchmarks:
+      poor: "T&S cost > 5% of take rate revenue (consuming too much of the platform's margin)"
+      average: "T&S cost = 3-5% of take rate revenue"
+      good: "T&S cost = 1-3% of take rate revenue"
+      excellent: "T&S cost < 1% of take rate revenue with fraud rate <0.5%"
+    stage_notes:
+      idea: "Budget for T&S from day one. Marketplaces that defer trust investment pay dearly later."
+      validation: "Manual T&S is fine at small scale. Track the cost per transaction to model future needs."
+      early_traction: "Invest in automated fraud detection and identity verification. Manual review does not scale."
+      growth: "T&S cost per transaction should decline as automation improves and trust signals accumulate."
+      scale: "T&S is a permanent cost centre. Best-in-class marketplaces spend 1-2% of net revenue on T&S at scale."
+    data_source: "Marketplace operator surveys; Airbnb, Uber T&S cost disclosures in public filings"

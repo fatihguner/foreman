@@ -1,0 +1,142 @@
+# Implementation Tracking Schema
+# Defines data structures for tracking execution of recommendations
+# Extends the active and history memory layers
+# Author: Fatih Guner
+
+---
+
+# =============================================================================
+# ACTIVE LAYER EXTENSION
+# Added to active.yaml alongside current_playbook, pending_decisions, follow_ups
+# Contains all implementation items in non-terminal states
+# =============================================================================
+
+implementation_items: []
+  # Entry format:
+  # - id: "impl-001"
+  #   source: "playbook-step"           # playbook-step | skill-recommendation | diagnostic-routing
+  #   source_ref: "pivot-playbook/step-3"
+  #   description: "Redesign business model canvas for B2B pivot"
+  #   owner: "self"                     # "self" default; name if delegated
+  #   created: "2026-03-28"
+  #   deadline: "2026-04-15"
+  #   status: "in-progress"             # not-started | in-progress | blocked | completed | abandoned | deferred
+  #   progress: 40                      # 0-100 percentage
+  #   blockers: []                      # active blockers (see blocker schema below)
+  #   notes:
+  #     - date: "2026-03-29"
+  #       note: "Identified three potential B2B segments from interview data"
+  #   check_ins:
+  #     - date: "2026-04-01"
+  #       progress: 20
+  #       note: "Started customer interviews for enterprise segment"
+  #     - date: "2026-04-08"
+  #       progress: 40
+  #       note: "5 interviews done, pattern emerging in procurement cycle"
+  #   state_history:
+  #     - from: "not-started"
+  #       to: "in-progress"
+  #       date: "2026-03-30"
+  #   deferred_until: null              # date string when status is "deferred"
+  #   completed_date: null              # date string when status is "completed"
+  #   abandoned_reason: null            # string when status is "abandoned"
+  #   outcome: null                     # recorded result when completed
+
+# Blocker schema (nested within implementation_items[].blockers):
+  # - id: "blk-001"
+  #   category: "resource"              # resource | knowledge | dependency | motivation | external
+  #   description: "Need $5K for customer research tool but not in current budget"
+  #   identified: "2026-04-08"
+  #   resolved: null                    # date when resolved, null if active
+  #   resolution: null                  # how it was resolved
+  #   routes_to:
+  #     diagnostic: "operations-diagnosis"
+  #     skill: "resource-allocation"
+  #     template: null
+
+# =============================================================================
+# HISTORY LAYER EXTENSION
+# Added fields to existing history.yaml sections
+# Enriches decisions_made and playbooks_completed with execution data
+# =============================================================================
+
+# Extension to history.decisions_made entries:
+  # - date: "2026-01-18"
+  #   decision: "Hired onboarding specialist instead of second sales rep"
+  #   rationale: "Churn reduction has higher ROI than new acquisition"
+  #   outcome: "pending"
+  #   review_date: "2026-02-18"
+  #   related_skill: "evaluating-and-deciding"
+  #   # --- Implementation tracking fields (new) ---
+  #   implementation_status: "completed"       # completed | abandoned | partial | not-tracked
+  #   implementation_started: "2026-01-20"
+  #   implementation_completed: "2026-02-14"
+  #   implementation_notes: "Took 4 weeks instead of estimated 2. Onboarding specialist started Feb 1, first cohort improvements visible by Feb 14."
+  #   implementation_items_ref:
+  #     - "impl-003"
+  #     - "impl-004"
+
+# Extension to history.playbooks_completed entries:
+  # - date: "2026-01-20"
+  #   playbook: "team-rebuild-playbook"
+  #   status: "completed"
+  #   key_outcome: "Restructured hiring process, 3 new role descriptions created"
+  #   # --- Implementation tracking fields (new) ---
+  #   recommendations_produced: 5              # total actionable items generated
+  #   recommendations_completed: 3             # items that reached completed status
+  #   recommendations_abandoned: 1             # items deliberately abandoned
+  #   recommendations_pending: 1               # items still in active tracking
+  #   implementation_rate: 60                  # percentage completed of total produced
+  #   implementation_duration_days: 28         # days from first item started to last item resolved
+
+# =============================================================================
+# SESSION LAYER EXTENSION
+# Ephemeral tracking during active conversation
+# =============================================================================
+
+# Extension to session.yaml:
+  # implementation_events: []
+  # Entry format:
+  #   - type: "item-created"            # item-created | progress-updated | blocker-added | status-changed | check-in-completed
+  #     item_id: "impl-007"
+  #     timestamp: "2026-04-08T14:30:00"
+  #     details: "Created from pivot-playbook step 3 recommendation"
+
+# =============================================================================
+# IMPLEMENTATION SUMMARY (computed, not stored)
+# Generated on demand by /track command and dashboard template
+# =============================================================================
+
+# implementation_summary:
+#   total_items: 12
+#   by_status:
+#     not_started: 2
+#     in_progress: 5
+#     blocked: 2
+#     completed: 2
+#     abandoned: 1
+#     deferred: 0
+#   completion_rate: 17                 # percentage of total that reached completed
+#   overdue_count: 3                    # items past deadline and not completed
+#   stalled_count: 2                    # items with no progress delta for 14+ days
+#   blockers_by_category:
+#     resource: 1
+#     knowledge: 0
+#     dependency: 1
+#     motivation: 0
+#     external: 0
+#   velocity:                           # items completed per week, trailing 4 weeks
+#     week_1: 0
+#     week_2: 1
+#     week_3: 0
+#     week_4: 1
+#   avg_completion_days: 18             # average days from created to completed
+#   next_deadline: "2026-04-10"         # nearest upcoming deadline
+
+# =============================================================================
+# ID GENERATION RULES
+# =============================================================================
+# Implementation item IDs: "impl-" + zero-padded sequential number (impl-001, impl-002, ...)
+# Blocker IDs: "blk-" + zero-padded sequential number (blk-001, blk-002, ...)
+# IDs are globally unique within an entrepreneur's memory space
+# IDs are never reused, even after items move to history

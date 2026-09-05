@@ -1,0 +1,1004 @@
+# EdTech Industry Pack — Output Template Adaptations
+#
+# For each of the 48 Foreman output templates, this file defines how fields
+# and sections adapt for EdTech companies. The output agent loads these rules
+# when generating documents with the EdTech industry pack active.
+#
+# Key EdTech template principles:
+#   1. Institutional vs. consumer distinction in every investor/board template —
+#      EdTech companies must clearly delineate B2B (institutional) and B2C (consumer)
+#      metrics, strategies, and narratives.
+#   2. Efficacy data in every product template — learning outcomes evidence is
+#      expected in any document that discusses product performance.
+#   3. Multi-stakeholder analysis in every strategic template — buyer, implementer,
+#      and user perspectives must be addressed separately.
+#   4. Academic calendar awareness — planning templates must align with the
+#      September-August (K-12) or semester-based (higher ed) rhythm.
+#
+# Adaptation types:
+#   as-is    — The template works without modification for EdTech companies.
+#   modified — The template requires field changes, additional sections, or
+#              reframing of existing sections for EdTech context.
+
+pack_metadata:
+  sector: "edtech"
+  display_name: "EdTech"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# TEMPLATE ADAPTATIONS
+# ═══════════════════════════════════════════════════════════════
+
+template_adaptations:
+
+  # ─────────────────────────────────────────────
+  # INVESTOR TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "unit-economics-snapshot"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech unit economics must be reported separately for institutional and consumer segments because the metrics, benchmarks, and economics diverge completely. Institutional: ACV, institutional CAC, institutional LTV, teacher adoption rate as a unit-economics driver. Consumer: revenue per learner, student CAC, LTV by subscription tier, free-to-paid conversion rate."
+    field_changes:
+      - field: "Revenue per unit"
+        sector_label: "Revenue Segmentation: Institutional vs. Consumer"
+        sector_guidance: "Report separately: Institutional (total contract revenue, ACV, revenue per institution, revenue per learner within institutions) and Consumer (subscription revenue, revenue per paying learner, ARPU by tier). Blended metrics are misleading — always segment."
+      - field: "Cost per unit"
+        sector_label: "Acquisition Cost (Dual-Channel)"
+        sector_guidance: "Institutional CAC: include sales salaries, conference expenses, pilot costs, compliance documentation, and implementation support. Consumer CAC: include marketing, content marketing, app store optimization, and referral program costs. Report student-level CAC derived from institutional deals."
+      - field: "Margin per unit"
+        sector_label: "Gross Margin by Revenue Type"
+        sector_guidance: "EdTech COGS includes content creation/licensing amortization, hosting, instructor costs (for live models), support, and implementation. Segment margins: pure platform (70-80%), content marketplace (55-70%), OPM (30-50%), live instruction (20-40%)."
+      - field: "Lifetime value"
+        sector_label: "LTV by Segment"
+        sector_guidance: "Institutional LTV: ACV x average contract duration (in years) x gross margin %. Consumer LTV: ARPU x average subscriber lifetime (months) x gross margin %. Report both alongside the institutional churn rate and learner retention rate that drive them."
+      - field: "Acquisition cost"
+        sector_label: "CAC Payback Period by Segment"
+        sector_guidance: "Institutional: CAC / (ACV x Gross Margin %). Target: < 18 months. Consumer: CAC / (Monthly ARPU x Gross Margin %). Target: < 12 months."
+      - field: "Unit economics ratio"
+        sector_label: "LTV:CAC by Segment"
+        sector_guidance: "Report for each segment. Institutional LTV:CAC above 3x is strong. Consumer LTV:CAC above 3x is challenging to achieve in EdTech due to low consumer willingness to pay."
+    sections_to_add:
+      - section_name: "EdTech Metrics Dashboard"
+        placement: "before:Revenue Segmentation: Institutional vs. Consumer"
+        description: "Core EdTech metrics investors expect to see at a glance."
+        fields:
+          - "Total active learners (MAL)"
+          - "Institutional customers (count and ACV)"
+          - "Consumer subscribers (count and ARPU)"
+          - "Learner engagement rate"
+          - "Content completion rate"
+          - "Teacher adoption rate (for institutional)"
+          - "NPS segmented (learner / teacher / admin)"
+      - section_name: "Efficacy Economics"
+        placement: "after:LTV:CAC by Segment"
+        description: "The relationship between efficacy evidence and unit economics — unique to EdTech."
+        fields:
+          - "Efficacy evidence tier (ESSA level or equivalent)"
+          - "Learning outcomes improvement data (effect size or % gain)"
+          - "Efficacy research investment (annual spend)"
+          - "Estimated revenue attributable to efficacy evidence (deals won citing evidence)"
+      - section_name: "Content Economics"
+        placement: "end"
+        description: "Content creation and leveraging economics specific to EdTech."
+        fields:
+          - "Content creation cost per hour of learning"
+          - "Content-to-revenue ratio"
+          - "Content library size and growth rate"
+          - "Content shelf life and update frequency"
+    sections_to_remove: []
+    benchmark_references: ["average-contract-value", "student-acquisition-cost", "institutional-acquisition-cost", "revenue-per-learner", "gross-margin", "content-creation-cost", "content-to-revenue-ratio", "learner-engagement-rate", "efficacy-evidence-strength"]
+
+  - template: "investor-update-email"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech investor updates must report metrics on an academic-calendar basis and clearly distinguish institutional from consumer performance. EdTech-specific investors expect efficacy data and adoption metrics alongside financial performance."
+    field_changes:
+      - field: "Financial highlights"
+        sector_label: "EdTech KPIs"
+        sector_guidance: "Report: Total Revenue (institutional + consumer), Institutional ARR/ACV, Consumer MRR/ARPU, Growth Rate (YoY for institutional, MoM for consumer), Cash Balance, Runway. Present as a table with current period, prior period, and trend. Note academic calendar context — compare to same period prior year, not prior month, for institutional metrics."
+      - field: "Key metrics"
+        sector_label: "Adoption and Engagement Metrics"
+        sector_guidance: "Report: New institutional customers, Active learners (MAL), Teacher adoption rate (for institutional), Content completion rate, NPS (segmented), and any efficacy milestones. Choose 3-5 metrics most relevant to the current company focus."
+      - field: "Wins"
+        sector_label: "Wins"
+        sector_guidance: "Include at least one quantified win: a named institution closed (with ACV and learner count), an efficacy milestone (study completed, outcome published), or a product milestone with measurable adoption impact."
+      - field: "Challenges"
+        sector_label: "Challenges"
+        sector_guidance: "Lead with challenges. Common EdTech challenges to report honestly: seasonal engagement decline, institutional churn at contract boundaries, teacher adoption difficulties, and competition from free alternatives or AI tools."
+      - field: "Asks"
+        sector_label: "Asks"
+        sector_guidance: "EdTech-specific asks: introductions to district superintendents or university provosts, connections to education conference organizers, introductions to potential research partners, and hiring referrals for EdTech hybrid roles."
+    sections_to_add:
+      - section_name: "Academic Calendar Context"
+        placement: "after:EdTech KPIs"
+        description: "Context that helps investors interpret metrics against the academic calendar."
+        fields:
+          - "Current position in academic calendar (start of year, mid-year, end of year, summer)"
+          - "Seasonal adjustment notes (e.g., 'MAL declined 30% due to summer — consistent with prior year')"
+          - "Next procurement window timing and pipeline"
+    sections_to_remove: []
+    benchmark_references: ["average-contract-value", "learner-engagement-rate", "teacher-adoption-rate", "nps-segmented"]
+
+  - template: "competitive-landscape-brief"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech competitive analysis must map competitors across traditional EdTech products, free alternatives, AI tools, and publishers — a broader competitive set than most sectors. The brief must address the unique EdTech dynamic where the most dangerous competitor may be 'no technology at all' or 'free content.'"
+    field_changes:
+      - field: "Competitor overview"
+        sector_label: "EdTech Competitive Map"
+        sector_guidance: "Map competitors across four categories: (1) Direct EdTech competitors — same category, same segment. (2) Free alternatives — Khan Academy, YouTube, OER, ChatGPT. (3) Publisher-technology hybrids — Pearson, McGraw-Hill, HMH expanding into technology. (4) AI platforms — general-purpose AI providing competing functionality. Position on a 2x2: X-axis = segment (K-12 to Corporate), Y-axis = delivery model (content to platform)."
+      - field: "Competitive advantages"
+        sector_label: "EdTech Defensibility Analysis"
+        sector_guidance: "Assess along EdTech-specific dimensions: efficacy evidence moat (published research), institutional relationships (depth and breadth of school/university partnerships), teacher community (educators who advocate for the product), content depth (proprietary, curriculum-aligned content), data asset (learner interaction data that improves the adaptive engine), and compliance infrastructure (FERPA, COPPA, accessibility certifications)."
+      - field: "Competitive threats"
+        sector_label: "Threat Vectors"
+        sector_guidance: "Categorize: (1) Direct competitor feature parity. (2) Free alternative improvement (Khan Academy adding AI features). (3) AI commoditization (ChatGPT-level tutoring for free). (4) Publisher platform expansion (Pearson building your product's function). (5) Institutional non-adoption (the biggest competitor in EdTech is often 'the way we have always done it')."
+    sections_to_add:
+      - section_name: "Free Alternative Threat Assessment"
+        placement: "after:Threat Vectors"
+        description: "Specific assessment of free alternatives that set the price ceiling."
+        fields:
+          - "Free alternatives available to the target learner population"
+          - "Capability comparison: what the free alternative does well vs. what it lacks"
+          - "Premium justification: why institutions/learners should pay for this product"
+          - "Trend analysis: are free alternatives improving faster than the paid product?"
+      - section_name: "AI Disruption Assessment"
+        placement: "after:Free Alternative Threat Assessment"
+        description: "Assessment of how AI tools affect the EdTech competitive landscape."
+        fields:
+          - "Which product capabilities can be replicated by general-purpose AI?"
+          - "Which capabilities require institutional integration that AI alone cannot provide?"
+          - "How is the company incorporating AI to strengthen its position?"
+          - "What is the timeline for AI to reach 'good enough' in the product's core function?"
+    sections_to_remove: []
+    benchmark_references: ["institutional-adoption-rate", "efficacy-evidence-strength", "nps-segmented"]
+
+  - template: "fundraising-deck-outline"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech pitch decks must address investor concerns specific to the sector: long institutional sales cycles, competition from free content, seasonal revenue patterns, and the need for efficacy evidence. The deck should clearly present the institutional vs. consumer model choice and demonstrate efficacy."
+    field_changes:
+      - field: "Market opportunity"
+        sector_label: "EdTech Market Opportunity"
+        sector_guidance: "Present TAM/SAM/SOM with EdTech-specific sizing: (target institutions x ACV) for institutional, or (target learner population x willingness to pay x conversion rate) for consumer. Include education spending data (HolonIQ: $6.5T global education, $400B+ EdTech projected by 2030). Address policy tailwinds (digital learning mandates, AI in education adoption)."
+      - field: "Business model"
+        sector_label: "EdTech Business Model"
+        sector_guidance: "Cover: revenue model (institutional licensing, consumer subscription, freemium, OPM, marketplace), pricing structure (per-student, per-seat, institution-wide), customer segments with the buyer-implementer-user distinction, and the go-to-market motion (top-down institutional sales, bottom-up teacher adoption, consumer growth)."
+      - field: "Traction"
+        sector_label: "EdTech Traction Metrics"
+        sector_guidance: "Dedicated slide with: Revenue trajectory (segmented), Active learners (MAL), Institutional customers (count and ACV), Teacher adoption rate, Content completion rate, and Efficacy evidence. This slide must tell both the business story (revenue, growth) and the impact story (learners served, outcomes improved)."
+    sections_to_add:
+      - section_name: "Efficacy Evidence Slide"
+        placement: "after:EdTech Traction Metrics"
+        description: "Dedicated efficacy presentation that EdTech investors expect."
+        fields:
+          - "Learning outcomes data (effect size or improvement percentage)"
+          - "Study design description (pilot, quasi-experimental, RCT)"
+          - "Student testimonials with quantified impact"
+          - "Efficacy roadmap (planned studies and evidence tier advancement)"
+      - section_name: "Multi-Stakeholder Value Slide"
+        placement: "after:Efficacy Evidence Slide"
+        description: "Demonstrates understanding of EdTech's buyer-implementer-user complexity."
+        fields:
+          - "Buyer value proposition (what the admin/procurement officer gets)"
+          - "Implementer value proposition (what the teacher/trainer gets)"
+          - "User value proposition (what the learner gets)"
+          - "How each stakeholder's needs are served simultaneously"
+      - section_name: "Go-to-Market Slide"
+        placement: "after:Multi-Stakeholder Value Slide"
+        description: "EdTech GTM must address the procurement cycle and multi-stakeholder adoption chain."
+        fields:
+          - "GTM motion (institutional sales, teacher-first adoption, consumer growth, or hybrid)"
+          - "Sales cycle description and optimization strategy"
+          - "Teacher adoption strategy (PD, onboarding, community)"
+          - "Procurement facilitation (compliance readiness, pilot-to-purchase path)"
+    sections_to_remove: []
+    benchmark_references: ["average-contract-value", "institutional-adoption-rate", "learner-engagement-rate", "efficacy-evidence-strength", "teacher-adoption-rate"]
+
+  - template: "strategic-analysis-one-pager"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "An EdTech strategic one-pager must anchor analysis in the multi-stakeholder value chain, efficacy positioning, and the unique competitive dynamics of education markets."
+    field_changes:
+      - field: "Strategic position"
+        sector_label: "EdTech Strategic Position"
+        sector_guidance: "Frame in EdTech terms: market segment (K-12 / higher ed / corporate / consumer), stakeholder alignment (which stakeholder is the primary wedge — buyer, teacher, or learner?), competitive differentiation (vs. paid competitors AND free alternatives), and the efficacy moat (strength of outcome evidence)."
+      - field: "Key metrics"
+        sector_label: "EdTech Health Metrics"
+        sector_guidance: "Core 6: Revenue + growth rate, Institutional retention rate, Learner engagement rate, Teacher adoption rate, Efficacy evidence tier, Gross margin. Compare each to EdTech stage-appropriate benchmarks."
+    sections_to_add:
+      - section_name: "Multi-Stakeholder Alignment Assessment"
+        placement: "end"
+        description: "Assessment of whether the product serves all three stakeholders in the value chain."
+        fields:
+          - "Buyer satisfaction and renewal likelihood"
+          - "Implementer (teacher/trainer) adoption and satisfaction"
+          - "User (learner) engagement and outcome data"
+          - "Alignment gaps and strategic implications"
+    sections_to_remove: []
+    benchmark_references: ["institutional-churn-rate", "learner-engagement-rate", "teacher-adoption-rate", "efficacy-evidence-strength", "gross-margin"]
+
+  - template: "market-opportunity-summary"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech market sizing must use education-specific methodologies and address unique market dynamics: the role of government funding, policy-driven demand shifts, the academic calendar, and the split between institutional and consumer segments."
+    field_changes:
+      - field: "Total addressable market"
+        sector_label: "EdTech TAM / SAM / SOM"
+        sector_guidance: "Use bottom-up sizing by segment: K-12 = (target districts x schools/district x ACV/school), Higher Ed = (target institutions x departments x ACV), Corporate = (target companies x L&D budget allocation). Cross-reference with HolonIQ global EdTech spending data. Address the 'free content' TAM adjustment — not all learners represent revenue potential."
+      - field: "Market dynamics"
+        sector_label: "Education Market Dynamics"
+        sector_guidance: "Address: policy environment (ESSA, state mandates, federal funding programs), procurement cycle structure (budget timing, adoption lists, evaluation processes), competitive landscape (direct, free, AI, publishers), and demographic trends (K-12 enrollment, higher ed demographic cliff, lifelong learning growth)."
+    sections_to_add:
+      - section_name: "Policy and Funding Environment"
+        placement: "after:Education Market Dynamics"
+        description: "EdTech-specific analysis of the funding and policy landscape."
+        fields:
+          - "Federal funding programs relevant to the product (Title I, Title IV, Perkins, WIOA)"
+          - "State-level policy tailwinds (digital learning mandates, curriculum adoption cycles)"
+          - "Funding sustainability assessment (one-time vs. recurring funding sources)"
+      - section_name: "AI Impact on Market"
+        placement: "end"
+        description: "Assessment of how AI changes the EdTech market opportunity."
+        fields:
+          - "AI-driven market expansion (new use cases enabled by AI)"
+          - "AI-driven market contraction (existing functions commoditized by AI)"
+          - "Net market impact and company positioning"
+    sections_to_remove: []
+    benchmark_references: ["average-contract-value", "institutional-adoption-rate"]
+
+  - template: "due-diligence-checklist"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech due diligence has specific focus areas: efficacy evidence validation, multi-stakeholder satisfaction assessment, compliance verification (FERPA, COPPA, accessibility), and revenue sustainability analysis given funding-source dependencies."
+    field_changes:
+      - field: "Financial review"
+        sector_label: "EdTech Financial Verification"
+        sector_guidance: "Verify: revenue segmentation (institutional vs. consumer), ACV calculation, institutional churn rate (logo and revenue), funding-source dependency analysis (what % of revenue comes from time-limited grants?), seasonal revenue pattern, and gross margin by segment."
+      - field: "Operational review"
+        sector_label: "Adoption and Retention Review"
+        sector_guidance: "Review: teacher adoption rates by institution, learner engagement data by cohort, NPS by stakeholder segment, content completion rates, implementation success rates, and support ticket volume and resolution."
+    sections_to_add:
+      - section_name: "Efficacy Evidence Due Diligence"
+        placement: "after:Adoption and Retention Review"
+        description: "EdTech-specific assessment of learning outcomes evidence."
+        fields:
+          - "Study designs reviewed (pilot, quasi-experimental, RCT)"
+          - "Effect sizes and statistical significance of outcome claims"
+          - "Independence of research (self-conducted vs. third-party)"
+          - "ESSA evidence tier assessment"
+          - "Generalizability of results (populations, settings, implementations)"
+      - section_name: "Compliance Due Diligence"
+        placement: "after:Efficacy Evidence Due Diligence"
+        description: "Education-sector regulatory compliance assessment."
+        fields:
+          - "FERPA compliance verification"
+          - "COPPA compliance (if product serves children under 13)"
+          - "Accessibility compliance (WCAG 2.1 AA / Section 508 / VPAT status)"
+          - "State data privacy agreement participation"
+          - "Data handling practices (storage, retention, deletion, portability)"
+      - section_name: "Content and IP Review"
+        placement: "end"
+        description: "Assessment of content assets and intellectual property."
+        fields:
+          - "Content ownership (original, licensed, user-generated, AI-generated)"
+          - "Content update cycle and standards alignment currency"
+          - "Content creation cost structure and scalability"
+          - "Third-party content licensing terms and renewal risk"
+    sections_to_remove: []
+    benchmark_references: ["institutional-churn-rate", "learner-engagement-rate", "teacher-adoption-rate", "efficacy-evidence-strength", "ferpa-coppa-compliance-status", "accessibility-compliance-score"]
+
+  - template: "cap-table-summary"
+    audience: "investor"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Cap table structure is not EdTech-specific. Standard venture capital cap table formats apply regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "decision-rationale-memo"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech decision rationale memos should frame decisions in multi-stakeholder terms — how does this decision affect the buyer, the implementer, and the user — and reference efficacy implications."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context (Multi-Stakeholder)"
+        sector_guidance: "Frame the decision through all three stakeholder lenses: How does this affect institutional buyers (procurement, compliance, evidence)? How does this affect teachers/implementers (workflow, time, PD)? How does this affect learners (engagement, outcomes, experience)?"
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "exit-scenario-analysis"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech exit scenarios involve acquirer categories specific to the sector: publishers (Pearson, McGraw-Hill, HMH), LMS platforms (Instructure, PowerSchool), assessment companies (ACT, ETS, NWEA), large EdTech platforms (Coursera, Chegg), and PE firms specializing in education (Vista Equity, Thoma Bravo). Valuation multiples differ from general SaaS due to lower growth rates and margin profiles."
+    field_changes:
+      - field: "Valuation methodology"
+        sector_label: "EdTech Valuation Multiples"
+        sector_guidance: "EdTech companies are valued on revenue multiples modulated by growth, margins, and institutional retention. Public EdTech comps: Duolingo (premium consumer), Coursera (marketplace), Instructure (institutional platform), PowerSchool (K-12 SIS). Note: EdTech multiples are generally 20-40% lower than general SaaS due to lower growth rates and margin profiles."
+      - field: "Potential acquirers"
+        sector_label: "EdTech Acquirer Landscape"
+        sector_guidance: "Categorize: (1) Publisher acquirers — Pearson, McGraw-Hill, HMH seeking technology capability. (2) Platform acquirers — Instructure, PowerSchool, Google Education seeking content or functionality. (3) Assessment company acquirers — ACT, ETS, NWEA seeking adaptive or content capability. (4) Large EdTech acquirers — Coursera, Chegg, Byju's seeking complementary products. (5) PE acquirers — Vista Equity, Thoma Bravo acquiring profitable EdTech businesses."
+    sections_to_add:
+      - section_name: "EdTech Valuation Benchmarks"
+        placement: "after:EdTech Valuation Multiples"
+        description: "Current market multiples for EdTech companies."
+        fields:
+          - "Public EdTech median revenue multiple (current)"
+          - "Growth-adjusted multiples by sub-segment"
+          - "Recent comparable EdTech M&A transactions with multiples"
+          - "Premium/discount versus general SaaS multiples"
+    sections_to_remove: []
+    benchmark_references: ["gross-margin", "institutional-churn-rate", "learner-engagement-rate"]
+
+  # ─────────────────────────────────────────────
+  # BOARD TEMPLATES (7)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-strategic-review"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech board reviews should be structured around the academic calendar (not fiscal quarters) and include multi-stakeholder metrics, efficacy updates, and compliance status alongside financial performance."
+    field_changes:
+      - field: "Financial summary"
+        sector_label: "EdTech Financial Dashboard"
+        sector_guidance: "Present: Revenue by segment (institutional vs. consumer), Institutional ARR waterfall (opening + new + expansion - churn = closing), Consumer MRR trend, Gross margin by segment, Burn rate and runway. Compare to plan and to same period prior academic year (not prior quarter — EdTech is seasonal)."
+      - field: "Strategic priorities"
+        sector_label: "Academic-Year OKR Progress"
+        sector_guidance: "Report against academic-year OKRs (not calendar-year). Flag off-track OKRs with root cause and corrective action. Present next semester's strategic priorities with measurable targets."
+      - field: "Risks"
+        sector_label: "Risk Dashboard"
+        sector_guidance: "Categorize: Product risks (engagement decline, efficacy stagnation, AI displacement), GTM risks (procurement cycle misalignment, pipeline coverage, competitive losses), Compliance risks (FERPA, COPPA, accessibility), Financial risks (funding-source dependency, seasonal cash flow), and Policy risks (federal/state education funding changes, curriculum mandate shifts)."
+    sections_to_add:
+      - section_name: "Multi-Stakeholder Metrics"
+        placement: "before:EdTech Financial Dashboard"
+        description: "One-page stakeholder health dashboard."
+        fields:
+          - "Buyer metrics: institutional retention rate, ACV trend, time to sale"
+          - "Implementer metrics: teacher adoption rate, teacher NPS, PD completion rate"
+          - "User metrics: learner engagement rate, completion rate, learning outcomes improvement"
+          - "NPS by segment (learner / teacher / admin)"
+      - section_name: "Efficacy Update"
+        placement: "after:EdTech Financial Dashboard"
+        description: "Learning outcomes evidence update for the board."
+        fields:
+          - "Current efficacy evidence tier"
+          - "Ongoing and planned efficacy studies"
+          - "Key outcome metrics (effect sizes, assessment gains)"
+          - "Efficacy-driven business impact (deals won citing evidence)"
+      - section_name: "Compliance Status"
+        placement: "after:Efficacy Update"
+        description: "Regulatory and compliance status report."
+        fields:
+          - "FERPA/COPPA compliance status"
+          - "Accessibility compliance status and audit results"
+          - "State DPA participation status"
+          - "Any compliance incidents or risks"
+    sections_to_remove: []
+    benchmark_references: ["institutional-churn-rate", "teacher-adoption-rate", "learner-engagement-rate", "nps-segmented", "efficacy-evidence-strength", "gross-margin"]
+
+  - template: "board-meeting-agenda"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech board meeting agendas should allocate time to efficacy evidence, multi-stakeholder metrics, compliance, and the academic-calendar-driven planning that shapes EdTech strategy."
+    field_changes:
+      - field: "Agenda items"
+        sector_label: "EdTech Board Agenda"
+        sector_guidance: "Standard EdTech board agenda: (1) Multi-stakeholder metrics review — 15 min (pre-read, discussion only; covers buyer, teacher, and learner metrics). (2) Efficacy and compliance update — 10 min (evidence progress, compliance status). (3) Strategic topic deep-dive — 30 min (one topic: AI strategy, segment expansion, teacher adoption, pricing, competitive). (4) Financial and runway — 10 min. (5) CEO asks — 10 min. (6) Executive session — 15 min. Total: 90 minutes. Align meeting cadence with academic year — September (start of year), January (mid-year), May (planning for next year), August (pre-launch review)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "risk-assessment-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech risk categories include sector-specific risks: regulatory compliance (FERPA, COPPA, state privacy laws), accessibility litigation, policy changes affecting funding, academic calendar revenue concentration, free content substitution, and AI disruption."
+    field_changes:
+      - field: "Risk categories"
+        sector_label: "EdTech Risk Categories"
+        sector_guidance: "Include EdTech-specific categories: (1) Compliance risk — FERPA/COPPA violation, accessibility lawsuit, state privacy law non-compliance. (2) Funding risk — dependency on time-limited government funding, policy changes affecting education budgets. (3) Adoption risk — teacher adoption failure, engagement collapse, efficacy evidence shortfall. (4) Competitive risk — free alternative improvement, AI commoditization, publisher expansion. (5) Seasonal risk — revenue concentration, cash flow gaps between procurement cycles."
+    sections_to_add:
+      - section_name: "Compliance Risk Detail"
+        placement: "end"
+        description: "Detailed assessment of education-specific regulatory risks."
+        fields:
+          - "FERPA/COPPA compliance exposure and mitigation status"
+          - "Accessibility compliance exposure (ADA/Section 508 litigation risk)"
+          - "State privacy law compliance (number of states with coverage)"
+          - "Data breach preparedness and notification procedures"
+      - section_name: "Policy and Funding Risk"
+        placement: "after:Compliance Risk Detail"
+        description: "Assessment of policy-driven revenue risk."
+        fields:
+          - "Revenue percentage dependent on specific government funding programs"
+          - "Policy changes under consideration that could affect the market"
+          - "Scenario analysis for funding reduction or redirection"
+    sections_to_remove: []
+    benchmark_references: ["ferpa-coppa-compliance-status", "accessibility-compliance-score", "institutional-churn-rate"]
+
+  - template: "change-initiative-proposal"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech change initiatives must account for the academic calendar — changes that affect the product experience should be implemented at semester boundaries, and changes that affect institutional relationships should align with budget cycles."
+    field_changes:
+      - field: "Implementation timeline"
+        sector_label: "Academic-Calendar-Aligned Implementation"
+        sector_guidance: "Align implementation phases with the academic calendar. Product changes: ship during summer (July-August) or winter break (December-January). Pricing changes: implement before the spring budget approval season (March-May). Sales process changes: implement before the primary selling season. Never deploy major UX changes mid-semester."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "compensation-review-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech compensation benchmarking must account for the sector's unique talent market: lower than big-tech but higher than traditional education, with mission alignment as a partial compensation substitute."
+    field_changes:
+      - field: "Compensation benchmarks"
+        sector_label: "EdTech Compensation Benchmarks"
+        sector_guidance: "Use EdTech-specific comp data: Pave, Carta (equity), and EdSurge/ISTE salary surveys (education roles). EdTech compensation typically runs 10-25% below equivalent SaaS roles — set expectations accordingly during hiring. Benchmark separately for technology roles (compete with SaaS), education roles (compete with schools and publishers), and hybrid roles (scarce, command premium)."
+    sections_to_add:
+      - section_name: "Education Role Compensation"
+        placement: "end"
+        description: "Compensation analysis for education-specific roles unique to EdTech."
+        fields:
+          - "Instructional designer compensation benchmarks"
+          - "Former teacher / educator compensation (transition-to-tech premium)"
+          - "Education research / efficacy team compensation"
+          - "Mission alignment value (survey data on compensation trade-off for mission)"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "regulatory-compliance-update"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech regulatory compliance is dominated by student data privacy (FERPA, COPPA), accessibility (ADA/Section 508), and state-level education data privacy laws — a distinct regulatory landscape from general technology."
+    field_changes:
+      - field: "Regulatory landscape"
+        sector_label: "Education Compliance Landscape"
+        sector_guidance: "Cover: federal student data privacy (FERPA, COPPA), state student data privacy laws (currently 50 states have laws; many exceed federal requirements), accessibility requirements (ADA, Section 508, WCAG 2.1 AA), state data privacy agreements (SDPC National DPA), AI in education regulation (emerging state-level guidelines), and content standards compliance (state curriculum alignment requirements)."
+    sections_to_add:
+      - section_name: "Student Data Privacy Compliance"
+        placement: "end"
+        description: "Detailed student data privacy compliance status."
+        fields:
+          - "FERPA compliance status and recent audit results"
+          - "COPPA compliance status (for products serving children under 13)"
+          - "State DPA participation (number of states with signed agreements)"
+          - "Student Privacy Pledge signatory status"
+          - "Data breach history and notification procedures"
+      - section_name: "Accessibility Compliance"
+        placement: "after:Student Data Privacy Compliance"
+        description: "Product accessibility compliance status."
+        fields:
+          - "VPAT / Accessibility Conformance Report status"
+          - "Most recent accessibility audit results"
+          - "Remediation plan for identified accessibility gaps"
+          - "Accessibility-related support requests and resolution"
+    sections_to_remove: []
+    benchmark_references: ["ferpa-coppa-compliance-status", "accessibility-compliance-score"]
+
+  - template: "ceo-succession-brief"
+    audience: "board"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "CEO succession planning follows standard corporate governance practices regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # TEAM TEMPLATES (13)
+  # ─────────────────────────────────────────────
+
+  - template: "action-plan"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech action plans should specify which stakeholder each action targets (buyer, implementer, or user) and align milestones with the academic calendar."
+    field_changes:
+      - field: "Success metrics"
+        sector_label: "EdTech KPI Targets (by Stakeholder)"
+        sector_guidance: "For each action item, specify: which stakeholder it serves, the EdTech metric it impacts (institutional retention, teacher adoption, learner engagement, completion rate, efficacy evidence, compliance), and the academic-calendar milestone for measurement."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["teacher-adoption-rate", "learner-engagement-rate"]
+
+  - template: "new-initiative-brief"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech initiative briefs must include multi-stakeholder impact analysis and align launch timing with the academic calendar."
+    field_changes:
+      - field: "Expected outcomes"
+        sector_label: "Expected Multi-Stakeholder Impact"
+        sector_guidance: "Quantify impact on each stakeholder: buyer impact (revenue, retention), implementer impact (teacher adoption, time savings), user impact (engagement, outcomes). Include the academic-calendar-aligned time to measurable impact."
+      - field: "Resource requirements"
+        sector_label: "Resource Requirements and Calendar Constraints"
+        sector_guidance: "Include academic calendar constraints: when must this be ready (back-to-school, spring semester, next adoption cycle)? What is the opportunity cost in the content and education team's time?"
+    sections_to_add:
+      - section_name: "Efficacy Impact"
+        placement: "after:Expected Multi-Stakeholder Impact"
+        description: "Assessment of how the initiative affects learning outcomes evidence."
+        fields:
+          - "Expected impact on learning outcomes"
+          - "Measurement approach (pre/post, controlled study, observational)"
+          - "Evidence contribution (does this initiative produce publishable efficacy data?)"
+    sections_to_remove: []
+    benchmark_references: ["learner-engagement-rate", "learning-outcomes-improvement", "teacher-adoption-rate"]
+
+  - template: "project-kickoff-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech project kickoffs must define success across all three stakeholders and align delivery with academic calendar milestones."
+    field_changes:
+      - field: "Success criteria"
+        sector_label: "Multi-Stakeholder Success Metrics"
+        sector_guidance: "Define 2-3 metrics per stakeholder group that this project will impact. Buyer metrics: retention, ACV, compliance. Implementer metrics: teacher adoption, NPS, PD completion. User metrics: engagement, completion, outcomes. Include academic-calendar-aligned measurement dates."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["teacher-adoption-rate", "learner-engagement-rate", "content-completion-rate"]
+
+  - template: "hiring-scorecard"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech hiring scorecards must assess whether candidates have both education domain knowledge and technology competency — the hybrid skills essential for EdTech success."
+    field_changes:
+      - field: "Required competencies"
+        sector_label: "EdTech-Specific Competencies"
+        sector_guidance: "For education roles: classroom/institutional experience, instructional design methodology, learning science knowledge, standards alignment expertise. For technology roles: experience building products for institutional buyers, understanding of education workflows, empathy for teacher and student users. For hybrid roles: ability to translate between education and technology teams, experience in EdTech or adjacent sectors. For sales roles: institutional procurement experience, education conference network, understanding of funding sources."
+    sections_to_add:
+      - section_name: "Education-Technology Bridge Assessment"
+        placement: "end"
+        description: "Assessment of the candidate's ability to work across the education-technology divide."
+        fields:
+          - "Education domain knowledge (depth and relevance)"
+          - "Technology fluency (product, engineering, data literacy)"
+          - "Cross-functional collaboration experience"
+          - "EdTech sector understanding (regulatory, competitive, stakeholder dynamics)"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "incident-postmortem"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech incidents have unique impact dimensions: disruption to learning (students unable to access materials during class), teacher disruption (lesson plans derailed), institutional trust damage (administration questioning the product's reliability), and compliance implications (student data exposure)."
+    field_changes:
+      - field: "Impact assessment"
+        sector_label: "Learning and Institutional Impact"
+        sector_guidance: "Quantify: number of learners affected, number of institutions affected, duration of learning disruption, instructional time lost, teacher workflow disruption, compliance implications (was student data affected?), institutional communication timeline and effectiveness, and trust impact (did any institutions escalate to administration?)."
+    sections_to_add:
+      - section_name: "Compliance and Data Impact"
+        placement: "after:Learning and Institutional Impact"
+        description: "EdTech-specific assessment of data and compliance implications."
+        fields:
+          - "Was student data affected (FERPA notification requirement assessment)"
+          - "Was child data affected (COPPA implications)"
+          - "Institutional notification obligations and completion status"
+          - "Remediation steps for affected learners"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "retrospective-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Sprint and project retrospectives follow standard agile practices that are not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "meeting-notes-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Meeting notes structure is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "one-on-one-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "One-on-one meeting structure is not sector-specific. The content naturally adapts to EdTech context."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "team-health-check"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech team health must assess the education-technology integration — the cross-functional collaboration between content/education teams and product/engineering teams, which is the most common source of dysfunction in EdTech organizations."
+    field_changes:
+      - field: "Health indicators"
+        sector_label: "EdTech Team Health Indicators"
+        sector_guidance: "Include EdTech-specific indicators: education-technology team integration (how well do content and engineering teams collaborate?), academic-calendar readiness (is the team prepared for seasonal intensity spikes?), teacher feedback integration (is teacher input reaching the product team?), and mission alignment (does the team feel the company is fulfilling its educational mission?)."
+    sections_to_add:
+      - section_name: "Education-Technology Integration Score"
+        placement: "end"
+        description: "Assessment of how well education and technology teams collaborate."
+        fields:
+          - "Content-Engineering collaboration quality"
+          - "Instructional design input on product roadmap"
+          - "Engineering understanding of pedagogical requirements"
+          - "Joint planning and retrospective frequency"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "culture-values-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech culture documents should articulate how the company balances mission (educational impact) with business performance (growth, revenue, efficiency) — the central cultural tension in EdTech."
+    field_changes:
+      - field: "Core values"
+        sector_label: "Mission-Business Integrated Values"
+        sector_guidance: "Values should address the mission-business integration explicitly. Example value: 'Learner outcomes first, sustainable business always.' Avoid values that privilege either mission or business exclusively. Include a value about stakeholder empathy — understanding buyers, teachers, and learners."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "feedback-360-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "360 feedback follows standard practices regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "offsite-planning-guide"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech offsites should include a learner/teacher experience component — direct exposure to the users the product serves, which grounds strategic discussions in reality."
+    field_changes:
+      - field: "Agenda structure"
+        sector_label: "EdTech Offsite Agenda"
+        sector_guidance: "Include a 'Classroom Connection' session: visit a partner school or university, observe the product in use, and speak directly with teachers and students. This grounds all subsequent strategic discussion in the reality of how the product is used. Time this session at the beginning of the offsite, not the end."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "role-description-template"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech role descriptions should specify whether the role requires education domain expertise, technology expertise, or hybrid skills, and identify the EdTech metrics the role is accountable for."
+    field_changes:
+      - field: "Key responsibilities"
+        sector_label: "Key Responsibilities and Stakeholder Accountability"
+        sector_guidance: "For each responsibility, specify: which stakeholder group the role primarily serves (buyer, implementer, user) and the EdTech metric the role owner is accountable for. Examples: VP Sales owns institutional ARR and ACV; VP Education owns efficacy evidence and teacher adoption rate; VP Product owns learner engagement and completion rate; VP CS owns institutional retention and NPS."
+      - field: "Required experience"
+        sector_label: "EdTech Experience Requirements"
+        sector_guidance: "Specify: education sector knowledge level required (deep, moderate, awareness), technology experience required, EdTech-specific experience (institutional sales, content development, learning science), and whether the role requires bridging education and technology teams."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # SELF TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "weekly-ceo-review"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "An EdTech CEO's weekly review should be structured around multi-stakeholder metrics and aligned with the academic calendar rhythm — different focus areas during back-to-school, mid-year, end-of-year, and summer."
+    field_changes:
+      - field: "Weekly metrics"
+        sector_label: "Weekly EdTech Dashboard"
+        sector_guidance: "Review weekly: Active learners and WoW trend, Teacher logins and activation for new institutions, Support ticket volume by stakeholder (teacher vs. admin vs. student), Pipeline changes, Cash balance. Monthly metrics (institutional churn, NPS, efficacy data) should be reviewed monthly. Adjust focus by academic calendar period: Sep-Oct (activation), Nov-Feb (engagement depth), Mar-May (renewal and expansion), Jun-Aug (onboarding preparation)."
+      - field: "Priorities"
+        sector_label: "This Week's Priority"
+        sector_guidance: "Identify the single most important thing for the week. In EdTech, this is often calendar-driven: during back-to-school, it is new customer onboarding; during mid-year, it is efficacy data collection; during spring, it is renewal conversations; during summer, it is product updates and PD preparation."
+    sections_to_add:
+      - section_name: "Stakeholder Signal Review"
+        placement: "after:Weekly EdTech Dashboard"
+        description: "Weekly review of qualitative signals from all three stakeholder groups."
+        fields:
+          - "Buyer signals: renewal conversations, new prospect interactions, budget feedback"
+          - "Teacher signals: adoption wins, support escalations, PD feedback"
+          - "Learner signals: engagement trends, completion patterns, qualitative feedback"
+    sections_to_remove: []
+    benchmark_references: ["learner-engagement-rate", "teacher-adoption-rate"]
+
+  - template: "decision-journal"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech decision journals should capture the multi-stakeholder trade-offs inherent in every significant decision and the academic-calendar constraints that shape timing."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context (Multi-Stakeholder and Calendar)"
+        sector_guidance: "Record: which stakeholders this decision affects, the trade-offs between stakeholder needs, the academic calendar constraints on timing, and the specific metric outcome that will confirm the decision was correct. For reversible decisions, note the measurement timeline aligned with academic milestones."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "annual-review-and-planning"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech annual reviews should be conducted on the academic-year cycle (August-September) and assess performance across all three stakeholder dimensions plus efficacy evidence advancement."
+    field_changes:
+      - field: "Year in review"
+        sector_label: "Academic Year in Review"
+        sector_guidance: "Assess: Revenue growth (institutional + consumer), Institutional metrics (new customers, retention, expansion, ACV), Adoption metrics (teacher adoption rate, learner engagement), Efficacy progress (evidence tier advancement, studies completed), Compliance milestones (certifications achieved, DPAs signed), and Team development (education-technology integration, key hires)."
+      - field: "Next year goals"
+        sector_label: "Next Academic Year EdTech Targets"
+        sector_guidance: "Set targets across all EdTech dimensions: Revenue targets (by segment), Institutional targets (new customers, retention, expansion), Adoption targets (teacher activation, learner engagement, completion), Efficacy targets (evidence tier to achieve, studies to commission), Compliance targets (certifications, DPAs), Product targets (major releases aligned with academic calendar). Each target should reference the academic-calendar milestone for measurement."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["institutional-churn-rate", "teacher-adoption-rate", "learner-engagement-rate", "efficacy-evidence-strength", "gross-margin"]
+
+  - template: "stakeholder-map"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech stakeholder maps must include education-ecosystem-specific stakeholder categories: institutional decision-makers, teacher influencers, policy makers, research partners, and the unique EdTech investor community."
+    field_changes:
+      - field: "Stakeholder categories"
+        sector_label: "EdTech Stakeholder Ecosystem"
+        sector_guidance: "Include: Institutional buyers (superintendents, provosts, CLOs), Implementers (teacher champions, instructional coaches, PD directors), Investors (EdTech-specialized funds, impact investors, generalist VCs), Partners (publishers, LMS platforms, assessment organizations, research universities), Policy (state education officials, federal program officers, school board members), Community (teacher influencers, education bloggers, conference organizers), and Team (executives, education experts, technology leaders)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "negotiation-prep-sheet"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech negotiation prep should include education-specific negotiation contexts and the unique constraints of institutional procurement."
+    field_changes:
+      - field: "Negotiation type"
+        sector_label: "EdTech Negotiation Context"
+        sector_guidance: "Classify: institutional deal (district/university contract terms), publisher partnership (content licensing, revenue share, IP), platform integration (LMS terms, data sharing), fundraising (term sheet with EdTech investors), or research collaboration (university partnership for efficacy study). Each type has distinct EdTech-specific dynamics."
+      - field: "BATNA"
+        sector_label: "BATNA and EdTech Leverage"
+        sector_guidance: "EdTech-specific leverage: for institutional sales — efficacy evidence, teacher demand (bottom-up pull), state adoption list inclusion, compliance readiness. For partnerships — unique content, proprietary data, institutional relationships. For fundraising — impact metrics alongside financial metrics, mission-aligned investor interest."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["average-contract-value", "efficacy-evidence-strength"]
+
+  - template: "career-strategy-canvas"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Career strategy is personal, not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "founder-mental-health-check"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech founder mental health is affected by sector-specific stressors: the emotional weight of serving children and students, the frustration of slow institutional change, the guilt of commercial decisions that may compromise educational mission, and the seasonal intensity cycle."
+    field_changes:
+      - field: "Stress indicators"
+        sector_label: "EdTech-Specific Stress Indicators"
+        sector_guidance: "Include: mission guilt (feeling that commercial decisions betray the educational mission), seasonal burnout (back-to-school intensity creating annual burnout cycles), institutional frustration (the slow pace of education system change wearing down motivation), impact anxiety (questioning whether the product is actually helping learners), and comparison stress (measuring against philanthropically funded competitors like Khan Academy who do not need to be profitable)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "leadership-reflection"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Leadership reflection is not sector-specific. The reflections naturally address EdTech-specific challenges."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "learning-plan"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech founders should include education-specific learning areas in their development plans to bridge the education-technology knowledge gap."
+    field_changes:
+      - field: "Learning areas"
+        sector_label: "EdTech Learning Priorities"
+        sector_guidance: "Consider EdTech-specific learning areas: learning science fundamentals (how people learn — cognitive load theory, spaced repetition, retrieval practice), education policy and funding mechanisms, institutional procurement processes, accessibility and inclusive design, efficacy research methodology, AI in education (tutoring, assessment, content generation), and the education reform landscape."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "personal-board-tracker"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "An EdTech founder's personal board of advisors should include education-specific expertise areas."
+    field_changes:
+      - field: "Advisor categories"
+        sector_label: "EdTech Advisory Needs"
+        sector_guidance: "Map advisors to EdTech-specific needs: EdTech operations (someone who has scaled an EdTech company through the institutional sales gauntlet), Education domain (former superintendent, university provost, or chief learning officer who understands the buyer), Product (EdTech product leader who has navigated multi-stakeholder design), Research (learning scientist or education researcher for efficacy guidance), Policy (someone connected to education policy at state or federal level), Finance (EdTech-savvy investor who understands sector-specific valuation), and Technology (AI/ML leader for adaptive learning and content generation strategy)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # CLIENT TEMPLATES (8)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-business-review"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech QBRs (Quarterly Business Reviews, often Semester Reviews in education) are the primary institutional retention and expansion vehicle. The review must address all three stakeholders with data tailored to each: administrators care about ROI and compliance, teachers care about usage and classroom impact, and efficacy data connects both."
+    field_changes:
+      - field: "Performance summary"
+        sector_label: "Learning Impact Delivered"
+        sector_guidance: "Quantify the educational value delivered this period: learning outcomes improvement (assessment gains, skill proficiency advancement), content completion rates, learner engagement statistics, and comparison to institutional goals. Use the institution's own metrics and language — test scores, standards mastery levels, graduation rates — not product metrics."
+      - field: "Account status"
+        sector_label: "Adoption and Usage Metrics"
+        sector_guidance: "Present: teacher activation rate, active learners vs. licensed learners, feature adoption by module, usage patterns by grade/department/team, and comparison to peer institutions in similar demographics."
+      - field: "Next steps"
+        sector_label: "Expansion and Deepening Opportunities"
+        sector_guidance: "Identify expansion: additional grade levels, subjects, departments, or campuses. Deepening: additional modules, premium features, or deeper integration. Frame as educational outcomes, not product upsells: 'Based on success in 3rd grade math, 4th grade teachers have expressed interest in the same approach.'"
+    sections_to_add:
+      - section_name: "Efficacy Report"
+        placement: "before:Learning Impact Delivered"
+        description: "Learning outcomes evidence specific to this institution."
+        fields:
+          - "Pre/post assessment results (if available)"
+          - "Learning outcomes improvement vs. institution's goals"
+          - "Comparison to efficacy benchmarks from research"
+          - "Teacher-reported impact on instruction"
+      - section_name: "Teacher Adoption Report"
+        placement: "after:Adoption and Usage Metrics"
+        description: "Detailed teacher adoption and satisfaction data."
+        fields:
+          - "Teacher activation rate and trend"
+          - "Teacher NPS"
+          - "Professional development completion"
+          - "Teacher support requests and resolution"
+    sections_to_remove: []
+    benchmark_references: ["teacher-adoption-rate", "learner-engagement-rate", "content-completion-rate", "learning-outcomes-improvement", "nps-segmented"]
+
+  - template: "onboarding-welcome-packet"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech onboarding must address all three stakeholders separately: administrators need compliance documentation and reporting setup, teachers need PD and classroom integration guidance, and students need age-appropriate product orientation. Time to value is measured in academic terms: the product must be functional before the first class session."
+    field_changes:
+      - field: "Getting started steps"
+        sector_label: "Multi-Stakeholder Onboarding Path"
+        sector_guidance: "Structure onboarding in three parallel tracks: Administrator track: compliance documentation, data integration (SIS, LMS), reporting dashboard setup, success criteria definition — complete before school start. Teacher track: PD session, classroom setup wizard, first lesson plan creation, peer teacher community access — complete within first two weeks of school. Student track: age-appropriate account setup, first learning activity, accessibility accommodations configuration — complete within first class session."
+      - field: "Resources"
+        sector_label: "Stakeholder-Specific Resources"
+        sector_guidance: "Segment resources by stakeholder: Administrators — compliance documentation, data integration guides, ROI measurement framework. Teachers — PD videos, lesson plan library, teacher community forum, classroom management guide. Students — age-appropriate tutorials, help resources, accessibility options."
+    sections_to_add:
+      - section_name: "Academic Calendar Milestones"
+        placement: "end"
+        description: "Implementation milestones tied to the academic calendar."
+        fields:
+          - "Pre-school-year: admin setup, data integration, teacher PD scheduling"
+          - "Week 1-2: teacher activation, first student sessions"
+          - "Month 1: baseline assessment data collection"
+          - "Semester midpoint: first usage review, teacher feedback collection"
+          - "Semester end: outcome data collection, renewal conversation"
+    sections_to_remove: []
+    benchmark_references: ["teacher-adoption-rate", "learner-engagement-rate"]
+
+  - template: "proposal-outline"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech proposals must address institutional procurement requirements: alignment with standards, compliance documentation, efficacy evidence, implementation support, and pricing structured around institutional budget categories."
+    field_changes:
+      - field: "Pricing"
+        sector_label: "Investment, Funding Alignment, and ROI"
+        sector_guidance: "Present: pricing options (per-student, per-school, district-wide), alignment with common funding sources (Title I, Title IV-A, state grants — specify which line items the product fits under), implementation costs, PD costs, and a clear ROI model using education-specific metrics (cost per student outcome improvement, instructional time saved per teacher)."
+      - field: "Scope"
+        sector_label: "Implementation Scope and Academic Calendar Alignment"
+        sector_guidance: "Define implementation phases aligned with the academic calendar: pre-year setup, teacher PD, student onboarding, mid-year check-in, year-end assessment. Specify the institution's time commitment by role (admin hours, teacher hours, IT hours). Set expectations for time to measurable outcomes (typically one full semester minimum)."
+    sections_to_add:
+      - section_name: "Efficacy Evidence"
+        placement: "before:Investment, Funding Alignment, and ROI"
+        description: "Learning outcomes evidence to support the purchasing decision."
+        fields:
+          - "Published efficacy research (studies, effect sizes, populations)"
+          - "Similar institution case studies with quantified outcomes"
+          - "Standards alignment documentation"
+          - "Proposed pilot with built-in measurement"
+      - section_name: "Compliance Documentation"
+        placement: "after:Implementation Scope and Academic Calendar Alignment"
+        description: "Compliance documentation that institutional buyers require."
+        fields:
+          - "FERPA compliance attestation"
+          - "COPPA compliance (if applicable)"
+          - "Data Privacy Agreement (aligned with SDPC template)"
+          - "Accessibility documentation (VPAT)"
+          - "Security documentation (SOC 2, penetration test results)"
+    sections_to_remove: []
+    benchmark_references: ["average-contract-value", "efficacy-evidence-strength", "ferpa-coppa-compliance-status"]
+
+  - template: "service-level-agreement"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech SLAs must address education-specific requirements: platform availability during school hours (not 24/7 — school hours are more critical than overnight), data handling for student records, and support response times aligned with the instructional day."
+    field_changes:
+      - field: "Service levels"
+        sector_label: "Education Service Commitments"
+        sector_guidance: "EdTech-specific SLA components: (1) Uptime during school hours (99.9% Monday-Friday 7AM-5PM local time — more critical than overall uptime). (2) Assessment window protection (99.99% during state testing periods). (3) Support response times (P0 during school hours: 30 minutes; P1: 2 hours; P2: 1 business day). (4) Student data handling commitments (FERPA-compliant storage, retention, deletion). (5) Content accuracy commitment (curriculum-aligned, standards-current). (6) Accessibility maintenance (WCAG 2.1 AA ongoing compliance)."
+      - field: "Remediation"
+        sector_label: "Credit and Remediation Terms"
+        sector_guidance: "Define: service credit structure for school-hours outages (higher credits for instructional time disruption), termination rights for sustained availability failures during assessment windows, and data portability upon contract termination (student data must be exportable and deletable per FERPA)."
+    sections_to_add:
+      - section_name: "Student Data Terms"
+        placement: "end"
+        description: "Student data handling commitments standard in EdTech contracts."
+        fields:
+          - "Data ownership (institution retains ownership of all student data)"
+          - "Data use restrictions (FERPA-compliant, no advertising, no secondary use)"
+          - "Data retention and deletion schedule"
+          - "Data portability upon contract termination"
+          - "Sub-processor disclosure and compliance"
+          - "Breach notification procedure and timeline"
+    sections_to_remove: []
+    benchmark_references: ["ferpa-coppa-compliance-status"]
+
+  - template: "project-status-update"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech implementation status updates should track progress toward the academic milestones that determine success — teacher activation before school starts, student engagement in the first weeks, and baseline assessment data collection."
+    field_changes:
+      - field: "Progress summary"
+        sector_label: "Implementation Progress (Academic Calendar)"
+        sector_guidance: "Track against academic-calendar-aligned milestones: Are teachers activated before classes start? Is student onboarding complete within the first week? Is baseline data being collected? Report teacher activation rate, student activation rate, and any blockers — especially institutional blockers (IT delays, schedule conflicts, PD session cancellations)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["teacher-adoption-rate", "learner-engagement-rate"]
+
+  - template: "analysis-report"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech analysis reports for institutional clients should present findings through the lens of educational outcomes and include multi-stakeholder data."
+    field_changes:
+      - field: "Findings"
+        sector_label: "Findings (by Stakeholder)"
+        sector_guidance: "Structure findings by stakeholder: What the data shows for institutional decision-makers (ROI, compliance, usage benchmarks), for teachers (classroom impact, time savings, PD effectiveness), and for learners (engagement, outcomes, experience). Include comparison to peer institutions and to efficacy research benchmarks."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["learning-outcomes-improvement", "learner-engagement-rate", "teacher-adoption-rate"]
+
+  - template: "case-study-template"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech case studies must present quantified learning outcomes (not just business outcomes) and address all three stakeholders to be useful as sales tools for institutional procurement."
+    field_changes:
+      - field: "Results"
+        sector_label: "Quantified Learning and Business Outcomes"
+        sector_guidance: "Every EdTech case study must include: (1) Learning outcomes — assessment gains, skill proficiency improvement, completion rates (with sample sizes and methodology). (2) Teacher impact — time saved, satisfaction scores, adoption rates. (3) Institutional impact — cost per student outcome, ROI calculation, comparison to prior approach. Abstract outcomes are insufficient — buyers need numbers to build internal business cases."
+      - field: "Challenge"
+        sector_label: "Educational Challenge and Institutional Context"
+        sector_guidance: "Include: the educational challenge (achievement gap, disengagement, skills gap), what the institution was doing before, what triggered the evaluation, the procurement process and decision factors, and the institution's demographic context (so prospects can determine if they are similar)."
+    sections_to_add:
+      - section_name: "Implementation Details"
+        placement: "after:Quantified Learning and Business Outcomes"
+        description: "Practical details about how the product was deployed."
+        fields:
+          - "Implementation timeline (from purchase to full deployment)"
+          - "Teacher PD and onboarding approach"
+          - "Student population served (demographics, grade levels, subjects)"
+          - "Integration with existing technology stack (LMS, SIS)"
+          - "Time to first measurable outcomes"
+      - section_name: "Multi-Stakeholder Testimonials"
+        placement: "after:Implementation Details"
+        description: "Testimonials from each stakeholder group."
+        fields:
+          - "Administrator quote (focus on ROI, evidence, decision validation)"
+          - "Teacher quote (focus on classroom impact, ease, time savings)"
+          - "Student quote or outcome story (focus on engagement, learning, experience)"
+    sections_to_remove: []
+    benchmark_references: ["learning-outcomes-improvement", "teacher-adoption-rate", "content-completion-rate"]
+
+  - template: "partnership-memo"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "EdTech partnership memos must address the unique partner landscape: LMS integrations, publisher content partnerships, research collaborations, and the interoperability standards (LTI, xAPI, Ed-Fi) that govern technical partnerships in education."
+    field_changes:
+      - field: "Partnership structure"
+        sector_label: "EdTech Partnership Structure"
+        sector_guidance: "Define: partnership type (technology integration, content co-development, distribution/channel, research collaboration), technical integration approach (LTI, xAPI, Ed-Fi, API), content IP ownership, data sharing terms (FERPA implications for any student data exchange), go-to-market collaboration (co-selling, co-marketing at education conferences), and success metrics."
+    sections_to_add:
+      - section_name: "Interoperability and Data Terms"
+        placement: "end"
+        description: "Technical and data terms specific to EdTech partnerships."
+        fields:
+          - "Integration standards used (LTI, xAPI, Ed-Fi, CASE)"
+          - "Student data sharing terms (FERPA compliance for shared data)"
+          - "Content IP ownership and licensing terms"
+          - "Platform dependency risk assessment"
+    sections_to_remove: []
+    benchmark_references: ["institutional-adoption-rate"]

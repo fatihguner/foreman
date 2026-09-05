@@ -1,0 +1,727 @@
+# EdTech Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift in an EdTech context.
+# The diagnostic agent loads these rules when the EdTech industry pack is active.
+#
+# EdTech diagnostic complexity: every business problem has a multi-stakeholder
+# dimension. Customer churn is institutional churn + teacher abandonment + learner
+# attrition — three distinct failure modes with different root causes. Growth
+# stalls may be product problems, procurement cycle problems, or policy problems.
+# Pricing issues interact with budget constraints, funding source requirements,
+# and the cultural expectation of free educational content.
+#
+# EdTech-specific diagnoses added across this file:
+#   - Buyer-user disconnect
+#   - Efficacy evidence gap
+#   - Procurement cycle mismatch
+#   - Teacher adoption failure
+#   - Student engagement collapse
+#   - Seasonal revenue cliff
+#   - Free content substitution threat
+#   - Accessibility compliance failure
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for EdTech companies.
+#   enhanced — The diagnostic is relevant but benefits from additional EdTech-specific
+#              triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for EdTech.
+
+pack_metadata:
+  sector: "edtech"
+  display_name: "EdTech"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Churn in EdTech operates at three distinct levels that must be diagnosed separately: institutional churn (the buyer does not renew), teacher churn (the implementer stops using the product within a renewing institution), and learner churn (students disengage within an active classroom). Each level has different causes, different signals, and different remedies. The base diagnostic's customer-centric model must be expanded to address all three."
+    additional_triage_questions:
+      - question: "Is the churn occurring at the institutional level (contracts not renewing), the teacher level (teachers abandoning the product within renewing institutions), or the learner level (students disengaging within active classrooms)?"
+        purpose: "These three churn types have fundamentally different root causes. Institutional churn often reflects budget or policy changes. Teacher churn reflects implementation failure. Learner churn reflects product-market fit issues."
+        routing_impact: "Institutional churn routes to pricing-diagnosis and competitive-threat-diagnosis. Teacher churn routes to kotter-change-model and teacher adoption analysis. Learner churn routes to product-life-cycle and engagement optimization."
+      - question: "Is the churn concentrated at a specific point in the academic calendar — end of school year, end of semester, budget cycle boundary, or after state testing?"
+        purpose: "Calendar-correlated churn in EdTech may be structural (the product is supplemental and gets cut when budgets tighten) rather than a product quality issue."
+        routing_impact: "Calendar-boundary churn routes to scenario-planning for seasonal revenue management. Non-calendar churn routes to deeper product and implementation diagnosis."
+      - question: "What was the teacher adoption rate in churning institutions compared to retained institutions?"
+        purpose: "Teacher adoption is the strongest leading indicator of institutional renewal. Low teacher adoption within an institution almost always predicts churn, regardless of administrator satisfaction."
+        routing_impact: "Low teacher adoption in churning institutions routes to implementation process redesign and kotter-change-model for change management within customer organizations."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Teacher adoption failure driving institutional churn"
+          reason: "The most common EdTech churn pattern: the institution purchased the product, but teachers never adopted it. The product sat unused for a year, and the administrator cannot justify renewal for shelf-ware."
+        - diagnosis: "Budget-cycle-driven churn"
+          reason: "EdTech products purchased with one-time funding (ESSER, grants, Title I allocations) face structural churn when that funding expires. This is external and not solvable through product improvement."
+      less_likely:
+        - diagnosis: "Product quality failure"
+          reason: "Products that get purchased by institutions have passed a quality threshold. Churn is more often caused by implementation failure, teacher non-adoption, or budget constraints than by the product being bad."
+    edtech_specific_diagnoses:
+      - name: "Buyer-user disconnect churn"
+        description: "The institutional buyer purchased the product based on criteria (compliance, evidence, cost) that do not align with what teachers and students actually need (ease, time savings, engagement). The product checks the buyer's boxes but fails the classroom test."
+        symptoms:
+          - "High initial contract value but low teacher activation within 60 days"
+          - "Admin NPS positive but teacher NPS negative or unmeasured"
+          - "Product purchased through district-level RFP without teacher involvement in evaluation"
+          - "Support tickets dominated by 'how do I use this in my classroom?' questions"
+        routes_to_skills: ["business-model-canvas", "systems-thinking", "net-promoter-score"]
+        routes_to_templates: ["action-plan", "quarterly-business-review"]
+      - name: "Teacher adoption failure"
+        description: "The institutional purchase was completed but teachers were never adequately trained, supported, or motivated to integrate the product into their practice. The product exists on school devices but is not part of the teaching workflow."
+        symptoms:
+          - "Teacher login rate below 30% within first 90 days of deployment"
+          - "No professional development sessions conducted during implementation"
+          - "Teachers reporting that 'there was no time to learn the new tool'"
+          - "Usage concentrated in 2-3 champion teachers while others are inactive"
+        routes_to_skills: ["kotter-change-model", "cialdini-influence", "tipping-point"]
+        routes_to_templates: ["onboarding-welcome-packet", "action-plan"]
+      - name: "Seasonal revenue cliff"
+        description: "Revenue depends on funding sources with expiration dates (ESSER, annual grants, single-year budget allocations) or on academic-calendar-dependent usage that creates predictable annual churn risk at contract renewal."
+        symptoms:
+          - "Churn concentrated at fiscal year boundaries (June-August for K-12)"
+          - "Significant portion of contracts funded by ESSER or time-limited grants"
+          - "Renewal conversations revealing 'we do not have the budget this year'"
+          - "Revenue growth in years when new federal/state funding is announced, decline when it expires"
+        routes_to_skills: ["scenario-planning", "business-model-canvas"]
+        routes_to_templates: ["quarterly-strategic-review", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Teacher adoption below 25% in institutions that churned — confirms that the purchase-implementation gap is the churn driver."
+      - "Churn correlated with ESSER fund expiration (2024) or specific grant cycle endings."
+      - "Institutional churn above 20% annual — unsustainable in an industry with 6-12 month sales cycles."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech growth stalls have characteristic patterns tied to the academic calendar, procurement cycles, and policy environment. A growth stall in September-November (peak adoption season) is a fundamentally different signal than a stall in February-April (mid-year lull). Growth may also stall because the company has saturated its initial market segment and the adjacent segments require different sales motions, content, or compliance credentials."
+    additional_triage_questions:
+      - question: "Is the growth stall occurring during the primary buying season (spring for budget approval, summer for deployment) or during the academic year?"
+        purpose: "A stall during buying season signals a go-to-market or competitive problem. A stall during the academic year may simply reflect the natural procurement rhythm."
+        routing_impact: "Buying-season stall routes to competitive-threat-diagnosis and four-ps-marketing. Off-season stall routes to seasonal-pattern analysis before escalating to strategic concerns."
+      - question: "Have you saturated your initial target segment (e.g., Title I elementary schools, community colleges, Fortune 500 L&D departments), and are you attempting to expand to an adjacent segment?"
+        purpose: "EdTech companies often build products perfect for one segment but struggle to adapt for adjacent segments that have different needs, budgets, and procurement processes."
+        routing_impact: "Segment saturation routes to blue-ocean-strategy and business-model-canvas for segment expansion strategy. Within-segment stall routes to competitive analysis and product improvement."
+      - question: "Has a policy change, funding expiration, or regulatory shift affected your market? Examples: ESSER fund expiration, state curriculum standard changes, testing mandate revisions."
+        purpose: "EdTech growth is uniquely vulnerable to policy changes that can add or remove billions in purchasing power overnight."
+        routing_impact: "Policy-driven stall routes to scenario-planning and swot-pest-analysis for environmental assessment and strategic response."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Procurement cycle mismatch"
+          reason: "EdTech companies accustomed to a specific procurement rhythm (e.g., spring budget approvals) may mistime their sales efforts, marketing, and product launches relative to when institutions actually make purchasing decisions."
+        - diagnosis: "Segment ceiling"
+          reason: "EdTech segments are finite — 14,000 US school districts, 4,000 degree-granting institutions, and a limited number of corporate L&D departments. Growth stalls when the accessible segment is saturated."
+      less_likely:
+        - diagnosis: "Market demand decline"
+          reason: "Demand for education and training is structurally durable. Growth stalls in EdTech are almost always execution, competition, or policy problems, not demand problems."
+    edtech_specific_diagnoses:
+      - name: "Procurement cycle mismatch"
+        description: "The company's sales, marketing, and product release cycles are misaligned with institutional procurement rhythms. Products launch when budgets are already allocated, marketing campaigns peak when procurement officers are unavailable, and sales efforts miss the budget approval window."
+        symptoms:
+          - "Pipeline strong in November but deals not closing until the following spring"
+          - "Conference season (winter/spring) generating leads that cannot convert until the next budget cycle"
+          - "Product releases in September when teachers need stability, not new features"
+          - "Revenue lumpy — concentrated in Q3 (Jun-Aug) with weak performance in Q1-Q2"
+        routes_to_skills: ["scenario-planning", "smart-goals", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["quarterly-strategic-review", "action-plan"]
+      - name: "Free content substitution threat"
+        description: "Growth is stalling because free alternatives (Khan Academy, YouTube educational content, OpenStax, ChatGPT) are providing 'good enough' learning experiences for a growing portion of the target market. Willingness to pay is declining."
+        symptoms:
+          - "Win/loss analysis showing 'free alternative' as a growing loss reason"
+          - "Institutional buyers citing 'we can use Khan Academy for free' or 'teachers are using ChatGPT' in procurement discussions"
+          - "Consumer free-to-paid conversion declining"
+          - "Competitive differentiation increasingly centered on features rather than outcomes"
+        routes_to_skills: ["blue-ocean-strategy", "disruptive-innovation", "porters-five-forces"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Growth stall coinciding with back-to-school season (August-October) — this is the highest-growth period for EdTech and a stall here indicates a serious problem."
+      - "Pipeline conversion rate declining while pipeline volume is stable — suggests the product is losing competitiveness."
+      - "New institutional customer acquisition declining while expansion revenue is flat — both growth engines are stalling simultaneously."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Product-market fit in EdTech is multi-dimensional: the product must fit three markets simultaneously — the buyer market (institutional procurement criteria), the implementer market (teacher needs and constraints), and the user market (learner engagement and outcomes). A product can have strong PMF with students but fail because teachers will not adopt it, or strong PMF with administrators but fail because students will not engage. True EdTech PMF requires alignment across all three."
+    additional_triage_questions:
+      - question: "For which stakeholder group is product-market fit strongest — the institutional buyer, the teacher/implementer, or the learner/user? Where is it weakest?"
+        purpose: "Identifying the weakest stakeholder link focuses improvement effort. Most EdTech products have PMF with one group and fail with another."
+        routing_impact: "Weak buyer PMF routes to evidence-building, compliance work, and institutional sales process improvement. Weak teacher PMF routes to UX improvement, PD design, and implementation support. Weak learner PMF routes to product redesign, content quality, and engagement mechanics."
+      - question: "Does the product demonstrate measurable learning improvement — and can you prove it with data?"
+        purpose: "EdTech PMF cannot be claimed without efficacy evidence. A product that engages without improving learning does not have EdTech PMF — it has entertainment-market fit."
+        routing_impact: "No efficacy evidence routes to learning-outcomes study design and efficacy-evidence-strength improvement before further growth investment. Evidence exists routes to evidence-amplification in sales and marketing."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "PMF exists for one stakeholder but not the other two"
+          reason: "EdTech's multi-stakeholder structure means partial PMF is the most common state — the product works for students but teachers find it burdensome, or administrators love the data but students are bored."
+        - diagnosis: "PMF exists but implementation quality determines whether it manifests"
+          reason: "Many EdTech products have latent PMF — they work when implemented well. The problem is not the product but the gap between purchase and effective deployment."
+      less_likely:
+        - diagnosis: "Market does not want this product"
+          reason: "If the product is being purchased by institutions, there is demand. The question is usually not 'is there demand?' but 'is the product delivering on the promise that created the demand?'"
+    edtech_specific_diagnoses:
+      - name: "Efficacy evidence gap"
+        description: "The product may be effective, but there is no credible evidence to demonstrate it. Without efficacy evidence, institutional buyers cannot justify the purchase, grant applications cannot cite the product, and competitive differentiation rests on features rather than outcomes."
+        symptoms:
+          - "Institutional sales cycles extending because buyers request efficacy data that does not exist"
+          - "No pre/post assessment data collected during pilot deployments"
+          - "Product marketing emphasizes engagement metrics and testimonials rather than learning outcomes"
+          - "Competitors with evidence winning deals despite inferior product quality"
+        routes_to_skills: ["balanced-scorecard", "smart-goals", "trust-equation"]
+        routes_to_templates: ["strategic-analysis-one-pager", "new-initiative-brief"]
+    sector_red_flags:
+      - "Retention curve that diverges by stakeholder: students retain but teachers do not, or teachers retain but students churn within the first month."
+      - "No measurable learning outcome improvement after 6+ months of usage — engagement without outcomes is not EdTech PMF."
+      - "PMF dependent on a single champion teacher or administrator — when that person leaves, the product fails at that institution."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "EdTech pricing is constrained by forces absent from other sectors: institutional budgets tied to government funding cycles, the cultural expectation that education should be free or publicly funded, competition from genuinely free alternatives (Khan Academy, OER, ChatGPT), and the complex interaction between funding source restrictions and contract structure. The base pricing diagnostic must account for these unique constraints."
+    additional_triage_questions:
+      - question: "What funding sources do your institutional customers typically use to purchase your product — general budget, Title I, Title IV-A, ESSER (now expired), state grants, or other?"
+        purpose: "Funding source determines budget size, spending restrictions, purchase timing, and renewal likelihood. A product funded by a one-time grant has structural renewal risk."
+        routing_impact: "Grant-funded purchases route to diversification strategy and multi-year commitment structuring. General-budget purchases route to standard pricing optimization."
+      - question: "How does your pricing compare to the free alternative that most closely competes — and what premium does your product justify?"
+        purpose: "Every paid EdTech product must articulate why it is worth paying for when free alternatives exist. The premium justification determines pricing power."
+        routing_impact: "Weak premium justification routes to blue-ocean-strategy for differentiation. Strong premium routes to pricing optimization within the justified range."
+      - question: "Is your pricing per-student, per-teacher, per-school, per-district, or usage-based — and does this align with how institutions budget for education technology?"
+        purpose: "Pricing unit alignment with budgeting processes reduces procurement friction. Per-student pricing aligns with Title I per-pupil allocations; per-school pricing aligns with school improvement budgets."
+        routing_impact: "Misaligned pricing unit routes to restructuring that matches institutional budget categories."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Pricing ceiling set by free alternatives"
+          reason: "The existence of Khan Academy, YouTube, OpenStax, and ChatGPT as free educational content sets a pricing ceiling that constrains every EdTech product."
+        - diagnosis: "Pricing-funding mismatch"
+          reason: "Products priced above the threshold that requires school board approval (typically $25K-$50K) but without the sales infrastructure for board presentations face a dead zone."
+      less_likely:
+        - diagnosis: "Over-pricing relative to perceived value"
+          reason: "EdTech products are more often under-priced (due to the free-content expectation) than over-priced. Products that demonstrate ROI can command premium pricing."
+    edtech_specific_diagnoses:
+      - name: "Budget threshold dead zone"
+        description: "The product is priced above the school principal's discretionary purchasing authority (typically $2K-$5K) but below the threshold that justifies a district-level sales process with dedicated resources. This pricing no-man's-land is too expensive for impulse purchase but too small for enterprise sales."
+        symptoms:
+          - "Deals requiring multiple approval layers despite modest contract value"
+          - "Sales cycle length disproportionate to deal size"
+          - "Teachers wanting the product but unable to purchase because it exceeds their classroom budget"
+          - "District-level procurement officers deprioritizing the evaluation because the deal is 'too small' for their attention"
+        routes_to_skills: ["four-ps-marketing", "business-model-canvas"]
+        routes_to_templates: ["unit-economics-snapshot", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Pricing unchanged for more than two academic years in a market where free AI alternatives are rapidly improving."
+      - "Revenue per learner declining quarter-over-quarter — a sign of downward pricing pressure or adverse selection toward lower-budget institutions."
+      - "Win/loss analysis showing 'budget' as the primary loss reason in more than 40% of losses — may indicate either overpricing or misalignment with available funding sources."
+
+  # ─────────────────────────────────────────────
+  # 5. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech fundraising has sector-specific dynamics: a smaller pool of specialized investors (GSV Ventures, Reach Capital, Owl Ventures, NewSchools Venture Fund, Learn Capital), sector-specific benchmarks (efficacy evidence matters alongside financial metrics), and unique narrative requirements (impact story alongside business story). The diagnostic must surface these EdTech-specific fundraising dimensions."
+    additional_triage_questions:
+      - question: "Can you demonstrate learning outcomes improvement with data — and is this data from a credible study design (not just testimonials)?"
+        purpose: "EdTech investors increasingly require efficacy evidence as a gating criterion. A product without outcome data is a harder fundraise regardless of financial metrics."
+        routing_impact: "No efficacy data routes to efficacy study design before fundraising. Efficacy data exists routes to storytelling and evidence presentation in the fundraising deck."
+      - question: "Is your revenue mix institutional (B2B to schools/universities/enterprises) or consumer (B2C to individual learners/parents) — and can you articulate why your chosen model is right for your market?"
+        purpose: "EdTech investors evaluate institutional and consumer models with very different benchmarks. Institutional: ACV, sales cycle, institutional retention. Consumer: CAC, free-to-paid conversion, learner retention."
+        routing_impact: "Institutional model routes to institutional metric presentation. Consumer model routes to consumer unit economics. Hybrid routes to clear articulation of how both models interact."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Narrative-metrics disconnect"
+          reason: "EdTech founders often lead with the mission story while investors need the business story. Alternatively, founders present metrics without connecting them to the educational impact that differentiates EdTech from generic SaaS."
+        - diagnosis: "Wrong investor pool"
+          reason: "EdTech founders pitching generalist SaaS investors face skepticism about market size, margins, and sales cycles. Pitching EdTech-specialized investors who understand the sector's unique dynamics is a more efficient path."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "Global EdTech spending exceeds $300B annually. The 'market too small' objection usually means the company has not articulated the expansion path from its initial niche."
+    edtech_specific_diagnoses:
+      - name: "Impact-revenue tension in fundraising narrative"
+        description: "The founder cannot reconcile the mission-driven educational impact story with the venture-scale financial return story. The pitch oscillates between 'we are saving education' and 'we are building a $1B company' without connecting the two."
+        symptoms:
+          - "Investors expressing interest in the mission but skepticism about the business model"
+          - "Impact investors finding the product too commercial; venture investors finding it too impact-focused"
+          - "Fundraising deck heavy on student testimonials but light on unit economics"
+          - "Pitch meetings ending with 'we love what you are doing but we do not see the path to venture-scale returns'"
+        routes_to_skills: ["story-structure-and-arc", "business-model-canvas", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["fundraising-deck-outline", "market-opportunity-summary"]
+    sector_red_flags:
+      - "Fundraising without efficacy evidence in a sector where investors increasingly require it."
+      - "Pitching only generalist VCs when EdTech-specialized investors exist and are more likely to understand and fund the model."
+      - "Revenue dependent on a single funding source (e.g., ESSER) that is expiring — investors will flag concentration risk."
+
+  # ─────────────────────────────────────────────
+  # 6. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech revenue has structural characteristics that the base diagnostic must account for: extreme seasonality (K-12 revenue concentrates in August-October for new contracts), funding-source dependency (federal and state education funding fluctuates with political cycles), and the split between institutional and consumer revenue streams that follow completely different dynamics."
+    additional_triage_questions:
+      - question: "What percentage of your revenue comes from institutional contracts versus consumer subscriptions, and how does each segment trend?"
+        purpose: "Institutional and consumer revenue have opposite seasonal patterns, different growth drivers, and different margin profiles. Blending them masks problems."
+        routing_impact: "Institutional revenue decline routes to sales pipeline and institutional retention analysis. Consumer revenue decline routes to product engagement and conversion optimization."
+      - question: "What percentage of institutional revenue is funded by time-limited sources (grants, ESSER, one-time allocations) versus recurring budget lines?"
+        purpose: "Time-limited funding creates a structural revenue cliff. Revenue that appears stable may be built on a foundation that expires."
+        routing_impact: "High grant-funded percentage routes to diversification strategy and customer retention planning for the funding transition."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Seasonal revenue concentration"
+          reason: "EdTech revenue is inherently seasonal. Companies that do not manage cash flow around the academic calendar face liquidity crises during off-peak months."
+        - diagnosis: "Funding-source concentration"
+          reason: "Revenue dependent on a single government program or funding stream is structurally fragile, regardless of current growth rate."
+      less_likely:
+        - diagnosis: "Product-based revenue decline"
+          reason: "If the product metrics (engagement, outcomes) are stable, revenue decline is more likely caused by external factors (budget cuts, policy changes, competition) than product quality."
+    edtech_specific_diagnoses:
+      - name: "Post-pandemic funding cliff"
+        description: "Revenue grew during 2020-2024 as ESSER and pandemic-era emergency education funding flooded the market. With ESSER funds expired and education budgets returning to pre-pandemic levels, revenue contracts as institutional customers funded by one-time allocations cannot renew."
+        symptoms:
+          - "Revenue plateau or decline beginning 2024-2025"
+          - "High percentage of institutional customers originally acquired during 2020-2023"
+          - "Renewal rate declining despite stable product quality and engagement"
+          - "Customer conversations revealing 'the grant ended' as the non-renewal reason"
+        routes_to_skills: ["scenario-planning", "business-model-canvas", "systems-thinking"]
+        routes_to_templates: ["quarterly-strategic-review", "risk-assessment-brief"]
+    sector_red_flags:
+      - "Revenue growing but the percentage funded by expiring sources increasing — a hidden revenue cliff approaching."
+      - "Revenue growth entirely from new customer acquisition with flat expansion revenue from existing institutions."
+      - "Revenue concentrated in a single school year quarter (e.g., 60%+ in Q3) without cash management to cover lean quarters."
+
+  # ─────────────────────────────────────────────
+  # 7. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech competitive dynamics include threats unique to the sector: free content platforms (Khan Academy, YouTube), general-purpose AI (ChatGPT as a free tutor), open educational resources (OER), and publishers expanding into technology. The competitive landscape also includes the 'threat of non-adoption' — institutions choosing to use no EdTech product at all."
+    additional_triage_questions:
+      - question: "Is the competitive threat from a direct EdTech competitor, a free alternative (Khan Academy, YouTube, OER), a general-purpose AI tool (ChatGPT, Gemini), a publisher expanding into technology (Pearson, McGraw-Hill), or institutional non-adoption?"
+        purpose: "Each threat type requires a different strategic response. Direct competitors require differentiation. Free alternatives require premium justification. AI requires value-beyond-content. Publishers require ecosystem strategy. Non-adoption requires demand creation."
+        routing_impact: "Direct competitor routes to porters-five-forces. Free alternative routes to blue-ocean-strategy. AI threat routes to ai-vision-and-strategy. Publisher routes to coalition-and-partnership-games. Non-adoption routes to tipping-point."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "AI-driven disruption"
+          reason: "AI tutoring and content generation represent the most immediate and significant competitive threat to EdTech products that primarily deliver content or assessment. ChatGPT can explain any concept; AI can generate any quiz. Products whose value is content delivery are at existential risk."
+        - diagnosis: "Free content substitution"
+          reason: "The availability of high-quality free educational content (Khan Academy covers K-12 math and science; YouTube has millions of educational videos; OER covers higher ed textbooks) creates a permanent competitive threat for paid content products."
+      less_likely:
+        - diagnosis: "Price-based competitive displacement"
+          reason: "EdTech institutional buyers rarely switch products based on price alone. Switching costs (teacher training, curriculum alignment, data migration) are high relative to price differences."
+    edtech_specific_diagnoses:
+      - name: "AI commoditization of core value"
+        description: "General-purpose AI tools (ChatGPT, Claude, Gemini) now perform the product's core function — content delivery, question answering, assessment generation, or tutoring — at near-zero cost. The product's value proposition has been commoditized not by a competitor but by a horizontal technology platform."
+        symptoms:
+          - "Teachers reporting they use ChatGPT instead of the product for specific tasks"
+          - "Student engagement declining as learners find AI alternatives"
+          - "Prospects in sales pipeline asking 'why not just use ChatGPT for this?'"
+          - "Free-to-paid conversion declining in consumer segment"
+        routes_to_skills: ["ai-vision-and-strategy", "disruptive-innovation", "blue-ocean-strategy"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Win/loss analysis showing 'free alternative' or 'AI tool' as a growing loss reason."
+      - "A major publisher (Pearson, McGraw-Hill) announcing a technology product that overlaps with your core offering."
+      - "Declining teacher adoption in a category where teachers are discovering AI-based alternatives."
+
+  # ─────────────────────────────────────────────
+  # 8. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech strategic drift manifests as trying to serve too many segments (K-12 and higher ed and corporate), too many subjects (math and reading and science), or too many stakeholders (building for teachers while selling to administrators while engaging students). The multi-stakeholder nature of EdTech makes drift tempting — every stakeholder has legitimate demands."
+    additional_triage_questions:
+      - question: "Are you building features for all three stakeholders (buyer, implementer, user) simultaneously, and if so, are you making conscious trade-offs about which stakeholder gets priority in the current phase?"
+        purpose: "Attempting to please all stakeholders equally results in a product that serves none well. Strategic clarity requires explicit stakeholder prioritization."
+        routing_impact: "No clear prioritization routes to business-model-canvas for stakeholder strategy and defining-and-exploring-problems for priority clarification."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Multi-segment drift"
+          reason: "EdTech companies frequently drift from their initial segment (e.g., K-5 math) into adjacent segments (K-8, then K-12, then higher ed) without building the differentiated product, sales, and support for each."
+      less_likely:
+        - diagnosis: "Market-driven strategic shift"
+          reason: "More often, EdTech drift is opportunity-chasing (a big higher-ed deal, a corporate L&D request) rather than strategic response to market changes."
+    edtech_specific_diagnoses:
+      - name: "Stakeholder whiplash"
+        description: "The roadmap alternates between serving buyer needs (admin dashboards, compliance reports) and user needs (engagement features, gamification) and implementer needs (lesson planning tools, grade integration) without a coherent multi-stakeholder product strategy."
+        symptoms:
+          - "Product roadmap changing priority stakeholder each quarter"
+          - "No single stakeholder group rating the product above 7/10"
+          - "Engineering team confused about who the product is for"
+          - "Each new institutional customer conversation pulling the product in a different direction"
+        routes_to_skills: ["business-model-canvas", "systems-thinking", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Product serving K-12, higher ed, and corporate with a single product and shared engineering team — each segment has different needs."
+      - "Go-to-market strategy changing more than once per academic year without corresponding data to justify the shift."
+
+  # ─────────────────────────────────────────────
+  # 9. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech team dysfunction has a characteristic pattern driven by the two-culture challenge: education professionals (instructional designers, former teachers, curriculum specialists) and technology professionals (engineers, product managers, growth marketers) often struggle to collaborate. They speak different languages, value different outcomes, and operate at different speeds."
+    additional_triage_questions:
+      - question: "Is there tension between the education/content team and the technology/product team — specifically, does the education team feel the product prioritizes engagement metrics over learning outcomes, or does the tech team feel the education team resists innovation?"
+        purpose: "The education-technology tension is the most common and most damaging team dysfunction in EdTech. It leads to products that are either pedagogically strong but poorly designed, or beautifully designed but pedagogically hollow."
+        routing_impact: "Education-technology misalignment routes to organisational-culture and cooperative-negotiation for team integration processes."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Education-technology cultural divide"
+          reason: "EdTech companies must integrate two professional cultures with different values, vocabularies, and working styles. The seam between these cultures is where dysfunction most commonly appears."
+      less_likely:
+        - diagnosis: "Individual performance issues"
+          reason: "What appears as individual underperformance often reflects a systemic culture clash. The former teacher turned product manager and the engineer who has never been in a classroom may both be excellent at their core skills but unable to collaborate effectively."
+    edtech_specific_diagnoses:
+      - name: "Education-technology integration failure"
+        description: "The instructional design team and the engineering team operate as separate entities with minimal cross-functional collaboration. Content is created without technical constraints in mind; features are built without pedagogical guidance. The result is a product that is neither pedagogically excellent nor technically polished."
+        symptoms:
+          - "Content team creating materials that engineering cannot implement within the platform's constraints"
+          - "Engineering team building features that the education team says have no learning value"
+          - "Product decisions requiring escalation to the CEO because the two teams cannot agree"
+          - "Former teachers leaving because they feel their expertise is not valued; engineers leaving because they feel the pace is too slow"
+        routes_to_skills: ["organisational-culture", "trust-equation", "tuckman-team-stages"]
+        routes_to_templates: ["team-health-check", "culture-values-document"]
+    sector_red_flags:
+      - "Instructional designer attrition above 30% annually — a sign that the education team feels marginalized."
+      - "Product releases that the education team was not consulted on — a symptom of engineering-dominated culture."
+
+  # ─────────────────────────────────────────────
+  # 10. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech co-founder conflict often mirrors the education-technology cultural divide: one co-founder comes from education (teacher, professor, school administrator) and the other from technology (engineering, product, startup). Their conflict centers on mission versus metrics, pedagogical rigor versus product velocity, and evidence-based approaches versus startup experimentation."
+    additional_triage_questions:
+      - question: "Does the conflict center on product direction (education quality vs. growth features), go-to-market (institutional sales vs. consumer growth), audience prioritization (which segment to focus on), or the role of efficacy evidence (invest now vs. later)?"
+        purpose: "EdTech co-founder conflicts cluster around these four issues, each requiring different resolution approaches."
+        routing_impact: "Product direction conflicts route to balanced-scorecard for multi-dimensional goal alignment. GTM conflicts route to data-driven segment analysis. Evidence investment conflicts route to scenario-planning for ROI of research."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Mission-metrics tension between education-background and technology-background co-founders"
+          reason: "The educator co-founder may resist growth tactics that compromise pedagogical integrity. The technologist co-founder may view educational rigor as a speed constraint."
+      less_likely:
+        - diagnosis: "Fundamental vision misalignment"
+          reason: "EdTech co-founders typically share a vision for educational impact. The conflict is about method and priority, not destination."
+    edtech_specific_diagnoses:
+      - name: "Pedagogy-versus-product velocity tension"
+        description: "The education-background co-founder insists on rigorous instructional design, evidence-based content development, and slow iteration based on learning science. The technology-background co-founder pushes for rapid shipping, A/B testing, and growth hacking. Both approaches have merit; the inability to integrate them creates paralysis."
+        symptoms:
+          - "Product releases delayed by content review cycles that the engineering team views as excessive"
+          - "Co-founders presenting conflicting priorities to the board"
+          - "Education team and engineering team developing separate roadmaps"
+          - "The education co-founder feeling steamrolled by 'tech bro culture'; the tech co-founder feeling constrained by 'academic pace'"
+        routes_to_skills: ["cooperative-negotiation", "balanced-scorecard", "evaluating-and-deciding"]
+        routes_to_templates: ["decision-journal", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Co-founders communicating about product decisions through intermediaries rather than directly."
+      - "Key hires (head of content, VP Engineering) aligned with one co-founder and adversarial toward the other."
+
+  # ─────────────────────────────────────────────
+  # 11. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech market entry is constrained by procurement barriers (compliance requirements, state adoption lists, institutional evaluation cycles), segment-specific requirements (K-12, higher ed, and corporate L&D are effectively different markets), and the need for efficacy evidence before institutional buyers will commit."
+    additional_triage_questions:
+      - question: "Which specific segment are you entering — K-12 (which grade band? which subject? public or private?), higher education (undergraduate, graduate, continuing ed?), or corporate L&D (which industry? which training type?) — and have you validated demand within that specific segment?"
+        purpose: "EdTech is not one market. Each segment has different buyers, different procurement processes, different compliance requirements, and different competitive landscapes."
+        routing_impact: "Broad segment targeting ('K-12') routes to segment narrowing exercise. Specific segment targeting with validation routes to go-to-market execution."
+      - question: "Do you have the compliance infrastructure required for your target segment — FERPA/COPPA for K-12, accessibility compliance for public institutions, data privacy certification for all segments?"
+        purpose: "Compliance is a prerequisite for market entry in institutional EdTech, not a post-launch optimization."
+        routing_impact: "Missing compliance routes to compliance-first development before any institutional sales effort."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Entering a segment without the compliance prerequisites"
+          reason: "EdTech companies from consumer or corporate backgrounds frequently underestimate K-12 compliance requirements (FERPA, COPPA, state DPAs) and lose months when institutional buyers flag non-compliance."
+        - diagnosis: "Broad targeting in a segment-specific market"
+          reason: "A product for 'K-12 math' without specifying grade band, standards alignment, and student population is too broad to achieve PMF."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "Education is a $6T+ global market. Segment-level markets are almost always large enough for venture-scale businesses."
+    edtech_specific_diagnoses:
+      - name: "Compliance barrier underestimation"
+        description: "The company entered the institutional EdTech market without the compliance infrastructure (FERPA, COPPA, state data privacy agreements, accessibility) required for institutional procurement. Sales efforts are stalled by compliance gatekeepers."
+        symptoms:
+          - "Deals stalling at IT/privacy review stage"
+          - "No VPAT, DPA, or FERPA compliance documentation available"
+          - "Prospects asking for compliance documentation the company has not created"
+          - "Lost deals where the product was preferred but compliance requirements were not met"
+        routes_to_skills: ["trust-equation", "delivering-the-deal"]
+        routes_to_templates: ["regulatory-compliance-update", "action-plan"]
+    sector_red_flags:
+      - "Attempting institutional sales without FERPA compliance documentation."
+      - "Targeting K-12 without COPPA compliance for any features used by students under 13."
+      - "Entering a state adoption market without understanding the adoption review timeline."
+
+  # ─────────────────────────────────────────────
+  # 12. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech hiring faces a unique challenge: finding talent that bridges education and technology. The ideal EdTech product manager understands pedagogy and agile development. The ideal EdTech sales rep understands both SaaS sales and institutional procurement. The ideal content team member is a subject matter expert who can work within technology constraints. These hybrid profiles are scarce."
+    additional_triage_questions:
+      - question: "Are you hiring for education expertise (instructional designers, former teachers, curriculum specialists), technology expertise (engineers, product managers, growth marketers), or hybrid roles that require both?"
+        purpose: "Pure education or pure technology hires are available in the market. Hybrid roles (EdTech product manager, EdTech sales leader) are scarce and require different sourcing strategies."
+        routing_impact: "Hybrid role hiring routes to creative sourcing strategies (EdTech-specific job boards, conference recruiting, educator-to-tech transition programs). Pure-function hiring routes to standard tech or education recruiting."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Hiring the wrong profile for the stage"
+          reason: "EdTech companies frequently hire senior education executives (former superintendents, university deans) for roles that require startup hustle, or hire pure technologists for roles that require education domain knowledge."
+      less_likely:
+        - diagnosis: "Compensation competitiveness"
+          reason: "While EdTech compensation is generally below big-tech levels, mission alignment attracts strong candidates. The hiring problem is more often profile-fit than compensation."
+    edtech_specific_diagnoses:
+      - name: "Education-technology hybrid talent gap"
+        description: "The company cannot find candidates who have both education domain expertise and technology product experience. Hiring pure educators leads to slow product iteration; hiring pure technologists leads to pedagogically weak products."
+        symptoms:
+          - "Product manager roles open for 4+ months because candidates lack either education or tech experience"
+          - "Former teacher hires struggling with startup pace and ambiguity"
+          - "Technology hires making product decisions that educators on the team find pedagogically unsound"
+          - "High attrition in first 6 months as hires from one background realize the other domain's requirements"
+        routes_to_skills: ["eisenhower-matrix", "delegation-and-empowerment"]
+        routes_to_templates: ["role-description-template", "hiring-scorecard"]
+    sector_red_flags:
+      - "Instructional designer roles remaining unfilled for 6+ months — the talent pool is thin."
+      - "Head of Sales hire failing because the hire came from enterprise SaaS and cannot navigate education procurement."
+
+  # ─────────────────────────────────────────────
+  # 13. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech operational chaos is amplified by the academic calendar — back-to-school season creates an annual intensity spike that strains every operational function. Content updates must be ready before September, institutional onboarding must complete before classes start, and technical infrastructure must scale for the sudden load increase when millions of students return to school."
+    additional_triage_questions:
+      - question: "Does operational chaos concentrate in specific periods — August-September (back-to-school), January (spring semester start), or May-June (end-of-year assessments and contract renewals)?"
+        purpose: "Calendar-concentrated chaos is predictable and therefore manageable through advance preparation. Year-round chaos suggests systemic operational failure."
+        routing_impact: "Calendar-concentrated chaos routes to seasonal operations planning and capacity management. Year-round chaos routes to systems-thinking and process redesign."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Seasonal capacity mismatch"
+          reason: "EdTech companies with flat staffing serving calendar-driven demand face predictable operational overload during peak periods."
+      less_likely:
+        - diagnosis: "Process deficiency"
+          reason: "EdTech operations may appear chaotic during peak season due to legitimate demand spikes, not process failure."
+    edtech_specific_diagnoses:
+      - name: "Back-to-school infrastructure crisis"
+        description: "The platform cannot handle the sudden load increase when the academic year begins. Onboarding, technical deployment, teacher training, and student activation all compress into a 4-6 week window, overwhelming support, engineering, and customer success teams simultaneously."
+        symptoms:
+          - "Platform performance degradation in September"
+          - "Support ticket volume tripling during back-to-school month"
+          - "Teacher onboarding incomplete by the time classes start"
+          - "Implementation timelines slipping into October, losing critical first weeks of the school year"
+        routes_to_skills: ["systems-thinking", "eisenhower-matrix"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+    sector_red_flags:
+      - "Platform downtime during school hours — teachers have zero tolerance for products that do not work when class is in session."
+      - "Content errors discovered by students or teachers during instructional use — quality failures in a learning context damage trust profoundly."
+
+  # ─────────────────────────────────────────────
+  # 14. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Leadership crises in EdTech follow similar patterns to other venture-backed companies — founder burnout, board conflicts, executive team dysfunction, and crisis management. The base diagnostic applies without significant EdTech-specific modification."
+    additional_triage_questions: []
+    diagnosis_weight_shifts:
+      more_likely: []
+      less_likely: []
+    edtech_specific_diagnoses: []
+    sector_red_flags:
+      - "CEO making decisions based on the loudest institutional customer rather than strategic analysis — a sign of reactive leadership in a market that rewards proactive positioning."
+
+  # ─────────────────────────────────────────────
+  # 15. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech decision paralysis is amplified by the multi-stakeholder complexity — every decision must consider the buyer, implementer, and user, creating a three-dimensional analysis space that invites perpetual deliberation. The academic calendar adds urgency constraints that do not exist in other sectors — missing a back-to-school window is a 12-month delay."
+    additional_triage_questions:
+      - question: "Is the decision paralysis caused by trying to serve all three stakeholders (buyer, teacher, student) simultaneously without clear prioritization?"
+        purpose: "Multi-stakeholder paralysis is the most common form in EdTech. Clear prioritization (e.g., 'teacher experience first, buyer compliance second, student engagement third') breaks the paralysis."
+        routing_impact: "Multi-stakeholder paralysis routes to business-model-canvas for stakeholder strategy and evaluating-and-deciding for decision framework."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Multi-stakeholder analysis paralysis"
+          reason: "Every EdTech decision can be argued from three stakeholder perspectives. Without clear decision frameworks that specify which stakeholder to optimize for in each decision type, analysis becomes infinite."
+      less_likely:
+        - diagnosis: "Insufficient information"
+          reason: "EdTech companies rarely lack information — they have engagement data, teacher feedback, admin requirements, and student outcomes. They lack clarity on which stakeholder to prioritize."
+    edtech_specific_diagnoses: []
+    sector_red_flags:
+      - "Product decisions delayed past back-to-school deadlines — a missed September launch window pushes the decision's impact by 12 months."
+      - "Pricing or packaging decisions deferred for more than two academic cycles without resolution."
+
+  # ─────────────────────────────────────────────
+  # 16. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech innovation droughts are uniquely dangerous because the sector is undergoing AI-driven transformation. Companies that stop innovating while AI rapidly improves risk losing their core value proposition to general-purpose tools. The innovation drought often results from over-investment in content maintenance (updating curricula for new standards) at the expense of technology innovation (adaptive algorithms, AI integration, new interaction paradigms)."
+    additional_triage_questions:
+      - question: "What percentage of engineering and content capacity is allocated to standards updates and compliance maintenance versus new product innovation?"
+        purpose: "EdTech companies face a unique tax — curricula change, standards update, and compliance requirements evolve continuously. If 70%+ of capacity goes to maintenance, innovation starves."
+        routing_impact: "Maintenance-dominated allocation routes to efficiency analysis (can AI reduce standards-alignment work?) and strategic resource reallocation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Standards maintenance consuming innovation capacity"
+          reason: "Updating content for new state standards, maintaining accessibility compliance, and adapting to curriculum changes consume significant capacity in EdTech — capacity that is unavailable for product innovation."
+      less_likely:
+        - diagnosis: "Lack of creative talent"
+          reason: "EdTech companies typically employ instructional designers and educators with deep creative and pedagogical skills. The constraint is capacity, not creativity."
+    edtech_specific_diagnoses:
+      - name: "Student engagement collapse"
+        description: "Student engagement metrics are declining across cohorts, indicating that the product is losing relevance, falling behind competitors in experience quality, or being outperformed by AI-based alternatives that offer a more personalized, responsive learning experience."
+        symptoms:
+          - "DAU/MAU declining for 3+ consecutive months (seasonally adjusted)"
+          - "Session duration decreasing while completion rates hold (learners rushing through)"
+          - "NPS declining specifically in the learner segment while teacher and admin scores hold"
+          - "Teacher feedback indicating 'students are not excited about it anymore'"
+        routes_to_skills: ["product-life-cycle", "disruptive-innovation", "ai-vision-and-strategy"]
+        routes_to_templates: ["new-initiative-brief", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "No new feature category shipped in 12+ months — only incremental improvements and maintenance updates."
+      - "Competitor product launches generating teacher inquiries about matching capabilities."
+
+  # ─────────────────────────────────────────────
+  # 17. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech partnerships involve unique partner types: textbook publishers (Pearson, McGraw-Hill), LMS platforms (Canvas, Google Classroom), assessment organizations (College Board, NWEA), state education departments, school district consortiums, and philanthropic funders. Each partner type has different motivations, power dynamics, and risk profiles."
+    additional_triage_questions:
+      - question: "Is this a technology integration partnership (connecting with an LMS or SIS), a content partnership (co-developing with a publisher or university), a distribution partnership (selling through a channel or consortium), or a research partnership (collaborating on efficacy studies)?"
+        purpose: "Each partnership type in EdTech has distinct economics, governance requirements, and failure modes."
+        routing_impact: "Technology integration routes to standards compliance (LTI, xAPI). Content partnership routes to IP negotiation. Distribution partnership routes to channel economics analysis. Research partnership routes to study design and evidence strategy."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Asymmetric power in publisher or platform partnerships"
+          reason: "EdTech startups partnering with Pearson, McGraw-Hill, Google, or Canvas face significant power imbalances. The larger partner can change terms, priorities, or strategy with minimal consequence to themselves but existential impact on the startup."
+      less_likely:
+        - diagnosis: "Cultural misalignment"
+          reason: "Education partnerships share a common mission language that smooths cultural differences. The challenge is usually strategic or economic, not cultural."
+    edtech_specific_diagnoses:
+      - name: "Platform dependency risk"
+        description: "The company's distribution depends heavily on a single platform (Google Classroom, Canvas, Clever) that could change its API terms, add a competing native feature, or deprioritize the integration."
+        symptoms:
+          - "More than 50% of user acquisition flowing through a single platform integration"
+          - "Product functionality deeply dependent on platform APIs that could change"
+          - "No direct relationship with end users — all traffic flows through the platform"
+          - "Platform partner announcing features that overlap with your core offering"
+        routes_to_skills: ["prisoners-dilemma-and-cooperation", "scenario-planning", "porters-five-forces"]
+        routes_to_templates: ["risk-assessment-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Google Classroom or Canvas announcing a native feature that overlaps with your core value proposition."
+      - "More than 60% of revenue flowing through a single publisher or platform relationship."
+
+  # ─────────────────────────────────────────────
+  # 18. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech communication breakdowns often occur at the boundary between the company and its institutional customers. The multi-stakeholder chain (sales talks to admins, customer success talks to teachers, product talks to students) creates a telephone game where information degrades at each handoff."
+    additional_triage_questions:
+      - question: "Is the communication breakdown internal (between company teams) or external (between the company and its institutional customers — administrators, teachers, or students)?"
+        purpose: "External communication breakdowns in EdTech are often more damaging than internal ones because a single miscommunication to a school district can affect thousands of learners and destroy a customer relationship."
+        routing_impact: "Internal breakdown routes to standard team communication improvement. External breakdown routes to stakeholder communication strategy and customer success process redesign."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Sales-to-implementation handoff failure"
+          reason: "In EdTech, the sales team sells to administrators while the implementation team works with teachers. The handoff between these teams is where expectations, timelines, and success criteria are lost."
+      less_likely: []
+    edtech_specific_diagnoses: []
+    sector_red_flags:
+      - "Teachers at customer institutions unaware that their school purchased the product — a sign of total communication failure in the customer organization."
+      - "Sales and customer success teams using different language to describe the product's capabilities to different stakeholder groups within the same institution."
+
+  # ─────────────────────────────────────────────
+  # 19. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech negotiations get stuck in characteristic ways: district procurement processes demanding terms the startup cannot offer (multi-year pricing guarantees, unlimited liability), data privacy agreement review extending weeks beyond expectation, school board approval required for purchases above threshold, and pilot programs running indefinitely without conversion criteria."
+    additional_triage_questions:
+      - question: "Is the negotiation stuck on commercial terms (price, contract length), compliance terms (data privacy, FERPA, accessibility), approval process (waiting for school board, committee, or budget approval), or pilot conversion (the pilot has no defined end or success criteria)?"
+        purpose: "Each stall type in EdTech has a different resolution path. Commercial stalls need creative structuring. Compliance stalls need pre-prepared documentation. Approval stalls need patience and process management. Pilot stalls need defined success criteria."
+        routing_impact: "Commercial stalls route to competitive-negotiation. Compliance stalls route to delivering-the-deal with emphasis on compliance documentation readiness. Approval stalls route to scenario-planning for timeline management. Pilot stalls route to smart-goals for defining conversion criteria."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Data privacy review blocking the deal"
+          reason: "Institutional EdTech procurement increasingly stalls during data privacy review. Schools are legally liable for student data shared with vendors, and privacy officers are thorough."
+        - diagnosis: "Perpetual pilot syndrome"
+          reason: "Free pilots without defined success criteria, end dates, or contractual purchase paths run indefinitely in education. The institution gets the product for free while the company gets neither revenue nor a clear no."
+      less_likely:
+        - diagnosis: "Fundamental value disagreement"
+          reason: "If the negotiation reached the terms stage, value has been established. Most EdTech negotiation stalls are procedural (compliance, approval) not substantive."
+    edtech_specific_diagnoses:
+      - name: "Accessibility compliance failure"
+        description: "The institutional deal is blocked because the product does not meet accessibility requirements (WCAG 2.1 AA, Section 508). Public schools and universities receiving federal funding are legally required to ensure educational technology is accessible to students with disabilities."
+        symptoms:
+          - "Deal stalling at IT accessibility review stage"
+          - "No VPAT or Accessibility Conformance Report available"
+          - "Prospect's accessibility coordinator identifying WCAG failures in product evaluation"
+          - "Competitive products winning deals based on accessibility compliance rather than feature superiority"
+        routes_to_skills: ["trust-equation", "systems-thinking"]
+        routes_to_templates: ["regulatory-compliance-update", "action-plan"]
+    sector_red_flags:
+      - "Institutional deals stalling for 90+ days in compliance review — indicates the company needs a pre-prepared compliance documentation kit."
+      - "Free pilots running longer than one semester without conversion criteria — the institution has no incentive to purchase."
+
+  # ─────────────────────────────────────────────
+  # 20. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "EdTech culture erosion has a unique pattern: the mission-driven culture that attracted early employees degrades as growth pressures introduce metrics-first thinking. The tension between 'we are here to improve education' and 'we need to hit revenue targets' is a predictable stress point that, if unmanaged, erodes the culture that made the company attractive to talent."
+    additional_triage_questions:
+      - question: "Has the company's growth shifted the internal culture from mission-first to metrics-first — and are employees who joined for the mission feeling that the company has 'sold out'?"
+        purpose: "This culture shift is the most common erosion pattern in scaling EdTech companies. Early employees attracted by mission witness the transition to growth-stage pressure and feel betrayed."
+        routing_impact: "Mission-metrics culture tension routes to organisational-culture and purpose-driven-leadership for values reintegration."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Mission-metrics tension eroding original culture"
+          reason: "EdTech companies that scale successfully must simultaneously pursue impact and revenue. Employees who feel forced to choose between mission and metrics disengage."
+      less_likely:
+        - diagnosis: "Toxic leadership"
+          reason: "EdTech leaders are typically mission-motivated. Culture erosion is more often caused by the structural tension of scaling a mission-driven company than by deliberately harmful leadership."
+    edtech_specific_diagnoses:
+      - name: "Mission fatigue and disillusionment"
+        description: "Early employees who joined to 'change education' experience disillusionment as the company makes compromises necessary for commercial viability — selling to institutions that may not implement well, prioritizing revenue-generating features over mission-critical improvements, or entering markets where the impact story is weaker."
+        symptoms:
+          - "Early employees (first 20 hires) leaving at higher rates than recent hires"
+          - "Employee survey comments about 'losing our way' or 'becoming just another SaaS company'"
+          - "Declining participation in company mission events (school visits, impact reports)"
+          - "Resistance to commercially necessary decisions framed as 'anti-mission'"
+        routes_to_skills: ["organisational-culture", "purpose-driven-leadership", "leading-through-change"]
+        routes_to_templates: ["culture-values-document", "team-health-check"]
+    sector_red_flags:
+      - "Regrettable attrition concentrated among instructional designers and former educators — the mission-bearers are leaving."
+      - "Employee NPS declining faster among education-background employees than technology-background employees."

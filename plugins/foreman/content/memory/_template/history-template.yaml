@@ -1,0 +1,43 @@
+# Layer 3: History
+# Change frequency: append-only
+# Owner: System writes automatically
+# Purpose: Prevents redundant analysis, enables continuity, tracks decision patterns
+# Rule: Entries are added, never modified (except outcome fields during reviews)
+
+history:
+  diagnostics_run: []
+  # Entry format:
+  # - date: "2026-01-15"
+  #   diagnostic: "revenue-diagnosis"
+  #   result: "high-churn"
+  #   confidence: "high"
+
+  skills_applied: []
+  # Entry format:
+  # - date: "2026-01-15"
+  #   skill: "net-promoter-score"
+  #   context: "Churn root cause analysis"
+  #   key_insight: "Detractors concentrated in first-30-day cohort"
+
+  decisions_made: []
+  # Entry format:
+  # - date: "2026-01-18"
+  #   decision: "Hired onboarding specialist instead of second sales rep"
+  #   rationale: "Churn reduction has higher ROI than new acquisition"
+  #   outcome: "pending"
+  #   review_date: "2026-02-18"
+  #   related_skill: "evaluating-and-deciding"
+
+  playbooks_completed: []
+  # Entry format:
+  # - date: "2026-01-20"
+  #   playbook: "team-rebuild-playbook"
+  #   status: "completed"
+  #   key_outcome: "Restructured hiring process, 3 new role descriptions created"
+
+  outputs_generated: []
+  # Entry format:
+  # - date: "2026-01-18"
+  #   template: "unit-economics-snapshot"
+  #   audience: "investor"
+  #   context: "Series A preparation"

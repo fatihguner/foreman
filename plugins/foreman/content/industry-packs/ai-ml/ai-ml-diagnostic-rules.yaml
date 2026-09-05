@@ -1,0 +1,721 @@
+# AI-ML Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift for AI-ML companies —
+# companies whose core product IS an AI/ML system.
+#
+# The diagnostic adaptations address the model-centric nature of these
+# businesses: model quality as product quality, data as moat, inference
+# cost as COGS, hallucination as liability, open-source as substitute
+# threat, and compute as scaling bottleneck.
+#
+# AI-ML-specific diagnoses added throughout address:
+#   - Model quality plateau
+#   - Data moat erosion
+#   - Inference cost crisis
+#   - Open-source displacement
+#   - Responsible AI failure
+#   - Hallucination liability
+#   - GPU dependency bottleneck
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for AI-ML companies.
+#   enhanced — The diagnostic is relevant but benefits from additional AI-ML-specific
+#              triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for AI-ML.
+
+pack_metadata:
+  sector: "ai-ml"
+  display_name: "AI-ML"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Churn in AI-ML companies has distinctive drivers that do not exist in traditional SaaS: model accuracy degradation (drift), competitor model quality leapfrogging, open-source alternatives reaching 'good enough' quality, hallucination events that destroy trust, and inference cost increases passed through to customers. The base diagnostic applies but requires substantial reframing around model quality as the primary retention driver."
+    additional_triage_questions:
+      - question: "Has the model's accuracy on the customer's specific use case degraded since they first adopted — either through model drift, data distribution changes, or the customer's use case evolving beyond the model's training data?"
+        purpose: "AI-specific churn is often triggered by model quality degradation that the customer experiences before internal monitoring detects it. The customer tries an edge case, gets a wrong answer, and begins evaluating alternatives."
+        routing_impact: "Accuracy degradation routes to model-drift-rate analysis, data pipeline reliability review, and customer-specific fine-tuning assessment. Stable accuracy with churn routes to competitive analysis and pricing review."
+      - question: "Are customers leaving for a competitor's model, for an open-source alternative, or because they decided to build an in-house model?"
+        purpose: "Each churn destination has different implications. Competitor churn suggests a quality or pricing gap. Open-source churn suggests the product's value-add over free alternatives is insufficient. In-house build suggests the customer outgrew the general product."
+        routing_impact: "Competitor churn routes to porters-five-forces and competitive-threat-diagnosis. Open-source churn routes to blue-ocean-strategy and differentiation analysis. In-house build routes to enterprise feature development and managed deployment services."
+      - question: "Has a hallucination or model error event preceded the churn decision — specifically, did the model produce a confidently wrong output on a high-stakes task that damaged the customer's trust?"
+        purpose: "A single hallucination event on a critical task can trigger churn even when the model is 95%+ accurate on average. Trust is destroyed by failures, not sustained by averages."
+        routing_impact: "Hallucination-triggered churn routes to trust-equation analysis, hallucination rate improvement, and customer communication protocol review."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Model accuracy insufficient for the customer's evolved use case"
+          reason: "AI customers' requirements evolve as they deploy the model in more critical workflows. The accuracy that was acceptable for pilots becomes insufficient for production."
+        - diagnosis: "Open-source alternative reached 'good enough' quality"
+          reason: "The open-source model ecosystem improves weekly. A customer who adopted your proprietary model 12 months ago may now have a free alternative that serves 80% of their needs."
+      less_likely:
+        - diagnosis: "UX or feature-based churn"
+          reason: "For API-delivered AI products, the UX is the API interface — rarely a churn driver. The model's output quality dominates the satisfaction equation."
+    sector_specific_diagnoses:
+      - name: "Hallucination-triggered trust collapse"
+        description: "A model hallucination or confidently wrong output on a high-stakes task destroyed customer trust. Even if the model is 95%+ accurate on average, a single dramatic failure in a critical workflow causes the customer to question all outputs, reverting to manual processes and eventually churning."
+        symptoms:
+          - "Customer support ticket describing a specific, dramatic model error that affected their business"
+          - "Customer reduced usage sharply after a specific date (corresponding to the error event)"
+          - "Customer switched from autonomous model usage to mandatory human review of all outputs"
+          - "Customer cited 'trust' or 'reliability' as the primary churn reason rather than accuracy statistics"
+        routes_to_skills: ["trust-equation", "systems-thinking", "ai-human-centered-approach"]
+        routes_to_templates: ["incident-postmortem", "action-plan"]
+      - name: "Open-source displacement"
+        description: "An open-source model (Llama, Mistral, Stable Diffusion, or domain-specific alternatives) reached sufficient quality for the customer's use case, eliminating the need to pay for a proprietary API. The customer deploys the open-source model on their own infrastructure."
+        symptoms:
+          - "API usage declining gradually rather than dropping to zero (customer testing alternatives in parallel)"
+          - "Customer's technical team asking about model export, fine-tuning APIs, or self-hosting options"
+          - "Churn concentrated among technically sophisticated customers with ML engineering capacity"
+          - "Customer citing cost rather than quality as the primary reason for leaving"
+        routes_to_skills: ["disruptive-innovation", "porters-five-forces", "blue-ocean-strategy"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+      - name: "Data moat erosion"
+        description: "The proprietary data advantage that differentiated the model is eroding. Competitors have built equivalent datasets through alternative sources, synthetic data generation, or partnerships. The model's quality advantage narrows, reducing the switching cost and making price the primary decision factor."
+        symptoms:
+          - "Competitor models achieving comparable accuracy on public benchmarks"
+          - "New entrants launching products with comparable quality despite starting later"
+          - "Customer negotiations increasingly focused on price rather than quality"
+          - "Win rate in competitive evaluations declining despite stable or improving model metrics"
+        routes_to_skills: ["porters-five-forces", "first-mover-strategy", "scenario-planning"]
+        routes_to_templates: ["competitive-landscape-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Hallucination rate increasing above the customer segment's tolerance threshold, especially without proactive communication to affected customers."
+      - "A well-funded competitor or a credible open-source model matching your accuracy on the core task — the churn signal leads by 3-6 months."
+      - "Customer-reported accuracy satisfaction dropping below 70% for any segment — a leading indicator of churn within two quarters."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML growth stalls have characteristic patterns: model quality plateaus that limit expansion into higher-value use cases, inference cost ceilings that prevent profitable scaling, open-source alternatives capturing the low end of the market, and enterprise adoption friction from responsible AI requirements. The base diagnostic applies but needs AI-specific growth decomposition."
+    additional_triage_questions:
+      - question: "Has your model's accuracy improvement trajectory flattened — are you getting diminishing returns from additional data, training, or architecture improvements?"
+        purpose: "A model quality plateau directly constrains growth. If the model cannot achieve the accuracy required for the next tier of use cases, the addressable market is capped."
+        routing_impact: "Accuracy plateau routes to architecture evaluation (is the current approach reaching its ceiling?) and data strategy review (is the data flywheel generating useful signal?)."
+      - question: "Is your growth limited by inference cost — specifically, are there use cases or customer segments where the per-prediction cost makes the economics unworkable?"
+        purpose: "AI-ML growth can stall when the addressable market requires lower per-unit pricing than the current inference cost structure allows."
+        routing_impact: "Inference cost limitation routes to model optimization (distillation, quantization, architecture efficiency) and pricing model evaluation (outcome-based pricing that decouples price from per-request cost)."
+      - question: "Are enterprise prospects stalling in evaluation because of responsible AI requirements — bias audits, explainability mandates, or regulatory compliance concerns?"
+        purpose: "Enterprise AI adoption is increasingly gated by responsible AI due diligence. A growth stall at the enterprise level may be a compliance readiness problem, not a product problem."
+        routing_impact: "Responsible AI friction routes to ai-stakeholder-balance and responsible AI infrastructure investment. Provide prepared model cards, bias reports, and compliance documentation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Model quality plateau capping addressable market"
+          reason: "AI products often exhaust the use cases they can serve at current accuracy levels. Growth stalls when the remaining market requires accuracy the model cannot achieve."
+        - diagnosis: "Inference cost preventing profitable scaling"
+          reason: "Unlike traditional SaaS where marginal cost is near-zero, AI inference has meaningful per-unit cost. Scaling can worsen unit economics if cost optimization does not keep pace."
+      less_likely:
+        - diagnosis: "Marketing or awareness problem"
+          reason: "AI products with strong accuracy and clear use cases typically generate organic demand. Growth stalls are more often product-limitation or economics problems than awareness problems."
+    sector_specific_diagnoses:
+      - name: "Inference cost crisis"
+        description: "Revenue is growing but gross margins are declining because inference cost scales with usage. The more customers use the product, the more compute is consumed, and the cost structure becomes unsustainable. The company faces a choice: raise prices (risking churn), optimize the model (uncertain timeline), or accept permanently lower margins."
+        symptoms:
+          - "Gross margin declining as revenue grows"
+          - "Compute costs growing faster than revenue"
+          - "Heavy users generating negative gross margin per account"
+          - "Engineering team spending majority of time on cost optimization rather than model improvement"
+        routes_to_skills: ["business-model-canvas", "systems-thinking", "balanced-scorecard"]
+        routes_to_templates: ["unit-economics-snapshot", "decision-rationale-memo"]
+      - name: "GPU dependency bottleneck"
+        description: "Growth is constrained by GPU availability rather than demand. The company cannot serve more customers because it cannot procure sufficient compute — either due to NVIDIA supply constraints, cloud provider allocation limits, or budget limitations on GPU spend."
+        symptoms:
+          - "Waitlisting new customers or rate-limiting existing ones"
+          - "Single cloud provider dependency for GPU access"
+          - "Spot instance usage causing latency variability"
+          - "GPU procurement lead times exceeding 3 months"
+        routes_to_skills: ["scenario-planning", "porters-five-forces", "systems-thinking"]
+        routes_to_templates: ["risk-assessment-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Model accuracy improvement rate declining below 1% per quarter despite continued R&D investment — suggests the architecture may be approaching its ceiling."
+      - "Gross margin compressing below 50% as usage scales — the compute COGS problem is becoming structural."
+      - "Enterprise pipeline stalling at 'security and compliance review' stage for more than 60% of prospects."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Product-market fit in AI-ML requires distinguishing between model-market fit (is the model accurate enough for this use case?), wrapper-market fit (is the UX/integration good enough?), and economics-market fit (can the product be delivered profitably at the price the market will pay?). Many AI products have impressive models that fail as businesses because the wrapper is inadequate or the economics do not work. The diagnostic must triage across all three dimensions."
+    additional_triage_questions:
+      - question: "When customers leave or do not convert, is the reason model accuracy ('it was not accurate enough'), product experience ('it was too hard to integrate/use'), or price ('it costs too much for the value delivered')?"
+        purpose: "Distinguishes the three PMF dimensions: model quality, product design, and unit economics. Each requires a fundamentally different intervention."
+        routing_impact: "Model quality issues route to data and architecture investment. Product experience issues route to developer experience and integration improvement. Price issues route to inference cost optimization and pricing model innovation."
+      - question: "Does your model outperform general-purpose alternatives (GPT-4, Claude, Gemini) on the specific task your customers care about — not on general benchmarks, but on their actual data?"
+        purpose: "If general-purpose models are 'good enough' for the customer's use case, the AI product lacks differentiation. PMF requires meaningful accuracy superiority on the customer's specific task."
+        routing_impact: "No meaningful accuracy advantage routes to blue-ocean-strategy for differentiation or to vertical specialization strategy. Meaningful advantage routes to communicating the difference more clearly."
+      - question: "Are users increasing their usage over time (the data flywheel is working), or does usage plateau after initial integration?"
+        purpose: "Increasing usage is the strongest AI-specific PMF signal — it means the model is embedded in workflows and users are expanding scope. Flat usage means the product solves a bounded task and does not expand."
+        routing_impact: "Expanding usage routes to expansion-revenue optimization and new-use-case marketing. Flat usage routes to product-life-cycle analysis and assessment of whether the market is a bounded problem."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Model good enough for demos but not for production"
+          reason: "The demo-to-production gap is the defining AI PMF challenge. Models that impress in controlled demonstrations fail on edge cases in production. This is the most common AI PMF failure mode."
+        - diagnosis: "Wrapper problem — model works but the product does not"
+          reason: "Many AI companies have strong models wrapped in poor products. Developer experience, documentation, integration tooling, and error handling matter as much as model accuracy."
+      less_likely:
+        - diagnosis: "Market does not exist"
+          reason: "The AI market is expanding rapidly. If the model solves a real task accurately, the market exists. The question is usually product-market fit, not market existence."
+    sector_specific_diagnoses:
+      - name: "Model quality plateau"
+        description: "The model's accuracy has plateaued at a level below what the market requires for production deployment. Additional data and training provide diminishing returns. The architecture may have reached its ceiling, or the available training data may be insufficient. The product works for low-stakes use cases but cannot cross the accuracy threshold for the higher-value, production-critical workflows that would justify premium pricing."
+        symptoms:
+          - "F1 or accuracy metrics improving by less than 1% per quarter despite continued R&D investment"
+          - "Customer evaluations that end with 'impressive but not quite accurate enough for our use case'"
+          - "Strong adoption in low-stakes use cases but no penetration into critical workflows"
+          - "Research team proposing fundamental architecture changes rather than incremental improvements"
+        routes_to_skills: ["disruptive-innovation", "product-life-cycle", "defining-and-exploring-problems"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Customers who complete integration but usage drops after 30 days — the model impressed in evaluation but fails in production reality."
+      - "High API call volume with low customer-reported satisfaction — customers are using the model but correcting its outputs frequently."
+      - "No customer willing to publicly endorse the product — a sign that no one trusts it enough to stake their reputation."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "AI-ML pricing is fundamentally different from SaaS pricing because inference cost creates meaningful per-unit COGS. The pricing challenge is threefold: pricing must cover inference cost (variable COGS), pricing must be competitive with open-source alternatives (free substitutes), and pricing must align with the value delivered (which varies by use case). AI pricing models — per-API-call, per-token, per-outcome, tiered by model quality/speed — each have distinct strategic implications."
+    additional_triage_questions:
+      - question: "Is your pricing structure aligned with how customers derive value — specifically, do they pay more when they get more value (outcome-based), pay per unit of consumption (usage-based), or pay a fixed fee regardless of usage?"
+        purpose: "AI product value varies enormously by query. A fixed-fee model leaves money on the table for high-value predictions and overcharges for low-value ones. Usage-based captures volume but not value. Outcome-based captures value but is hard to measure."
+        routing_impact: "Misaligned pricing structure routes to pricing model innovation and willingness-to-pay research by use case."
+      - question: "What is your revenue per inference request relative to your cost per inference request — and how does this ratio change across customer segments and use cases?"
+        purpose: "Per-unit profitability is the fundamental AI pricing question. If high-volume customers generate negative gross margin per request, scaling makes the business worse."
+        routing_impact: "Negative per-unit margin for any segment routes to immediate pricing restructure or cost optimization for that segment."
+      - question: "How does your pricing compare to the 'build-it-yourself-with-open-source' cost? Customers increasingly calculate: 'Could I deploy Llama / Stable Diffusion / Whisper on my own infrastructure for less?'"
+        purpose: "The open-source cost floor constrains AI pricing. If the customer can replicate 80% of the value at 30% of the cost using open-source, the pricing must reflect the premium for the remaining 20% — which is accuracy, reliability, support, and compliance."
+        routing_impact: "Open-source competitive pricing routes to differentiation analysis and value-selling strategy. If the premium is not justifiable, routes to cost optimization and business model pivot."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Under-pricing high-value use cases while over-pricing commodity tasks"
+          reason: "AI products serving multiple use cases through a single API often price uniformly when value varies 100x between queries. A legal analysis worth $500 is priced the same as a simple classification worth $0.01."
+        - diagnosis: "Pricing above the open-source cost floor without sufficient differentiation to justify the premium"
+          reason: "As open-source models improve, the price ceiling for proprietary AI products declines. Pricing that was defensible 12 months ago may now be uncompetitive."
+      less_likely:
+        - diagnosis: "Over-pricing causing churn"
+          reason: "AI products more often under-price than over-price. If the model genuinely delivers value, customers absorb price increases because switching costs (integration, data, customization) are high."
+    sector_specific_diagnoses:
+      - name: "Inference cost trap"
+        description: "The per-request cost of serving the model is so close to the per-request revenue that gross margins are unsustainably thin. Pricing is constrained from above by competitor pricing and open-source alternatives, and from below by inference compute costs. The company is trapped between a price ceiling and a cost floor with insufficient room for a viable business."
+        symptoms:
+          - "Gross margin below 40% with no clear path to improvement"
+          - "Revenue per request declining (competitive pressure) while cost per request is stable or rising"
+          - "Unable to profitably serve high-volume/low-value use cases"
+          - "Engineering spending majority of effort on cost optimization rather than model improvement"
+        routes_to_skills: ["business-model-canvas", "four-ps-marketing", "scenario-planning"]
+        routes_to_templates: ["unit-economics-snapshot", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Revenue per API call declining for three consecutive quarters without corresponding cost reduction — pricing power is eroding."
+      - "Top 10 customers generating negative gross margin because their usage pattern is compute-intensive relative to what they pay."
+      - "Open-source models within 5% accuracy of your production model on public benchmarks — the price ceiling is about to drop."
+
+  # ─────────────────────────────────────────────
+  # 5. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML fundraising benefits from the AI investment cycle but faces unique scrutiny: investors question gross margins (lower than SaaS), data moat durability, open-source substitution risk, and compute cost scalability. The diagnostic must address both the AI-specific metrics investors evaluate and the AI-specific objections they raise."
+    additional_triage_questions:
+      - question: "Can you articulate your data moat — what proprietary data do you have, how is it generated, and how long would it take a well-funded competitor to replicate it?"
+        purpose: "The data moat is the primary defensibility question in AI fundraising. Investors know that models can be replicated; data is harder. A clear data moat narrative is often the decisive factor."
+        routing_impact: "Strong data moat routes to articulating it clearly in fundraising materials. Weak or unclear data moat routes to data-moat-index assessment and strategy development before fundraising."
+      - question: "What is your compute-adjusted gross margin trajectory — is it improving, stable, or declining as you scale?"
+        purpose: "AI-specific gross margin scrutiny is intensifying. Investors apply the a16z 'AI margin gap' framework: if your margins are 50% today, what is the path to 65-70%?"
+        routing_impact: "Improving margin trajectory routes to highlighting it in investor materials. Stable or declining routes to cost optimization plan and honest margin guidance."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "AI hype-cycle timing mismatch"
+          reason: "AI fundraising is cyclical. Companies raising during peak AI enthusiasm (2023-2024) face different dynamics than those raising during correction phases. Timing the narrative to the cycle matters."
+        - diagnosis: "Margin story insufficient"
+          reason: "The most common AI fundraising objection is: 'How do you achieve SaaS-like margins with compute COGS?' A clear, data-backed margin improvement plan is essential."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "AI markets are perceived as enormous. The market-size objection is rare for AI companies. More common: 'Can you defend this position?'"
+    sector_specific_diagnoses:
+      - name: "AI differentiation ambiguity"
+        description: "The company cannot clearly articulate why its AI product is defensible against competitors (proprietary and open-source), well-funded later entrants, and the foundation model providers themselves. Investors see a strong product but an indefensible position."
+        symptoms:
+          - "Investors expressing interest in the market but questioning the moat"
+          - "Pitch conversations dominated by 'what happens when OpenAI/Google ships this as a feature?'"
+          - "No clear data moat, proprietary architecture advantage, or regulatory moat"
+          - "Positive initial meetings that do not progress to term sheet"
+        routes_to_skills: ["porters-five-forces", "blue-ocean-strategy", "first-mover-strategy"]
+        routes_to_templates: ["fundraising-deck-outline", "competitive-landscape-brief"]
+    sector_red_flags:
+      - "Raising at a valuation premised on the AI hype cycle premium rather than on business fundamentals — vulnerable to repricing when sentiment shifts."
+      - "Unable to answer the 'data moat' question in under 60 seconds — investors have heard 'we have an AI company' a thousand times; differentiation must be immediate."
+      - "Compute-adjusted gross margin below 40% without a credible path to 60%+ within 18 months."
+
+  # ─────────────────────────────────────────────
+  # 6. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Revenue in AI-ML decomposes differently from SaaS: it is primarily usage-driven (per API call, per token, per prediction) rather than seat-driven. Revenue growth depends on: new customer acquisition, per-customer usage growth (the expansion engine), pricing optimization, and model quality improvement (which unlocks higher-value use cases). Revenue problems often trace to model quality issues (customers leave or reduce usage because accuracy declined), pricing misalignment, or compute cost pressure squeezing margins."
+    additional_triage_questions:
+      - question: "Decompose your revenue growth: what percentage comes from new customers, increased usage from existing customers, pricing increases, and upsells to premium model tiers?"
+        purpose: "AI revenue growth drivers are different from SaaS. New customer acquisition is important but usage expansion from existing customers is often the primary growth engine for API-delivered AI."
+        routing_impact: "New customer acquisition slowing routes to go-to-market and differentiation analysis. Usage expansion slowing routes to model quality assessment and use-case expansion strategy."
+      - question: "Is the revenue problem a model quality problem (customers leaving because accuracy dropped), a pricing model problem (per-token pricing too expensive for the use case), or a competition problem (open-source caught up)?"
+        purpose: "AI revenue problems cluster into these three categories. The treatment differs fundamentally for each."
+        routing_impact: "Model quality routes to model improvement and customer communication. Pricing routes to pricing restructure and cost optimization. Competition routes to differentiation and blue-ocean strategy."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Usage-based revenue volatility"
+          reason: "AI revenue tied to API usage is inherently volatile — a single customer's batch job can double or halve monthly revenue. This volatility is structural, not a business failure."
+        - diagnosis: "Revenue-cost divergence"
+          reason: "Growing revenue with growing compute costs can result in declining gross profit. Revenue growth without margin improvement is dangerous in AI."
+      less_likely:
+        - diagnosis: "Seasonal revenue variation"
+          reason: "AI API usage is rarely seasonal. Revenue fluctuations are more likely driven by customer usage patterns or model quality changes than by calendar effects."
+    sector_specific_diagnoses:
+      - name: "Revenue quality erosion through commodity displacement"
+        description: "Revenue from commodity AI tasks (basic classification, simple extraction, generic text generation) is declining as open-source and large providers offer these capabilities at lower cost or free. Revenue is increasingly concentrated in high-value, specialized tasks — a healthier mix but a smaller addressable market."
+        symptoms:
+          - "Revenue declining on specific API endpoints while growing on others"
+          - "Price sensitivity increasing for commodity tasks"
+          - "Customer requests for lower pricing on specific capabilities, citing open-source alternatives"
+          - "Revenue concentration in fewer, higher-value use cases"
+        routes_to_skills: ["product-life-cycle", "blue-ocean-strategy", "business-model-canvas"]
+        routes_to_templates: ["unit-economics-snapshot", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Revenue per API call declining while compute cost per call remains stable — the margin squeeze is accelerating."
+      - "Top 3 customers representing more than 50% of revenue — usage-based revenue concentration creates extreme fragility."
+      - "Revenue growth decelerating while model accuracy metrics are stable — suggests market saturation or competitive displacement."
+
+  # ─────────────────────────────────────────────
+  # 7. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "Competitive dynamics in AI-ML are unlike any other sector. Threats come from five distinct directions: direct competitors (other AI startups), foundation model providers (OpenAI, Anthropic, Google shipping the feature natively), open-source models (free alternatives), cloud providers (AWS, GCP, Azure building competing AI services), and the customer's own ML team (building in-house). The base diagnostic must address all five threat vectors, which is a fundamental reframing."
+    additional_triage_questions:
+      - question: "Is the competitive threat from another AI startup, a foundation model provider adding your capability as a feature, an open-source model reaching comparable quality, a cloud provider offering a competing service, or your customer's internal ML team replicating your model?"
+        purpose: "Each threat vector requires a different response. Startup competition is about differentiation. Foundation model threat is about deep vertical integration that horizontal models cannot match. Open-source is about enterprise value-add. Cloud provider threat is about portability and specialized accuracy. In-house build is about proving total cost of ownership advantage."
+        routing_impact: "Startup competition routes to blue-ocean-strategy. Foundation model threat routes to vertical depth and integration moat strategy. Open-source routes to enterprise packaging and support. Cloud provider routes to multi-cloud strategy. In-house build routes to TCO analysis and managed services."
+      - question: "How quickly can a well-funded competitor replicate your current model accuracy, given access to equivalent compute and publicly available data — 3 months, 6 months, 12 months, or more?"
+        purpose: "The replication timeline defines how defensible the model is. If a competitor can replicate in 3 months, the model is not the moat — the data, distribution, or integration must be."
+        routing_impact: "Short replication timeline (<6 months) routes to data moat and integration moat strategy. Long replication timeline (>12 months) routes to maximizing the model advantage while building additional moats."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Foundation model provider encroachment"
+          reason: "The greatest AI competitive threat is OpenAI, Anthropic, Google, or Meta adding your capability to their general-purpose model. This threat is existential for thin-wrapper AI companies."
+        - diagnosis: "Open-source erosion of the accuracy gap"
+          reason: "Open-source models narrow the quality gap every month. Any accuracy advantage over open-source alternatives has a measurable half-life."
+      less_likely:
+        - diagnosis: "Price-based competition from other startups"
+          reason: "AI startup-to-startup price competition is less common than quality competition. The primary competitive dimensions are accuracy, reliability, and domain specificity — not price."
+    sector_specific_diagnoses:
+      - name: "Responsible AI failure as competitive disadvantage"
+        description: "Competitors with stronger responsible AI practices (bias testing, explainability, regulatory compliance) are winning enterprise deals that the company cannot close. The absence of responsible AI infrastructure — model cards, bias audits, compliance documentation — has become a competitive liability rather than a cost to avoid."
+        symptoms:
+          - "Enterprise deals lost with feedback citing 'insufficient AI governance' or 'failed responsible AI audit'"
+          - "Competitors highlighting responsible AI certifications in competitive differentiation"
+          - "Customer procurement adding responsible AI requirements that the company cannot satisfy"
+          - "Regulatory developments specifically affecting the company's AI application domain"
+        routes_to_skills: ["ai-stakeholder-balance", "trust-equation", "swot-pest-analysis"]
+        routes_to_templates: ["competitive-landscape-brief", "risk-assessment-brief"]
+    sector_red_flags:
+      - "A foundation model provider announcing a feature that overlaps with 50%+ of your core value proposition — timeline to revenue impact is 6-12 months."
+      - "An open-source model achieving within 5% of your accuracy on the primary benchmark — the customer evaluation dynamics change materially."
+      - "A well-funded competitor ($100M+) entering your specific vertical with a dedicated research team — the data moat race intensifies."
+
+  # ─────────────────────────────────────────────
+  # 8. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML strategic drift manifests uniquely: the research team pursues accuracy improvements that do not translate to business impact, the company chases every AI use case rather than dominating one vertical, or the strategy oscillates between proprietary-vs-open-source positioning. The fast-moving nature of AI amplifies drift — every competitive announcement triggers a strategic reconsideration."
+    additional_triage_questions:
+      - question: "Has the company's strategic focus shifted between horizontal platform, vertical application, and infrastructure provider — and if so, how many times in the past 12 months?"
+        purpose: "AI companies frequently drift between these three strategic positions. Each requires different team composition, go-to-market motion, and product architecture. Oscillating between them wastes resources and confuses the market."
+        routing_impact: "Multiple strategic pivots route to strategic-thinking-and-alignment for clarity on positioning. Stable positioning with execution drift routes to operational improvement."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Research-driven strategy distortion"
+          reason: "AI companies with strong research teams are uniquely vulnerable to 'research-led strategy' where the team pursues intellectually interesting problems rather than commercially valuable ones."
+      less_likely:
+        - diagnosis: "External market disruption causing drift"
+          reason: "More often, AI-ML drift is self-inflicted through reaction to competitive announcements and the temptation to pursue every use case."
+    sector_specific_diagnoses:
+      - name: "AI use-case sprawl"
+        description: "The company serves too many AI use cases without dominating any single one. The model and product are spread thin across verticals, the team cannot deeply understand any customer's domain, and no individual use case generates sufficient revenue to justify dedicated optimization. The company is a 'general-purpose AI tool' competing against specialists in every vertical."
+        symptoms:
+          - "Revenue spread across 10+ distinct use cases with no single use case exceeding 20% of revenue"
+          - "Sales team positioning the product differently for every prospect"
+          - "Customer success team unable to develop deep domain expertise"
+          - "Model accuracy varying dramatically across use cases with no clear best-performing domain"
+        routes_to_skills: ["blue-ocean-strategy", "business-model-canvas", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Strategy changing after every competitive model announcement — indicating reactive rather than conviction-driven leadership."
+      - "Research team's work not connected to product roadmap for two or more consecutive quarters."
+
+  # ─────────────────────────────────────────────
+  # 9. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML team dysfunction centers on the unique tension between research culture and product culture. Researchers optimize for model quality, novelty, and publication potential. Product engineers optimize for reliability, latency, and maintainability. Business teams optimize for revenue and margins. These three cultures often clash on prioritization, timelines, and what constitutes success. The research-to-product handoff is the most common failure point in AI companies."
+    additional_triage_questions:
+      - question: "Is there tension between the research/ML team and the product engineering team — specifically, do research breakthroughs fail to reach production, or does the production team ship models that the research team considers suboptimal?"
+        purpose: "The research-to-production pipeline is the defining team challenge in AI-ML. Dysfunction here means the company either has great models that never ship or ships inferior models while better ones sit in notebooks."
+        routing_impact: "Research-to-production gap routes to MLOps investment and process design. Product team shipping without research input routes to organizational alignment and shared quality standards."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Research-product cultural mismatch"
+          reason: "Research culture (publish-oriented, accuracy-maximizing, long time horizons) conflicts with product culture (ship-oriented, cost-constrained, short iterations). This is the defining AI team dysfunction."
+      less_likely:
+        - diagnosis: "Individual performance issues"
+          reason: "AI team dysfunction is almost always systemic — wrong incentives, unclear handoff processes, or misaligned goals between research and product."
+    sector_specific_diagnoses:
+      - name: "Research-to-production pipeline failure"
+        description: "Research develops improved models that never reach production because the handoff to product engineering is broken. Models languish in notebooks, productionization takes months, and the deployed model lags the research frontier by 6+ months. The company's research investment fails to translate into product improvement."
+        symptoms:
+          - "Multiple 'improved' models in research repositories that are not deployed"
+          - "Product engineering citing deployment complexity, cost, or latency as reasons for not shipping research models"
+          - "Research team frustrated that their work is 'wasted'"
+          - "Deployed model accuracy trailing internal research capabilities by 6+ months"
+        routes_to_skills: ["systems-thinking", "delegation-and-empowerment", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["action-plan", "team-health-check"]
+    sector_red_flags:
+      - "Research team publishing papers while the product model has not been updated in 6 months — the knowledge is not being commercialized."
+      - "ML engineers and product engineers in separate reporting chains with no shared objectives."
+
+  # ─────────────────────────────────────────────
+  # 10. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Co-founder conflict in AI-ML companies has a distinctive flavor: the tension between research depth (the ML co-founder wants to build the best model) and commercial pragmatism (the business co-founder wants to ship, sell, and grow revenue). This mirrors the CTO/CEO tension in SaaS but is more acute because AI research is expensive, time-consuming, and its commercial value is uncertain."
+    additional_triage_questions:
+      - question: "Does the conflict center on model investment (how much to spend on research and training), product direction (which use cases to serve), monetization approach (pricing structure, open-source strategy), or equity/recognition (credit for the company's technical achievements)?"
+        purpose: "AI co-founder conflicts cluster around these categories, each with different resolution paths."
+        routing_impact: "Model investment conflicts route to balanced-scorecard for objective resource allocation. Product direction routes to data-driven use case evaluation. Monetization routes to business-model-canvas. Equity/recognition routes to cooperative-negotiation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Research ambition vs. commercial pragmatism"
+          reason: "The ML co-founder wants to build the frontier model; the business co-founder wants to ship what works and generate revenue. Both are right — the conflict is about sequencing and resource allocation."
+      less_likely:
+        - diagnosis: "Fundamental vision misalignment"
+          reason: "AI co-founders usually agree on the vision (build an AI product that changes the industry). Disagreement is on execution: how much to invest in research vs. product, when to ship, and how to price."
+    sector_specific_diagnoses:
+      - name: "Research-vs-revenue tension"
+        description: "The ML co-founder prioritizes model quality, research publication, and architectural innovation. The business co-founder prioritizes revenue generation, customer acquisition, and unit economics. Neither is wrong, but the inability to allocate resources creates paralysis — some months the research team gets extra GPU budget, other months the sales team gets headcount, without a coherent strategy."
+        symptoms:
+          - "Resource allocation oscillating between research and sales quarterly"
+          - "Co-founders presenting different narratives about the company to investors"
+          - "Research team and sales team working toward implicitly different goals"
+          - "Key hires leaving because of conflicting signals about company direction"
+        routes_to_skills: ["balanced-scorecard", "cooperative-negotiation", "strategic-thinking-and-alignment"]
+        routes_to_templates: ["decision-journal", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "ML co-founder spending time on research papers while the product model underperforms — misallocated research talent."
+      - "Business co-founder committing to accuracy SLAs without consulting the ML co-founder — a recipe for broken promises."
+
+  # ─────────────────────────────────────────────
+  # 11. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML market entry decisions must evaluate not just market size and competition but also data availability, model feasibility, regulatory environment, and the accuracy threshold required by the market. An AI product cannot enter a market if the data does not exist to train the model or if the required accuracy is unachievable."
+    additional_triage_questions:
+      - question: "Does sufficient training data exist for this market — either through public datasets, potential data partnerships, or data that the product itself will generate? What is the estimated cost to build a competitive dataset?"
+        purpose: "Data availability is the gating factor for AI market entry. A market with unlimited demand but no training data is inaccessible."
+        routing_impact: "Insufficient data routes to data partnership strategy and synthetic data feasibility analysis. Abundant data routes to speed-of-execution strategy."
+      - question: "What accuracy level does this market require — and is there evidence (academic research, competitor products, pilot results) that achievable accuracy meets the market's threshold?"
+        purpose: "Some markets require accuracy that current AI cannot achieve (e.g., autonomous driving Level 5). Entering these markets prematurely wastes resources."
+        routing_impact: "Accuracy achievable routes to market entry execution. Accuracy uncertain routes to pilot-based validation before committing."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Data moat not buildable in the target market"
+          reason: "Some markets have data dynamics that prevent moat formation — data is widely available, competitors have equivalent access, or data freshness makes historical accumulation irrelevant."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "AI enables global reach and vertical specialization. Seemingly small markets often support significant AI businesses."
+    sector_specific_diagnoses:
+      - name: "Accuracy-market threshold gap"
+        description: "The AI model cannot achieve the accuracy required by the target market. The product works in controlled settings but fails to meet the error tolerance of real-world deployment. The market needs 99%+ accuracy (medical, financial, safety-critical), and the model achieves 90-95%."
+        symptoms:
+          - "Pilots that start enthusiastically but end with 'not quite ready for production'"
+          - "Customers requiring human review for 100% of model outputs, negating the efficiency gain"
+          - "Regulatory requirements for accuracy levels that the model cannot achieve"
+          - "Academic literature suggesting the accuracy ceiling for the current approach is below market requirements"
+        routes_to_skills: ["defining-and-exploring-problems", "disruptive-innovation", "ai-augmentation-not-automation"]
+        routes_to_templates: ["market-opportunity-summary", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Entering a market where the required accuracy exceeds the current state of the art — the market entry is premature regardless of demand."
+      - "No clear path to acquiring sufficient training data within 12 months."
+
+  # ─────────────────────────────────────────────
+  # 12. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML hiring faces acute talent scarcity and unique role definitions. ML researchers, MLOps engineers, data engineers, and AI product managers are specialized roles that traditional tech hiring processes often fail to evaluate. Compensation expectations for top ML talent frequently exceed startup budgets, and the competition for PhDs with production experience is intense."
+    additional_triage_questions:
+      - question: "Are you hiring ML researchers (to improve the model), ML engineers (to productionize and serve the model), data engineers (to build and maintain data pipelines), or AI product managers (to bridge research and commercial priorities)?"
+        purpose: "Each role requires different evaluation criteria, compensation structures, and sourcing channels. Misidentifying the role type leads to hiring the wrong profile."
+        routing_impact: "ML researcher hiring routes to academic recruiting strategy and research-incentive design. ML engineer routes to production-focused evaluation. Data engineer routes to data infrastructure assessment. AI PM routes to hybrid profile evaluation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Hiring researchers when engineers are needed (or vice versa)"
+          reason: "AI companies frequently hire brilliant researchers who cannot productionize models, or production engineers who cannot improve model quality. The distinction between these roles is critical."
+      less_likely:
+        - diagnosis: "Compensation uncompetitive"
+          reason: "While ML talent commands premiums, compensation is rarely the sole barrier. Mission, team quality, technical challenges, and equity are strong differentiators for startups."
+    sector_specific_diagnoses:
+      - name: "ML talent profile mismatch"
+        description: "The company hires ML talent with the wrong profile for the current stage. A seed-stage company hiring a pure researcher from a large lab gets someone who expects months-long research cycles and publication incentives. A growth-stage company hiring a generalist full-stack ML engineer gets someone who cannot push the model frontier when specialization is needed."
+        symptoms:
+          - "ML hires not productive within 6 months"
+          - "Research hires frustrated by the lack of compute resources and publication opportunities"
+          - "Engineering hires struggling with the ambiguity and experimentation inherent in ML development"
+          - "Team composition skewed toward either research or engineering without balance"
+        routes_to_skills: ["eisenhower-matrix", "delegation-and-empowerment"]
+        routes_to_templates: ["hiring-scorecard", "role-description-template"]
+    sector_red_flags:
+      - "ML team lead departing — the most costly single-person churn event in an AI company, often triggering 3-6 months of productivity loss."
+      - "Hiring exclusively from academia without anyone with production ML experience — models will be elegant but not deployable."
+
+  # ─────────────────────────────────────────────
+  # 13. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML operational chaos manifests as model serving instability, data pipeline failures, training infrastructure issues, and the compounding effect of model drift creating unpredictable product behavior. The continuous nature of AI systems — models are not just deployed, they must be monitored, retrained, and evaluated — creates unique operational demands."
+    additional_triage_questions:
+      - question: "Do you have automated monitoring for model performance degradation (drift detection), or does model quality decline only become apparent when customers complain?"
+        purpose: "AI operations without drift monitoring is flying blind. Model quality can degrade silently for weeks before customer complaints surface."
+        routing_impact: "No drift monitoring routes to immediate MLOps investment. Monitoring exists but is not actionable routes to automated retraining pipeline development."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "MLOps infrastructure insufficient for production scale"
+          reason: "Most AI companies outgrow their early-stage ML infrastructure (Jupyter notebooks, manual deployments, ad-hoc monitoring) before they invest in production-grade MLOps."
+      less_likely:
+        - diagnosis: "Over-engineering processes"
+          reason: "AI companies more often under-invest in operational processes than over-invest. The research culture tends to resist process."
+    sector_specific_diagnoses:
+      - name: "Silent model degradation"
+        description: "The production model's accuracy is declining due to data drift, but no monitoring detects it. Customers experience worsening output quality over weeks or months, leading to trust erosion and churn, while internal metrics show no alerts."
+        symptoms:
+          - "Customer complaints about accuracy increasing without corresponding changes to model metrics"
+          - "No automated drift detection or model performance monitoring in production"
+          - "Production evaluation dataset not updated to reflect current data distribution"
+          - "Last model retraining was more than 3 months ago for a domain with dynamic data"
+        routes_to_skills: ["systems-thinking", "balanced-scorecard"]
+        routes_to_templates: ["incident-postmortem", "action-plan"]
+    sector_red_flags:
+      - "No automated rollback capability for model deployments — a bad model update must be manually reverted."
+      - "Data pipeline failures occurring weekly without post-incident improvements."
+
+  # ─────────────────────────────────────────────
+  # 14. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Leadership crises in AI-ML have a distinctive dimension: the technical founder may be brilliant at research but incapable of managing a growing organization, while a non-technical CEO may lack the ML literacy to make informed product decisions. The dual nature of AI companies (research organization + product company) creates leadership demands that exceed most single founders' capabilities."
+    additional_triage_questions:
+      - question: "Is the leadership crisis rooted in the technical founder being unable to transition from researcher to CEO, or in the business leader being unable to evaluate and direct ML technical decisions?"
+        purpose: "AI companies face a unique leadership challenge: the CEO must be both technically fluent and commercially competent. Identifying which dimension is failing guides the intervention."
+        routing_impact: "Technical founder management gap routes to executive coaching and COO/President hiring. Business leader technical gap routes to CTO empowerment and technical advisory board."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Founder transition failure (researcher to CEO)"
+          reason: "The ML researcher who built the model is often the wrong person to scale the organization. This transition is predictable and manageable with support but devastating if ignored."
+      less_likely: []
+    sector_specific_diagnoses: []
+    sector_red_flags:
+      - "Technical founder spending 80%+ of time on research while the business lacks leadership — the company has a research lab, not a business."
+      - "Non-technical CEO making model architecture decisions without research team input."
+
+  # ─────────────────────────────────────────────
+  # 15. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML decision paralysis often stems from the inherent uncertainty in model development — 'one more experiment might breakthrough,' 'one more week of training data might help,' 'one more hyperparameter search might find the optimal configuration.' The research culture of exhaustive experimentation conflicts with the business need for decisions within defined time windows."
+    additional_triage_questions:
+      - question: "Is the decision being delayed because the team believes more data or more experiments will yield a better outcome — and is there diminishing returns evidence from recent experiments?"
+        purpose: "AI teams are uniquely susceptible to 'one more experiment' paralysis because the potential for improvement always exists. The question is whether recent experiments show diminishing returns."
+        routing_impact: "Diminishing returns evidence routes to decision commitment with current best model. No evidence either way routes to time-boxed experimentation (2 weeks, then ship)."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Research perfectionism preventing shipping"
+          reason: "AI researchers are trained to optimize. Shipping a model that is 'good enough' conflicts with the research instinct to find the optimum. This paralysis is cultural, not informational."
+      less_likely:
+        - diagnosis: "Insufficient information"
+          reason: "AI companies rarely lack information. They have too much — hundreds of experiment results, evaluation metrics, and benchmark comparisons. The problem is decision discipline, not data."
+    sector_specific_diagnoses: []
+    sector_red_flags:
+      - "Model improvement experiments running for 3+ months without a shipping decision — the 'one more experiment' trap."
+      - "Architecture decision (build vs. fine-tune, model size, open-source vs. proprietary) delayed for more than 6 weeks."
+
+  # ─────────────────────────────────────────────
+  # 16. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Innovation drought in AI-ML manifests differently: the model stops improving, the architecture becomes stale, and the research team shifts from pursuing breakthroughs to incrementally tuning hyperparameters. This is particularly dangerous because AI competitors iterate rapidly — a 6-month innovation drought can result in competitors leapfrogging model quality."
+    additional_triage_questions:
+      - question: "What percentage of the ML team's time is spent on incremental optimization (hyperparameter tuning, data cleaning, deployment maintenance) versus exploratory research (new architectures, novel training approaches, creative data strategies)?"
+        purpose: "If more than 80% of ML effort is on maintenance and optimization, the team is not innovating. The model will not improve meaningfully without dedicated exploration time."
+        routing_impact: "Exploration below 20% routes to organizational restructuring — dedicated research track with protected time and resources."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Architecture ceiling reached"
+          reason: "AI model architectures have performance ceilings. If the current approach is fundamentally limited, incremental improvements will not overcome the plateau."
+      less_likely:
+        - diagnosis: "Lack of talent"
+          reason: "AI innovation drought is more often caused by wrong incentives (no time for research), wrong focus (optimizing existing models rather than exploring new approaches), or compute constraints than by lack of talent."
+    sector_specific_diagnoses:
+      - name: "Architecture obsolescence"
+        description: "The company's core model architecture has been surpassed by newer approaches (e.g., RNNs replaced by transformers, CNNs supplemented by vision transformers). The research team is optimizing an approach that has a known ceiling while competitors adopt superior architectures. Incremental improvements provide diminishing returns."
+        symptoms:
+          - "New architectures outperforming the company's approach on public benchmarks"
+          - "Research papers demonstrating fundamental advantages of alternative approaches"
+          - "ML team's experiments showing less than 1% improvement per quarter"
+          - "Difficulty hiring top ML talent who do not want to work on 'outdated' architecture"
+        routes_to_skills: ["disruptive-innovation", "product-life-cycle", "scenario-planning"]
+        routes_to_templates: ["strategic-analysis-one-pager", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Competitor model releases outperforming yours on the core task for two consecutive quarters."
+      - "Research team unable to articulate how the model will improve by 5%+ in the next 6 months."
+
+  # ─────────────────────────────────────────────
+  # 17. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML partnerships are uniquely complex because they often involve data sharing, model integration, and compute access — each carrying distinctive risks and value dynamics. Data partnerships require trust, legal frameworks, and often domain expertise. Compute partnerships involve GPU allocation commitments and lock-in risks. Model integration partnerships raise IP ownership and competitive positioning questions."
+    additional_triage_questions:
+      - question: "Is this a data partnership (accessing training data), a compute partnership (GPU access and pricing), a model integration partnership (embedding your model in another product), or a distribution partnership (selling through another channel)?"
+        purpose: "Each AI partnership type has different power dynamics, risks, and value creation mechanisms."
+        routing_impact: "Data partnership routes to cooperative-negotiation with emphasis on trust-building and IP protection. Compute partnership routes to multi-provider strategy. Model integration routes to API design and competitive risk analysis. Distribution routes to channel economics."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Data partnership trust barrier"
+          reason: "AI data partnerships require organizations to share sensitive data. Trust barriers are high, legal frameworks are complex, and the partnership often stalls in legal review."
+      less_likely:
+        - diagnosis: "Cultural misalignment"
+          reason: "AI partnerships are primarily technical and data-driven. Cultural fit matters less than data quality, API compatibility, and legal alignment."
+    sector_specific_diagnoses:
+      - name: "Compute provider dependency as strategic vulnerability"
+        description: "The company depends on a single cloud provider for GPU access. The provider controls pricing, allocation priority, and can change terms with minimal notice. The dependency prevents multi-cloud strategy and creates existential risk if the provider becomes a competitor."
+        symptoms:
+          - "100% of inference and training on a single cloud provider"
+          - "No tested deployment path on alternative infrastructure"
+          - "Provider has announced competing AI services in adjacent domains"
+          - "GPU allocation requests denied or delayed during peak demand"
+        routes_to_skills: ["prisoners-dilemma-and-cooperation", "porters-five-forces", "scenario-planning"]
+        routes_to_templates: ["risk-assessment-brief", "strategic-analysis-one-pager"]
+    sector_red_flags:
+      - "Single compute provider representing 100% of infrastructure with no migration plan."
+      - "Data partner announcing competing AI capabilities using the shared data."
+
+  # ─────────────────────────────────────────────
+  # 18. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Communication breakdowns in AI-ML have a distinctive pattern: the research team communicates in technical metrics (F1, perplexity, BLEU scores), the business team communicates in revenue and customer metrics, and customers communicate in outcome terms. The translation between these languages is a leadership responsibility that is often neglected."
+    additional_triage_questions:
+      - question: "Can the research team articulate the business impact of their model improvements, and can the business team articulate the accuracy requirements of their customer commitments?"
+        purpose: "The research-business communication gap is the most common AI company communication failure. If neither team can translate into the other's terms, misalignment is inevitable."
+        routing_impact: "Bidirectional translation failure routes to ai-communication-culture and shared KPI frameworks that connect model metrics to business outcomes."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Technical-business language barrier"
+          reason: "The gap between ML-speak and business-speak is wider than in traditional software companies. This is the dominant communication failure in AI companies."
+      less_likely: []
+    sector_specific_diagnoses: []
+    sector_red_flags:
+      - "Research team and business team unable to agree on what 'model improvement' means — one measures F1, the other measures customer complaints."
+
+  # ─────────────────────────────────────────────
+  # 19. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML negotiations get stuck on distinctive issues: data handling terms (does customer data train the model?), accuracy SLAs (what performance is guaranteed?), liability for model errors (who is responsible when the AI is wrong?), and IP ownership (who owns the fine-tuned model?). These AI-specific sticking points have no precedent in traditional software contracts."
+    additional_triage_questions:
+      - question: "Is the negotiation stuck on a data handling question ('Does our data train your model?'), an accuracy question ('What accuracy do you guarantee?'), a liability question ('Who is responsible when the AI is wrong?'), or an IP question ('Who owns the model trained on our data?')?"
+        purpose: "Each AI-specific negotiation sticking point has different resolution approaches. Data handling requires clear policy. Accuracy requires measurement methodology. Liability requires risk allocation. IP requires clear contractual terms."
+        routing_impact: "Data handling stalls route to transparent data policy development and contractual data segregation. Accuracy stalls route to pilot-based measurement and tiered SLAs. Liability stalls route to insurance, indemnification, and human-in-the-loop design. IP stalls route to clear fine-tuning IP frameworks."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Novel legal territory without precedent"
+          reason: "AI contracts involve issues (model training on customer data, AI liability, algorithmic accountability) that have limited legal precedent. Both parties' lawyers are uncertain, causing paralysis."
+      less_likely:
+        - diagnosis: "Fundamental value disagreement"
+          reason: "If the negotiation reached the terms stage, the buyer values the AI product. The stall is usually on risk allocation (data, accuracy, liability), not on value."
+    sector_specific_diagnoses: []
+    sector_red_flags:
+      - "Enterprise deals stalling for 90+ days on 'data processing' and 'AI liability' terms — the company needs a pre-approved AI contract framework."
+      - "Multiple prospects asking the same data-handling question with no standardized answer — indicates the company has not resolved its own data policy."
+
+  # ─────────────────────────────────────────────
+  # 20. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "AI-ML culture erosion has a distinctive dimension: the tension between research culture (academic, exploratory, long-horizon) and product culture (commercial, iterative, deadline-driven). As AI companies scale from research-heavy teams to product-focused organizations, the original culture evolves — sometimes positively (more business discipline) and sometimes destructively (research talent departing because the culture no longer values exploration)."
+    additional_triage_questions:
+      - question: "Has the company recently shifted emphasis from research (model quality, publications, exploration) to product and revenue (customer metrics, deadlines, cost optimization), and is the research team experiencing this shift as a loss of identity?"
+        purpose: "The research-to-product cultural transition is the most common AI company culture crisis. Research talent that joined for exploration may leave when the culture shifts to production."
+        routing_impact: "Research culture erosion routes to dual-track organizational design — protecting research time and incentives while building product discipline."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Research culture displacement during commercialization"
+          reason: "As AI companies commercialize, the research culture that built the original technology is often displaced by product and sales culture. The researchers who built the company's value leave."
+      less_likely:
+        - diagnosis: "Growth outpacing culture"
+          reason: "AI teams often grow more slowly than traditional SaaS (hiring is constrained by talent scarcity), reducing the 'rapid scaling' culture dilution risk."
+    sector_specific_diagnoses:
+      - name: "Research talent exodus"
+        description: "The company's best ML researchers are leaving because the culture has shifted from research exploration to production optimization. The researchers who built the model see their roles reduced to hyperparameter tuning and customer-specific fine-tuning rather than the frontier research that attracted them. They leave for labs, bigger companies, or competitor startups that offer the research freedom the company no longer provides."
+        symptoms:
+          - "ML researcher attrition above 20% annually"
+          - "Exit interview feedback citing 'no time for research' or 'too much customer work'"
+          - "Publication output declining to zero"
+          - "Difficulty hiring ML researchers because word-of-mouth has shifted to 'it is not a research culture anymore'"
+        routes_to_skills: ["organisational-culture", "psychological-safety-practice", "ai-learning-for-leaders"]
+        routes_to_templates: ["team-health-check", "culture-values-document"]
+    sector_red_flags:
+      - "Top ML researcher leaving for a competitor or big tech lab — signals a culture problem that will cascade."
+      - "Publication output dropping to zero with no corresponding product improvement — the research capacity is gone."

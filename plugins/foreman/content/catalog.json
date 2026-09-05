@@ -1,0 +1,1872 @@
+{
+  "entries": [
+    {
+      "id": "diagnostic-agent",
+      "kind": "agent",
+      "path": "agents/diagnostic-agent.md"
+    },
+    {
+      "id": "memory-agent",
+      "kind": "agent",
+      "path": "agents/memory-agent.md"
+    },
+    {
+      "id": "orchestrator-agent",
+      "kind": "agent",
+      "path": "agents/orchestrator-agent.md"
+    },
+    {
+      "id": "output-agent",
+      "kind": "agent",
+      "path": "agents/output-agent.md"
+    },
+    {
+      "id": "playbook-runner-agent",
+      "kind": "agent",
+      "path": "agents/playbook-runner-agent.md"
+    },
+    {
+      "id": "skill-executor-agent",
+      "kind": "agent",
+      "path": "agents/skill-executor-agent.md"
+    },
+    {
+      "id": "execution-commands",
+      "kind": "command",
+      "path": "commands/execution-commands.md",
+      "category": "execution"
+    },
+    {
+      "id": "implementation-commands",
+      "kind": "command",
+      "path": "commands/implementation-commands.md",
+      "category": "implementation"
+    },
+    {
+      "id": "language-mode-commands",
+      "kind": "command",
+      "path": "commands/language-command.md",
+      "category": "meta"
+    },
+    {
+      "id": "memory-commands",
+      "kind": "command",
+      "path": "commands/memory-commands.md",
+      "category": "memory"
+    },
+    {
+      "id": "navigation-commands",
+      "kind": "command",
+      "path": "commands/navigation-commands.md",
+      "category": "navigation"
+    },
+    {
+      "id": "org-politics-commands",
+      "kind": "command",
+      "path": "commands/org-politics-commands.md",
+      "category": "org-politics"
+    },
+    {
+      "id": "research-commands",
+      "kind": "command",
+      "path": "commands/research-commands.md",
+      "category": "research"
+    },
+    {
+      "id": "simulation-commands",
+      "kind": "command",
+      "path": "commands/simulation-commands.md",
+      "category": "simulation"
+    },
+    {
+      "id": "stoic-mode-commands",
+      "kind": "command",
+      "path": "commands/stoic-command.md",
+      "category": "meta"
+    },
+    {
+      "id": "cofounder-conflict-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/cofounder-conflict-diagnosis.md"
+    },
+    {
+      "id": "communication-breakdown-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/communication-breakdown-diagnosis.md"
+    },
+    {
+      "id": "competitive-threat-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/competitive-threat-diagnosis.md"
+    },
+    {
+      "id": "culture-erosion-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/culture-erosion-diagnosis.md"
+    },
+    {
+      "id": "customer-churn-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/customer-churn-diagnosis.md"
+    },
+    {
+      "id": "decision-paralysis-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/decision-paralysis-diagnosis.md"
+    },
+    {
+      "id": "fundraising-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/fundraising-diagnosis.md"
+    },
+    {
+      "id": "growth-stall-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/growth-stall-diagnosis.md"
+    },
+    {
+      "id": "hiring-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/hiring-diagnosis.md"
+    },
+    {
+      "id": "innovation-drought-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/innovation-drought-diagnosis.md"
+    },
+    {
+      "id": "leadership-crisis-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/leadership-crisis-diagnosis.md"
+    },
+    {
+      "id": "market-entry-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/market-entry-diagnosis.md"
+    },
+    {
+      "id": "negotiation-stuck-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/negotiation-stuck-diagnosis.md"
+    },
+    {
+      "id": "operational-chaos-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/operational-chaos-diagnosis.md"
+    },
+    {
+      "id": "partnership-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/partnership-diagnosis.md"
+    },
+    {
+      "id": "pricing-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/pricing-diagnosis.md"
+    },
+    {
+      "id": "product-market-fit-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/product-market-fit-diagnosis.md"
+    },
+    {
+      "id": "revenue-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/revenue-diagnosis.md"
+    },
+    {
+      "id": "strategic-drift-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/strategic-drift-diagnosis.md"
+    },
+    {
+      "id": "team-dysfunction-diagnosis",
+      "kind": "diagnostic",
+      "path": "diagnostics/team-dysfunction-diagnosis.md"
+    },
+    {
+      "id": "communication-hook",
+      "kind": "hook",
+      "path": "hooks/communication-hook.md"
+    },
+    {
+      "id": "competition-hook",
+      "kind": "hook",
+      "path": "hooks/competition-hook.md"
+    },
+    {
+      "id": "culture-hook",
+      "kind": "hook",
+      "path": "hooks/culture-hook.md"
+    },
+    {
+      "id": "decision-hook",
+      "kind": "hook",
+      "path": "hooks/decision-hook.md"
+    },
+    {
+      "id": "fundraising-hook",
+      "kind": "hook",
+      "path": "hooks/fundraising-hook.md"
+    },
+    {
+      "id": "growth-hook",
+      "kind": "hook",
+      "path": "hooks/growth-hook.md"
+    },
+    {
+      "id": "innovation-hook",
+      "kind": "hook",
+      "path": "hooks/innovation-hook.md"
+    },
+    {
+      "id": "launch-hook",
+      "kind": "hook",
+      "path": "hooks/launch-hook.md"
+    },
+    {
+      "id": "leadership-hook",
+      "kind": "hook",
+      "path": "hooks/leadership-hook.md"
+    },
+    {
+      "id": "negotiation-hook",
+      "kind": "hook",
+      "path": "hooks/negotiation-hook.md"
+    },
+    {
+      "id": "partnership-hook",
+      "kind": "hook",
+      "path": "hooks/partnership-hook.md"
+    },
+    {
+      "id": "personal-growth-hook",
+      "kind": "hook",
+      "path": "hooks/personal-growth-hook.md"
+    },
+    {
+      "id": "product-hook",
+      "kind": "hook",
+      "path": "hooks/product-hook.md"
+    },
+    {
+      "id": "research-hook",
+      "kind": "hook",
+      "path": "hooks/research-hook.md"
+    },
+    {
+      "id": "revenue-and-sales-hook",
+      "kind": "hook",
+      "path": "hooks/revenue-and-sales-hook.md"
+    },
+    {
+      "id": "strategy-hook",
+      "kind": "hook",
+      "path": "hooks/strategy-hook.md"
+    },
+    {
+      "id": "team-hook",
+      "kind": "hook",
+      "path": "hooks/team-hook.md"
+    },
+    {
+      "id": "implementation-tracking",
+      "kind": "implementation",
+      "path": "implementation/IMPLEMENTATION.md"
+    },
+    {
+      "id": "blocker-diagnosis",
+      "kind": "diagnostic",
+      "path": "implementation/support/blocker-diagnosis.md"
+    },
+    {
+      "id": "implementation-retrospective",
+      "kind": "template",
+      "path": "implementation/support/implementation-retrospective.md"
+    },
+    {
+      "id": "blocker-analysis",
+      "kind": "template",
+      "path": "implementation/templates/blocker-analysis.md"
+    },
+    {
+      "id": "implementation-dashboard",
+      "kind": "template",
+      "path": "implementation/templates/implementation-dashboard.md"
+    },
+    {
+      "id": "weekly-progress-report",
+      "kind": "template",
+      "path": "implementation/templates/weekly-progress-report.md"
+    },
+    {
+      "id": "organizational-alignment-playbook",
+      "kind": "playbook",
+      "path": "org-politics/organizational-alignment-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "power-dynamics-diagnosis",
+      "kind": "diagnostic",
+      "path": "org-politics/power-dynamics-diagnosis.md"
+    },
+    {
+      "id": "stakeholder-resistance-diagnosis",
+      "kind": "diagnostic",
+      "path": "org-politics/stakeholder-resistance-diagnosis.md"
+    },
+    {
+      "id": "coalition-building-plan",
+      "kind": "template",
+      "path": "org-politics/templates/coalition-building-plan.md"
+    },
+    {
+      "id": "communication-strategy-map",
+      "kind": "template",
+      "path": "org-politics/templates/communication-strategy-map.md"
+    },
+    {
+      "id": "negotiation-position-map",
+      "kind": "template",
+      "path": "org-politics/templates/negotiation-position-map.md"
+    },
+    {
+      "id": "political-risk-assessment",
+      "kind": "template",
+      "path": "org-politics/templates/political-risk-assessment.md"
+    },
+    {
+      "id": "resistance-management-plan",
+      "kind": "template",
+      "path": "org-politics/templates/resistance-management-plan.md"
+    },
+    {
+      "id": "stakeholder-influence-map",
+      "kind": "template",
+      "path": "org-politics/templates/stakeholder-influence-map.md"
+    },
+    {
+      "id": "board-meeting-agenda",
+      "kind": "template",
+      "path": "output-templates/board/board-meeting-agenda.md"
+    },
+    {
+      "id": "ceo-succession-brief",
+      "kind": "template",
+      "path": "output-templates/board/ceo-succession-brief.md"
+    },
+    {
+      "id": "change-initiative-proposal",
+      "kind": "template",
+      "path": "output-templates/board/change-initiative-proposal.md"
+    },
+    {
+      "id": "compensation-review-brief",
+      "kind": "template",
+      "path": "output-templates/board/compensation-review-brief.md"
+    },
+    {
+      "id": "quarterly-strategic-review",
+      "kind": "template",
+      "path": "output-templates/board/quarterly-strategic-review.md"
+    },
+    {
+      "id": "regulatory-compliance-update",
+      "kind": "template",
+      "path": "output-templates/board/regulatory-compliance-update.md"
+    },
+    {
+      "id": "risk-assessment-brief",
+      "kind": "template",
+      "path": "output-templates/board/risk-assessment-brief.md"
+    },
+    {
+      "id": "analysis-report",
+      "kind": "template",
+      "path": "output-templates/client/analysis-report.md"
+    },
+    {
+      "id": "case-study-template",
+      "kind": "template",
+      "path": "output-templates/client/case-study-template.md"
+    },
+    {
+      "id": "onboarding-welcome-packet",
+      "kind": "template",
+      "path": "output-templates/client/onboarding-welcome-packet.md"
+    },
+    {
+      "id": "partnership-memo",
+      "kind": "template",
+      "path": "output-templates/client/partnership-memo.md"
+    },
+    {
+      "id": "project-status-update",
+      "kind": "template",
+      "path": "output-templates/client/project-status-update.md"
+    },
+    {
+      "id": "proposal-outline",
+      "kind": "template",
+      "path": "output-templates/client/proposal-outline.md"
+    },
+    {
+      "id": "quarterly-business-review",
+      "kind": "template",
+      "path": "output-templates/client/quarterly-business-review.md"
+    },
+    {
+      "id": "service-level-agreement",
+      "kind": "template",
+      "path": "output-templates/client/service-level-agreement.md"
+    },
+    {
+      "id": "cap-table-summary",
+      "kind": "template",
+      "path": "output-templates/investor/cap-table-summary.md"
+    },
+    {
+      "id": "competitive-landscape-brief",
+      "kind": "template",
+      "path": "output-templates/investor/competitive-landscape-brief.md"
+    },
+    {
+      "id": "decision-rationale-memo",
+      "kind": "template",
+      "path": "output-templates/investor/decision-rationale-memo.md"
+    },
+    {
+      "id": "due-diligence-checklist",
+      "kind": "template",
+      "path": "output-templates/investor/due-diligence-checklist.md"
+    },
+    {
+      "id": "exit-scenario-analysis",
+      "kind": "template",
+      "path": "output-templates/investor/exit-scenario-analysis.md"
+    },
+    {
+      "id": "fundraising-deck-outline",
+      "kind": "template",
+      "path": "output-templates/investor/fundraising-deck-outline.md"
+    },
+    {
+      "id": "investor-update-email",
+      "kind": "template",
+      "path": "output-templates/investor/investor-update-email.md"
+    },
+    {
+      "id": "market-opportunity-summary",
+      "kind": "template",
+      "path": "output-templates/investor/market-opportunity-summary.md"
+    },
+    {
+      "id": "strategic-analysis-one-pager",
+      "kind": "template",
+      "path": "output-templates/investor/strategic-analysis-one-pager.md"
+    },
+    {
+      "id": "unit-economics-snapshot",
+      "kind": "template",
+      "path": "output-templates/investor/unit-economics-snapshot.md"
+    },
+    {
+      "id": "annual-review-and-planning",
+      "kind": "template",
+      "path": "output-templates/self/annual-review-and-planning.md"
+    },
+    {
+      "id": "career-strategy-canvas",
+      "kind": "template",
+      "path": "output-templates/self/career-strategy-canvas.md"
+    },
+    {
+      "id": "decision-journal",
+      "kind": "template",
+      "path": "output-templates/self/decision-journal.md"
+    },
+    {
+      "id": "founder-mental-health-check",
+      "kind": "template",
+      "path": "output-templates/self/founder-mental-health-check.md"
+    },
+    {
+      "id": "leadership-reflection",
+      "kind": "template",
+      "path": "output-templates/self/leadership-reflection.md"
+    },
+    {
+      "id": "learning-plan",
+      "kind": "template",
+      "path": "output-templates/self/learning-plan.md"
+    },
+    {
+      "id": "negotiation-prep-sheet",
+      "kind": "template",
+      "path": "output-templates/self/negotiation-prep-sheet.md"
+    },
+    {
+      "id": "personal-board-tracker",
+      "kind": "template",
+      "path": "output-templates/self/personal-board-tracker.md"
+    },
+    {
+      "id": "stakeholder-map",
+      "kind": "template",
+      "path": "output-templates/self/stakeholder-map.md"
+    },
+    {
+      "id": "weekly-ceo-review",
+      "kind": "template",
+      "path": "output-templates/self/weekly-ceo-review.md"
+    },
+    {
+      "id": "action-plan",
+      "kind": "template",
+      "path": "output-templates/team/action-plan.md"
+    },
+    {
+      "id": "culture-values-document",
+      "kind": "template",
+      "path": "output-templates/team/culture-values-document.md"
+    },
+    {
+      "id": "feedback-360-template",
+      "kind": "template",
+      "path": "output-templates/team/feedback-360-template.md"
+    },
+    {
+      "id": "hiring-scorecard",
+      "kind": "template",
+      "path": "output-templates/team/hiring-scorecard.md"
+    },
+    {
+      "id": "incident-postmortem",
+      "kind": "template",
+      "path": "output-templates/team/incident-postmortem.md"
+    },
+    {
+      "id": "meeting-notes-template",
+      "kind": "template",
+      "path": "output-templates/team/meeting-notes-template.md"
+    },
+    {
+      "id": "new-initiative-brief",
+      "kind": "template",
+      "path": "output-templates/team/new-initiative-brief.md"
+    },
+    {
+      "id": "offsite-planning-guide",
+      "kind": "template",
+      "path": "output-templates/team/offsite-planning-guide.md"
+    },
+    {
+      "id": "one-on-one-template",
+      "kind": "template",
+      "path": "output-templates/team/one-on-one-template.md"
+    },
+    {
+      "id": "project-kickoff-document",
+      "kind": "template",
+      "path": "output-templates/team/project-kickoff-document.md"
+    },
+    {
+      "id": "retrospective-template",
+      "kind": "template",
+      "path": "output-templates/team/retrospective-template.md"
+    },
+    {
+      "id": "role-description-template",
+      "kind": "template",
+      "path": "output-templates/team/role-description-template.md"
+    },
+    {
+      "id": "team-health-check",
+      "kind": "template",
+      "path": "output-templates/team/team-health-check.md"
+    },
+    {
+      "id": "acquisition-evaluation-playbook",
+      "kind": "playbook",
+      "path": "playbooks/acquisition-evaluation-playbook.md"
+    },
+    {
+      "id": "board-formation-playbook",
+      "kind": "playbook",
+      "path": "playbooks/board-formation-playbook.md"
+    },
+    {
+      "id": "competitive-response-playbook",
+      "kind": "playbook",
+      "path": "playbooks/competitive-response-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "crisis-playbook",
+      "kind": "playbook",
+      "path": "playbooks/crisis-playbook.md"
+    },
+    {
+      "id": "first-100-customers-playbook",
+      "kind": "playbook",
+      "path": "playbooks/first-100-customers-playbook.md"
+    },
+    {
+      "id": "founder-transition-playbook",
+      "kind": "playbook",
+      "path": "playbooks/founder-transition-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "fundraising-playbook",
+      "kind": "playbook",
+      "path": "playbooks/fundraising-playbook.md"
+    },
+    {
+      "id": "innovation-sprint-playbook",
+      "kind": "playbook",
+      "path": "playbooks/innovation-sprint-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "international-expansion-playbook",
+      "kind": "playbook",
+      "path": "playbooks/international-expansion-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "launch-playbook",
+      "kind": "playbook",
+      "path": "playbooks/launch-playbook.md"
+    },
+    {
+      "id": "negotiation-playbook",
+      "kind": "playbook",
+      "path": "playbooks/negotiation-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "partnership-playbook",
+      "kind": "playbook",
+      "path": "playbooks/partnership-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "personal-brand-playbook",
+      "kind": "playbook",
+      "path": "playbooks/personal-brand-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "pivot-playbook",
+      "kind": "playbook",
+      "path": "playbooks/pivot-playbook.md"
+    },
+    {
+      "id": "pricing-strategy-playbook",
+      "kind": "playbook",
+      "path": "playbooks/pricing-strategy-playbook.md"
+    },
+    {
+      "id": "product-market-fit-playbook",
+      "kind": "playbook",
+      "path": "playbooks/product-market-fit-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "remote-team-playbook",
+      "kind": "playbook",
+      "path": "playbooks/remote-team-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "scaling-playbook",
+      "kind": "playbook",
+      "path": "playbooks/scaling-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "strategy-reset-playbook",
+      "kind": "playbook",
+      "path": "playbooks/strategy-reset-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "team-rebuild-playbook",
+      "kind": "playbook",
+      "path": "playbooks/team-rebuild-playbook.md",
+      "category": "playbooks"
+    },
+    {
+      "id": "brand-perception-research",
+      "kind": "research",
+      "path": "research/brand-perception-research.md"
+    },
+    {
+      "id": "churn-analysis-guide",
+      "kind": "research",
+      "path": "research/churn-analysis-guide.md"
+    },
+    {
+      "id": "competitor-research-template",
+      "kind": "research",
+      "path": "research/competitor-research-template.md"
+    },
+    {
+      "id": "content-strategy-research",
+      "kind": "research",
+      "path": "research/content-strategy-research.md"
+    },
+    {
+      "id": "customer-interview-guide",
+      "kind": "research",
+      "path": "research/customer-interview-guide.md"
+    },
+    {
+      "id": "data-collection-plan",
+      "kind": "research",
+      "path": "research/data-collection-plan.md"
+    },
+    {
+      "id": "due-diligence-research",
+      "kind": "research",
+      "path": "research/due-diligence-research.md"
+    },
+    {
+      "id": "financial-modeling-guide",
+      "kind": "research",
+      "path": "research/financial-modeling-guide.md"
+    },
+    {
+      "id": "funding-landscape-research",
+      "kind": "research",
+      "path": "research/funding-landscape-research.md"
+    },
+    {
+      "id": "industry-mapping-guide",
+      "kind": "research",
+      "path": "research/industry-mapping-guide.md"
+    },
+    {
+      "id": "market-sizing-worksheet",
+      "kind": "research",
+      "path": "research/market-sizing-worksheet.md"
+    },
+    {
+      "id": "partnership-research-guide",
+      "kind": "research",
+      "path": "research/partnership-research-guide.md"
+    },
+    {
+      "id": "pricing-research-guide",
+      "kind": "research",
+      "path": "research/pricing-research-guide.md"
+    },
+    {
+      "id": "regulatory-landscape-research",
+      "kind": "research",
+      "path": "research/regulatory-landscape-research.md"
+    },
+    {
+      "id": "survey-design-guide",
+      "kind": "research",
+      "path": "research/survey-design-guide.md"
+    },
+    {
+      "id": "talent-market-research",
+      "kind": "research",
+      "path": "research/talent-market-research.md"
+    },
+    {
+      "id": "technology-stack-research",
+      "kind": "research",
+      "path": "research/technology-stack-research.md"
+    },
+    {
+      "id": "user-testing-protocol",
+      "kind": "research",
+      "path": "research/user-testing-protocol.md"
+    },
+    {
+      "id": "culture-guardian",
+      "kind": "persona",
+      "path": "simulation/board-personas/culture-guardian.md"
+    },
+    {
+      "id": "customer-advocate",
+      "kind": "persona",
+      "path": "simulation/board-personas/customer-advocate.md"
+    },
+    {
+      "id": "financial-hawk",
+      "kind": "persona",
+      "path": "simulation/board-personas/financial-hawk.md"
+    },
+    {
+      "id": "friendly-challenger",
+      "kind": "persona",
+      "path": "simulation/board-personas/friendly-challenger.md"
+    },
+    {
+      "id": "growth-strategist",
+      "kind": "persona",
+      "path": "simulation/board-personas/growth-strategist.md"
+    },
+    {
+      "id": "industry-veteran",
+      "kind": "persona",
+      "path": "simulation/board-personas/industry-veteran.md"
+    },
+    {
+      "id": "legal-counsel",
+      "kind": "persona",
+      "path": "simulation/board-personas/legal-counsel.md"
+    },
+    {
+      "id": "operational-expert",
+      "kind": "persona",
+      "path": "simulation/board-personas/operational-expert.md"
+    },
+    {
+      "id": "skeptic-investor",
+      "kind": "persona",
+      "path": "simulation/board-personas/skeptic-investor.md"
+    },
+    {
+      "id": "technical-advisor",
+      "kind": "persona",
+      "path": "simulation/board-personas/technical-advisor.md"
+    },
+    {
+      "id": "post-simulation-diagnostic",
+      "kind": "diagnostic",
+      "path": "simulation/post-simulation-diagnostic.md"
+    },
+    {
+      "id": "ai-augmentation-not-automation",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-augmentation-not-automation.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-communication-culture",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-communication-culture.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-emotional-intelligence",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-emotional-intelligence.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-human-centered-approach",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-human-centered-approach.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-inclusive-collaboration",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-inclusive-collaboration.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-learning-for-leaders",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-learning-for-leaders.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-purpose-driven-questions",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-purpose-driven-questions.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-stakeholder-balance",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-stakeholder-balance.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "ai-vision-and-strategy",
+      "kind": "skill",
+      "path": "skills/ai-leadership/ai-vision-and-strategy.md",
+      "category": "ai-leadership"
+    },
+    {
+      "id": "creative-collaboration-and-context",
+      "kind": "skill",
+      "path": "skills/creative/creative-collaboration-and-context.md",
+      "category": "creative"
+    },
+    {
+      "id": "creative-completion-and-renewal",
+      "kind": "skill",
+      "path": "skills/creative/creative-completion-and-renewal.md",
+      "category": "creative"
+    },
+    {
+      "id": "creative-flow-and-inspiration",
+      "kind": "skill",
+      "path": "skills/creative/creative-flow-and-inspiration.md",
+      "category": "creative"
+    },
+    {
+      "id": "creative-identity-and-purpose",
+      "kind": "skill",
+      "path": "skills/creative/creative-identity-and-purpose.md",
+      "category": "creative"
+    },
+    {
+      "id": "creative-obstacles",
+      "kind": "skill",
+      "path": "skills/creative/creative-obstacles.md",
+      "category": "creative"
+    },
+    {
+      "id": "creative-perception-and-awareness",
+      "kind": "skill",
+      "path": "skills/creative/creative-perception-and-awareness.md",
+      "category": "creative"
+    },
+    {
+      "id": "creative-practice-and-habit",
+      "kind": "skill",
+      "path": "skills/creative/creative-practice-and-habit.md",
+      "category": "creative"
+    },
+    {
+      "id": "creative-shaping-and-craft",
+      "kind": "skill",
+      "path": "skills/creative/creative-shaping-and-craft.md",
+      "category": "creative"
+    },
+    {
+      "id": "choosing-and-executing",
+      "kind": "skill",
+      "path": "skills/decisions/choosing-and-executing.md",
+      "category": "decisions"
+    },
+    {
+      "id": "decision-traps-and-roles",
+      "kind": "skill",
+      "path": "skills/decisions/decision-traps-and-roles.md",
+      "category": "decisions"
+    },
+    {
+      "id": "evaluating-options",
+      "kind": "skill",
+      "path": "skills/decisions/evaluating-options.md",
+      "category": "decisions"
+    },
+    {
+      "id": "generating-solutions",
+      "kind": "skill",
+      "path": "skills/decisions/generating-solutions.md",
+      "category": "decisions"
+    },
+    {
+      "id": "tough-decision-situations",
+      "kind": "skill",
+      "path": "skills/decisions/tough-decision-situations.md",
+      "category": "decisions"
+    },
+    {
+      "id": "ambidexterity",
+      "kind": "skill",
+      "path": "skills/frameworks/ambidexterity.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "appreciative-inquiry",
+      "kind": "skill",
+      "path": "skills/frameworks/appreciative-inquiry.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "art-of-war",
+      "kind": "skill",
+      "path": "skills/frameworks/art-of-war.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "balanced-scorecard",
+      "kind": "skill",
+      "path": "skills/frameworks/balanced-scorecard.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "belbin-team-roles",
+      "kind": "skill",
+      "path": "skills/frameworks/belbin-team-roles.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "black-swans",
+      "kind": "skill",
+      "path": "skills/frameworks/black-swans.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "blue-ocean-strategy",
+      "kind": "skill",
+      "path": "skills/frameworks/blue-ocean-strategy.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "business-model-canvas",
+      "kind": "skill",
+      "path": "skills/frameworks/business-model-canvas.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "carnegie-win-friends",
+      "kind": "skill",
+      "path": "skills/frameworks/carnegie-win-friends.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "cialdini-influence",
+      "kind": "skill",
+      "path": "skills/frameworks/cialdini-influence.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "covey-seven-habits",
+      "kind": "skill",
+      "path": "skills/frameworks/covey-seven-habits.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "disruptive-innovation",
+      "kind": "skill",
+      "path": "skills/frameworks/disruptive-innovation.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "doblin-ten-types",
+      "kind": "skill",
+      "path": "skills/frameworks/doblin-ten-types.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "eisenhower-matrix",
+      "kind": "skill",
+      "path": "skills/frameworks/eisenhower-matrix.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "emotional-intelligence",
+      "kind": "skill",
+      "path": "skills/frameworks/emotional-intelligence.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "flow-state",
+      "kind": "skill",
+      "path": "skills/frameworks/flow-state.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "four-ps-marketing",
+      "kind": "skill",
+      "path": "skills/frameworks/four-ps-marketing.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "giving-feedback",
+      "kind": "skill",
+      "path": "skills/frameworks/giving-feedback.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "grow-model",
+      "kind": "skill",
+      "path": "skills/frameworks/grow-model.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "growth-mindset",
+      "kind": "skill",
+      "path": "skills/frameworks/growth-mindset.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "growth-share-matrix",
+      "kind": "skill",
+      "path": "skills/frameworks/growth-share-matrix.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "hackman-enabling-conditions",
+      "kind": "skill",
+      "path": "skills/frameworks/hackman-enabling-conditions.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "johari-window",
+      "kind": "skill",
+      "path": "skills/frameworks/johari-window.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "kaizen-bpr",
+      "kind": "skill",
+      "path": "skills/frameworks/kaizen-bpr.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "kotter-change-model",
+      "kind": "skill",
+      "path": "skills/frameworks/kotter-change-model.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "leadership-pipeline",
+      "kind": "skill",
+      "path": "skills/frameworks/leadership-pipeline.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "lean-in",
+      "kind": "skill",
+      "path": "skills/frameworks/lean-in.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "lewin-leadership-styles",
+      "kind": "skill",
+      "path": "skills/frameworks/lewin-leadership-styles.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "maslow-hierarchy",
+      "kind": "skill",
+      "path": "skills/frameworks/maslow-hierarchy.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "myers-briggs-type-indicator",
+      "kind": "skill",
+      "path": "skills/frameworks/myers-briggs-type-indicator.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "net-promoter-score",
+      "kind": "skill",
+      "path": "skills/frameworks/net-promoter-score.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "neuro-linguistic-programming",
+      "kind": "skill",
+      "path": "skills/frameworks/neuro-linguistic-programming.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "organisational-culture",
+      "kind": "skill",
+      "path": "skills/frameworks/organisational-culture.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "porters-five-forces",
+      "kind": "skill",
+      "path": "skills/frameworks/porters-five-forces.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "product-life-cycle",
+      "kind": "skill",
+      "path": "skills/frameworks/product-life-cycle.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "psychological-safety",
+      "kind": "skill",
+      "path": "skills/frameworks/psychological-safety.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "radical-candor",
+      "kind": "skill",
+      "path": "skills/frameworks/radical-candor.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "scenario-planning",
+      "kind": "skill",
+      "path": "skills/frameworks/scenario-planning.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "shamrock-organisation",
+      "kind": "skill",
+      "path": "skills/frameworks/shamrock-organisation.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "situational-leadership",
+      "kind": "skill",
+      "path": "skills/frameworks/situational-leadership.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "smart-goals",
+      "kind": "skill",
+      "path": "skills/frameworks/smart-goals.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "swot-pest-analysis",
+      "kind": "skill",
+      "path": "skills/frameworks/swot-pest-analysis.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "systems-thinking",
+      "kind": "skill",
+      "path": "skills/frameworks/systems-thinking.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "thinking-fast-and-slow",
+      "kind": "skill",
+      "path": "skills/frameworks/thinking-fast-and-slow.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "thomas-kilmann-conflict",
+      "kind": "skill",
+      "path": "skills/frameworks/thomas-kilmann-conflict.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "tipping-point",
+      "kind": "skill",
+      "path": "skills/frameworks/tipping-point.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "trust-equation",
+      "kind": "skill",
+      "path": "skills/frameworks/trust-equation.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "tuckman-team-stages",
+      "kind": "skill",
+      "path": "skills/frameworks/tuckman-team-stages.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "vuca-framework",
+      "kind": "skill",
+      "path": "skills/frameworks/vuca-framework.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "win-win-negotiation",
+      "kind": "skill",
+      "path": "skills/frameworks/win-win-negotiation.md",
+      "category": "frameworks"
+    },
+    {
+      "id": "coalition-and-partnership-games",
+      "kind": "skill",
+      "path": "skills/game-theory/coalition-and-partnership-games.md",
+      "category": "game-theory"
+    },
+    {
+      "id": "evolutionary-strategy",
+      "kind": "skill",
+      "path": "skills/game-theory/evolutionary-strategy.md",
+      "category": "game-theory"
+    },
+    {
+      "id": "first-mover-strategy",
+      "kind": "skill",
+      "path": "skills/game-theory/first-mover-strategy.md",
+      "category": "game-theory"
+    },
+    {
+      "id": "game-theory-fundamentals",
+      "kind": "skill",
+      "path": "skills/game-theory/game-theory-fundamentals.md",
+      "category": "game-theory"
+    },
+    {
+      "id": "information-asymmetry",
+      "kind": "skill",
+      "path": "skills/game-theory/information-asymmetry.md",
+      "category": "game-theory"
+    },
+    {
+      "id": "negotiation-game-theory",
+      "kind": "skill",
+      "path": "skills/game-theory/negotiation-game-theory.md",
+      "category": "game-theory"
+    },
+    {
+      "id": "prisoners-dilemma-and-cooperation",
+      "kind": "skill",
+      "path": "skills/game-theory/prisoners-dilemma-and-cooperation.md",
+      "category": "game-theory"
+    },
+    {
+      "id": "ai-era-leadership",
+      "kind": "skill",
+      "path": "skills/leadership/ai-era-leadership.md",
+      "category": "leadership"
+    },
+    {
+      "id": "business-writing-for-leaders",
+      "kind": "skill",
+      "path": "skills/leadership/business-writing-for-leaders.md",
+      "category": "leadership"
+    },
+    {
+      "id": "career-strategy-for-leaders",
+      "kind": "skill",
+      "path": "skills/leadership/career-strategy-for-leaders.md",
+      "category": "leadership"
+    },
+    {
+      "id": "decision-making-under-pressure",
+      "kind": "skill",
+      "path": "skills/leadership/decision-making-under-pressure.md",
+      "category": "leadership"
+    },
+    {
+      "id": "delegation-and-empowerment",
+      "kind": "skill",
+      "path": "skills/leadership/delegation-and-empowerment.md",
+      "category": "leadership"
+    },
+    {
+      "id": "emotional-courage",
+      "kind": "skill",
+      "path": "skills/leadership/emotional-courage.md",
+      "category": "leadership"
+    },
+    {
+      "id": "employee-engagement-retention",
+      "kind": "skill",
+      "path": "skills/leadership/employee-engagement-retention.md",
+      "category": "leadership"
+    },
+    {
+      "id": "focus-and-priority-management",
+      "kind": "skill",
+      "path": "skills/leadership/focus-and-priority-management.md",
+      "category": "leadership"
+    },
+    {
+      "id": "humility-and-power",
+      "kind": "skill",
+      "path": "skills/leadership/humility-and-power.md",
+      "category": "leadership"
+    },
+    {
+      "id": "inclusive-leadership",
+      "kind": "skill",
+      "path": "skills/leadership/inclusive-leadership.md",
+      "category": "leadership"
+    },
+    {
+      "id": "introvert-leadership",
+      "kind": "skill",
+      "path": "skills/leadership/introvert-leadership.md",
+      "category": "leadership"
+    },
+    {
+      "id": "leader-resilience-and-wellbeing",
+      "kind": "skill",
+      "path": "skills/leadership/leader-resilience-and-wellbeing.md",
+      "category": "leadership"
+    },
+    {
+      "id": "leader-self-reflection",
+      "kind": "skill",
+      "path": "skills/leadership/leader-self-reflection.md",
+      "category": "leadership"
+    },
+    {
+      "id": "leadership-style-adaptation",
+      "kind": "skill",
+      "path": "skills/leadership/leadership-style-adaptation.md",
+      "category": "leadership"
+    },
+    {
+      "id": "leadership-voice-and-presence",
+      "kind": "skill",
+      "path": "skills/leadership/leadership-voice-and-presence.md",
+      "category": "leadership"
+    },
+    {
+      "id": "leading-through-change",
+      "kind": "skill",
+      "path": "skills/leadership/leading-through-change.md",
+      "category": "leadership"
+    },
+    {
+      "id": "learning-agility",
+      "kind": "skill",
+      "path": "skills/leadership/learning-agility.md",
+      "category": "leadership"
+    },
+    {
+      "id": "learning-from-failure",
+      "kind": "skill",
+      "path": "skills/leadership/learning-from-failure.md",
+      "category": "leadership"
+    },
+    {
+      "id": "managing-up",
+      "kind": "skill",
+      "path": "skills/leadership/managing-up.md",
+      "category": "leadership"
+    },
+    {
+      "id": "mentoring-and-coaching",
+      "kind": "skill",
+      "path": "skills/leadership/mentoring-and-coaching.md",
+      "category": "leadership"
+    },
+    {
+      "id": "persuasion-and-influence",
+      "kind": "skill",
+      "path": "skills/leadership/persuasion-and-influence.md",
+      "category": "leadership"
+    },
+    {
+      "id": "psychological-safety-practice",
+      "kind": "skill",
+      "path": "skills/leadership/psychological-safety-practice.md",
+      "category": "leadership"
+    },
+    {
+      "id": "purpose-driven-leadership",
+      "kind": "skill",
+      "path": "skills/leadership/purpose-driven-leadership.md",
+      "category": "leadership"
+    },
+    {
+      "id": "senior-leadership-transition",
+      "kind": "skill",
+      "path": "skills/leadership/senior-leadership-transition.md",
+      "category": "leadership"
+    },
+    {
+      "id": "storytelling-for-leaders",
+      "kind": "skill",
+      "path": "skills/leadership/storytelling-for-leaders.md",
+      "category": "leadership"
+    },
+    {
+      "id": "strategic-questioning",
+      "kind": "skill",
+      "path": "skills/leadership/strategic-questioning.md",
+      "category": "leadership"
+    },
+    {
+      "id": "strategic-thinking-and-alignment",
+      "kind": "skill",
+      "path": "skills/leadership/strategic-thinking-and-alignment.md",
+      "category": "leadership"
+    },
+    {
+      "id": "team-culture-and-dynamics",
+      "kind": "skill",
+      "path": "skills/leadership/team-culture-and-dynamics.md",
+      "category": "leadership"
+    },
+    {
+      "id": "competitive-negotiation",
+      "kind": "skill",
+      "path": "skills/negotiation/competitive-negotiation.md",
+      "category": "negotiation"
+    },
+    {
+      "id": "cooperative-negotiation",
+      "kind": "skill",
+      "path": "skills/negotiation/cooperative-negotiation.md",
+      "category": "negotiation"
+    },
+    {
+      "id": "delivering-the-deal",
+      "kind": "skill",
+      "path": "skills/negotiation/delivering-the-deal.md",
+      "category": "negotiation"
+    },
+    {
+      "id": "negotiation-mindset-and-self",
+      "kind": "skill",
+      "path": "skills/negotiation/negotiation-mindset-and-self.md",
+      "category": "negotiation"
+    },
+    {
+      "id": "connecting-with-people",
+      "kind": "skill",
+      "path": "skills/people/connecting-with-people.md",
+      "category": "people"
+    },
+    {
+      "id": "influencing-and-persuading",
+      "kind": "skill",
+      "path": "skills/people/influencing-and-persuading.md",
+      "category": "people"
+    },
+    {
+      "id": "inspiring-and-retaining",
+      "kind": "skill",
+      "path": "skills/people/inspiring-and-retaining.md",
+      "category": "people"
+    },
+    {
+      "id": "meeting-the-right-people",
+      "kind": "skill",
+      "path": "skills/people/meeting-the-right-people.md",
+      "category": "people"
+    },
+    {
+      "id": "reading-people",
+      "kind": "skill",
+      "path": "skills/people/reading-people.md",
+      "category": "people"
+    },
+    {
+      "id": "resolving-people-conflict",
+      "kind": "skill",
+      "path": "skills/people/resolving-people-conflict.md",
+      "category": "people"
+    },
+    {
+      "id": "teaching-and-leading",
+      "kind": "skill",
+      "path": "skills/people/teaching-and-leading.md",
+      "category": "people"
+    },
+    {
+      "id": "understanding-people",
+      "kind": "skill",
+      "path": "skills/people/understanding-people.md",
+      "category": "people"
+    },
+    {
+      "id": "stoic-acceptance-amor-fati",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-acceptance-amor-fati.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-control-and-clarity",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-control-and-clarity.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-duty-and-service",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-duty-and-service.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-emotional-mastery",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-emotional-mastery.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-fortitude-and-resilience",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-fortitude-and-resilience.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-mortality-and-perspective",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-mortality-and-perspective.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-pragmatism",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-pragmatism.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-problem-solving",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-problem-solving.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-right-action",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-right-action.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-self-awareness",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-self-awareness.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-unbiased-thought",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-unbiased-thought.md",
+      "category": "stoic"
+    },
+    {
+      "id": "stoic-virtue-and-kindness",
+      "kind": "skill",
+      "path": "skills/stoic/stoic-virtue-and-kindness.md",
+      "category": "stoic"
+    },
+    {
+      "id": "building-story-stakes",
+      "kind": "skill",
+      "path": "skills/storytelling/building-story-stakes.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "emotional-impact-in-stories",
+      "kind": "skill",
+      "path": "skills/storytelling/emotional-impact-in-stories.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "finding-your-stories",
+      "kind": "skill",
+      "path": "skills/storytelling/finding-your-stories.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "story-beginnings-and-endings",
+      "kind": "skill",
+      "path": "skills/storytelling/story-beginnings-and-endings.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "story-performance-and-delivery",
+      "kind": "skill",
+      "path": "skills/storytelling/story-performance-and-delivery.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "story-structure-and-arc",
+      "kind": "skill",
+      "path": "skills/storytelling/story-structure-and-arc.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "storytelling-truth-and-vividness",
+      "kind": "skill",
+      "path": "skills/storytelling/storytelling-truth-and-vividness.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "what-is-a-story",
+      "kind": "skill",
+      "path": "skills/storytelling/what-is-a-story.md",
+      "category": "storytelling"
+    },
+    {
+      "id": "building-thinking-strength",
+      "kind": "skill",
+      "path": "skills/thinking/building-thinking-strength.md",
+      "category": "thinking"
+    },
+    {
+      "id": "defining-and-exploring-problems",
+      "kind": "skill",
+      "path": "skills/thinking/defining-and-exploring-problems.md",
+      "category": "thinking"
+    },
+    {
+      "id": "enemies-of-clear-thinking",
+      "kind": "skill",
+      "path": "skills/thinking/enemies-of-clear-thinking.md",
+      "category": "thinking"
+    },
+    {
+      "id": "evaluating-and-deciding",
+      "kind": "skill",
+      "path": "skills/thinking/evaluating-and-deciding.md",
+      "category": "thinking"
+    },
+    {
+      "id": "managing-weakness-and-mistakes",
+      "kind": "skill",
+      "path": "skills/thinking/managing-weakness-and-mistakes.md",
+      "category": "thinking"
+    },
+    {
+      "id": "wanting-what-matters",
+      "kind": "skill",
+      "path": "skills/thinking/wanting-what-matters.md",
+      "category": "thinking"
+    },
+    {
+      "id": "clarity-and-concision",
+      "kind": "skill",
+      "path": "skills/writing/clarity-and-concision.md",
+      "category": "writing"
+    },
+    {
+      "id": "grammar-and-mechanics",
+      "kind": "skill",
+      "path": "skills/writing/grammar-and-mechanics.md",
+      "category": "writing"
+    },
+    {
+      "id": "plain-language-and-flow",
+      "kind": "skill",
+      "path": "skills/writing/plain-language-and-flow.md",
+      "category": "writing"
+    },
+    {
+      "id": "reader-psychology",
+      "kind": "skill",
+      "path": "skills/writing/reader-psychology.md",
+      "category": "writing"
+    },
+    {
+      "id": "revising-and-editing",
+      "kind": "skill",
+      "path": "skills/writing/revising-and-editing.md",
+      "category": "writing"
+    },
+    {
+      "id": "tone-and-engagement",
+      "kind": "skill",
+      "path": "skills/writing/tone-and-engagement.md",
+      "category": "writing"
+    },
+    {
+      "id": "writing-effective-emails",
+      "kind": "skill",
+      "path": "skills/writing/writing-effective-emails.md",
+      "category": "writing"
+    },
+    {
+      "id": "writing-for-navigation",
+      "kind": "skill",
+      "path": "skills/writing/writing-for-navigation.md",
+      "category": "writing"
+    },
+    {
+      "id": "writing-for-response",
+      "kind": "skill",
+      "path": "skills/writing/writing-for-response.md",
+      "category": "writing"
+    },
+    {
+      "id": "writing-memos-and-reports",
+      "kind": "skill",
+      "path": "skills/writing/writing-memos-and-reports.md",
+      "category": "writing"
+    },
+    {
+      "id": "writing-performance-reviews",
+      "kind": "skill",
+      "path": "skills/writing/writing-performance-reviews.md",
+      "category": "writing"
+    },
+    {
+      "id": "writing-process",
+      "kind": "skill",
+      "path": "skills/writing/writing-process.md",
+      "category": "writing"
+    },
+    {
+      "id": "writing-with-purpose",
+      "kind": "skill",
+      "path": "skills/writing/writing-with-purpose.md",
+      "category": "writing"
+    }
+  ],
+  "aliases": {
+    "skill": {
+      "swot-analysis": "swot-pest-analysis",
+      "swot": "swot-pest-analysis",
+      "kaizen": "kaizen-bpr",
+      "tuckman-stages": "tuckman-team-stages",
+      "nps": "net-promoter-score"
+    },
+    "diagnostic": {
+      "team": "team-dysfunction-diagnosis",
+      "product": "product-market-fit-diagnosis",
+      "culture": "culture-erosion-diagnosis",
+      "competition": "competitive-threat-diagnosis",
+      "churn": "customer-churn-diagnosis",
+      "cofounder": "cofounder-conflict-diagnosis",
+      "communication": "communication-breakdown-diagnosis",
+      "decisions": "decision-paralysis-diagnosis",
+      "operations": "operational-chaos-diagnosis",
+      "strategy": "strategic-drift-diagnosis"
+    },
+    "research": {
+      "customer-interviews": "customer-interview-guide",
+      "market-sizing": "market-sizing-worksheet",
+      "competitor-analysis": "competitor-research-template",
+      "financial-modeling": "financial-modeling-guide",
+      "funding-landscape": "funding-landscape-research",
+      "technology-stack": "technology-stack-research",
+      "regulatory-landscape": "regulatory-landscape-research"
+    }
+  },
+  "commands": {
+    "apply": "apply",
+    "diagnose": "diagnose",
+    "run": "foreman-run",
+    "resume": "foreman-resume",
+    "output": "output",
+    "track": "track",
+    "progress": "progress",
+    "blockers": "blockers",
+    "check-in": "check-in",
+    "language": "language",
+    "context": "foreman-context",
+    "update": "update",
+    "history": "history",
+    "decisions": "decisions",
+    "follow-ups": "follow-ups",
+    "forget": "forget",
+    "reset": "foreman-reset",
+    "help": "foreman-help",
+    "about": "about",
+    "version": "version",
+    "feedback": "feedback",
+    "sector": "sector",
+    "stage": "stage",
+    "skills": "skills",
+    "skill": "foreman-skill",
+    "templates": "templates",
+    "playbooks": "playbooks",
+    "diagnostics": "diagnostics",
+    "hooks": "hooks",
+    "search": "search",
+    "stakeholders": "stakeholders",
+    "power-map": "power-map",
+    "resistance": "resistance",
+    "coalition": "coalition",
+    "format": "format",
+    "export": "export",
+    "compare": "compare",
+    "status": "foreman-status",
+    "skip": "skip",
+    "back": "back",
+    "pause": "pause",
+    "abort": "abort",
+    "research": "research",
+    "simulate": "simulate",
+    "solo": "solo",
+    "stoic": "stoic"
+  }
+}

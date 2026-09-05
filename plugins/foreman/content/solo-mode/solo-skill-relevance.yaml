@@ -1,0 +1,708 @@
+# Solo Skill Relevance Scoring
+#
+# Assigns a relevance tier to every skill when solo mode is active.
+# The orchestrator uses these tiers to adjust routing priority during
+# hook matching and skill selection.
+#
+# Tiers:
+#   critical  — Front and center for solopreneurs. Prioritize in routing.
+#   high      — Very useful. Normal routing priority.
+#   moderate  — Useful but needs significant reframing for solo context.
+#   low       — Mostly irrelevant. Apply only when explicitly requested.
+#
+# 14 categories, 158 skills.
+
+category_defaults:
+  frameworks: high
+  ai-leadership: moderate
+  writing: critical
+  leadership: moderate
+  game-theory: high
+  stoic: critical
+  storytelling: critical
+  negotiation: critical
+  people: critical
+  creative: critical
+  thinking: critical
+  decisions: critical
+
+# ─────────────────────────────────────────────
+# FRAMEWORKS (50 skills) — category default: high
+# ─────────────────────────────────────────────
+
+skills:
+  frameworks/ambidexterity:
+    tier: high
+    note: "Balancing exploitation of current revenue with exploration of new opportunities applies directly to solopreneurs managing a service business while building a product."
+
+  frameworks/appreciative-inquiry:
+    tier: high
+    note: "Self-directed appreciative inquiry — identifying what is working and amplifying it — is a powerful solo practice."
+
+  frameworks/art-of-war:
+    tier: high
+    note: "Competitive strategy applies regardless of company size. Solopreneurs face competitors with more resources; strategic thinking matters more, not less."
+
+  frameworks/balanced-scorecard:
+    tier: high
+    note: "Personal business scorecard: financial, customer, internal process, and learning perspectives all apply at the solo level."
+
+  frameworks/belbin-team-roles:
+    tier: low
+    note: "Team composition framework. No team to compose. If the solopreneur is assembling contractors, suggest connecting-with-people or meeting-the-right-people instead."
+
+  frameworks/black-swans:
+    tier: high
+    note: "Solo businesses are more fragile to black swan events — less redundancy, no team to absorb shocks. Highly relevant."
+
+  frameworks/blue-ocean-strategy:
+    tier: critical
+    note: "Solopreneurs cannot compete on resources. Blue ocean thinking — creating uncontested market space — is structurally essential."
+
+  frameworks/business-model-canvas:
+    tier: critical
+    note: "The foundational tool for any business. Solo businesses need this as much as funded startups."
+
+  frameworks/carnegie-win-friends:
+    tier: critical
+    note: "Relationship building is the solopreneur's primary growth engine. Every client, partner, and referral depends on interpersonal skill."
+
+  frameworks/cialdini-influence:
+    tier: critical
+    note: "Solopreneurs must persuade without institutional credibility backing them. Influence principles are structurally critical."
+
+  frameworks/covey-seven-habits:
+    tier: critical
+    note: "Personal effectiveness habits are the operating system of a solo business. Begin with the end in mind, first things first, sharpen the saw — all directly applicable."
+
+  frameworks/disruptive-innovation:
+    tier: high
+    note: "Understanding disruption helps solopreneurs identify niches that large competitors ignore."
+
+  frameworks/doblin-ten-types:
+    tier: high
+    note: "Innovation types help solopreneurs identify where to innovate beyond just the product — process, channel, brand, customer engagement."
+
+  frameworks/eisenhower-matrix:
+    tier: critical
+    note: "The single most important prioritization tool for someone who must do everything themselves. Non-negotiable for solopreneurs."
+
+  frameworks/emotional-intelligence:
+    tier: critical
+    note: "Self-management and social awareness are critical when you are the sole representative of your business in every interaction."
+
+  frameworks/flow-state:
+    tier: critical
+    note: "Solopreneurs depend on personal productivity. Understanding and engineering flow states directly impacts output and revenue."
+
+  frameworks/four-ps-marketing:
+    tier: critical
+    note: "Product, Price, Place, Promotion — the solopreneur controls all four directly. No marketing team to delegate to."
+
+  frameworks/giving-feedback:
+    tier: low
+    note: "Assumes a manager-report relationship. Reframe only if the solopreneur manages contractors regularly."
+
+  frameworks/grow-model:
+    tier: high
+    note: "Self-coaching model. Goal, Reality, Options, Will — a solopreneur can run GROW sessions as structured self-reflection."
+
+  frameworks/growth-mindset:
+    tier: critical
+    note: "Solo operation demands continuous learning with no team to compensate for skill gaps."
+
+  frameworks/growth-share-matrix:
+    tier: high
+    note: "Portfolio analysis of the solopreneur's revenue streams: which are stars, cash cows, question marks, dogs."
+
+  frameworks/hackman-enabling-conditions:
+    tier: low
+    note: "Team design framework. No team to design. Skip unless managing a group of contractors."
+
+  frameworks/johari-window:
+    tier: high
+    note: "Self-awareness tool. Useful for solopreneurs who lack regular peer feedback."
+
+  frameworks/kaizen-bpr:
+    tier: high
+    note: "Continuous improvement of personal processes and business operations. Directly applicable."
+
+  frameworks/kotter-change-model:
+    tier: moderate
+    note: "Organizational change framework. Reframe as personal pivot management — the solopreneur is both the change leader and the organization."
+
+  frameworks/leadership-pipeline:
+    tier: low
+    note: "Career progression through organizational leadership levels. Irrelevant without an organization."
+
+  frameworks/lean-in:
+    tier: moderate
+    note: "Career advancement within organizational structures. Some principles on ambition and self-advocacy apply; organizational politics framing does not."
+
+  frameworks/lewin-leadership-styles:
+    tier: low
+    note: "Autocratic, democratic, laissez-faire leadership styles assume followers. No followers in solo context."
+
+  frameworks/maslow-hierarchy:
+    tier: high
+    note: "Understanding customer motivation and personal motivation. The solopreneur must manage their own hierarchy alongside understanding their customers'."
+
+  frameworks/myers-briggs-type-indicator:
+    tier: high
+    note: "Self-understanding tool. Useful for solopreneurs identifying how their personality affects business decisions and client interactions."
+
+  frameworks/net-promoter-score:
+    tier: high
+    note: "Customer satisfaction measurement applies regardless of company size."
+
+  frameworks/neuro-linguistic-programming:
+    tier: high
+    note: "Communication and self-programming techniques. Useful for sales conversations and personal state management."
+
+  frameworks/organisational-culture:
+    tier: low
+    note: "Culture frameworks assume multiple people. A solopreneur has personal values and brand identity, not organizational culture."
+
+  frameworks/porters-five-forces:
+    tier: high
+    note: "Industry analysis applies at any scale. Solopreneurs benefit from understanding supplier power, buyer power, and competitive rivalry in their niche."
+
+  frameworks/product-life-cycle:
+    tier: high
+    note: "Understanding where offerings sit in their life cycle helps solopreneurs time pivots and new product development."
+
+  frameworks/psychological-safety:
+    tier: low
+    note: "Team psychological safety framework. Reframe only as client relationship safety or contractor relationship quality."
+
+  frameworks/radical-candor:
+    tier: moderate
+    note: "Feedback framework for manager-report relationships. Moderate relevance for contractor feedback or client communication."
+
+  frameworks/scenario-planning:
+    tier: high
+    note: "Strategic foresight is critical for solo businesses with less margin for error."
+
+  frameworks/shamrock-organisation:
+    tier: high
+    note: "Core workers, contractors, flexible labor — this model describes exactly how solopreneurs build capacity without hiring. Highly relevant despite the organizational framing."
+
+  frameworks/situational-leadership:
+    tier: low
+    note: "Adapting leadership style to follower maturity. No followers in solo context."
+
+  frameworks/smart-goals:
+    tier: critical
+    note: "Goal setting is the solopreneur's steering mechanism. No manager to set goals for them; no team goals to cascade."
+
+  frameworks/swot-pest-analysis:
+    tier: critical
+    note: "Strategic assessment tool that works identically for solo businesses. Strengths and weaknesses are personal as much as organizational."
+
+  frameworks/systems-thinking:
+    tier: high
+    note: "Understanding feedback loops and unintended consequences in a business you control entirely."
+
+  frameworks/thinking-fast-and-slow:
+    tier: critical
+    note: "Cognitive bias awareness is more critical when there is no team to catch your blind spots."
+
+  frameworks/thomas-kilmann-conflict:
+    tier: high
+    note: "Conflict with clients, vendors, and partners. The solopreneur handles all conflict personally."
+
+  frameworks/tipping-point:
+    tier: high
+    note: "Understanding viral growth and market dynamics. Relevant for marketing strategy."
+
+  frameworks/trust-equation:
+    tier: critical
+    note: "Trust is the solopreneur's primary asset. Credibility, reliability, intimacy, and self-orientation govern every client relationship."
+
+  frameworks/tuckman-team-stages:
+    tier: low
+    note: "Team development stages. No team. If managing contractors, suggest connecting-with-people instead."
+
+  frameworks/vuca-framework:
+    tier: high
+    note: "Volatility, Uncertainty, Complexity, Ambiguity — solo businesses operate in VUCA conditions with fewer buffers."
+
+  frameworks/win-win-negotiation:
+    tier: critical
+    note: "Every deal the solopreneur strikes is personal. Win-win negotiation is not a nice-to-have — it is how repeat business works."
+
+  # ─────────────────────────────────────────────
+  # AI-LEADERSHIP (9 skills) — category default: moderate
+  # ─────────────────────────────────────────────
+
+  ai-leadership/ai-augmentation-not-automation:
+    tier: critical
+    note: "AI as force multiplier is existentially important for solopreneurs. One person plus AI tools can match a small team's output."
+
+  ai-leadership/ai-communication-culture:
+    tier: low
+    note: "Building AI communication culture across an organization. No organization."
+
+  ai-leadership/ai-emotional-intelligence:
+    tier: moderate
+    note: "Understanding AI's limitations in emotional contexts. Useful for solopreneurs relying heavily on AI for customer-facing work."
+
+  ai-leadership/ai-human-centered-approach:
+    tier: moderate
+    note: "Keeping humans central to AI deployment. Relevant when the solopreneur is the human and the AI is the team."
+
+  ai-leadership/ai-inclusive-collaboration:
+    tier: low
+    note: "Organizational AI inclusion. No organization to include."
+
+  ai-leadership/ai-learning-for-leaders:
+    tier: high
+    note: "Staying current with AI capabilities. Critical for a solopreneur whose competitive advantage depends on AI leverage."
+
+  ai-leadership/ai-purpose-driven-questions:
+    tier: high
+    note: "Asking better questions of AI systems. Directly applicable to the solopreneur's daily AI usage."
+
+  ai-leadership/ai-stakeholder-balance:
+    tier: low
+    note: "Balancing AI impact across organizational stakeholders. No stakeholders beyond the solopreneur and their clients."
+
+  ai-leadership/ai-vision-and-strategy:
+    tier: high
+    note: "AI strategy for the business. Solopreneurs need a deliberate AI strategy, not ad hoc tool adoption."
+
+  # ─────────────────────────────────────────────
+  # WRITING (13 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  writing/clarity-and-concision:
+    tier: critical
+    note: "Every written word from the business is the solopreneur's word. Clarity is brand."
+
+  writing/grammar-and-mechanics:
+    tier: critical
+    note: "No editor, no comms team. The solopreneur is the last line of defense against errors."
+
+  writing/plain-language-and-flow:
+    tier: critical
+    note: "Clear writing converts. The solopreneur writes their own copy, proposals, and emails."
+
+  writing/reader-psychology:
+    tier: critical
+    note: "Understanding how readers process text. Essential for someone who writes all their own marketing and client communication."
+
+  writing/revising-and-editing:
+    tier: critical
+    note: "Self-editing discipline. No one else will review before it ships."
+
+  writing/tone-and-engagement:
+    tier: critical
+    note: "The solopreneur's writing tone is the brand's voice."
+
+  writing/writing-effective-emails:
+    tier: critical
+    note: "Email is the primary business communication channel for most solopreneurs."
+
+  writing/writing-for-navigation:
+    tier: critical
+    note: "Making documents scannable. Proposals, invoices, reports — all written by one person."
+
+  writing/writing-for-response:
+    tier: critical
+    note: "Getting people to act on what you write. Directly affects sales and client management."
+
+  writing/writing-memos-and-reports:
+    tier: high
+    note: "Less frequent for solopreneurs unless producing client deliverables in report format."
+
+  writing/writing-performance-reviews:
+    tier: low
+    note: "Performance reviews assume a manager-report relationship. Reframe as structured self-assessment if requested."
+
+  writing/writing-process:
+    tier: critical
+    note: "Developing a reliable writing practice. The solopreneur writes constantly — process matters."
+
+  writing/writing-with-purpose:
+    tier: critical
+    note: "Every piece of writing serves a business purpose. No writing for bureaucratic compliance."
+
+  # ─────────────────────────────────────────────
+  # LEADERSHIP (28 skills) — category default: moderate
+  # ─────────────────────────────────────────────
+
+  leadership/ai-era-leadership:
+    tier: high
+    note: "Leading in the AI era applies to self-leadership and client-facing authority."
+
+  leadership/business-writing-for-leaders:
+    tier: high
+    note: "Business writing applies regardless of whether you lead others or lead yourself."
+
+  leadership/career-strategy-for-leaders:
+    tier: critical
+    note: "The solopreneur's career strategy IS the business strategy. Inseparable."
+
+  leadership/decision-making-under-pressure:
+    tier: critical
+    note: "No team to absorb pressure. Every high-stakes decision is yours alone."
+
+  leadership/delegation-and-empowerment:
+    tier: moderate
+    note: "Reframe as delegation to contractors, AI tools, and automation — not employees."
+
+  leadership/emotional-courage:
+    tier: critical
+    note: "Difficult conversations with clients, ending unprofitable relationships, raising prices — all require emotional courage without team support."
+
+  leadership/employee-engagement-retention:
+    tier: low
+    note: "No employees. Skip unless managing regular contractors."
+
+  leadership/focus-and-priority-management:
+    tier: critical
+    note: "The solopreneur's most constrained resource is attention. This is structurally essential."
+
+  leadership/humility-and-power:
+    tier: high
+    note: "Humility in client relationships and self-assessment. Power dynamics with partners and vendors."
+
+  leadership/inclusive-leadership:
+    tier: low
+    note: "Organizational inclusion practices. No organization. Reframe as inclusive client service if requested."
+
+  leadership/introvert-leadership:
+    tier: high
+    note: "Many solopreneurs are introverts who chose solo operation deliberately. Managing energy for sales and networking is directly applicable."
+
+  leadership/leader-resilience-and-wellbeing:
+    tier: critical
+    note: "Burnout prevention is existential for solopreneurs. If you break, the business stops."
+
+  leadership/leader-self-reflection:
+    tier: critical
+    note: "Self-reflection is the solopreneur's substitute for external feedback, coaching, and performance reviews."
+
+  leadership/leadership-style-adaptation:
+    tier: low
+    note: "Adapting leadership style to team context. No team. Reframe as adapting communication style to client contexts if requested."
+
+  leadership/leadership-voice-and-presence:
+    tier: high
+    note: "Personal brand and authority. The solopreneur is the brand — voice and presence are commercial assets."
+
+  leadership/leading-through-change:
+    tier: moderate
+    note: "Organizational change leadership. Reframe as personal pivot management and client communication during business transitions."
+
+  leadership/learning-agility:
+    tier: critical
+    note: "Learning speed is competitive advantage when one person must master multiple domains."
+
+  leadership/learning-from-failure:
+    tier: critical
+    note: "No organizational resilience to absorb failure. The solopreneur must extract maximum learning from every setback."
+
+  leadership/managing-up:
+    tier: moderate
+    note: "No boss. Reframe as managing key client relationships and maintaining authority in vendor negotiations."
+
+  leadership/mentoring-and-coaching:
+    tier: moderate
+    note: "Reframe as seeking mentors and being coachable, not as mentoring others."
+
+  leadership/persuasion-and-influence:
+    tier: critical
+    note: "Sales, partnerships, pricing conversations — the solopreneur persuades in every interaction."
+
+  leadership/psychological-safety-practice:
+    tier: low
+    note: "Creating safety for a team. No team. Reframe as creating safety in client relationships if requested."
+
+  leadership/purpose-driven-leadership:
+    tier: high
+    note: "Purpose alignment between personal values and business direction. Especially relevant when you ARE the business."
+
+  leadership/senior-leadership-transition:
+    tier: low
+    note: "Transitioning into senior organizational roles. No organization to transition within."
+
+  leadership/storytelling-for-leaders:
+    tier: critical
+    note: "The solopreneur's story IS the brand story. Pitching, proposals, marketing — all storytelling."
+
+  leadership/strategic-questioning:
+    tier: high
+    note: "Asking better strategic questions of yourself, mentors, and clients."
+
+  leadership/strategic-thinking-and-alignment:
+    tier: high
+    note: "Strategic thinking without the alignment component (no team to align). The thinking applies; the organizational alignment does not."
+
+  leadership/team-culture-and-dynamics:
+    tier: low
+    note: "Team culture requires a team. Skip."
+
+  # ─────────────────────────────────────────────
+  # GAME-THEORY (7 skills) — category default: high
+  # ─────────────────────────────────────────────
+
+  game-theory/coalition-and-partnership-games:
+    tier: high
+    note: "Partnership dynamics, referral networks, and contractor relationships all involve coalition logic."
+
+  game-theory/evolutionary-strategy:
+    tier: high
+    note: "Market adaptation strategies. Solo businesses must evolve rapidly."
+
+  game-theory/first-mover-strategy:
+    tier: high
+    note: "First-mover vs. fast-follower decisions apply at any scale."
+
+  game-theory/game-theory-fundamentals:
+    tier: high
+    note: "Foundational strategic reasoning. Universally applicable."
+
+  game-theory/information-asymmetry:
+    tier: critical
+    note: "Solopreneurs face severe information asymmetry in negotiations with larger organizations. Understanding it is defensive strategy."
+
+  game-theory/negotiation-game-theory:
+    tier: critical
+    note: "Every client contract, vendor agreement, and partnership term is a negotiation game."
+
+  game-theory/prisoners-dilemma-and-cooperation:
+    tier: high
+    note: "Cooperation vs. competition with peers, referral partners, and repeat clients."
+
+  # ─────────────────────────────────────────────
+  # STOIC (12 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  stoic/stoic-acceptance-amor-fati:
+    tier: critical
+    note: "Accepting what cannot be changed. Lost clients, market shifts, failed launches — the solopreneur faces these alone."
+
+  stoic/stoic-control-and-clarity:
+    tier: critical
+    note: "Distinguishing what you control from what you do not. The foundational practice for solo sanity."
+
+  stoic/stoic-duty-and-service:
+    tier: critical
+    note: "Purpose and service orientation. Prevents the isolation of solo work from eroding meaning."
+
+  stoic/stoic-emotional-mastery:
+    tier: critical
+    note: "Emotional regulation without colleagues to vent to, commiserate with, or lean on."
+
+  stoic/stoic-fortitude-and-resilience:
+    tier: critical
+    note: "Endurance under sustained pressure. Solo operation is a marathon with no relay team."
+
+  stoic/stoic-mortality-and-perspective:
+    tier: critical
+    note: "Memento mori as a decision filter. What matters when time is finite and you answer only to yourself."
+
+  stoic/stoic-pragmatism:
+    tier: critical
+    note: "Practical wisdom. Doing what works rather than what looks impressive. Essential when resources are limited."
+
+  stoic/stoic-problem-solving:
+    tier: critical
+    note: "Obstacle as opportunity. The solopreneur encounters obstacles daily with no support structure."
+
+  stoic/stoic-right-action:
+    tier: critical
+    note: "Ethical action when no one is watching. The solopreneur is accountable only to themselves."
+
+  stoic/stoic-self-awareness:
+    tier: critical
+    note: "Self-knowledge in the absence of external feedback. Critical for avoiding self-deception."
+
+  stoic/stoic-unbiased-thought:
+    tier: critical
+    note: "Clearing cognitive bias when there is no second opinion available."
+
+  stoic/stoic-virtue-and-kindness:
+    tier: critical
+    note: "Maintaining generosity and ethical conduct in competitive solo practice."
+
+  # ─────────────────────────────────────────────
+  # STORYTELLING (8 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  storytelling/building-story-stakes:
+    tier: critical
+    note: "Creating urgency and emotional investment. Sales proposals, pitch conversations, case studies."
+
+  storytelling/emotional-impact-in-stories:
+    tier: critical
+    note: "Emotional resonance in business storytelling. The solopreneur's personal story is the brand differentiator."
+
+  storytelling/finding-your-stories:
+    tier: critical
+    note: "The solopreneur's personal experiences are the raw material for all marketing and sales narratives."
+
+  storytelling/story-beginnings-and-endings:
+    tier: critical
+    note: "Opening and closing conversations, proposals, presentations. First and last impressions are the solopreneur's alone to make."
+
+  storytelling/story-performance-and-delivery:
+    tier: critical
+    note: "In-person delivery, video presence, podcast appearances. The solopreneur is always performing."
+
+  storytelling/story-structure-and-arc:
+    tier: critical
+    note: "Narrative architecture for pitches, proposals, and marketing content."
+
+  storytelling/storytelling-truth-and-vividness:
+    tier: critical
+    note: "Authenticity and vivid detail. The solopreneur's credibility depends on genuine, specific storytelling."
+
+  storytelling/what-is-a-story:
+    tier: critical
+    note: "Foundational understanding of narrative. Distinguishing story from information is a competitive advantage in marketing."
+
+  # ─────────────────────────────────────────────
+  # NEGOTIATION (4 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  negotiation/competitive-negotiation:
+    tier: critical
+    note: "Hard negotiation tactics for contract terms, pricing disputes, and vendor agreements."
+
+  negotiation/cooperative-negotiation:
+    tier: critical
+    note: "Collaborative deal-making. Long-term client relationships depend on win-win negotiation."
+
+  negotiation/delivering-the-deal:
+    tier: critical
+    note: "Closing and executing agreements. The solopreneur signs every contract personally."
+
+  negotiation/negotiation-mindset-and-self:
+    tier: critical
+    note: "Self-management during negotiation. No team to tag in. The solopreneur must maintain composure and strategy alone."
+
+  # ─────────────────────────────────────────────
+  # PEOPLE (8 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  people/connecting-with-people:
+    tier: critical
+    note: "Building genuine connections. The solopreneur's network is the business development engine."
+
+  people/influencing-and-persuading:
+    tier: critical
+    note: "Influence without positional authority. The solopreneur has no title to lean on."
+
+  people/inspiring-and-retaining:
+    tier: high
+    note: "Reframe from retaining employees to retaining clients and maintaining referral relationships."
+
+  people/meeting-the-right-people:
+    tier: critical
+    note: "Strategic networking. Every meaningful connection has outsized impact for a solo operator."
+
+  people/reading-people:
+    tier: critical
+    note: "Reading clients, partners, and prospects in real time. No colleague to debrief with after meetings."
+
+  people/resolving-people-conflict:
+    tier: high
+    note: "Client disputes, vendor disagreements, partnership friction. The solopreneur resolves all conflict personally."
+
+  people/teaching-and-leading:
+    tier: moderate
+    note: "Reframe from leading teams to establishing thought leadership and educating clients."
+
+  people/understanding-people:
+    tier: critical
+    note: "Empathy and psychological understanding. Every interaction is a one-on-one between the solopreneur and another human."
+
+  # ─────────────────────────────────────────────
+  # CREATIVE (8 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  creative/creative-collaboration-and-context:
+    tier: high
+    note: "Collaboration is less central for solopreneurs, though creative context — environment, inputs, constraints — applies fully."
+
+  creative/creative-completion-and-renewal:
+    tier: critical
+    note: "Finishing projects and renewing creative energy. The solopreneur ships alone — completion discipline is structural."
+
+  creative/creative-flow-and-inspiration:
+    tier: critical
+    note: "Accessing and sustaining creative states. The solopreneur depends on personal creative output."
+
+  creative/creative-identity-and-purpose:
+    tier: critical
+    note: "Creative identity and permission. The solopreneur must grant themselves permission to create without external validation."
+
+  creative/creative-obstacles:
+    tier: critical
+    note: "Self-doubt, procrastination, perfectionism, impostor syndrome. Solo operators face these without team encouragement."
+
+  creative/creative-perception-and-awareness:
+    tier: critical
+    note: "Seeing what others miss. A solopreneur's creative perception is their differentiation."
+
+  creative/creative-practice-and-habit:
+    tier: critical
+    note: "Building sustainable creative habits. Output depends on practice when there is no team to compensate."
+
+  creative/creative-shaping-and-craft:
+    tier: critical
+    note: "Refining raw ideas into polished output. The solopreneur is ideator, creator, and editor."
+
+  # ─────────────────────────────────────────────
+  # THINKING (6 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  thinking/building-thinking-strength:
+    tier: critical
+    note: "Self-accountability, self-knowledge, self-control, self-confidence. The four pillars of solo operation."
+
+  thinking/defining-and-exploring-problems:
+    tier: critical
+    note: "Problem definition when there is no team to brainstorm with. Structured exploration prevents tunnel vision."
+
+  thinking/enemies-of-clear-thinking:
+    tier: critical
+    note: "Emotion, ego, social defaults, inertia. Solopreneurs are more vulnerable to these without external checks."
+
+  thinking/evaluating-and-deciding:
+    tier: critical
+    note: "Evaluation frameworks for decisions made alone. No consensus process, no committee."
+
+  thinking/managing-weakness-and-mistakes:
+    tier: critical
+    note: "Safeguards against personal weaknesses. The solopreneur has no team to compensate for blind spots."
+
+  thinking/wanting-what-matters:
+    tier: critical
+    note: "Aligning business direction with what actually matters to you. The ultimate solo question."
+
+  # ─────────────────────────────────────────────
+  # DECISIONS (5 skills) — category default: critical
+  # ─────────────────────────────────────────────
+
+  decisions/choosing-and-executing:
+    tier: critical
+    note: "The 70% rule, commitment, and second-guessing. Solopreneurs must choose and execute without committee validation."
+
+  decisions/decision-traps-and-roles:
+    tier: critical
+    note: "Anchoring, sunk cost, status quo bias. No one to challenge these traps when you decide alone."
+
+  decisions/evaluating-options:
+    tier: critical
+    note: "Even Swaps, risk ranking, intuition calibration. Essential tools for solo decision-making."
+
+  decisions/generating-solutions:
+    tier: critical
+    note: "Brainstorming and ideation techniques adapted for solo use. BrainSwarming alone, design thinking without a team."
+
+  decisions/tough-decision-situations:
+    tier: critical
+    note: "Consensus is impossible alone, but so is avoidance. Bad options, wrong decisions, time pressure — all amplified in solo context."

@@ -1,0 +1,41 @@
+# Layer 4: Active
+# Change frequency: weekly
+# Owner: System manages, entrepreneur confirms
+# Purpose: Tracks in-progress work — playbooks, pending decisions, follow-ups
+# Lifecycle: Items move to history when completed, cleared from active
+
+active:
+  current_playbook: null
+  # Format when active:
+  # current_playbook:
+  #   name: "fundraising-playbook"
+  #   current_step: 3
+  #   started: "2026-03-25"
+  #   status: "in-progress"
+  #   completed_steps:
+  #     - step: 1
+  #       skill: "business-model-canvas"
+  #       output: "Canvas revised — new value proposition for enterprise segment"
+  #     - step: 2
+  #       skill: "swot-pest-analysis"
+  #       output: "SWOT completed — key weakness: churn rate for due diligence"
+  #   next_step:
+  #     step: 3
+  #     skill: "porters-five-forces"
+  #     blocker: null
+
+  pending_decisions: []
+  # Entry format:
+  # - decision: "Hire VP Sales or promote internally?"
+  #   deadline: "2026-04-01"
+  #   related_diagnostic: "hiring-diagnosis"
+  #   options_considered:
+  #     - "External VP — faster but expensive, culture risk"
+  #     - "Promote Sarah — loyal but untested at VP level"
+
+  follow_ups: []
+  # Entry format:
+  # - date: "2026-04-18"
+  #   type: "decision-review"
+  #   context: "Review onboarding specialist hire outcome"
+  #   status: "pending"

@@ -1,0 +1,30 @@
+{
+  "skill": {
+    "swot-analysis": "swot-pest-analysis",
+    "swot": "swot-pest-analysis",
+    "kaizen": "kaizen-bpr",
+    "tuckman-stages": "tuckman-team-stages",
+    "nps": "net-promoter-score"
+  },
+  "diagnostic": {
+    "team": "team-dysfunction-diagnosis",
+    "product": "product-market-fit-diagnosis",
+    "culture": "culture-erosion-diagnosis",
+    "competition": "competitive-threat-diagnosis",
+    "churn": "customer-churn-diagnosis",
+    "cofounder": "cofounder-conflict-diagnosis",
+    "communication": "communication-breakdown-diagnosis",
+    "decisions": "decision-paralysis-diagnosis",
+    "operations": "operational-chaos-diagnosis",
+    "strategy": "strategic-drift-diagnosis"
+  },
+  "research": {
+    "customer-interviews": "customer-interview-guide",
+    "market-sizing": "market-sizing-worksheet",
+    "competitor-analysis": "competitor-research-template",
+    "financial-modeling": "financial-modeling-guide",
+    "funding-landscape": "funding-landscape-research",
+    "technology-stack": "technology-stack-research",
+    "regulatory-landscape": "regulatory-landscape-research"
+  }
+}

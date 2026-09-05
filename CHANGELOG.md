@@ -8,6 +8,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 No unreleased changes.
 
+## [1.1.0-rc.1] - 2026-09-05
+
+Public release candidate for the cross-platform runtime and packaging update.
+
+### Added
+- A working npm CLI, compiled OpenClaw adapter with 10 tools, 159 packaged skills (including the router), and 46 registered Claude commands.
+- Shared persistent profiles, implementation tasks, playbook checkpoints, revision checks, atomic writes and explicit legacy migration.
+- Strict YAML and reference validation, 23 automated tests, and Node 22/24 CI on macOS and Linux.
+- Portable maintenance commands, staged-content validation and repeatable package installation checks.
+- Shared advisory rules and an opt-in live evaluation runner using isolated fictional scenarios and an explicit usage cap.
+
+### Fixed
+- Broken and incorrectly typed content references, missing support templates, ambiguous lookups and path traversal inputs.
+- Plugin symlinks that broke packaged installs, missing runtime resources, and the macOS `skill.md`/`SKILL.md` command discovery collision.
+- Workspace initialization overwriting existing instructions and tracker output that did not reflect persisted records.
+
+### Compatibility and release status
+- Requires Node 22.19 or newer; OpenClaw 2026.6.1 is the tested SDK baseline.
+- Initialization preserves existing files; review and replace old generated files explicitly when upgrading.
+- Live advisory quality acceptance is pending. Preliminary answers exposed unsupported causal claims, invented targets and language drift; stronger instructions are included but the complete final regression has not yet passed. Codex project installation is verified; a live Codex model session is still unverified.
+- This candidate uses the `next` npm channel when published and does not replace the stable `latest` version.
+
 ## [1.0.0] - 2026-03-29
 
 Initial public release of Foreman -- an AI-powered strategic advisor for entrepreneurs.
