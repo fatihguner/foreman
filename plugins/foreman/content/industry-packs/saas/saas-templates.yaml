@@ -1,0 +1,901 @@
+# SaaS Industry Pack — Output Template Adaptations
+#
+# For each of the 48 Foreman output templates, this file defines how fields
+# and sections adapt for SaaS companies. The output agent loads these rules
+# when generating documents with the SaaS industry pack active.
+#
+# Adaptation types:
+#   as-is    — The template works without modification for SaaS companies.
+#   modified — The template requires field changes, additional sections, or
+#              reframing of existing sections for SaaS context.
+
+pack_metadata:
+  sector: "saas"
+  display_name: "SaaS"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# TEMPLATE ADAPTATIONS
+# ═══════════════════════════════════════════════════════════════
+
+template_adaptations:
+
+  # ─────────────────────────────────────────────
+  # INVESTOR TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "unit-economics-snapshot"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "This template is almost entirely SaaS-specific. The base template covers generic unit economics; the SaaS overlay replaces it with a complete SaaS metrics dashboard."
+    field_changes:
+      - field: "Revenue per unit"
+        sector_label: "MRR / ARR"
+        sector_guidance: "Report both MRR (current month) and ARR (MRR x 12). Decompose MRR into five components: New, Expansion, Reactivation, Contraction, Churned."
+      - field: "Cost per unit"
+        sector_label: "CAC (Fully Loaded)"
+        sector_guidance: "Include all sales and marketing costs: salaries, commissions, tooling, content production, events, and allocated overhead. Report by channel and blended."
+      - field: "Margin per unit"
+        sector_label: "Gross Margin %"
+        sector_guidance: "SaaS COGS includes hosting, infrastructure, support, customer success (if included in COGS), and third-party API costs. Target: 70-85%."
+      - field: "Lifetime value"
+        sector_label: "LTV (Gross-Profit Adjusted)"
+        sector_guidance: "Calculate as ARPU x Gross Margin % / Monthly Revenue Churn Rate. Disclose churn rate assumption and average customer lifetime."
+      - field: "Acquisition cost"
+        sector_label: "CAC Payback Period"
+        sector_guidance: "Report in months: CAC / (ARPU x Gross Margin %). This is the gross-margin-adjusted payback, not the revenue payback."
+      - field: "Unit economics ratio"
+        sector_label: "LTV:CAC Ratio"
+        sector_guidance: "Report the ratio and compare to the 3x-5x benchmark. If below 3x, explain the improvement trajectory. If above 5x, address whether growth investment is sufficient."
+    sections_to_add:
+      - section_name: "SaaS Metrics Dashboard"
+        placement: "before:Revenue per unit"
+        description: "Core SaaS metrics in a standardized format that investors expect."
+        fields:
+          - "MRR (end of period)"
+          - "ARR (end of period)"
+          - "MoM Growth Rate (3-month average)"
+          - "Net Revenue Retention (NRR)"
+          - "Gross Revenue Retention (GRR)"
+          - "Logo Churn (monthly)"
+          - "Revenue Churn (monthly, gross)"
+          - "Customers (total active)"
+          - "ARPU (monthly)"
+          - "ACV (new contracts)"
+      - section_name: "Efficiency Metrics"
+        placement: "after:Unit economics ratio"
+        description: "Capital efficiency metrics that determine fundraising readiness and valuation."
+        fields:
+          - "Burn Multiple"
+          - "Rule of 40 Score"
+          - "Magic Number"
+          - "SaaS Quick Ratio"
+          - "Runway (months at current burn)"
+      - section_name: "Cohort Analysis"
+        placement: "end"
+        description: "Retention and expansion by customer acquisition cohort."
+        fields:
+          - "Monthly cohort retention curves (graph or table)"
+          - "Revenue retention by quarterly cohort"
+          - "Expansion revenue by cohort vintage"
+    sections_to_remove: []
+    benchmark_references: ["mrr", "arr", "nrr", "grr", "cac", "ltv", "ltv-cac-ratio", "cac-payback-period", "gross-margin", "burn-multiple", "rule-of-40", "magic-number", "saas-quick-ratio"]
+
+  - template: "investor-update-email"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS investor updates have a well-established format and metric set. Investors expect specific SaaS KPIs reported consistently each month. The template should enforce this standard."
+    field_changes:
+      - field: "Financial highlights"
+        sector_label: "SaaS KPIs"
+        sector_guidance: "Report: MRR, MoM Growth %, ARR, NRR (trailing 12-month), Burn Rate, Runway. Present as a small table with current month, prior month, and trend arrow."
+      - field: "Key metrics"
+        sector_label: "Operating Metrics"
+        sector_guidance: "Report: New customers, churned customers, expansion MRR, CAC (blended), pipeline coverage. Choose 3-5 metrics that are most relevant to the current company focus."
+      - field: "Wins"
+        sector_label: "Wins"
+        sector_guidance: "Include at least one quantified win: a named customer closed (with ACV if appropriate), a retention metric improvement, or a product milestone with measurable impact."
+      - field: "Challenges"
+        sector_label: "Challenges"
+        sector_guidance: "Lead with challenges, not wins. Investors respect transparency. Describe the problem, the root cause hypothesis, and the planned response."
+      - field: "Asks"
+        sector_label: "Asks"
+        sector_guidance: "Be specific. Not 'introductions to potential customers' but 'an introduction to [Name] at [Company] because [specific reason].' Give investors concrete ways to help."
+    sections_to_add:
+      - section_name: "Cash Position"
+        placement: "after:SaaS KPIs"
+        description: "Investors want to know runway at a glance."
+        fields:
+          - "Cash balance (end of month)"
+          - "Monthly burn rate (trailing 3-month average)"
+          - "Months of runway"
+    sections_to_remove: []
+    benchmark_references: ["mrr", "arr", "nrr", "burn-multiple"]
+
+  - template: "competitive-landscape-brief"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS competitive dynamics are uniquely transparent — competitors' features, pricing, and positioning are publicly visible. The competitive brief should leverage this transparency and address the specific threat categories relevant to SaaS."
+    field_changes:
+      - field: "Competitor overview"
+        sector_label: "Competitive Map"
+        sector_guidance: "Map competitors on a 2x2 matrix: X-axis = market segment (SMB to Enterprise), Y-axis = product scope (point solution to platform). Position your product and each competitor. Include funding levels and estimated ARR where known."
+      - field: "Competitive advantages"
+        sector_label: "Defensibility Analysis"
+        sector_guidance: "Assess defensibility along SaaS-specific dimensions: data moat (unique data assets), network effects (product improves with more users), integration ecosystem (switching costs from integrations), brand/community (organic distribution), and technical architecture (speed, reliability, unique capabilities)."
+      - field: "Competitive threats"
+        sector_label: "Threat Vectors"
+        sector_guidance: "Categorize threats: (1) Direct competitors — same category, same segment. (2) Platform expansion — incumbents adding your feature. (3) Adjacent category expansion — companies in neighboring categories moving into your space. (4) AI disruption — general-purpose AI tools performing your product's function."
+    sections_to_add:
+      - section_name: "Win/Loss Analysis"
+        placement: "after:Threat Vectors"
+        description: "Data-driven competitive intelligence from the sales pipeline."
+        fields:
+          - "Win rate against each named competitor (last quarter)"
+          - "Primary win reasons by competitor"
+          - "Primary loss reasons by competitor"
+          - "Deals lost to 'no decision' or 'built internally' (percentage)"
+      - section_name: "Feature Comparison Matrix"
+        placement: "after:Win/Loss Analysis"
+        description: "Objective capability comparison across competitors."
+        fields:
+          - "Feature matrix (rows: key capabilities; columns: competitors; cells: present/absent/superior)"
+          - "Pricing comparison (public pricing tiers and structure)"
+          - "Integration ecosystem comparison (number and quality of integrations)"
+      - section_name: "AI Threat Assessment"
+        placement: "end"
+        description: "Specific assessment of how AI tools affect the competitive landscape."
+        fields:
+          - "Which product capabilities can be replicated by general-purpose AI?"
+          - "Which capabilities are defensible against AI substitution?"
+          - "How is the company incorporating AI to strengthen its position?"
+    sections_to_remove: []
+    benchmark_references: ["win-rate", "nrr", "nps-saas"]
+
+  - template: "fundraising-deck-outline"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS pitch decks have a well-established structure that investors expect. The SaaS overlay ensures the deck includes the specific metric slides and narrative structure that SaaS investors require."
+    field_changes:
+      - field: "Market opportunity"
+        sector_label: "Market Opportunity"
+        sector_guidance: "Present TAM/SAM/SOM with bottom-up validation. For SaaS, investors prefer: (target companies) x (annual willingness to pay) = SAM. Include market growth rate and secular tailwinds."
+      - field: "Business model"
+        sector_label: "SaaS Business Model"
+        sector_guidance: "Cover: pricing model (per-seat/usage/tiered), GTM motion (PLG/sales-led/hybrid), customer segments, and the expansion revenue mechanism. Show how ACV and NRR drive compounding revenue."
+      - field: "Traction"
+        sector_label: "SaaS Traction Metrics"
+        sector_guidance: "Dedicated slide with: ARR/MRR trajectory chart, customer count, NRR, logo retention, ARPU trend, and growth rate. This slide is the most scrutinized in any SaaS pitch."
+    sections_to_add:
+      - section_name: "Unit Economics Slide"
+        placement: "after:SaaS Traction Metrics"
+        description: "Dedicated unit economics presentation that investors expect in every SaaS pitch."
+        fields:
+          - "LTV:CAC ratio"
+          - "CAC Payback Period"
+          - "Gross Margin %"
+          - "Burn Multiple"
+          - "Cohort retention curve"
+      - section_name: "Go-to-Market Slide"
+        placement: "after:Unit Economics Slide"
+        description: "The GTM motion is a critical evaluation criterion for SaaS investors."
+        fields:
+          - "GTM motion description (PLG, sales-led, hybrid)"
+          - "Sales funnel metrics (top to bottom conversion rates)"
+          - "CAC by channel"
+          - "Pipeline coverage and win rate"
+    sections_to_remove: []
+    benchmark_references: ["arr", "nrr", "ltv-cac-ratio", "cac-payback-period", "gross-margin", "burn-multiple"]
+
+  - template: "strategic-analysis-one-pager"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A SaaS strategic one-pager must anchor analysis in SaaS-specific frameworks and metrics rather than generic strategic analysis."
+    field_changes:
+      - field: "Strategic position"
+        sector_label: "SaaS Strategic Position"
+        sector_guidance: "Frame position in SaaS terms: market segment, competitive differentiation, GTM efficiency, and retention moat. Include where the company sits on the product-led to sales-led spectrum."
+      - field: "Key metrics"
+        sector_label: "SaaS Health Metrics"
+        sector_guidance: "Core 5: ARR + growth rate, NRR, LTV:CAC, Burn Multiple, Gross Margin. Compare each to stage-appropriate benchmarks."
+    sections_to_add:
+      - section_name: "SaaS Flywheel Assessment"
+        placement: "end"
+        description: "Assessment of the company's growth flywheel — the reinforcing loops that drive compounding growth."
+        fields:
+          - "Primary growth loop (acquisition > activation > retention > referral > acquisition)"
+          - "Flywheel health indicators (which loops are working, which are broken)"
+          - "Key constraint (the bottleneck in the flywheel)"
+    sections_to_remove: []
+    benchmark_references: ["arr", "nrr", "ltv-cac-ratio", "burn-multiple", "gross-margin"]
+
+  - template: "market-opportunity-summary"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS market sizing uses specific methodologies (bottom-up company count x ACV, category spend analysis) and must address SaaS-specific dynamics like category creation, platform expansion, and AI disruption."
+    field_changes:
+      - field: "Total addressable market"
+        sector_label: "TAM / SAM / SOM"
+        sector_guidance: "Use bottom-up sizing: (number of target companies in segment) x (realistic annual contract value). Cross-reference with category spend data (Gartner, IDC). Do not use top-down GDP-fraction estimates."
+      - field: "Market dynamics"
+        sector_label: "SaaS Category Dynamics"
+        sector_guidance: "Address: category maturity (emerging, growth, mature), buyer behavior (self-serve adoption, procurement complexity), competitive density (number of funded competitors), and platform risk (probability of a major platform entering)."
+    sections_to_add:
+      - section_name: "Category Evolution"
+        placement: "end"
+        description: "How the SaaS category is expected to evolve, including AI impact."
+        fields:
+          - "Current category state (fragmented, consolidating, mature)"
+          - "AI impact thesis (how AI changes the category)"
+          - "Predicted winner-take-most or winner-take-some dynamics"
+    sections_to_remove: []
+    benchmark_references: ["acv", "arr"]
+
+  - template: "due-diligence-checklist"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS due diligence has specific areas of focus: metrics verification, churn cohort analysis, revenue quality assessment, and technical architecture review."
+    field_changes:
+      - field: "Financial review"
+        sector_label: "SaaS Metrics Verification"
+        sector_guidance: "Verify: ARR calculation methodology, MRR component decomposition, churn calculation (logo and revenue), NRR calculation, CAC calculation (fully loaded), and gross margin (COGS classification). Request access to billing system data."
+      - field: "Operational review"
+        sector_label: "GTM and Retention Review"
+        sector_guidance: "Review: sales pipeline hygiene, win/loss data, customer health scores, support ticket trends, NPS data, and churn reasons. Request cohort retention data for the last 12 months."
+    sections_to_add:
+      - section_name: "Technical Due Diligence"
+        placement: "end"
+        description: "SaaS-specific technical assessment."
+        fields:
+          - "Architecture review (scalability, security, uptime history)"
+          - "Technical debt assessment"
+          - "Key technical dependencies (infrastructure, APIs, third-party services)"
+          - "Security posture (SOC 2, penetration testing, data encryption)"
+    sections_to_remove: []
+    benchmark_references: ["arr", "nrr", "grr", "cac", "ltv", "gross-margin"]
+
+  - template: "cap-table-summary"
+    audience: "investor"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Cap table structure is not SaaS-specific. Standard venture capital cap table formats apply regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "decision-rationale-memo"
+    audience: "investor"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Decision rationale documentation follows a standard format across sectors. SaaS context is naturally incorporated through the specific decision being documented."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "exit-scenario-analysis"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS exit scenarios are governed by well-known valuation multiples and acquirer categories. The template should incorporate SaaS-specific valuation methodologies."
+    field_changes:
+      - field: "Valuation methodology"
+        sector_label: "SaaS Valuation Multiples"
+        sector_guidance: "SaaS companies are valued on ARR multiples, modulated by growth rate and NRR. Report: current ARR, growth rate, NRR, and comparable company multiples (public and private). Rule of 40 score directly correlates with valuation multiples."
+      - field: "Potential acquirers"
+        sector_label: "SaaS Acquirer Landscape"
+        sector_guidance: "Categorize: (1) Strategic acquirers (larger SaaS companies in adjacent categories), (2) Platform acquirers (major platforms that benefit from adding your capability), (3) PE acquirers (private equity firms acquiring profitable SaaS businesses), (4) Public company acquirers (acqui-hires or tuck-in acquisitions)."
+    sections_to_add:
+      - section_name: "SaaS Valuation Benchmarks"
+        placement: "after:SaaS Valuation Multiples"
+        description: "Current market multiples for SaaS companies by growth and profitability profile."
+        fields:
+          - "Public SaaS median ARR multiple (current)"
+          - "Growth-adjusted ARR multiples (by Rule of 40 score)"
+          - "Recent comparable M&A transactions with multiples"
+    sections_to_remove: []
+    benchmark_references: ["arr", "nrr", "rule-of-40"]
+
+  # ─────────────────────────────────────────────
+  # BOARD TEMPLATES (7)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-strategic-review"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS board meetings follow a well-established cadence and metric set. Board members expect specific SaaS KPIs, cohort data, and efficiency metrics presented in a standardized format."
+    field_changes:
+      - field: "Financial summary"
+        sector_label: "SaaS Financial Dashboard"
+        sector_guidance: "Present: ARR waterfall (opening ARR + new + expansion - contraction - churn = closing ARR), MRR trend chart (12 months), gross margin trend, burn rate, and runway. Compare each metric to plan and to prior quarter."
+      - field: "Strategic priorities"
+        sector_label: "OKR Progress and Strategic Priorities"
+        sector_guidance: "Report against quarterly OKRs with explicit metric outcomes. Flag any OKR that is off-track with root cause and corrective action. Present next quarter's strategic priorities with measurable targets."
+      - field: "Risks"
+        sector_label: "Risk Dashboard"
+        sector_guidance: "Categorize: Product risks (technical debt, competitive feature gaps), GTM risks (pipeline coverage, churn trends, CAC increases), People risks (key person dependency, attrition), and Financial risks (runway, unit economics trends)."
+    sections_to_add:
+      - section_name: "SaaS Metrics Summary"
+        placement: "before:SaaS Financial Dashboard"
+        description: "One-page SaaS metrics dashboard that board members can review in 60 seconds."
+        fields:
+          - "ARR and growth rate (QoQ and YoY)"
+          - "NRR and GRR"
+          - "Customer count and logo churn"
+          - "LTV:CAC and CAC Payback"
+          - "Burn Multiple and runway"
+          - "Rule of 40 score"
+      - section_name: "Cohort Performance"
+        placement: "after:SaaS Financial Dashboard"
+        description: "Retention and expansion data by acquisition cohort."
+        fields:
+          - "Cohort retention curves (logo and revenue)"
+          - "Cohort expansion trends"
+          - "Cohort quality assessment (are recent cohorts performing better or worse than earlier ones?)"
+      - section_name: "GTM Performance"
+        placement: "after:Cohort Performance"
+        description: "Go-to-market effectiveness metrics."
+        fields:
+          - "Pipeline coverage ratio"
+          - "Win rate (overall and by segment)"
+          - "Sales cycle length (trend)"
+          - "Magic Number"
+          - "CAC by channel"
+    sections_to_remove: []
+    benchmark_references: ["arr", "nrr", "grr", "ltv-cac-ratio", "cac-payback-period", "burn-multiple", "rule-of-40", "pipeline-coverage-ratio", "win-rate", "magic-number"]
+
+  - template: "board-meeting-agenda"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS board meeting agendas should allocate time to the specific topics that SaaS board members expect: metrics review, GTM performance, product roadmap, and fundraising/runway discussion."
+    field_changes:
+      - field: "Agenda items"
+        sector_label: "SaaS Board Agenda"
+        sector_guidance: "Standard SaaS board agenda: (1) Metrics review — 15 min (pre-read, discussion only), (2) Strategic topic deep-dive — 30 min (one topic per meeting: GTM, product, hiring, pricing, competitive), (3) Fundraising/runway — 10 min, (4) CEO asks — 10 min (specific, actionable), (5) Executive session — 15 min. Total: 90 minutes maximum."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "risk-assessment-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS risk categories include sector-specific risks: infrastructure reliability, data security/privacy, platform dependency, and AI disruption."
+    field_changes:
+      - field: "Risk categories"
+        sector_label: "SaaS Risk Categories"
+        sector_guidance: "Include SaaS-specific categories: (1) Customer concentration risk — revenue dependency on top 10 customers. (2) Platform risk — dependency on cloud providers, API vendors, or distribution platforms. (3) Security and compliance risk — data breaches, regulatory changes, certification requirements. (4) Churn risk — NRR trend, cohort degradation, competitive displacement. (5) Technology risk — technical debt, AI disruption, architecture limitations."
+    sections_to_add:
+      - section_name: "Customer Concentration Analysis"
+        placement: "end"
+        description: "Revenue concentration risk assessment."
+        fields:
+          - "Revenue share of top 1, 5, and 10 customers"
+          - "Largest single-customer dependency as % of ARR"
+          - "Customer diversification trend (improving or worsening)"
+    sections_to_remove: []
+    benchmark_references: ["nrr", "logo-churn", "arr"]
+
+  - template: "change-initiative-proposal"
+    audience: "board"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Change initiative proposals follow a standard format. SaaS context is naturally incorporated through the specific initiative being proposed."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "compensation-review-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS compensation includes equity-heavy packages, and comp benchmarking uses SaaS-specific data sources (Carta, Pave, levels.fyi for engineering)."
+    field_changes:
+      - field: "Compensation benchmarks"
+        sector_label: "SaaS Compensation Benchmarks"
+        sector_guidance: "Use SaaS-specific comp data: Pave, Carta, Levels.fyi (engineering), RepVue (sales). Benchmark by company stage (seed, Series A, B, C+), function, and geography. Include equity component as percentage of total comp."
+    sections_to_add:
+      - section_name: "Sales Compensation Structure"
+        placement: "end"
+        description: "SaaS sales compensation is structurally different and warrants specific analysis."
+        fields:
+          - "OTE structure (base:variable split, typically 50:50 for AEs)"
+          - "Quota-to-OTE ratio (industry standard: 4-6x)"
+          - "Accelerators and decelerators"
+          - "Quota attainment distribution"
+    sections_to_remove: []
+    benchmark_references: ["acv"]
+
+  - template: "regulatory-compliance-update"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS compliance centers on data privacy (GDPR, CCPA), security certifications (SOC 2), and increasingly on AI regulation."
+    field_changes:
+      - field: "Regulatory landscape"
+        sector_label: "SaaS Compliance Landscape"
+        sector_guidance: "Cover: data privacy regulations (GDPR, CCPA, emerging state/national laws), security certifications (SOC 2 Type II status, ISO 27001), industry-specific compliance (HIPAA for health, PCI for payments), and AI regulation (EU AI Act, emerging US frameworks)."
+    sections_to_add:
+      - section_name: "Data Processing and Privacy"
+        placement: "end"
+        description: "SaaS-specific data handling compliance."
+        fields:
+          - "Data processing agreement (DPA) status with all customers"
+          - "Data residency and sovereignty compliance"
+          - "Sub-processor list and compliance status"
+          - "Data breach notification procedures and history"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "ceo-succession-brief"
+    audience: "board"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "CEO succession planning follows standard corporate governance practices regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # TEAM TEMPLATES (13)
+  # ─────────────────────────────────────────────
+
+  - template: "action-plan"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS action plans should be metric-driven with clear KPI targets, owner assignments, and weekly measurement cadence."
+    field_changes:
+      - field: "Success metrics"
+        sector_label: "SaaS KPI Targets"
+        sector_guidance: "Define success using SaaS metrics: MRR impact, churn reduction target, activation rate improvement, NPS change, or pipeline coverage increase. Every action item should connect to a measurable SaaS KPI."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "new-initiative-brief"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS initiative briefs should include unit economics impact and the effect on key SaaS metrics."
+    field_changes:
+      - field: "Expected outcomes"
+        sector_label: "Expected SaaS Impact"
+        sector_guidance: "Quantify impact on SaaS metrics: expected MRR contribution, churn reduction, CAC improvement, activation rate increase, or NRR improvement. Include the time to measurable impact."
+      - field: "Resource requirements"
+        sector_label: "Resource Requirements and Opportunity Cost"
+        sector_guidance: "In SaaS, engineering capacity is the scarcest resource. Quantify the engineering weeks required and the opportunity cost — what will not be built if this initiative is prioritized."
+    sections_to_add:
+      - section_name: "Metric Impact Model"
+        placement: "after:Expected SaaS Impact"
+        description: "Quantitative model of how the initiative affects the SaaS flywheel."
+        fields:
+          - "Primary metric impacted and expected delta"
+          - "Secondary metrics affected"
+          - "Time to measurable impact"
+          - "Confidence level (high/medium/low) with supporting rationale"
+    sections_to_remove: []
+    benchmark_references: ["mrr", "nrr", "cac", "activation-rate"]
+
+  - template: "project-kickoff-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS project kickoffs should define success in terms of product metrics and include a measurement plan."
+    field_changes:
+      - field: "Success criteria"
+        sector_label: "Success Metrics and Measurement Plan"
+        sector_guidance: "Define 2-3 SaaS metrics that this project will move. Include baseline measurement, target, measurement method, and evaluation date. Common: activation rate, time to value, NPS delta, churn reduction, expansion MRR contribution."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["activation-rate", "time-to-value", "nrr"]
+
+  - template: "hiring-scorecard"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS hiring scorecards should include SaaS-specific competency assessments, especially for GTM and product roles."
+    field_changes:
+      - field: "Required competencies"
+        sector_label: "SaaS-Specific Competencies"
+        sector_guidance: "For GTM roles: SaaS sales motion experience (PLG, inside sales, field sales), understanding of SaaS metrics, experience at the relevant company stage. For product roles: experience with subscription/usage products, data-driven product management, PLG or sales-led product experience. For engineering roles: SaaS architecture experience (multi-tenant, API-first, CI/CD)."
+    sections_to_add:
+      - section_name: "Stage Fit Assessment"
+        placement: "end"
+        description: "Assessment of whether the candidate's experience matches the company's current stage."
+        fields:
+          - "Candidate's company-stage experience (seed, growth, scale)"
+          - "Gap analysis between candidate experience and current needs"
+          - "Ramp-up timeline estimate"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "incident-postmortem"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS incident postmortems must include customer impact quantification, SLA implications, and communication review."
+    field_changes:
+      - field: "Impact assessment"
+        sector_label: "Customer and Business Impact"
+        sector_guidance: "Quantify: number of customers affected, duration of impact, SLA breach (if any), revenue at risk (affected customer MRR), support tickets generated, social media mentions. Include the customer communication timeline and effectiveness."
+    sections_to_add:
+      - section_name: "SLA and Compliance Impact"
+        placement: "after:Customer and Business Impact"
+        description: "SaaS-specific contractual and compliance implications."
+        fields:
+          - "SLA breaches (if any) and credit obligations"
+          - "Regulatory notification requirements (if data affected)"
+          - "Customer communication log (when, what, how)"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "retrospective-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Sprint and project retrospectives follow standard agile practices that are not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "meeting-notes-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Meeting notes structure is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "one-on-one-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "One-on-one meeting structure is not sector-specific. The content naturally adapts to SaaS context."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "team-health-check"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS team health should include cross-functional alignment metrics, since SaaS requires tighter coordination between product, engineering, sales, and CS than most businesses."
+    field_changes:
+      - field: "Health indicators"
+        sector_label: "SaaS Team Health Indicators"
+        sector_guidance: "Include SaaS-specific indicators: product-engineering velocity (features shipped per sprint), sales-CS handoff quality (early churn correlation), cross-functional NPS (how teams rate their collaboration with other teams), and on-call burden (engineering burnout indicator)."
+    sections_to_add:
+      - section_name: "Cross-Functional Alignment Score"
+        placement: "end"
+        description: "Assessment of alignment between the key SaaS functions."
+        fields:
+          - "Product-Engineering alignment (roadmap clarity, tech debt balance)"
+          - "Sales-Product alignment (feature request feedback loop)"
+          - "Sales-CS alignment (handoff quality, expectation consistency)"
+          - "CS-Product alignment (churn feedback integration into roadmap)"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "culture-values-document"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Culture and values documentation is not sector-specific. Values should be authentic to the company, not to the sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "feedback-360-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "360 feedback follows standard practices regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "offsite-planning-guide"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Offsite planning is not sector-specific, though the content discussed at offsites will naturally address SaaS topics."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "role-description-template"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS role descriptions should reference SaaS-specific experience requirements and the metrics the role is accountable for."
+    field_changes:
+      - field: "Key responsibilities"
+        sector_label: "Key Responsibilities and Metric Ownership"
+        sector_guidance: "For each responsibility, specify the SaaS metric the role owner is accountable for. Examples: VP Sales owns new ARR and win rate; VP CS owns NRR, GRR, and NPS; VP Product owns activation rate, time to value, and feature adoption."
+      - field: "Required experience"
+        sector_label: "SaaS Experience Requirements"
+        sector_guidance: "Specify: SaaS company-stage experience required, SaaS metric literacy expected, and specific SaaS domain experience (PLG, enterprise sales, usage-based pricing, etc.)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # SELF TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "weekly-ceo-review"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A SaaS CEO's weekly review should be structured around the SaaS metrics that drive decision-making, with a specific cadence of what to review weekly versus monthly."
+    field_changes:
+      - field: "Weekly metrics"
+        sector_label: "Weekly SaaS Dashboard"
+        sector_guidance: "Review weekly: MRR and WoW change, new sign-ups and activations, support ticket volume and response time, pipeline changes, cash balance. Monthly metrics (NRR, churn, CAC) should be reviewed on a monthly cadence, not weekly — weekly fluctuations are noise."
+      - field: "Priorities"
+        sector_label: "This Week's Priorities"
+        sector_guidance: "Identify the single most important thing for the week. In SaaS, this is often: closing a specific deal, resolving a customer escalation, making a hiring decision, or shipping a feature. Ruthless prioritization — not a list of 10 items."
+    sections_to_add:
+      - section_name: "Customer Signal Review"
+        placement: "after:Weekly SaaS Dashboard"
+        description: "Weekly review of qualitative customer signals."
+        fields:
+          - "Churn reasons this week (if any)"
+          - "Customer escalations and their resolution"
+          - "Positive signals (expansion conversations, referrals, testimonials)"
+    sections_to_remove: []
+    benchmark_references: ["mrr", "activation-rate"]
+
+  - template: "decision-journal"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS decision journals should explicitly capture the metrics that informed the decision and the metric-based criteria for evaluating whether the decision was correct."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context and Data"
+        sector_guidance: "Record: the SaaS metrics that informed this decision, the alternatives considered, and the specific metric outcome that will confirm the decision was correct. For reversible decisions, note the 'kill criteria' — what metric threshold would trigger reversal."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "annual-review-and-planning"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS annual reviews should assess performance against SaaS-specific milestones and set the following year's targets using SaaS benchmarks."
+    field_changes:
+      - field: "Year in review"
+        sector_label: "SaaS Year in Review"
+        sector_guidance: "Assess: ARR growth (actual vs. plan), NRR trend, unit economics evolution (LTV:CAC, CAC Payback), team growth, product milestones, and capital efficiency (burn multiple). Compare to beginning-of-year targets."
+      - field: "Next year goals"
+        sector_label: "Next Year SaaS Targets"
+        sector_guidance: "Set targets across all SaaS dimensions: ARR target, NRR target, efficiency targets (burn multiple, gross margin), product targets (activation rate, time to value), and team targets (headcount, key hires). Each target should reference the benchmark tier being targeted."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["arr", "nrr", "ltv-cac-ratio", "burn-multiple", "gross-margin"]
+
+  - template: "stakeholder-map"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS stakeholder maps should include SaaS-ecosystem-specific stakeholder categories: platform partners, integration partners, investor syndicate members, and key customer champions."
+    field_changes:
+      - field: "Stakeholder categories"
+        sector_label: "SaaS Stakeholder Ecosystem"
+        sector_guidance: "Include: Investors (lead, follow-on, angels, advisors), Customers (champions, economic buyers, technical evaluators), Partners (platform, integration, channel, technology), Team (executives, key ICs, advisors), and Market (analysts, media, community leaders)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "negotiation-prep-sheet"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS negotiation prep should include SaaS-specific negotiation contexts and leverage points."
+    field_changes:
+      - field: "Negotiation type"
+        sector_label: "SaaS Negotiation Context"
+        sector_guidance: "Classify: enterprise deal (contract terms), fundraising (term sheet), partnership (integration/channel terms), M&A (acquisition terms), or internal (resource allocation, compensation). Each type has distinct SaaS-specific dynamics and leverage points."
+      - field: "BATNA"
+        sector_label: "BATNA and SaaS Leverage"
+        sector_guidance: "SaaS-specific leverage points: for sales — competitive alternatives, budget timing, multi-year commitment incentives. For fundraising — multiple term sheets, profitability path, strong metrics. For partnerships — integration value, customer overlap, competitive alternatives."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["acv", "arr"]
+
+  - template: "career-strategy-canvas"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Career strategy is personal, not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "founder-mental-health-check"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS founder mental health is affected by SaaS-specific stressors: the relentlessness of monthly metrics, the public nature of SaaS performance data, and the compound pressure of continuous customer obligations."
+    field_changes:
+      - field: "Stress indicators"
+        sector_label: "SaaS-Specific Stress Indicators"
+        sector_guidance: "Include: obsessive metric checking (checking dashboards more than 3x daily), inability to disconnect (monitoring Slack/support channels outside work hours), identity fusion with MRR (self-worth tracking with revenue), and isolation (not discussing challenges with peers, advisors, or a therapist)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "leadership-reflection"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Leadership reflection is not sector-specific. The reflections naturally address SaaS-specific challenges."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "learning-plan"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS founders should include SaaS-specific learning areas in their development plans."
+    field_changes:
+      - field: "Learning areas"
+        sector_label: "SaaS Learning Priorities"
+        sector_guidance: "Consider SaaS-specific learning areas: SaaS metrics and benchmarking, product-led growth mechanics, AI strategy and implementation, SaaS pricing optimization, enterprise sales motion design, customer success operations, and SaaS-specific financial modeling."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "personal-board-tracker"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A SaaS founder's personal board of advisors should include SaaS-specific expertise areas."
+    field_changes:
+      - field: "Advisor categories"
+        sector_label: "SaaS Advisory Needs"
+        sector_guidance: "Map advisors to SaaS-specific needs: SaaS metrics and operations (someone who has scaled a SaaS company to $50M+ ARR), GTM strategy (PLG expert or enterprise sales leader), Product (SaaS product leader), Technical (architecture and scaling), Finance (SaaS financial modeling and fundraising), and Industry/domain (vertical expertise for the target market)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # CLIENT TEMPLATES (8)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-business-review"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS QBRs are the primary retention and expansion vehicle. The template should structure the QBR around value delivered, usage trends, and growth opportunities."
+    field_changes:
+      - field: "Performance summary"
+        sector_label: "Value Delivered"
+        sector_guidance: "Quantify the value the SaaS product delivered this quarter: time saved, revenue generated, costs reduced, errors prevented, or compliance maintained. Use the customer's own metrics and language, not your product metrics."
+      - field: "Account status"
+        sector_label: "Usage and Adoption Metrics"
+        sector_guidance: "Present: active users vs. licensed users, feature adoption by module, usage trend (growing, stable, declining), and comparison to peer accounts in the same segment."
+      - field: "Next steps"
+        sector_label: "Growth Opportunities"
+        sector_guidance: "Identify expansion opportunities: additional seats, new modules, higher tier, or new use cases. Frame as business outcomes, not product features. Include a mutual success plan with milestones for the next quarter."
+    sections_to_add:
+      - section_name: "Health Score"
+        placement: "before:Value Delivered"
+        description: "Overall account health assessment."
+        fields:
+          - "Account health score (methodology transparent to the customer)"
+          - "Usage trend indicator"
+          - "Support interaction summary"
+          - "Renewal timeline and status"
+    sections_to_remove: []
+    benchmark_references: ["nrr", "nps-saas"]
+
+  - template: "onboarding-welcome-packet"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS onboarding directly determines activation rate and time to value — two of the most important product metrics. The welcome packet should be structured to minimize time to value."
+    field_changes:
+      - field: "Getting started steps"
+        sector_label: "Time-to-Value Path"
+        sector_guidance: "Define the shortest path to the activation milestone. Organize steps as: (1) Critical first action (what to do in the first 30 minutes), (2) Foundation setup (first day), (3) Team onboarding (first week), (4) Full activation (first month). Each step should include estimated time and a clear 'done' criterion."
+      - field: "Resources"
+        sector_label: "Self-Serve Resources"
+        sector_guidance: "Include: knowledge base link, video tutorial library, community forum, and office hours schedule. Prioritize self-serve resources over human touch for scalability."
+    sections_to_add:
+      - section_name: "Success Milestones"
+        placement: "end"
+        description: "Defined milestones that predict long-term retention."
+        fields:
+          - "30-day activation milestone (specific action)"
+          - "60-day adoption milestone"
+          - "90-day value realization milestone"
+          - "Check-in schedule with customer success"
+    sections_to_remove: []
+    benchmark_references: ["time-to-value", "activation-rate"]
+
+  - template: "proposal-outline"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS proposals should frame the investment as an ongoing subscription with measurable ROI, not a one-time purchase."
+    field_changes:
+      - field: "Pricing"
+        sector_label: "Investment and ROI"
+        sector_guidance: "Present: subscription pricing (monthly and annual options), implementation costs (if any, presented separately), and a clear ROI model showing when the investment pays for itself. Frame as ongoing value delivery, not a cost."
+      - field: "Scope"
+        sector_label: "Implementation Scope and Timeline"
+        sector_guidance: "For SaaS: define the implementation phases (setup, data migration, integration, training, go-live), the timeline for each phase, and the customer's time commitment. Set expectations for time to value."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["acv", "time-to-value"]
+
+  - template: "service-level-agreement"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS SLAs have specific standard structures: uptime commitments, support response times, data handling, and remediation terms."
+    field_changes:
+      - field: "Service levels"
+        sector_label: "SaaS Service Commitments"
+        sector_guidance: "Standard SaaS SLA components: (1) Uptime commitment (99.9% or 99.95% for enterprise), (2) Planned maintenance windows, (3) Support response time by severity (P0: 1 hour, P1: 4 hours, P2: 1 business day, P3: 2 business days), (4) Data backup and recovery commitments, (5) Security and compliance commitments."
+      - field: "Remediation"
+        sector_label: "Credit and Remediation Terms"
+        sector_guidance: "Define: service credit structure for SLA breaches (typically 5-10% of monthly fee per breach, capped at 30% of monthly fee), termination rights for sustained breaches, and notification obligations."
+    sections_to_add:
+      - section_name: "Data Processing Terms"
+        placement: "end"
+        description: "Data handling commitments standard in SaaS contracts."
+        fields:
+          - "Data ownership and portability"
+          - "Data processing and privacy (DPA reference)"
+          - "Data deletion upon contract termination"
+          - "Sub-processor disclosure"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "project-status-update"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS project status updates (typically for implementation projects) should track progress toward the activation milestone and time to value."
+    field_changes:
+      - field: "Progress summary"
+        sector_label: "Implementation Progress"
+        sector_guidance: "Track against the implementation phases defined in the onboarding plan. Report: phase completion status, blockers (especially customer-side dependencies), and projected time to go-live/activation."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["time-to-value"]
+
+  - template: "analysis-report"
+    audience: "client"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Analysis report structure is not sector-specific. Content naturally adapts to SaaS context."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "case-study-template"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS case studies should follow a quantified-outcome structure that buyers can use to build internal business cases."
+    field_changes:
+      - field: "Results"
+        sector_label: "Quantified Outcomes"
+        sector_guidance: "Every SaaS case study must include at least 2-3 quantified outcomes: time saved (hours/week), revenue impact (% increase or dollar amount), cost reduction (% or dollar amount), or error reduction (% decrease). Abstract outcomes ('improved efficiency') are insufficient."
+      - field: "Challenge"
+        sector_label: "Challenge and Buying Context"
+        sector_guidance: "Include: the business problem (not the product gap), what the customer was using before, what triggered the evaluation, and what other solutions they considered. This helps prospects see themselves in the story."
+    sections_to_add:
+      - section_name: "Implementation Details"
+        placement: "after:Quantified Outcomes"
+        description: "Practical details that help prospects understand the adoption path."
+        fields:
+          - "Implementation timeline"
+          - "Team involvement required"
+          - "Time to value (when outcomes were first realized)"
+          - "Integration with existing stack"
+    sections_to_remove: []
+    benchmark_references: ["time-to-value"]
+
+  - template: "partnership-memo"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "SaaS partnership memos should address the integration architecture, data sharing terms, and go-to-market collaboration structure."
+    field_changes:
+      - field: "Partnership structure"
+        sector_label: "SaaS Partnership Structure"
+        sector_guidance: "Define: partnership type (technology integration, channel, platform, strategic alliance), technical integration scope (API access, data sharing, SSO, embedded/white-label), commercial terms (revenue share, referral fees, co-marketing budget), and governance (joint review cadence, escalation path, integration SLA)."
+    sections_to_add:
+      - section_name: "Integration Architecture"
+        placement: "after:SaaS Partnership Structure"
+        description: "Technical specification of the partnership integration."
+        fields:
+          - "Integration approach (API, webhook, embedded, SSO)"
+          - "Data sharing scope and limitations"
+          - "Security and compliance requirements"
+          - "Maintenance and versioning responsibilities"
+    sections_to_remove: []
+    benchmark_references: []

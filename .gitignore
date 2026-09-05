@@ -38,7 +38,6 @@ temp/
 # Codex-generated skills directory (built from .claude/skills/)
 /skills/
 
-# OpenClaw plugin — compiled TS output (OpenClaw uses jiti for runtime TS)
-*.js
-*.js.map
-*.d.ts
+# Runtime state (never commit entrepreneur data)
+/memory/
+/.foreman/

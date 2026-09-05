@@ -127,8 +127,8 @@ Foreman runs wherever AI agents run:
 |---|---|---|
 | **Claude Code** | Native | `.claude/` directory: skills, commands, hooks, agents, memory |
 | **Claude Code Plugin** | Marketplace | `/plugin marketplace add fatihguner/foreman` → `/plugin install foreman@foreman-marketplace` |
-| **Codex** | Plugin | `.codex-plugin/plugin.json` + generated `skills/` via `build-codex.sh` |
-| **OpenClaw** | Native plugin | `openclaw.plugin.json` + `index.ts` registering 7 agent tools |
+| **Codex** | Plugin | `.codex-plugin/plugin.json` + the shared `plugins/foreman/skills/` bundle |
+| **OpenClaw** | Native plugin | `openclaw.plugin.json` + compiled `dist/index.js` registering 10 agent tools |
 
 Single source of truth: `.claude/`. Every other platform derives from it.
 
@@ -136,13 +136,27 @@ Single source of truth: `.claude/`. Every other platform derives from it.
 
 ## Quickstart
 
-### Install via npm (recommended)
+### Try the current release candidate
+
+**1.1.0-rc.1** includes the new installer, shared state runtime and repaired plugin bundles. It is publicly available as a release candidate while final live advisory quality acceptance is pending. See the [release notes](docs/releases/v1.1.0-rc.1.md) for verification and known limitations.
+
+Install the GitHub release package directly (Node 22.19 or later):
+
+```bash
+npx --yes --package=https://github.com/fatihguner/foreman/releases/download/v1.1.0-rc.1/foreman-sh-1.1.0-rc.1.tgz foreman-sh init
+```
+
+Add `--platform codex` for Codex, or `--platform all` for both Claude and Codex. Foreman is MIT-licensed and free to install; your AI host account and model usage are separate.
+
+### npm registry
 
 ```bash
 npx foreman-sh init
 ```
 
-That's it. Foreman installs `.claude/` and `CLAUDE.md` into your current directory. Open Claude Code and start talking:
+The unversioned npm command selects the existing stable registry release, which does not include this candidate's fixes. Use the GitHub package above for this candidate until npm publication is confirmed.
+
+The new installer adds `.claude/` and `CLAUDE.md` to your current directory and preserves existing files. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
 
 > "My SaaS churn rate is 5.2% and I'm preparing for Series A. What should I focus on?"
 
@@ -158,6 +172,9 @@ That's it. Foreman installs `.claude/` and `CLAUDE.md` into your current directo
 ```bash
 git clone https://github.com/fatihguner/foreman.git
 cd foreman
+npm ci --ignore-scripts
+npm run build
+npm run build:plugins
 ```
 
 ### Codex
@@ -165,7 +182,10 @@ cd foreman
 ```bash
 git clone https://github.com/fatihguner/foreman.git
 cd foreman
-./scripts/build-codex.sh --clean
+npm ci --ignore-scripts
+npm run build
+npm run build:plugins
+node bin/cli.js init --platform codex --workspace /path/to/your/project
 ```
 
 ### OpenClaw
@@ -173,6 +193,7 @@ cd foreman
 ```bash
 git clone https://github.com/fatihguner/foreman.git
 cd foreman
+npm ci --ignore-scripts
 ./scripts/openclaw-setup.sh
 ```
 
@@ -180,18 +201,22 @@ cd foreman
 
 ## Key Commands
 
+These are Claude project commands. Claude plugin commands use `/foreman:apply`, `/foreman:solo`, and the same namespace for other commands. Host conflicts use prefixes such as `/foreman-run`, `/foreman-skill`, `/foreman-resume`, `/foreman-context` and `/foreman-help`. In Codex, use `$foreman` followed by the operation. The generated command map is in `.claude/catalog.json`.
+
+Preferences and implementation tasks persist under `.foreman/<founder-id>/state.json` through the bundled runtime. Keep that directory out of version control. See [runtime behavior](.claude/RUNTIME.md) and [development and verification](docs/development.md).
+
 | Command | What It Does |
 |---|---|
 | `/skills` | List all 158 skills, filter by category or stage |
 | `/apply [skill]` | Apply a framework to your context |
 | `/diagnose [area]` | Run a diagnostic triage |
-| `/run [playbook]` | Start a multi-step playbook |
+| `/foreman-run [playbook]` | Start a multi-step playbook |
 | `/track` | View implementation progress |
 | `/simulate board` | Practice your board presentation |
 | `/research [topic]` | Get a data collection guide |
-| `/context` | View your stored company context |
+| `/foreman-context` | View your stored company context |
 | `/sector [name]` | Activate an industry pack |
-| `/help` | See all commands |
+| `/foreman-help` | See all commands |
 
 ---
 
@@ -248,7 +273,7 @@ foreman/
 │   ├── hooks/                   # 17 natural language triggers
 │   ├── agents/                  # 6 orchestration agents
 │   ├── memory/                  # 5-layer persistence system
-│   ├── commands/                # 13 command files (~45 commands)
+│   ├── commands/                # 13 guides + 46 generated commands
 │   ├── industry-packs/          # 9 sector-specific overlay packs
 │   ├── research/                # 18 data collection guides
 │   ├── implementation/          # Tracking + support system

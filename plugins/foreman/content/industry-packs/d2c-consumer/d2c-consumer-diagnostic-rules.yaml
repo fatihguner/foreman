@@ -1,0 +1,726 @@
+# D2C Consumer Industry Pack — Diagnostic Rules
+#
+# For each of the 20 Foreman diagnostics, this file defines how triage
+# questions, diagnosis weights, and routing shift in a D2C context.
+# The diagnostic agent loads these rules when the D2C industry pack is active.
+#
+# D2C-specific diagnostic themes that recur across multiple diagnostics:
+#   - CAC death spiral: rising acquisition costs eating margin, forcing more
+#     spending to maintain revenue, which further increases CAC
+#   - Brand dilution: discounting, channel proliferation, and audience broadening
+#     weakening the brand's identity and pricing power
+#   - Community fatigue: over-monetizing the community until engagement collapses
+#   - Subscription churn cliff: subscribers canceling in waves at predictable tenure
+#   - iOS attribution blindness: inability to measure channel-level performance
+#     leading to misallocated spend
+#   - Influencer dependency: brand growth tied to a small number of creators
+#   - Amazon channel conflict: selling on Amazon while trying to build a DTC brand
+#   - Content-commerce disconnect: brand content that builds awareness but does not
+#     convert, or commerce content that converts but does not build brand
+#   - Return rate crisis: high returns destroying contribution margin
+#   - Discount addiction: training customers to wait for sales instead of buying
+#     at full price
+#
+# Adaptation types:
+#   as-is    — The diagnostic works without modification for D2C companies.
+#   enhanced — The diagnostic is relevant but benefits from additional D2C-specific
+#              triage questions and diagnosis options.
+#   reframed — The diagnostic requires significant reinterpretation for D2C.
+
+pack_metadata:
+  sector: "d2c-consumer"
+  display_name: "D2C Consumer"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# DIAGNOSTIC RULES
+# ═══════════════════════════════════════════════════════════════
+
+diagnostic_rules:
+
+  # ─────────────────────────────────────────────
+  # 1. CUSTOMER CHURN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "customer-churn-diagnosis"
+    sector_adaptation: "reframed"
+    adaptation_rationale: "D2C 'churn' manifests differently than in subscription businesses. The majority of D2C customers are one-time purchasers who never return — the question is not 'why did they cancel?' but 'why did they not come back?' For subscription D2C brands, churn has distinct patterns: subscription fatigue, product accumulation (too much product stockpiled), and identity misalignment (the customer no longer identifies with the brand). The diagnostic must address both non-return (one-time purchase models) and cancellation (subscription models)."
+    additional_triage_questions:
+      - question: "What percentage of your customers make a second purchase? What is the median time between first and second purchase?"
+        purpose: "In D2C, the first-to-second purchase conversion is the most critical retention metric. It distinguishes brands with genuine customer relationships from brands running an acquisition treadmill."
+        routing_impact: "Second purchase rate below 20% routes to product-market-fit-diagnosis and net-promoter-score analysis. Rate above 30% with declining trend routes to experience degradation investigation."
+      - question: "For customers who do not repurchase, what is the primary reason — product dissatisfaction, price sensitivity, forgotten brand, or product not needed again?"
+        purpose: "Each non-return reason requires a different intervention: product improvement, pricing restructuring, retention marketing, or assortment expansion."
+        routing_impact: "Product dissatisfaction routes to net-promoter-score and return-rate analysis. Price sensitivity routes to pricing-diagnosis. Forgotten brand routes to email/SMS strategy and community building. Not needed again routes to assortment expansion and category strategy."
+      - question: "If you have subscriptions, when do subscribers cancel — within the first 3 months (trial failure), at months 4-6 (product accumulation), or after 6+ months (subscription fatigue)?"
+        purpose: "Subscription churn timing reveals the root cause. Early churn is product or expectation failure. Mid-tenure churn is often product accumulation. Late churn is subscription fatigue or competitive switching."
+        routing_impact: "Early churn routes to onboarding and first-box experience optimization. Mid-tenure routes to subscription flexibility (skip, swap, pause options). Late churn routes to community investment and loyalty deepening."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Discount-acquired customers churning at higher rates"
+          reason: "D2C customers acquired through deep discounts have 30-50% lower repeat purchase rates than full-price customers. Discount acquisition selects for price-sensitive buyers with no brand loyalty."
+        - diagnosis: "Post-purchase experience failure"
+          reason: "In D2C, the experience between purchase and repurchase — shipping speed, packaging quality, post-purchase communication — determines whether the customer returns. Product quality alone is insufficient."
+      less_likely:
+        - diagnosis: "Feature or functionality gap"
+          reason: "D2C products are physical goods. Customers rarely churn because of missing 'features.' They churn because the product did not match expectations, the experience disappointed, or they forgot the brand exists."
+    d2c_specific_diagnoses:
+      - name: "Discount addiction eroding full-price demand"
+        description: "The brand has trained customers to expect discounts by running frequent sales, welcome discount codes, and promotional events. Full-price conversion rate has declined as customers learn to wait for the next promotion. The customer file splits into two populations: a shrinking group of full-price loyalists and a growing group of deal-seekers who only buy on sale."
+        symptoms:
+          - "Percentage of orders with a discount code exceeding 50%"
+          - "Full-price conversion rate declining quarter-over-quarter"
+          - "Revenue spikes during sales periods with dead zones between them"
+          - "Customer segments showing bimodal purchasing behavior (full-price loyalists vs. discount-only buyers)"
+        routes_to_skills: ["four-ps-marketing", "cialdini-influence", "systems-thinking"]
+        routes_to_templates: ["action-plan", "decision-rationale-memo"]
+      - name: "Subscription churn cliff at months 3-4"
+        description: "Subscribers are canceling en masse at the 3-4 month mark, suggesting that the initial subscription commitment (often encouraged by a heavy first-month discount) does not translate into sustained value perception. Product accumulation, subscription fatigue, or lack of variety drives cancellation."
+        symptoms:
+          - "Subscription churn concentrated at months 3-4 (visible in cohort analysis)"
+          - "Significant first-order discount on subscriptions (30%+ off first box)"
+          - "Customers reporting 'too much product' or 'still have some left' as cancellation reasons"
+          - "No subscription flexibility options (skip, pause, swap)"
+        routes_to_skills: ["business-model-canvas", "net-promoter-score", "systems-thinking"]
+        routes_to_templates: ["unit-economics-snapshot", "action-plan"]
+      - name: "Return rate crisis destroying contribution margin"
+        description: "Return rates have risen to a level that materially erodes contribution margin. Each return costs the brand the outbound shipping, return shipping, restocking labor, and often the product itself (unsellable after return). At 25%+ return rates, the brand may be losing money on every sale even with healthy gross margins."
+        symptoms:
+          - "Return rate above category benchmarks and rising"
+          - "Contribution margin declining despite stable gross margin"
+          - "Customer reviews citing 'not as pictured' or 'different from expected'"
+          - "Return rate higher for paid acquisition customers than organic customers"
+        routes_to_skills: ["kaizen-bpr", "systems-thinking", "net-promoter-score"]
+        routes_to_templates: ["action-plan", "incident-postmortem"]
+    sector_red_flags:
+      - "Repeat purchase rate declining for 3+ consecutive cohorts — the brand is getting worse at creating loyalty, not better."
+      - "Subscription churn above 10% monthly sustained for 3+ months — the subscription model is fundamentally broken."
+      - "Return rate increasing while ad spend increases — a sign that broader targeting reaches less-aligned customers who return at higher rates."
+
+  # ─────────────────────────────────────────────
+  # 2. GROWTH STALL DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "growth-stall-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C growth stalls have characteristic patterns driven by channel saturation, brand lifecycle, and the economics of paid acquisition. Unlike SaaS, where growth stalls often trace to a single metric (NRR, activation rate), D2C stalls are frequently multi-causal — rising CAC, declining creative performance, and brand fatigue can compound simultaneously."
+    additional_triage_questions:
+      - question: "Has your blended CAC increased, your ROAS decreased, or both over the last 3-6 months?"
+        purpose: "Rising CAC and declining ROAS are the most common growth stall triggers in D2C. They can result from channel saturation, creative fatigue, audience exhaustion, or platform algorithm changes."
+        routing_impact: "Rising CAC with stable ROAS routes to channel diversification strategy. Declining ROAS with stable spend routes to creative refresh and brand investment. Both deteriorating routes to systems-thinking for holistic analysis."
+      - question: "What percentage of your revenue comes from paid acquisition versus owned channels (email, SMS, organic) and repeat customers?"
+        purpose: "A brand stalling at 70%+ paid acquisition dependency has a structural problem — it has built a customer rental business, not a brand. Growth stalls when paid channels saturate."
+        routing_impact: "Heavy paid dependency (>60%) routes to brand investment strategy and community building. Balanced mix with stalling growth routes to product assortment and market expansion analysis."
+      - question: "Has your ad creative performance declined — are winning ads fatiguing faster and new ads performing worse than historical norms?"
+        purpose: "Creative fatigue is the most underdiagnosed growth stall in D2C. When the audience has seen every angle, testimonial, and hook, new creative performs worse and CAC rises. This is a creative problem, not a media buying problem."
+        routing_impact: "Creative fatigue routes to creative-practice-and-habit and UGC strategy. Stable creative performance with stalling growth routes to market saturation analysis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Channel saturation"
+          reason: "D2C brands frequently exhaust their primary paid channel (typically Meta) and must either diversify to new channels (TikTok, Google, influencer, podcast) or shift investment toward organic growth."
+        - diagnosis: "Brand lifecycle maturity"
+          reason: "D2C brands follow a lifecycle: insurgent novelty, cultural adoption, mainstream saturation, and staleness. Growth stalls often coincide with the transition from adoption to saturation."
+      less_likely:
+        - diagnosis: "Product quality decline"
+          reason: "Growth stalls in D2C are rarely caused by product quality deterioration. They are almost always distribution, brand, or creative problems."
+    d2c_specific_diagnoses:
+      - name: "CAC death spiral"
+        description: "The brand is trapped in a reinforcing loop: rising acquisition costs compress margins, which reduces the budget available for brand building, which increases dependence on paid acquisition, which further raises CAC. The brand spends more to acquire fewer customers at lower margins, accelerating toward unprofitability."
+        symptoms:
+          - "Blended CAC increasing for 3+ consecutive months"
+          - "ROAS declining across all paid channels simultaneously"
+          - "Brand investment (content, community, PR) being cut to fund paid acquisition"
+          - "Organic traffic declining as a percentage of total while paid traffic increases"
+          - "Contribution margin shrinking as CAC consumes more of each order's value"
+        routes_to_skills: ["systems-thinking", "blue-ocean-strategy", "tipping-point"]
+        routes_to_templates: ["strategic-analysis-one-pager", "action-plan"]
+      - name: "iOS attribution blindness"
+        description: "The brand cannot accurately measure channel-level performance due to iOS ATT (App Tracking Transparency) and platform privacy changes. Media buyers are operating on inaccurate data — platform-reported ROAS diverges from actual business performance, leading to misallocated spend and inability to identify which channels are truly working."
+        symptoms:
+          - "Platform-reported ROAS diverges 30%+ from actual business-level ROAS"
+          - "CAC calculated from platform data does not reconcile with blended CAC from financial data"
+          - "Increasing spend on channels that platform data says are performing but business results do not confirm"
+          - "Inability to explain revenue changes through channel-level data"
+        routes_to_skills: ["balanced-scorecard", "systems-thinking", "scenario-planning"]
+        routes_to_templates: ["action-plan", "new-initiative-brief"]
+    sector_red_flags:
+      - "Blended CAC increasing for 4+ consecutive months — the acquisition engine is losing efficiency and no channel adjustment will fix it without brand investment."
+      - "Creative win rate (percentage of new ads that meet ROAS threshold) declining below 15% — creative exhaustion is the bottleneck."
+      - "Organic traffic declining as a percentage of total while revenue grows — the brand is becoming more paid-dependent, which is fragile and unsustainable."
+
+  # ─────────────────────────────────────────────
+  # 3. PRODUCT-MARKET FIT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "product-market-fit-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C product-market fit is BRAND-market fit. A product that customers like but do not love is not PMF — it is a commodity. True D2C PMF manifests as emotional attachment to the brand, organic advocacy, and repeat purchasing driven by identity, not just utility."
+    additional_triage_questions:
+      - question: "If your brand disappeared tomorrow, would your customers genuinely miss it — or would they simply buy an alternative? How do you know?"
+        purpose: "This question forces honesty about whether the brand has achieved emotional connection (PMF) or merely functional adequacy (commodity). NPS Promoters who cite the brand's values, community, or identity signal true PMF."
+        routing_impact: "Customers would not miss the brand routes to fundamental brand strategy work. Customers would miss it routes to distribution and growth strategy."
+      - question: "What percentage of your growth is organic — word-of-mouth, direct traffic, social mentions, and unpaid referrals?"
+        purpose: "Organic growth above 40% is the strongest PMF signal in D2C. Below 20% suggests the product is not generating advocacy."
+        routing_impact: "Organic below 20% routes to brand and product reassessment. Above 40% routes to scaling and distribution strategy."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Product-market fit exists for a niche but the brand is targeting too broadly"
+          reason: "D2C brands frequently have PMF with a specific identity group (e.g., 'outdoor-active women who value sustainability') but dilute it by targeting everyone."
+        - diagnosis: "Brand-market fit absent despite product satisfaction"
+          reason: "Customers may like the product but feel no emotional connection to the brand. They buy once but do not return because the brand is forgettable."
+      less_likely:
+        - diagnosis: "Product is fundamentally flawed"
+          reason: "If any customers love the product (repeat purchase + NPS 9-10), the product works for someone. The question is whether the brand and distribution can reach enough of those people."
+    d2c_specific_diagnoses:
+      - name: "Product-market fit without brand-market fit"
+        description: "Customers like the product — ratings are high, return rates are low, and initial purchase intent is strong. But the brand has not built emotional connection: repeat purchase rate is low, NPS is mediocre, and organic growth is minimal. The product is a commodity with good reviews, not a brand with loyal customers."
+        symptoms:
+          - "Average product rating above 4.0 stars but repeat purchase rate below 20%"
+          - "NPS in the 20-35 range (satisfied, not enthusiastic)"
+          - "Organic traffic below 25% of total"
+          - "Customer reviews praise the product but never mention the brand by name"
+        routes_to_skills: ["story-structure-and-arc", "creative-identity-and-purpose", "tipping-point"]
+        routes_to_templates: ["strategic-analysis-one-pager", "new-initiative-brief"]
+    sector_red_flags:
+      - "Repeat purchase rate below 15% after 12 months — customers are not coming back regardless of acquisition efficiency."
+      - "NPS below 35 — customers are not enthusiastic enough to advocate."
+      - "Organic traffic below 20% — the brand is not generating pull demand."
+
+  # ─────────────────────────────────────────────
+  # 4. PRICING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "pricing-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Pricing in D2C is a brand signal, not a cost-plus calculation. The price tells the customer who the brand is for and what it stands for. Under-pricing signals commodity positioning and traps the brand in a CAC race. Over-pricing without brand justification creates sticker shock. The diagnostic must address pricing as brand strategy, not just margin optimization."
+    additional_triage_questions:
+      - question: "How does your price compare to the Amazon equivalent for a functionally similar product? What justifies the premium?"
+        purpose: "D2C brands must charge a premium over commodity alternatives to fund brand building, customer experience, and direct distribution. If the premium is not justified by brand, experience, or quality, customers eventually discover the cheaper alternative."
+        routing_impact: "No clear premium justification routes to brand strategy and value proposition development. Clear premium with low conversion routes to value communication improvement."
+      - question: "What percentage of orders include a discount code, and what is the average discount depth?"
+        purpose: "If more than 40% of orders use discount codes, the brand has a pricing problem disguised as a promotion strategy. Customers have learned that full price is a suggestion."
+        routing_impact: "High discount frequency routes to discount weaning strategy and pricing restructuring. Low discount frequency with conversion concerns routes to value communication and social proof investment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Under-pricing eroding brand perception"
+          reason: "Many D2C brands price too low in an attempt to compete with Amazon, destroying the margin needed for brand building and signaling commodity positioning."
+        - diagnosis: "Discount dependency masking pricing failure"
+          reason: "Frequent discounts generate revenue spikes but train price-sensitivity. The 'real' price is the discounted price — the listed price is fiction."
+      less_likely:
+        - diagnosis: "Over-pricing relative to value"
+          reason: "D2C customers buying directly from brands expect to pay a premium for the brand experience. Over-pricing is less common than under-pricing in D2C."
+    d2c_specific_diagnoses:
+      - name: "Discount addiction spiral"
+        description: "The brand has created a dependency on promotional pricing. Customers have learned to wait for sales, welcome codes are shared publicly on coupon sites, and full-price conversion rate has collapsed. The brand cannot reduce discounting without an immediate revenue drop, creating a trap."
+        symptoms:
+          - "More than 50% of orders using a discount code"
+          - "Full-price conversion rate declining for 3+ months"
+          - "Discount codes appearing on Honey, RetailMeNot, and other coupon aggregators"
+          - "Revenue concentrated in sale periods with dead periods between promotions"
+          - "Average selling price declining while listed price is unchanged"
+        routes_to_skills: ["systems-thinking", "four-ps-marketing", "prisoners-dilemma-and-cooperation"]
+        routes_to_templates: ["action-plan", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Average discount depth exceeding 25% across all orders — the brand is giving away its margin."
+      - "Price below 2x COGS — insufficient margin to fund acquisition, fulfillment, and brand building."
+      - "Price within 10% of Amazon alternatives without clear brand differentiation — the brand will lose to Amazon on convenience."
+
+  # ─────────────────────────────────────────────
+  # 5. FUNDRAISING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "fundraising-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C fundraising has shifted dramatically since 2021. Investors who once valued top-line growth now demand path to profitability, strong unit economics, and proof of brand moat. D2C companies must demonstrate that the brand is an asset — not just that the product sells — and that the business can be profitable without indefinite venture capital."
+    additional_triage_questions:
+      - question: "What is your contribution margin after all variable costs (COGS, fulfillment, shipping, returns, payment processing, customer acquisition)? Is it positive?"
+        purpose: "Positive contribution margin is a gating criterion for D2C fundraising in 2024-2026. Negative contribution margin at Series A is nearly disqualifying. Investors have been burned by D2C brands that grew revenue while losing money on every order."
+        routing_impact: "Negative contribution margin routes to unit economics fix before fundraising. Positive margin routes to growth strategy and fundraising execution."
+      - question: "What is your organic traffic percentage, repeat purchase rate, and NPS? Can you demonstrate that customers love the brand, not just the product?"
+        purpose: "These three metrics together measure brand strength — the asset D2C investors are underwriting. Strong product metrics with weak brand metrics signal a commodity business that cannot sustain margins at scale."
+        routing_impact: "Weak brand metrics routes to brand-building investment before fundraising. Strong brand metrics routes to fundraising deck preparation with brand narrative emphasis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Unit economics not ready for fundraising"
+          reason: "The most common D2C fundraising failure is attempting to raise with negative or marginal contribution margin. Post-2021, investors require unit economics proof, not just growth."
+        - diagnosis: "Brand narrative absent from fundraising story"
+          reason: "D2C pitches that lead with revenue and growth without articulating why the brand is defensible fail to differentiate from the hundreds of D2C brands that raised in 2019-2021 and subsequently struggled."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "Consumer markets are generally large enough for venture returns. The 'market too small' objection in D2C usually means the brand has not articulated its expansion path (categories, channels, geographies)."
+    d2c_specific_diagnoses:
+      - name: "Revenue-rich, brand-poor pitch"
+        description: "The company has impressive revenue numbers but cannot articulate why the brand is defensible, why customers love it, or how it will maintain margins at scale. Investors see a commerce business that happens to sell through a website, not a brand business with a moat."
+        symptoms:
+          - "Investor meetings ending with 'impressive growth but what's the moat?' feedback"
+          - "Pitch deck heavy on financial charts but light on brand story, community data, and customer advocacy metrics"
+          - "Organic traffic below 30% of total — signaling paid-acquisition dependency"
+          - "No community metrics (NPS, repeat rate, UGC volume) in the pitch materials"
+        routes_to_skills: ["story-structure-and-arc", "blue-ocean-strategy", "business-model-canvas"]
+        routes_to_templates: ["fundraising-deck-outline", "market-opportunity-summary"]
+    sector_red_flags:
+      - "Negative contribution margin at Series A stage — most D2C investors will not engage."
+      - "LTV:CAC below 2x — the business destroys value with every customer acquired."
+      - "Organic traffic below 25% — the brand has no pull demand, only rented attention."
+
+  # ─────────────────────────────────────────────
+  # 6. REVENUE DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "revenue-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C revenue decomposes into components that reveal business health: new customer revenue (acquisition engine), repeat customer revenue (brand loyalty), subscription revenue (committed relationship), email/SMS revenue (owned channel), and channel-level revenue (DTC vs. Amazon vs. wholesale). Each component has different economics and different implications."
+    additional_triage_questions:
+      - question: "What percentage of this month's revenue came from new customers versus repeat customers? How has this ratio trended over the last 6 months?"
+        purpose: "A healthy D2C brand should see repeat revenue growing as a percentage over time. If new customer revenue consistently dominates (>70%), the brand has not built retention — it is on an acquisition treadmill."
+        routing_impact: "High new-customer dependency routes to retention strategy (email, community, loyalty). Healthy repeat mix with stalling growth routes to acquisition channel expansion."
+      - question: "What percentage of revenue comes from email and SMS versus paid advertising?"
+        purpose: "Email/SMS revenue is the most profitable revenue in D2C. If it represents less than 20% of total, the brand is under-monetizing its owned audience."
+        routing_impact: "Low email/SMS revenue routes to email/SMS strategy development. Already strong routes to optimization and list growth."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Revenue quality declining as volume grows"
+          reason: "D2C brands scaling through discounts and broad paid targeting often see total revenue grow while revenue quality (contribution margin per order, repeat purchase rate of new cohorts) declines."
+      less_likely:
+        - diagnosis: "Market demand decline"
+          reason: "Consumer markets rarely collapse. Revenue decline in D2C is almost always a brand, channel, or execution problem — not a market problem."
+    d2c_specific_diagnoses:
+      - name: "Channel cannibalization destroying margins"
+        description: "Expansion into Amazon, wholesale, or retail is cannibalizing higher-margin DTC revenue. Customers who would have purchased on the DTC site at full margin are instead buying through lower-margin channels. Total revenue may grow but total contribution margin declines."
+        symptoms:
+          - "DTC revenue declining or flat while Amazon/wholesale revenue grows"
+          - "Blended contribution margin declining despite growing revenue"
+          - "Brand searches converting to Amazon purchases (customers Google the brand name and buy on Amazon)"
+          - "Wholesale partners discounting below the DTC site price"
+        routes_to_skills: ["business-model-canvas", "porters-five-forces", "scenario-planning"]
+        routes_to_templates: ["unit-economics-snapshot", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Repeat customer revenue declining as a percentage of total for 3+ months — the brand is losing loyalty."
+      - "Email/SMS revenue below 15% of total — the brand is under-monetizing its owned audience."
+      - "Revenue growing while contribution margin declines — the growth is unprofitable."
+
+  # ─────────────────────────────────────────────
+  # 7. COMPETITIVE THREAT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "competitive-threat-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C competitive threats come from three directions simultaneously: direct D2C competitors (other brands in the same category), Amazon private label (Amazon Basics, Solimo, and hundreds of white-label products), and incumbent consumer brands launching DTC channels. The barrier to entry is near zero, meaning new competitors emerge constantly."
+    additional_triage_questions:
+      - question: "Is the competitive threat from another D2C brand, from Amazon private label entering your category, from a traditional brand launching a DTC channel, or from a retailer creating a private-label alternative?"
+        purpose: "Each threat type requires a different response. D2C competitors require brand differentiation. Amazon requires category defensibility. Incumbent DTC requires speed and community advantage. Retailer private label requires channel strategy."
+        routing_impact: "D2C competitor routes to blue-ocean-strategy and brand deepening. Amazon threat routes to brand moat analysis and community investment. Incumbent DTC routes to first-mover-strategy and community advantage leverage."
+      - question: "Are customers switching to the competitor on price, brand, product quality, or convenience?"
+        purpose: "Understanding the switching dimension determines the response. Price switching requires brand premium justification. Brand switching requires brand revitalization. Quality switching requires product improvement. Convenience switching requires experience and distribution investment."
+        routing_impact: "Price switching routes to pricing-diagnosis and value communication. Brand switching routes to creative-identity-and-purpose and story-structure-and-arc. Convenience switching routes to fulfillment and channel strategy."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Amazon private label entering the category"
+          reason: "Amazon systematically identifies high-volume D2C categories and launches private-label alternatives at 30-50% lower prices. This is the existential competitive threat for any D2C brand without a genuine brand moat."
+        - diagnosis: "Competitor outspending on paid acquisition"
+          reason: "A well-funded D2C competitor can outbid on paid channels, driving up the CAC for everyone in the category. This is a prisoner's dilemma that the better-funded player typically wins."
+      less_likely:
+        - diagnosis: "Technology disruption"
+          reason: "D2C competitive advantages are brand and distribution, not technology. Technology disruptions (AI, AR try-on) are opportunities for differentiation, not existential threats."
+    d2c_specific_diagnoses:
+      - name: "Amazon channel conflict undermining brand"
+        description: "The brand sells on both its DTC site and Amazon. Amazon is growing faster but at lower margins, customers are migrating from DTC to Amazon for convenience, and the brand is losing control of pricing, customer data, and brand presentation. The Amazon listing has become the primary brand touchpoint — and the brand does not control it."
+        symptoms:
+          - "Amazon revenue growing while DTC revenue declines"
+          - "Branded search terms leading to Amazon purchases (visible in Google Search Console)"
+          - "Unauthorized resellers or gray market sellers on Amazon competing with the brand's own listing"
+          - "Amazon suggesting competitor products on the brand's own product page"
+          - "Customer reviews on Amazon diverging from DTC reviews (different expectations, different populations)"
+        routes_to_skills: ["porters-five-forces", "prisoners-dilemma-and-cooperation", "business-model-canvas"]
+        routes_to_templates: ["competitive-landscape-brief", "decision-rationale-memo"]
+    sector_red_flags:
+      - "Amazon private label launching in your category with similar product specs at 40%+ lower price."
+      - "A competitor raising $20M+ and dramatically increasing paid media spend in your category — expect CAC to rise for everyone."
+      - "Unauthorized sellers appearing on Amazon with your product at below-MAP pricing."
+
+  # ─────────────────────────────────────────────
+  # 8. STRATEGIC DRIFT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "strategic-drift-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C strategic drift most commonly manifests as brand dilution — the gradual expansion of the brand's positioning until it stands for everything and means nothing. Drift occurs through SKU proliferation, audience broadening, discount dependency, and channel expansion without brand coherence."
+    additional_triage_questions:
+      - question: "Has the brand expanded into product categories or customer segments that are inconsistent with its founding identity? Does the brand still stand for something specific?"
+        purpose: "Brand dilution is the most dangerous form of strategic drift in D2C. A brand that started as 'premium minimalist skincare for women who reject complexity' and expanded into 'affordable beauty products for everyone' has drifted from its positioning."
+        routing_impact: "Brand dilution routes to creative-identity-and-purpose and business-model-canvas for brand re-anchoring. Consistent positioning routes to operational drift investigation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Brand dilution through SKU proliferation"
+          reason: "D2C brands frequently expand their product assortment to drive AOV and frequency, adding SKUs that are inconsistent with the brand's identity. More products means a less focused brand."
+        - diagnosis: "Channel drift weakening brand coherence"
+          reason: "Selling through Amazon, wholesale, and retail simultaneously creates pressure to accommodate different audiences, price points, and presentation standards — diluting the DTC brand experience."
+      less_likely:
+        - diagnosis: "Market disruption causing involuntary drift"
+          reason: "D2C strategic drift is almost always self-inflicted — expansion choices, not market forces."
+    d2c_specific_diagnoses:
+      - name: "Brand dilution through category overextension"
+        description: "The brand has expanded from its core category into adjacent categories too quickly, losing the specificity that made it special. Customers no longer know what the brand stands for. The original community feels alienated. New categories underperform because the brand has no authority in them."
+        symptoms:
+          - "Launched 3+ new product categories in 12 months"
+          - "New category products underperforming the core category by 50%+"
+          - "NPS declining among original customer cohorts"
+          - "Brand perception surveys showing confusion ('I don't know what they're really about anymore')"
+          - "Social media engagement declining as content shifts from focused to broad"
+        routes_to_skills: ["blue-ocean-strategy", "product-life-cycle", "creative-identity-and-purpose"]
+        routes_to_templates: ["strategic-analysis-one-pager", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "NPS declining among the founding customer segment — the core audience that built the brand is losing enthusiasm."
+      - "Brand search volume plateauing while the product catalog doubles — more products are not generating more brand interest."
+
+  # ─────────────────────────────────────────────
+  # 9. TEAM DYSFUNCTION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "team-dysfunction-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C team dysfunction often centers on the tension between creative/brand and performance/acquisition teams. The creative team wants to build the brand through content and storytelling; the performance marketing team wants to optimize ROAS through direct-response ads. Without alignment, these functions work at cross-purposes."
+    additional_triage_questions:
+      - question: "Is there tension between brand/creative and performance marketing — do these teams have conflicting goals or metrics?"
+        purpose: "The brand-performance tension is the most common and most damaging team dysfunction in D2C. Creative teams measured on brand metrics and performance teams measured on ROAS will inevitably conflict."
+        routing_impact: "Brand-performance misalignment routes to balanced-scorecard for unified metrics and strategic-thinking-and-alignment for goal alignment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Creative-performance misalignment"
+          reason: "D2C companies often separate brand and performance marketing into different teams with different goals, creating internal conflict that weakens both functions."
+      less_likely:
+        - diagnosis: "Individual performance issues"
+          reason: "What looks like individual underperformance in D2C is often a structural problem: wrong metrics, unclear creative process, or misaligned incentives."
+    d2c_specific_diagnoses:
+      - name: "Founder identity fusion with brand"
+        description: "The founder's personal identity is so deeply fused with the brand that all brand decisions must flow through them, creating a bottleneck. The team cannot make creative decisions, approve content, or evolve the brand voice without founder approval. When the founder is unavailable, the brand stalls."
+        symptoms:
+          - "Every piece of content requires founder approval"
+          - "No brand guidelines document that enables independent creative decisions"
+          - "Team members describing the brand in inconsistent terms"
+          - "Content production velocity constrained by founder's bandwidth, not team's capacity"
+        routes_to_skills: ["delegation-and-empowerment", "organisational-culture", "creative-identity-and-purpose"]
+        routes_to_templates: ["culture-values-document", "action-plan"]
+    sector_red_flags:
+      - "Creative team and performance marketing team using different success metrics with no shared dashboard."
+      - "Content production velocity declining while team size increases — a process and decision-making bottleneck."
+
+  # ─────────────────────────────────────────────
+  # 10. COFOUNDER CONFLICT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "cofounder-conflict-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Co-founder conflict in D2C often centers on the brand-commerce tension: one founder is brand-oriented (creative vision, storytelling, community) and the other is commerce-oriented (unit economics, channel optimization, operational efficiency). Both perspectives are essential, and the conflict arises when one dominates."
+    additional_triage_questions:
+      - question: "Does the conflict center on brand direction (creative vision, brand investments), commercial strategy (pricing, channels, unit economics), or resource allocation between brand building and revenue generation?"
+        purpose: "D2C co-founder conflicts cluster around the brand-commerce axis. Each resolution path requires different frameworks."
+        routing_impact: "Brand direction conflict routes to creative-identity-and-purpose and defining-and-exploring-problems. Commercial conflict routes to balanced-scorecard and evaluating-and-deciding. Resource allocation routes to scenario-planning and cooperative-negotiation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Brand-commerce vision tension"
+          reason: "D2C brands with a creative co-founder and a commercial co-founder almost always experience tension between brand investment (long-term, hard to measure) and revenue optimization (short-term, highly measurable)."
+      less_likely:
+        - diagnosis: "Fundamental vision misalignment"
+          reason: "Most D2C co-founders agree on what the brand should be — they disagree on how fast to grow, how much to invest in brand versus performance, and when to expand."
+    d2c_specific_diagnoses:
+      - name: "Brand vision versus growth pressure"
+        description: "One co-founder insists on maintaining brand purity (premium positioning, limited discounting, curated assortment) while the other pushes for growth at any cost (broader product line, Amazon expansion, deeper discounts). The board or investors add pressure for growth metrics, tipping the balance toward the commerce-first perspective and alienating the brand-first co-founder."
+        symptoms:
+          - "Co-founders publicly disagreeing on discount strategy, channel expansion, or product line breadth"
+          - "Brand guidelines being overridden by growth experiments"
+          - "Creative team reporting to the brand co-founder while performance team reports to the growth co-founder"
+          - "Board presentations alternating between brand-forward and growth-forward narratives"
+        routes_to_skills: ["cooperative-negotiation", "balanced-scorecard", "evaluating-and-deciding"]
+        routes_to_templates: ["decision-journal", "quarterly-strategic-review"]
+    sector_red_flags:
+      - "Co-founders making contradictory brand decisions — one approving a deep discount campaign while the other invests in premium positioning."
+      - "Key creative or marketing hires leaving due to inconsistent brand direction."
+
+  # ─────────────────────────────────────────────
+  # 11. MARKET ENTRY DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "market-entry-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C market entry is primarily about brand positioning — which emotional territory to claim and which identity group to serve. The product can be manufactured and shipped anywhere; the question is whether the brand can claim a meaningful position in a consumer's identity."
+    additional_triage_questions:
+      - question: "What brand position are you claiming — what emotional territory, identity group, or cultural movement does the brand represent?"
+        purpose: "D2C brands enter markets through positioning, not products. 'We make better razors' is a product claim. 'We make grooming honest, affordable, and fun' is a brand position."
+        routing_impact: "No clear brand position routes to blue-ocean-strategy and creative-identity-and-purpose before market entry. Clear position routes to channel strategy and launch execution."
+      - question: "Have you validated demand through pre-launch community building, waitlist, or crowdfunding — or are you launching cold?"
+        purpose: "D2C brands that build community before launching product have dramatically better first-month economics and higher repeat rates."
+        routing_impact: "No pre-launch validation routes to community building and waitlist strategy before launch. Validated demand routes to launch execution and channel optimization."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Entering a crowded category without differentiated brand positioning"
+          reason: "Most consumer categories have hundreds of D2C brands. Entry without a differentiated brand position means competing on price and ads — a losing proposition."
+      less_likely:
+        - diagnosis: "Market too small"
+          reason: "Consumer markets are large. The question is not whether enough people buy skincare but whether your brand can capture a meaningful slice of those buyers' identity."
+    d2c_specific_diagnoses:
+      - name: "Commodity entry disguised as brand launch"
+        description: "The brand is entering a market with a product that is functionally identical to existing alternatives (same formulation, same manufacturer, similar packaging) and differentiated only by a new logo, color scheme, and Instagram aesthetic. There is no genuine brand story, no community, and no experience innovation — just a new label on an existing product."
+        symptoms:
+          - "Product sourced from a manufacturer that supplies 10+ other brands"
+          - "Value proposition centers on product features that competitors match"
+          - "No founder story or brand narrative beyond 'we make better [product]'"
+          - "Marketing plan is exclusively paid social with no community or content strategy"
+        routes_to_skills: ["blue-ocean-strategy", "story-structure-and-arc", "creative-identity-and-purpose"]
+        routes_to_templates: ["strategic-analysis-one-pager", "market-opportunity-summary"]
+    sector_red_flags:
+      - "Launching without a pre-built audience (email list < 1,000) — the brand will be 100% dependent on paid acquisition from day one."
+      - "Entering a category where Amazon private label already exists at a price point the D2C brand cannot match."
+
+  # ─────────────────────────────────────────────
+  # 12. HIRING DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "hiring-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C hiring challenges center on finding talent that bridges creative and commercial skillsets. The most critical and hardest-to-hire roles are: creative director (brand steward), performance marketing lead (channel operator), and supply chain/operations lead (fulfillment optimizer). D2C also demands culture fit with the brand — employees who do not authentically connect with the brand's identity produce inauthentic work."
+    additional_triage_questions:
+      - question: "Are you hiring for a creative/brand role or a commercial/operations role? Does the candidate genuinely connect with the brand's mission and identity?"
+        purpose: "D2C creative hires who do not love the brand will produce generic work. Operations hires who do not understand brand premium will optimize for cost at the expense of experience."
+        routing_impact: "Creative role routes to brand-aligned hiring criteria and portfolio evaluation. Commercial role routes to D2C-specific metrics literacy and stage-appropriate experience assessment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Hiring experience mismatch for company stage"
+          reason: "D2C brands frequently hire marketing leaders from large CPG companies who are accustomed to $50M budgets and established brands. These leaders struggle with the scrappy, creative, performance-driven reality of a $5M D2C brand."
+      less_likely:
+        - diagnosis: "Compensation competitiveness"
+          reason: "D2C brands attract talent through brand love and creative freedom, not just compensation. Mission-aligned candidates will accept below-market packages."
+    d2c_specific_diagnoses:
+      - name: "Influencer dependency on a single team member"
+        description: "All influencer and creator relationships are managed by one person. The relationships are personal, not institutional. If this person leaves, the brand loses its entire influencer program — relationships, creator contacts, negotiated rates, and institutional knowledge."
+        symptoms:
+          - "One team member managing all influencer relationships"
+          - "No CRM or system tracking influencer contacts, rates, and performance"
+          - "Influencer content quality and volume highly variable (depends on one person's capacity)"
+          - "Concern about business continuity if the influencer manager leaves"
+        routes_to_skills: ["systems-thinking", "delegation-and-empowerment"]
+        routes_to_templates: ["role-description-template", "action-plan"]
+    sector_red_flags:
+      - "VP Marketing hire from a Fortune 500 CPG company failing within 6 months — the most common and most expensive D2C hiring mistake."
+      - "Creative director hire producing work that looks 'professional' but lacks the brand's authentic voice and personality."
+
+  # ─────────────────────────────────────────────
+  # 13. OPERATIONAL CHAOS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "operational-chaos-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C operational chaos manifests in the physical supply chain: fulfillment delays, inventory mismanagement, return processing backlogs, and shipping cost overruns. Unlike SaaS (where operational chaos is software-related), D2C operational chaos involves physical goods, warehouses, and logistics — problems that cannot be patched with a code deploy."
+    additional_triage_questions:
+      - question: "Where is the operational chaos concentrated: inventory management (stockouts/overstock), fulfillment (speed/accuracy), shipping (cost/speed), returns (processing/refunds), or customer service (response time/quality)?"
+        purpose: "D2C operational chaos usually has a primary bottleneck. Identifying it prevents wasted effort on secondary problems."
+        routing_impact: "Inventory routes to demand forecasting and supply chain analysis. Fulfillment routes to 3PL evaluation and process optimization. Returns routes to returns workflow redesign. Customer service routes to support tooling and staffing."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Growth outpacing operational infrastructure"
+          reason: "D2C brands that scale revenue 3-5x in a year frequently outgrow their 3PL capacity, inventory planning processes, and customer service team — all simultaneously."
+      less_likely:
+        - diagnosis: "Process deficiency"
+          reason: "Early-stage D2C brands often have too little process (no demand forecasting, no inventory planning, no returns workflow) rather than wrong process."
+    d2c_specific_diagnoses:
+      - name: "3PL failure during peak season"
+        description: "The brand's third-party logistics provider cannot handle peak season volume. Fulfillment times balloon from 2 days to 7+ days, shipping errors increase, and customer complaints spike. The brand's reputation suffers during the highest-revenue period of the year."
+        symptoms:
+          - "Fulfillment SLA breaches increasing 3x during peak periods"
+          - "Customer service tickets about shipping doubling during Q4"
+          - "Negative reviews citing slow delivery and incorrect orders"
+          - "Social media complaints about shipping visible to prospective customers"
+        routes_to_skills: ["kaizen-bpr", "systems-thinking", "scenario-planning"]
+        routes_to_templates: ["incident-postmortem", "action-plan"]
+    sector_red_flags:
+      - "Average fulfillment time exceeding 3 business days — customers expect 2-day delivery and compare against Amazon Prime."
+      - "Stockout rate above 5% on hero products — every stockout is a lost sale and potential lost customer."
+      - "Customer service response time exceeding 24 hours — a signal that operational scaling has not kept pace with growth."
+
+  # ─────────────────────────────────────────────
+  # 14. LEADERSHIP CRISIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "leadership-crisis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C leadership crises carry unique brand risk because the founder's personal brand is often fused with the company brand. A founder controversy, burnout, or departure can directly damage brand perception — something that does not happen when a SaaS CEO has a bad week."
+    additional_triage_questions:
+      - question: "Is the leadership crisis visible to customers, the community, or the public — or is it contained internally?"
+        purpose: "In D2C, a founder's public misstep, social media controversy, or visible departure can damage the brand because customers feel a personal connection to the founder. Internal crises must be managed with brand protection as a primary concern."
+        routing_impact: "Publicly visible crisis routes to immediate brand protection and communication strategy. Internal crisis routes to standard leadership intervention."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Founder burnout from identity fusion with brand"
+          reason: "D2C founders who ARE the brand face unique burnout: they cannot separate personal identity from professional performance. Every negative review feels personal. Every brand criticism is a personal attack."
+      less_likely: []
+    d2c_specific_diagnoses: []
+    sector_red_flags:
+      - "Founder publicly expressing burnout or disillusionment on social media — the brand's most visible ambassador signaling fatigue."
+      - "Founder controversy trending on social media — the brand and the person are inseparable in the public eye."
+
+  # ─────────────────────────────────────────────
+  # 15. DECISION PARALYSIS DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "decision-paralysis-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C decision paralysis often stems from the tension between brand instinct (creative, emotional, intuitive) and data-driven analysis (ROAS, CAC, contribution margin). Founders delay decisions because the data points in one direction and their brand instinct points in another."
+    additional_triage_questions:
+      - question: "Is the decision paralysis about a brand decision (creative direction, positioning, channel choice) or an operational decision (pricing, inventory, staffing)?"
+        purpose: "Brand decisions benefit from conviction over data. Operational decisions benefit from data over conviction. Applying the wrong decision framework causes paralysis."
+        routing_impact: "Brand decision paralysis routes to creative-identity-and-purpose and defining-and-exploring-problems. Operational paralysis routes to evaluating-and-deciding with emphasis on reversibility assessment."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Data-instinct conflict"
+          reason: "D2C founders frequently face situations where data says 'run more discount ads' (higher ROAS) but instinct says 'this will dilute the brand.' The conflict creates paralysis."
+      less_likely:
+        - diagnosis: "Insufficient information"
+          reason: "D2C brands have abundant data (Shopify, Klaviyo, Meta, Google Analytics). The problem is rarely lack of information but inability to reconcile conflicting signals."
+    d2c_specific_diagnoses: []
+    sector_red_flags:
+      - "Amazon decision delayed more than 6 months — this is the most consequential and most frequently delayed decision in D2C."
+      - "Pricing unchanged for 12+ months despite market, cost, and brand evolution."
+
+  # ─────────────────────────────────────────────
+  # 16. INNOVATION DROUGHT DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "innovation-drought-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "Innovation drought in D2C manifests as brand staleness — the brand stops creating cultural conversation, content feels repetitive, new products are incremental rather than exciting, and the community loses energy. Unlike SaaS, where innovation drought is about features, D2C innovation drought is about cultural relevance."
+    additional_triage_questions:
+      - question: "When was the last time the brand created a genuine cultural moment — a product, campaign, or initiative that generated organic conversation beyond paid media?"
+        purpose: "D2C brands that stop creating cultural moments become invisible. The ability to generate earned media and organic social conversation is the health indicator for brand innovation."
+        routing_impact: "No cultural moment in 6+ months routes to creative-identity-and-purpose, tipping-point, and creative-practice-and-habit. Recent cultural moments with declining frequency routes to creative process optimization."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Content-commerce disconnect"
+          reason: "D2C brands in innovation drought often split into two disconnected modes: brand content that is creative but does not sell, and performance content that sells but does not build the brand. Neither creates cultural conversation."
+      less_likely:
+        - diagnosis: "Lack of creative talent"
+          reason: "Innovation drought in D2C is usually a strategic or process failure (wrong priorities, no creative brief, no testing culture) rather than a talent failure."
+    d2c_specific_diagnoses:
+      - name: "Content-commerce disconnect"
+        description: "The brand produces two types of content that never intersect: beautiful brand content that generates social engagement but zero sales, and performance ad content that drives purchases but builds no brand equity. The creative team and the performance team operate in parallel universes. No content achieves both objectives simultaneously."
+        symptoms:
+          - "High social engagement on brand content but no measurable revenue impact"
+          - "Performance ads generating sales with declining ROAS (creative exhaustion)"
+          - "Brand team and performance team producing content independently with no shared brief"
+          - "Brand content not tested as paid ads; performance content not informed by brand strategy"
+        routes_to_skills: ["creative-collaboration-and-context", "creative-practice-and-habit", "balanced-scorecard"]
+        routes_to_templates: ["new-initiative-brief", "action-plan"]
+    sector_red_flags:
+      - "No viral or high-engagement content in 3+ months — the brand is not contributing to cultural conversation."
+      - "UGC volume declining — customers are not inspired to create content about the brand."
+
+  # ─────────────────────────────────────────────
+  # 17. PARTNERSHIP DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "partnership-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C partnerships span influencer partnerships, retail partnerships, brand collaborations, and platform partnerships. Each type has distinct power dynamics, economic structures, and brand implications that the base diagnostic does not address."
+    additional_triage_questions:
+      - question: "Is this an influencer/creator partnership, a retail/distribution partnership, a brand collaboration, or a platform partnership (Amazon, TikTok Shop)?"
+        purpose: "Each partnership type has fundamentally different economics, risks, and brand implications."
+        routing_impact: "Influencer routes to cialdini-influence and tipping-point. Retail routes to four-ps-marketing and scenario-planning. Brand collaboration routes to blue-ocean-strategy. Platform routes to prisoners-dilemma-and-cooperation."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Influencer dependency on a small number of creators"
+          reason: "D2C brands frequently build their acquisition around 3-5 high-performing influencers. If those creators become unavailable (raise rates, switch to a competitor, retire), the brand's growth engine stalls."
+      less_likely:
+        - diagnosis: "Cultural misalignment"
+          reason: "D2C partnerships are primarily economic and creative. Brand-value alignment matters more than organizational cultural fit."
+    d2c_specific_diagnoses:
+      - name: "Influencer dependency creating single-point-of-failure"
+        description: "The brand's acquisition depends on a small number of influencers who drive a disproportionate share of revenue. The brand has not diversified its creator portfolio, creating vulnerability to rate increases, competitive poaching, and creator fatigue."
+        symptoms:
+          - "Top 3 influencers driving 40%+ of attributed influencer revenue"
+          - "No structured influencer recruitment pipeline to replace underperforming or departing creators"
+          - "Influencer rates increasing faster than influencer-driven revenue"
+          - "Brand unable to walk away from unfavorable creator terms because of dependency"
+        routes_to_skills: ["tipping-point", "systems-thinking", "prisoners-dilemma-and-cooperation"]
+        routes_to_templates: ["partnership-memo", "risk-assessment-brief"]
+    sector_red_flags:
+      - "A single influencer driving more than 15% of total revenue — catastrophic if that relationship ends."
+      - "Retail partner discounting below DTC price, undermining the brand's direct channel."
+
+  # ─────────────────────────────────────────────
+  # 18. COMMUNICATION BREAKDOWN DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "communication-breakdown-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C communication breakdowns extend beyond internal team communication to include brand-customer communication. The brand speaks through every touchpoint — ads, product pages, emails, packaging, social media, customer service — and inconsistency across touchpoints confuses customers and dilutes the brand."
+    additional_triage_questions:
+      - question: "Is the communication breakdown internal (between teams) or external (between brand and customer)? Does the brand speak with one voice across all touchpoints?"
+        purpose: "Internal breakdowns (creative and performance teams not aligned) manifest as external inconsistency (different brand voice in ads vs. emails vs. packaging). Diagnosing the root level matters."
+        routing_impact: "Internal breakdown routes to team-culture-and-dynamics and strategic-thinking-and-alignment. External inconsistency routes to creative-identity-and-purpose and brand guidelines development."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Brand voice inconsistency across channels"
+          reason: "D2C brands communicating through 5+ channels (website, email, SMS, social, packaging, ads) with different team members managing each channel frequently develop inconsistent brand voices."
+      less_likely: []
+    d2c_specific_diagnoses: []
+    sector_red_flags:
+      - "Customers describing the brand differently depending on where they encountered it — a sign that the brand voice is fragmented."
+      - "Social media tone dramatically different from email tone — the brand feels like two different companies."
+
+  # ─────────────────────────────────────────────
+  # 19. NEGOTIATION STUCK DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "negotiation-stuck-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C negotiations get stuck in characteristic ways: influencer rate negotiations where the brand lacks leverage, retail buyer negotiations where the power asymmetry is extreme, manufacturer negotiations over MOQs and payment terms, and investor negotiations where D2C-specific valuation multiples are poorly understood."
+    additional_triage_questions:
+      - question: "Is the negotiation stuck with an influencer/creator, a retail buyer, a manufacturer/supplier, or an investor?"
+        purpose: "Each negotiation type in D2C has distinct power dynamics and typical sticking points."
+        routing_impact: "Influencer routes to information-asymmetry and competitive-negotiation. Retail routes to cooperative-negotiation and business-model-canvas. Manufacturer routes to porters-five-forces. Investor routes to fundraising-diagnosis."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Power asymmetry"
+          reason: "D2C brands are frequently the smaller party: negotiating with retail buyers who control shelf space, manufacturers who hold production capacity, and influencers who have more options than the brand does."
+      less_likely:
+        - diagnosis: "Fundamental value disagreement"
+          reason: "D2C negotiations rarely stall on fundamental value. They stall on terms: minimum order quantities, payment terms, exclusivity, and rate structures."
+    d2c_specific_diagnoses: []
+    sector_red_flags:
+      - "Retail negotiations demanding exclusivity that would prevent DTC sales of key products."
+      - "Manufacturer demanding 12-month exclusivity on a product formulation that the brand does not own."
+
+  # ─────────────────────────────────────────────
+  # 20. CULTURE EROSION DIAGNOSIS
+  # ─────────────────────────────────────────────
+
+  - diagnostic: "culture-erosion-diagnosis"
+    sector_adaptation: "enhanced"
+    adaptation_rationale: "D2C culture erosion is uniquely dangerous because internal culture directly manifests in external brand expression. A demoralized creative team produces lifeless content. A customer service team that does not believe in the brand provides transactional support. In D2C, culture IS the brand — internal erosion becomes external erosion."
+    additional_triage_questions:
+      - question: "Does the team still authentically believe in and use the product? Do employees feel proud to tell people where they work?"
+        purpose: "D2C team members who do not use or love the product will produce inauthentic brand experiences. Employee pride is a leading indicator of brand health."
+        routing_impact: "Low product belief routes to product quality and brand purpose assessment. Low pride routes to organisational-culture and purpose-driven-leadership."
+    diagnosis_weight_shifts:
+      more_likely:
+        - diagnosis: "Growth-driven culture shift from mission to metrics"
+          reason: "D2C brands often start with mission-driven culture (sustainability, community, identity) and gradually shift to metrics-driven culture (ROAS, CAC, revenue targets) as investors and growth demands take over. The mission that attracted early employees and customers gets diluted."
+      less_likely:
+        - diagnosis: "Toxic leadership"
+          reason: "Culture erosion in D2C is more commonly caused by mission drift and growth pressure than by toxic behavior."
+    d2c_specific_diagnoses:
+      - name: "Community fatigue from over-monetization"
+        description: "The brand's community — social media followers, email subscribers, loyalty program members — has been over-monetized through constant promotional messaging. Engagement is declining, unsubscribe rates are rising, and the community that once amplified the brand is going silent. The community was treated as an audience to sell to rather than a group to serve."
+        symptoms:
+          - "Email open rates declining for 3+ months"
+          - "Social media engagement rate declining while follower count grows"
+          - "Unsubscribe rate increasing on email and SMS"
+          - "Community members expressing fatigue ('all you do is sell to me')"
+          - "UGC volume declining — customers no longer want to create content for the brand"
+        routes_to_skills: ["tipping-point", "cialdini-influence", "organisational-culture"]
+        routes_to_templates: ["action-plan", "culture-values-document"]
+    sector_red_flags:
+      - "Employees reluctant to share brand content on personal social media — they do not want to be associated with the brand."
+      - "Regrettable attrition on the creative team — the people who build the brand are leaving."
+      - "Community engagement declining despite growing community size — the audience is becoming passive."

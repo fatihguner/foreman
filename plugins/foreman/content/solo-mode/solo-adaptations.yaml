@@ -1,0 +1,396 @@
+# Solo Adaptations — Diagnostics, Playbooks, and Hooks
+#
+# Defines how each diagnostic, playbook, and hook behaves differently
+# when solo mode is active. The orchestrator and specialist agents
+# load this file at session start.
+#
+# Adaptation types:
+#   as-is   — Works without modification for solopreneurs.
+#   reframe — Relevant but requires changed questions, routing, or step instructions.
+#   skip    — Irrelevant in solo context. Reroute to alternative.
+
+# ─────────────────────────────────────────────
+# DIAGNOSTIC ADAPTATIONS (20 diagnostics)
+# ─────────────────────────────────────────────
+
+diagnostic_adaptations:
+
+  - name: "cofounder-conflict-diagnosis"
+    adaptation: "skip"
+    reason: "No co-founder. Solopreneurs do not have co-founder conflicts."
+    reroute: "If the solopreneur describes conflict with a business partner, contractor, or key client, route to negotiation-stuck-diagnosis or partnership-diagnosis instead."
+
+  - name: "communication-breakdown-diagnosis"
+    adaptation: "reframe"
+    reason: "Internal communication breakdown assumes a team. Reframe as client communication failure or personal clarity deficit."
+    changes:
+      - "Replace 'Is your team aligned on goals?' with 'Are your clients clear on scope, timeline, and deliverables?'"
+      - "Replace 'Are departments communicating effectively?' with 'Are you communicating consistently across all client relationships?'"
+      - "Replace 'Is there a single source of truth?' with 'Do you have documented processes that prevent miscommunication with clients and contractors?'"
+      - "Route to writing skills (clarity-and-concision, writing-effective-emails) rather than organisational-culture or psychological-safety."
+
+  - name: "competitive-threat-diagnosis"
+    adaptation: "as-is"
+    reason: "Competitive threats affect solo businesses identically. Larger competitors are in fact a more severe threat to solopreneurs who lack resources to respond."
+
+  - name: "culture-erosion-diagnosis"
+    adaptation: "skip"
+    reason: "Culture requires multiple people. A one-person business has values and brand identity, not organizational culture."
+    reroute: "If the solopreneur describes feeling disconnected from their work or losing motivation, route to strategic-drift-diagnosis or decision-paralysis-diagnosis. For brand integrity concerns, route to competitive-threat-diagnosis."
+
+  - name: "customer-churn-diagnosis"
+    adaptation: "as-is"
+    reason: "Customer churn is equally relevant to solo businesses. Retention dynamics, satisfaction measurement, and churn root causes apply without modification."
+
+  - name: "decision-paralysis-diagnosis"
+    adaptation: "reframe"
+    reason: "Decision paralysis is more acute for solopreneurs — there is no team, board, or co-founder to break ties or pressure-test options."
+    changes:
+      - "Replace 'Have you consulted your leadership team?' with 'Have you discussed this decision with a mentor, advisor, or trusted peer?'"
+      - "Replace 'Is the decision blocked by organizational politics?' with 'Is the decision blocked by fear of making the wrong choice alone?'"
+      - "Add triage question: 'Are you delaying because the decision is genuinely complex, or because there is no one to share the responsibility with?'"
+      - "Elevate routing priority for thinking/enemies-of-clear-thinking and decisions/tough-decision-situations."
+
+  - name: "fundraising-diagnosis"
+    adaptation: "reframe"
+    reason: "Solopreneurs may seek funding but the types and dynamics differ fundamentally from venture fundraising."
+    changes:
+      - "Replace 'Are you ready for institutional capital?' with 'Do you need external capital, and if so, what kind suits a solo business?'"
+      - "Replace 'Can you articulate unit economics for VCs?' with 'Can you articulate whether the business generates enough revenue to sustain your desired income?'"
+      - "Add triage path for bootstrapping assessment: 'Have you exhausted revenue-first options before seeking external capital?'"
+      - "Add funding type classification: revenue-based financing, SBA/government loans, grants, angel investment, or personal savings allocation."
+      - "Replace 'Have you identified your target investors?' with 'Have you identified the right funding mechanism for your business model and lifestyle goals?'"
+      - "Route to evaluating-options skill for the funding decision itself before routing to any fundraising execution."
+
+  - name: "growth-stall-diagnosis"
+    adaptation: "reframe"
+    reason: "Growth stalls for solo businesses often have a different root cause: personal capacity ceiling, not product-market or go-to-market failure."
+    changes:
+      - "Add triage question: 'Is growth limited by market demand or by your personal capacity to deliver?'"
+      - "Add triage path for capacity constraint: if the solopreneur is the bottleneck, route to eisenhower-matrix and focus-and-priority-management before market-facing frameworks."
+      - "Replace 'Is your sales team executing?' with 'Is your sales process systematized or dependent on your personal availability?'"
+      - "Replace 'Is your product team shipping?' with 'Are you shipping consistently, or are operational demands consuming your development time?'"
+
+  - name: "hiring-diagnosis"
+    adaptation: "reframe"
+    reason: "Solopreneurs do not hire employees, but they do engage contractors, freelancers, and agencies. The diagnosis reframes around contractor selection and management."
+    changes:
+      - "Replace 'hiring' with 'contractor engagement' throughout."
+      - "Replace 'Are you attracting quality candidates?' with 'Are you finding reliable contractors who deliver quality work?'"
+      - "Replace 'Is your employer brand strong?' with 'Are you a client that good contractors want to work with?'"
+      - "Replace 'Are you retaining new hires?' with 'Are your contractor relationships stable and repeatable?'"
+      - "Route to delivering-the-deal and connecting-with-people rather than belbin-team-roles or tuckman-team-stages."
+
+  - name: "innovation-drought-diagnosis"
+    adaptation: "reframe"
+    reason: "Innovation drought for solopreneurs is often creative block or routine entrapment rather than organizational inertia."
+    changes:
+      - "Replace 'Is your R&D pipeline healthy?' with 'When did you last develop or test a new offering, process, or revenue stream?'"
+      - "Replace 'Is the organization too risk-averse?' with 'Are you avoiding new experiments because the current workload leaves no space for them?'"
+      - "Elevate creative skills (creative-obstacles, creative-flow-and-inspiration) in the routing priority over organizational innovation frameworks."
+
+  - name: "leadership-crisis-diagnosis"
+    adaptation: "reframe"
+    reason: "The solopreneur has no leadership team to be in crisis. Reframe as a personal effectiveness or confidence crisis."
+    changes:
+      - "Replace 'Is your leadership team aligned?' with 'Do you feel confident in your direction and ability to execute?'"
+      - "Replace 'Is there a succession concern?' with 'Are you questioning whether you should continue in this business?'"
+      - "Replace 'Has trust broken down between leadership and the organization?' with 'Has your confidence in your own judgment eroded?'"
+      - "Route to leader-self-reflection, emotional-courage, and stoic-control-and-clarity rather than organisational-culture or leadership-pipeline."
+
+  - name: "market-entry-diagnosis"
+    adaptation: "as-is"
+    reason: "Market entry analysis applies identically to solo businesses. The frameworks (Porter's Five Forces, Blue Ocean) work at any company size."
+
+  - name: "negotiation-stuck-diagnosis"
+    adaptation: "as-is"
+    reason: "Negotiation dynamics are interpersonal, not organizational. The solopreneur negotiates directly — the diagnosis applies without modification."
+
+  - name: "operational-chaos-diagnosis"
+    adaptation: "reframe"
+    reason: "Operational chaos for solopreneurs is personal system failure, not organizational breakdown."
+    changes:
+      - "Replace 'Are your processes documented?' with 'Do you have personal standard operating procedures for recurring tasks?'"
+      - "Replace 'Is there accountability across teams?' with 'Do you have a system for tracking commitments and deadlines?'"
+      - "Replace 'Is your operations team staffed adequately?' with 'Are you trying to do more than one person reasonably can?'"
+      - "Route to eisenhower-matrix, focus-and-priority-management, and kaizen-bpr rather than team management frameworks."
+
+  - name: "partnership-diagnosis"
+    adaptation: "as-is"
+    reason: "Partnership dynamics apply to solopreneurs engaging with other businesses, referral partners, or strategic alliances."
+
+  - name: "pricing-diagnosis"
+    adaptation: "as-is"
+    reason: "Pricing strategy is identical for solo businesses. The solopreneur sets prices, evaluates margins, and responds to market signals the same way."
+
+  - name: "product-market-fit-diagnosis"
+    adaptation: "as-is"
+    reason: "Product-market fit applies regardless of company size. The solopreneur's offering either fits the market or it does not."
+
+  - name: "revenue-diagnosis"
+    adaptation: "reframe"
+    reason: "Revenue diagnostics apply but the context shifts — the solopreneur's revenue is also their personal income."
+    changes:
+      - "Add triage question: 'Is revenue insufficient for business sustainability, for your personal income needs, or both?'"
+      - "Replace 'Is your sales team executing the pipeline?' with 'Is your sales process generating consistent leads and conversions?'"
+      - "Add personal income lens: 'What is your effective hourly rate? Is it above or below what you could earn as an employee?'"
+      - "Route to four-ps-marketing and business-model-canvas with explicit attention to personal income extraction."
+
+  - name: "strategic-drift-diagnosis"
+    adaptation: "reframe"
+    reason: "Strategic drift for solopreneurs often manifests as 'saying yes to everything' rather than organizational mission creep."
+    changes:
+      - "Replace 'Has the company's strategy diverged from its stated mission?' with 'Are you spending time on work that does not align with your core offering or income goals?'"
+      - "Replace 'Are different divisions pursuing conflicting strategies?' with 'Are you pursuing too many directions simultaneously?'"
+      - "Add triage question: 'Can you articulate, in one sentence, what your business does and for whom? If not, strategic drift is likely.'"
+      - "Route to wanting-what-matters and focus-and-priority-management alongside strategic frameworks."
+
+  - name: "team-dysfunction-diagnosis"
+    adaptation: "skip"
+    reason: "No team exists. Team dysfunction diagnosis is structurally inapplicable."
+    reroute: "Determine the underlying need. If the solopreneur describes frustration with contractors, route to negotiation-stuck-diagnosis. If they describe personal overwhelm or burnout, route to operational-chaos-diagnosis or decision-paralysis-diagnosis. If they describe isolation, route to leader-resilience-and-wellbeing and meeting-the-right-people."
+
+# ─────────────────────────────────────────────
+# PLAYBOOK ADAPTATIONS (20 playbooks)
+# ─────────────────────────────────────────────
+
+playbook_adaptations:
+
+  - name: "acquisition-evaluation-playbook"
+    adaptation: "reframe"
+    reason: "Solopreneurs occasionally acquire businesses, client lists, or product assets. The evaluation logic applies but governance and integration steps change."
+    step_changes:
+      - step: "Any step referencing 'integration team' or 'post-acquisition leadership'"
+        change: "Replace with personal capacity assessment: 'Can you absorb this acquisition into your current operations without hiring? What processes must you build to manage the additional scope?'"
+
+  - name: "board-formation-playbook"
+    adaptation: "skip"
+    reason: "Solopreneurs do not form boards of directors."
+    alternative: "If the solopreneur wants structured external guidance, suggest building an informal advisory network using meeting-the-right-people and connecting-with-people skills. Use personal-board-tracker template for managing these relationships."
+
+  - name: "competitive-response-playbook"
+    adaptation: "as-is"
+    reason: "Competitive response is equally critical for solo businesses. All steps apply without modification."
+
+  - name: "crisis-playbook"
+    adaptation: "reframe"
+    reason: "Crisis management applies but the solopreneur IS the crisis response team."
+    step_changes:
+      - step: "Any step referencing 'assemble crisis team' or 'delegate crisis response'"
+        change: "Replace with personal triage: 'Identify the single highest-impact action you can take in the next 2 hours. Defer everything else. Contact your most trusted advisor or mentor for a 15-minute sounding board call.'"
+      - step: "Any step referencing 'internal communications'"
+        change: "Replace with client communications: 'Notify affected clients directly. Be honest about the situation, your response, and timeline for resolution.'"
+
+  - name: "first-100-customers-playbook"
+    adaptation: "as-is"
+    reason: "Acquiring first customers is identical for solopreneurs. Every step applies."
+
+  - name: "founder-transition-playbook"
+    adaptation: "reframe"
+    reason: "The solopreneur is the founder and the entire company. Transition means either selling the business, winding it down, or hiring someone to replace yourself."
+    step_changes:
+      - step: "Any step referencing 'succession planning' or 'leadership handoff'"
+        change: "Replace with 'business sale preparation' or 'operational documentation for buyer due diligence.' The transition is not from one leader to another — it is from one person to a new owner or to closure."
+      - step: "Any step referencing 'board notification' or 'stakeholder alignment'"
+        change: "Replace with 'client notification plan' and 'contractor wind-down or transfer plan.'"
+
+  - name: "fundraising-playbook"
+    adaptation: "reframe"
+    reason: "Fundraising for solopreneurs involves different instruments and different motivations than venture fundraising."
+    step_changes:
+      - step: "Prepare for term sheet negotiation (competitive-negotiation skill)"
+        change: "Replace with 'Prepare for loan terms, grant applications, revenue-based financing terms, or angel investment negotiation.' The skill (competitive-negotiation) remains; the application context shifts from equity rounds to solo-appropriate funding."
+      - step: "Make the fundraising deck scannable (writing-for-navigation skill)"
+        change: "Replace with 'Make the business plan or loan application clear and scannable.' The skill remains; the output format shifts from pitch deck to business plan or grant application."
+      - step: "Craft the fundraising narrative (story-structure-and-arc skill)"
+        change: "Replace with 'Craft the business story for the specific audience: bank loan officer, grant committee, angel investor, or revenue-based financing provider.'"
+    output_changes:
+      - output: "fundraising-deck-outline"
+        change: "Replace with business plan outline or loan application package."
+      - output: "investor-update-email"
+        change: "Replace with monthly self-review or angel investor update (if applicable)."
+
+  - name: "innovation-sprint-playbook"
+    adaptation: "reframe"
+    reason: "Innovation sprints are valuable for solopreneurs but the team-based sprint format must become a personal sprint."
+    step_changes:
+      - step: "Any step referencing 'sprint team' or 'cross-functional participation'"
+        change: "Replace with personal focus block: 'Block 2-5 days for dedicated innovation work. Cancel or defer all client obligations for this period. Work alone or with one trusted collaborator.'"
+      - step: "Any step referencing 'team brainstorming'"
+        change: "Replace with structured solo ideation using generating-solutions skill (BrainSwarming, SCAMPER) or a facilitated session with a mentor."
+
+  - name: "international-expansion-playbook"
+    adaptation: "reframe"
+    reason: "Solopreneurs expand internationally through digital delivery, remote clients, and online marketing — not by opening offices."
+    step_changes:
+      - step: "Any step referencing 'local team' or 'country manager'"
+        change: "Replace with 'local contractor or partner' and 'market-specific service adaptation.' The solopreneur expands by adapting offerings for new markets, not by building local teams."
+      - step: "Any step referencing 'regulatory compliance for employer'"
+        change: "Replace with 'tax obligations for international service revenue' and 'contractor engagement across jurisdictions.'"
+
+  - name: "launch-playbook"
+    adaptation: "as-is"
+    reason: "Product and service launches work identically for solopreneurs. All steps apply."
+
+  - name: "negotiation-playbook"
+    adaptation: "as-is"
+    reason: "Negotiation is interpersonal. The solopreneur is always the negotiator. All steps apply without modification."
+
+  - name: "partnership-playbook"
+    adaptation: "as-is"
+    reason: "Partnerships are equally relevant to solo businesses. Referral partnerships, joint ventures, and strategic alliances are common solo growth strategies."
+
+  - name: "personal-brand-playbook"
+    adaptation: "as-is"
+    reason: "Personal brand IS the business brand for solopreneurs. This playbook is more relevant in solo mode than in default mode."
+
+  - name: "pivot-playbook"
+    adaptation: "reframe"
+    reason: "Pivoting a solo business is faster and more personal — no team to realign, no board to convince — but the stakes are identical."
+    step_changes:
+      - step: "Any step referencing 'communicate pivot to team' or 'align organization'"
+        change: "Replace with 'communicate transition to existing clients' and 'update contractor relationships for new direction.'"
+      - step: "Any step referencing 'restructure team for new direction'"
+        change: "Replace with 'assess personal skills for new direction: what do you need to learn, and what should you outsource?'"
+
+  - name: "pricing-strategy-playbook"
+    adaptation: "as-is"
+    reason: "Pricing strategy applies identically. The solopreneur sets prices with the same frameworks."
+
+  - name: "product-market-fit-playbook"
+    adaptation: "as-is"
+    reason: "Product-market fit assessment works at any company size. All steps apply."
+
+  - name: "remote-team-playbook"
+    adaptation: "skip"
+    reason: "No team to manage remotely."
+    alternative: "If the solopreneur works with remote contractors, suggest delivering-the-deal and connecting-with-people skills for contractor relationship management. For personal remote work productivity, suggest focus-and-priority-management and creative-practice-and-habit."
+
+  - name: "scaling-playbook"
+    adaptation: "reframe"
+    reason: "Scaling a solo business means increasing revenue or margin without proportional time increase — not adding headcount."
+    step_changes:
+      - step: "Any step referencing 'hiring plan' or 'team expansion'"
+        change: "Replace with 'systemization plan: which processes can be automated, productized, or outsourced to increase output without increasing your hours?'"
+      - step: "Any step referencing 'management structure' or 'org design'"
+        change: "Replace with 'personal operating system design: how do you structure your week, your client load, and your project pipeline for maximum throughput at sustainable effort?'"
+      - step: "Any step referencing 'leadership development for managers'"
+        change: "Replace with 'skill development prioritization: which capabilities will unlock the next revenue tier?'"
+
+  - name: "strategy-reset-playbook"
+    adaptation: "reframe"
+    reason: "Strategy resets for solopreneurs are deeply personal — the business strategy and life strategy are intertwined."
+    step_changes:
+      - step: "Any step referencing 'leadership team alignment on new strategy'"
+        change: "Replace with 'personal commitment to new direction.' The solopreneur does not need alignment — they need conviction."
+      - step: "Any step referencing 'communicate strategy change to organization'"
+        change: "Replace with 'communicate direction change to clients, contractors, and accountability partners.'"
+
+  - name: "team-rebuild-playbook"
+    adaptation: "skip"
+    reason: "No team to rebuild."
+    alternative: "If the solopreneur has lost key contractors, suggest meeting-the-right-people and delivering-the-deal for rebuilding a contractor network. If the issue is personal burnout or motivation loss, suggest leader-resilience-and-wellbeing, stoic-fortitude-and-resilience, and creative-completion-and-renewal."
+
+# ─────────────────────────────────────────────
+# HOOK ADAPTATIONS (16 hooks)
+# ─────────────────────────────────────────────
+
+hook_adaptations:
+
+  - name: "communication-hook"
+    adaptation: "reframe"
+    reason: "Internal communication is not applicable. Reframe as client communication and personal clarity."
+    routing_changes:
+      - "Remove communication-breakdown-diagnosis from routing when solo mode detects the input is about internal communication."
+      - "Add writing skills (clarity-and-concision, writing-effective-emails) as primary skill routes."
+      - "Retain communication-breakdown-diagnosis only when the input clearly references client or contractor communication failure."
+
+  - name: "competition-hook"
+    adaptation: "as-is"
+    reason: "Competitive dynamics are identical for solo businesses."
+
+  - name: "culture-hook"
+    adaptation: "reframe"
+    reason: "Organizational culture does not exist for solopreneurs. Reframe as brand identity and personal values."
+    routing_changes:
+      - "Remove culture-erosion-diagnosis from primary routing."
+      - "Route to strategic-drift-diagnosis if the input suggests the solopreneur is losing connection to their business purpose."
+      - "Route to creative-identity-and-purpose if the input suggests an identity or meaning crisis."
+      - "Add purpose-driven-leadership and wanting-what-matters as skill routes."
+
+  - name: "decision-hook"
+    adaptation: "as-is"
+    reason: "Decision-making challenges are amplified for solopreneurs. Routing unchanged; skill priority elevated."
+
+  - name: "fundraising-hook"
+    adaptation: "reframe"
+    reason: "Fundraising exists for solopreneurs but the instruments and motivations differ."
+    routing_changes:
+      - "Retain fundraising-diagnosis but apply solo reframing (see diagnostic adaptations)."
+      - "Add evaluating-options as a pre-routing skill to assess whether external capital is needed at all."
+      - "Replace fundraising-playbook default routing with reframed version."
+
+  - name: "growth-hook"
+    adaptation: "reframe"
+    reason: "Growth for solopreneurs often hits a personal capacity ceiling before a market ceiling."
+    routing_changes:
+      - "Add capacity-assessment triage question before routing to growth-stall-diagnosis: 'Is growth limited by demand or by your ability to deliver?'"
+      - "Add eisenhower-matrix and focus-and-priority-management to skill routes."
+      - "Retain growth-stall-diagnosis with solo reframing applied."
+
+  - name: "innovation-hook"
+    adaptation: "reframe"
+    reason: "Innovation for solopreneurs is creative practice, not R&D pipeline management."
+    routing_changes:
+      - "Elevate creative skills (creative-obstacles, creative-flow-and-inspiration, creative-practice-and-habit) in routing priority."
+      - "Retain innovation-drought-diagnosis with solo reframing applied."
+
+  - name: "launch-hook"
+    adaptation: "as-is"
+    reason: "Launching products and services works identically for solopreneurs."
+
+  - name: "leadership-hook"
+    adaptation: "reframe"
+    reason: "Leadership of others is not applicable. Reframe as self-leadership and business owner decision-making."
+    routing_changes:
+      - "Remove leadership-crisis-diagnosis from default routing when input describes personal struggle rather than organizational leadership failure."
+      - "Route to leader-self-reflection, emotional-courage, and decision-making-under-pressure as primary skills."
+      - "Add stoic skills (stoic-control-and-clarity, stoic-fortitude-and-resilience) as secondary routes."
+
+  - name: "negotiation-hook"
+    adaptation: "as-is"
+    reason: "Negotiation is interpersonal. No adaptation needed."
+
+  - name: "partnership-hook"
+    adaptation: "as-is"
+    reason: "Partnerships are equally relevant to solo businesses."
+
+  - name: "personal-growth-hook"
+    adaptation: "as-is"
+    reason: "Personal growth is the foundation of solo business success. Routing unchanged; skill priority elevated."
+
+  - name: "product-hook"
+    adaptation: "as-is"
+    reason: "Product development and management apply regardless of company size."
+
+  - name: "revenue-and-sales-hook"
+    adaptation: "reframe"
+    reason: "Revenue is personal income for solopreneurs. Sales process is personal, not team-delegated."
+    routing_changes:
+      - "Add personal income sustainability framing to all revenue skill applications."
+      - "Replace 'sales team performance' triage paths with 'personal sales process effectiveness.'"
+      - "Add effective hourly rate calculation as a standard diagnostic supplement."
+
+  - name: "strategy-hook"
+    adaptation: "as-is"
+    reason: "Strategic thinking applies at any company size. Routing unchanged."
+
+  - name: "team-hook"
+    adaptation: "reframe"
+    reason: "No team. The hook's trigger patterns ('my team isn't working,' 'people are leaving') must be intercepted and redirected."
+    routing_changes:
+      - "Remove team-dysfunction-diagnosis, hiring-diagnosis, and culture-erosion-diagnosis from routing."
+      - "When triggered, ask a clarifying question: 'Solo mode is active. Are you describing a challenge with contractors or freelancers, or a personal feeling of being overwhelmed?'"
+      - "If contractors: route to negotiation-stuck-diagnosis and delivering-the-deal."
+      - "If personal overwhelm: route to operational-chaos-diagnosis (reframed), eisenhower-matrix, leader-resilience-and-wellbeing."
+      - "Remove team-rebuild-playbook from routing. Add meeting-the-right-people as a skill route."

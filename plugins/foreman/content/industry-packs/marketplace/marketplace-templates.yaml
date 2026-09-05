@@ -1,0 +1,1074 @@
+# Marketplace Industry Pack — Template Adaptations
+# Provides marketplace-specific adaptations for each of the 48 output
+# templates, reframing fill-in fields, structure, and guidance through
+# the two-sided marketplace lens: supply, demand, platform, take rate,
+# liquidity, and network effects.
+#
+# Each adaptation does not replace the base template — it augments it
+# with marketplace-native sections, fields, and framing. Unit economics
+# become per-transaction. Investor materials emphasise liquidity and
+# network effects. Team templates distinguish supply ops from demand
+# growth.
+
+pack: marketplace
+author: "Fatih Guner"
+type: template_adaptations
+version: "1.0.0"
+
+# ============================================================
+# INVESTOR TEMPLATES (10)
+# ============================================================
+
+investor_templates:
+
+  # ──────────────────────────────────────────────
+  # 1. Strategic Analysis One-Pager
+  # ──────────────────────────────────────────────
+  - template: strategic-analysis-one-pager
+    marketplace_adaptation:
+      structural_changes:
+        - "Split 'Market' section into Supply Market and Demand Market with separate sizing, dynamics, and trends."
+        - "Add 'Liquidity Status' section: supply liquidity, demand fill rate, supply-demand ratio by segment."
+        - "Replace 'Competitive Position' with 'Marketplace Position': network effects strength, multi-homing rates, disintermediation risk."
+      additional_fields:
+        - field: "GMV and Net Revenue (current period, growth rate)"
+          guidance: "Always show both. GMV without net revenue (and thus take rate) is incomplete."
+        - field: "Take Rate (current, trend, benchmark)"
+          guidance: "Include take rate trajectory. Expanding take rate = increasing platform value. Compressing = competitive pressure or value-add erosion."
+        - field: "Liquidity Metrics by Top 3 Segments"
+          guidance: "Show supply liquidity and demand fill rate for the three most important segments. Aggregates mask segment-level weakness."
+        - field: "Network Effects Evidence"
+          guidance: "Quantified cross-side elasticity or, at minimum, organic acquisition percentage trends for both sides."
+      framing_notes: >
+        The strategic narrative for a marketplace must answer: 'Why is this marketplace
+        the natural meeting point for this supply and this demand?' Position the
+        marketplace as infrastructure, not intermediary. Intermediaries get
+        disintermediated. Infrastructure becomes essential.
+
+  # ──────────────────────────────────────────────
+  # 2. Decision Rationale Memo
+  # ──────────────────────────────────────────────
+  - template: decision-rationale-memo
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Cross-Side Impact Analysis' section for every major decision: what is the expected impact on supply, demand, and platform economics?"
+        - "Add 'Reversibility Assessment' — marketplace decisions (take rate changes, policy changes) may be irreversible if they trigger supply churn."
+      additional_fields:
+        - field: "Supply-Side Impact (expected effect on supply churn, supply NPS, supply economics)"
+          guidance: "Every major marketplace decision affects supply. Quantify the expected impact."
+        - field: "Demand-Side Impact (expected effect on demand fill rate, demand repeat rate, demand NPS)"
+          guidance: "Every major marketplace decision affects demand. Quantify the expected impact."
+        - field: "Disintermediation Risk (does this decision increase or decrease the incentive to transact off-platform?)"
+          guidance: "Take rate increases, fee changes, and policy restrictions all affect disintermediation incentives."
+      framing_notes: >
+        Marketplace decisions are never single-sided. The memo must demonstrate
+        that the decision-maker considered impact on both sides and chose the
+        option with the best cross-side outcome, not just the best outcome
+        for one constituency.
+
+  # ──────────────────────────────────────────────
+  # 3. Competitive Landscape Brief
+  # ──────────────────────────────────────────────
+  - template: competitive-landscape-brief
+    marketplace_adaptation:
+      structural_changes:
+        - "Organise competitors by competitive dimension: Supply-Side Competitors (competing for same supply), Demand-Side Competitors (competing for same demand), Full-Stack Competitors (competing on both sides), and Substitutes (non-marketplace alternatives)."
+        - "Add 'Multi-Homing Analysis': for each competitor, what percentage of your supply and demand also uses their platform?"
+        - "Add 'Side-Specific Vulnerability Map': which side is most at risk from which competitor?"
+      additional_fields:
+        - field: "Competitor Take Rates"
+          guidance: "Comparison of take rate structures across competitors. Higher take rate is defensible only with proportionally higher value-add."
+        - field: "Competitor Liquidity Estimates"
+          guidance: "Estimated supply liquidity and demand fill rate for each major competitor. A competitor with better liquidity in your core segment is an existential threat."
+        - field: "Multi-Homing Rates"
+          guidance: "Percentage of your supply and demand that also uses each competitor. >50% multi-homing = low defensibility on that side."
+        - field: "Disintermediation Tools"
+          guidance: "Any tools, platforms, or behaviours that enable your matched pairs to bypass marketplaces entirely."
+      framing_notes: >
+        Marketplace competition is asymmetric. A competitor may attack only your
+        supply side, only your demand side, or a specific category. The brief
+        must map threats per side and per segment, not present competitors as
+        undifferentiated rivals in a single landscape.
+
+  # ──────────────────────────────────────────────
+  # 4. Market Opportunity Summary
+  # ──────────────────────────────────────────────
+  - template: market-opportunity-summary
+    marketplace_adaptation:
+      structural_changes:
+        - "Replace single TAM/SAM/SOM with dual-sided market sizing: Supply-Side TAM (total value of supply that could transact through a marketplace) and Demand-Side TAM (total demand spend in the category)."
+        - "Add 'Liquidity-Adjusted SAM': the portion of TAM where supply and demand overlap geographically and categorically — the actual addressable market for matching."
+        - "Add 'Take Rate-Adjusted Revenue Opportunity': SAM x estimated take rate = addressable revenue, not addressable GMV."
+      additional_fields:
+        - field: "Supply-Side TAM and Growth Rate"
+          guidance: "Total addressable supply in the category — existing supply that could list on a marketplace + latent supply that a marketplace could unlock."
+        - field: "Demand-Side TAM and Growth Rate"
+          guidance: "Total demand spend in the category — existing marketplace spend + offline spend that could migrate online + new demand a marketplace could create."
+        - field: "Liquidity-Adjusted SAM"
+          guidance: "The intersection of supply availability and demand presence. A marketplace in home services has no SAM in regions where supply exists but demand does not, or vice versa."
+        - field: "Revenue TAM (SAM x Take Rate)"
+          guidance: "The marketplace's revenue opportunity is GMV x take rate. Show the revenue TAM, not just the GMV TAM."
+      framing_notes: >
+        Marketplace TAMs are frequently overstated because they cite the entire
+        category spend without adjusting for the portion that could actually flow
+        through a marketplace. The brief must show the path from total category
+        spend to marketplace-addressable spend to marketplace revenue.
+
+  # ──────────────────────────────────────────────
+  # 5. Fundraising Deck Outline
+  # ──────────────────────────────────────────────
+  - template: fundraising-deck-outline
+    marketplace_adaptation:
+      structural_changes:
+        - "Add dedicated 'Network Effects' slide: quantified cross-side elasticity, organic acquisition trends, and the specific mechanism by which each side's growth benefits the other."
+        - "Add 'Liquidity and Defensibility' slide: supply liquidity, demand fill rate, multi-homing rates, disintermediation countermeasures."
+        - "Replace 'Unit Economics' slide with 'Per-Transaction Economics': AOV, take rate, contribution margin per transaction, blended CAC, payback in transactions."
+        - "Add 'Two-Sided Flywheel' slide: visual diagram showing the reinforcing loops between supply growth, demand growth, and platform value."
+      additional_fields:
+        - field: "GMV and Net Revenue (show both on the same chart)"
+          guidance: "Investors will compute take rate regardless. Show it transparently."
+        - field: "Cohort Repeat Rates (supply and demand separately)"
+          guidance: "Retention is the strongest PMF signal. Show monthly cohort curves for both sides."
+        - field: "Organic Acquisition Mix (supply and demand separately)"
+          guidance: "Organic >40% on either side is strong evidence of network effects in action."
+        - field: "Per-Transaction Contribution Margin Stack"
+          guidance: "Waterfall from AOV through take rate revenue to contribution margin, showing each variable cost."
+        - field: "Tipping Point Evidence"
+          guidance: "If any market has tipped (organic growth > paid, both sides' repeat rates stable), show it. This is the strongest possible fundraising signal."
+      framing_notes: >
+        The marketplace fundraising narrative has three beats: (1) This supply and
+        this demand need to find each other and currently cannot. (2) Our platform
+        creates the match with enough value-add to justify a take rate. (3) Network
+        effects make this business more defensible and more efficient as it grows.
+        Every slide should reinforce one of these three beats.
+
+  # ──────────────────────────────────────────────
+  # 6. Investor Update Email
+  # ──────────────────────────────────────────────
+  - template: investor-update-email
+    marketplace_adaptation:
+      structural_changes:
+        - "Replace single 'Revenue' metric with GMV, Net Revenue, and Take Rate as the headline trio."
+        - "Add 'Supply Health' section: supply churn, new supply added, supply liquidity, supply NPS."
+        - "Add 'Demand Health' section: demand repeat rate, demand fill rate, organic demand %."
+        - "Add 'Marketplace Health' section: contribution margin per transaction, disintermediation rate, marketplace quality score."
+      additional_fields:
+        - field: "GMV, Net Revenue, Take Rate"
+          guidance: "The three numbers that define marketplace financial health. All three, every update."
+        - field: "Supply-Side Metrics (3-5 key numbers)"
+          guidance: "Supply liquidity, supply churn, new supply added, supply NPS. Investors increasingly evaluate supply health as a leading indicator."
+        - field: "Demand-Side Metrics (3-5 key numbers)"
+          guidance: "Demand repeat rate, demand fill rate, organic demand %, demand CAC. The demand-side health report."
+        - field: "Key Marketplace Insight"
+          guidance: "One observation about marketplace dynamics — a cross-side effect observed, a liquidity milestone reached, a disintermediation countermeasure deployed."
+      framing_notes: >
+        Marketplace investor updates must demonstrate that both sides of the
+        marketplace are healthy and that the flywheel is working. Investors who
+        only see demand metrics will assume the supply side is problematic. Show
+        both sides proactively.
+
+  # ──────────────────────────────────────────────
+  # 7. Unit Economics Snapshot
+  # ──────────────────────────────────────────────
+  - template: unit-economics-snapshot
+    marketplace_adaptation:
+      structural_changes:
+        - "Replace subscription-based unit economics with per-transaction economics as the primary frame."
+        - "Add 'Transaction Economics Waterfall': AOV -> Take Rate Revenue -> minus Payment Processing -> minus T&S Cost -> minus Support Cost -> minus Supply Incentive = Contribution Margin."
+        - "Split CAC into Supply-Side CAC, Demand-Side CAC, and Blended CAC (per matched transaction)."
+        - "Replace LTV with LTV per side: Supply LTV (lifetime take rate revenue from one supplier) and Demand LTV (lifetime take rate revenue from one buyer)."
+        - "Add 'Marketplace-Specific Metrics': supply liquidity, demand fill rate, disintermediation rate, organic acquisition % per side."
+      additional_fields:
+        - field: "AOV (Average Order Value)"
+          guidance: "The starting point of marketplace unit economics. Everything flows from transaction value."
+        - field: "Take Rate and Take Rate Revenue per Transaction"
+          guidance: "AOV x Take Rate = per-transaction revenue before variable costs."
+        - field: "Transaction Cost Stack"
+          guidance: "Payment processing (typically 2.5-3.5%), T&S cost, customer support allocation, supply incentives, fraud losses."
+        - field: "Contribution Margin per Transaction"
+          guidance: "Take rate revenue minus all variable transaction costs. Must be positive or trending positive."
+        - field: "Supply-Side LTV and Supply-Side CAC"
+          guidance: "LTV = expected lifetime transactions x contribution margin per transaction. CAC = supply acquisition cost. LTV:CAC per side."
+        - field: "Demand-Side LTV and Demand-Side CAC"
+          guidance: "Same calculation for demand side. Often shows very different economics from supply side."
+        - field: "Blended CAC per Matched Transaction"
+          guidance: "The true cost of creating one incremental matched transaction, considering both sides' acquisition costs."
+      framing_notes: >
+        Marketplace unit economics are per-transaction, not per-subscription.
+        The fundamental question is not 'what is the lifetime value of a customer'
+        but 'does each transaction generate positive contribution margin, and how
+        many transactions does it take to pay back acquisition cost on each side?'
+
+  # ──────────────────────────────────────────────
+  # 8. Cap Table Summary
+  # ──────────────────────────────────────────────
+  - template: cap-table-summary
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Supply-Side Equity or Revenue Share' section if the marketplace has offered equity, revenue share, or profit participation to key supply-side participants."
+        - "Add note on marketplace-specific valuation considerations: GMV multiple vs net revenue multiple, and why the distinction matters."
+      additional_fields:
+        - field: "Valuation Basis (GMV multiple or net revenue multiple)"
+          guidance: "Marketplace valuations are often quoted as GMV multiples, which overstate value when take rates are low. Show net revenue multiple for clarity."
+      framing_notes: >
+        Cap table structure for marketplaces is generally standard, but valuation
+        discussions require clarity on whether multiples apply to GMV or net revenue.
+        A 1x GMV multiple with a 15% take rate is equivalent to a ~6.7x net revenue
+        multiple. Investors and founders must speak the same language.
+
+  # ──────────────────────────────────────────────
+  # 9. Due Diligence Checklist
+  # ──────────────────────────────────────────────
+  - template: due-diligence-checklist
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Marketplace-Specific Due Diligence' section with supply-side, demand-side, and platform health checks."
+        - "Add 'Network Effects Verification' section: how to validate claimed network effects with data."
+        - "Add 'Regulatory Risk Assessment' for marketplace-specific regulations (labor classification, marketplace liability, data portability)."
+      additional_fields:
+        - field: "Supply-Side Health Check"
+          guidance: "Supply churn by cohort, supply concentration (top 10% share), supply NPS, supply economics (earnings per active period), supply liquidity trend."
+        - field: "Demand-Side Health Check"
+          guidance: "Demand repeat rate by cohort, demand concentration, demand NPS, demand fill rate trend, organic demand %."
+        - field: "Network Effects Data Request"
+          guidance: "Cross-side elasticity calculations, organic acquisition trends, CAC trend as marketplace scales. Positive network effects should produce declining CAC at scale."
+        - field: "Disintermediation Risk Assessment"
+          guidance: "Transaction type analysis, post-match retention data, off-platform transaction estimates, value-add justification for take rate."
+        - field: "Take Rate Sustainability"
+          guidance: "Take rate trajectory, competitive take rate comparison, supply-side willingness to pay analysis, value-add inventory supporting current take rate."
+        - field: "Regulatory Exposure"
+          guidance: "Labour classification risk (if supply resembles employees), marketplace liability (product safety, service quality), consumer protection compliance, cross-border regulatory differences."
+      framing_notes: >
+        Marketplace due diligence must verify that network effects are real (not
+        just claimed), that both sides are healthy (not just demand), that unit
+        economics work per transaction (not just per quarter in aggregate), and
+        that the take rate is sustainable (not just current). The most common
+        due diligence failure is accepting GMV growth as a proxy for marketplace
+        health without examining side-specific metrics.
+
+  # ──────────────────────────────────────────────
+  # 10. Exit Scenario Analysis
+  # ──────────────────────────────────────────────
+  - template: exit-scenario-analysis
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Marketplace Acquirer Analysis': strategic acquirers typically want one side (supply base or demand base), not the platform technology. Identify which side is the acquisition asset."
+        - "Add 'Network Effects Portability': do network effects transfer to an acquirer, or are they specific to the marketplace brand and trust infrastructure?"
+        - "Add 'Marketplace-Specific Valuation Multiples': historical marketplace M&A and IPO multiples (net revenue, not GMV)."
+      additional_fields:
+        - field: "Primary Acquisition Asset (supply base, demand base, technology, or data)"
+          guidance: "Which component of the marketplace is most valuable to a strategic acquirer? Supply-side relationships, demand-side user base, matching technology, or transaction data?"
+        - field: "Marketplace M&A Comps"
+          guidance: "Recent marketplace acquisitions and their valuation multiples. Use net revenue multiples, not GMV."
+        - field: "Side-Specific Transfer Risk"
+          guidance: "What happens to supply and demand if the marketplace changes ownership? Assess retention risk per side."
+      framing_notes: >
+        Marketplace exits are complicated by the two-sided nature: an acquirer
+        may want the supply base but not the demand experience, or vice versa.
+        The exit analysis must identify which side is the primary asset and
+        assess whether that side is transferable.
+
+# ============================================================
+# BOARD TEMPLATES (7)
+# ============================================================
+
+board_templates:
+
+  # ──────────────────────────────────────────────
+  # 11. Board Meeting Agenda
+  # ──────────────────────────────────────────────
+  - template: board-meeting-agenda
+    marketplace_adaptation:
+      structural_changes:
+        - "Add standing agenda items: 'Supply-Side Health Report' and 'Demand-Side Health Report' as separate sections."
+        - "Add 'Marketplace Dynamics' agenda section: liquidity metrics, network effects updates, competitive landscape per side."
+        - "Add 'Trust & Safety Update' as a standing board item — T&S is a board-level concern for marketplaces."
+      additional_fields:
+        - field: "Supply Health Dashboard (5 metrics)"
+          guidance: "Supply liquidity, supply churn, new supply growth, supply NPS, ARPU (supply)."
+        - field: "Demand Health Dashboard (5 metrics)"
+          guidance: "Demand fill rate, demand repeat rate, demand churn, organic demand %, ARPU (demand)."
+        - field: "Marketplace Economics Update"
+          guidance: "GMV, net revenue, take rate, contribution margin per transaction, blended CAC."
+        - field: "Trust & Safety Report"
+          guidance: "Dispute rate, fraud rate, T&S cost per transaction, safety incidents (if any), regulatory updates."
+      framing_notes: >
+        Board meetings for marketplaces must provide equal visibility into both
+        sides. Boards that see only demand metrics or only financial metrics are
+        governing blind. Supply health is a leading indicator that boards must
+        monitor proactively.
+
+  # ──────────────────────────────────────────────
+  # 12. Quarterly Strategic Review
+  # ──────────────────────────────────────────────
+  - template: quarterly-strategic-review
+    marketplace_adaptation:
+      structural_changes:
+        - "Structure the strategic review around three pillars: Supply Strategy, Demand Strategy, and Platform Strategy."
+        - "Add 'Liquidity Map' showing supply liquidity and demand fill rate by segment, geography, and category."
+        - "Add 'Network Effects Assessment' — quarterly measurement of cross-side impact and organic acquisition trends."
+      additional_fields:
+        - field: "Supply Strategy Review"
+          guidance: "Supply growth, quality trends, churn analysis, competitive supply dynamics, supply-side investment ROI."
+        - field: "Demand Strategy Review"
+          guidance: "Demand acquisition, retention trends, channel mix, competitive demand dynamics, demand-side investment ROI."
+        - field: "Platform Strategy Review"
+          guidance: "Matching quality improvements, T&S enhancements, take rate analysis, technology roadmap."
+        - field: "Liquidity Heat Map"
+          guidance: "Visual representation of liquidity health across segments. Green = tipped. Yellow = building. Red = failing."
+        - field: "Cross-Side Elasticity Trend"
+          guidance: "Quarter-over-quarter measurement: is adding supply producing more demand engagement, and vice versa?"
+      framing_notes: >
+        The quarterly review must demonstrate strategic coherence across both
+        sides. If supply strategy and demand strategy are not mutually reinforcing,
+        the review should surface this misalignment and resolve it.
+
+  # ──────────────────────────────────────────────
+  # 13. Risk Assessment Brief
+  # ──────────────────────────────────────────────
+  - template: risk-assessment-brief
+    marketplace_adaptation:
+      structural_changes:
+        - "Organise risks into four categories: Supply-Side Risks, Demand-Side Risks, Platform Risks, and Regulatory Risks."
+        - "Add 'Cascade Risk Analysis' — how does a risk on one side cascade to the other?"
+        - "Add marketplace-specific risk categories: disintermediation risk, liquidity collapse risk, quality death spiral risk, regulatory reclassification risk."
+      additional_fields:
+        - field: "Supply-Side Risk Register"
+          guidance: "Supply concentration, supply churn trend, competitor supply poaching, regulatory risk (labor classification), supply-side activist movements."
+        - field: "Demand-Side Risk Register"
+          guidance: "Demand concentration, demand-side competitive alternatives, trust incidents, regulatory risk (consumer protection)."
+        - field: "Platform Risk Register"
+          guidance: "Disintermediation trend, technology disruption (AI matching, blockchain payments), data breach exposure, algorithmic liability."
+        - field: "Cascade Risk Map"
+          guidance: "For each top-5 risk: if this materialises, what is the second-order effect on the other side?"
+      framing_notes: >
+        Marketplace risks are interconnected through the two-sided flywheel. A
+        supply-side risk that triggers supply churn cascades to demand through
+        reduced selection and fill rate. Risk assessment must map these cascades
+        explicitly, not treat each risk as independent.
+
+  # ──────────────────────────────────────────────
+  # 14. Change Initiative Proposal
+  # ──────────────────────────────────────────────
+  - template: change-initiative-proposal
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Cross-Side Impact Assessment' section for every proposed change."
+        - "Add 'Side-Specific Change Management Plan' — how will supply be informed and supported through the change? How will demand?"
+        - "Add 'Rollback Criteria' — what metrics on either side would trigger reversal of the change?"
+      additional_fields:
+        - field: "Supply-Side Impact and Communication Plan"
+          guidance: "How does this change affect supply economics, experience, or policies? How will supply learn about it? When?"
+        - field: "Demand-Side Impact and Communication Plan"
+          guidance: "How does this change affect demand experience, pricing, or trust? How will demand learn about it?"
+        - field: "Rollback Triggers"
+          guidance: "Define metrics thresholds that would trigger change reversal: supply churn spike, demand conversion drop, liquidity decline."
+      framing_notes: >
+        Marketplace change initiatives must be evaluated for their cross-side
+        impact and managed with side-specific communication plans. Supply-side
+        changes that affect livelihood require more advance notice, more
+        transparency, and more support than demand-side UX changes.
+
+  # ──────────────────────────────────────────────
+  # 15. CEO Succession Brief
+  # ──────────────────────────────────────────────
+  - template: ceo-succession-brief
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Two-Sided Leadership Competency' as a required criterion: successor must demonstrate understanding of and empathy for both sides."
+        - "Add 'Marketplace-Specific Experience' evaluation: has the candidate operated a marketplace, managed supply-demand balance, and navigated network effects?"
+      additional_fields:
+        - field: "Two-Sided Competency Assessment"
+          guidance: "Evaluate candidate's understanding of supply-side economics, demand-side experience, platform dynamics, and the ability to hold both perspectives simultaneously."
+        - field: "Marketplace Operator Track Record"
+          guidance: "Prior experience managing two-sided platforms, liquidity challenges, take rate decisions, and trust infrastructure."
+      framing_notes: >
+        Marketplace CEO succession is unusually sensitive because the CEO
+        must maintain trust with both sides simultaneously. A CEO perceived
+        as favouring one side can trigger rapid deterioration on the other.
+
+  # ──────────────────────────────────────────────
+  # 16. Regulatory Compliance Update
+  # ──────────────────────────────────────────────
+  - template: regulatory-compliance-update
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Marketplace-Specific Regulatory Landscape' with categories: labour classification, marketplace liability, consumer protection, data portability, competition/antitrust."
+        - "Add 'Jurisdictional Matrix' for marketplace-specific regulations across operating geographies."
+      additional_fields:
+        - field: "Labour Classification Status"
+          guidance: "Status of supply-side participant classification (independent contractor vs employee) across jurisdictions. Regulatory changes here fundamentally alter cost structure."
+        - field: "Marketplace Liability Exposure"
+          guidance: "Liability for supply-side quality, product safety, service outcomes. Which jurisdictions impose marketplace liability?"
+        - field: "Data Portability Requirements"
+          guidance: "Requirements for supply-side and demand-side data portability (GDPR, DMA, state-level regulations)."
+      framing_notes: >
+        Marketplace regulation is evolving rapidly across jurisdictions.
+        Labour classification, platform liability, and data portability
+        are the three regulatory vectors that can fundamentally alter
+        marketplace economics. Board-level visibility is essential.
+
+  # ──────────────────────────────────────────────
+  # 17. Compensation Review Brief
+  # ──────────────────────────────────────────────
+  - template: compensation-review-brief
+    marketplace_adaptation:
+      structural_changes:
+        - "Add marketplace-specific roles to compensation benchmarking: Head of Supply Operations, Head of Trust & Safety, Head of Marketplace Economics."
+        - "Add note on supply-side incentive structures (guaranteed minimums, bonuses, equity participation) if applicable."
+      additional_fields:
+        - field: "Marketplace-Specific Role Benchmarks"
+          guidance: "Supply ops, T&S, and marketplace economics leadership are specialised roles. Benchmark against marketplace-native companies, not general tech."
+        - field: "Supply-Side Incentive Costs"
+          guidance: "If the marketplace offers supply-side incentives (guaranteed earnings, signup bonuses), include as compensation-adjacent cost."
+      framing_notes: >
+        Marketplace companies require specialised talent in supply operations,
+        trust and safety, and marketplace economics. These roles command
+        premiums because the talent pool is smaller and the domain expertise
+        is not transferable from single-sided businesses.
+
+# ============================================================
+# TEAM TEMPLATES (13)
+# ============================================================
+
+team_templates:
+
+  # ──────────────────────────────────────────────
+  # 18. Team Health Check
+  # ──────────────────────────────────────────────
+  - template: team-health-check
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Cross-Side Alignment' health dimension: do supply ops and demand growth teams have aligned strategies and effective coordination?"
+        - "Add 'Marketplace Specialisation' dimension: does the team have dedicated supply, demand, and T&S functions, or are roles blurred?"
+      additional_fields:
+        - field: "Supply-Demand Team Alignment Score"
+          guidance: "Rate 1-5: How well do supply ops and demand growth teams coordinate strategy, share data, and resolve conflicts?"
+        - field: "Marketplace Role Coverage"
+          guidance: "Assess whether supply ops lead, demand growth lead, T&S lead, and marketplace economics lead are filled and effective."
+      framing_notes: >
+        Marketplace team health includes a dimension that single-sided companies
+        lack: the supply-demand coordination function. Without deliberate
+        cross-side alignment, marketplace teams naturally drift into side-specific
+        silos that optimise locally and suboptimise globally.
+
+  # ──────────────────────────────────────────────
+  # 19. Action Plan
+  # ──────────────────────────────────────────────
+  - template: action-plan
+    marketplace_adaptation:
+      structural_changes:
+        - "Tag each action item with its target side: [Supply], [Demand], [Platform], or [Cross-Side]."
+        - "Add 'Cross-Side Dependencies' column: does this action depend on or affect the other side?"
+        - "Add 'Liquidity Impact' column: expected impact on supply liquidity or demand fill rate."
+      additional_fields:
+        - field: "Side Tag for Each Action"
+          guidance: "[Supply], [Demand], [Platform], or [Cross-Side]. Ensures actions are balanced and dependencies are visible."
+        - field: "Cross-Side Dependency Flag"
+          guidance: "For each action: does success depend on a corresponding action on the other side?"
+        - field: "Liquidity Impact Estimate"
+          guidance: "Expected impact on supply liquidity, demand fill rate, or both. Actions with negative liquidity impact require justification."
+      framing_notes: >
+        Every action plan in a marketplace must make cross-side dependencies
+        visible. An action to increase supply without a corresponding demand
+        action reduces supply liquidity. An action to drive demand without
+        supply readiness degrades fill rate. Tag and cross-reference.
+
+  # ──────────────────────────────────────────────
+  # 20. Retrospective Template
+  # ──────────────────────────────────────────────
+  - template: retrospective-template
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Cross-Side Effects' reflection: did actions on one side produce unexpected effects on the other?"
+        - "Add 'Supply-Side Voice' section: what did supply-side participants experience during this period?"
+        - "Add 'Demand-Side Voice' section: what did demand-side participants experience?"
+      additional_fields:
+        - field: "Unintended Cross-Side Effects"
+          guidance: "Reflect on whether any initiative for one side had unintended consequences for the other. Marketplace operations are full of second-order effects."
+        - field: "Supply-Side Feedback Summary"
+          guidance: "What did supply tell us this period — through support tickets, NPS, churn interviews, community forums?"
+        - field: "Demand-Side Feedback Summary"
+          guidance: "What did demand tell us — through NPS, reviews, support contacts, repeat behaviour?"
+      framing_notes: >
+        Marketplace retrospectives must include both sides' perspectives. A
+        retrospective that celebrates demand growth without noting the
+        supply-side strain that growth produced is dangerously incomplete.
+
+  # ──────────────────────────────────────────────
+  # 21. New Initiative Brief
+  # ──────────────────────────────────────────────
+  - template: new-initiative-brief
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Side-Specific Hypothesis' section: which side does this initiative primarily serve, and what is the expected cross-side effect?"
+        - "Add 'Liquidity Impact Projection': how does this initiative affect supply liquidity and demand fill rate?"
+        - "Add 'Cold Start Plan' (for new category/geography initiatives): which side first, how to achieve initial liquidity, what is the tipping point?"
+      additional_fields:
+        - field: "Primary Side Served"
+          guidance: "Every initiative primarily serves one side or the platform. Name it explicitly."
+        - field: "Cross-Side Benefit Hypothesis"
+          guidance: "How does serving the primary side benefit the other? If there is no cross-side benefit, question the initiative's marketplace value."
+        - field: "Cold Start Sequence (if expanding to new segment)"
+          guidance: "Which side acquired first, how many units needed on each side for minimum viable liquidity, timeline to tipping point."
+      framing_notes: >
+        New marketplace initiatives must specify their side-specific hypothesis
+        and cross-side benefit. Initiatives that serve only one side without
+        benefiting the other are legitimate only if that side is the current
+        binding constraint.
+
+  # ──────────────────────────────────────────────
+  # 22. Offsite Planning Guide
+  # ──────────────────────────────────────────────
+  - template: offsite-planning-guide
+    marketplace_adaptation:
+      structural_changes:
+        - "Include 'Supply-Side Immersion' session: team members spend time understanding supply-side experience (shadow a supplier, review support tickets, analyse earnings data)."
+        - "Include 'Supply-Demand Balance Workshop' session: cross-functional exercise to identify and resolve supply-demand strategic tensions."
+      additional_fields:
+        - field: "Supply Immersion Activity"
+          guidance: "Structured activity where every team member experiences the supply side: list a product, provide a service, answer supply support tickets."
+        - field: "Demand Immersion Activity"
+          guidance: "Structured activity where every team member experiences the demand side: complete a purchase journey, test competitor alternatives, submit a dispute."
+        - field: "Cross-Side Strategy Alignment Session"
+          guidance: "Facilitated session where supply ops and demand growth teams present their strategies, identify conflicts, and resolve them."
+      framing_notes: >
+        Marketplace offsites should immerse the team in both sides of the
+        experience. Most marketplace teams understand the demand side intuitively
+        (they are demand-side users in other marketplaces) but have limited
+        first-person experience of the supply side.
+
+  # ──────────────────────────────────────────────
+  # 23. Hiring Scorecard
+  # ──────────────────────────────────────────────
+  - template: hiring-scorecard
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Marketplace Competency' evaluation dimension for all leadership and senior roles."
+        - "Add marketplace-specific role scorecards: Supply Operations Lead, Demand Growth Lead, Trust & Safety Lead, Marketplace Economics Lead."
+      additional_fields:
+        - field: "Marketplace Competency Score"
+          guidance: "Rate candidate's understanding of two-sided dynamics, network effects, liquidity, take rate economics, and cross-side trade-offs."
+        - field: "Side-Specific Domain Expertise"
+          guidance: "For supply roles: supply-side operations experience. For demand roles: demand-side growth experience. For platform roles: matching and T&S experience."
+      framing_notes: >
+        Hiring for marketplace-specific roles (supply ops, T&S, marketplace
+        economics) requires domain expertise that general startup hiring
+        templates do not evaluate. Add marketplace competency as an explicit
+        scoring dimension.
+
+  # ──────────────────────────────────────────────
+  # 24. Culture Values Document
+  # ──────────────────────────────────────────────
+  - template: culture-values-document
+    marketplace_adaptation:
+      structural_changes:
+        - "Add value principle: 'Both Sides Matter' — the marketplace serves supply and demand equally. Neither side is a resource to be exploited."
+        - "Add value principle: 'Trust is Infrastructure' — marketplace trust is built through design, not assumed through good intentions."
+      additional_fields:
+        - field: "Two-Sided Stewardship Value"
+          guidance: "Articulate the company's commitment to balanced treatment of both sides. Decisions that benefit one side at the other's expense require explicit justification."
+        - field: "Trust-First Value"
+          guidance: "Articulate trust as the marketplace's most valuable asset — more important than growth, revenue, or efficiency."
+      framing_notes: >
+        Marketplace culture must explicitly articulate the commitment to both
+        sides. Without this, culture defaults to optimising for whichever side
+        the leadership team instinctively identifies with — typically demand.
+
+  # ──────────────────────────────────────────────
+  # 25. One-on-One Template
+  # ──────────────────────────────────────────────
+  - template: one-on-one-template
+    marketplace_adaptation:
+      structural_changes:
+        - "Add marketplace-context question for supply-side team members: 'What are you hearing from suppliers this week?'"
+        - "Add marketplace-context question for demand-side team members: 'What are you hearing from buyers this week?'"
+        - "Add cross-side awareness question for all team members: 'How is the other side of the marketplace doing, from your perspective?'"
+      additional_fields:
+        - field: "Supply-Side Pulse"
+          guidance: "For supply ops team: what is the current supply-side sentiment? For others: what do you know about supply health?"
+        - field: "Demand-Side Pulse"
+          guidance: "For demand team: what is the current demand-side sentiment? For others: what do you know about demand health?"
+      framing_notes: >
+        One-on-ones in a marketplace company should include cross-side awareness
+        questions. Every team member should have a current, if rough, sense of
+        how the other side of the marketplace is doing.
+
+  # ──────────────────────────────────────────────
+  # 26. Project Kickoff Document
+  # ──────────────────────────────────────────────
+  - template: project-kickoff-document
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Side Impact Assessment' to every project kickoff: which side does this project primarily serve, and what is the expected cross-side effect?"
+        - "Add 'Liquidity Guard Rails': metrics thresholds on the non-primary side that must be maintained during the project."
+      additional_fields:
+        - field: "Primary Side"
+          guidance: "[Supply] / [Demand] / [Platform] — explicitly name which side this project serves."
+        - field: "Cross-Side Impact"
+          guidance: "Expected positive or negative impact on the other side. If negative, what mitigation is planned?"
+        - field: "Liquidity Constraints"
+          guidance: "What supply liquidity and demand fill rate thresholds must be maintained during execution?"
+      framing_notes: >
+        Every marketplace project should state its primary side and cross-side
+        impact. Projects that improve one side while harming the other need
+        explicit guard rails to prevent marketplace damage.
+
+  # ──────────────────────────────────────────────
+  # 27. Incident Postmortem
+  # ──────────────────────────────────────────────
+  - template: incident-postmortem
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Side-Specific Impact' section: how did the incident affect supply? How did it affect demand? How did it affect marketplace trust?"
+        - "Add 'Cross-Side Cascade Analysis': did the incident on one side produce effects on the other?"
+        - "Add 'Trust Repair Actions' section specific to marketplace trust incidents."
+      additional_fields:
+        - field: "Supply-Side Impact"
+          guidance: "Quantify: supply churn attributed to incident, supply NPS impact, supply earnings impact."
+        - field: "Demand-Side Impact"
+          guidance: "Quantify: demand churn attributed to incident, demand NPS impact, demand trust impact."
+        - field: "Trust Repair Plan"
+          guidance: "For trust-affecting incidents: what specific actions will rebuild trust on the affected side(s)? Timeline?"
+      framing_notes: >
+        Marketplace incidents often affect both sides, even when the incident
+        originates on one side. A supply-side quality incident affects demand
+        trust. A demand-side fraud incident affects supply's willingness to
+        participate. The postmortem must trace both directions.
+
+  # ──────────────────────────────────────────────
+  # 28. Feedback 360 Template
+  # ──────────────────────────────────────────────
+  - template: feedback-360-template
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Cross-Side Awareness' evaluation dimension: does this person understand and consider both sides of the marketplace in their work?"
+        - "For supply-side roles: add feedback from supply-side participants (supplier advisory board, key accounts)."
+        - "For demand-side roles: add feedback from demand-side user research or NPS data."
+      additional_fields:
+        - field: "Cross-Side Awareness Score"
+          guidance: "Rate 1-5: How well does this person consider the other side's perspective when making decisions?"
+        - field: "External Stakeholder Feedback (supply or demand)"
+          guidance: "For supply-facing roles: include supply-side feedback. For demand-facing roles: include demand-side feedback."
+      framing_notes: >
+        In a marketplace company, cross-side awareness is a leadership
+        competency. Every manager and above should be evaluated on their ability
+        to consider both sides, not just their functional constituency.
+
+  # ──────────────────────────────────────────────
+  # 29. Role Description Template
+  # ──────────────────────────────────────────────
+  - template: role-description-template
+    marketplace_adaptation:
+      structural_changes:
+        - "Add marketplace-specific role templates: Supply Operations Manager, Demand Growth Manager, Trust & Safety Manager, Marketplace Economist, Category Manager."
+        - "Add 'Side Alignment' field indicating which side of the marketplace this role primarily serves."
+      additional_fields:
+        - field: "Side Alignment"
+          guidance: "[Supply] / [Demand] / [Platform] / [Cross-Side] — which side does this role primarily serve?"
+        - field: "Marketplace Competency Requirements"
+          guidance: "For marketplace-specific roles: required understanding of two-sided dynamics, network effects, liquidity management."
+      marketplace_specific_roles:
+        - name: "Supply Operations Manager"
+          side: supply
+          key_responsibilities: ["Supply acquisition and onboarding", "Supply quality management", "Supply economics analysis and optimization", "Supply community management", "Supply churn analysis and intervention"]
+          key_metrics: ["Supply liquidity", "Supply churn", "Supply NPS", "New supply onboarded", "Supply quality score"]
+        - name: "Demand Growth Manager"
+          side: demand
+          key_responsibilities: ["Demand acquisition across channels", "Demand retention and repeat rate optimization", "Demand-side UX and conversion", "Brand marketing", "Organic demand growth"]
+          key_metrics: ["Demand fill rate", "Demand repeat rate", "Organic demand %", "Demand CAC", "Demand NPS"]
+        - name: "Trust & Safety Manager"
+          side: platform
+          key_responsibilities: ["Fraud detection and prevention", "Dispute resolution", "Identity verification", "Content moderation", "Safety incident response"]
+          key_metrics: ["Dispute rate", "Fraud rate", "T&S cost per transaction", "Resolution time", "Marketplace quality score"]
+        - name: "Marketplace Economist"
+          side: platform
+          key_responsibilities: ["Take rate analysis and optimization", "Pricing strategy", "Supply-demand balance management", "Incentive design", "Network effects measurement"]
+          key_metrics: ["Take rate", "Contribution margin per transaction", "Cross-side elasticity", "Supply-demand ratio", "Disintermediation rate"]
+      framing_notes: >
+        Marketplace companies need roles that do not exist in single-sided
+        businesses. Supply Operations, Trust & Safety, and Marketplace Economics
+        are distinct functions that require dedicated hiring.
+
+  # ──────────────────────────────────────────────
+  # 30. Meeting Notes Template
+  # ──────────────────────────────────────────────
+  - template: meeting-notes-template
+    marketplace_adaptation:
+      structural_changes:
+        - "Add standing sections for supply-side and demand-side updates in recurring meeting notes."
+        - "Tag decisions with [Supply Impact] / [Demand Impact] / [Cross-Side] flags."
+      additional_fields:
+        - field: "Supply Update"
+          guidance: "Brief supply-side health update in every operational meeting."
+        - field: "Demand Update"
+          guidance: "Brief demand-side health update in every operational meeting."
+        - field: "Decision Side-Impact Tags"
+          guidance: "Every decision recorded with its expected impact on supply, demand, or both."
+      framing_notes: >
+        Meeting notes in a marketplace company should always include both-side
+        visibility, even in meetings focused on one side. This habit prevents
+        decisions from being made without cross-side awareness.
+
+# ============================================================
+# SELF TEMPLATES (10)
+# ============================================================
+
+self_templates:
+
+  # ──────────────────────────────────────────────
+  # 31. Decision Journal
+  # ──────────────────────────────────────────────
+  - template: decision-journal
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Cross-Side Trade-Off' field for every decision: what did each side gain or lose?"
+        - "Add 'Reversibility' assessment: can this decision be reversed if the cross-side impact is worse than expected?"
+      additional_fields:
+        - field: "Supply Impact"
+          guidance: "Expected and actual impact on supply-side metrics and sentiment."
+        - field: "Demand Impact"
+          guidance: "Expected and actual impact on demand-side metrics and sentiment."
+        - field: "Cross-Side Trade-Off Accepted"
+          guidance: "Explicitly state: 'This decision favours [side] at [cost to other side]. Justification: [reasoning].'"
+      framing_notes: >
+        A marketplace founder's decision journal should track cross-side
+        trade-offs explicitly. Over time, the journal reveals whether decisions
+        systematically favour one side — a pattern that predicts marketplace
+        instability.
+
+  # ──────────────────────────────────────────────
+  # 32. Leadership Reflection
+  # ──────────────────────────────────────────────
+  - template: leadership-reflection
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Which side did I spend more time on this week?' reflection question."
+        - "Add 'Supply-side empathy check' and 'Demand-side empathy check' prompts."
+      additional_fields:
+        - field: "Side Balance Reflection"
+          guidance: "Reflect on time and attention allocation between supply and demand this period."
+        - field: "Supply-Side Empathy Prompt"
+          guidance: "When did I last experience the marketplace from the supply side's perspective? What would I change?"
+        - field: "Demand-Side Empathy Prompt"
+          guidance: "When did I last experience the marketplace from the demand side's perspective? What would I change?"
+      framing_notes: >
+        Marketplace founders must regularly audit their own attention balance.
+        The side that receives less founder attention will eventually underperform.
+
+  # ──────────────────────────────────────────────
+  # 33. Career Strategy Canvas
+  # ──────────────────────────────────────────────
+  - template: career-strategy-canvas
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Marketplace Leadership Skills' inventory: two-sided thinking, network effects intuition, supply-demand balancing, take rate strategy, trust infrastructure design."
+      additional_fields:
+        - field: "Marketplace Competency Self-Assessment"
+          guidance: "Rate yourself on: supply-side empathy, demand-side empathy, network effects understanding, take rate strategy, T&S management."
+      framing_notes: >
+        For marketplace founders and leaders, career development must include
+        marketplace-specific competencies that do not transfer from single-sided
+        businesses.
+
+  # ──────────────────────────────────────────────
+  # 34. Weekly CEO Review
+  # ──────────────────────────────────────────────
+  - template: weekly-ceo-review
+    marketplace_adaptation:
+      structural_changes:
+        - "Structure weekly review around four dashboards: Supply Health, Demand Health, Platform Health, Financial Health."
+        - "Add 'Balance Alert' — flag if any side's metrics are diverging significantly from the other's."
+      additional_fields:
+        - field: "Supply Health (5 metrics)"
+          guidance: "Supply liquidity, supply churn (weekly), new supply activated, supply NPS (if measured), top supply earnings."
+        - field: "Demand Health (5 metrics)"
+          guidance: "Demand fill rate, demand repeat rate (weekly cohort), new demand activated, demand NPS (if measured), organic demand %."
+        - field: "Platform Health (3 metrics)"
+          guidance: "Contribution margin per transaction (trend), T&S incidents, match quality score."
+        - field: "Balance Alert"
+          guidance: "Flag if supply metrics and demand metrics are diverging — early warning of imbalance."
+      framing_notes: >
+        The marketplace CEO's weekly review must provide balanced visibility
+        into both sides. A CEO who only reviews demand metrics is governing
+        half a marketplace.
+
+  # ──────────────────────────────────────────────
+  # 35. Founder Mental Health Check
+  # ──────────────────────────────────────────────
+  - template: founder-mental-health-check
+    marketplace_adaptation:
+      structural_changes:
+        - "Add marketplace-specific stress factors: the weight of managing two constituencies with competing interests, supply-side criticism, demand-side expectations, regulatory anxiety."
+      additional_fields:
+        - field: "Two-Sided Pressure Assessment"
+          guidance: "Marketplace founders carry the stress of two customer bases. Reflect on whether supply-side or demand-side pressure is weighing more heavily."
+        - field: "Policy Backlash Resilience"
+          guidance: "Marketplace founders regularly face vocal criticism from supply or demand. Assess your current resilience to public criticism of platform policies."
+      framing_notes: >
+        Marketplace founders face a unique psychological burden: two constituencies
+        whose interests sometimes conflict, and both blame the platform. Acknowledging
+        this dual pressure explicitly supports founder mental health.
+
+  # ──────────────────────────────────────────────
+  # 36. Personal Board Tracker
+  # ──────────────────────────────────────────────
+  - template: personal-board-tracker
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Marketplace Advisor' category: specifically seek advisors with marketplace operating experience — preferably on the side you understand less."
+      additional_fields:
+        - field: "Marketplace Advisor Coverage"
+          guidance: "Do your advisors include: someone with supply-side operations expertise, someone with demand-side growth expertise, someone with marketplace economics background?"
+      framing_notes: >
+        A marketplace founder's personal board should include advisors who
+        complement the founder's natural side bias. If the founder is demand-
+        oriented, the advisory board needs a supply operations voice, and
+        vice versa.
+
+  # ──────────────────────────────────────────────
+  # 37. Stakeholder Map
+  # ──────────────────────────────────────────────
+  - template: stakeholder-map
+    marketplace_adaptation:
+      structural_changes:
+        - "Expand stakeholder categories to include: Supply-Side Participants (segmented by tier), Demand-Side Participants (segmented by value), Supply Aggregators, Demand Channels, Regulators (marketplace-specific), Infrastructure Partners."
+      additional_fields:
+        - field: "Supply-Side Stakeholder Tiers"
+          guidance: "Map supply by influence and dependence: power sellers, mid-tier, long tail. Each tier has different stakeholder management needs."
+        - field: "Demand-Side Stakeholder Segments"
+          guidance: "Map demand by value and influence: high-frequency buyers, occasional buyers, influential reviewers."
+        - field: "Regulatory Stakeholders"
+          guidance: "Map marketplace-specific regulators: labour boards, consumer protection agencies, competition authorities, data protection authorities."
+      framing_notes: >
+        Marketplace stakeholder maps are inherently more complex than single-
+        sided business stakeholder maps because the marketplace serves two
+        constituencies plus its own team plus regulators with marketplace-
+        specific mandates.
+
+  # ──────────────────────────────────────────────
+  # 38. Annual Review and Planning
+  # ──────────────────────────────────────────────
+  - template: annual-review-and-planning
+    marketplace_adaptation:
+      structural_changes:
+        - "Structure annual review into three pillars: Supply Year in Review, Demand Year in Review, Platform Year in Review."
+        - "Add 'Marketplace Maturity Assessment': has the marketplace advanced in Sarah Tavel's hierarchy (Level 1: Matches, Level 2: Retention, Level 3: Quality)?"
+        - "Add 'Network Effects Trajectory': are network effects strengthening, stable, or weakening year-over-year?"
+      additional_fields:
+        - field: "Supply Year in Review"
+          guidance: "Annual supply-side metrics: supply growth, liquidity trend, churn trend, NPS trajectory, ARPU trajectory."
+        - field: "Demand Year in Review"
+          guidance: "Annual demand-side metrics: demand growth, fill rate trend, repeat rate trend, NPS trajectory, organic demand trend."
+        - field: "Marketplace Maturity Level"
+          guidance: "Tavel hierarchy: Level 1 (matches happening), Level 2 (both sides returning), Level 3 (quality becoming a moat). Where is the marketplace now?"
+        - field: "Network Effects Year-Over-Year"
+          guidance: "Cross-side elasticity trend, organic acquisition trend, blended CAC trend. Are network effects compounding?"
+      framing_notes: >
+        The annual review for a marketplace must assess progress across all
+        three levels of the marketplace hierarchy. Revenue growth without
+        advancement up the hierarchy is growth without defensibility.
+
+  # ──────────────────────────────────────────────
+  # 39. Learning Plan
+  # ──────────────────────────────────────────────
+  - template: learning-plan
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Marketplace Domain Knowledge' learning category: network effects theory, marketplace economics, platform strategy, trust infrastructure design."
+      additional_fields:
+        - field: "Marketplace Knowledge Gap Assessment"
+          guidance: "Self-assess knowledge of: two-sided network effects, take rate optimisation, supply-demand balancing, marketplace regulatory landscape, trust and safety operations."
+        - field: "Recommended Marketplace Learning Sources"
+          guidance: "a16z marketplace content, NFX essays, Lenny's Newsletter marketplace editions, Sarah Tavel's hierarchy of marketplaces, Bill Gurley's writings on marketplace economics."
+      framing_notes: >
+        Marketplace founders should invest in marketplace-specific learning.
+        General business education does not cover network effects, liquidity
+        management, or two-sided platform dynamics with sufficient depth.
+
+  # ──────────────────────────────────────────────
+  # 40. Negotiation Prep Sheet
+  # ──────────────────────────────────────────────
+  - template: negotiation-prep-sheet
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Cross-Side Impact of Agreement' section: how does the negotiated outcome affect the other side of the marketplace?"
+        - "Add 'Precedent Risk': will this agreement set a precedent that other supply or demand participants will demand?"
+      additional_fields:
+        - field: "Cross-Side Impact"
+          guidance: "If negotiating with supply (take rate, terms): how does the agreement affect demand pricing, experience, or trust? If with demand: how does it affect supply economics?"
+        - field: "Precedent Assessment"
+          guidance: "Will this agreement be visible to other participants? Will they demand the same terms? What is the cost if all supply/demand receives these terms?"
+        - field: "Counterparty Marketplace Dependencies"
+          guidance: "How dependent is the counterparty on your marketplace? Multi-homing status, % of their revenue from your platform, available alternatives."
+      framing_notes: >
+        Marketplace negotiations are never bilateral — the outcome affects the
+        entire ecosystem. A concession to one major supplier sets a precedent
+        for all suppliers. A guarantee to one major buyer creates expectations
+        for all buyers.
+
+# ============================================================
+# CLIENT TEMPLATES (8)
+# ============================================================
+
+client_templates:
+
+  # ──────────────────────────────────────────────
+  # 41. Analysis Report
+  # ──────────────────────────────────────────────
+  - template: analysis-report
+    marketplace_adaptation:
+      structural_changes:
+        - "For marketplace-serving consultancies: structure analysis around supply health, demand health, and platform economics."
+        - "Add 'Marketplace Health Dashboard' with liquidity metrics, network effects indicators, and two-sided retention."
+      additional_fields:
+        - field: "Marketplace Health Score"
+          guidance: "Composite score: supply liquidity, demand fill rate, both-side repeat rates, organic acquisition %, contribution margin trend."
+        - field: "Side-Specific Recommendations"
+          guidance: "Tag every recommendation with its target side: [Supply], [Demand], [Platform]."
+      framing_notes: >
+        Analysis reports for marketplace clients must demonstrate understanding
+        of two-sided dynamics. Generic business analysis that treats the marketplace
+        as a single-sided e-commerce platform will miss the most important dynamics.
+
+  # ──────────────────────────────────────────────
+  # 42. Proposal Outline
+  # ──────────────────────────────────────────────
+  - template: proposal-outline
+    marketplace_adaptation:
+      structural_changes:
+        - "If the engagement involves marketplace strategy: structure scope around supply strategy, demand strategy, and platform optimisation."
+        - "Add 'Two-Sided Impact' to every proposed deliverable."
+      additional_fields:
+        - field: "Engagement Scope by Side"
+          guidance: "Specify which side(s) the engagement covers and what the cross-side implications are."
+      framing_notes: >
+        Proposals for marketplace engagements should demonstrate marketplace
+        expertise through the structure itself — separate supply and demand
+        workstreams with explicit cross-side integration points.
+
+  # ──────────────────────────────────────────────
+  # 43. Case Study Template
+  # ──────────────────────────────────────────────
+  - template: case-study-template
+    marketplace_adaptation:
+      structural_changes:
+        - "Structure results section around both sides: supply-side outcomes and demand-side outcomes."
+        - "Add 'Network Effects Evidence' section: did the engagement produce measurable cross-side improvements?"
+      additional_fields:
+        - field: "Supply-Side Results"
+          guidance: "Quantified outcomes for the supply side: liquidity improvement, churn reduction, NPS change, ARPU growth."
+        - field: "Demand-Side Results"
+          guidance: "Quantified outcomes for the demand side: fill rate improvement, repeat rate change, NPS change, organic growth."
+        - field: "Cross-Side Impact"
+          guidance: "Did improvements on one side produce measurable improvements on the other? This is the network effects story."
+      framing_notes: >
+        Marketplace case studies are most compelling when they demonstrate
+        cross-side impact: improving one side produced measurable benefits
+        for the other. This is the network effects narrative in action.
+
+  # ──────────────────────────────────────────────
+  # 44. Partnership Memo
+  # ──────────────────────────────────────────────
+  - template: partnership-memo
+    marketplace_adaptation:
+      structural_changes:
+        - "Add 'Side-Specific Partnership Impact': does this partnership affect supply acquisition, demand acquisition, or platform infrastructure?"
+        - "Add 'Concentration Risk Assessment': does this partnership create dependence on a single supply aggregator or demand channel?"
+        - "Add 'Cross-Side Value Chain': how does this partnership create value that flows to both sides?"
+      additional_fields:
+        - field: "Partnership Side Alignment"
+          guidance: "[Supply Partner] / [Demand Partner] / [Infrastructure Partner]. Name the primary marketplace function the partner serves."
+        - field: "Concentration Risk"
+          guidance: "If this partner were to leave, what % of supply or demand would be affected? >15% = material concentration risk."
+        - field: "Cross-Side Value Flow"
+          guidance: "How does the value this partner brings to one side flow through to benefit the other side?"
+      framing_notes: >
+        Marketplace partnerships must be evaluated for concentration risk and
+        cross-side value. A supply aggregator partnership that delivers volume
+        but concentrates power is a strategic liability. A demand channel
+        partnership that cannibalises organic acquisition destroys long-term value.
+
+  # ──────────────────────────────────────────────
+  # 45. Project Status Update
+  # ──────────────────────────────────────────────
+  - template: project-status-update
+    marketplace_adaptation:
+      structural_changes:
+        - "Tag each workstream with its side alignment: [Supply], [Demand], [Platform]."
+        - "Add 'Cross-Side Metrics Watch' section monitoring the non-primary side during the project."
+      additional_fields:
+        - field: "Side-Tagged Workstreams"
+          guidance: "Every workstream identified by which side it serves."
+        - field: "Non-Primary Side Health"
+          guidance: "While focused on one side, monitor the other side's metrics for unintended degradation."
+      framing_notes: >
+        Project status updates for marketplace initiatives must include
+        cross-side monitoring. A project that improves demand conversion may
+        inadvertently stress supply capacity if not monitored.
+
+  # ──────────────────────────────────────────────
+  # 46. Service Level Agreement
+  # ──────────────────────────────────────────────
+  - template: service-level-agreement
+    marketplace_adaptation:
+      structural_changes:
+        - "If the marketplace itself is the service: define SLAs for supply-side experience (payout timing, support response, listing approval) and demand-side experience (search availability, transaction completion, dispute resolution time)."
+      additional_fields:
+        - field: "Supply-Side SLAs"
+          guidance: "Payout timing, support response time, listing approval time, communication SLAs for policy changes."
+        - field: "Demand-Side SLAs"
+          guidance: "Search availability, transaction completion rate, dispute resolution time, refund processing time."
+        - field: "Platform SLAs"
+          guidance: "Uptime, matching accuracy, data accuracy, privacy compliance."
+      framing_notes: >
+        Marketplace SLAs should cover both sides of the platform experience.
+        Formalising supply-side SLAs (payout timing, support response) is
+        particularly important because supply-side service quality is often
+        less visible but more impactful on marketplace health.
+
+  # ──────────────────────────────────────────────
+  # 47. Quarterly Business Review
+  # ──────────────────────────────────────────────
+  - template: quarterly-business-review
+    marketplace_adaptation:
+      structural_changes:
+        - "Structure QBR around four pillars: Supply Performance, Demand Performance, Marketplace Economics, and Strategic Outlook."
+        - "Add 'Liquidity Trend' section with supply liquidity and demand fill rate trends."
+        - "Add 'Network Effects Health' section with organic acquisition and cross-side elasticity trends."
+      additional_fields:
+        - field: "Supply Performance Review"
+          guidance: "Supply growth, liquidity trend, churn by tier, NPS, ARPU trajectory, quality score trend."
+        - field: "Demand Performance Review"
+          guidance: "Demand growth, fill rate trend, repeat rate by cohort, NPS, organic %, AOV trend."
+        - field: "Marketplace Economics"
+          guidance: "GMV, net revenue, take rate, contribution margin per transaction, blended CAC, LTV:CAC per side."
+        - field: "Network Effects Evidence"
+          guidance: "Organic acquisition trends, cross-side elasticity, blended CAC trajectory. Are network effects strengthening?"
+      framing_notes: >
+        The marketplace QBR must demonstrate that both sides are healthy and
+        that the flywheel is working. A QBR that shows strong demand metrics
+        without supply health data tells half the story.
+
+  # ──────────────────────────────────────────────
+  # 48. Onboarding Welcome Packet
+  # ──────────────────────────────────────────────
+  - template: onboarding-welcome-packet
+    marketplace_adaptation:
+      structural_changes:
+        - "Create two variants: Supply-Side Onboarding Packet and Demand-Side Onboarding Packet. Each must be tailored to the side's needs, value proposition, and success criteria."
+        - "For supply: emphasise earnings potential, tools available, quality expectations, and support resources."
+        - "For demand: emphasise selection quality, trust infrastructure, guarantees, and how to get the best experience."
+      additional_fields:
+        - field: "Supply-Side Welcome Content"
+          guidance: "Expected earnings, how matching works, listing best practices, quality requirements, payout schedule, support channels, community access."
+        - field: "Demand-Side Welcome Content"
+          guidance: "How to search effectively, trust and safety features, guarantee policies, review system, support channels, first-purchase incentive (if applicable)."
+        - field: "Time-to-First-Transaction Optimisation"
+          guidance: "Both packets should guide the new participant toward their first completed transaction as quickly as possible."
+      framing_notes: >
+        Onboarding is where the marketplace makes its first promise to each side.
+        Supply-side onboarding should set realistic earnings expectations and
+        demonstrate platform tools. Demand-side onboarding should demonstrate
+        selection quality and build trust. Both should minimise time-to-first-
+        transaction.

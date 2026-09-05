@@ -1,0 +1,38 @@
+name: Publish npm
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.repository == 'fatihguner/foreman' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+      - run: npm ci --ignore-scripts
+      - run: npm run build
+      - run: npm run build:plugins
+      - run: npm run check
+      - name: Verify tag, manifests and generated files
+        run: |
+          npm run check:release -- --tag "$GITHUB_REF_NAME"
+          git diff --exit-code
+          test -z "$(git ls-files --others --exclude-standard)"
+      - run: npm pack --ignore-scripts
+      - run: npm run test:package -- ./foreman-sh-*.tgz
+      - name: Publish the verified package using npm trusted publishing
+        run: |
+          NPM_DIST_TAG=$(node -p "require('./package.json').publishConfig.tag")
+          npm publish ./foreman-sh-*.tgz --ignore-scripts --access public --provenance --tag "$NPM_DIST_TAG"

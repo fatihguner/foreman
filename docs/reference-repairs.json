@@ -1,0 +1,936 @@
+[
+  {
+    "action": "correct-reference",
+    "from": "skill:stakeholder-map",
+    "to": "template:stakeholder-map"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:resource-allocation",
+    "to": "skill:eisenhower-matrix"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:customer-churn-diagnosis",
+    "to": "diagnostic:customer-churn-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "stakeholder-resistance-diagnosis",
+    "to": "diagnostic:stakeholder-resistance-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "implementation-tracking",
+    "to": "implementation:implementation-tracking"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:risk-assessment-brief",
+    "to": "template:risk-assessment-brief"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:action-plan",
+    "to": "template:action-plan"
+  },
+  {
+    "action": "type-reference",
+    "from": "revenue-diagnosis",
+    "to": "diagnostic:revenue-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "team-dysfunction-diagnosis",
+    "to": "diagnostic:team-dysfunction-diagnosis"
+  },
+  {
+    "action": "type-reference",
+    "from": "product-market-fit-diagnosis",
+    "to": "diagnostic:product-market-fit-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:personal-brand-playbook",
+    "to": "playbook:personal-brand-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:customer-churn-diagnosis",
+    "to": "diagnostic:customer-churn-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:revenue-diagnosis",
+    "to": "diagnostic:revenue-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-strategy-playbook",
+    "to": "playbook:pricing-strategy-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:unit-economics-snapshot",
+    "to": "template:unit-economics-snapshot"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:personal-brand-playbook",
+    "to": "playbook:personal-brand-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:product-market-fit-diagnosis",
+    "to": "diagnostic:product-market-fit-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "template:customer-discovery-summary",
+    "to": "template:market-opportunity-summary"
+  },
+  {
+    "action": "correct-reference",
+    "from": "template:product-requirements-brief",
+    "to": "template:new-initiative-brief"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:due-diligence-checklist",
+    "to": "template:due-diligence-checklist"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:fundraising-playbook",
+    "to": "playbook:fundraising-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:fundraising-deck-outline",
+    "to": "template:fundraising-deck-outline"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:unit-economics-snapshot",
+    "to": "template:unit-economics-snapshot"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:unit-economics-snapshot",
+    "to": "template:unit-economics-snapshot"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:exit-scenario-analysis",
+    "to": "template:exit-scenario-analysis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:fundraising-playbook",
+    "to": "playbook:fundraising-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:fundraising-deck-outline",
+    "to": "template:fundraising-deck-outline"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:investor-update-email",
+    "to": "template:investor-update-email"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:market-opportunity-summary",
+    "to": "template:market-opportunity-summary"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:strategic-analysis-one-pager",
+    "to": "template:strategic-analysis-one-pager"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-diagnosis",
+    "to": "diagnostic:pricing-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-strategy-playbook",
+    "to": "playbook:pricing-strategy-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:unit-economics-snapshot",
+    "to": "template:unit-economics-snapshot"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:product-market-fit-diagnosis",
+    "to": "diagnostic:product-market-fit-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:pricing-research-guide",
+    "to": "research:pricing-research-guide"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:hiring-diagnosis",
+    "to": "diagnostic:hiring-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:team-rebuild-playbook",
+    "to": "playbook:team-rebuild-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:hiring-scorecard",
+    "to": "template:hiring-scorecard"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:product-market-fit-diagnosis",
+    "to": "diagnostic:product-market-fit-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:product-market-fit-playbook",
+    "to": "playbook:product-market-fit-playbook"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:new-initiative-brief",
+    "to": "template:new-initiative-brief"
+  },
+  {
+    "action": "correct-reference",
+    "from": "template:product-market-fit-diagnosis",
+    "to": "diagnostic:product-market-fit-diagnosis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:stakeholder-mapping",
+    "to": "template:stakeholder-map"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:kaizen",
+    "to": "skill:kaizen-bpr"
+  },
+  {
+    "action": "remove-unimplemented-reference",
+    "ref": "lean-canvas"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:swot-analysis",
+    "to": "skill:swot-pest-analysis"
+  },
+  {
+    "action": "remove-unimplemented-reference",
+    "ref": "antifragile"
+  },
+  {
+    "action": "remove-unimplemented-reference",
+    "ref": "value-proposition-design"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:unit-economics",
+    "to": "template:unit-economics-snapshot"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:tuckman-stages",
+    "to": "skill:tuckman-team-stages"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:kaizen",
+    "to": "skill:kaizen-bpr"
+  },
+  {
+    "action": "remove-unimplemented-reference",
+    "ref": "crossing-the-chasm"
+  },
+  {
+    "action": "remove-unimplemented-reference",
+    "ref": "value-proposition-canvas"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:tuckman-stages",
+    "to": "skill:tuckman-team-stages"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:tuckman-stages",
+    "to": "skill:tuckman-team-stages"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:swot-analysis",
+    "to": "skill:swot-pest-analysis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:swot-analysis",
+    "to": "skill:swot-pest-analysis"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:tuckman-stages",
+    "to": "skill:tuckman-team-stages"
+  },
+  {
+    "action": "remove-unimplemented-reference",
+    "ref": "crossing-the-chasm"
+  },
+  {
+    "action": "correct-reference",
+    "from": "skill:stoic-perception",
+    "to": "skill:stoic-unbiased-thought"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/cap-table-summary",
+    "to": "template:cap-table-summary"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/competitive-landscape-brief",
+    "to": "template:competitive-landscape-brief"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/decision-rationale-memo",
+    "to": "template:decision-rationale-memo"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/due-diligence-checklist",
+    "to": "template:due-diligence-checklist"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/exit-scenario-analysis",
+    "to": "template:exit-scenario-analysis"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/fundraising-deck-outline",
+    "to": "template:fundraising-deck-outline"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/investor-update-email",
+    "to": "template:investor-update-email"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/market-opportunity-summary",
+    "to": "template:market-opportunity-summary"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/strategic-analysis-one-pager",
+    "to": "template:strategic-analysis-one-pager"
+  },
+  {
+    "action": "type-reference",
+    "from": "investor/unit-economics-snapshot",
+    "to": "template:unit-economics-snapshot"
+  },
+  {
+    "action": "type-reference",
+    "from": "board/board-meeting-agenda",
+    "to": "template:board-meeting-agenda"
+  },
+  {
+    "action": "type-reference",
+    "from": "board/ceo-succession-brief",
+    "to": "template:ceo-succession-brief"
+  },
+  {
+    "action": "type-reference",
+    "from": "board/change-initiative-proposal",
+    "to": "template:change-initiative-proposal"
+  },
+  {
+    "action": "type-reference",
+    "from": "board/compensation-review-brief",
+    "to": "template:compensation-review-brief"
+  },
+  {
+    "action": "type-reference",
+    "from": "board/quarterly-strategic-review",
+    "to": "template:quarterly-strategic-review"
+  },
+  {
+    "action": "type-reference",
+    "from": "board/regulatory-compliance-update",
+    "to": "template:regulatory-compliance-update"
+  },
+  {
+    "action": "type-reference",
+    "from": "board/risk-assessment-brief",
+    "to": "template:risk-assessment-brief"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/action-plan",
+    "to": "template:action-plan"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/culture-values-document",
+    "to": "template:culture-values-document"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/feedback-360-template",
+    "to": "template:feedback-360-template"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/hiring-scorecard",
+    "to": "template:hiring-scorecard"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/incident-postmortem",
+    "to": "template:incident-postmortem"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/meeting-notes-template",
+    "to": "template:meeting-notes-template"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/new-initiative-brief",
+    "to": "template:new-initiative-brief"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/offsite-planning-guide",
+    "to": "template:offsite-planning-guide"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/one-on-one-template",
+    "to": "template:one-on-one-template"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/project-kickoff-document",
+    "to": "template:project-kickoff-document"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/retrospective-template",
+    "to": "template:retrospective-template"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/role-description-template",
+    "to": "template:role-description-template"
+  },
+  {
+    "action": "type-reference",
+    "from": "team/team-health-check",
+    "to": "template:team-health-check"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/analysis-report",
+    "to": "template:analysis-report"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/case-study-template",
+    "to": "template:case-study-template"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/onboarding-welcome-packet",
+    "to": "template:onboarding-welcome-packet"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/partnership-memo",
+    "to": "template:partnership-memo"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/project-status-update",
+    "to": "template:project-status-update"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/proposal-outline",
+    "to": "template:proposal-outline"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/quarterly-business-review",
+    "to": "template:quarterly-business-review"
+  },
+  {
+    "action": "type-reference",
+    "from": "client/service-level-agreement",
+    "to": "template:service-level-agreement"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/annual-review-and-planning",
+    "to": "template:annual-review-and-planning"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/career-strategy-canvas",
+    "to": "template:career-strategy-canvas"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/decision-journal",
+    "to": "template:decision-journal"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/founder-mental-health-check",
+    "to": "template:founder-mental-health-check"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/leadership-reflection",
+    "to": "template:leadership-reflection"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/learning-plan",
+    "to": "template:learning-plan"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/negotiation-prep-sheet",
+    "to": "template:negotiation-prep-sheet"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/personal-board-tracker",
+    "to": "template:personal-board-tracker"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/stakeholder-map",
+    "to": "template:stakeholder-map"
+  },
+  {
+    "action": "type-reference",
+    "from": "self/weekly-ceo-review",
+    "to": "template:weekly-ceo-review"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/leadership/effective-meetings",
+    "to": "output-templates/team/meeting-notes-template.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/storytelling/storytelling-for-leaders",
+    "to": "skills/leadership/storytelling-for-leaders.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/storytelling/storytelling-for-leaders",
+    "to": "skills/leadership/storytelling-for-leaders.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/value-proposition-canvas",
+    "to": "skills/frameworks/business-model-canvas.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/storytelling/stage-presence",
+    "to": "skills/storytelling/story-performance-and-delivery.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/storytelling/storytelling-for-leaders",
+    "to": "skills/leadership/storytelling-for-leaders.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/stoic/managing-emotions",
+    "to": "skills/stoic/stoic-emotional-mastery.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/leadership/organisational-culture",
+    "to": "skills/frameworks/organisational-culture.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/leadership/organisational-culture",
+    "to": "skills/frameworks/organisational-culture.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/people/hiring-cultural-alignment",
+    "to": "output-templates/team/hiring-scorecard.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/leadership/organisational-culture",
+    "to": "skills/frameworks/organisational-culture.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/leadership/organisational-culture",
+    "to": "skills/frameworks/organisational-culture.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/ai-leadership/purpose-driven-leadership",
+    "to": "skills/leadership/purpose-driven-leadership.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/leadership/organisational-culture",
+    "to": "skills/frameworks/organisational-culture.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "playbooks/scaling-culture-playbook",
+    "to": "playbooks/scaling-playbook.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/evaluating-and-deciding",
+    "to": "skills/thinking/evaluating-and-deciding.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "output-templates/team/decision-journal",
+    "to": "output-templates/self/decision-journal.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/consensus-and-commitment",
+    "to": "skills/decisions/choosing-and-executing.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/evaluating-and-deciding",
+    "to": "skills/thinking/evaluating-and-deciding.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/even-swaps",
+    "to": "skills/decisions/evaluating-options.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "output-templates/team/decision-journal",
+    "to": "output-templates/self/decision-journal.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/evaluating-and-deciding",
+    "to": "skills/thinking/evaluating-and-deciding.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/seventy-percent-rule",
+    "to": "skills/leadership/decision-making-under-pressure.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/thinking/self-accountability",
+    "to": "skills/leadership/leader-self-reflection.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/evaluating-and-deciding",
+    "to": "skills/thinking/evaluating-and-deciding.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/creative/creative-identity-and-permission",
+    "to": "skills/creative/creative-identity-and-purpose.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/creative/obstacles-and-blocks",
+    "to": "skills/creative/creative-obstacles.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/creative/practice-and-habit",
+    "to": "skills/creative/creative-practice-and-habit.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/decisions/brainswarming",
+    "to": "skills/decisions/generating-solutions.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/creative/collaboration-and-context",
+    "to": "skills/creative/creative-collaboration-and-context.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/value-proposition-canvas",
+    "to": "skills/frameworks/business-model-canvas.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/leadership/effective-execution",
+    "to": "skills/decisions/choosing-and-executing.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/thinking/self-control",
+    "to": "skills/stoic/stoic-right-action.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/crossing-the-chasm",
+    "to": "playbooks/first-100-customers-playbook.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/nps",
+    "to": "skills/frameworks/net-promoter-score.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/ansoff-matrix",
+    "to": "skills/frameworks/growth-share-matrix.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/negotiation/resolution-roadmap",
+    "to": "skills/negotiation/delivering-the-deal.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/game-theory/credible-commitment",
+    "to": "skills/game-theory/prisoners-dilemma-and-cooperation.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/negotiation/negotiation-preparation",
+    "to": "output-templates/self/negotiation-prep-sheet.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/negotiation/purposeful-concessions",
+    "to": "skills/negotiation/cooperative-negotiation.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/people/conflict-resolution",
+    "to": "skills/people/resolving-people-conflict.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/swot-analysis",
+    "to": "skills/frameworks/swot-pest-analysis.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/unit-economics",
+    "to": "output-templates/investor/unit-economics-snapshot.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/negotiation/resolution-roadmap",
+    "to": "skills/negotiation/delivering-the-deal.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/people/conflict-resolution",
+    "to": "skills/people/resolving-people-conflict.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/game-theory/shapley-value",
+    "to": "skills/game-theory/coalition-and-partnership-games.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/people/advisory-board",
+    "to": "output-templates/self/personal-board-tracker.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/ai-leadership/learning-agility",
+    "to": "skills/leadership/learning-agility.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/stoic/self-discipline",
+    "to": "skills/stoic/stoic-right-action.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/people/advisory-board",
+    "to": "output-templates/self/personal-board-tracker.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/people/networking",
+    "to": "skills/people/meeting-the-right-people.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/ai-leadership/learning-agility",
+    "to": "skills/leadership/learning-agility.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/thinking/self-knowledge",
+    "to": "skills/stoic/stoic-self-awareness.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/thinking/self-accountability",
+    "to": "skills/leadership/leader-self-reflection.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/storytelling/storytelling-for-leaders",
+    "to": "skills/leadership/storytelling-for-leaders.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/frameworks/tuckman-stages",
+    "to": "skills/frameworks/tuckman-team-stages.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/stoic/managing-emotions",
+    "to": "skills/stoic/stoic-emotional-mastery.md"
+  },
+  {
+    "action": "route-existing-capability",
+    "from": "skills/thinking/self-knowledge",
+    "to": "skills/stoic/stoic-self-awareness.md"
+  }
+]

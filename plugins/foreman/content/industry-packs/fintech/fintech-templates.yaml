@@ -1,0 +1,1031 @@
+# Fintech Industry Pack — Output Template Adaptations
+#
+# For each of the 48 Foreman output templates, this file defines how fields
+# and sections adapt for fintech companies. The output agent loads these rules
+# when generating documents with the fintech industry pack active.
+#
+# REGULATORY PRINCIPLE: All investor, board, and client-facing materials must
+# include regulatory status, compliance framework, and license standing as
+# first-class dimensions. Risk assessment always includes regulatory risk.
+# Unit economics must separate regulated vs. unregulated revenue lines.
+# Board materials must include compliance standing, audit findings, and
+# regulatory change tracking.
+#
+# Adaptation types:
+#   as-is    — The template works without modification for fintech companies.
+#   modified — The template requires field changes, additional sections, or
+#              reframing of existing sections for fintech context.
+
+pack_metadata:
+  sector: "fintech"
+  display_name: "Fintech"
+  version: "1.0.0"
+  author: "Fatih Guner"
+  last_updated: "2026-03-26"
+
+# ═══════════════════════════════════════════════════════════════
+# TEMPLATE ADAPTATIONS
+# ═══════════════════════════════════════════════════════════════
+
+template_adaptations:
+
+  # ─────────────────────────────────────────────
+  # INVESTOR TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "unit-economics-snapshot"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech unit economics differ fundamentally from SaaS. Revenue lines are a mix of interchange, NIM, fees, and subscription income — each with different regulatory exposure and margin profiles. Unit economics must separate regulated and unregulated revenue, include compliance cost per customer, and account for credit losses in lending businesses."
+    field_changes:
+      - field: "Revenue per unit"
+        sector_label: "Revenue per Customer (by Revenue Line)"
+        sector_guidance: "Decompose revenue per customer by type: interchange/processing revenue (subject to Durbin/PSD2 caps), net interest income (subject to usury caps and credit risk), fee revenue (subject to UDAP/UDAAP), and subscription/platform revenue (unregulated). Report each separately because regulatory exposure differs dramatically."
+      - field: "Cost per unit"
+        sector_label: "CAC (Fully Loaded Including KYC)"
+        sector_guidance: "Include all acquisition costs: marketing, sales, sign-up incentives, KYC/identity verification, and initial compliance screening. In fintech, KYC costs ($3-$15 per consumer) are a non-discretionary component of CAC that does not exist in unregulated businesses."
+      - field: "Margin per unit"
+        sector_label: "Gross Margin by Revenue Line"
+        sector_guidance: "Report gross margin separately for each revenue type. Interchange margin net of processing costs. NIM net of cost of funds and credit provisions. Fee margin net of compliance costs. Platform/subscription margin. Blended gross margin masks the true economics of each revenue stream."
+      - field: "Lifetime value"
+        sector_label: "LTV (Risk-Adjusted)"
+        sector_guidance: "Calculate LTV incorporating: revenue per customer (multi-product if applicable), gross margin by revenue line, ongoing compliance costs (transaction monitoring, KYC refresh, regulatory reporting allocation), and for lending — expected credit losses. Disclose churn rate assumption and average customer lifetime."
+      - field: "Acquisition cost"
+        sector_label: "CAC Payback Period"
+        sector_guidance: "Report in months. For multi-product fintechs, report payback on initial product and accelerated payback when customers adopt additional products. Include the compliance cost runway — how long compliance infrastructure costs persist before being amortized across sufficient customers."
+      - field: "Unit economics ratio"
+        sector_label: "LTV:CAC Ratio (by Customer Segment)"
+        sector_guidance: "Report the ratio by segment (consumer, SMB, enterprise) and by product. A blended LTV:CAC can mask segments where unit economics are negative. Nubank's LTV:CAC above 5x at IPO was the benchmark-setting disclosure for fintech unit economics."
+    sections_to_add:
+      - section_name: "Fintech Metrics Dashboard"
+        placement: "before:Revenue per Customer (by Revenue Line)"
+        description: "Core fintech metrics in a format investors expect. Varies by sub-sector."
+        fields:
+          - "TPV / Loan Origination Volume / AUM (as applicable)"
+          - "Take Rate / NIM / Management Fee"
+          - "Net Revenue and growth rate"
+          - "Monthly Active Users and transactions per user"
+          - "Net Revenue Retention"
+          - "Gross Margin (blended and by revenue line)"
+          - "Default Rate / Fraud Loss Rate (as applicable)"
+          - "Cost-to-Income Ratio"
+      - section_name: "Revenue Composition and Regulatory Exposure"
+        placement: "after:Fintech Metrics Dashboard"
+        description: "Breakdown of revenue by regulatory exposure — critical for investor risk assessment."
+        fields:
+          - "Regulated revenue (% of total): interchange, NIM, regulated fees"
+          - "Unregulated revenue (% of total): subscription, platform, data products"
+          - "Revenue lines subject to pending regulatory changes"
+          - "Revenue concentration in single revenue type"
+      - section_name: "Compliance Cost Structure"
+        placement: "after:CAC Payback Period"
+        description: "Regulatory compliance costs broken out from general operating expenses."
+        fields:
+          - "KYC/onboarding cost per customer"
+          - "Ongoing compliance cost per customer per year (transaction monitoring, KYC refresh, reporting)"
+          - "Total compliance cost as % of revenue"
+          - "Compliance cost trajectory (increasing or decreasing as % of revenue)"
+    sections_to_remove: []
+    benchmark_references: ["tpv", "take-rate", "net-interest-margin", "cac", "ltv", "gross-margin", "regulatory-compliance-cost", "kyc-cost-per-customer", "default-rate", "fraud-loss-rate", "cost-to-income-ratio"]
+
+  - template: "investor-update-email"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech investor updates must include regulatory status alongside financial metrics. Investors in regulated businesses expect proactive disclosure of regulatory developments, compliance milestones, and any regulatory interactions."
+    field_changes:
+      - field: "Financial highlights"
+        sector_label: "Fintech KPIs"
+        sector_guidance: "Report by sub-sector: Payments (TPV, take rate, transaction volume, net revenue). Lending (origination volume, NIM, default rate, portfolio quality). Neobanking (MAU, deposits, ARPU, NRR). Wealthtech (AUM, net flows, management fee revenue). Present current month, prior month, and trend."
+      - field: "Key metrics"
+        sector_label: "Operating and Compliance Metrics"
+        sector_guidance: "Include both commercial metrics (new customers, CAC, NRR) and compliance metrics (KYC conversion rate, fraud rate, regulatory compliance cost). The inclusion of compliance metrics signals sophistication to fintech investors."
+      - field: "Wins"
+        sector_label: "Wins"
+        sector_guidance: "Include regulatory wins alongside commercial wins: license approvals, successful regulatory examinations, compliance certifications (SOC 2, PCI-DSS), banking partner expansions. Regulatory milestones are investment milestones in fintech."
+      - field: "Challenges"
+        sector_label: "Challenges"
+        sector_guidance: "Proactively disclose regulatory challenges: pending regulatory changes, examination findings, compliance infrastructure gaps, banking partner issues. Investors prefer proactive disclosure over surprises."
+      - field: "Asks"
+        sector_label: "Asks"
+        sector_guidance: "Be specific. Fintech-relevant asks: introductions to banking partners, regulatory counsel, compliance technology vendors, or industry regulators. Also: feedback on regulatory strategy or capital planning."
+    sections_to_add:
+      - section_name: "Regulatory Status"
+        placement: "after:Fintech KPIs"
+        description: "Mandatory section for fintech investor updates — regulatory developments and compliance standing."
+        fields:
+          - "License status (current, pending applications, renewals)"
+          - "Regulatory interactions (examinations, inquiries, guidance received)"
+          - "Banking partner relationship status"
+          - "Notable regulatory changes affecting the business"
+      - section_name: "Cash and Capital Position"
+        placement: "after:Regulatory Status"
+        description: "Cash position and regulatory capital (if applicable)."
+        fields:
+          - "Cash balance"
+          - "Monthly burn rate"
+          - "Months of runway"
+          - "Regulatory capital ratio (if bank-chartered or holding customer funds)"
+    sections_to_remove: []
+    benchmark_references: ["tpv", "take-rate", "net-interest-margin", "monthly-active-users", "regulatory-compliance-cost"]
+
+  - template: "competitive-landscape-brief"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech competitive analysis must include regulatory barriers to entry, big tech threat assessment, and the impact of open banking mandates on competitive dynamics. The competitive map must position regulatory advantages (licenses, charters, compliance infrastructure) as defensibility factors alongside product and technology."
+    field_changes:
+      - field: "Competitor overview"
+        sector_label: "Competitive Map with Regulatory Positioning"
+        sector_guidance: "Map competitors on a matrix: X-axis = customer segment (consumer to enterprise), Y-axis = regulatory depth (operating through partners to holding own charter). Position each competitor with: estimated volume, funding, license status, and banking partner(s). Include big tech entries (Apple, Google) and traditional bank digital offerings."
+      - field: "Competitive advantages"
+        sector_label: "Defensibility Analysis (Including Regulatory Moat)"
+        sector_guidance: "Assess defensibility along fintech-specific dimensions: regulatory moat (licenses, charter, compliance infrastructure), data advantage (transaction data, credit data), network effects (two-sided marketplace dynamics, embedded distribution), banking partner quality, and trust/brand (NPS, FDIC insurance, security certifications)."
+      - field: "Competitive threats"
+        sector_label: "Threat Vectors"
+        sector_guidance: "Categorize: (1) Peer fintechs — same sub-sector, same regulatory pathway. (2) Big tech — Apple, Google, Amazon entering with distribution advantage. (3) Traditional banks — digital subsidiaries and partnerships. (4) Regulatory change — open banking mandates enabling new competitors, new charter types creating new entrants. (5) Cross-border competitors — international fintechs entering the US market (Revolut, Wise)."
+    sections_to_add:
+      - section_name: "Regulatory Landscape Impact"
+        placement: "after:Threat Vectors"
+        description: "How current and pending regulation shapes the competitive landscape."
+        fields:
+          - "Current regulatory framework and its competitive implications"
+          - "Pending regulatory changes that will alter competitive dynamics"
+          - "Open banking mandate impact on data-based competitive advantages"
+          - "Regulatory barriers protecting the company's position"
+      - section_name: "Big Tech Threat Assessment"
+        placement: "after:Regulatory Landscape Impact"
+        description: "Specific assessment of big tech financial services entries."
+        fields:
+          - "Active big tech financial products in the company's space"
+          - "Announced or rumored big tech financial services initiatives"
+          - "The company's defensibility against big tech entry (niche depth, regulatory advantage, relationship density)"
+    sections_to_remove: []
+    benchmark_references: ["take-rate", "cac", "monthly-active-users", "regulatory-compliance-cost"]
+
+  - template: "fundraising-deck-outline"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech pitch decks must include a dedicated regulatory strategy slide — investors evaluate regulatory risk and regulatory moat as primary investment criteria. The deck must address license status, compliance infrastructure, banking partner stability, and regulatory trajectory."
+    field_changes:
+      - field: "Market opportunity"
+        sector_label: "Market Opportunity"
+        sector_guidance: "Present TAM/SAM/SOM with fintech-specific methodology: (target customers) x (revenue per customer including cross-sell trajectory). Include the regulatory addressable market — the portion of the market the company can legally serve given its current licensing. Address regulatory tailwinds (open banking, embedded finance) and headwinds (fee caps, new compliance requirements)."
+      - field: "Business model"
+        sector_label: "Fintech Business Model"
+        sector_guidance: "Cover: revenue model (interchange, NIM, fees, subscription), regulatory structure (licenses held, banking partner arrangement, charter strategy), unit economics by revenue line, and the cross-sell/expansion revenue mechanism. Separate regulated and unregulated revenue."
+      - field: "Traction"
+        sector_label: "Fintech Traction Metrics"
+        sector_guidance: "Dedicated slide with sub-sector-appropriate metrics: TPV/origination volume/AUM trajectory, net revenue and growth rate, MAU and engagement, NRR, gross margin, and regulatory milestones. This slide is the most scrutinized in any fintech pitch."
+    sections_to_add:
+      - section_name: "Regulatory Strategy Slide"
+        placement: "after:Fintech Business Model"
+        description: "Mandatory slide for fintech fundraising — investors require clarity on regulatory positioning."
+        fields:
+          - "Current license status (licenses held, jurisdictions covered)"
+          - "Regulatory structure (banking partner, own charter, or hybrid)"
+          - "Compliance infrastructure (team, technology, processes)"
+          - "Regulatory roadmap (charter application timeline, license expansion plan)"
+          - "Regulatory risk mitigation (banking partner diversification, compliance investment plan)"
+      - section_name: "Unit Economics Slide"
+        placement: "after:Fintech Traction Metrics"
+        description: "Fintech-specific unit economics with regulatory cost transparency."
+        fields:
+          - "LTV:CAC ratio (including KYC costs in CAC)"
+          - "Revenue per customer by product line"
+          - "Gross margin by revenue type (regulated vs. unregulated)"
+          - "Compliance cost per customer and as % of revenue"
+          - "For lending: default rate, provision rate, risk-adjusted NIM"
+    sections_to_remove: []
+    benchmark_references: ["tpv", "take-rate", "net-interest-margin", "cac", "ltv", "gross-margin", "regulatory-compliance-cost"]
+
+  - template: "strategic-analysis-one-pager"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A fintech strategic one-pager must anchor analysis in the regulatory landscape alongside commercial strategy. Regulatory positioning is a strategic variable, not an appendix item."
+    field_changes:
+      - field: "Strategic position"
+        sector_label: "Fintech Strategic Position"
+        sector_guidance: "Frame position in fintech terms: sub-sector positioning, regulatory moat strength, competitive differentiation (product, distribution, compliance, data), banking partner or charter status, and cross-sell breadth. Include the company's position on the embedded-vs-standalone spectrum."
+      - field: "Key metrics"
+        sector_label: "Fintech Health Metrics"
+        sector_guidance: "Core metrics: Net Revenue + growth rate, NRR, LTV:CAC (inclusive of compliance costs), Gross Margin (by revenue line), Regulatory Compliance Cost (% of revenue), and sub-sector-specific KPI (default rate for lending, fraud rate for payments, AUM for wealthtech). Compare each to stage-appropriate benchmarks."
+    sections_to_add:
+      - section_name: "Regulatory Moat Assessment"
+        placement: "end"
+        description: "Assessment of the company's regulatory competitive advantage."
+        fields:
+          - "License portfolio and coverage (% of addressable market currently licensable)"
+          - "Compliance infrastructure maturity vs. competitors"
+          - "Regulatory relationship quality (examination history, enforcement record)"
+          - "Charter strategy and timeline (if pursuing direct charter)"
+    sections_to_remove: []
+    benchmark_references: ["take-rate", "net-revenue-retention", "gross-margin", "regulatory-compliance-cost"]
+
+  - template: "market-opportunity-summary"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech market sizing must account for regulatory addressable market — the portion of the total market the company can serve given its licensing status. Regulatory changes can expand or contract the addressable market overnight."
+    field_changes:
+      - field: "Total addressable market"
+        sector_label: "TAM / SAM / SOM (Regulatory-Adjusted)"
+        sector_guidance: "Present TAM with regulatory adjustment: total market opportunity x percentage addressable under current licensing x regulatory probability factor for markets requiring new licenses. Include the regulatory expansion opportunity — the incremental SAM available if pending license applications are approved."
+      - field: "Market dynamics"
+        sector_label: "Fintech Market Dynamics"
+        sector_guidance: "Address: regulatory trajectory (tightening, loosening, transforming), competitive density by sub-sector, big tech entry risk, open banking impact, embedded finance opportunity, and the digital adoption curve for the target customer segment."
+    sections_to_add:
+      - section_name: "Regulatory Market Dynamics"
+        placement: "end"
+        description: "How regulation shapes the market opportunity."
+        fields:
+          - "Current regulatory framework and its impact on market structure"
+          - "Pending regulatory changes and their market impact (expansion or contraction)"
+          - "International regulatory comparison (markets with favorable regulation for expansion)"
+          - "Regulatory moat — how compliance requirements create barriers that protect market share"
+    sections_to_remove: []
+    benchmark_references: ["tpv", "monthly-active-users", "regulatory-compliance-cost"]
+
+  - template: "due-diligence-checklist"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech due diligence is dominated by regulatory verification. Investors must verify license status, compliance infrastructure, banking partner stability, audit findings, enforcement history, and the regulatory risk profile. This is the most fintech-divergent template — regulatory DD items exceed commercial DD items."
+    field_changes:
+      - field: "Financial review"
+        sector_label: "Fintech Financial and Regulatory Verification"
+        sector_guidance: "Verify: revenue decomposition by type (interchange, NIM, fees, subscription), compliance cost allocation methodology, credit loss provisioning (for lending), regulatory capital adequacy (for charter holders), and banking partner financial terms. Request: audited financials, regulatory examination reports, and compliance audit results."
+      - field: "Operational review"
+        sector_label: "Operations, Compliance, and Risk Review"
+        sector_guidance: "Review: compliance program documentation, BSA/AML program effectiveness, KYC processes and false positive rates, transaction monitoring system capability, SAR filing history and timeliness, regulatory reporting accuracy, and data security posture. Request: compliance audit reports, regulatory examination findings, and banking partner oversight documentation."
+    sections_to_add:
+      - section_name: "Regulatory Due Diligence"
+        placement: "before:Fintech Financial and Regulatory Verification"
+        description: "Comprehensive regulatory review — the most critical DD section for fintech investments."
+        fields:
+          - "License inventory (type, jurisdiction, status, renewal dates)"
+          - "Regulatory examination history (findings, MRAs, enforcement actions)"
+          - "Banking partner(s): identity, relationship tenure, contract terms, termination provisions"
+          - "BSA/AML compliance program assessment"
+          - "Consumer protection compliance (UDAP/UDAAP, TILA, ECOA, FCRA as applicable)"
+          - "Data privacy compliance (GLBA, GDPR, CCPA)"
+          - "PCI-DSS compliance status (if handling card data)"
+          - "SOC 2 Type II report review"
+          - "Fair lending analysis (for lending companies)"
+          - "Pending or threatened regulatory actions"
+      - section_name: "Credit Risk Review (Lending Companies)"
+        placement: "after:Regulatory Due Diligence"
+        description: "Lending-specific due diligence."
+        fields:
+          - "Vintage analysis (default rates by origination cohort)"
+          - "Credit model validation and back-testing results"
+          - "Portfolio concentration analysis (geography, product, borrower type)"
+          - "Stress test results (recession scenario impact on portfolio)"
+          - "Warehouse facility terms and covenants"
+          - "Securitization history and performance"
+    sections_to_remove: []
+    benchmark_references: ["default-rate", "regulatory-compliance-cost", "net-interest-margin", "fraud-rate", "capital-adequacy-ratio"]
+
+  - template: "cap-table-summary"
+    audience: "investor"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Cap table structure is not fintech-specific. Standard venture capital cap table formats apply."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "decision-rationale-memo"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech decision rationale documentation must include regulatory impact assessment as a standard section. Every significant decision in fintech has regulatory implications that should be documented."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context (Including Regulatory Factors)"
+        sector_guidance: "Include regulatory considerations alongside commercial factors: how regulation constrains the options, whether the decision requires regulatory approval or notification, and the regulatory risk of each alternative."
+    sections_to_add:
+      - section_name: "Regulatory Impact Assessment"
+        placement: "end"
+        description: "Assessment of regulatory implications of the decision."
+        fields:
+          - "Regulatory requirements triggered by this decision"
+          - "License or approval requirements"
+          - "Compliance infrastructure changes needed"
+          - "Regulatory risk level of each alternative considered"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "exit-scenario-analysis"
+    audience: "investor"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech exit scenarios are governed by regulatory approval requirements. Bank acquisitions require OCC/FDIC/Fed approval. Insurance company acquisitions require state insurance commissioner approval. Any change of control of a licensed financial entity triggers regulatory review. Valuation multiples vary dramatically by sub-sector and regulatory structure."
+    field_changes:
+      - field: "Valuation methodology"
+        sector_label: "Fintech Valuation Framework"
+        sector_guidance: "Fintech valuations depend on sub-sector: payments companies trade on revenue multiples (10-25x for high-growth); lending companies trade on book value or earnings multiples (lower than payments due to credit risk); neobanks trade on customer multiples or revenue multiples depending on monetization stage; wealthtech trades on AUM-based multiples. Regulatory status (charter vs. partner model) significantly affects multiples — charter holders command premiums."
+      - field: "Potential acquirers"
+        sector_label: "Fintech Acquirer Landscape"
+        sector_guidance: "Categorize: (1) Strategic fintech acquirers (larger fintechs acquiring capability or customer base). (2) Bank acquirers (traditional banks acquiring fintech technology and customer relationships — requires regulatory approval). (3) Big tech acquirers (platform companies acquiring financial services capability — faces intense regulatory scrutiny). (4) PE acquirers (financial services-focused PE firms). Note: change of control of licensed entities requires regulatory approval that can take 6-18 months."
+    sections_to_add:
+      - section_name: "Regulatory Exit Requirements"
+        placement: "after:Fintech Acquirer Landscape"
+        description: "Regulatory approvals required for exit transactions."
+        fields:
+          - "Regulatory approvals required for change of control (by license type)"
+          - "Expected regulatory approval timeline"
+          - "License portability (which licenses transfer to the acquirer, which must be re-obtained)"
+          - "Regulatory conditions that could be imposed on the acquisition"
+    sections_to_remove: []
+    benchmark_references: ["tpv", "net-interest-margin", "aum", "gross-margin"]
+
+  # ─────────────────────────────────────────────
+  # BOARD TEMPLATES (7)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-strategic-review"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech board meetings must include regulatory standing as a first-class agenda item alongside financial and operational performance. Board members have fiduciary responsibility for regulatory compliance, and regulators expect board-level oversight of compliance programs."
+    field_changes:
+      - field: "Financial summary"
+        sector_label: "Fintech Financial Dashboard"
+        sector_guidance: "Present sub-sector-appropriate financial metrics: revenue by line (interchange, NIM, fees, subscription), gross margin by revenue type, compliance cost trend, and for lending — credit quality summary (default rate, provision rate, portfolio composition). Compare to plan and prior quarter."
+      - field: "Strategic priorities"
+        sector_label: "Strategic Priorities and Regulatory Roadmap"
+        sector_guidance: "Report progress against OKRs with compliance milestones explicitly included. Present the regulatory roadmap alongside the product roadmap — license applications, charter strategy, compliance technology investment."
+      - field: "Risks"
+        sector_label: "Risk Dashboard (Including Regulatory Risk)"
+        sector_guidance: "Mandatory risk categories for fintech board review: (1) Regulatory risk — pending regulations, examination findings, enforcement environment. (2) Credit risk — portfolio quality, concentration, stress test results (for lending). (3) Fraud risk — fraud rate trends, loss rate, detection system effectiveness. (4) Banking partner risk — partner stability, relationship health, concentration. (5) Operational risk — compliance backlog, system availability, incident history. (6) Competitive risk — big tech entry, regulatory-enabled competition."
+    sections_to_add:
+      - section_name: "Compliance Standing Report"
+        placement: "before:Fintech Financial Dashboard"
+        description: "Mandatory section for fintech board materials — board must demonstrate oversight of compliance program."
+        fields:
+          - "Overall compliance program status (Green/Yellow/Red)"
+          - "License status (current, pending, renewals due)"
+          - "Regulatory examination update (recent findings, remediation progress)"
+          - "BSA/AML program metrics (alert volume, SAR filing timeliness, backlog)"
+          - "Consumer complaint trends (CFPB, state regulators, BBB)"
+          - "Compliance staffing (vacancies, key position changes)"
+      - section_name: "Regulatory Change Tracker"
+        placement: "after:Compliance Standing Report"
+        description: "Tracking of regulatory changes that affect the business."
+        fields:
+          - "Pending regulations with expected impact (high/medium/low)"
+          - "Recently enacted regulations and compliance timeline"
+          - "Industry enforcement trends relevant to the company"
+          - "Regulatory advocacy activities (comment letters, trade association participation)"
+      - section_name: "Audit Findings Summary"
+        placement: "after:Regulatory Change Tracker"
+        description: "Internal and external audit findings requiring board awareness."
+        fields:
+          - "Open audit findings by severity (critical, high, medium, low)"
+          - "Remediation progress on prior findings"
+          - "Upcoming audits and examinations"
+    sections_to_remove: []
+    benchmark_references: ["regulatory-compliance-cost", "default-rate", "fraud-rate", "gross-margin", "net-revenue-retention"]
+
+  - template: "board-meeting-agenda"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech board agendas must allocate dedicated time for compliance reporting. Regulators examine board minutes for evidence of compliance oversight — the agenda must demonstrate that the board allocates meaningful time to regulatory matters."
+    field_changes:
+      - field: "Agenda items"
+        sector_label: "Fintech Board Agenda"
+        sector_guidance: "Standard fintech board agenda: (1) Compliance standing report — 15 min (presented by CCO, not CEO — regulators expect independent compliance reporting to the board). (2) Financial and operating metrics — 15 min (pre-read, discussion only). (3) Strategic topic deep-dive — 25 min (rotate: regulatory strategy, product, credit risk, GTM, partnerships). (4) Risk dashboard review — 10 min. (5) CEO asks — 10 min. (6) Executive session — 15 min. Total: 90 minutes. NOTE: The compliance standing report MUST be a standing agenda item, not an occasional add-on — regulators review board minutes for compliance oversight evidence."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "risk-assessment-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech risk assessment must include regulatory risk as the first dimension — not a secondary consideration. The risk categories for fintech are structurally different from generic businesses, with credit risk, fraud risk, regulatory risk, and banking partner risk as primary categories."
+    field_changes:
+      - field: "Risk categories"
+        sector_label: "Fintech Risk Categories"
+        sector_guidance: "Fintech-specific risk taxonomy (all mandatory): (1) Regulatory risk — enforcement environment, pending regulations, examination findings, license risk. (2) Credit risk — portfolio quality, concentration, stress performance, underwriting model accuracy (for lending). (3) Fraud risk — fraud rate trends, loss rate, detection effectiveness, false positive impact. (4) Banking partner risk — partner stability, regulatory standing, concentration, contract terms. (5) Operational risk — system availability, compliance process backlog, key person dependency. (6) Cybersecurity risk — data breach exposure, penetration test results, incident response readiness. (7) Competitive risk — big tech entry, regulatory-enabled competition, rate/fee competition."
+    sections_to_add:
+      - section_name: "Regulatory Risk Deep Dive"
+        placement: "before:Fintech Risk Categories"
+        description: "Detailed regulatory risk assessment — the primary risk dimension for fintech."
+        fields:
+          - "Current regulatory enforcement environment (agency priorities, recent actions against peers)"
+          - "Pending regulatory changes and their risk rating"
+          - "Examination preparation status and timeline"
+          - "Regulatory capital adequacy (if applicable)"
+          - "License renewal status and risk"
+      - section_name: "Credit Risk Summary (Lending Companies)"
+        placement: "after:Fintech Risk Categories"
+        description: "Lending-specific risk metrics."
+        fields:
+          - "Default rate by vintage (trend analysis)"
+          - "Portfolio concentration (geography, product, borrower type)"
+          - "Stress test results (mild recession, severe recession scenarios)"
+          - "Provision adequacy (actual losses vs. reserved amounts)"
+      - section_name: "Banking Partner Risk Assessment"
+        placement: "after:Credit Risk Summary (Lending Companies)"
+        description: "Assessment of banking partner concentration and stability."
+        fields:
+          - "Banking partner(s) and relationship health"
+          - "Partner regulatory standing (recent examinations, enforcement actions)"
+          - "Concentration risk (single partner vs. multiple)"
+          - "Contingency plan for partner disruption"
+    sections_to_remove: []
+    benchmark_references: ["default-rate", "fraud-rate", "fraud-loss-rate", "regulatory-compliance-cost", "capital-adequacy-ratio"]
+
+  - template: "change-initiative-proposal"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Change initiatives in fintech must include regulatory impact assessment. Changes to products, pricing, technology, or organizational structure may trigger regulatory notification requirements, license amendments, or compliance program changes."
+    field_changes:
+      - field: "Proposed change"
+        sector_label: "Proposed Change and Regulatory Impact"
+        sector_guidance: "Describe the change AND its regulatory implications: does this change require regulatory notification, license amendment, or compliance program modification? Has regulatory counsel reviewed the proposal? What is the compliance implementation timeline?"
+    sections_to_add:
+      - section_name: "Regulatory Impact Assessment"
+        placement: "end"
+        description: "Assessment of regulatory requirements triggered by the proposed change."
+        fields:
+          - "Regulatory notifications required"
+          - "License or compliance program changes needed"
+          - "Regulatory counsel sign-off status"
+          - "Compliance implementation timeline"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "compensation-review-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech compensation must benchmark against both technology and financial services markets. Compliance roles must be benchmarked against banking compensation, not tech compensation — under-paying compliance talent relative to the banking market creates retention risk in the highest-consequence function."
+    field_changes:
+      - field: "Compensation benchmarks"
+        sector_label: "Fintech Compensation Benchmarks"
+        sector_guidance: "Benchmark by function against the appropriate market: technology roles (engineering, product, design) benchmarked against tech companies; compliance, risk, and legal roles benchmarked against banking and financial services (higher base, lower equity). The BSA officer and CCO compensation should be competitive with bank equivalents — under-compensation creates retention risk that regulators view as a red flag."
+    sections_to_add:
+      - section_name: "Compliance Team Compensation Assessment"
+        placement: "end"
+        description: "Specific compensation assessment for compliance-critical roles."
+        fields:
+          - "BSA officer / CCO compensation vs. banking market median"
+          - "Compliance team compensation vs. attrition rate"
+          - "Key compliance role vacancies and time-to-fill"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "regulatory-compliance-update"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "This is the most critical board template for fintech — it must be comprehensive, detailed, and presented by the CCO with direct board access. Regulators examine this document during examinations to verify board-level compliance oversight."
+    field_changes:
+      - field: "Regulatory landscape"
+        sector_label: "Fintech Regulatory Landscape"
+        sector_guidance: "Cover all applicable regulatory frameworks: BSA/AML (FinCEN, state regulators), consumer protection (CFPB UDAP/UDAAP, TILA, ECOA, FCRA), data privacy (GLBA, GDPR, CCPA), payment regulation (PCI-DSS, card network rules, state money transmitter), lending regulation (state usury laws, TILA, HMDA if applicable), securities regulation (SEC, FINRA if applicable), banking regulation (OCC, FDIC, Fed if chartered). For each: current compliance status, recent changes, and upcoming requirements."
+    sections_to_add:
+      - section_name: "BSA/AML Program Status"
+        placement: "after:Fintech Regulatory Landscape"
+        description: "Detailed BSA/AML compliance reporting — the most examined compliance area."
+        fields:
+          - "SAR filing volume and timeliness (% filed within 30-day requirement)"
+          - "CTR filing volume and accuracy"
+          - "Transaction monitoring alert volume, disposition rate, and backlog"
+          - "KYC program metrics (CDD completion rate, EDD completion rate, refresh status)"
+          - "OFAC/sanctions screening effectiveness"
+      - section_name: "Consumer Protection Status"
+        placement: "after:BSA/AML Program Status"
+        description: "Consumer protection compliance — increasingly the focus of CFPB enforcement."
+        fields:
+          - "Consumer complaint volume and resolution rate"
+          - "Fee transparency and UDAP/UDAAP compliance assessment"
+          - "Fair lending analysis results (for lending companies)"
+          - "Marketing and advertising compliance review status"
+      - section_name: "Examination and Audit Calendar"
+        placement: "end"
+        description: "Upcoming regulatory examinations and audit schedule."
+        fields:
+          - "Scheduled regulatory examinations (date, scope, examiner)"
+          - "Internal audit calendar and status"
+          - "External audit schedule (SOC 2, PCI-DSS, financial audit)"
+          - "Examination preparation readiness assessment"
+    sections_to_remove: []
+    benchmark_references: ["regulatory-compliance-cost", "fraud-rate", "kyc-conversion-rate"]
+
+  - template: "ceo-succession-brief"
+    audience: "board"
+    sector_adaptation: "modified"
+    adaptation_rationale: "CEO succession in fintech has a regulatory dimension: the successor must be acceptable to regulators. For bank-chartered fintechs, the OCC/FDIC must approve changes in control and key management positions. The successor must have financial services regulatory credibility."
+    field_changes:
+      - field: "Successor criteria"
+        sector_label: "Successor Criteria (Including Regulatory Considerations)"
+        sector_guidance: "Include regulatory credibility as a succession criterion: the successor must be capable of managing regulatory relationships, presenting to examiners, and maintaining the company's compliance culture. For charter holders, regulators must approve management changes — the successor's regulatory standing affects approval timeline."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # TEAM TEMPLATES (13)
+  # ─────────────────────────────────────────────
+
+  - template: "action-plan"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech action plans must include compliance checkpoints — any action that affects products, customers, or data must be reviewed for regulatory implications."
+    field_changes:
+      - field: "Success metrics"
+        sector_label: "Fintech KPI Targets"
+        sector_guidance: "Define success using fintech-appropriate metrics: TPV impact, take rate improvement, default rate reduction, fraud rate improvement, KYC conversion improvement, compliance cost optimization. Every action plan that touches customer-facing products or data must include a compliance review checkpoint."
+    sections_to_add:
+      - section_name: "Compliance Review Checkpoint"
+        placement: "end"
+        description: "Mandatory compliance review for actions affecting products, customers, or data."
+        fields:
+          - "Does this action require compliance review? (Yes/No)"
+          - "Compliance reviewer and sign-off date"
+          - "Regulatory implications identified"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "new-initiative-brief"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech initiative briefs must include regulatory feasibility assessment and compliance implementation timeline alongside commercial projections."
+    field_changes:
+      - field: "Expected outcomes"
+        sector_label: "Expected Fintech Impact"
+        sector_guidance: "Quantify impact on fintech metrics: revenue per customer, take rate, default rate, fraud rate, KYC conversion, compliance cost, or customer acquisition. Include the regulatory implementation timeline — the initiative cannot launch until compliance requirements are met."
+      - field: "Resource requirements"
+        sector_label: "Resource Requirements (Including Compliance)"
+        sector_guidance: "Include compliance resources alongside engineering and commercial resources: compliance review hours, legal counsel hours, any regulatory filings or notifications required, and the compliance team's capacity to support the initiative."
+    sections_to_add:
+      - section_name: "Regulatory Feasibility Assessment"
+        placement: "after:Expected Fintech Impact"
+        description: "Assessment of regulatory requirements and timeline for the initiative."
+        fields:
+          - "Does this initiative require new licenses, license amendments, or regulatory notifications?"
+          - "Compliance team assessment of regulatory feasibility"
+          - "Regulatory implementation timeline (may differ from product timeline)"
+          - "Compliance sign-off required before launch (Y/N, responsible person)"
+    sections_to_remove: []
+    benchmark_references: ["regulatory-compliance-cost"]
+
+  - template: "project-kickoff-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech project kickoffs must include compliance as a workstream with explicit deliverables and a compliance sign-off gate before launch."
+    field_changes:
+      - field: "Success criteria"
+        sector_label: "Success Metrics and Compliance Gates"
+        sector_guidance: "Define 2-3 fintech metrics this project will move, plus explicit compliance gates: (1) Compliance review completed, (2) Regulatory requirements identified and addressed, (3) Required disclosures and documentation prepared, (4) Compliance sign-off obtained before customer-facing launch."
+    sections_to_add:
+      - section_name: "Compliance Workstream"
+        placement: "end"
+        description: "Dedicated compliance deliverables for the project."
+        fields:
+          - "Compliance review scope and timeline"
+          - "Regulatory requirements applicable to this project"
+          - "Customer disclosures or terms changes needed"
+          - "Compliance sign-off gate (date, responsible person)"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "hiring-scorecard"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech hiring scorecards must include regulatory literacy assessment for all senior roles and specialized compliance competency assessment for compliance, risk, and legal roles."
+    field_changes:
+      - field: "Required competencies"
+        sector_label: "Fintech-Specific Competencies"
+        sector_guidance: "For all senior roles: financial services regulatory awareness, comfort with compliance-constrained decision-making, and understanding of the trust dynamics unique to financial services. For compliance roles: BSA/AML expertise, familiarity with relevant regulations (UDAP/UDAAP, TILA, ECOA, FCRA), examination experience, and regulatory relationship management. For product roles: experience designing compliant products, understanding of regulatory constraints on UX. Benchmark compliance talent against banking market, not tech market."
+    sections_to_add:
+      - section_name: "Regulatory Credentials Assessment"
+        placement: "end"
+        description: "For compliance, risk, and legal roles."
+        fields:
+          - "Relevant regulatory certifications (CAMS, CRCM, CFE)"
+          - "Examination experience (types of exams, roles during exams)"
+          - "Regulatory relationship experience"
+          - "Financial services regulatory background check requirements"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "incident-postmortem"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech incident postmortems must include regulatory impact assessment and determine whether the incident triggers regulatory notification obligations. Data breaches, service outages affecting customer fund access, and fraud events may require notification to regulators, banking partners, and customers under specific timelines."
+    field_changes:
+      - field: "Impact assessment"
+        sector_label: "Customer, Regulatory, and Business Impact"
+        sector_guidance: "Quantify: customers affected, financial impact (funds at risk, transactions delayed), duration, SLA breaches. CRITICAL: determine whether the incident triggers regulatory notification requirements — data breach notifications (state breach laws, GLBA), banking partner notification (per partnership agreement), and customer notification requirements. Document the notification timeline and status."
+    sections_to_add:
+      - section_name: "Regulatory Notification Assessment"
+        placement: "after:Customer, Regulatory, and Business Impact"
+        description: "Assessment of regulatory notification obligations triggered by the incident."
+        fields:
+          - "Does this incident trigger data breach notification under state laws or GLBA?"
+          - "Does this incident require banking partner notification?"
+          - "Does this incident require regulatory notification (OCC, FDIC, state regulators)?"
+          - "Notification timeline compliance (were notifications sent within required timeframes?)"
+          - "CFPB/state AG complaint risk assessment"
+    sections_to_remove: []
+    benchmark_references: ["fraud-rate", "fraud-loss-rate"]
+
+  - template: "retrospective-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Sprint and project retrospectives follow standard agile practices that are not fintech-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "meeting-notes-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Meeting notes structure is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "one-on-one-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "One-on-one meeting structure is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "team-health-check"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech team health must include compliance team health as a distinct dimension — compliance team burnout, understaffing, and cultural marginalization are organizational risks with regulatory consequences."
+    field_changes:
+      - field: "Health indicators"
+        sector_label: "Fintech Team Health Indicators"
+        sector_guidance: "Include fintech-specific indicators: growth-compliance alignment score (how well do product/growth and compliance teams collaborate?), compliance team workload and morale (alert backlog, overtime hours, burnout indicators), cross-functional regulatory literacy (do non-compliance teams understand basic regulatory constraints?), and incident response readiness."
+    sections_to_add:
+      - section_name: "Compliance Team Health"
+        placement: "end"
+        description: "Dedicated compliance team health assessment — critical for regulated businesses."
+        fields:
+          - "Compliance team headcount vs. workload (alerts per analyst, reviews per specialist)"
+          - "Compliance team attrition rate and open positions"
+          - "Growth-compliance tension indicator (collaborative vs. adversarial relationship)"
+          - "Compliance team access to leadership (can the CCO reach the board directly?)"
+    sections_to_remove: []
+    benchmark_references: ["regulatory-compliance-cost"]
+
+  - template: "culture-values-document"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech culture and values documentation should explicitly address the company's commitment to regulatory compliance, ethical financial practices, and customer trust as cultural values — not just business requirements."
+    field_changes:
+      - field: "Core values"
+        sector_label: "Core Values (Including Compliance Culture)"
+        sector_guidance: "Include compliance and trust as explicit cultural values, not implicit expectations. Example values: 'We treat compliance as a competitive advantage, not a cost center,' 'We prioritize customer financial wellbeing over revenue extraction,' 'We are transparent with customers, regulators, and each other.' These cultural statements set expectations and are evidence of compliance culture during regulatory examinations."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "feedback-360-template"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "360 feedback follows standard practices regardless of sector."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "offsite-planning-guide"
+    audience: "team"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Offsite planning is not sector-specific, though fintech offsites should include compliance and regulatory strategy as a standard topic."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "role-description-template"
+    audience: "team"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech role descriptions must include regulatory responsibilities and financial services experience requirements. All customer-facing and product roles should include compliance awareness as a competency."
+    field_changes:
+      - field: "Key responsibilities"
+        sector_label: "Key Responsibilities (Including Regulatory)"
+        sector_guidance: "For each role, specify regulatory responsibilities: compliance with applicable financial regulations, cooperation with compliance team on reviews and audits, understanding of regulatory constraints on the role's activities. For compliance roles: specify regulatory designations (BSA officer, compliance officer) and reporting lines (direct board access for CCO)."
+      - field: "Required experience"
+        sector_label: "Fintech Experience Requirements"
+        sector_guidance: "Specify: financial services or fintech experience required, regulatory literacy expectations, and any required certifications (CAMS for AML roles, Series 7/66 for investment roles, CRCM for compliance roles)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # SELF TEMPLATES (10)
+  # ─────────────────────────────────────────────
+
+  - template: "weekly-ceo-review"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A fintech CEO's weekly review must include compliance and regulatory status alongside financial and operational metrics. The CEO is ultimately responsible for the company's regulatory standing."
+    field_changes:
+      - field: "Weekly metrics"
+        sector_label: "Weekly Fintech Dashboard"
+        sector_guidance: "Review weekly: net revenue and WoW change, transaction volume or origination volume, new customers and KYC conversion rate, fraud alerts and resolution, compliance team workload indicators (alert backlog, SAR filing pipeline), cash balance and regulatory capital. Monthly metrics (NRR, default rate, compliance cost % of revenue) should be reviewed monthly."
+      - field: "Priorities"
+        sector_label: "This Week's Priorities"
+        sector_guidance: "Include at least one compliance item weekly: regulatory relationship maintenance, compliance program review, or audit preparation. In fintech, neglecting compliance in the CEO's weekly priorities communicates to the organization that compliance is not a leadership priority."
+    sections_to_add:
+      - section_name: "Regulatory Signal Review"
+        placement: "after:Weekly Fintech Dashboard"
+        description: "Weekly review of regulatory signals."
+        fields:
+          - "Regulatory developments this week (new rules, enforcement actions against peers, guidance)"
+          - "Banking partner communications or concerns"
+          - "Compliance team escalations or flags"
+    sections_to_remove: []
+    benchmark_references: ["tpv", "fraud-rate", "kyc-conversion-rate"]
+
+  - template: "decision-journal"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech decision journals should explicitly capture the regulatory considerations and constraints that shaped each decision — this record becomes valuable evidence during regulatory examinations."
+    field_changes:
+      - field: "Decision context"
+        sector_label: "Decision Context (Including Regulatory Factors)"
+        sector_guidance: "Record: the commercial metrics that informed the decision, the regulatory constraints that shaped the options, whether compliance counsel was consulted, and the regulatory risk assessment for the chosen option. This documentation is evidence of sound decision-making during regulatory examinations."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "annual-review-and-planning"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech annual reviews should assess compliance program maturity and regulatory relationship health alongside commercial performance."
+    field_changes:
+      - field: "Year in review"
+        sector_label: "Fintech Year in Review"
+        sector_guidance: "Assess across all dimensions: revenue growth by line, customer metrics (MAU, NRR, ARPU), credit quality (for lending), fraud performance, compliance program milestones (licenses obtained, examinations passed, certifications achieved), regulatory relationship health, and team growth."
+      - field: "Next year goals"
+        sector_label: "Next Year Fintech Targets"
+        sector_guidance: "Set targets across all fintech dimensions: revenue targets by line, customer growth, unit economics improvement, compliance program maturity goals (target compliance cost % of revenue, automation goals), licensing expansion, and regulatory milestones. Include the regulatory capital plan for charter holders."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: ["tpv", "net-revenue-retention", "gross-margin", "regulatory-compliance-cost", "default-rate"]
+
+  - template: "stakeholder-map"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech stakeholder maps must include regulators, banking partners, and card networks as primary stakeholder categories — these relationships are as consequential as investor and customer relationships."
+    field_changes:
+      - field: "Stakeholder categories"
+        sector_label: "Fintech Stakeholder Ecosystem"
+        sector_guidance: "Include: Regulators (federal, state, examination teams — by name if possible), Banking Partners (relationship managers, compliance contacts, executive sponsors), Card Networks (relationship managers, compliance contacts), Investors (lead, follow-on, board members), Customers (segments, key accounts, community), Partners (technology, distribution, identity providers), Team (executives, compliance leadership, key ICs), and Industry (trade associations, regulatory advocacy groups)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "negotiation-prep-sheet"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech negotiation prep must include regulatory constraint analysis — understanding which terms are negotiable commercially and which are constrained by regulation."
+    field_changes:
+      - field: "Negotiation type"
+        sector_label: "Fintech Negotiation Context"
+        sector_guidance: "Classify: banking partner negotiation (terms, compliance allocation, revenue share), regulatory negotiation (examination response, consent order terms, no-action letter request), enterprise client deal (compliance requirements, data security addenda, regulatory representations), fundraising (term sheet with regulatory risk provisions), or internal (growth-compliance resource allocation). Each type has distinct fintech-specific dynamics."
+      - field: "BATNA"
+        sector_label: "BATNA and Regulatory Constraints"
+        sector_guidance: "Identify both commercial BATNA and regulatory constraints on alternatives. For banking partner negotiations: alternative BaaS providers, direct charter path. For regulatory negotiations: the alternative to cooperation is enforcement — this fundamentally shapes the negotiation. For enterprise deals: regulatory compliance documentation as leverage (SOC 2, PCI-DSS readiness reduces deal friction)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "career-strategy-canvas"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Career strategy is personal, not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "founder-mental-health-check"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech founder mental health is affected by sector-specific stressors: the weight of handling other people's money, personal liability for compliance failures, regulatory examination stress, and the existential nature of trust in financial services."
+    field_changes:
+      - field: "Stress indicators"
+        sector_label: "Fintech-Specific Stress Indicators"
+        sector_guidance: "Include: regulatory anxiety (obsessive worry about compliance failures, examination outcomes, or enforcement actions), personal liability stress (awareness that BSA violations and compliance failures can carry personal criminal liability), trust burden (the psychological weight of being responsible for customer financial wellbeing), banking partner dependency anxiety (fear that partner relationship disruption will halt the business), and the compound stress of simultaneously managing commercial, regulatory, and trust pressures."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "leadership-reflection"
+    audience: "self"
+    sector_adaptation: "as-is"
+    adaptation_rationale: "Leadership reflection is not sector-specific."
+    field_changes: []
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "learning-plan"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech founders should include regulatory literacy and compliance expertise in their learning plans — this is not delegatable knowledge in a regulated industry."
+    field_changes:
+      - field: "Learning areas"
+        sector_label: "Fintech Learning Priorities"
+        sector_guidance: "Consider fintech-specific learning areas: financial services regulatory framework (BSA/AML, UDAP/UDAAP, applicable state and federal regulations), credit risk management (for lending), payment system economics (interchange, network rules, settlement), compliance program design, regulatory examination preparation, financial modeling for regulated businesses, and the intersection of AI/ML with financial regulation (model risk management, fair lending, explainability requirements)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "personal-board-tracker"
+    audience: "self"
+    sector_adaptation: "modified"
+    adaptation_rationale: "A fintech founder's advisory network must include regulatory expertise — this is the most consequential advisory gap in fintech leadership."
+    field_changes:
+      - field: "Advisor categories"
+        sector_label: "Fintech Advisory Needs"
+        sector_guidance: "Map advisors to fintech-specific needs: Regulatory (former regulator, experienced fintech compliance counsel — the single most valuable advisor category in fintech), Banking Relationships (someone who has managed banking partner relationships at scale), Credit Risk (for lending — someone who has managed loan portfolios through credit cycles), Payments (someone who understands interchange economics, card network dynamics, and payment infrastructure), Fintech Operations (someone who has scaled a fintech to 1M+ customers with full compliance), and General Startup (fundraising, team building, strategy)."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  # ─────────────────────────────────────────────
+  # CLIENT TEMPLATES (8)
+  # ─────────────────────────────────────────────
+
+  - template: "quarterly-business-review"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech QBRs for B2B clients must include compliance support delivered — regulatory assistance is a value-add that justifies premium pricing in financial services."
+    field_changes:
+      - field: "Performance summary"
+        sector_label: "Value Delivered (Including Compliance Value)"
+        sector_guidance: "Quantify value delivered including compliance dimensions: transactions processed, fraud prevented (dollar value), regulatory reports generated, compliance workload reduced, KYC verifications completed. Financial services clients value compliance efficiency as much as commercial efficiency."
+      - field: "Account status"
+        sector_label: "Usage, Compliance, and Engagement Metrics"
+        sector_guidance: "Present: transaction volume and trends, API uptime and reliability, fraud detection metrics (for payment clients), compliance feature utilization, and support interaction summary."
+      - field: "Next steps"
+        sector_label: "Growth and Compliance Roadmap"
+        sector_guidance: "Identify expansion opportunities AND upcoming compliance requirements the client should prepare for. Proactive regulatory guidance builds trust and justifies premium pricing."
+    sections_to_add:
+      - section_name: "Compliance Support Summary"
+        placement: "after:Value Delivered (Including Compliance Value)"
+        description: "Summary of compliance value delivered to the client."
+        fields:
+          - "Regulatory reports generated or facilitated"
+          - "Fraud prevented (transaction count and dollar value)"
+          - "KYC verifications processed (if applicable)"
+          - "Regulatory changes communicated proactively"
+    sections_to_remove: []
+    benchmark_references: ["fraud-rate", "fraud-loss-rate"]
+
+  - template: "onboarding-welcome-packet"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech client onboarding includes compliance requirements that are absent in non-regulated businesses. Clients must complete KYB (Know Your Business) verification, sign regulatory agreements, and integrate compliance-relevant features."
+    field_changes:
+      - field: "Getting started steps"
+        sector_label: "Onboarding Path (Including Compliance Requirements)"
+        sector_guidance: "Organize: (1) KYB verification (business identity, beneficial ownership, sanctions screening — regulatory requirement before any financial activity), (2) Compliance agreement signing (BSA/AML responsibilities, data handling terms, regulatory representations), (3) Technical integration, (4) Testing and certification, (5) Go-live with compliance monitoring active. Emphasize that KYB is a regulatory requirement, not an obstacle — frame it as a trust-building step."
+      - field: "Resources"
+        sector_label: "Resources (Including Compliance Documentation)"
+        sector_guidance: "Include: API documentation, compliance guide (regulatory responsibilities shared between the platform and the client), security documentation (SOC 2 report, PCI-DSS attestation), and regulatory FAQ (addressing common compliance questions)."
+    sections_to_add:
+      - section_name: "Compliance Requirements"
+        placement: "after:Onboarding Path (Including Compliance Requirements)"
+        description: "Regulatory requirements that must be completed during onboarding."
+        fields:
+          - "KYB verification requirements and documentation needed"
+          - "Compliance agreements to be signed"
+          - "Shared compliance responsibilities (what the platform handles, what the client handles)"
+          - "Ongoing regulatory obligations (reporting, monitoring, data retention)"
+    sections_to_remove: []
+    benchmark_references: ["kyc-conversion-rate"]
+
+  - template: "proposal-outline"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech proposals must address compliance value alongside commercial value. In financial services, the client's compliance team evaluates the proposal alongside the business team — the proposal must speak to both audiences."
+    field_changes:
+      - field: "Pricing"
+        sector_label: "Investment, ROI, and Compliance Value"
+        sector_guidance: "Present: transaction pricing (per-transaction, volume-based tiers), platform fees, compliance feature pricing (if separate). Include compliance ROI: reduced compliance costs (automated reporting, reduced manual review), fraud prevention value (dollar losses prevented), and regulatory risk reduction (fewer examination findings). Financial services clients weight compliance value heavily in purchasing decisions."
+      - field: "Scope"
+        sector_label: "Implementation Scope (Including Compliance Integration)"
+        sector_guidance: "Include: technical integration timeline, compliance setup (KYB, regulatory agreements, compliance feature activation), testing and certification phase, and compliance monitoring activation. Note: compliance integration may require client's compliance team involvement."
+    sections_to_add:
+      - section_name: "Compliance and Security Credentials"
+        placement: "end"
+        description: "Regulatory and security credentials that financial services clients require."
+        fields:
+          - "Licenses and regulatory registrations"
+          - "SOC 2 Type II attestation"
+          - "PCI-DSS compliance status"
+          - "Data handling and privacy commitments (GLBA, GDPR, CCPA)"
+          - "Penetration test results summary"
+    sections_to_remove: []
+    benchmark_references: ["fraud-loss-rate", "kyc-cost-per-customer"]
+
+  - template: "service-level-agreement"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech SLAs must include regulatory compliance commitments alongside standard availability and support commitments. Financial services clients require contractual assurance of regulatory compliance."
+    field_changes:
+      - field: "Service levels"
+        sector_label: "Fintech Service Commitments"
+        sector_guidance: "Standard fintech SLA components: (1) Transaction processing uptime (99.95% for payment processing — higher than SaaS because transactions involve money), (2) Transaction processing time (real-time for payments, within SLA for lending decisions), (3) Support response time by severity, (4) Compliance service levels (regulatory report delivery timeline, fraud alert response time, KYC verification turnaround). (5) Data handling commitments (encryption, retention, deletion)."
+      - field: "Remediation"
+        sector_label: "Credit, Remediation, and Regulatory Notification"
+        sector_guidance: "Define: service credit structure for SLA breaches, escalation procedures for compliance-affecting outages, mutual notification obligations for regulatory events (either party receiving a regulatory inquiry that affects the other), and termination rights for sustained compliance failures."
+    sections_to_add:
+      - section_name: "Regulatory Compliance Commitments"
+        placement: "after:Fintech Service Commitments"
+        description: "Contractual compliance commitments — standard in financial services agreements."
+        fields:
+          - "Regulatory compliance representations (which regulations the service complies with)"
+          - "Audit rights (client's right to audit the service provider's compliance)"
+          - "Regulatory change management (process for adapting to regulatory changes)"
+          - "Breach notification obligations and timeline"
+          - "Data handling and GLBA compliance commitments"
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "project-status-update"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech project status updates must track compliance integration milestones alongside technical milestones. A project that is technically complete but not compliance-approved cannot launch."
+    field_changes:
+      - field: "Progress summary"
+        sector_label: "Implementation Progress (Including Compliance Gates)"
+        sector_guidance: "Track: technical integration progress, compliance integration progress (KYB status, agreement execution, compliance feature setup), testing phase status, and compliance approval status. Highlight any compliance gates that are blocking launch — these are non-negotiable and often on a different timeline than technical work."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "analysis-report"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech analysis reports for clients should include regulatory context — how regulation affects the analysis and its recommendations."
+    field_changes:
+      - field: "Analysis framework"
+        sector_label: "Analysis Framework (Regulatory Context)"
+        sector_guidance: "Include regulatory constraints as a dimension of the analysis. Any recommendation must be assessed for regulatory feasibility — a commercially attractive strategy that violates regulations is not a recommendation but a liability."
+    sections_to_add: []
+    sections_to_remove: []
+    benchmark_references: []
+
+  - template: "case-study-template"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech case studies must include compliance outcomes alongside commercial outcomes. Financial services buyers evaluate vendors partly on their compliance track record — a case study that demonstrates compliance value is more persuasive than one focused solely on commercial metrics."
+    field_changes:
+      - field: "Results"
+        sector_label: "Quantified Outcomes (Including Compliance)"
+        sector_guidance: "Include compliance outcomes alongside commercial outcomes: fraud losses prevented, compliance costs reduced, regulatory reports automated, examination findings avoided, and time saved on compliance operations. Financial services buyers value these outcomes at least as highly as revenue or efficiency gains."
+      - field: "Challenge"
+        sector_label: "Challenge (Including Regulatory Context)"
+        sector_guidance: "Include the regulatory dimension of the client's challenge: compliance burden, regulatory risk, examination preparation, or fraud exposure. This helps prospects with similar regulatory pressures see themselves in the story."
+    sections_to_add:
+      - section_name: "Compliance Impact"
+        placement: "after:Quantified Outcomes (Including Compliance)"
+        description: "Dedicated compliance outcomes section."
+        fields:
+          - "Regulatory compliance improvements achieved"
+          - "Fraud prevention results"
+          - "Compliance cost impact"
+          - "Examination or audit outcomes influenced"
+    sections_to_remove: []
+    benchmark_references: ["fraud-loss-rate", "regulatory-compliance-cost"]
+
+  - template: "partnership-memo"
+    audience: "client"
+    sector_adaptation: "modified"
+    adaptation_rationale: "Fintech partnership memos must address regulatory responsibility allocation — the most consequential and contentious element of fintech partnerships. Every fintech partnership involves regulated activities where compliance responsibility must be explicitly divided."
+    field_changes:
+      - field: "Partnership structure"
+        sector_label: "Fintech Partnership Structure (Including Regulatory Allocation)"
+        sector_guidance: "Define: partnership type (banking partner, technology integration, embedded finance, distribution), regulatory structure (which party holds relevant licenses, which party performs compliance activities), commercial terms (revenue share, transaction pricing, volume commitments), and governance (joint compliance review cadence, escalation path, audit rights). The regulatory responsibility matrix is the most critical section — it determines who is liable for compliance failures."
+    sections_to_add:
+      - section_name: "Regulatory Responsibility Matrix"
+        placement: "after:Fintech Partnership Structure (Including Regulatory Allocation)"
+        description: "Explicit allocation of compliance responsibilities between partners — the most critical section of a fintech partnership document."
+        fields:
+          - "KYC/CDD responsibility (which party performs identity verification)"
+          - "Transaction monitoring responsibility (which party monitors for suspicious activity)"
+          - "SAR filing responsibility (which party files Suspicious Activity Reports)"
+          - "Regulatory reporting responsibility (by report type and jurisdiction)"
+          - "Consumer complaint handling responsibility"
+          - "Audit and examination cooperation obligations"
+          - "Regulatory change management process"
+      - section_name: "Partner Risk Assessment"
+        placement: "after:Regulatory Responsibility Matrix"
+        description: "Assessment of regulatory risk introduced by the partnership."
+        fields:
+          - "Partner's regulatory standing (licenses, examination history, enforcement record)"
+          - "Concentration risk (dependency on a single partner for regulated activities)"
+          - "Termination provisions and transition plan"
+          - "Contingency plan for partner regulatory disruption"
+    sections_to_remove: []
+    benchmark_references: ["regulatory-compliance-cost"]

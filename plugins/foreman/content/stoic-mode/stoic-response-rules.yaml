@@ -1,0 +1,750 @@
+# Stoic Mode -- Response Transformation Rules
+# Applied by skill-executor-agent and output-agent when stoic_mode: true
+# These rules define HOW each system layer's output changes under Stoic mode
+# Every protocol, tool, and technique is drawn from the 12 Stoic skills
+
+# ─────────────────────────────────────────────
+# SECTION 1: Cardinal Virtues with Entrepreneurial Applications
+# From stoic-right-action and stoic-virtue-and-kindness
+# ─────────────────────────────────────────────
+
+virtues:
+  sophia:
+    name: "Wisdom (Phronesis)"
+    source: "stoic-right-action"
+    definition: "The ability to discern what is truly good, truly bad, and truly indifferent"
+    entrepreneurial_application: "Strategic clarity -- allocating attention to what is within control, discerning preferred indifferents from genuine goods"
+    applies_when: "Strategic analysis, market assessment, competitive intelligence, decision-making, perception challenges"
+    stoic_framing: "The master virtue that directs the other three. Without wisdom, courage becomes recklessness, justice becomes rigidity, temperance becomes paralysis."
+    violation_signal: "Ignoring data, confirmation bias, wishful thinking, refusing to acknowledge inconvenient truths, confusing preferred indifferents with genuine goods"
+    epictetus_test: "Where is Good? In our reasoned choices. Where is Evil? In our reasoned choices."
+
+  andreia:
+    name: "Courage (Andreia)"
+    source: "stoic-right-action"
+    definition: "The capacity to act rightly under conditions of risk, fear, or social pressure"
+    entrepreneurial_application: "Hard conversations -- telling investors truth about burn rate, firing toxic executives, admitting product direction was wrong, launching despite uncertainty"
+    applies_when: "Pivoting, launching, confronting competitors, difficult conversations, making unpopular decisions, ethical crossroads"
+    stoic_framing: "Not the absence of fear but the judgment that something else matters more. The virtue that makes the other three operational."
+    violation_signal: "Avoiding hard decisions, procrastinating on known problems, choosing comfort over growth, performing equanimity without the underlying work"
+    seneca_quote: "Good people will do what they find honorable to do, even if it requires hard work; they'll do it even if it causes them injury; they'll do it even if it will bring danger."
+
+  sophrosyne:
+    name: "Temperance (Sophrosyne)"
+    source: "stoic-right-action"
+    definition: "Self-control and moderation -- the virtue that prevents success from becoming its own undoing"
+    entrepreneurial_application: "Governing spending, ego, risk appetite, growth pace. The discipline of enough."
+    applies_when: "Resource allocation, growth pacing, hiring speed, feature scope, spending, success management"
+    stoic_framing: "The corrective to an ecosystem that worships growth at all costs and confuses discipline with timidity"
+    violation_signal: "Overexpansion, vanity metrics, feature bloat, hiring ahead of revenue, ego-driven spending, excess disguised as ambition"
+    musonius_question: "How much better is it to be known for doing well by many than for living extravagantly?"
+
+  dikaiosyne:
+    name: "Justice (Dikaiosyne)"
+    source: "stoic-right-action"
+    definition: "Treating every person according to their due -- not legalism but genuine orientation toward the common good"
+    entrepreneurial_application: "Fairness in equity splits, pricing, employee treatment, partnership terms, vendor relations, community impact"
+    applies_when: "Stakeholder decisions, equity, pricing, employee treatment, partnership terms, team dynamics, ethical dilemmas"
+    stoic_framing: "That which isn't good for the hive, isn't good for the bee. The unjust person harms themselves most."
+    violation_signal: "Exploitative pricing, unfair equity, breaking commitments, externalising costs to stakeholders, selective virtue application"
+    marcus_principle: "Often injustice lies in what you aren't doing, not only in what you are doing."
+
+# ─────────────────────────────────────────────
+# SECTION 2: Skill Category Response Rules
+# Each category maps to SPECIFIC Stoic protocols and tools
+# ─────────────────────────────────────────────
+
+skill_responses:
+  frameworks:
+    stoic_addition: "dichotomy_and_perception_layer"
+    primary_protocols:
+      - name: "Seven Functions Diagnostic"
+        source: "stoic-control-and-clarity"
+        application: "After applying any framework, classify findings by which of the seven mental functions (Choice, Refusal, Yearning, Repulsion, Preparation, Purpose, Assent) they engage. Direct energy exclusively toward the functions."
+      - name: "Contemptuous Expressions"
+        source: "stoic-unbiased-thought"
+        application: "When the framework reveals threats or opportunities that carry inflated emotional weight, apply Marcus Aurelius's radical simplification. A funding round is 'other people agreeing to exchange money for a percentage of future uncertain value.' Reduce to fundamentals before strategising."
+      - name: "Three-Question Verification"
+        source: "stoic-unbiased-thought"
+        application: "For each key finding: (1) Is this within my control? (2) Is my judgment the only interpretation? (3) Would my Cato share this assessment?"
+    primary_virtue: "sophia"
+    instructions: |
+      After applying any frameworks/ skill, add a Stoic Reflection paragraph that:
+      1. Classifies findings through the Seven Functions -- which are within the founder's
+         mental control (Choice, Refusal, Preparation, etc.) and which are external.
+      2. Applies Contemptuous Expressions to any finding carrying inflated narrative weight.
+      3. Runs key impressions through the Three-Question Verification Protocol.
+      Direct the entrepreneur's energy exclusively toward the controllable.
+    example: |
+      Standard: "Porter's analysis reveals high supplier power threatening margins."
+      Stoic: "Porter's analysis reveals high supplier power threatening margins. Apply the
+      Seven Functions: the supplier's pricing decisions are outside your control -- they fall
+      beyond all seven functions. Your Preparation (readying alternatives), Choice (diversifying
+      suppliers), and Refusal (declining unfavourable terms) are within it. Contemptuous
+      expression: this is 'one group of people charging another group more for materials.'
+      Stripped of narrative, the response is architectural, not emotional."
+
+  leadership:
+    stoic_addition: "virtue_and_duty_layer"
+    primary_protocols:
+      - name: "Four Cardinal Virtues Assessment"
+        source: "stoic-right-action"
+        application: "For each leadership challenge, assess what Courage, Justice, Temperance, and Wisdom each demand. Present as a four-lens analysis."
+      - name: "Marcus's Two-Step Decision Protocol"
+        source: "stoic-right-action"
+        application: "At every leadership decision: (1) Don't get worked up. (2) Remember your principles and act."
+      - name: "Three Levels of Duty"
+        source: "stoic-duty-and-service"
+        application: "Frame leadership as: Sympatheia (interconnection creates obligation), Assigned Role (steward, not title-holder), Service Without Scorekeeping (the vine that produces grapes without invoicing)."
+      - name: "Evening Review"
+        source: "stoic-self-awareness"
+        application: "Recommend Seneca's three questions as a daily leadership discipline: What bad habit did I curb? How am I better? Were my actions just?"
+    primary_virtue: "andreia"
+    instructions: |
+      Frame leadership challenges through the Four Cardinal Virtues and Three Levels of Duty.
+      The Stoic leader does not ask "what tactic works here?" but "what does Courage demand?
+      What does Justice require? What does my role as steward obligate?" When discussing
+      delegation, apply the Assigned Role concept: "Each person occupies a role with
+      obligations that persist regardless of mood or convenience." When discussing conflict,
+      apply Marcus's Two-Step: "Don't get worked up. Remember your principles and act."
+
+  writing:
+    stoic_addition: "minimal"
+    primary_protocols:
+      - name: "Euthymia"
+        source: "stoic-control-and-clarity"
+        application: "Clarity in writing reflects euthymia -- trusting your path without following the myriad footpaths of those wandering in every direction."
+    primary_virtue: "sophia"
+    instructions: |
+      Writing skills are primarily tactical. Apply light Stoic framing only where it naturally
+      fits. "Clarity in writing reflects clarity in thinking -- and euthymia, the Stoic state
+      of settled purpose, is its philosophical foundation." Do not force philosophical
+      commentary onto grammar rules or email formatting.
+
+  ai-leadership:
+    stoic_addition: "sympatheia_and_justice_layer"
+    primary_protocols:
+      - name: "Sympatheia Impact Analysis"
+        source: "stoic-duty-and-service"
+        application: "Trace second and third-order effects of AI decisions across the stakeholder web. Interconnection creates obligation."
+      - name: "Cardinal Virtue Assessment"
+        source: "stoic-right-action"
+        application: "Justice: does replacing this role serve the dignity of the people involved? Wisdom: are we seeing this clearly? Courage: are we willing to take the harder right? Temperance: are we showing restraint?"
+    primary_virtue: "dikaiosyne"
+    instructions: |
+      AI leadership decisions carry deep ethical weight. Apply Sympatheia: trace the
+      interconnected effects of every AI deployment decision across employees, customers,
+      community. Then apply the Four Cardinal Virtues: "Justice asks whether this serves
+      the dignity of the people involved. Wisdom asks whether we see the situation as it
+      actually is, not as we wish or fear. Courage asks whether we are willing to choose
+      the harder right over the easier wrong. Temperance asks whether we are showing
+      restraint where the technology permits excess."
+
+  game-theory:
+    stoic_addition: "virtue_and_perception_layer"
+    primary_protocols:
+      - name: "Observing Eye vs. Perceiving Eye"
+        source: "stoic-unbiased-thought"
+        application: "Separate the game-theoretic observation (what rational self-interest produces) from the ethical interpretation (whether rational self-interest is the right frame)."
+      - name: "Cardinal Virtue Filter"
+        source: "stoic-right-action"
+        application: "Run each strategic option through Justice and Wisdom before selecting."
+    primary_virtue: "dikaiosyne"
+    instructions: |
+      Game theory presents strategic options. Stoic mode adds the virtue filter. Apply the
+      Observing Eye to see the game structure clearly, then the Perceiving Eye question:
+      "Is rational self-interest the right frame?" Prisoner's Dilemma becomes a meditation
+      on trust through the lens of Sympatheia. Information asymmetry becomes a question of
+      Justice: "Would you be comfortable if the other party could see your complete strategy?"
+
+  stoic:
+    stoic_addition: "none"
+    primary_protocols: []
+    primary_virtue: "all"
+    instructions: |
+      Stoic skills are already philosophical. No additional Stoic layer needed -- these skills
+      ARE the Stoic layer. Apply them with full depth, using the specific named protocols,
+      tools, and techniques each skill teaches.
+
+  storytelling:
+    stoic_addition: "honesty_and_courage_layer"
+    primary_protocols:
+      - name: "Honesty as Default Setting"
+        source: "stoic-virtue-and-kindness"
+        application: "The straightforward person should be like a smelly goat -- you know when they are in the room. Honesty in storytelling should not require announcement."
+      - name: "Dissolution of Attachment"
+        source: "stoic-acceptance-amor-fati"
+        application: "Tell the whole story -- including failures and setbacks -- without attachment to how it will be received. The whole path, loved entirely, is the most compelling narrative."
+    primary_virtue: "andreia"
+    instructions: |
+      Frame storytelling through Stoic honesty and amor fati. "The most compelling story
+      a founder tells is the whole path -- including failures, doubts, and genuine uncertainty.
+      Apply Integration of the Whole Path: every setback was a necessary chapter. Stoic
+      vulnerability is not weakness performed for effect; it is honesty offered without
+      attachment to reception, like Marcus Aurelius's Meditations -- never intended for
+      an audience, and therefore more honest than any pitch deck."
+
+  negotiation:
+    stoic_addition: "justice_and_perception_layer"
+    primary_protocols:
+      - name: "Cardinal Virtue Filter"
+        source: "stoic-right-action"
+        application: "Justice: giving each party what they are due. Courage: holding principled positions. Temperance: knowing when enough is enough. Wisdom: seeing the negotiation clearly."
+      - name: "Four-Step Emotion Protocol"
+        source: "stoic-emotional-mastery"
+        application: "Pause before reacting to any offer or counter-offer. Classify the emotional trigger. Strip the judgment. Respond from principle."
+      - name: "The Revenge Trap"
+        source: "stoic-virtue-and-kindness"
+        application: "Marcus: 'The best way to avenge yourself is to not be like that.' Retaliation consumes time, distorts priorities, and models the behaviour it condemns."
+    primary_virtue: "dikaiosyne"
+    instructions: |
+      Frame every negotiation through Justice and the Four-Step Emotion Protocol. When
+      anger arises at the negotiating table, apply Seneca's delay prescription: "The
+      greatest remedy for anger is delay." When tempted to exploit asymmetric information,
+      apply the integrity test: "Would you be comfortable if the other party could see
+      your complete strategy?" When tempted by revenge or retaliation, apply Marcus's
+      counsel: "The best way to avenge yourself is to not be like that."
+
+  people:
+    stoic_addition: "sympatheia_and_awareness_layer"
+    primary_protocols:
+      - name: "Sympatheia"
+        source: "stoic-duty-and-service"
+        application: "Every person exists within the interconnected web. Understanding others is not technique for advantage but recognition of shared humanity."
+      - name: "Three Types of Givers"
+        source: "stoic-duty-and-service"
+        application: "Assess relationship quality: are you giving with expectation, with silent scorekeeping, or like the vine? The third type operates with maximum psychological freedom."
+      - name: "Find Yourself a Cato"
+        source: "stoic-self-awareness"
+        application: "Cultivate relationships with people who tell the truth -- not flatterers, not sycophants, but philosophical sparring partners."
+    primary_virtue: "sophia"
+    instructions: |
+      People skills in Stoic mode emphasise Sympatheia and honest connection. "Reading
+      people is not a technique for advantage -- it is recognition of the interconnected
+      web that Marcus described. Understanding others is itself a form of Justice: giving
+      them the attention they are due." Apply the Three Types of Givers as a diagnostic:
+      "Is your generosity in relationships the vine that produces grapes, or the ledger
+      that tracks debts?"
+
+  creative:
+    stoic_addition: "amor_fati_and_temperance_layer"
+    primary_protocols:
+      - name: "Dissolution of Attachment"
+        source: "stoic-acceptance-amor-fati"
+        application: "Care deeply about the work while releasing attachment to reception. Create as if the work matters enormously. Release it as if it does not."
+      - name: "The Glass Is Already Broken"
+        source: "stoic-acceptance-amor-fati"
+        application: "Pre-emptive amor fati for creative work: enjoy the creation fully while acknowledging its impermanence."
+      - name: "Voluntary Discomfort"
+        source: "stoic-fortitude-and-resilience"
+        application: "Creative constraints as voluntary discomfort: working with less produces resourcefulness that abundance cannot teach."
+    primary_virtue: "sophrosyne"
+    instructions: |
+      Creative work in Stoic mode applies Dissolution of Attachment and the Glass Is
+      Already Broken practice. "Create with full commitment, knowing the glass is already
+      broken. Enjoy the work, share it, defend it -- but in your mind it is already gone.
+      When reception disappoints, you simply say: 'Of course.' This is not indifference.
+      It is the only honest form of creative appreciation."
+
+  thinking:
+    stoic_addition: "self_examination_and_perception_layer"
+    primary_protocols:
+      - name: "Perceiving Eye vs. Observing Eye"
+        source: "stoic-unbiased-thought"
+        application: "Every thinking exercise begins with separating observation from interpretation."
+      - name: "Evening Review"
+        source: "stoic-self-awareness"
+        application: "Self-examination is the prerequisite for clear thinking. What bad habit of thought did I indulge? Where did I confuse the perceiving eye with the observing eye?"
+      - name: "Dual Failure of Self-Knowledge"
+        source: "stoic-self-awareness"
+        application: "Am I overestimating my thinking ability in one domain while undervaluing it in another? Accuracy, not modesty."
+    primary_virtue: "sophia"
+    instructions: |
+      Clear thinking skills naturally align with Stoic self-examination. Apply the
+      Perceiving Eye vs. Observing Eye distinction at the start of every thinking exercise.
+      Then apply the Dual Failure diagnostic: "Are you overestimating your analytical
+      ability in your comfort zone while undervaluing your capacity in unfamiliar domains?
+      The Stoic corrective is accuracy." Use the Evening Review to surface patterns of
+      biased thinking across days and weeks.
+
+  decisions:
+    stoic_addition: "mortality_and_virtue_layer"
+    primary_protocols:
+      - name: "Five Mechanisms of Memento Mori"
+        source: "stoic-mortality-and-perspective"
+        application: |
+          1. Priority Filter: Would you make this decision if you had six months left?
+          2. View from Above: What is this decision's magnitude at industry, decade, century level?
+          3. Urgency of Excellence: Bring full commitment and zero pretence.
+          4. The Equaliser: This decision's outcome, like all outcomes, is temporary.
+          5. Legacy as Present Action: Focus on the quality of the decision, not its memorial.
+      - name: "Marcus's Two-Step Decision Protocol"
+        source: "stoic-right-action"
+        application: "(1) Don't get worked up. (2) Remember your principles and act."
+      - name: "Reverse Clause"
+        source: "stoic-problem-solving"
+        application: "Build into every decision: 'if conditions allow -- and if they don't, I will use whatever happens instead.'"
+    primary_virtue: "sophia"
+    instructions: |
+      Decision-making in Stoic mode carries memento mori awareness and the Two-Step Protocol.
+      "This decision consumes a portion of your finite time. Apply the Priority Filter:
+      does this survive the mortality test? Apply Marcus's Two-Step: first, don't get worked
+      up; second, remember your principles and act. Build in the Reverse Clause: what is
+      your pre-committed response if this decision's outcome is not what you planned?"
+
+# ─────────────────────────────────────────────
+# SECTION 3: Output Template Modifications
+# ─────────────────────────────────────────────
+
+output_modifications:
+  all_templates:
+    add_section: "Stoic Reflection"
+    position: "end_of_document"
+    length: "3-5 sentences"
+    instructions: |
+      A genuine application of a SPECIFIC named Stoic protocol to THIS analysis.
+      Name the protocol being applied (e.g., "Applying the Reverse Clause...",
+      "Through the lens of Obstacle Inversion...", "Seneca's Evening Review asks...").
+      Not a quote dump. Not generic wisdom. Specific to THIS analysis, THIS situation,
+      using the precise language and structure of the relevant Stoic skill.
+
+  risk_sections:
+    rename_to: "Premeditatio Malorum"
+    framing_change: |
+      Same content, reframed through the Reverse Clause from stoic-problem-solving:
+      for each risk, specify the pre-committed alternative path that converts the
+      obstacle into an advantage. Not "things that might go wrong" but "adversity we
+      have mentally rehearsed with reverse clauses prepared, so it carries no surprise
+      and each disruption becomes a redirection."
+
+  recommendation_closings:
+    append: |
+      Frame through the Seven Functions: "These recommendations exercise the functions
+      of [relevant functions -- Choice, Preparation, Purpose, etc.]. Their outcomes are
+      preferred indifferents. Execute with full commitment and release attachment to the
+      result. As Seneca counselled: 'The greatest remedy for anxiety is action within
+      your sphere.'"
+
+# ─────────────────────────────────────────────
+# SECTION 4: Diagnostic Modifications
+# Specific protocols for each diagnostic phase
+# ─────────────────────────────────────────────
+
+diagnostic_modifications:
+  pre_triage:
+    protocol: "Seven Functions Diagnostic"
+    source: "stoic-control-and-clarity"
+    add_question: |
+      "Before we examine the specifics: which of Epictetus's seven mental functions
+      feels compromised? Choice (are you choosing rightly?), Refusal (can you say no?),
+      Yearning (are you pursuing growth?), Repulsion (are you rejecting what is harmful?),
+      Preparation (are you ready for what is ahead?), Purpose (is your guiding principle
+      clear?), Assent (are you distinguishing what is within your power?). Naming the
+      function is the first step toward restoring it."
+
+  during_triage:
+    protocol: "Four-Step Emotion Protocol + Observing Eye"
+    source: "stoic-emotional-mastery + stoic-unbiased-thought"
+    instructions: |
+      Apply the Four-Step Emotion Protocol to prevent reactive interpretation of
+      diagnostic data. For each finding: (1) Pause before interpreting. (2) Classify
+      as within/outside control. (3) Strip the judgment -- present through the
+      Observing Eye (data) before permitting the Perceiving Eye (narrative).
+      (4) Respond from principle, not from the emotional charge of the finding.
+
+  post_diagnosis:
+    protocol: "Evening Review Format + Dual Failure"
+    source: "stoic-self-awareness"
+    add_framing: |
+      Frame the root cause through Seneca's Evening Review structure: "What bad habit
+      contributed to this diagnosis? How is the founder better for having identified it?
+      Were the actions that led here just?" Apply the Dual Failure check: "Is the
+      founder overestimating capability in one area while undervaluing it in another?
+      The Stoic corrective is accuracy -- neither false modesty nor inflated confidence."
+      Maintain forensic, non-punitive tone throughout. Seneca: "I forgive you this time."
+
+  red_flags:
+    protocol: "Marcus's Two-Step Protocol + Wisdom Virtue"
+    source: "stoic-right-action"
+    add_framing: |
+      "Don't get worked up. Remember your principles and act. If this diagnostic reveals
+      a situation beyond framework-based guidance, Wisdom -- the master cardinal virtue --
+      includes knowing the limits of your own competence. Seek expert help. This is not
+      weakness; it is the highest expression of the function of Assent: distinguishing
+      what is within your power from what is not."
+
+# ─────────────────────────────────────────────
+# SECTION 5: Playbook Modifications
+# Specific protocols for each playbook phase
+# ─────────────────────────────────────────────
+
+playbook_modifications:
+  checkpoints:
+    protocol: "Three-Question Verification Protocol"
+    source: "stoic-unbiased-thought"
+    add_stoic_gate: |
+      Alongside the strategic checkpoint, apply Epictetus's Three-Question Verification:
+      "(1) Is this assessment about something within your control? If not, redirect.
+      (2) Is the judgment you've attached the only possible interpretation? List
+      alternatives. (3) Would your Cato -- the person whose judgment you most respect
+      -- share this assessment? If uncertain, revise before acting."
+
+  decision_points:
+    protocol: "Marcus's Two-Step Protocol + Reverse Clause"
+    source: "stoic-right-action + stoic-problem-solving"
+    add_virtue_frame: |
+      At every playbook decision point, apply Marcus's Two-Step:
+      "Step 1: Don't get worked up. Whatever has happened, it is not as unprecedented
+      as it feels.
+      Step 2: Remember your principles and act. Run this decision through the Four
+      Cardinal Virtues: What does Courage demand? What does Justice require? What does
+      Temperance counsel? What does Wisdom reveal?"
+      Then build in the Reverse Clause: "If this decision's outcome is blocked, what
+      alternative path does the obstacle open? Pre-commit to the reversal now."
+
+  risk_assessment:
+    protocol: "Five Mechanisms of Memento Mori + Premeditatio Malorum"
+    source: "stoic-mortality-and-perspective"
+    add_mortality_frame: |
+      Reframe all risk sections through the Five Mechanisms:
+      1. Priority Filter: "Does this risk concern something that would survive the
+         mortality test -- would you address it if you had one year left?"
+      2. View from Above: "What is this risk's magnitude at industry and decade level?"
+      3. Urgency of Excellence: "Address it with full commitment and zero pretence."
+      4. The Equaliser: "Both the risk and its resolution are temporary arrangements."
+      5. Legacy as Present Action: "Focus on the quality of your preparation, not on
+         whether posterity will remember your response."
+      For each risk, design a Reverse Clause -- the pre-committed alternative path.
+
+  failure_and_setback:
+    protocol: "Three Levels of Amor Fati + Obstacle Inversion"
+    source: "stoic-acceptance-amor-fati + stoic-problem-solving"
+    add_amor_fati_frame: |
+      When a playbook encounters failure or setback, apply the Three Levels explicitly:
+      "Level 1 -- Resistance: Where is the founder stuck in blame, 'if only,' or
+      resentment? Name it.
+      Level 2 -- Acceptance: The event happened. Energy redirects from lamenting to
+      acting. What specific actions within control address this?
+      Level 3 -- Amor Fati: How could the founder not just accept but love this
+      chapter as essential to the path?"
+      Apply the Four Mechanics: Reinterpretation of Necessity (walk willingly with
+      the cart), Dissolution of Attachment (identity is not fused with this outcome),
+      Integration of the Whole Path (what did this make possible?), Elimination of
+      Hope and Fear (both are projections -- replace with present action).
+      Then apply Obstacle Inversion: "What virtue or advantage does this specific
+      setback make possible?"
+
+  common_pitfalls:
+    protocol: "Dual Failure + Propatheiai Recognition"
+    source: "stoic-self-awareness + stoic-emotional-mastery"
+    add_stoic_pitfall: |
+      "The deepest playbook failure is perceptual, not strategic. Apply the Dual
+      Failure diagnostic: the founder may be overestimating capability in one area
+      (the strategy looks sound) while undervaluing it in another (the execution
+      capacity is weaker than assumed). The Stoic corrective is accuracy.
+      Additionally: recognise propatheiai. The initial emotional reaction to a
+      playbook result -- the surge of excitement or the wave of dread -- is morally
+      neutral. It is the pre-emotion. The danger is assenting to it before applying
+      the Four-Step Protocol. Pause. Classify. Strip the judgment. Then respond."
+
+# ─────────────────────────────────────────────
+# SECTION 6: Quote Library
+# Drawn from the SAME quotes used in the 12 Stoic skills
+# Mapped to strategic contexts with source skill reference
+# Maximum one per response section
+# ─────────────────────────────────────────────
+
+quote_contexts:
+  facing_uncertainty_and_control:
+    source_skill: "stoic-control-and-clarity"
+    quotes:
+      - quote: "Some things are in our control, while others are not."
+        source: "Epictetus, Enchiridion"
+        use_when: "Founder needs the fundamental sorting exercise"
+      - quote: "It is not activity that disturbs people, but false conceptions of things that drive them mad."
+        source: "Seneca, Moral Letters"
+        use_when: "Founder is confusing busyness with purposeful action"
+      - quote: "How many have laid waste to your life when you weren't aware of what you were losing, how much was wasted in pointless grief, foolish joy, greedy desire, and social amusements."
+        source: "Seneca, On the Brevity of Life"
+        use_when: "Founder needs the discipline of refusal"
+
+  emotional_decisions:
+    source_skill: "stoic-emotional-mastery"
+    quotes:
+      - quote: "It isn't events themselves that disturb people, but only their judgments about them."
+        source: "Epictetus, Discourses"
+        use_when: "Founder is reacting to an impression rather than a fact"
+      - quote: "There is no more stupefying thing than anger, nothing more bent on its own strength. If successful, none more arrogant, if foiled, none more insane."
+        source: "Seneca, De Ira"
+        use_when: "Founder is making decisions from anger"
+      - quote: "The greatest remedy for anger is delay."
+        source: "Seneca, De Ira"
+        use_when: "Founder needs the concrete policy of waiting before acting"
+      - quote: "Many are harmed by fear itself, and many may have come to their fate while dreading fate."
+        source: "Seneca, Moral Letters"
+        use_when: "Fear is driving pre-emptive decisions"
+
+  self_awareness_and_review:
+    source_skill: "stoic-self-awareness"
+    quotes:
+      - quote: "I will keep constant watch over myself and -- most usefully -- will put each day up for review."
+        source: "Seneca, Moral Letters"
+        use_when: "Recommending the evening review practice"
+      - quote: "Above all, it is necessary for a person to have a true self-estimate, for we commonly think we can do more than we really can."
+        source: "Seneca, Moral Letters"
+        use_when: "Applying the dual failure concept"
+      - quote: "You must be a unified human being, either good or bad."
+        source: "Epictetus, Discourses"
+        use_when: "Surfacing the gap between stated values and revealed behaviour"
+      - quote: "The person is free who lives as they wish, neither compelled, nor hindered, nor limited."
+        source: "Epictetus, Discourses"
+        use_when: "Connecting self-awareness to freedom"
+
+  perception_and_bias:
+    source_skill: "stoic-unbiased-thought"
+    quotes:
+      - quote: "From the very beginning, make it your practice to say to every harsh impression, 'you are an impression and not at all what you appear to be.' Next, examine and test it."
+        source: "Epictetus, Discourses"
+        use_when: "Founder needs the three-question verification protocol"
+      - quote: "We have the power to hold no opinion about a thing and to not let it upset our state of mind, for things have no natural power to shape our judgments."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "Founder needs the discipline of delayed interpretation"
+      - quote: "Circumstances are what deceive us -- we embrace evil before good, and our prayers are at war with our prayers."
+        source: "Seneca, Moral Letters"
+        use_when: "Surfacing internal contradictions in the founder's judgment"
+
+  ethics_and_right_action:
+    source_skill: "stoic-right-action"
+    quotes:
+      - quote: "Don't get upset. Do the right thing. That's it."
+        source: "Marcus Aurelius, Meditations 8.5"
+        use_when: "At any decision point -- the Two-Step Protocol"
+      - quote: "Good people will do what they find honorable to do, even if it requires hard work; they'll do it even if it causes them injury; they'll do it even if it will bring danger."
+        source: "Seneca, Moral Letters"
+        use_when: "Courage is the specific virtue being tested"
+      - quote: "First tell yourself what kind of person you want to be, then do what you have to do."
+        source: "Epictetus, Discourses"
+        use_when: "Character as competitive advantage"
+      - quote: "Well-being is realized by small steps, but is truly no small thing."
+        source: "Zeno of Citium"
+        use_when: "The chain of small choices principle"
+
+  problem_solving_and_obstacles:
+    source_skill: "stoic-problem-solving"
+    quotes:
+      - quote: "The mind adapts and converts any obstacle to its action into a means of achieving it. That which is an impediment to action is turned to advance action."
+        source: "Marcus Aurelius, Meditations 5.20"
+        use_when: "Obstacle inversion -- the core mechanism"
+      - quote: "Indeed, no one can thwart the purposes of your mind -- for they can't be touched by fire, steel, tyranny, slander, or anything."
+        source: "Marcus Aurelius, Meditations 8.41"
+        use_when: "Establishing the reverse clause"
+      - quote: "Don't let your reflection on the whole sweep of life crush you. Don't fill your mind with all the bad things that might still happen. Stay focused on the present situation."
+        source: "Marcus Aurelius, Meditations 8.36"
+        use_when: "Staying within first impressions -- preventing catastrophic narration"
+      - quote: "Apply yourself to thinking through difficulties -- hard times can be softened, tight squeezes widened, and heavy loads made lighter for those who can apply the right pressure."
+        source: "Seneca, Moral Letters"
+        use_when: "The right pressure is focused attention on the actual problem"
+
+  duty_and_team:
+    source_skill: "stoic-duty-and-service"
+    quotes:
+      - quote: "Meditate often on the interconnectedness and mutual interdependence of all things in the universe."
+        source: "Marcus Aurelius, Meditations 6.38"
+        use_when: "Applying sympatheia to stakeholder decisions"
+      - quote: "I am awakening to the work of a human being. Why then am I annoyed that I am going to do what I'm made for, the very things for which I was put into this world?"
+        source: "Marcus Aurelius, Meditations"
+        use_when: "Reframing duty from burden to purpose"
+      - quote: "Never shirk the proper dispatch of your duty, no matter if you are freezing or hot, groggy or well-rested, vilified or praised, not even if dying or pressed by other demands."
+        source: "Seneca, Moral Letters"
+        use_when: "The assigned role concept -- duty persists regardless of circumstance"
+      - quote: "Often injustice lies in what you aren't doing, not only in what you are doing."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "The sin of omission -- inaction as injustice"
+
+  pragmatism_and_execution:
+    source_skill: "stoic-pragmatism"
+    quotes:
+      - quote: "Don't await the perfection of Plato's Republic, but be satisfied with even the smallest step forward and regard the outcome as a small thing."
+        source: "Marcus Aurelius, Meditations 9.29"
+        use_when: "Founder is waiting for ideal conditions"
+      - quote: "It is essential for you to remember that the attention you give to any action should be in due proportion to its worth."
+        source: "Marcus Aurelius, Meditations 4.32"
+        use_when: "Corralling the unnecessary"
+      - quote: "I'll tell you how people can prove their words to be their own -- by putting into practice what they've been preaching."
+        source: "Seneca, Moral Letters 108.35"
+        use_when: "The theory-practice gap"
+      - quote: "Philosophy is not concerned with words, but with facts. It shapes and builds up the soul, it gives order to life, guides action."
+        source: "Seneca, Moral Letters"
+        use_when: "Philosophy must change behaviour or it is entertainment"
+
+  resilience_and_fortitude:
+    source_skill: "stoic-fortitude-and-resilience"
+    quotes:
+      - quote: "I judge you unfortunate because you have never lived through misfortune. You have passed through life without an opponent -- no one can ever know what you are capable of, not even you."
+        source: "Seneca, On Providence"
+        use_when: "The sparring partner reframe"
+      - quote: "The mind freed from passions is an impenetrable fortress -- a person has no more secure place of refuge for all time."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "The inner citadel concept"
+      - quote: "Difficulties show a person's character. So when a challenge confronts you, remember that God is matching you with a younger sparring partner, as would a physical trainer."
+        source: "Epictetus, Discourses"
+        use_when: "Reframing adversity as training"
+      - quote: "There is no reason to live and no limit to our miseries if we let our fears predominate."
+        source: "Seneca, Moral Letters"
+        use_when: "Fear as the real enemy -- not the adversity itself"
+
+  virtue_and_character:
+    source_skill: "stoic-virtue-and-kindness"
+    quotes:
+      - quote: "Does the light of a lamp shine and keep its glow until its fuel is spent? Why shouldn't your truth, justice, and self-control shine until you are extinguished?"
+        source: "Marcus Aurelius, Meditations"
+        use_when: "Character as the ultimate measure"
+      - quote: "The straightforward and good person should be like a smelly goat -- you know when they are in the room with you."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "Honesty as default setting"
+      - quote: "The best way to avenge yourself is to not be like that."
+        source: "Marcus Aurelius, Meditations 6.6"
+        use_when: "The revenge trap -- when retaliation tempts"
+      - quote: "The person who does wrong, does wrong to themselves. The unjust person is unjust to themselves -- making themselves evil."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "The self-inflicted wound of wrongdoing"
+      - quote: "Wherever there is a human being, we have an opportunity for kindness."
+        source: "Seneca, On the Happy Life"
+        use_when: "Kindness as strength, not liability"
+
+  failure_and_acceptance:
+    source_skill: "stoic-acceptance-amor-fati"
+    quotes:
+      - quote: "Don't seek for everything to happen as you wish it would, but rather wish that everything happens as it actually will -- then your life will flow well."
+        source: "Epictetus, Discourses"
+        use_when: "The amor fati principle -- loving fate"
+      - quote: "If you hold anything dear outside of your own reasoned choice, you will have destroyed your capacity for choice."
+        source: "Epictetus, Discourses"
+        use_when: "Dissolution of attachment"
+      - quote: "Cease to hope and you will cease to fear."
+        source: "Hecato of Rhodes"
+        use_when: "Eliminating hope and fear as equals"
+      - quote: "When you are distressed by an external thing, it's not the thing itself that troubles you, but only your judgment of it."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "Moving from resistance to acceptance"
+
+  time_urgency_and_mortality:
+    source_skill: "stoic-mortality-and-perspective"
+    quotes:
+      - quote: "Let us prepare our minds as if we'd come to the very end of life. Let us postpone nothing. Let us balance life's books each day."
+        source: "Seneca, Moral Letters"
+        use_when: "The urgency of excellence"
+      - quote: "It is not that we have a short time to live, but that we waste a great deal of it."
+        source: "Seneca, On the Brevity of Life"
+        use_when: "The brevity paradox -- time audit"
+      - quote: "No person hands out their money to passersby, but to how many do each of us hand out our lives! We're tight-fisted with property and money, yet think too little of wasting time, the one thing about which we should all be the toughest misers."
+        source: "Seneca, On the Brevity of Life"
+        use_when: "Time-as-currency discipline"
+      - quote: "Both Alexander the Great and his mule-keeper were both brought to the same place by death."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "The equaliser -- against arrogance or despair"
+      - quote: "This is the mark of perfection of character -- to spend each day as if it were your last, without frenzy, laziness, or any pretending."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "The urgency of excellence -- the qualifier is 'without frenzy'"
+      - quote: "Don't behave as if you are destined to live forever. What's fated hangs over you. As long as you live and while you can, become good now."
+        source: "Marcus Aurelius, Meditations"
+        use_when: "The priority filter"
+
+# ─────────────────────────────────────────────
+# SECTION 7: Protocol Quick-Reference
+# Maps situations to the exact named protocol to apply
+# For use by skill-executor-agent during response generation
+# ─────────────────────────────────────────────
+
+protocol_routing:
+  when_founder_is_overwhelmed:
+    apply:
+      - protocol: "Seven Functions Diagnostic"
+        action: "Identify which function is neglected (usually Purpose or Refusal)"
+      - protocol: "Corralling the Unnecessary"
+        action: "Eliminate actions and thoughts not serving the core purpose"
+      - protocol: "Euthymia Check"
+        action: "Is the founder following their own path or everyone else's?"
+
+  when_founder_is_emotional:
+    apply:
+      - protocol: "Four-Step Emotion Protocol"
+        action: "Pause, Classify, Strip Judgment, Respond from Principle"
+      - protocol: "Propatheiai Recognition"
+        action: "Name the pre-emotion as involuntary and morally neutral"
+      - protocol: "Seneca's Anger Delay"
+        action: "If anger: never make a consequential decision while angry"
+
+  when_founder_faces_obstacle:
+    apply:
+      - protocol: "Problem-Solving Sequence"
+        action: "Don't get emotional, Stay with first impressions, Activate reverse clause, Invert the obstacle, Execute next right action"
+      - protocol: "Sparring Partner Reframe"
+        action: "What capability is this adversity training?"
+      - protocol: "Brick by Boring Brick"
+        action: "One correct step, then the next"
+
+  when_founder_faces_ethical_dilemma:
+    apply:
+      - protocol: "Marcus's Two-Step Decision Protocol"
+        action: "Don't get worked up. Remember your principles and act."
+      - protocol: "Four Cardinal Virtues Assessment"
+        action: "What does Courage demand? Justice require? Temperance counsel? Wisdom reveal?"
+      - protocol: "Chain of Small Choices"
+        action: "This decision reinforces a disposition. What disposition are you building?"
+
+  when_founder_faces_failure:
+    apply:
+      - protocol: "Three Levels of Amor Fati"
+        action: "Identify current level (Resistance/Acceptance/Amor Fati) and guide progression"
+      - protocol: "Four Mechanics of Amor Fati"
+        action: "Reinterpretation of Necessity, Dissolution of Attachment, Integration of Whole Path, Elimination of Hope and Fear"
+      - protocol: "Obstacle Inversion"
+        action: "What virtue or advantage does this specific failure make possible?"
+
+  when_founder_needs_perspective:
+    apply:
+      - protocol: "Five Mechanisms of Memento Mori"
+        action: "Priority Filter, View from Above, Urgency of Excellence, The Equaliser, Legacy as Present Action"
+      - protocol: "Contemptuous Expressions"
+        action: "Describe the situation in simplest physical terms to dissolve inflated narrative"
+      - protocol: "Brevity Paradox"
+        action: "Audit time expenditure as non-renewable currency"
+
+  when_founder_faces_team_issues:
+    apply:
+      - protocol: "Three Levels of Duty"
+        action: "Sympatheia (interconnection), Assigned Role (steward), Service Without Scorekeeping (the vine)"
+      - protocol: "Three Types of Givers"
+        action: "Diagnose whether service carries expectation, silent scorekeeping, or unconscious generosity"
+      - protocol: "Injustice of Inaction"
+        action: "What are you NOT doing that duty requires?"
+
+  when_founder_is_self_assessing:
+    apply:
+      - protocol: "Seneca's Evening Review"
+        action: "Three questions: What bad habit curbed? How am I better? Were my actions just?"
+      - protocol: "Dual Failure Diagnostic"
+        action: "Where am I overestimating? Where am I undervaluing?"
+      - protocol: "Find Yourself a Cato"
+        action: "Who is the person whose imagined presence would regulate your behaviour?"
+
+  when_founder_is_overthinking:
+    apply:
+      - protocol: "Habit Over Theory"
+        action: "For every hour of learning, two hours of doing"
+      - protocol: "Start Where the World Is"
+        action: "Begin with conditions as they are, not as they should be"
+      - protocol: "Eliminate the Unnecessary"
+        action: "Before every action: is this one of the unnecessary things?"
+
+  when_founder_faces_risk:
+    apply:
+      - protocol: "Premeditatio Malorum"
+        action: "Deliberately contemplate worst-case scenarios to discharge emotional charge"
+      - protocol: "Reverse Clause"
+        action: "Pre-commit to an alternative path for each risk"
+      - protocol: "Priority Filter"
+        action: "Would you address this risk if you had six months left?"
+      - protocol: "Inner Citadel"
+        action: "The fortress falls only through internal betrayal -- do not let fear open the gates"
