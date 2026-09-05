@@ -151,10 +151,10 @@ Add `--platform codex` for Codex, or `--platform all` for both Claude and Codex.
 ### npm registry
 
 ```bash
-npx foreman-sh init
+npx foreman-sh@next init
 ```
 
-The unversioned npm command selects the existing stable registry release, which does not include this candidate's fixes. Use the GitHub package above for this candidate until npm publication is confirmed.
+The `next` channel installs the current release candidate. Use `npx foreman-sh@1.1.0-rc.1 init` to pin this exact version. The unversioned command still selects the older stable release.
 
 The new installer adds `.claude/` and `CLAUDE.md` to your current directory and preserves existing files. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
 
