@@ -26,10 +26,11 @@ cd foreman
 ### 2. Run Setup
 
 ```bash
-scripts/setup.sh
+npm ci --ignore-scripts
+scripts/setup.sh --install-hook
 ```
 
-This installs the pre-commit hook and verifies your environment.
+This installs dependencies, regenerates the plugin bundles and installs a pre-commit hook that validates staged content. Node 22.19 or newer is required.
 
 ### 3. Understand the Structure
 
@@ -42,13 +43,16 @@ This installs the pre-commit hook and verifies your environment.
   hooks/               # 17 trigger definitions
   agents/              # 6 agent definitions
   memory/              # 5-layer persistence system
-  commands/            # 13 command files (~45 commands)
+  command-guides/      # 13 command guides (46 commands)
+  commands/            # Generated wrappers; do not edit
   industry-packs/      # 9 sector-specific overlays
   research/            # 18 structured research guides
   implementation/      # Execution tracking system
   simulation/          # Board simulation system
   org-politics/        # Stakeholder dynamics navigation
-scripts/               # 21 utility scripts
+lib/                   # Content, distribution and state runtime modules
+scripts/               # 24 shell entry points
+templates/             # CLAUDE.md installed into founder projects
 docs/                  # Project documentation
 examples/              # 8 end-to-end walkthroughs
 ```
@@ -153,9 +157,11 @@ Before submitting a pull request, run:
 ```bash
 scripts/validate-all.sh    # Must pass with zero errors
 scripts/broken-refs.sh     # Must report zero broken references
+npm run build:plugins      # Regenerates the catalog and bundles after content changes
+npm run check              # Validation, tests and typecheck
 ```
 
-The CI pipeline runs both checks automatically. Pull requests that fail validation will not be reviewed.
+Commit the regenerated files under `.claude/` and `plugins/foreman/`; CI fails when committed bundles are stale. Pull requests that fail validation will not be reviewed.
 
 ## Pull Request Process
 

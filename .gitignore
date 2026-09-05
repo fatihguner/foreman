@@ -41,3 +41,6 @@ temp/
 # Runtime state (never commit entrepreneur data)
 /memory/
 /.foreman/
+
+# Local pack artifacts (release tarballs are attached to GitHub releases)
+*.tgz

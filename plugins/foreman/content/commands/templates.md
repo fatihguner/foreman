@@ -6,7 +6,7 @@ argument-hint: "[arguments]"
 
 # Foreman /templates
 
-Read .claude/RUNTIME.md and .claude/policies/advisory.md first. Then read .claude/commands/navigation-commands.md and execute only /templates with the user's arguments: $ARGUMENTS.
+Read .claude/RUNTIME.md and .claude/policies/advisory.md first. Then read .claude/command-guides/navigation-commands.md and execute only /templates with the user's arguments: $ARGUMENTS.
 
 Use .claude/catalog.json to resolve exact content names before aliases or unique matches. Load all required supporting files from .claude. All paths in the source instructions are relative to this content directory. Persist confirmed changes through the runtime described in RUNTIME.md; never claim a write succeeded without reading its result.
 

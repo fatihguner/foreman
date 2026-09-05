@@ -8,12 +8,18 @@
   },
   "files": [
     "bin/",
+    "lib/",
     "dist/",
+    "templates/",
     ".claude/",
+    "!.claude/settings.local.json",
+    "!.claude/**/.DS_Store",
     "CLAUDE.md",
     "openclaw.plugin.json",
     "openclaw-templates/",
     "plugins/foreman/",
+    "!plugins/foreman/content/settings.local.json",
+    "!plugins/foreman/**/.DS_Store",
     ".codex-plugin/",
     ".claude-plugin/plugin.json",
     "docs/",
@@ -85,7 +91,7 @@
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "typescript": "~5.9.3",
-    "openclaw": "2026.6.1"
+    "openclaw": "2026.9.1",
+    "typescript": "~5.9.3"
   }
 }

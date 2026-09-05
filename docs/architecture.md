@@ -50,13 +50,13 @@ Foreman comprises 18 system layers organized into three groups: content, orchest
 | 5 | Hooks | `.claude/hooks/` | 17 | Trigger definitions that classify natural-language input and route to the correct diagnostic, skill, or playbook. |
 | 6 | Agents | `.claude/agents/` | 6 | AI agent definitions: orchestrator, diagnostic, skill-executor, playbook-runner, output, memory. |
 | 7 | Memory | `.claude/memory/` | 5 layers | Persistence system operating at five temporal frequencies, from yearly identity to ephemeral session data. |
-| 8 | Commands | `.claude/commands/` | 13 files | 33 structured commands across 6 groups: navigation, execution, memory, playbook, output, meta. |
+| 8 | Commands | `.claude/command-guides/` and `.claude/commands/` | 13 guides, 46 wrappers | Command specifications grouped by function; a build step generates one host-safe wrapper per command, with `foreman-` prefixes where a name would shadow a host built-in. |
 
 ### Tooling and Modes
 
 | # | Layer | Location | Files | Purpose |
 |---|-------|----------|-------|---------|
-| 9 | Scripts | `scripts/` | 21 | Bash utilities for validation, content creation, analysis, maintenance, and community tooling. |
+| 9 | Scripts | `scripts/` and `lib/` | 24 entry points | Portable shell entry points backed by shared Node modules for validation, content creation, analysis, maintenance, packaging and the state runtime. |
 | 10 | Solo Mode | `.claude/solo-mode/` | 4 | Solopreneur adaptation: skill relevance scoring, audience remapping, diagnostic/playbook reframing. |
 | 11 | Stoic Mode | `.claude/stoic-mode/` | 2 | Philosophical depth layer framing all output through Stoic principles. |
 | 12 | Language Mode | `.claude/language-mode/` | 1 | Output language switch. System processes in English, delivers in the target language. |
@@ -234,7 +234,7 @@ Foreman grows through contribution rather than modification. Every extension fol
 | New diagnostic | `.claude/diagnostics/` | `_schema/diagnostic-template.md` | Yes -- update relevant hooks to route to it |
 | New playbook | `.claude/playbooks/` | `_schema/playbook-template.md` | Yes -- update hooks and diagnostics to route to it |
 | New output template | `.claude/output-templates/{audience}/` | `_schema/output-template.md` | Yes -- output agent discovers it |
-| New mode | `.claude/{mode-name}/` | Follow solo/stoic/language pattern | Requires command definition in `.claude/commands/` |
+| New mode | `.claude/{mode-name}/` | Follow solo/stoic/language pattern | Requires a command guide in `.claude/command-guides/` and a rebuild |
 
 Scaffold scripts exist for the most common extensions: `scripts/new-skill.sh`, `scripts/new-diagnostic.sh`, `scripts/new-playbook.sh`, `scripts/new-template.sh`.
 

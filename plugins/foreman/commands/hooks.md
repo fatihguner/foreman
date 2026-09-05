@@ -6,7 +6,7 @@ argument-hint: "[arguments]"
 
 # Foreman /hooks
 
-Read ${CLAUDE_PLUGIN_ROOT}/content/RUNTIME.md and ${CLAUDE_PLUGIN_ROOT}/content/policies/advisory.md first. Then read ${CLAUDE_PLUGIN_ROOT}/content/commands/navigation-commands.md and execute only /hooks with the user's arguments: $ARGUMENTS.
+Read ${CLAUDE_PLUGIN_ROOT}/content/RUNTIME.md and ${CLAUDE_PLUGIN_ROOT}/content/policies/advisory.md first. Then read ${CLAUDE_PLUGIN_ROOT}/content/command-guides/navigation-commands.md and execute only /hooks with the user's arguments: $ARGUMENTS.
 
 Use ${CLAUDE_PLUGIN_ROOT}/content/catalog.json to resolve exact content names before aliases or unique matches. Load all required supporting files from ${CLAUDE_PLUGIN_ROOT}/content. All paths in the source instructions are relative to this content directory. Persist confirmed changes through the runtime described in RUNTIME.md; never claim a write succeeded without reading its result.
 

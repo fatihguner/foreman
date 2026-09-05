@@ -2,21 +2,27 @@
 
 ## What is Foreman
 
-Foreman is an open-source, AI-powered strategic advisor for entrepreneurs. It delivers contextual, framework-driven business guidance through 158 skills, 20 diagnostics, 20 playbooks, and 48 output templates -- all adapted to your company's stage, sector, and operating context. Think of it as a chief of staff who has read the business canon and remembers everything about your company.
+Foreman is an open-source, AI-powered strategic advisor for entrepreneurs. It delivers contextual, framework-driven business guidance through 158 skills, 24 diagnostics, 21 playbooks, 48 output templates, 18 research guides and 9 industry packs, all adapted to your company's stage, sector and operating context. Think of it as a chief of staff who has read the business canon and remembers what you decided last month.
 
 ---
 
 ## Installation
 
-Clone the repository and run the setup script:
+Foreman needs Node 22.19 or newer and an AI host: Claude Code, Codex or OpenClaw. Foreman itself is free under the MIT license; your host account and model usage are separate.
+
+Run the installer in your project directory:
 
 ```bash
-git clone https://github.com/nicguner/foreman.git
-cd foreman
-scripts/setup.sh
+npx foreman-sh init
 ```
 
-The setup script validates the directory structure, checks file integrity, and confirms that all cross-references between skills, diagnostics, playbooks, and templates resolve correctly. No external dependencies are required beyond a working Claude Code installation.
+The installer adds `.claude/` and a project `CLAUDE.md`, preserves any file that already exists and prints the next steps. If your project already has a `CLAUDE.md`, it names the one line to add so Claude loads Foreman. Use `--platform codex` for Codex, `--platform all` for both, and `--workspace /path/to/project` to choose a directory. Check the installed version with `npx foreman-sh --version`.
+
+Then open Claude Code in that directory and describe your situation:
+
+> "My SaaS churn rate is 5.2% and I'm preparing for Series A. What should I focus on?"
+
+Other installation routes, including the Claude Code plugin marketplace, Codex and OpenClaw, are listed in the [README](../README.md#quickstart).
 
 ---
 
@@ -28,12 +34,12 @@ Foreman responds to both structured commands and natural language. Here is what 
 
 **What the system does:**
 
-1. **Hook matching.** The input matches the `revenue-and-sales-hook`, which classifies the intent as a revenue problem with unknown root cause.
+1. **Hook matching.** The input matches the `revenue-and-sales-hook`, which classifies the intent as a revenue problem with an unknown root cause.
 2. **Diagnostic routing.** Because the cause is unclear, the orchestrator routes to the diagnostic agent, which loads `revenue-diagnosis.md`.
-3. **Triage questions.** The diagnostic agent asks 5-7 targeted questions: When did the decline start? Has traffic dropped or has conversion fallen? Have you changed pricing recently? Are competitors doing something new?
-4. **Diagnosis.** Based on your answers, the system identifies the most likely root cause -- perhaps a pricing misalignment or a channel that stopped performing.
-5. **Skill application.** The system applies the relevant framework (e.g., pricing strategy or customer acquisition analysis) to your specific context, drawing on your company stage, sector, and metrics from memory.
-6. **Output.** You receive a structured analysis with findings, recommendations, and next steps.
+3. **Triage questions.** The diagnostic asks a small number of questions that separate the possible causes: when did the decline start, did volume or conversion fall, what changed in pricing, what did competitors do. New customers still arriving does not rule out an acquisition problem.
+4. **Diagnosis.** Your answers narrow the hypotheses. The cause stays labelled as unconfirmed until comparable measurements distinguish the branches.
+5. **Skill application.** The relevant framework is applied to your specific context, using your stage, sector and saved preferences.
+6. **Output.** You receive a structured analysis with findings, one bounded action with a review point, and the evidence still missing.
 
 Every interaction follows this pattern: understand the problem, diagnose the root cause, apply the right framework, deliver actionable output.
 
@@ -41,40 +47,40 @@ Every interaction follows this pattern: understand the problem, diagnose the roo
 
 ## Key Commands
 
-These ten commands cover the most common operations:
+Commands are generated from the specifications in `.claude/command-guides/`. Names that would shadow a Claude Code built-in carry a `foreman-` prefix. In the plugin installation the same commands use the `/foreman:` namespace, and in Codex you invoke `$foreman` with the operation you need.
 
 | Command | Purpose |
 |---------|---------|
 | `/skills` | Browse all 158 skills, filter by category, stage, or complexity |
-| `/skill [name]` | View a single skill's summary, stage tags, and related skills |
+| `/foreman-skill [name]` | View a single skill's summary, stage tags, and related skills |
 | `/apply [skill]` | Apply a specific framework to your current context |
 | `/diagnose [area]` | Run a diagnostic to identify the root cause of a problem |
-| `/run [playbook]` | Start a multi-step playbook from Step 1 |
-| `/context` | View your stored profile: identity, company, and active items |
-| `/update company` | Update your company profile -- stage, metrics, sector, challenges |
-| `/history` | Review past diagnostics, skill applications, and decisions |
-| `/search [query]` | Full-text search across all system layers |
-| `/help` | Display all commands grouped by category |
+| `/foreman-run [playbook]` | Start a multi-step playbook from Step 1 |
+| `/foreman-context` | View your saved profile: mode, language, sector and active items |
+| `/track` | View saved implementation tasks and their status |
+| `/simulate board` | Rehearse a board meeting against adversarial personas |
+| `/research [topic]` | Load a structured data collection guide |
+| `/foreman-help` | Display all commands grouped by category |
 
-Commands are organized into six groups: navigation, execution, memory, playbook, output, and meta. Run `/help [group]` for detailed documentation on any group.
+The complete, host-safe command map is in `.claude/catalog.json`.
 
 ---
 
 ## Setting Your Context
 
-Foreman adapts its guidance based on what it knows about you and your company. Run `/update company` to set your core profile: stage (`idea` through `scale`), sector, key metrics (MRR, growth rate, churn, NPS, team size, runway), and top challenges. Run `/update identity` to set your role, background, and communication preference.
+Foreman adapts its guidance to what it knows about you. Saved preferences live in `.foreman/<founder-id>/state.json`, written only through the bundled runtime; the store keeps itself out of version control. Set the sector with `/sector saas` (or any of the nine industry packs) so benchmarks and diagnostic rules match your business. Describe your stage, metrics and constraints in conversation; Foreman separates the facts you supply from its hypotheses and asks for the measurement that would most change the next decision.
 
-Context persists across sessions. The system prompts for a refresh when company data appears stale (90 days without an update).
+Confirmed tasks are tracked with `/track`, `/progress` and `/check-in`. Playbook checkpoints are saved only after you confirm a step is complete, and `/foreman-resume` continues from the saved checkpoint in a later session.
 
 ---
 
 ## Choosing a Mode
 
-Three optional modes adapt Foreman's behavior. Each operates on a different axis, and all three can be active simultaneously.
+Three optional modes adapt Foreman's behavior. Each operates on a different axis, and all three can be active simultaneously. Modes persist across sessions unless you ask for one only in the current conversation.
 
-- **`/solo`** -- Adapts the system for solopreneurs. Deprioritizes board and team skills, reframes diagnostics for solo operators, redirects templates to "self" audience. Use if you are building alone.
-- **`/stoic on`** -- Adds Stoic philosophical framing (dichotomy of control, virtue-based evaluation, pre-mortem risk). Business analysis stays the same; only the interpretive lens shifts.
-- **`/language [code]`** -- Switches output to the specified language (e.g., `/language es` for Spanish). Processing remains in English; delivery shifts to your language.
+- **`/solo`** adapts the system for solopreneurs: board and team skills are deprioritized, diagnostics are reframed for a single operator, and templates default to the `self` audience. `/solo off` deactivates it.
+- **`/stoic on`** adds Stoic philosophical framing: dichotomy of control, virtue-based evaluation, pre-mortem risk sections. The business analysis stays the same; the interpretive lens shifts.
+- **`/language [code]`** switches output to the specified language, for example `/language es`. Processing remains in English; delivery shifts to your language.
 
 ---
 
@@ -86,7 +92,7 @@ Foreman ships with 158 skills across 12 categories, derived from foundational bu
 /skills                                  # Browse all 158 skills
 /skills frameworks --stage growth        # Filter by category and stage
 /skills leadership --complexity advanced # Filter by complexity
-/skill porters-five-forces              # View a specific skill
+/foreman-skill porters-five-forces       # View a specific skill
 ```
 
 Each skill includes a core framework explanation, application prompts, concrete use cases, anti-patterns (when NOT to use the framework), stage-specific guidance, and cross-references to related skills.
@@ -98,32 +104,32 @@ Each skill includes a core framework explanation, application prompts, concrete 
 Playbooks chain skills into multi-step sequences with checkpoints and decision points. Start one with:
 
 ```
-/run fundraising-playbook
+/foreman-run fundraising-playbook
 ```
 
-The system checks prerequisites, then walks you through each step sequentially. At every checkpoint you review output before proceeding. At decision points the playbook may branch -- if an investor-readiness assessment reveals gaps, it routes you to a product-market-fit sequence first.
+The system checks prerequisites, then walks you through each step sequentially. At every checkpoint you review the output before proceeding. At decision points the playbook may branch: if an investor-readiness assessment reveals gaps, it routes you to a product-market-fit sequence first.
 
 Manage an active playbook:
 
 | Command | Purpose |
 |---------|---------|
-| `/status` | View current step and progress |
-| `/resume` | Continue from the last checkpoint |
+| `/foreman-status` | View the current step and progress |
+| `/foreman-resume` | Continue from the last saved checkpoint |
 | `/skip` | Skip the current step (with confirmation) |
 | `/back` | Re-run the previous step |
 | `/pause` | Save progress and pause |
 
-Twenty playbooks cover scenarios from first-100-customers to international expansion. Run `/playbooks` to browse the full list.
+Twenty-one playbooks cover scenarios from first-100-customers to international expansion. Run `/playbooks` to browse the full list.
 
 ---
 
 ## Getting Help
 
-- **`/help`** -- Lists all commands grouped by category
-- **`/help [category]`** -- Detailed help for a specific command group
-- **`/about`** -- Project information and architecture overview
-- **`docs/`** -- This documentation directory contains architecture, style, and authoring guides
-- **GitHub Discussions** -- Community support and feature requests at the project repository
+- **`/foreman-help`** lists all commands grouped by category
+- **`/foreman-help [category]`** gives detailed help for a specific command group
+- **`/about`** shows project information and an architecture overview
+- **`docs/`** contains the architecture, style and authoring guides
+- **GitHub Discussions** hosts community support and feature requests at the project repository
 
 ---
 
@@ -131,9 +137,10 @@ Twenty playbooks cover scenarios from first-100-customers to international expan
 
 You have the essentials. Here is where to go deeper:
 
-- **[Architecture](architecture.md)** -- How the 18 system layers connect and how data flows between them
-- **[Stage Mapping](stage-mapping.md)** -- How the five company stages affect skills, diagnostics, and playbooks
-- **[Skill Authoring](skill-authoring.md)** -- How to create new skills and contribute to the library
-- **[Playbook Authoring](playbook-authoring.md)** -- How to design multi-step playbook sequences
-- **[Style Guide](style-guide.md)** -- Writing conventions and quality standards for all contributions
-- **[CONTRIBUTING.md](../CONTRIBUTING.md)** -- Contribution guidelines, pull request process, and code of conduct
+- **[Architecture](architecture.md)**: how the system layers connect and how data flows between them
+- **[Stage Mapping](stage-mapping.md)**: how the five company stages affect skills, diagnostics, and playbooks
+- **[Skill Authoring](skill-authoring.md)**: how to create new skills and contribute to the library
+- **[Playbook Authoring](playbook-authoring.md)**: how to design multi-step playbook sequences
+- **[Style Guide](style-guide.md)**: writing conventions and quality standards for all contributions
+- **[Development](development.md)**: build, verification and release workflow
+- **[CONTRIBUTING.md](../CONTRIBUTING.md)**: contribution guidelines, pull request process, and code of conduct
