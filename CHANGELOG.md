@@ -10,12 +10,16 @@ No unreleased changes.
 
 ## [1.1.0] - 2026-09-05
 
-Stable release preparation. Final live acceptance is pending; this entry will be finalized before publication.
+Stable release of the cross-platform installer, persistent state runtime and complete plugin bundles introduced in 1.1.0-rc.1.
 
 ### Changed
-- Prepare the cross-platform installer, persistent state runtime and complete plugin bundles for the stable npm channel.
+- Use npm's stable `latest` channel for the cross-platform installer, persistent state runtime and complete plugin bundles.
 - Keep session-only mode and language overrides separate from saved profile preferences.
 - Stop live advisory evaluation on incomplete model responses, and add isolated host-session checks for profile, task and playbook persistence.
+- Keep existing commitments and urgent fixes running during research; scope caution to a specific proposed change.
+- Remove fixed interview quotas, unsupported statistical confidence claims and invented evidence weights or time-saving guarantees from the customer interview guide.
+- Present Stoic emotional framing as an optional perspective, not a diagnosis of the founder.
+- Ground Codex resource paths in the installed skill directory, restrict record discovery to the selected founder, and verify that live tool calls do not read another founder's test record.
 
 ## [1.1.0-rc.1] - 2026-09-05
 

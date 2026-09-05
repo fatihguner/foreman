@@ -35,16 +35,16 @@
 
 Foreman is an open-source strategic advisor that gives every entrepreneur access to structured strategic thinking, the kind that used to require a six-figure consulting engagement.
 
-You describe your problem in plain language. Foreman diagnoses the root cause, selects the right framework, applies it to your context, produces a professional deliverable, and tracks whether you actually follow through.
+You describe your problem in plain language. Foreman compares plausible causes, selects a framework, applies it to your context, and helps produce a deliverable. Confirmed tasks and playbook checkpoints can be saved for your next session.
 
 | Without Foreman | With Foreman |
 |---|---|
-| ❌ "My sales are dropping" stays a vague worry | ✅ Diagnosed as onboarding churn in 6 questions |
+| ❌ "My sales are dropping" stays a vague worry | ✅ Revenue components compared before attributing a cause |
 | ❌ Frameworks learned but never applied | ✅ 158 frameworks applied to YOUR context |
 | ❌ Board deck built from scratch every time | ✅ 48 professional templates, ready to fill |
-| ❌ Advice given, execution forgotten | ✅ Implementation tracking with weekly check-ins |
+| ❌ Advice given, execution forgotten | ✅ Saved tasks, status history and review prompts |
 | ❌ Same strategy for SaaS and marketplace | ✅ 9 industry packs with sector-specific benchmarks |
-| ❌ Generic AI chat with no memory | ✅ 5-layer memory system that knows your company |
+| ❌ Generic AI chat with no memory | ✅ Persisted profile, tasks and playbook checkpoints |
 
 ---
 
@@ -69,7 +69,7 @@ Entrepreneur: "My competitors are crushing us on price"
    │  Output          │ ── Competitive landscape brief (investor) + action plan (team)
    └────┬────────────┘
    ┌────▼────────────┐
-   │  Memory          │ ── Saves analysis, tracks implementation, follows up next week
+   │  Memory          │ ── Saves confirmed tasks and checkpoints for the next session
    └─────────────────┘
 ```
 
@@ -136,27 +136,23 @@ Single source of truth: `.claude/`. Every other platform derives from it.
 
 ## Quickstart
 
-### Try the current release candidate
+### Install the stable release
 
-**1.1.0-rc.1** includes the new installer, shared state runtime and repaired plugin bundles. It is publicly available as a release candidate while final live advisory quality acceptance is pending. See the [release notes](docs/releases/v1.1.0-rc.1.md) for verification and known limitations.
-
-Install the GitHub release package directly (Node 22.19 or later):
+**1.1.0** includes the new installer, shared state runtime and complete plugin bundles. See the [release notes](docs/releases/v1.1.0.md) for verification and limitations. Requires Node 22.19 or later.
 
 ```bash
-npx --yes --package=https://github.com/fatihguner/foreman/releases/download/v1.1.0-rc.1/foreman-sh-1.1.0-rc.1.tgz foreman-sh init
+npx foreman-sh init
 ```
 
 Add `--platform codex` for Codex, or `--platform all` for both Claude and Codex. Foreman is MIT-licensed and free to install; your AI host account and model usage are separate.
 
-### npm registry
+Use `npx foreman-sh@1.1.0 init` to pin this version. You can also install the same tarball directly from GitHub:
 
 ```bash
-npx foreman-sh@next init
+npx --yes --package=https://github.com/fatihguner/foreman/releases/download/v1.1.0/foreman-sh-1.1.0.tgz foreman-sh init
 ```
 
-The `next` channel installs the current release candidate. Use `npx foreman-sh@1.1.0-rc.1 init` to pin this exact version. The unversioned command still selects the older stable release.
-
-The new installer adds `.claude/` and `CLAUDE.md` to your current directory and preserves existing files. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
+The new installer adds `.claude/` and `CLAUDE.md` to your current directory and preserves existing files. Repeated initialization only fills missing files; when upgrading, back up and review existing generated files before replacing them. Use `--workspace /path/to/project` to choose a directory or `--platform codex` to install project skills under `.agents/skills/`. Open Claude Code and start talking:
 
 > "My SaaS churn rate is 5.2% and I'm preparing for Series A. What should I focus on?"
 

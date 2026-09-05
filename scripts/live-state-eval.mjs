@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { initWorkspace } from '../lib/distribution.js';
-import { changeState, readState, track, updateProfile } from '../lib/state.js';
+import { changeState, readState, track, updateProfile, updateTask } from '../lib/state.js';
 
 const root = path.resolve(import.meta.dirname, '..');
 try {
@@ -28,7 +28,10 @@ try {
   fs.mkdirSync(output, { recursive: true });
   initWorkspace(root, workspace, opts.host === 'codex' ? 'codex' : 'claude');
   const privateCanary = '__FOREMAN_OTHER_FOUNDER_PRIVATE_CANARY__';
-  changeState(workspace, 'other-founder', s => updateProfile(s, { language: 'es', mode: 'standard', sector: privateCanary }));
+  changeState(workspace, 'other-founder', s => {
+    updateProfile(s, { language: 'es', mode: 'standard' });
+    return updateTask(s, { id: 'private-canary', description: privateCanary });
+  });
   const canary = fs.readFileSync(path.join(workspace, '.foreman/other-founder/state.json'), 'utf8');
   const settings = path.join(output, 'claude-settings.json');
   fs.writeFileSync(settings, JSON.stringify({ disableAllHooks: true, autoMemoryEnabled: false, enabledPlugins: {} }));
