@@ -95,7 +95,7 @@ export function changeState(workspace, founder = 'default', mutate, { defaults =
     validateState(next);
     if (next.founder_id !== founder) throw new Error('Cannot change founder identity');
     fs.writeFileSync(tmp,JSON.stringify(next,null,2)+'\n',{flag:'wx',mode:0o600});
-    const sync = fs.openSync(tmp,'r'); try { fs.fsyncSync(sync); } finally { fs.closeSync(sync); }
+    const sync = fs.openSync(tmp,'r+'); try { fs.fsyncSync(sync); } finally { fs.closeSync(sync); }
     fs.renameSync(tmp,file);
     return next;
   } finally { fs.closeSync(fd); fs.rmSync(lock,{force:true}); fs.rmSync(tmp,{force:true}); }
